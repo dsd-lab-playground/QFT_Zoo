@@ -1,0 +1,474 @@
+id: liouville-cft
+name: Liouville CFT
+aliases:
+  - Liouville theory
+  - Spacelike Liouville theory
+  - Quantum Liouville theory
+  - DOZZ formula
+d: 2
+summary: >-
+  The non-compact, non-rational CFT with only Virasoro symmetry and a diagonal
+  continuum of scalar primaries above $h=\frac{c-1}{24}$. Its OPE data is the
+  DOZZ formula, and it exists for every complex $c$ away from $(-\infty,1]$.
+tags: [CFT, interacting, unitary, Lagrangian, exactly solvable, integrable]
+
+description: |
+  Liouville CFT solves the conformal bootstrap for every complex central charge
+  away from the half-line $c\leq 1$, with Virasoro as its only symmetry. It is
+  non-compact: the spectrum is a continuum of scalar primaries, and the identity
+  is not a normalisable operator. It is unitary when $c$ is real and $c>1$.
+
+  This page follows the conventions of Collier, Eberhardt, Mühlmann and
+  Rodriguez, *The Virasoro minimal string*. The operators $V_P$ are reflection
+  symmetric, and the two- and three-point functions are the universal functions
+  $\rho_0^{(b)}$ and $C_b$.
+
+  ### Conventions
+
+  $$c=1+6Q^2,\qquad Q=b+b^{-1},\qquad h_P=\bar h_P=\frac{Q^2}{4}+P^2=\frac{c-1}{24}+P^2.$$
+
+  The primaries $V_P$ are labelled by a Liouville momentum $P$, with $V_{-P}=V_P$.
+  The spectrum is the continuum $P\in\mathbb{R}_{\geq 0}$, in which each Verma
+  module $\mathcal{V}_P\otimes\overline{\mathcal{V}}_P$ appears once:
+
+  $$\mathcal{H}=\int_{\mathbb{R}_{\geq 0}}\mathrm{d}P\;\mathcal{V}_P\otimes\overline{\mathcal{V}}_P.$$
+
+  In the Lagrangian description $V_P\propto e^{2\alpha\phi}$ with
+  $\alpha=\frac{Q}{2}+iP$, so reflection is $\alpha\to Q-\alpha$. The parameter
+  $\mu$ only enters the normalisation of $e^{2\alpha\phi}$, so it does not appear
+  in $\rho_0^{(b)}$ or $C_b$.
+
+  There is significant evidence that Liouville CFT is the unique unitary CFT with
+  $c>1$ whose spectrum consists only of scalar Virasoro primaries, and more
+  generally of primaries of bounded spin.
+
+  ### OPE measure and DOZZ formula
+
+  The OPE measure $\rho_0^{(b)}$ is the inverse of the two-point function:
+
+  $$\langle V_{P_1}(0)V_{P_2}(1)\rangle=\frac{1}{\rho_0^{(b)}(P_1)}\big(\delta(P_1-P_2)+\delta(P_1+P_2)\big),$$
+
+  $$\rho_0^{(b)}(P)=4\sqrt{2}\,\sinh(2\pi bP)\sinh(2\pi b^{-1}P)=\sqrt{2}\,\frac{\Gamma_b(Q\pm 2iP)}{\Gamma_b(\pm 2iP)}.$$
+
+  The three-point function is the DOZZ formula, written with the double gamma
+  function $\Gamma_b$ defined below:
+
+  $$\langle V_{P_1}(0)V_{P_2}(1)V_{P_3}(\infty)\rangle=C_b(P_1,P_2,P_3)=\frac{\Gamma_b(2Q)\,\Gamma_b(\frac{Q}{2}\pm iP_1\pm iP_2\pm iP_3)}{\sqrt{2}\,\Gamma_b(Q)^3\prod_{k=1}^{3}\Gamma_b(Q\pm 2iP_k)}.$$
+
+  Each $\pm$ denotes a product over both signs, so the numerator and the
+  denominator each contain nine factors of $\Gamma_b$. The function $C_b$ is
+  symmetric in its arguments and invariant under $P_j\to-P_j$ and $b\to b^{-1}$.
+
+  The identity is the continuation $P\to\frac{iQ}{2}$, and it reproduces the
+  two-point function. Near $P_1=P_2$,
+
+  $$C_b\big(P_1,P_2,\tfrac{iQ}{2}-i\varepsilon\big)\approx\frac{1}{\rho_0^{(b)}(P_1)}\,\frac{1}{\pi}\frac{\varepsilon}{\varepsilon^2+(P_1-P_2)^2}\xrightarrow{\;\varepsilon\to 0\;}\frac{\delta(P_1-P_2)}{\rho_0^{(b)}(P_1)}.$$
+
+  Both functions are universal, because they are crossing kernels of the identity.
+  $\rho_0^{(b)}$ is the modular kernel of the vacuum character. For a four-point
+  function of pairwise identical operators, the identity block in one channel is
+  $\int_0^\infty\mathrm{d}P\,\rho_0^{(b)}(P)\,C_b(P_1,P_2,P)$ times the blocks of
+  the cross channel. They therefore also govern the asymptotic data of unitary
+  compact 2d CFTs.
+
+  $C_b$ is fixed by crossing of a four-point function with a degenerate operator,
+  which gives the shift equation
+
+  $$\frac{C_b(P_1+ib,P_2,P_3)}{C_b(P_1,P_2,P_3)}=\frac{\Gamma(1+b^2-2ibP_1)\,\Gamma(1+2b^2-2ibP_1)\,\Gamma(\frac{1-b^2}{2}+ibP_1\pm ibP_2\pm ibP_3)}{\Gamma(1+2ibP_1)\,\Gamma(1-b^2+2ibP_1)\,\Gamma(\frac{1+b^2}{2}-ibP_1\pm ibP_2\pm ibP_3)},$$
+
+  together with the same equation for $b\to b^{-1}$. For $b^2\notin\mathbb{Q}$ these
+  determine $C_b$ up to a constant, which the two-point function then fixes. The
+  formula was found by Dorn and Otto and by Zamolodchikov and Zamolodchikov,
+  derived from the bootstrap by Teschner, and later proved from the path integral
+  by Kupiainen, Rhodes and Vargas.
+
+  ### Correlation functions
+
+  Any correlator on a closed Riemann surface follows from a pair-of-pants
+  decomposition into $2g-2+n$ pairs of pants sewn along $3g-3+n$ cuffs. Each cuff
+  carries a factor of $\rho_0^{(b)}$ and each pair of pants a factor of $C_b$:
+
+  $$\langle V_{P_1}\cdots V_{P_n}\rangle_g=\int_{\mathbb{R}_{\geq 0}}\Big(\prod_a\mathrm{d}P_a\,\rho_0^{(b)}(P_a)\Big)\Big(\prod_{(j,k,l)}C_b(P_j,P_k,P_l)\Big)\big|\mathcal{F}^{(b)}_{g,n}(\mathbf{P}^{\rm ext};\mathbf{P}|\mathbf{m})\big|^2.$$
+
+  Here $\mathcal{F}^{(b)}_{g,n}$ are Virasoro conformal blocks, and the result does
+  not depend on the channel. The simplest cases are
+
+  $$\begin{aligned}\langle V_{P_1}(0)V_{P_2}(z,\bar z)V_{P_3}(1)V_{P_4}(\infty)\rangle={}&\int_0^\infty\mathrm{d}P\,\rho_0^{(b)}(P)\,C_b(P_1,P_2,P)\,C_b(P_3,P_4,P)\\&\times\mathcal{F}^{(b)}_{0,4}(P|z)\,\mathcal{F}^{(b)}_{0,4}(P|\bar z),\end{aligned}$$
+
+  $$\langle V_{P_1}(0)\rangle_{g=1}=\int_0^\infty\mathrm{d}P\,\rho_0^{(b)}(P)\,C_b(P_1,P,P)\,\mathcal{F}^{(b)}_{1,1}(P_1;P|q)\,\mathcal{F}^{(b)}_{1,1}(P_1;P|\bar q).$$
+
+  The torus partition function is the trace over the continuum, with characters
+  $\chi_P(\tau)=q^{P^2}/\eta(\tau)$. Up to a divergent factor from the volume of
+  the $\phi$ zero mode, it is the modular invariant
+
+  $$\int_0^\infty\mathrm{d}P\,|\chi_P(\tau)|^2=\frac{1}{4\sqrt{\tau_2}\,|\eta(\tau)|^2}.$$
+
+  ### The double gamma function
+
+  **Definition.** $\Gamma_b(z)$ is the meromorphic function that depends
+  continuously on $b$ and satisfies the shift equations
+
+  $$\Gamma_b(z+b)=\frac{\sqrt{2\pi}\,b^{bz-\frac{1}{2}}}{\Gamma(bz)}\,\Gamma_b(z),\qquad\Gamma_b(z+b^{-1})=\frac{\sqrt{2\pi}\,b^{-b^{-1}z+\frac{1}{2}}}{\Gamma(b^{-1}z)}\,\Gamma_b(z),$$
+
+  with the normalisation $\Gamma_b(\frac{Q}{2})=1$. Up to this normalisation it is
+  the double gamma function of Barnes for periods $b$ and $b^{-1}$, and
+  $\Gamma_b=\Gamma_{b^{-1}}$.
+
+  **Integral representation.** For $\operatorname{Re}z>0$,
+
+  $$\log\Gamma_b(z)=\int_0^\infty\frac{\mathrm{d}t}{t}\left(\frac{e^{\frac{t}{2}(Q-2z)}-1}{4\sinh(\frac{bt}{2})\sinh(\frac{t}{2b})}-\frac{1}{8}(Q-2z)^2e^{-t}-\frac{Q-2z}{2t}\right).$$
+
+  The shift equations continue this to all of $\mathbb{C}$.
+
+  **Poles.** $\Gamma_b(z)$ has no zeros. Its poles are at
+  $z=-mb-nb^{-1}$ with $m,n\in\mathbb{Z}_{\geq 0}$. They are simple for
+  $b^2\notin\mathbb{Q}$, and coincide to form higher-order poles for
+  $b^2\in\mathbb{Q}$. The residues are
+
+  $$\begin{aligned}\operatorname*{Res}_{z=-mb-nb^{-1}}\Gamma_b(z)={}&\frac{\Gamma_b(Q)}{(2\pi)^{\frac{m+n}{2}+1}}\,b^{\frac{1}{2}m(m+1)b^2-\frac{1}{2}n(n+1)b^{-2}-mn-\frac{1}{2}(n-m)}\\&\times\prod_{j=1}^{m}\Gamma(-jb^2)\prod_{k=1}^{n}\Gamma(-kb^{-2}-m).\end{aligned}$$
+
+  In particular $\operatorname{Res}_{z=0}\Gamma_b(z)=\Gamma_b(Q)/2\pi$.
+
+  **Double product.** With $\Omega_{m,n}=mb+nb^{-1}$, the Weierstrass form exhibits
+  the lattice of poles:
+
+  $$\Gamma_b(z)=\frac{\Gamma_b(Q)}{2\pi z}\,e^{a_bz+d_bz^2}\prod_{(m,n)\neq(0,0)}\frac{\exp\big(\frac{z}{\Omega_{m,n}}-\frac{z^2}{2\Omega_{m,n}^2}\big)}{1+z/\Omega_{m,n}},$$
+
+  $$a_b=\frac{b}{2}\log 2\pi+\frac{Q}{2}\log b-\gamma_{\rm E}\,b-\frac{A(b^2)}{b},\qquad d_b=\frac{\pi^2b^2}{12}-\frac{1}{2}\log b-\frac{B(b^2)}{2b^2}.$$
+
+  **Single product.** Resumming one direction of the lattice gives the form due to
+  Barnes that is used for numerics at complex $z$ and $b$ (Alexanian and Kuznetsov;
+  Collier et al., *The complex Liouville string: The worldsheet*, Appendix B):
+
+  $$\Gamma_b(z)=\frac{f_b(z)}{f_b(\frac{Q}{2})},$$
+
+  $$\begin{aligned}f_b(z)={}&(2\pi)^{\frac{bz}{2}}\,b^{\frac{z(Q-z)}{2}}\,\Gamma(bz)\,e^{-\frac{z}{b}A(b^2)-\frac{z^2}{2b^2}B(b^2)}\\&\times\prod_{m=1}^{\infty}\frac{\Gamma(bz+mb^2)}{\Gamma(mb^2)}\,e^{-bz\,\psi(mb^2)-\frac{1}{2}(bz)^2\psi'(mb^2)}.\end{aligned}$$
+
+  The constants are built from the gamma modular forms $C(\tau)$ and $D(\tau)$ of
+  Barnes:
+
+  $$A(\tau)=\frac{\tau}{2}\log(2\pi\tau)+\frac{1}{2}\log\tau-\tau\,C(\tau),\qquad B(\tau)=-\tau\log\tau-\tau^2D(\tau),$$
+
+  $$C(\tau)=\lim_{N\to\infty}\Big[\sum_{k=1}^{N-1}\psi(k\tau)+\frac{\log 2\pi}{2\tau}-\frac{\log\Gamma(N\tau)}{\tau}+\frac{1}{2}\psi(N\tau)\Big],$$
+
+  $$D(\tau)=\lim_{N\to\infty}\Big[\sum_{k=1}^{N-1}\psi'(k\tau)-\frac{\psi(N\tau)}{\tau}\Big].$$
+
+  **Related functions.** At $b=1$, $\Gamma_1(z)=(2\pi)^{\frac{z-1}{2}}/G(z)$ with
+  $G$ the Barnes $G$-function. The functions
+  $\Upsilon_b(z)=1/\big(\Gamma_b(z)\Gamma_b(Q-z)\big)$ and
+  $S_b(z)=\Gamma_b(z)/\Gamma_b(Q-z)$ are also common, and
+  $S_b(z+b)=2\sin(\pi bz)\,S_b(z)$.
+
+  ### Analytic continuation in $b$
+
+  $\rho_0^{(b)}$ and $C_b$ are analytic in $b$ for $\operatorname{Re}b>0$. Since $c$
+  is invariant under $b\to b^{-1}$ and $b\to-b$, this half-plane covers every
+  $c\in\mathbb{C}\setminus(-\infty,1]$. The continuation preserves crossing
+  symmetry, and it defines the theory where the action is complex and the path
+  integral is unclear.
+
+  | $b$ | $c$ | Status |
+  |---|---|---|
+  | $b\in(0,1]$ | $c\geq 25$ | Unitary, real action |
+  | $b=e^{i\theta}$, $0<\lvert\theta\rvert<\frac{\pi}{2}$ | $c=1+24\cos^2\theta\in(1,25)$ | Unitary, $C_b>0$ for real momenta |
+  | $b\in e^{\frac{i\pi}{4}}\mathbb{R}_{>0}$ | $c\in 13+i\mathbb{R}$ | Used in the complex Liouville string |
+  | Generic $\operatorname{Re}b>0$ | $c\in\mathbb{C}\setminus(-\infty,1]$ | Crossing symmetric, no inner product |
+  | $b\in i\mathbb{R}$ | $c\leq 1$ | Continuation fails |
+
+  For complex $c$ there is no inner product, since $L_n^\dagger=L_{-n}$ is
+  incompatible with a complex central charge. The real $P$ contour remains valid:
+  for real external momenta, the poles of the integrand stay a distance
+  $\frac{1}{2}\operatorname{Re}Q>0$ from the real axis.
+
+  The continuation does not reach $c\leq 1$. For $b\in i\mathbb{R}$ with irrational
+  $b^2$, the pole lattice $-mb-nb^{-1}$ would be dense on the imaginary axis, so
+  $\Gamma_b$ does not exist, and Liouville correlators have no well-defined limit.
+
+  ### Analytic continuation in $P$
+
+  $\rho_0^{(b)}$ is entire in $P$ and $C_b$ is meromorphic in each momentum. For
+  generic momenta and $b^2\notin\mathbb{Q}$, $C_b$ has
+
+  - zeros at $P_k=\pm\frac{i}{2}(rb+sb^{-1})$ with $r,s\in\mathbb{Z}_{\geq 1}$, where
+    $V_{P_k}$ is degenerate;
+  - simple poles at $\pm P_1\pm P_2\pm P_3=i(r+\frac{1}{2})b+i(s+\frac{1}{2})b^{-1}$
+    with $r,s\in\mathbb{Z}_{\geq 0}$, which are associated with multi-twist operators.
+
+  Correlators are first defined at real external momenta and then continued. The
+  block decomposition has poles in each internal momentum at
+
+  $$P=\pm P_j\pm P_k\pm i\big((r+\tfrac{1}{2})b+(s+\tfrac{1}{2})b^{-1}\big),\qquad r,s\in\mathbb{Z}_{\geq 0},$$
+
+  for the external legs $j,k$ on the same pair of pants. These stay off the real
+  axis while $\lvert\operatorname{Im}(P_j\pm P_k)\rvert<\frac{1}{2}\operatorname{Re}Q$,
+  which is $\frac{Q}{2}$ for real $b$. Beyond that, poles cross the contour, and
+  analyticity requires discrete contributions. On the sphere,
+
+  $$\begin{aligned}\langle V_{P_1}(0)V_{P_2}(z,\bar z)V_{P_3}(1)V_{P_4}(\infty)\rangle&=\int_0^\infty\mathrm{d}P\,I(P)+2\pi i\sum_{P_*}\operatorname*{Res}_{P=P_*}I(P),\\ I(P)&=\rho_0^{(b)}(P)\,C_b(P_1,P_2,P)\,C_b(P_3,P_4,P)\,\mathcal{F}^{(b)}_{0,4}(P|z)\,\mathcal{F}^{(b)}_{0,4}(P|\bar z),\end{aligned}$$
+
+  where the sum runs over the poles that started above the real axis and have moved
+  below it. $I$ is even in $P$, so this already accounts for the mirror poles at
+  $-P_*$. For example, take $P_1=i\eta_1$ and $P_2=i\eta_2$ with
+  $\eta_1+\eta_2>\frac{Q}{2}$. The first pole to cross is at
+  $P_*=i(\frac{Q}{2}-\eta_1-\eta_2)$. This is the familiar condition
+  $\alpha_1+\alpha_2<\frac{Q}{2}$, with exchanged operator
+  $\alpha=\alpha_1+\alpha_2$.
+
+  Operators with $P\notin\mathbb{R}$ are not in the spectrum: for example, those
+  with real weights below $\frac{c-1}{24}$ are not normalisable. They do not appear
+  as internal states of generic correlators, but their own correlators are well
+  defined by this continuation.
+
+  ### Coulomb gas poles on $\Sigma_{g,n}$
+
+  On a closed oriented Riemann surface of genus $g$ with $n$ punctures, correlators
+  have poles where the background charge is saturated:
+
+  $$\sum_{j=1}^{n}\alpha_j=Q(1-g)-rb-sb^{-1},\qquad\alpha_j=\frac{Q}{2}+iP_j,\qquad r,s\in\mathbb{Z}_{\geq 0}.$$
+
+  Since $V_{-P}=V_P$, this holds for every choice of signs of the momenta. With
+  $2g-2+n=-\chi(\Sigma_{g,n})$, the condition is
+
+  $$\pm P_1\pm P_2\pm\cdots\pm P_n=i\Big(\frac{Q}{2}(2g-2+n)+rb+sb^{-1}\Big).$$
+
+  | $(g,n)$ | Poles | Origin |
+  |---|---|---|
+  | $(0,3)$ | $\pm P_1\pm P_2\pm P_3=i(r+\frac{1}{2})b+i(s+\frac{1}{2})b^{-1}$ | Poles of $C_b$ |
+  | $(0,4)$ | $\pm P_1\pm P_2\pm P_3\pm P_4=i(r+1)b+i(s+1)b^{-1}$ | Pinching of the $P$ contour |
+  | $(1,1)$ | $\pm P_1=i(r+\frac{1}{2})b+i(s+\frac{1}{2})b^{-1}$ | Factors $\Gamma_b(\frac{Q}{2}\pm iP_1)$ in $C_b(P_1,P,P)$ |
+
+  **Path integral.** Shift the zero mode, $\phi\to\phi+\phi_0$. With
+  $\int\sqrt{g}\,R=8\pi(1-g)$ and $\mathcal{A}=\int\mathrm{d}^2x\sqrt{g}\,e^{2b\phi}$, the
+  integral over $\phi_0$ is
+
+  $$\int\mathrm{d}\phi_0\;e^{2(\sum_j\alpha_j-Q(1-g))\phi_0-\mu\mathcal{A}e^{2b\phi_0}}=\frac{1}{2b}\,\Gamma(-N)\,(\mu\mathcal{A})^{N},\qquad N=\frac{Q(1-g)-\sum_j\alpha_j}{b}.$$
+
+  The poles at $N=r\in\mathbb{Z}_{\geq 0}$ come from the region $\phi_0\to-\infty$,
+  where the potential switches off. The residue is a free-field correlator with $r$
+  insertions of the screening operator $e^{2b\phi}$. Duality $b\to b^{-1}$ adds the
+  dual screening operator $e^{2b^{-1}\phi}$, which accounts for $s$. At $r=s=0$ the
+  residue is the free boson correlator with background charge $Q$.
+
+  **Bootstrap.** In the block decomposition, these poles come from the singularities
+  of $C_b$. On a general surface, poles of $C_b$ on opposite sides of an internal
+  $P$ contour pinch it. For $(0,4)$, a pole of $C_b(P_1,P_2,P)$ meets a pole of
+  $C_b(P_3,P_4,P)$. For $(1,1)$ the poles are already in the integrand, and at
+  $r=s=0$ the operator becomes the identity, so the residue is the torus partition
+  function:
+
+  $$\langle V_{\frac{iQ}{2}-i\varepsilon}\rangle_{g=1}\approx\frac{1}{\pi\varepsilon}\int_0^\infty\mathrm{d}P\,|\chi_P(\tau)|^2.$$
+
+  ### Relation to the standard normalisation
+
+  The operators $e^{2\alpha\phi}$ have the Zamolodchikov–Zamolodchikov form of the
+  DOZZ formula. With $\lambda=\pi\mu\,\gamma(b^2)\,b^{2-2b^2}$ and
+  $\gamma(x)=\Gamma(x)/\Gamma(1-x)$,
+
+  $$C^{\rm ZZ}(\alpha_1,\alpha_2,\alpha_3)=\lambda^{\frac{Q-\sigma}{b}}\,\frac{\Upsilon_b'(0)\prod_{j=1}^{3}\Upsilon_b(2\alpha_j)}{\Upsilon_b(\sigma-Q)\prod_{j=1}^{3}\Upsilon_b(\sigma-2\alpha_j)},\qquad\sigma=\alpha_1+\alpha_2+\alpha_3.$$
+
+  It has unit residue at $\sigma=Q$, in agreement with the free-field
+  normalisation. The two normalisations are related by
+
+  $$C^{\rm ZZ}(\alpha_1,\alpha_2,\alpha_3)=\kappa_b\,N(P_1)N(P_2)N(P_3)\,C_b(P_1,P_2,P_3),$$
+
+  $$N(P)=\lambda^{-\frac{iP}{b}}\,\frac{\Gamma_b(Q-2iP)}{\Gamma_b(-2iP)},\qquad\kappa_b=\lambda^{-\frac{Q}{2b}}\,\frac{2\sqrt{2}\,\pi\,\Gamma_b(Q)}{\Gamma_b(2Q)}.$$
+
+  So $e^{2\alpha\phi}=\kappa_b^{1/3}N(P)\,V_P$, and the reflection relation is
+  $e^{2\alpha\phi}=\frac{N(P)}{N(-P)}\,e^{2(Q-\alpha)\phi}$.
+
+lagrangian: 'S[\phi]=\frac{1}{4\pi}\int_{\Sigma}\mathrm{d}^2x\,\sqrt{g}\,\big(g^{ij}\partial_i\phi\,\partial_j\phi+QR\,\phi+4\pi\mu\,e^{2b\phi}\big)'
+
+parameters:
+  - symbol: 'b'
+    description: 'Liouville coupling. $b$, $b^{-1}$ and $-b$ all give the same theory.'
+    range: '$\operatorname{Re}b>0$, covering $c\in\mathbb{C}\setminus(-\infty,1]$'
+  - symbol: '\mu'
+    description: 'Cosmological constant. It can be absorbed by a shift of $\phi$.'
+    range: '$\mu>0$'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: none
+  notes: 'The chiral algebra is Virasoro at central charge $c$. Reflection $V_{-P}=V_P$ and duality $b\to b^{-1}$ are identifications, not symmetries.'
+
+quantities:
+  - key: c
+    symbol: c
+    description: 'Central charge ($c_L = c_R$)'
+    value: '1+6Q^2'
+    method: exact
+    note: 'With $Q=b+b^{-1}$. Real for $b\in(0,1]$ and for $\lvert b\rvert=1$.'
+    refs: [cemr2024]
+  - key: gap
+    symbol: '\Delta_{\rm gap}'
+    description: 'Lower edge of the continuous spectrum'
+    value: '\frac{c-1}{12}'
+    method: exact
+    note: 'The operator at $P=0$. There is no gap between it and the rest of the continuum.'
+    refs: [cemr2024]
+  - symbol: '\rho_0^{(b)}(P)'
+    description: 'OPE measure, the inverse of the two-point function'
+    value: '4\sqrt{2}\,\sinh(2\pi bP)\sinh(2\pi b^{-1}P)'
+    method: exact
+    refs: [cemr2024, cmmt2020]
+  - symbol: 'C_b(P_1,P_2,P_3)'
+    description: 'Three-point function (DOZZ formula)'
+    value: '\frac{\Gamma_b(2Q)\,\Gamma_b(\frac{Q}{2}\pm iP_1\pm iP_2\pm iP_3)}{\sqrt{2}\,\Gamma_b(Q)^3\prod_{k=1}^{3}\Gamma_b(Q\pm 2iP_k)}'
+    method: exact
+    refs: [dornotto1994, zz1996, teschner1995, cemr2024]
+
+operators:
+  - name: 'V_P'
+    Delta: '\frac{Q^2}{2}+2P^2'
+    spin: 0
+    weights: '(h_P,h_P)'
+    rep: 'Continuum, $P\in\mathbb{R}_{\geq 0}$'
+    method: exact
+    refs: [cemr2024]
+    note: 'The spectrum. Reflection symmetric, $V_{-P}=V_P$.'
+  - name: '\mathbf{1}'
+    Delta: 0
+    spin: 0
+    weights: '(0,0)'
+    rep: '$P=\frac{iQ}{2}$'
+    method: exact
+    refs: [cemr2024]
+    note: 'Not in the spectrum: the identity is not normalisable, and is reached by analytic continuation.'
+  - name: 'V_{\langle r,s\rangle}'
+    Delta: '\frac{Q^2-(rb+sb^{-1})^2}{2}'
+    spin: 0
+    weights: '(h_{r,s},h_{r,s})'
+    rep: '$P_{r,s}=\frac{i}{2}(rb+sb^{-1})$, $r,s\geq 1$'
+    method: exact
+    refs: [cemr2024]
+    note: 'Degenerate operators with $h_{r,s}=h_{P_{r,s}}$, not in the spectrum. $C_b$ vanishes at these momenta for generic other momenta.'
+
+references:
+  - key: cemr2024
+    title: The Virasoro minimal string
+    authors: Collier, Eberhardt, Mühlmann, Rodriguez
+    year: 2024
+    journal: SciPost Phys. 16, 057
+    arxiv: '2309.10846'
+    doi: '10.21468/SciPostPhys.16.2.057'
+  - key: cemr2025
+    title: 'The complex Liouville string: The worldsheet'
+    authors: Collier, Eberhardt, Mühlmann, Rodriguez
+    year: 2025
+    journal: SciPost Phys. 19, 033
+    arxiv: '2409.18759'
+    doi: '10.21468/SciPostPhys.19.2.033'
+    note: Poles on a general surface, discrete contributions, and Appendix B on the product formula.
+  - key: cer2026
+    title: '$c=1$ strings as a matrix integral'
+    authors: Collier, Eberhardt, Rodriguez
+    year: 2026
+    journal: SciPost Phys. 21, 085
+    arxiv: '2604.06301'
+    doi: '10.21468/scipostphys.21.4.085'
+    note: Resonance poles and the free boson residue.
+  - key: dornotto1994
+    title: Two and three point functions in Liouville theory
+    authors: Dorn, Otto
+    year: 1994
+    journal: Nucl. Phys. B429, 375
+    arxiv: hep-th/9403141
+    doi: '10.1016/0550-3213(94)00352-1'
+  - key: zz1996
+    title: Structure constants and conformal bootstrap in Liouville field theory
+    authors: Zamolodchikov, Zamolodchikov
+    year: 1996
+    journal: Nucl. Phys. B477, 577
+    arxiv: hep-th/9506136
+    doi: '10.1016/0550-3213(96)00351-3'
+  - key: teschner1995
+    title: On the Liouville three point function
+    authors: Teschner
+    year: 1995
+    journal: Phys. Lett. B363, 65
+    arxiv: hep-th/9507109
+    doi: '10.1016/0370-2693(95)01200-A'
+  - key: teschner2001
+    title: Liouville theory revisited
+    authors: Teschner
+    year: 2001
+    journal: Class. Quant. Grav. 18, R153
+    arxiv: hep-th/0104158
+    doi: '10.1088/0264-9381/18/23/201'
+  - key: krv2017
+    title: 'Integrability of Liouville theory: proof of the DOZZ formula'
+    authors: Kupiainen, Rhodes, Vargas
+    year: 2017
+    arxiv: '1707.08785'
+  - key: gkrv2024
+    title: Conformal bootstrap in Liouville theory
+    authors: Guillarmou, Kupiainen, Rhodes, Vargas
+    year: 2024
+    journal: Acta Math. 233, 33
+    arxiv: '2005.11530'
+    doi: '10.4310/acta.2024.v233.n1.a2'
+  - key: gkrv2021
+    title: Segal's axioms and bootstrap for Liouville theory
+    authors: Guillarmou, Kupiainen, Rhodes, Vargas
+    year: 2021
+    arxiv: '2112.14859'
+  - key: cmmt2020
+    title: Universal dynamics of heavy operators in CFT$_2$
+    authors: Collier, Maloney, Maxfield, Tsiares
+    year: 2020
+    journal: JHEP 07, 074
+    arxiv: '1912.00222'
+    doi: '10.1007/JHEP07(2020)074'
+  - key: ckly2018
+    title: 'Bootstrapping the spectral function: on the uniqueness of Liouville and the universality of BTZ'
+    authors: Collier, Kravchuk, Lin, Yin
+    year: 2018
+    journal: JHEP 09, 150
+    arxiv: '1702.00423'
+    doi: '10.1007/JHEP09(2018)150'
+  - key: ribault2014
+    title: Conformal field theory on the plane
+    authors: Ribault
+    year: 2014
+    arxiv: '1406.4290'
+  - key: rs2015
+    title: Liouville theory with a central charge less than one
+    authors: Ribault, Santachiara
+    year: 2015
+    journal: JHEP 08, 109
+    arxiv: '1503.02067'
+    doi: '10.1007/JHEP08(2015)109'
+  - key: eberhardt2023
+    title: Notes on crossing transformations of Virasoro conformal blocks
+    authors: Eberhardt
+    year: 2023
+    arxiv: '2309.11540'
+    note: Appendix B proves the properties of $\Gamma_b$ used here.
+  - key: barnes1901
+    title: The theory of the double gamma function
+    authors: Barnes
+    year: 1901
+    journal: Phil. Trans. Roy. Soc. Lond. A 196, 265
+    doi: '10.1098/rsta.1901.0006'
+  - key: ak2023
+    title: On the Barnes double gamma function
+    authors: Alexanian, Kuznetsov
+    year: 2023
+    journal: Integral Transforms Spec. Funct. 34, 891
+    arxiv: '2208.13876'
+    doi: '10.1080/10652469.2023.2238115'
+  - key: seiberg1990
+    title: Notes on quantum Liouville theory and quantum gravity
+    authors: Seiberg
+    year: 1990
+    journal: Prog. Theor. Phys. Suppl. 102, 319
+    doi: '10.1143/PTPS.102.319'
+  - key: goulianli1991
+    title: Correlation functions in Liouville theory
+    authors: Goulian, Li
+    year: 1991
+    journal: Phys. Rev. Lett. 66, 2051
+    doi: '10.1103/PhysRevLett.66.2051'
+
+contributors: [rodriguez-va]
