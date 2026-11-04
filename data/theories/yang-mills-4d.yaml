@@ -1,0 +1,69 @@
+id: yang-mills-4d
+name: '4d pure $SU(N)$ Yang–Mills'
+aliases:
+  - Pure glue
+  - Yang–Mills theory
+d: 4
+summary: >-
+  Non-abelian gauge theory without matter: asymptotically free in the UV,
+  confining with a mass gap in the IR.
+tags: [interacting, unitary, gauge theory, Lagrangian, asymptotically free, confining, gapped, large N]
+
+description: |
+  Not a CFT: the coupling runs, and dimensional transmutation generates a strong
+  scale $\Lambda$. The theory is believed to confine and to have a mass gap
+  (one of the Clay Millennium Problems); its spectrum of glueballs is studied with
+  lattice Monte Carlo.
+
+  At $\theta = \pi$ there is a mixed anomaly between time reversal and the
+  $\mathbb{Z}_N$ one-form symmetry, constraining the vacuum structure there.
+
+lagrangian: '\mathcal{L} = -\frac{1}{2g^2}\,\mathrm{Tr}\,F_{\mu\nu}F^{\mu\nu} + \frac{\theta}{8\pi^2}\,\mathrm{Tr}\,F\wedge F'
+
+parameters:
+  - symbol: 'N'
+    description: Rank of the gauge group.
+    range: '$N \geq 2$'
+  - symbol: '\theta'
+    description: Theta angle.
+    range: '$\theta \sim \theta + 2\pi$'
+
+symmetry:
+  spacetime: Poincaré
+  supercharges: 0
+  global: '$\mathbb{Z}_N^{(1)}$ one-form (center) symmetry; charge conjugation $C$ ($N\ge 3$); $P$ and $T$ at $\theta \in \{0,\pi\}$'
+  notes: 'Mixed anomaly between $T$ and $\mathbb{Z}_N^{(1)}$ at $\theta=\pi$.'
+  gauge: '$SU(N)$'
+
+quantities:
+  - symbol: 'b_0'
+    description: 'One-loop beta function coefficient, $\beta(g) = -\frac{b_0}{16\pi^2}g^3 + O(g^5)$'
+    value: '\frac{11N}{3}'
+    method: perturbation theory
+    refs: [grosswilczek1973, politzer1973]
+
+references:
+  - key: grosswilczek1973
+    title: Ultraviolet Behavior of Non-Abelian Gauge Theories
+    authors: Gross, Wilczek
+    year: 1973
+    journal: Phys. Rev. Lett. 30, 1343
+    doi: 10.1103/PhysRevLett.30.1343
+  - key: politzer1973
+    title: Reliable Perturbative Results for Strong Interactions?
+    authors: Politzer
+    year: 1973
+    journal: Phys. Rev. Lett. 30, 1346
+    doi: 10.1103/PhysRevLett.30.1346
+  - key: gksw2014
+    title: Generalized Global Symmetries
+    authors: Gaiotto, Kapustin, Seiberg, Willett
+    year: 2014
+    arxiv: '1412.5148'
+  - key: gkks2017
+    title: Theta, Time Reversal, and Temperature
+    authors: Gaiotto, Kapustin, Komargodski, Seiberg
+    year: 2017
+    arxiv: '1703.00501'
+
+contributors: [nathansbenjamin]

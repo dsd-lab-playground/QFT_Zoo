@@ -1,0 +1,61 @@
+id: free-scalar-3d
+name: Free massless scalar (3d)
+aliases:
+  - Gaussian fixed point
+d: 3
+summary: >-
+  A single free massless real scalar in three dimensions — the Gaussian fixed
+  point and UV starting point of the Wilson–Fisher flow.
+tags: [CFT, free, unitary, Lagrangian, exactly solvable]
+
+description: |
+  The simplest CFT in $d=3$. All correlators follow from Wick
+  contractions of $\langle \phi(x)\phi(0)\rangle \propto |x|^{-1}$.
+  Turning on the relevant $\phi^4$ coupling (with the mass tuned to criticality)
+  triggers an RG flow to the 3d Ising CFT.
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$\mathbb{Z}_2$ ($\phi\to-\phi$), plus shift symmetry $\phi \to \phi + c$'
+
+quantities:
+  - symbol: 'F'
+    description: '$S^3$ free energy, $F = -\log Z_{S^3}$'
+    value: '\frac{\log 2}{8} - \frac{3\zeta(3)}{16\pi^2} \approx 0.0638'
+    method: exact
+    refs: [klebanov2011]
+
+operators:
+  - name: '\phi'
+    Delta: '\frac{1}{2}'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-odd'
+    method: exact
+  - name: '\phi^2'
+    Delta: 1
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even'
+    method: exact
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: '$\mathbb{Z}_2$-even'
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: flows_to
+    target: ising-3d
+    note: 'Relevant $\phi^4$ deformation, with $m^2$ tuned to the critical point (Wilson–Fisher).'
+
+references:
+  - key: klebanov2011
+    title: F-Theorem without Supersymmetry
+    authors: Klebanov, Pufu, Safdi
+    year: 2011
+    arxiv: '1105.4598'
+
+contributors: [nathansbenjamin]

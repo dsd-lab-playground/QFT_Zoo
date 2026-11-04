@@ -1,0 +1,23 @@
+name: Report a problem with an entry
+description: A wrong number, missing reference, typo, or rendering issue.
+title: "[Correction] "
+labels: ["correction"]
+body:
+  - type: input
+    id: theory
+    attributes:
+      label: Theory id
+      description: The id in the page URL, e.g. ising-3d
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: Suggested fix and source
+      description: The correct value and a reference (arXiv ID or DOI), if you have one.

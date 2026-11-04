@@ -1,0 +1,86 @@
+id: n4-sym
+name: '$\mathcal{N}=4$ super Yang–Mills'
+aliases:
+  - N=4 SYM
+  - Maximally supersymmetric Yang–Mills in 4d
+d: 4
+summary: >-
+  The maximally supersymmetric gauge theory in four dimensions: an exactly
+  marginal family of superconformal theories, dual to type IIB string theory on
+  $AdS_5\times S^5$.
+tags: [CFT, SCFT, interacting, unitary, gauge theory, supersymmetric, Lagrangian, integrable, holographic, large N]
+
+description: |
+  A conformal manifold of SCFTs labelled by the gauge group (here $SU(N)$) and
+  the complexified coupling $\tau = \frac{\theta}{2\pi} + \frac{4\pi i}{g^2_{\rm YM}}$.
+  The field content is a single $\mathcal{N}=4$ vector multiplet: a gauge field,
+  four Weyl fermions and six real scalars, all in the adjoint.
+
+  Key features:
+  - $\beta(g_{\rm YM}) = 0$ to all orders; $\tau$ is exactly marginal.
+  - S-duality: $SL(2,\mathbb{Z})$ acting on $\tau$, exchanging $G$ with its Langlands dual.
+  - The planar spectrum is computable at any 't Hooft coupling $\lambda = g^2_{\rm YM}N$ via integrability.
+  - At large $N$ and strong coupling it is described by type IIB supergravity on $AdS_5\times S^5$.
+
+lagrangian: '\mathcal{L} = \frac{1}{g_{\rm YM}^2}\,\mathrm{Tr}\Big( -\tfrac{1}{2}F_{\mu\nu}F^{\mu\nu} - D_\mu\phi^I D^\mu\phi^I + \tfrac{1}{2}[\phi^I,\phi^J]^2 + \text{fermions}\Big) + \frac{\theta}{8\pi^2}\,\mathrm{Tr}\,F\wedge F'
+
+parameters:
+  - symbol: 'N'
+    description: Rank of the gauge group $SU(N)$.
+    range: '$N \geq 2$'
+  - symbol: '\tau'
+    description: Complexified gauge coupling (exactly marginal).
+    range: 'upper half-plane, modulo $SL(2,\mathbb{Z})$'
+
+symmetry:
+  spacetime: 'superconformal, $PSU(2,2|4)$'
+  supercharges: 16
+  global: '$SU(4)_R$ R-symmetry'
+  gauge: '$SU(N)$'
+
+quantities:
+  - symbol: 'a = c'
+    description: 'Conformal anomalies (normalised so a free real scalar has $a=\tfrac{1}{360}$, $c=\tfrac{1}{120}$)'
+    value: '\frac{N^2-1}{4}'
+    method: exact
+    note: Independent of $\tau$.
+
+operators:
+  - name: '\mathcal{O}_{\mathbf{20}^\prime} = \mathrm{Tr}\,\phi^{\{I}\phi^{J\}}'
+    Delta: 2
+    spin: 0
+    rep: '$\mathbf{20}^\prime$ of $SU(4)_R$'
+    method: exact
+    note: 'Half-BPS superconformal primary of the stress-tensor multiplet; protected.'
+  - name: '\mathcal{K} = \mathrm{Tr}\,\phi^I\phi^I'
+    Delta: '2 + \frac{3\lambda}{4\pi^2} + O(\lambda^2)'
+    spin: 0
+    rep: 'singlet'
+    method: perturbation theory
+    note: 'Konishi operator, the lightest unprotected operator; $\lambda = g^2_{\rm YM}N$, planar.'
+    refs: [beisert2010]
+
+references:
+  - key: bss1977
+    title: Supersymmetric Yang-Mills theories
+    authors: Brink, Schwarz, Scherk
+    year: 1977
+    journal: Nucl. Phys. B121, 77
+    doi: 10.1016/0550-3213(77)90328-5
+  - key: maldacena1997
+    title: The Large N Limit of Superconformal Field Theories and Supergravity
+    authors: Maldacena
+    year: 1997
+    arxiv: hep-th/9711200
+  - key: beisert2010
+    title: 'Review of AdS/CFT Integrability: An Overview'
+    authors: Beisert et al.
+    year: 2010
+    arxiv: '1012.3982'
+
+relations:
+  - type: flows_to
+    target: yang-mills-4d
+    note: 'Give masses to all adjoint scalars and fermions ("$\mathcal{N}=0^*$"); below the mass scale the theory is pure Yang–Mills.'
+
+contributors: [nathansbenjamin]

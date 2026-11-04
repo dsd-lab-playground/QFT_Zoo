@@ -1,0 +1,91 @@
+id: ising-2d
+name: 2d Ising CFT
+aliases:
+  - 'Minimal model $\mathcal{M}(4,3)$'
+  - Critical 2d Ising model
+d: 2
+summary: >-
+  The $c=\tfrac12$ unitary minimal model, describing the critical point of the
+  2d Ising model. Exactly solvable.
+tags: [CFT, interacting, unitary, exactly solvable, minimal model, integrable, critical phenomena]
+
+description: |
+  The simplest unitary Virasoro minimal model, $\mathcal{M}(4,3)$, with three
+  primary operators $1$, $\sigma$, $\epsilon$ and fusion rules
+  $\sigma\times\sigma = 1 + \epsilon$, $\sigma\times\epsilon = \sigma$,
+  $\epsilon\times\epsilon = 1$.
+
+  Onsager solved the lattice model exactly; Belavin, Polyakov and Zamolodchikov
+  identified the critical point with this minimal model. The theory is closely
+  related to a free Majorana fermion (they differ by a sum over spin structures).
+
+symmetry:
+  spacetime: 'conformal (Virasoro $\times$ Virasoro)'
+  supercharges: 0
+  global: '$\mathbb{Z}_2$'
+  notes: 'Kramers–Wannier duality is a non-invertible symmetry of the critical theory.'
+
+quantities:
+  - symbol: 'c'
+    description: Virasoro central charge
+    value: '\frac{1}{2}'
+    method: exact
+    refs: [bpz1984]
+  - symbol: 'C_{\sigma\sigma\epsilon}'
+    description: OPE coefficient
+    value: '\frac{1}{2}'
+    method: exact
+    refs: [bpz1984]
+  - symbol: '\eta'
+    description: Critical exponent
+    value: '\frac{1}{4}'
+    method: exact
+    refs: [onsager1944]
+  - symbol: '\nu'
+    description: Critical exponent
+    value: '1'
+    method: exact
+    refs: [onsager1944]
+
+operators:
+  - name: '\sigma'
+    Delta: '\frac{1}{8}'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-odd'
+    method: exact
+    note: '$(h,\bar h) = (\tfrac{1}{16},\tfrac{1}{16})$'
+    refs: [bpz1984]
+  - name: '\epsilon'
+    Delta: 1
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even'
+    method: exact
+    note: '$(h,\bar h) = (\tfrac{1}{2},\tfrac{1}{2})$'
+    refs: [bpz1984]
+  - name: 'T'
+    Delta: 2
+    spin: 2
+    rep: '$\mathbb{Z}_2$-even'
+    method: exact
+    note: 'Stress tensor, Virasoro descendant of the identity.'
+
+relations:
+  - type: related_to
+    target: ising-3d
+    note: 'The Ising critical point in $d=2$ and $d=3$: the $\mathbb{Z}_2$ Wilson–Fisher fixed point continued in dimension.'
+
+references:
+  - key: onsager1944
+    title: 'Crystal Statistics. I. A Two-Dimensional Model with an Order-Disorder Transition'
+    authors: Onsager
+    year: 1944
+    journal: Phys. Rev. 65, 117
+    doi: 10.1103/PhysRev.65.117
+  - key: bpz1984
+    title: Infinite conformal symmetry in two-dimensional quantum field theory
+    authors: Belavin, Polyakov, Zamolodchikov
+    year: 1984
+    journal: Nucl. Phys. B241, 333
+    doi: 10.1016/0550-3213(84)90052-X
+
+contributors: [nathansbenjamin]

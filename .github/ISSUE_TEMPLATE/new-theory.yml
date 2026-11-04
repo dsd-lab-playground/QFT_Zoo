@@ -1,0 +1,48 @@
+name: Suggest a theory
+description: Propose a new entry for the QFT Zoo — no YAML or git needed.
+title: "[New theory] "
+labels: ["new theory"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing! Fill in what you know; a maintainer will turn it into an entry.
+        LaTeX in `$...$` is fine everywhere.
+  - type: input
+    id: name
+    attributes:
+      label: Theory name
+      placeholder: "e.g. 3d O(2) model (critical XY)"
+    validations:
+      required: true
+  - type: input
+    id: dimension
+    attributes:
+      label: Spacetime dimension
+      placeholder: "3"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What is it? Lagrangian or construction, symmetries, why it is interesting.
+    validations:
+      required: true
+  - type: textarea
+    id: data
+    attributes:
+      label: Data
+      description: Scaling dimensions, central charges, critical exponents, OPE coefficients, ... with uncertainties and the reference for each.
+  - type: textarea
+    id: relations
+    attributes:
+      label: Relations to other theories
+      description: RG flows (UV/IR), dualities, other connections.
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: arXiv IDs or DOIs.
+    validations:
+      required: true

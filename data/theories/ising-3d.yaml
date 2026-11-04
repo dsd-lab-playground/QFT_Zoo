@@ -1,0 +1,90 @@
+id: ising-3d
+name: 3d Ising CFT
+aliases:
+  - Critical 3d Ising model
+  - '$\mathbb{Z}_2$ Wilson–Fisher fixed point'
+d: 3
+summary: >-
+  The conformal field theory at the critical point of the 3d Ising model; the
+  infrared fixed point of $\phi^4$ theory with one real scalar.
+tags: [CFT, interacting, unitary, Lagrangian, critical phenomena]
+
+description: |
+  Describes the liquid–vapour critical point, uniaxial magnets, and many other
+  continuous phase transitions with an order parameter odd under a $\mathbb{Z}_2$
+  symmetry. It is the IR endpoint of the flow from the free massless scalar
+  triggered by the relevant $\phi^4$ coupling, with the mass tuned to criticality.
+
+  It has exactly two relevant scalar operators, $\sigma$ ($\mathbb{Z}_2$-odd) and
+  $\epsilon$ ($\mathbb{Z}_2$-even), matching the two parameters (field and
+  temperature) that must be tuned to reach the critical point.
+  Its most precise data come from the numerical conformal bootstrap applied to
+  mixed correlators of $\sigma$, $\epsilon$ and $T_{\mu\nu}$.
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2 + \tfrac{1}{2} m^2 \phi^2 + \tfrac{\lambda}{4!}\phi^4 \quad (m^2 \text{ tuned to criticality, flow to the IR})'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$\mathbb{Z}_2$'
+
+quantities:
+  - symbol: '\lambda_{\sigma\sigma\epsilon}'
+    description: OPE coefficient
+    value: '1.0518537(41)'
+    method: conformal bootstrap
+    refs: [kos2016]
+  - symbol: '\lambda_{\epsilon\epsilon\epsilon}'
+    description: OPE coefficient
+    value: '1.532435(19)'
+    method: conformal bootstrap
+    refs: [kos2016]
+  - symbol: '\eta'
+    description: 'Critical exponent, $\eta = 2\Delta_\sigma - 1$'
+    value: '0.036297612(48)'
+    method: derived
+    refs: [chang2024]
+  - symbol: '\nu'
+    description: 'Critical exponent, $\nu = 1/(3-\Delta_\epsilon)$'
+    value: '0.62997097(12)'
+    method: derived
+    refs: [chang2024]
+
+operators:
+  - name: '\sigma'
+    Delta: '0.518148806(24)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-odd'
+    method: conformal bootstrap
+    refs: [chang2024]
+  - name: '\epsilon'
+    Delta: '1.41262528(29)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap
+    refs: [chang2024]
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: '$\mathbb{Z}_2$-even'
+    method: exact
+    note: Stress tensor (conserved).
+
+references:
+  - key: chang2024
+    title: Bootstrapping the 3d Ising Stress Tensor
+    authors: Chang, Dommes, Erramilli, Homrich, Kravchuk, Liu, Mitchell, Poland, Simmons-Duffin
+    year: 2024
+    arxiv: '2411.15300'
+  - key: kos2016
+    title: Precision Islands in the Ising and O(N) Models
+    authors: Kos, Poland, Simmons-Duffin, Vichi
+    year: 2016
+    arxiv: '1603.04436'
+  - key: simmonsduffin2016
+    title: The Lightcone Bootstrap and the Spectrum of the 3d Ising CFT
+    authors: Simmons-Duffin
+    year: 2016
+    arxiv: '1612.08471'
+
+contributors: [nathansbenjamin]

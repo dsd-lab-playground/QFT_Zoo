@@ -1,0 +1,62 @@
+# QFT Zoo entry template.
+# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.
+# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md
+#
+# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).
+#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math.
+#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.
+
+id: my-theory                      # lowercase-with-hyphens, = filename
+name: 'My theory'                  # may contain $...$ math
+aliases: []
+d: 3                               # spacetime dimension
+summary: >-
+  One or two sentences describing the theory.
+tags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list
+
+description: |
+  Longer Markdown description. Inline math like $\Delta_\sigma$ and display math
+  like $$\langle \phi(x)\phi(0)\rangle = |x|^{-2\Delta}$$ both work.
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2'
+
+parameters:
+  - symbol: 'N'
+    description: Number of fields.
+    range: '$N \geq 1$'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$O(N)$'
+  # gauge: '$SU(N)$'
+  # notes: 'Anomalies, emergent symmetries, ...'
+
+quantities:
+  - symbol: 'C_T/C_T^{\text{free}}'
+    description: Stress-tensor central charge
+    value: '0.9(1)'                # parenthesis notation for uncertainties
+    method: conformal bootstrap
+    refs: [author2025]
+
+operators:
+  - name: '\phi'
+    Delta: '0.5(1)'
+    spin: 0
+    rep: 'vector'
+    method: conformal bootstrap
+    refs: [author2025]
+
+relations:
+  - type: flows_to                 # flows_to | dual_to | related_to
+    target: ising-3d               # id of an existing entry
+    note: 'Which deformation, and any subtleties.'
+
+references:
+  - key: author2025                # short handle used in refs: [...] above
+    title: Title of the paper
+    authors: Author, Another
+    year: 2025
+    arxiv: '2501.00001'            # or doi: / url:
+
+contributors: [your-github-username]
