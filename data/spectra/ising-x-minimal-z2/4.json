@@ -1,0 +1,28 @@
+{
+  "theory": "ising-x-minimal-z2",
+  "member": {"at": 4},
+  "c": "6/5",
+  "chiral_algebra": "\\mathrm{Vir}_{1/2}\\otimes\\mathrm{Vir}_{7/10}",
+  "irreducible": true,
+  "Z_tex": "Z = \\sum M^{[J]}_{ab}\\, \\chi_a \\overline{\\chi_b}",
+  "character_tex": "Products $\\chi^{\\rm Ising}_a\\,\\chi_{r,s}$ of Rocha-Caridi characters.",
+  "description": "Simple-current invariant of $J = \\varepsilon\\otimes\\phi_{3,1}$ ($h_J = 2$), i.e. an extension by $J$ (Kreuzer-Schellekens), on the Virasoro$^2$ characters of Ising $\\times\\ \\mathcal{M}_{4}$. This is the orbifold of Ising $\\times\\ \\mathcal{M}_{4}$ by the diagonal spin flip.",
+  "generator": "scripts/spectra/gen_minimal.py",
+  "blocks": [
+    {"label": "1\\otimes \\chi_{1,1}", "h": "0", "coeffs": [1, 0, 2, 2, 5, 6, 12, 15, 27]},
+    {"label": "1\\otimes \\chi_{1,2}", "h": "1/10", "coeffs": [1, 1, 2, 4, 7, 11, 18, 27]},
+    {"label": "1\\otimes \\chi_{1,3}", "h": "3/5", "coeffs": [1, 1, 3, 4, 9, 13, 22, 32]},
+    {"label": "1\\otimes \\chi_{1,4}", "h": "3/2", "coeffs": [1, 1, 3, 4, 8, 12, 20]},
+    {"label": "\\sigma\\otimes \\chi_{2,1}", "h": "1/2", "coeffs": [1, 2, 3, 6, 10, 16, 26, 40]},
+    {"label": "\\sigma\\otimes \\chi_{2,2}", "h": "1/10", "coeffs": [1, 2, 4, 8, 13, 22, 35, 54]},
+    {"label": "\\varepsilon\\otimes \\chi_{1,1}", "h": "1/2", "coeffs": [1, 1, 2, 3, 6, 8, 14, 20]},
+    {"label": "\\varepsilon\\otimes \\chi_{1,2}", "h": "3/5", "coeffs": [1, 2, 3, 5, 9, 14, 22, 34]},
+    {"label": "\\varepsilon\\otimes \\chi_{1,3}", "h": "11/10", "coeffs": [1, 2, 4, 6, 11, 17, 27]},
+    {"label": "\\varepsilon\\otimes \\chi_{1,4}", "h": "2", "coeffs": [1, 2, 4, 6, 10, 15, 24]}
+  ],
+  "Z": [
+    [0, 0, 1], [0, 9, 1], [1, 1, 1], [1, 8, 1], [2, 2, 1], [2, 7, 1],
+    [3, 3, 1], [3, 6, 1], [4, 4, 2], [5, 5, 2], [6, 3, 1], [6, 6, 1],
+    [7, 2, 1], [7, 7, 1], [8, 1, 1], [8, 8, 1], [9, 0, 1], [9, 9, 1]
+  ]
+}

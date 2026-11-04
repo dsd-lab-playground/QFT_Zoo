@@ -27,6 +27,9 @@ from pathlib import Path
 import yaml
 from jsonschema import Draft202012Validator
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from zoo_spectrum import SPECTRA, SPECTRUM_SCHEMA, check as check_spectrum, expected_path  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 THEORIES = ROOT / "data" / "theories"
 TEMPLATE = ROOT / "data" / "TEMPLATE.yaml"
@@ -317,7 +320,75 @@ def load_all() -> tuple[list[dict], list[str]]:
     return entries, errors
 
 
-def build(entries: list[dict]) -> None:
+# --------------------------------------------------------------- spectra
+
+def load_spectra(entries: list[dict], errors: list[str]) -> dict[str, dict]:
+    """Check every data/spectra/**/*.json against its theory; attach an index
+    (entry["spectra"]) and return {relative path: summary for the site}."""
+    validator = Draft202012Validator(json.loads(SPECTRUM_SCHEMA.read_text(encoding="utf-8")))
+    by_id = {e["id"]: e for e in entries}
+    out: dict[str, dict] = {}
+    for path in sorted(SPECTRA.rglob("*")):
+        if path.is_dir():
+            continue
+        rel = str(path.relative_to(ROOT))
+        if path.suffix != ".json":
+            errors.append(f"{rel}: spectrum files must be .json")
+            continue
+        try:
+            spec = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            errors.append(f"{rel}: invalid JSON: {exc}")
+            continue
+        errs = schema_errors(validator, spec, rel)
+        if errs:
+            errors += errs
+            continue
+        e = by_id.get(spec["theory"])
+        if e is None:
+            errors.append(f"{rel}: unknown theory '{spec['theory']}' (no data/theories/{spec['theory']}.yaml)")
+            continue
+        want = expected_path(spec["theory"], spec.get("member"))
+        if rel != want:
+            errors.append(f"{rel}: should be at {want}")
+            continue
+        if "member" in spec:
+            if "family" not in e:
+                errors.append(f"{rel}: '{e['id']}' is not a family, so the spectrum cannot name a member")
+                continue
+            at, var = str(spec["member"]["at"]), spec["member"].get("variant")
+            hits = [m for m in e["members"] if str(m["at"]) == at and m.get("variant") == var]
+            if not hits:
+                errors.append(f"{rel}: '{e['id']}' has no member at {at}{' variant ' + var if var else ''}")
+                continue
+            vals = {q: hits[0].get(q) for q in ("c", "gap")}
+        else:
+            if "family" in e:
+                errors.append(f"{rel}: '{e['id']}' is a family; say which member with \"member\"")
+                continue
+            vals = {q["key"]: q["value"] for q in e.get("quantities", []) if q.get("key") in ("c", "gap")}
+        exact = {}
+        for q in ("c", "gap"):
+            v = parse_value(vals[q]) if vals.get(q) is not None else None
+            exact[q] = v if isinstance(v, Fraction) else None
+        summary, errs = check_spectrum(spec, exact["c"], exact["gap"])
+        if errs:
+            errors += [f"{rel}: {m}" for m in errs]
+            continue
+        summary["source"] = rel
+        out[rel] = summary
+        row = {"path": rel, "gap": summary["gap"], "n_blocks": summary["n_blocks"]}
+        if "member" in spec:
+            row.update({k: v for k, v in spec["member"].items()})
+        e.setdefault("spectra", []).append(row)
+    for e in entries:
+        if "spectra" in e and e.get("members"):
+            order = {(str(m["at"]), m.get("variant")): i for i, m in enumerate(e["members"])}
+            e["spectra"].sort(key=lambda r: order.get((str(r.get("at")), r.get("variant")), 1e9))
+    return out
+
+
+def build(entries: list[dict], spectra: dict[str, dict]) -> None:
     if OUT.exists():
         shutil.rmtree(OUT)
     shutil.copytree(SITE_SRC, OUT)
@@ -332,6 +403,11 @@ def build(entries: list[dict]) -> None:
     (OUT / "data" / "theories.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
     shutil.copy(SCHEMA, OUT / "data" / "theory.schema.json")
+    shutil.copy(SPECTRUM_SCHEMA, OUT / "data" / "spectrum.schema.json")
+    for rel, summary in spectra.items():
+        dest = OUT / rel
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_text(json.dumps(summary, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
 
 def serve(port: int) -> None:
@@ -352,6 +428,7 @@ def main() -> int:
     args = ap.parse_args()
 
     entries, errors = load_all()
+    spectra = load_spectra(entries, errors) if not errors else {}
     if errors:
         print(f"✗ {len(errors)} problem(s) found:\n", file=sys.stderr)
         for e in errors:
@@ -359,10 +436,11 @@ def main() -> int:
         return 1
     n_fam = sum("family" in e for e in entries)
     print(f"✓ {len(entries)} entries valid ({n_fam} families)")
+    print(f"✓ {len(spectra)} spectra checked (modular invariance, integrality, gaps)")
 
     if args.check:
         return 0
-    build(entries)
+    build(entries, spectra)
     print(f"✓ site built in {OUT.relative_to(ROOT)}/")
     if args.serve:
         serve(args.port)

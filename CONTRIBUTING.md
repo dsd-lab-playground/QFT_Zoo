@@ -145,6 +145,55 @@ Tags come from a fixed list so that filtering stays consistent. To add one, add 
 to the `tags` enum in `schema/theory.schema.json` in the same pull request.
 Proposals for new fields are welcome; open an issue to discuss them.
 
+## Spectra of 2d CFTs
+
+A 2d CFT entry can have a torus partition function in `data/spectra/<id>.json`
+(for a family member: `data/spectra/<family-id>/<member>.json`, e.g.
+`data/spectra/n1-minimal-ad-da/6_ADp.json` for $m = 6$, variant `(A,D)+`; the
+build tells you the expected path). The format is in
+[`schema/spectrum.schema.json`](schema/spectrum.schema.json):
+
+```json
+{
+  "theory": "tricritical-ising",
+  "c": "7/10",
+  "chiral_algebra": "\\mathrm{Vir}_{7/10}",
+  "irreducible": true,
+  "Z_tex": "Z = \\sum |\\chi_{r,s}|^2",
+  "character_tex": "Rocha-Caridi characters ...",
+  "description": "How Z was obtained (Markdown, $...$ math).",
+  "generator": "scripts/spectra/gen_minimal.py",
+  "blocks": [
+    {"label": "\\chi_{1,1}", "h": "0",    "coeffs": [1, 0, 1, 1, 2, 2, 4, 4, 7]},
+    {"label": "\\chi_{2,2}", "h": "3/80", "coeffs": [1, 1, 2, 3, 4, 6, 8, 11, 15]}
+  ],
+  "Z": [[0, 0, 1], [1, 1, 1]]
+}
+```
+
+(abbreviated: the real file lists all six characters, each to higher order.)
+
+Each block is $b(q) = q^{h - c/24}\sum_n \texttt{coeffs}[n]\, q^{n\cdot\texttt{step}}$
+(`step` defaults to 1), and
+$Z = \sum_{[i, j, \kappa]} \kappa\, b_i(q)\,\overline{b_j(q)}$. Blocks are usually
+characters, but twined or twisted traces are fine too (then `"irreducible": false`,
+and coefficients $\kappa$ may be fractions such as `"1/2"`). Give every block up to
+weight about 6–8; the checks run up to the smallest weight that all blocks reach.
+
+`python scripts/build.py --check` (and, for one file,
+`python scripts/zoo_spectrum.py data/spectra/<file>.json`) verifies that:
+
+- $Z(\tau) = Z(-1/\tau)$ numerically at three points away from $\tau = i$;
+- the degeneracies are non-negative integers, spins are integers, and the vacuum is unique;
+- $Z$ decomposes into Virasoro characters with non-negative integer multiplicities;
+- the lightest non-vacuum Virasoro primary has the `gap` given in the theory file.
+
+These checks are necessary but not sufficient, so say in `description` how the
+spectrum was obtained, and add the generating script under `scripts/spectra/` if
+you used one. The existing generators share exact $q$-series tools
+(`common.py`), Virasoro/ADE/simple-current machinery (`rcft.py`) and graded affine
+$SU(2)$ characters for cosets and parafermions (`su2.py`).
+
 ## Review criteria
 
 Maintainers check that:

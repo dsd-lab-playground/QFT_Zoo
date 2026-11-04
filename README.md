@@ -13,6 +13,13 @@ also published as a single JSON file
 for use in your own code. The [landscape page](https://nathansbenjamin.github.io/QFT_Zoo/#/landscape)
 plots every 2d CFT with known central charge and spectral gap.
 
+2d CFTs can also carry a full torus partition function in
+[`data/spectra/`](data/spectra): characters as exact q-series and the modular
+invariant that combines them. The theory pages list the primaries, the Virasoro
+primaries and the characters. Every spectrum is checked automatically: modular
+invariance, non-negative integer degeneracies, a unique vacuum, and the spectral
+gap stated in the theory file.
+
 ## Contributing
 
 Anyone can propose additions or corrections. All changes are reviewed by the
@@ -28,9 +35,12 @@ maintainers before they appear on the site.
 
 ```
 data/theories/<id>.yaml   one file per theory  ← the actual content
+data/spectra/             partition functions of 2d CFTs (characters + modular invariant)
 data/TEMPLATE.yaml        starting point for a new entry
-schema/                   JSON Schema that every entry must satisfy
+schema/                   JSON Schemas for theory files and spectrum files
 scripts/build.py          validates the data and builds the site into _site/
+scripts/zoo_spectrum.py   the checks run on every spectrum file
+scripts/spectra/          the scripts that generated the spectrum files
 site/                     the website (static HTML/CSS/JS; KaTeX for math)
 .github/workflows/        validation on every PR; deploy to GitHub Pages on merge
 ```

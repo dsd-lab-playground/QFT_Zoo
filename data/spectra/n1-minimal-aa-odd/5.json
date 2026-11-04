@@ -1,0 +1,36 @@
+{
+  "theory": "n1-minimal-aa-odd",
+  "member": {"at": 5},
+  "c": "81/70",
+  "chiral_algebra": "\\left(SU(2)_{3}\\times SU(2)_2/SU(2)_{5}\\right)",
+  "irreducible": true,
+  "Z_tex": "Z = \\tfrac12\\sum N^{A}_{l\\tilde l}\\,N^{A}_{l'\\tilde l'}\\,b^{(l,\\epsilon,l')}\\overline{b^{(\\tilde l,\\epsilon,\\tilde l')}}",
+  "character_tex": "The $\\mathcal{N}=1$ characters $\\chi^{NS}_{r,s} = q^{-c/24}\\prod_{n\\ge1}\\frac{1+q^{n-1/2}}{1-q^n}\\sum_{k}\\left(q^{a_k}-q^{b_k}\\right)$ and $\\chi^{R}_{r,s} = q^{1/16-c/24}\\prod_{n\\ge1}\\frac{1+q^{n}}{1-q^n}\\sum_{k}\\left(q^{a_k}-q^{b_k}\\right)$, $a_k = \\frac{(2pp'k+p'r-ps)^2-4}{8pp'}$, $b_k = \\frac{(2pp'k+p'r+ps)^2-4}{8pp'}$, $(p,p') = (5,7)$. With $r = l+1$, $s = l'+1$: $b^{(l,0,l')}$ and $b^{(l,2,l')}$ are the parts of $\\chi^{NS}_{r,s}$ at integer and half-integer level (whichever matches the coset weight), and $b^{(l,1,l')} = \\chi^R_{r,s}$.",
+  "description": "Coset $SU(2)_{3}\\times SU(2)_2/SU(2)_{5}$ with the (A,A) invariant (A on the level-3 label, A on the level-5 label). Blocks are the coset branching functions $b^{(l,\\epsilon,l')}$ with $(l,\\epsilon,l')\\sim(3-l,2-\\epsilon,5-l')$.",
+  "generator": "scripts/spectra/gen_n1.py",
+  "blocks": [
+    {"label": "b^{(0,0,0)}", "h": "0", "coeffs": [1, 0, 1, 1, 3, 3, 7, 8]},
+    {"label": "b^{(0,0,2)}", "h": "5/7", "coeffs": [1, 1, 3, 4, 8, 11, 19]},
+    {"label": "b^{(0,0,4)}", "h": "8/7", "coeffs": [1, 1, 3, 4, 7, 11]},
+    {"label": "b^{(0,1,1)}", "h": "9/112", "coeffs": [1, 1, 2, 4, 6, 10, 16]},
+    {"label": "b^{(0,1,3)}", "h": "73/112", "coeffs": [1, 2, 3, 6, 10, 16, 25]},
+    {"label": "b^{(0,1,5)}", "h": "31/16", "coeffs": [1, 2, 3, 5, 8, 12]},
+    {"label": "b^{(0,2,0)}", "h": "3/2", "coeffs": [1, 1, 2, 3, 5, 7]},
+    {"label": "b^{(0,2,2)}", "h": "3/14", "coeffs": [1, 1, 2, 3, 6, 9, 15]},
+    {"label": "b^{(0,2,4)}", "h": "23/14", "coeffs": [1, 2, 3, 6, 9, 14]},
+    {"label": "b^{(1,0,1)}", "h": "3/70", "coeffs": [1, 1, 2, 4, 7, 11, 18]},
+    {"label": "b^{(1,0,3)}", "h": "43/70", "coeffs": [1, 2, 4, 7, 11, 18, 28]},
+    {"label": "b^{(1,0,5)}", "h": "9/10", "coeffs": [1, 1, 2, 3, 6, 9, 14]},
+    {"label": "b^{(1,1,0)}", "h": "27/80", "coeffs": [1, 1, 2, 4, 6, 10, 16]},
+    {"label": "b^{(1,1,2)}", "h": "29/560", "coeffs": [1, 2, 4, 7, 12, 20, 31]},
+    {"label": "b^{(1,1,4)}", "h": "269/560", "coeffs": [1, 2, 4, 7, 12, 19, 30]},
+    {"label": "b^{(1,2,1)}", "h": "19/35", "coeffs": [1, 2, 3, 5, 9, 14, 22]},
+    {"label": "b^{(1,2,3)}", "h": "4/35", "coeffs": [1, 1, 3, 5, 9, 14, 23]},
+    {"label": "b^{(1,2,5)}", "h": "7/5", "coeffs": [1, 1, 3, 4, 8, 11]}
+  ],
+  "Z": [
+    [0, 0, 1], [1, 1, 1], [2, 2, 1], [3, 3, 1], [4, 4, 1], [5, 5, 1],
+    [6, 6, 1], [7, 7, 1], [8, 8, 1], [9, 9, 1], [10, 10, 1], [11, 11, 1],
+    [12, 12, 1], [13, 13, 1], [14, 14, 1], [15, 15, 1], [16, 16, 1], [17, 17, 1]
+  ]
+}

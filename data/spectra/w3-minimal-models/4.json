@@ -1,0 +1,22 @@
+{
+  "theory": "w3-minimal-models",
+  "member": {"at": 4},
+  "c": "4/5",
+  "chiral_algebra": "\\mathcal{W}_3(4,5)",
+  "irreducible": true,
+  "Z_tex": "Z = \\sum_{(\\lambda;\\mu)/\\mathbb{Z}_3} |\\chi_{(\\lambda;\\mu)}|^2",
+  "character_tex": "Frenkel-Kac-Wakimoto characters $\\chi_{(\\lambda;\\mu)} = \\eta(\\tau)^{-2}\\sum_{w\\in W(A_2)}\\epsilon(w)\\sum_{\\alpha\\in Q} q^{|p'(\\lambda+\\rho)-p\\,w(\\mu+\\rho)+pp'\\alpha|^2/2pp'}$, $p'=p+1$, with $\\lambda = (\\lambda_1,\\lambda_2)$ a level-$(p-3)$ and $\\mu = (\\mu_1,\\mu_2)$ a level-$(p-2)$ $SU(3)$ weight in Dynkin labels, $(\\lambda;\\mu)\\sim(\\sigma\\lambda;\\sigma\\mu)$ under the $\\mathbb{Z}_3$ rotation of affine Dynkin labels; $h = \\frac{|p'(\\lambda+\\rho)-p(\\mu+\\rho)|^2-|\\rho|^2}{2pp'}$. Here $p = 4$.",
+  "description": "Diagonal modular invariant of the $\\mathcal{W}_3(4,5)$ minimal model $SU(3)_{1}\\times SU(3)_1/SU(3)_{2}$ (Fateev-Zamolodchikov 1987; Fateev-Lukyanov 1988): 6 $\\mathcal{W}_3$ primaries, characters from the Frenkel-Kac-Wakimoto formula.",
+  "generator": "scripts/spectra/gen_w3.py",
+  "blocks": [
+    {"label": "\\chi_{(0,0;0,0)}", "h": "0", "coeffs": [1, 0, 1, 2, 3, 4, 7, 8, 12]},
+    {"label": "\\chi_{(0,0;0,1)}", "h": "1/15", "coeffs": [1, 1, 2, 3, 5, 7, 10, 14, 20]},
+    {"label": "\\chi_{(0,0;1,0)}", "h": "1/15", "coeffs": [1, 1, 2, 3, 5, 7, 10, 14, 20]},
+    {"label": "\\chi_{(0,0;1,1)}", "h": "2/5", "coeffs": [1, 2, 2, 4, 5, 8, 11, 16, 21]},
+    {"label": "\\chi_{(1,0;0,0)}", "h": "2/3", "coeffs": [1, 1, 2, 2, 4, 5, 8, 10, 15]},
+    {"label": "\\chi_{(0,1;0,0)}", "h": "2/3", "coeffs": [1, 1, 2, 2, 4, 5, 8, 10, 15]}
+  ],
+  "Z": [
+    [0, 0, 1], [1, 1, 1], [2, 2, 1], [3, 3, 1], [4, 4, 1], [5, 5, 1]
+  ]
+}

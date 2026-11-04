@@ -25,7 +25,7 @@ quantities:
   description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
   value: '1/50'
   method: exact (twisted-sector ground state)
-  note: 'Derived from the twisted-sector ground state for this entry; cross-check against Ginsparg (1988) welcome.'
+  note: 'The lowest state of the modular-invariant partition function in the Spectrum section, built from the circle and orbifold partition functions of the subgroups.'
 
 operators:
 - name: '\sigma_{5}'

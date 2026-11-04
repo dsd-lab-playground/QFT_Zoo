@@ -1,0 +1,38 @@
+{
+  "theory": "n1-minimal-ad-da",
+  "member": {"at": 6, "variant": "(D,A)-"},
+  "c": "5/4",
+  "chiral_algebra": "\\left(SU(2)_{4}\\times SU(2)_2/SU(2)_{6}\\right)",
+  "irreducible": true,
+  "Z_tex": "Z = \\tfrac12\\sum N^{D}_{l\\tilde l}\\,N^{A}_{l'\\tilde l'}\\,b^{(l,\\epsilon,l')}\\overline{b^{(\\tilde l,\\epsilon,\\tilde l')}} - \\tfrac12",
+  "character_tex": "The $\\mathcal{N}=1$ characters $\\chi^{NS}_{r,s} = q^{-c/24}\\prod_{n\\ge1}\\frac{1+q^{n-1/2}}{1-q^n}\\sum_{k}\\left(q^{a_k}-q^{b_k}\\right)$ and $\\chi^{R}_{r,s} = q^{1/16-c/24}\\prod_{n\\ge1}\\frac{1+q^{n}}{1-q^n}\\sum_{k}\\left(q^{a_k}-q^{b_k}\\right)$, $a_k = \\frac{(2pp'k+p'r-ps)^2-4}{8pp'}$, $b_k = \\frac{(2pp'k+p'r+ps)^2-4}{8pp'}$, $(p,p') = (6,8)$. With $r = l+1$, $s = l'+1$: $b^{(l,0,l')}$ and $b^{(l,2,l')}$ are the parts of $\\chi^{NS}_{r,s}$ at integer and half-integer level (whichever matches the coset weight), and $b^{(l,1,l')} = \\chi^R_{r,s}$.",
+  "description": "Coset $SU(2)_{4}\\times SU(2)_2/SU(2)_{6}$ with the (D,A) invariant (D on the level-4 label, A on the level-6 label). Blocks are the coset branching functions $b^{(l,\\epsilon,l')}$ with $(l,\\epsilon,l')\\sim(4-l,2-\\epsilon,6-l')$. The Ramond ground state $(2,1,3)$ is a fixed point of the identification; its two resolved components $b_\\pm$ differ by the constant 1, and the sign pairs $b_+$ with $b_-$, so the ground state appears at $(c/24, c/24+1)$.",
+  "generator": "scripts/spectra/gen_n1.py",
+  "blocks": [
+    {"label": "b^{(0,0,0)}", "h": "0", "coeffs": [1, 0, 1, 1, 3, 3, 7, 8]},
+    {"label": "b^{(0,0,2)}", "h": "3/4", "coeffs": [1, 1, 3, 4, 8, 11, 19]},
+    {"label": "b^{(0,0,4)}", "h": "5/4", "coeffs": [1, 1, 3, 4, 8, 12]},
+    {"label": "b^{(0,0,6)}", "h": "7/2", "coeffs": [1, 2, 3, 5]},
+    {"label": "b^{(0,1,1)}", "h": "3/32", "coeffs": [1, 1, 2, 4, 6, 10, 16]},
+    {"label": "b^{(0,1,3)}", "h": "23/32", "coeffs": [1, 2, 3, 6, 10, 16, 26]},
+    {"label": "b^{(0,1,5)}", "h": "67/32", "coeffs": [1, 2, 4, 7, 12]},
+    {"label": "b^{(0,2,0)}", "h": "3/2", "coeffs": [1, 1, 2, 3, 5, 7]},
+    {"label": "b^{(0,2,2)}", "h": "1/4", "coeffs": [1, 1, 2, 3, 6, 9, 15]},
+    {"label": "b^{(0,2,4)}", "h": "7/4", "coeffs": [1, 2, 3, 6, 10, 16]},
+    {"label": "b^{(0,2,6)}", "h": "3", "coeffs": [1, 1, 3, 4, 7]},
+    {"label": "b^{(2,0,0)}", "h": "4/3", "coeffs": [1, 1, 3, 4, 8, 11]},
+    {"label": "b^{(2,0,2)}", "h": "1/12", "coeffs": [1, 1, 3, 5, 10, 15, 26]},
+    {"label": "b^{(2,0,4)}", "h": "7/12", "coeffs": [1, 2, 4, 7, 12, 20, 32]},
+    {"label": "b^{(2,0,6)}", "h": "5/6", "coeffs": [1, 1, 2, 3, 6, 9, 15]},
+    {"label": "b^{(2,1,1)}", "h": "41/96", "coeffs": [1, 2, 4, 7, 12, 20, 32]},
+    {"label": "b^{(2,1,3)}_{+}", "h": "5/96", "coeffs": [1, 1, 2, 4, 7, 12, 19]},
+    {"label": "b^{(2,1,3)}_{-}", "h": "101/96", "coeffs": [1, 2, 4, 7, 12, 19]}
+  ],
+  "Z": [
+    [0, 0, 1], [0, 10, 1], [1, 1, 1], [1, 9, 1], [2, 2, 1], [2, 8, 1],
+    [3, 3, 1], [3, 7, 1], [4, 4, 1], [4, 6, 1], [5, 5, 2], [6, 4, 1],
+    [6, 6, 1], [7, 3, 1], [7, 7, 1], [8, 2, 1], [8, 8, 1], [9, 1, 1],
+    [9, 9, 1], [10, 0, 1], [10, 10, 1], [11, 11, 2], [12, 12, 2], [13, 13, 2],
+    [14, 14, 2], [15, 15, 2], [16, 17, 2], [17, 16, 2]
+  ]
+}

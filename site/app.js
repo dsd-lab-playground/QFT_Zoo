@@ -2,7 +2,7 @@
 /* QFT Zoo front end: loads data/theories.json (built by scripts/build.py) and
    renders a catalogue view and one page per theory, using hash routing:
      #/                 catalogue
-     #/theory/<id>      a theory
+     #/theory/<id>      a theory (with its spectrum, if data/spectra has one)
      #/landscape        2d CFTs in the (c, gap) plane
      #/contribute       how to contribute                                   */
 
@@ -23,7 +23,7 @@ const REL_LABEL = {
 
 let DB = null; // { generated, repo, branch, template, theories: [...] }
 const BY_ID = new Map();
-const filters = { q: "", d: new Set(), tags: new Set() };
+const filters = { q: "", d: new Set(), tags: new Set(), spectrum: false };
 const app = document.getElementById("app");
 
 /* ------------------------------------------------------------------ helpers */
@@ -130,8 +130,9 @@ function keyData(t) {
   const parts = [];
   if (q.c != null) parts.push(tex(`c = ${q.c}`));
   if (q.gap != null) parts.push(tex(`\\Delta_{\\rm gap} = ${q.gap}`));
-  if (parts.length) return parts.join("<br>");
-  return symmetrySummary(t);
+  const spec = t.spectra?.length ? `<div class="sub">${t.family ? `spectra of ${t.spectra.length} members` : "full spectrum"}</div>` : "";
+  if (parts.length) return parts.join("<br>") + spec;
+  return symmetrySummary(t) + spec;
 }
 
 function renderRow(t) {
@@ -174,6 +175,9 @@ function viewBrowse() {
       <div class="chips"><span class="chips-label">Dimension</span>
         ${dims.map((d) => `<button type="button" class="chip" data-d="${d}" aria-pressed="${filters.d.has(d)}">d = ${d}</button>`).join("")}
       </div>
+      <div class="chips"><span class="chips-label">Data</span>
+        <button type="button" class="chip" data-chip-spectrum aria-pressed="${filters.spectrum}">Spectrum &amp; characters</button>
+      </div>
       <div class="chips"><span class="chips-label">Tags</span>
         ${tags.map((g) => `<button type="button" class="chip" data-chip-tag="${esc(g)}" aria-pressed="${filters.tags.has(g)}">${esc(g)}</button>`).join("")}
       </div>
@@ -201,10 +205,15 @@ function viewBrowse() {
   app.querySelectorAll("[data-chip-tag]").forEach((b) =>
     b.addEventListener("click", () => toggle(filters.tags, b.dataset.chipTag))
   );
+  app.querySelector("[data-chip-spectrum]").addEventListener("click", () => {
+    filters.spectrum = !filters.spectrum;
+    applyFilters();
+  });
   app.querySelector("#clear").addEventListener("click", () => {
     filters.q = "";
     filters.d.clear();
     filters.tags.clear();
+    filters.spectrum = false;
     q.value = "";
     applyFilters();
   });
@@ -228,6 +237,7 @@ function applyFilters() {
     const ok =
       (filters.d.size === 0 || filters.d.has(t.d)) &&
       [...filters.tags].every((g) => (t.tags || []).includes(g)) &&
+      (!filters.spectrum || t.spectra?.length > 0) &&
       terms.every((w) => t._search.includes(w));
     const tr = app.querySelector(`tr[data-id="${CSS.escape(t.id)}"]`);
     if (tr) tr.hidden = !ok;
@@ -237,11 +247,12 @@ function applyFilters() {
   app.querySelectorAll("[data-chip-tag]").forEach((b) =>
     b.setAttribute("aria-pressed", filters.tags.has(b.dataset.chipTag))
   );
+  app.querySelector("[data-chip-spectrum]").setAttribute("aria-pressed", filters.spectrum);
   app.querySelectorAll("#rows .pill").forEach((p) => p.classList.toggle("on", filters.tags.has(p.dataset.tag)));
   const total = DB.theories.length;
   app.querySelector("#count").textContent =
     shown === total ? `${total} theories` : `${shown} of ${total} theories`;
-  app.querySelector("#clear").hidden = !(filters.q || filters.d.size || filters.tags.size);
+  app.querySelector("#clear").hidden = !(filters.q || filters.d.size || filters.tags.size || filters.spectrum);
   app.querySelector("#empty").hidden = shown > 0;
 }
 
@@ -307,6 +318,8 @@ function viewTheory(id) {
         )
       )
     );
+
+  if (t.spectra?.length) out.push(section("spectrum", "Spectrum", spectrumShell(t)));
 
   if (t.operators?.length) {
     // Only show columns that some operator fills.
@@ -381,6 +394,7 @@ function viewTheory(id) {
     ${out.join("")}
     <p class="muted small">${contributors ? `Contributors: ${contributors}. ` : ""}Source:
       <a href="${gh.blob(t.source)}" target="_blank" rel="noopener"><code>${esc(t.source)}</code></a></p>`;
+  if (t.spectra?.length) showSpectrum(t, 0);
 }
 
 /** Members of a family: the first `show` parameter values (all variants of each),
@@ -393,8 +407,9 @@ function membersTable(t) {
   const hasVariant = t.members.some((m) => m.variant);
   const hasLabel = t.members.some((m) => m.label);
   const hasNotes = t.members.some((m) => m.entries?.length || m.note);
+  const specIndex = new Map((t.spectra || []).map((r, i) => [`${r.at}|${r.variant ?? ""}`, i]));
   const head = [tex(p), ...(hasVariant ? ["Variant"] : []), ...(hasLabel ? ["Theory"] : []), tex("c"), tex("\\Delta_{\\rm gap}"),
-    ...(hasNotes ? ["Entry / notes"] : [])];
+    ...(hasNotes ? ["Entry / notes"] : []), ...(specIndex.size ? ["Spectrum"] : [])];
   const rows = t.members.map((m) => {
     const entries = (m.entries || [])
       .map((id) => `<a href="#/theory/${encodeURIComponent(id)}">${md(BY_ID.get(id)?.name ?? id, true)}</a>`)
@@ -402,6 +417,10 @@ function membersTable(t) {
     const notes = [entries, m.note ? md(m.note, true) : ""].filter(Boolean).join(" · ");
     const cells = [tex(m.at), ...(hasVariant ? [esc(m.variant ?? "")] : []), ...(hasLabel ? [md(m.label, true)] : []),
       m.c != null ? tex(m.c) : "", m.gap != null ? tex(m.gap) : "", ...(hasNotes ? [notes] : [])];
+    if (specIndex.size) {
+      const i = specIndex.get(`${m.at}|${m.variant ?? ""}`);
+      cells.push(i == null ? "" : `<button type="button" class="linkish" data-spec-member="${i}">show</button>`);
+    }
     return `<tr${shown.has(String(m.at)) ? "" : ' class="extra" hidden'}>${cells.map((c) => `<td>${c}</td>`).join("")}</tr>`;
   });
   const more = values.length > shown.size
@@ -426,6 +445,157 @@ function refItem(r) {
     r.journal ? `, ${esc(r.journal)}` : ""
   }${r.year ? ` (${r.year})` : ""}. <span class="ref-links">${links.join(" · ")}</span>${
     r.note ? ` <span class="muted small">— ${md(r.note, true)}</span>` : ""}</li>`;
+}
+
+/* ----------------------------------------------------------- spectra */
+
+// Exact rationals for weights given as "a/b" strings.
+const gcd = (a, b) => (b ? gcd(b, a % b) : Math.abs(a));
+function rat(s) {
+  const [n, d = "1"] = String(s).split("/");
+  const N = parseInt(n, 10), D = parseInt(d, 10), g = gcd(N, D) || 1;
+  return [N / g, D / g];
+}
+const radd = ([a, b], [c, d], sign = 1) => {
+  const n = a * d + sign * c * b, m = b * d, g = gcd(n, m) || 1;
+  return [n / g, m / g];
+};
+const rnum = ([a, b]) => a / b;
+function rtex([n, d]) {
+  if (d === 1) return String(n);
+  return `${n < 0 ? "-" : ""}\\tfrac{${Math.abs(n)}}{${d}}`;
+}
+
+const SPECTRUM_CACHE = new Map();
+const SPEC_STATE = { t: null, S: null, full: new Set() };
+const SPEC_ROWS = 24; // rows shown before "show all"
+
+function memberName(t, row) {
+  const p = t.family?.parameter || "m";
+  return `${p} = ${plain(String(row.at))}${row.variant ? `, ${row.variant}` : ""}`;
+}
+
+function spectrumShell(t) {
+  const pick = t.family
+    ? `<p class="viz-controls"><label class="select-label">Member
+        <select id="spectrum-member">${t.spectra
+          .map((r, i) => `<option value="${i}">${esc(memberName(t, r))}</option>`)
+          .join("")}</select></label>
+        <span class="muted small">${t.spectra.length} members have computed spectra.</span></p>`
+    : "";
+  return `${pick}<div id="spectrum-body" aria-live="polite"><p class="muted">Loading spectrum…</p></div>`;
+}
+
+function showSpectrum(t, i) {
+  const row = t.spectra[i];
+  const body = document.getElementById("spectrum-body");
+  if (!row || !body) return;
+  const done = (S) => {
+    if (SPEC_STATE.t !== t || document.getElementById("spectrum-body") !== body) return;
+    SPEC_STATE.S = S;
+    SPEC_STATE.full = new Set();
+    body.innerHTML = renderSpectrum(S);
+  };
+  SPEC_STATE.t = t;
+  const hit = SPECTRUM_CACHE.get(row.path);
+  if (hit) return done(hit);
+  fetch(row.path)
+    .then((r) => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json();
+    })
+    .then((S) => {
+      SPECTRUM_CACHE.set(row.path, S);
+      done(S);
+    })
+    .catch((err) => {
+      body.innerHTML = `<p class="error">Could not load ${esc(row.path)} (${esc(err.message)}).</p>`;
+    });
+}
+
+/** q-expansion sum_n a_n q^{n*step} as TeX, first `terms` nonzero terms. */
+function qSeries(coeffs, step = "1", terms = 9) {
+  const st = rat(step);
+  const parts = [];
+  let shown = 0;
+  for (let n = 0; n < coeffs.length && shown < terms; n++) {
+    const a = coeffs[n];
+    if (!a) continue;
+    const e = [st[0] * n, st[1]];
+    const g = gcd(e[0], e[1]) || 1;
+    const ex = [e[0] / g, e[1] / g];
+    const q = ex[0] === 0 ? "" : ex[1] === 1 && ex[0] === 1 ? "q" : ex[1] === 1 ? `q^{${ex[0]}}` : `q^{${ex[0]}/${ex[1]}}`;
+    const mag = Math.abs(a);
+    const coef = q && mag === 1 ? "" : String(mag);
+    parts.push(`${a < 0 ? "-" : parts.length ? "+" : ""}${coef}${q}`);
+    shown++;
+  }
+  return parts.join(" ") + " + \\dots";
+}
+
+function specTable(key, headers, rows) {
+  const full = SPEC_STATE.full.has(key);
+  const show = full ? rows : rows.slice(0, SPEC_ROWS);
+  const more = rows.length > show.length
+    ? `<p><button type="button" class="linkish" data-spec-more="${key}">Show all ${rows.length} rows</button></p>` : "";
+  return `<div data-spec-table="${key}">${table(headers, show.map((f) => f()), "data spectrum")}${more}</div>`;
+}
+
+function weightCells(h, hb) {
+  const H = rat(h), HB = rat(hb);
+  return [tex(`(${rtex(H)},\\ ${rtex(HB)})`), tex(rtex(radd(H, HB))), tex(rtex(radd(H, HB, -1)))];
+}
+
+function renderSpectrum(S) {
+  const c = rat(S.c);
+  const parts = [];
+  const err = S.s_error ? S.s_error.toExponential(0).replace(/e([+-])(\d+)/, (_, s, d) => `\\times 10^{${s === "-" ? "-" : ""}${d}}`) : "0";
+  parts.push(`<p class="spec-checks">${tex("c = " + rtex(c))} · lightest non-vacuum Virasoro primary ${
+    S.gap != null ? tex("\\Delta = " + rtex(rat(S.gap))) : "—"} · modular invariance checked: ${tex(
+    `|Z(\\tau) - Z(-1/\\tau)|/|Z| \\approx ${err}`)} · degeneracies are non-negative integers for ${tex(
+    `h, \\bar h \\le ${rtex(rat(S.cutoff))}`)}.</p>`);
+  if (S.Z_tex) parts.push(`<div class="display-math">${tex(S.Z_tex, true)}</div>`);
+  if (S.description) parts.push(`<div class="prose">${md(S.description)}</div>`);
+
+  if (S.primaries?.length) {
+    const algebra = S.chiral_algebra ? ` of ${tex(S.chiral_algebra)}` : "";
+    const rows = S.primaries.map((p) => () => [
+      ...weightCells(p.h, p.hb),
+      tex(String(p.mult)),
+      p.pairs.slice(0, 3).map(([i, j]) => tex(`${S.blocks[i].label}\\,\\overline{${S.blocks[j].label}}`)).join(", ") +
+        (p.pairs.length > 3 ? " …" : ""),
+    ]);
+    parts.push(`<h3>Primaries${algebra}</h3>
+      <p class="muted small">Each term ${tex("N_{ij}\\,\\chi_i\\overline{\\chi_j}")} of ${tex("Z")}: left and right weights and multiplicity.</p>
+      ${specTable("prim", [tex("(h, \\bar h)"), tex("\\Delta"), tex("s"), "Mult.", "Term"], rows)}`);
+  }
+
+  const showVir = !(S.irreducible && rnum(c) < 1) && S.virasoro?.length;
+  if (showVir) {
+    const rows = S.virasoro.map(([h, hb, n]) => () => [...weightCells(h, hb), tex(String(n))]);
+    const capped = S.n_virasoro > S.virasoro.length
+      ? ` (the ${S.virasoro.length} lightest of ${S.n_virasoro} up to the cutoff)` : "";
+    parts.push(`<h3>Virasoro primaries</h3>
+      <p class="muted small">${tex("Z")} decomposed into Virasoro characters${rnum(c) > 1
+        ? ` (${tex("\\chi_h = q^{h-(c-1)/24}/\\eta")}, and ${tex("(1-q)\\,q^{-(c-1)/24}/\\eta")} for the vacuum)`
+        : rnum(c) === 1 ? ` (degenerate at ${tex("h = n^2/4")})` : ""}, for ${tex(`h, \\bar h \\le ${rtex(rat(S.cutoff))}`)}${capped}.</p>
+      ${specTable("vir", [tex("(h, \\bar h)"), tex("\\Delta"), tex("s"), "Degeneracy"], rows)}`);
+  }
+
+  const blockRows = S.blocks.map((b) => () => [
+    tex(b.label),
+    tex(rtex(rat(b.h))),
+    tex(qSeries(b.coeffs, b.step || "1")),
+  ]);
+  parts.push(`<h3>${S.irreducible ? "Characters" : "Blocks"}</h3>
+    ${S.character_tex ? `<div class="prose small">${md(S.character_tex)}</div>` : ""}
+    <p class="muted small">Each ${S.irreducible ? "character" : "block"} is ${tex("q^{h - c/24}")} times the series shown.</p>
+    ${specTable("blocks", [S.irreducible ? "Character" : "Block", tex("h"), tex("q^{c/24-h}\\times")], blockRows)}`);
+
+  const links = [`<a href="${gh.blob(S.source)}" target="_blank" rel="noopener">data file</a>`];
+  if (S.generator) links.push(`<a href="${gh.blob(S.generator)}" target="_blank" rel="noopener">generator script</a>`);
+  parts.push(`<p class="muted small">Source: ${links.join(" · ")}.</p>`);
+  return parts.join("");
 }
 
 /* --------------------------------------------------------- landscape view */
@@ -705,6 +875,13 @@ python scripts/build.py --serve</code></pre>
       validated against <a href="${gh.blob("schema/theory.schema.json")}" target="_blank" rel="noopener">a JSON schema</a>.
       Text fields accept Markdown and LaTeX math (e.g. ${tex("\\Delta_\\sigma = 0.518148806(24)")}). Every number should cite a reference.
       Automated checks run on every pull request, so problems are flagged before review.</p>
+      <p>A 2d CFT can also have a torus partition function in
+      <a href="${gh.repo()}/tree/${DB.branch}/data/spectra" target="_blank" rel="noopener"><code>data/spectra/</code></a>:
+      characters as exact ${tex("q")}-series and the integer (or rational) matrix that combines them
+      (<a href="${gh.blob("schema/spectrum.schema.json")}" target="_blank" rel="noopener">schema</a>). The build checks
+      ${tex("Z(\\tau) = Z(-1/\\tau)")}, non-negative integer degeneracies, a unique vacuum, and that the lightest
+      Virasoro primary matches the theory's ${tex("\\Delta_{\\rm gap}")}. See the
+      <a href="${gh.blob("CONTRIBUTING.md")}#spectra-of-2d-cfts" target="_blank" rel="noopener">contributing guide</a>.</p>
       <p>The complete dataset is available as <a href="data/theories.json">one JSON file</a> for use in your own code.</p></div>`
     )}`;
 }
@@ -730,8 +907,28 @@ function route() {
   window.scrollTo(0, 0);
 }
 
-// Clicks shared by all views: citation links, tag pills, "show more" members.
+app.addEventListener("change", (e) => {
+  if (e.target.id === "spectrum-member" && SPEC_STATE.t) showSpectrum(SPEC_STATE.t, +e.target.value);
+});
+
+// Clicks shared by all views: citation links, tag pills, "show more" members / rows.
 app.addEventListener("click", (e) => {
+  const specMember = e.target.closest("[data-spec-member]");
+  if (specMember && SPEC_STATE.t) {
+    const sel = document.getElementById("spectrum-member");
+    if (sel) sel.value = specMember.dataset.specMember;
+    showSpectrum(SPEC_STATE.t, +specMember.dataset.specMember);
+    document.getElementById("sec-spectrum")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+  const specMore = e.target.closest("[data-spec-more]");
+  if (specMore && SPEC_STATE.S) {
+    const key = specMore.dataset.specMore;
+    SPEC_STATE.full.add(key);
+    document.getElementById("spectrum-body").innerHTML = renderSpectrum(SPEC_STATE.S);
+    document.querySelector(`[data-spec-table="${key}"]`)?.scrollIntoView({ block: "start" });
+    return;
+  }
   const more = e.target.closest("[data-more-members]");
   if (more) {
     more.closest("section").querySelectorAll("tr.extra").forEach((tr) => (tr.hidden = false));

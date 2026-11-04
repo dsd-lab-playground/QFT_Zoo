@@ -1,0 +1,19 @@
+{
+  "theory": "zk-parafermions",
+  "member": {"at": 2},
+  "c": "1/2",
+  "chiral_algebra": "\\mathrm{PF}_{2} = SU(2)_{2}/U(1)",
+  "irreducible": true,
+  "Z_tex": "Z = \\sum_{(l,m)/\\sim} |\\Phi^l_m|^2",
+  "character_tex": "String functions: $\\chi^{SU(2)_k}_l(\\tau, z) = \\sum_{m \\in \\mathbb{Z}_{2k}} \\Phi^l_m(\\tau)\\,\\frac{\\Theta_{m,k}(\\tau,z)}{\\eta(\\tau)}$ with $\\Theta_{m,k} = \\sum_{n\\in\\mathbb{Z}+m/2k} q^{kn^2}z^{kn}$, computed from the Weyl-Kac formula; fields $(l,m)\\sim(k-l,m+k)$, $l \\equiv m \\pmod 2$, $h^l_m = \\frac{l(l+2)}{4(k+2)} - \\frac{m^2}{4k}$ for $|m| \\le l$.",
+  "description": "Diagonal invariant of the $\\mathbb{Z}_{2}$ parafermion theory (Fateev-Zamolodchikov; Gepner-Qiu): 3 fields.",
+  "generator": "scripts/spectra/gen_pf.py",
+  "blocks": [
+    {"label": "\\Phi^{0}_{0}", "h": "0", "coeffs": [1, 0, 1, 1, 2, 2, 3, 3, 5]},
+    {"label": "\\Phi^{1}_{-1}", "h": "1/16", "coeffs": [1, 1, 1, 2, 2, 3, 4, 5]},
+    {"label": "\\Phi^{2}_{0}", "h": "1/2", "coeffs": [1, 1, 1, 1, 2, 2, 3, 4]}
+  ],
+  "Z": [
+    [0, 0, 1], [1, 1, 1], [2, 2, 1]
+  ]
+}
