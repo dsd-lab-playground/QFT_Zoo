@@ -1,0 +1,17 @@
+name: Leave a comment
+description: "Feedback on the pilot site: what works, what doesn't, what is missing."
+title: "[Feedback] "
+labels: ["feedback"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: The theory id or page you are commenting on, if any (e.g. ising-3d, summary tables).
+  - type: textarea
+    id: comment
+    attributes:
+      label: Comment
+      description: Comments are public and are listed on the site's Feedback page.
+    validations:
+      required: true

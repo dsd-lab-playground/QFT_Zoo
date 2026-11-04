@@ -31,6 +31,10 @@ maintainers before they appear on the site.
   home page has *Add a theory*. GitHub forks the repo and opens a pull request for you.
 - **Work locally:** see [CONTRIBUTING.md](CONTRIBUTING.md).
 
+Comments on the site itself go through the
+[feedback form](https://github.com/nathansbenjamin/QFT_Zoo/issues/new?template=feedback.yml) and appear on the
+site's Feedback page. `python scripts/fetch_feedback.py` prints them all as Markdown.
+
 ## Repository layout
 
 ```

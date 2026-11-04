@@ -1,7 +1,12 @@
 "use strict";
 /* QFT Zoo front end: loads data/theories.json (built by scripts/build.py) and
    renders a catalogue view and one page per theory, using hash routing:
-     #/                 catalogue
+     #/                 home: a directory of everything on the site
+     #/catalogue        searchable catalogue; #/catalogue/<k>:<v> opens it filtered
+                        (k = d, tag, q or spectrum)
+     #/tables           summary tables, grouped by dimension and type
+     #/flows            RG flows between the theories
+     #/feedback         comments on the site, read live from GitHub issues
      #/theory/<id>      a theory (with its spectrum, if data/spectra has one)
      #/landscape        2d CFTs in the (c, gap) plane
      #/contribute       how to contribute                                   */
@@ -86,6 +91,8 @@ const gh = {
     `${gh.repo()}/new/${DB.branch}/data/theories?filename=${encodeURIComponent("my-theory.yaml")}` +
     `&value=${encodeURIComponent(DB.template)}`,
   suggest: () => `${gh.repo()}/issues/new?template=new-theory.yml`,
+  feedback: (page = "") =>
+    `${gh.repo()}/issues/new?template=feedback.yml&title=${encodeURIComponent(`[Feedback] ${page}`)}&page=${encodeURIComponent(page)}`,
   correction: (t) =>
     `${gh.repo()}/issues/new?template=correction.yml&title=${encodeURIComponent(`[Correction] ${plain(t.name)}`)}` +
     `&theory=${encodeURIComponent(t.id)}`,
@@ -111,6 +118,153 @@ function symmetrySummary(t) {
   if (s.gauge) parts.push(`<span class="muted">gauge</span> ${md(s.gauge, true)}`);
   if (s.supercharges) parts.push(`<span class="muted">${s.supercharges} supercharges</span>`);
   return parts.join("<br>");
+}
+
+/* -------------------------------------------------------------- home view */
+
+const catalogueLink = (key, value) => `#/catalogue/${key}:${encodeURIComponent(value)}`;
+
+function viewHome() {
+  document.title = "QFT Zoo";
+  const theories = DB.theories;
+  const count = (items) => {
+    const m = new Map();
+    items.forEach((x) => m.set(x, (m.get(x) || 0) + 1));
+    return m;
+  };
+  const dims = count(theories.map((t) => t.d));
+  const tags = count(theories.flatMap((t) => t.tags || []));
+  const nSpectra = theories.filter((t) => t.spectra?.length).length;
+  const ext = 'target="_blank" rel="noopener"';
+  const item = (href, label, n, attrs = "") =>
+    `<li><a href="${href}" ${attrs}>${label}</a>${n != null ? ` <span class="n">${n}</span>` : ""}</li>`;
+  const group = (title, cls, items) =>
+    `<details class="portal-group"><summary class="portal-btn">${title}</summary><ul class="${cls}">${items.join("")}</ul></details>`;
+
+  app.innerHTML = `
+    <section class="portal">
+      <h1>QFT Zoo</h1>
+      <p class="portal-sub">An open, community-curated catalogue of quantum field theories and their data</p>
+      <p class="portal-meta">${theories.length} theories · data built ${esc(DB.generated)}</p>
+      <form class="portal-search" role="search">
+        <input id="home-q" type="search" placeholder="Search names, symmetries, tags…" autocomplete="off" aria-label="Search the catalogue">
+      </form>
+      <div class="portal-grid">
+        <div class="portal-col">
+          <a class="portal-btn" href="#/catalogue">Interactive Catalogue</a>
+          <a class="portal-btn" href="#/tables">Summary Tables</a>
+          <a class="portal-btn" href="#/flows">RG Flows</a>
+          <a class="portal-btn" href="#/landscape">2d CFT Landscape</a>
+          <a class="portal-btn" href="#/contribute">Contribute</a>
+          <a class="portal-btn" href="#/feedback">Comments &amp; Feedback</a>
+        </div>
+        <div class="portal-col">
+          <a class="portal-btn" href="${gh.newTheory()}" ${ext}>Add a Theory</a>
+          ${group("By Dimension", "", [...dims.keys()].sort((a, b) => a - b).map((d) => item(catalogueLink("d", d), `d = ${d}`, dims.get(d))))}
+          ${group("Topical Index", "two-col", [...tags.keys()].sort((a, b) => tags.get(b) - tags.get(a) || a.localeCompare(b)).map((g) => item(catalogueLink("tag", g), esc(g), tags.get(g))))}
+          ${group("Downloads &amp; Data", "", [
+            item("data/theories.json", "All theories (JSON)"),
+            item("data/theory.schema.json", "Theory schema"),
+            item("data/spectrum.schema.json", "Spectrum schema"),
+            item(catalogueLink("spectrum", 1), "Theories with full spectra", nSpectra),
+          ])}
+          ${group("Other Resources", "", [
+            item(gh.repo(), "Source &amp; data on GitHub", null, ext),
+            item(gh.blob("CONTRIBUTING.md"), "Contributing guide", null, ext),
+            item(gh.suggest(), "Suggest a theory", null, ext),
+            item(`${gh.repo()}/issues/new?template=correction.yml`, "Report a problem", null, ext),
+            item("https://arxiv.org/list/hep-th/recent", "arXiv hep-th", null, ext),
+            item("https://inspirehep.net/", "INSPIRE", null, ext),
+          ])}
+        </div>
+      </div>
+    </section>`;
+
+  app.querySelector(".portal-search").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const q = app.querySelector("#home-q").value.trim();
+    location.hash = q ? catalogueLink("q", q) : "#/catalogue";
+  });
+}
+
+/* ------------------------------------------------------------ summary tables */
+
+// A theory goes in the first of these groups whose tag it has.
+const TABLE_GROUPS_2D = [
+  ["minimal model", "Minimal models"],
+  ["free", "Free theories"],
+  ["orbifold", "Orbifolds"],
+  ["coset", "Cosets"],
+  [null, "Other 2d CFTs"],
+];
+
+const keyed = (t) => Object.fromEntries((t.quantities || []).filter((x) => x.key).map((x) => [x.key, x.value]));
+
+function summaryName(t) {
+  return `<a href="#/theory/${encodeURIComponent(t.id)}">${md(t.name, true)}</a>${t.family ? ' <span class="muted small">(family)</span>' : ""}`;
+}
+
+function summaryTable2d(list) {
+  const sorted = [...list].sort((a, b) => (a.c_num ?? Infinity) - (b.c_num ?? Infinity));
+  return table(
+    ["Theory", tex("c"), tex("\\Delta_{\\rm gap}"), "Global symmetry", "Spectrum"],
+    sorted.map((t) => {
+      const q = keyed(t);
+      return [
+        summaryName(t),
+        q.c != null ? `<span class="value">${tex(q.c)}</span>` : "",
+        q.gap != null ? `<span class="value">${tex(q.gap)}</span>` : "",
+        md(t.symmetry?.global, true),
+        t.spectra?.length ? (t.family ? `${t.spectra.length} members` : "yes") : "",
+      ];
+    }),
+    "data summary-2d"
+  );
+}
+
+function summaryTableHigherD(list) {
+  // Some values carry their own relation ("≈ 0.86–0.90"), so "=" is added only when they don't.
+  const delta = (v) => (/^\s*(≈|~|<|>|\\approx|\\sim|\\le|\\ge)/.test(String(v)) ? `\\Delta ${v}` : `\\Delta = ${v}`);
+  const hasGauge = list.some((t) => t.symmetry?.gauge);
+  return table(
+    ["Theory", "Global symmetry", ...(hasGauge ? ["Gauge group"] : []), "First listed operators"],
+    list.map((t) => [
+      summaryName(t),
+      md(t.symmetry?.global, true),
+      ...(hasGauge ? [md(t.symmetry?.gauge, true)] : []),
+      (t.operators || [])
+        .filter((o) => o.Delta != null)
+        .slice(0, 2)
+        .map((o) => `<span class="value">${tex(`${o.name}:\\ ${delta(o.Delta)}`)}</span>`)
+        .join("<br>"),
+    ]),
+    "data"
+  );
+}
+
+function viewTables() {
+  document.title = "Summary Tables — QFT Zoo";
+  const groups = [];
+  const remaining = DB.theories.filter((t) => t.d === 2);
+  for (const [tag, title] of TABLE_GROUPS_2D) {
+    const list = remaining.filter((t) => tag === null || (t.tags || []).includes(tag));
+    list.forEach((t) => remaining.splice(remaining.indexOf(t), 1));
+    if (list.length) groups.push({ id: `d2-${groups.length}`, title: `d = 2: ${title}`, list, render: summaryTable2d });
+  }
+  const higher = [...new Set(DB.theories.map((t) => t.d))].filter((d) => d !== 2).sort((a, b) => a - b);
+  for (const d of higher)
+    groups.push({ id: `d${d}`, title: `d = ${d}`, list: DB.theories.filter((t) => t.d === d), render: summaryTableHigherD });
+
+  app.innerHTML = `
+    <header class="theory-head">
+      <h1>Summary Tables</h1>
+      <p class="lede">Key data for every theory in the zoo, at a glance. Each theory appears once, in the first group that
+        fits it; values, methods and references are on its own page.</p>
+    </header>
+    <nav class="jump" aria-label="Contents">
+      ${groups.map((g) => `<button type="button" class="linkish" data-jump="${g.id}">${g.title} <span class="muted">(${g.list.length})</span></button>`).join("")}
+    </nav>
+    ${groups.map((g) => section(g.id, `${g.title} <span class="muted small">(${g.list.length})</span>`, g.render(g.list))).join("")}`;
 }
 
 /* ------------------------------------------------------------ browse view */
@@ -146,7 +300,7 @@ function renderRow(t) {
 }
 
 function viewBrowse() {
-  document.title = "QFT Zoo";
+  document.title = "Catalogue — QFT Zoo";
   const theories = DB.theories;
   const dims = [...new Set(theories.map((t) => t.d))].sort((a, b) => a - b);
   const tagCount = new Map();
@@ -156,18 +310,11 @@ function viewBrowse() {
   if (!rowCache) rowCache = new Map(theories.map((t) => [t.id, renderRow(t)]));
 
   app.innerHTML = `
-    <section class="hero">
-      <h1>QFT Zoo</h1>
-      <p class="lede">An open, community-curated catalogue of quantum field theories and their data —
-        symmetries, spectra, central charges, RG flows and dualities. Every entry is a plain-text file in a
+    <header class="theory-head">
+      <h1>Interactive Catalogue</h1>
+      <p class="lede">Symmetries, spectra, central charges, RG flows and dualities. Every entry is a plain-text file in a
         public GitHub repository, and anyone can propose additions.</p>
-      <p class="actions">
-        <a class="btn primary" href="${gh.newTheory()}" target="_blank" rel="noopener">Add a theory</a>
-        <a class="btn" href="${gh.suggest()}" target="_blank" rel="noopener">Suggest one (no code)</a>
-        <a class="btn" href="#/landscape">2d CFT landscape</a>
-        <a class="btn" href="data/theories.json">Download all data (JSON)</a>
-      </p>
-    </section>
+    </header>
 
     <section class="controls" aria-label="Filters">
       <input id="q" type="search" placeholder="Search names, symmetries, tags…" autocomplete="off"
@@ -273,6 +420,13 @@ function viewTheory(id) {
 
   if (t.description) out.push(section("overview", "Overview", `<div class="prose">${md(t.description)}</div>`));
 
+  const flows = theoryLinks(t).filter(isFlow);
+  if (flows.length) {
+    const cluster = flowClusters(allFlows()).find((c) => c.some((f) => f.uv === t.id || f.ir === t.id));
+    out.push(section("flows", "RG flows", `${flowDiagram(cluster, t.id)}${relationList(t, flows)}
+      <p class="small"><a href="#/flows">All RG flows in the zoo →</a></p>`));
+  }
+
   if (t.lagrangian) out.push(section("lagrangian", "Lagrangian", `<div class="display-math">${tex(t.lagrangian, true)}</div>`));
 
   if (t.parameters?.length)
@@ -301,6 +455,24 @@ function viewTheory(id) {
     out.push(section("symmetry", "Symmetry", `<dl class="kv">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>`));
   }
 
+  if (t.operators?.length) {
+    // Only show columns that some operator fills.
+    const cols = [
+      ["Operator", (o) => tex(o.name), true],
+      ["Δ", (o) => `<span class="value">${tex(o.Delta)}</span>`, true],
+      [tex("(h, \\bar h)"), (o) => (o.weights ? tex(o.weights) : ""), "weights"],
+      ["Mult.", (o) => (o.degeneracy ? tex(o.degeneracy) : ""), "degeneracy"],
+      ["Spin", (o) => (o.spin != null ? tex(o.spin) : ""), "spin"],
+      ["Representation", (o) => md(o.rep, true), "rep"],
+      ["Notes", (o) => md(o.note, true), "note"],
+      ["Source", source, null],
+    ].filter(([, , key]) => key === true || key === null || t.operators.some((o) => o[key] != null));
+    const hasSource = t.operators.some((o) => o.method || o.refs?.length);
+    const use = cols.filter(([h]) => h !== "Source" || hasSource);
+    out.push(section("operators", "Operators",
+      table(use.map(([h]) => h), t.operators.map((o) => use.map(([, f]) => f(o))), "data")));
+  }
+
   if (t.quantities?.length)
     out.push(
       section(
@@ -321,55 +493,8 @@ function viewTheory(id) {
 
   if (t.spectra?.length) out.push(section("spectrum", "Spectrum", spectrumShell(t)));
 
-  if (t.operators?.length) {
-    // Only show columns that some operator fills.
-    const cols = [
-      ["Operator", (o) => tex(o.name), true],
-      ["Δ", (o) => `<span class="value">${tex(o.Delta)}</span>`, true],
-      [tex("(h, \\bar h)"), (o) => (o.weights ? tex(o.weights) : ""), "weights"],
-      ["Mult.", (o) => (o.degeneracy ? tex(o.degeneracy) : ""), "degeneracy"],
-      ["Spin", (o) => (o.spin != null ? tex(o.spin) : ""), "spin"],
-      ["Representation", (o) => md(o.rep, true), "rep"],
-      ["Notes", (o) => md(o.note, true), "note"],
-      ["Source", source, null],
-    ].filter(([, , key]) => key === true || key === null || t.operators.some((o) => o[key] != null));
-    const hasSource = t.operators.some((o) => o.method || o.refs?.length);
-    const use = cols.filter(([h]) => h !== "Source" || hasSource);
-    out.push(section("operators", "Operators",
-      table(use.map(([h]) => h), t.operators.map((o) => use.map(([, f]) => f(o))), "data")));
-  }
-
-  const links = [...(t.relations || []), ...(t.backlinks || [])];
-  if (links.length) {
-    const groups = Object.keys(REL_LABEL)
-      .map((type) => [type, links.filter((l) => l.type === type)])
-      .filter(([, ls]) => ls.length);
-    out.push(
-      section(
-        "relations",
-        "Relations",
-        `<dl class="kv relations">${groups
-          .map(
-            ([type, ls]) =>
-              `<dt>${REL_LABEL[type]}</dt><dd><ul>${ls
-                .map((l) => {
-                  const other = BY_ID.get(l.target);
-                  // Which member of a family: the parameter belongs to the family side of the link.
-                  const famSide = other?.family ? other : t.family ? t : null;
-                  const at = l.at != null
-                    ? ` <span class="muted">(${tex(`${famSide?.family.parameter ?? ""}${famSide ? " = " : ""}${l.at}`)}${
-                        l.variant ? `, ${esc(l.variant)}` : ""})</span>`
-                    : "";
-                  return `<li><a href="#/theory/${encodeURIComponent(l.target)}">${md(other ? other.name : l.target, true)}</a>${at}${
-                    l.note ? ` <span class="muted">— ${md(l.note, true)}</span>` : ""
-                  }</li>`;
-                })
-                .join("")}</ul></dd>`
-          )
-          .join("")}</dl>`
-      )
-    );
-  }
+  const others = theoryLinks(t).filter((l) => !isFlow(l));
+  if (others.length) out.push(section("relations", "Relations", relationList(t, others)));
 
   if (refs.length)
     out.push(section("references", "References", `<ol class="refs">${refs.map(refItem).join("")}</ol>`));
@@ -379,7 +504,7 @@ function viewTheory(id) {
     .join(", ");
 
   app.innerHTML = `
-    <nav class="crumbs"><a href="#/">← All theories</a></nav>
+    <nav class="crumbs"><a href="#/catalogue">← All theories</a></nav>
     <header class="theory-head">
       <h1>${md(t.name, true)}</h1>
       ${t.aliases?.length ? `<p class="aliases">Also known as: ${t.aliases.map((a) => md(a, true)).join(" · ")}</p>` : ""}
@@ -389,12 +514,167 @@ function viewTheory(id) {
         <a class="btn" href="${gh.edit(t.source)}" target="_blank" rel="noopener">Edit this entry</a>
         <a class="btn" href="${gh.blob(t.source)}" target="_blank" rel="noopener">View source</a>
         <a class="btn" href="${gh.correction(t)}" target="_blank" rel="noopener">Report a problem</a>
+        <a class="btn" href="${gh.feedback(t.id)}" target="_blank" rel="noopener">Leave a comment</a>
       </p>
     </header>
+    ${jumpBar(out)}
     ${out.join("")}
     <p class="muted small">${contributors ? `Contributors: ${contributors}. ` : ""}Source:
       <a href="${gh.blob(t.source)}" target="_blank" rel="noopener"><code>${esc(t.source)}</code></a></p>`;
   if (t.spectra?.length) showSpectrum(t, 0);
+  drawFlowArrows();
+}
+
+/* ------------------------------------------------------------- relations */
+
+const theoryLinks = (t) => [...(t.relations || []), ...(t.backlinks || [])];
+const isFlow = (l) => l.type === "flows_to" || l.type === "flows_from";
+
+/** "(p = 3, D-series)": which member of a family a link refers to. The parameter
+ *  belongs to the family side of the link. */
+function linkAt(t, l) {
+  if (l.at == null) return "";
+  const other = BY_ID.get(l.target);
+  const famSide = other?.family ? other : t.family ? t : null;
+  return ` <span class="muted">(${tex(`${famSide?.family.parameter ?? ""}${famSide ? " = " : ""}${l.at}`)}${
+    l.variant ? `, ${esc(l.variant)}` : ""})</span>`;
+}
+
+function relationList(t, links) {
+  const groups = Object.keys(REL_LABEL)
+    .map((type) => [type, links.filter((l) => l.type === type)])
+    .filter(([, ls]) => ls.length);
+  return `<dl class="kv relations">${groups
+    .map(
+      ([type, ls]) =>
+        `<dt>${REL_LABEL[type]}</dt><dd><ul>${ls
+          .map((l) => {
+            const other = BY_ID.get(l.target);
+            return `<li><a href="#/theory/${encodeURIComponent(l.target)}">${md(other ? other.name : l.target, true)}</a>${linkAt(t, l)}${
+              l.note ? ` <span class="muted">— ${md(l.note, true)}</span>` : ""
+            }</li>`;
+          })
+          .join("")}</ul></dd>`
+    )
+    .join("")}</dl>`;
+}
+
+/* ---------------------------------------------------------------- RG flows */
+
+/** Every recorded flow once, whichever side of the link it was read from. */
+function allFlows() {
+  const flows = new Map();
+  for (const t of DB.theories)
+    for (const l of theoryLinks(t).filter(isFlow)) {
+      if (!BY_ID.has(l.target)) continue;
+      const [uv, ir] = l.type === "flows_to" ? [t.id, l.target] : [l.target, t.id];
+      const key = [uv, ir, l.at ?? "", l.variant ?? ""].join("|");
+      if (!flows.has(key)) flows.set(key, { uv, ir, note: l.note, at: linkAt(t, l) });
+    }
+  return [...flows.values()];
+}
+
+/** Flows grouped into connected networks. */
+function flowClusters(flows) {
+  const parent = new Map();
+  const find = (x) => {
+    while (parent.has(x)) x = parent.get(x);
+    return x;
+  };
+  flows.forEach((f) => {
+    const [a, b] = [find(f.uv), find(f.ir)];
+    if (a !== b) parent.set(a, b);
+  });
+  const clusters = new Map();
+  flows.forEach((f) => {
+    const r = find(f.uv);
+    clusters.set(r, [...(clusters.get(r) || []), f]);
+  });
+  return [...clusters.values()];
+}
+
+/** One network, UV at the top and IR at the bottom. A theory's row is the longest chain
+ *  of flows below it, so the vertical position shows order, not an energy scale. */
+function flowDiagram(cluster, current = null) {
+  const ranks = new Map();
+  const rank = (id, path) => {
+    if (ranks.has(id)) return ranks.get(id);
+    if (path.has(id)) return 0; // a cycle would be a data error; don't hang on it
+    path.add(id);
+    const r = Math.max(0, ...cluster.filter((f) => f.uv === id).map((f) => 1 + rank(f.ir, path)));
+    path.delete(id);
+    ranks.set(id, r);
+    return r;
+  };
+  const ids = [...new Set(cluster.flatMap((f) => [f.uv, f.ir]))];
+  ids.forEach((id) => rank(id, new Set()));
+  const node = (id) => {
+    const t = BY_ID.get(id);
+    const kind = t.tags?.includes("CFT") ? "" : `<span class="flow-kind">not a CFT</span>`;
+    return id === current
+      ? `<span class="flow-node current" data-flow-node="${esc(id)}" aria-current="page">${md(t.name, true)}${kind}</span>`
+      : `<a class="flow-node" data-flow-node="${esc(id)}" href="#/theory/${encodeURIComponent(id)}">${md(t.name, true)}${kind}</a>`;
+  };
+  const rows = [];
+  for (let r = Math.max(...ranks.values()); r >= 0; r--) {
+    const row = ids.filter((id) => ranks.get(id) === r);
+    rows.push(`<div class="flow-row" style="--n:${row.length}">${row.map(node).join("")}</div>`);
+  }
+  const edges = cluster.map((f) => [f.uv, f.ir]);
+  return `<div class="flow-graph" data-edges="${esc(JSON.stringify(edges))}">${rows.join("")}</div>`;
+}
+
+/** The arrows are decoration: the links and lists next to each diagram carry the same content. */
+function drawFlowArrows() {
+  app.querySelectorAll(".flow-graph").forEach((g) => {
+    g.querySelector("svg")?.remove();
+    const box = g.getBoundingClientRect();
+    const svg = svgEl("svg", { class: "flow-arrows", width: box.width, height: box.height, "aria-hidden": "true" });
+    for (const [uv, ir] of JSON.parse(g.dataset.edges)) {
+      const a = g.querySelector(`[data-flow-node="${CSS.escape(uv)}"]`).getBoundingClientRect();
+      const b = g.querySelector(`[data-flow-node="${CSS.escape(ir)}"]`).getBoundingClientRect();
+      const [x1, y1] = [a.left + a.width / 2 - box.left, a.bottom - box.top];
+      const [x2, y2] = [b.left + b.width / 2 - box.left, b.top - box.top - 2];
+      const len = Math.hypot(x2 - x1, y2 - y1) || 1;
+      const [ux, uy] = [(x2 - x1) / len, (y2 - y1) / len];
+      const [bx, by] = [x2 - 8 * ux, y2 - 8 * uy];
+      svgEl("line", { x1, y1, x2: bx, y2: by }, svg);
+      svgEl("polygon", { points: `${x2},${y2} ${bx - 4 * uy},${by + 4 * ux} ${bx + 4 * uy},${by - 4 * ux}` }, svg);
+    }
+    g.prepend(svg);
+  });
+}
+
+function viewFlows() {
+  document.title = "RG Flows — QFT Zoo";
+  const flows = allFlows();
+  const dimOf = (c) => Math.min(...c.flatMap((f) => [BY_ID.get(f.uv).d, BY_ID.get(f.ir).d]));
+  const clusters = flowClusters(flows).sort((a, b) => dimOf(a) - dimOf(b));
+  const nTheories = new Set(flows.flatMap((f) => [f.uv, f.ir])).size;
+  const name = (id) => `<a href="#/theory/${encodeURIComponent(id)}">${md(BY_ID.get(id).name, true)}</a>`;
+  app.innerHTML = `
+    <header class="theory-head">
+      <h1>RG Flows</h1>
+      <p class="lede">Surf the zoo along its renormalization-group flows, from the UV at the top to the IR at the bottom.
+        Open a theory and its page shows where it flows to and from.</p>
+      <p class="small muted">${flows.length} flows among ${nTheories} theories so far. Height in a diagram shows the order of
+        the flows, not an energy scale. Know one that’s missing? Add a <code>flows_to</code> relation to the UV theory’s
+        entry: see <a href="#/contribute">Contribute</a>.</p>
+    </header>
+    ${clusters
+      .map((c) => `<section class="block"><h2>${tex(`d = ${dimOf(c)}`)}</h2>${flowDiagram(c)}
+        ${table(["UV", "IR", "Deformation"], c.map((f) => [name(f.uv) + f.at, name(f.ir), f.note ? md(f.note, true) : ""]), "data")}</section>`)
+      .join("")}`;
+  drawFlowArrows();
+}
+
+/** Contents line for a page built from section() blocks; omitted on short pages. */
+function jumpBar(sections) {
+  const items = sections.map((s) => s.match(/id="sec-([^"]+)"><h2>(.*?)<\/h2>/)).filter(Boolean);
+  if (items.length < 3) return "";
+  return `<nav class="jump" aria-label="Contents">${items
+    .map(([, id, title]) => `<button type="button" class="linkish" data-jump="${esc(id)}">${title}</button>`)
+    .join("")}</nav>`;
 }
 
 /** Members of a family: the first `show` parameter values (all variants of each),
@@ -886,26 +1166,114 @@ python scripts/build.py --serve</code></pre>
     )}`;
 }
 
+/* ---------------------------------------------------------- feedback view */
+
+const FEEDBACK_PREFIX = "[Feedback]";
+
+/** Split an issue-form body into its Page and Comment fields. Other bodies are all comment. */
+function parseFeedback(body) {
+  const text = body || "";
+  const comment = /^###\s*Comment\s*\n+([\s\S]*)$/m.exec(text);
+  const page = /^###\s*Page\s*\n+(.*)$/m.exec(text);
+  const p = page ? page[1].trim() : "";
+  return { page: p === "_No response_" ? "" : p, comment: (comment ? comment[1] : text).trim() };
+}
+
+/** Comments are public and unreviewed, so unlike theory data they are shown as plain
+ *  text: escaped, with no Markdown, links or images. */
+function renderComment(issue) {
+  const { page, comment } = parseFeedback(issue.body);
+  const target = BY_ID.has(page)
+    ? `<a href="#/theory/${encodeURIComponent(page)}">${md(BY_ID.get(page).name, true)}</a>`
+    : esc(page);
+  const replies = issue.comments ? `${issue.comments} ${issue.comments === 1 ? "reply" : "replies"}` : "Reply";
+  return `<article class="comment">
+    <p class="comment-meta small muted"><b>${esc(issue.user?.login ?? "unknown")}</b> · ${esc(String(issue.created_at).slice(0, 10))}${
+      target ? ` · on ${target}` : ""}${issue.state === "closed" ? " · handled" : ""}</p>
+    <p class="comment-body">${esc(comment)}</p>
+    <p class="small"><a href="${safeUrl(issue.html_url)}" target="_blank" rel="noopener">${replies} on GitHub</a></p>
+  </article>`;
+}
+
+function viewFeedback() {
+  document.title = "Comments & Feedback — QFT Zoo";
+  const all = `${gh.repo()}/issues?q=${encodeURIComponent(`"${FEEDBACK_PREFIX}" in:title`)}`;
+  app.innerHTML = `
+    <header class="theory-head">
+      <h1>Comments &amp; Feedback</h1>
+      <p class="lede">This site is a pilot, and your comments decide what changes next: what works, what doesn’t,
+        and what you wish it had. Comments are public and need a free GitHub account.</p>
+      <p class="actions">
+        <a class="btn primary" href="${gh.feedback()}" target="_blank" rel="noopener">Leave a comment</a>
+        <a class="btn" href="${all}" target="_blank" rel="noopener">See all on GitHub</a>
+      </p>
+    </header>
+    <section class="block" aria-live="polite"><h2 id="feedback-count">Comments</h2>
+      <div id="feedback-list"><p class="muted">Loading comments…</p></div></section>`;
+
+  fetch(`https://api.github.com/repos/${DB.repo}/issues?state=all&sort=created&direction=desc&per_page=100`, {
+    headers: { Accept: "application/vnd.github+json" },
+  })
+    .then((r) => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json();
+    })
+    .then((issues) => {
+      const list = document.getElementById("feedback-list");
+      if (!list) return; // the reader has moved to another page
+      const items = issues.filter((i) => !i.pull_request && String(i.title).startsWith(FEEDBACK_PREFIX));
+      document.getElementById("feedback-count").textContent = `Comments (${items.length})`;
+      list.innerHTML = items.length
+        ? items.map(renderComment).join("")
+        : `<p class="muted">No comments yet. Yours could be the first.</p>`;
+    })
+    .catch(() => {
+      const list = document.getElementById("feedback-list");
+      if (list) list.innerHTML = `<p class="muted">Comments couldn’t be loaded right now.
+        <a href="${all}" target="_blank" rel="noopener">Read them on GitHub</a> instead.</p>`;
+    });
+}
+
 function viewNotFound(msg = "Page not found.") {
   document.title = "Not found — QFT Zoo";
   app.innerHTML = `<header class="theory-head"><h1>Not found</h1><p class="lede">${esc(msg)}</p>
-    <p><a class="btn" href="#/">Back to all theories</a></p></header>`;
+    <p><a class="btn" href="#/catalogue">Back to all theories</a></p></header>`;
 }
 
 /* ----------------------------------------------------------------- router */
 
+/** Set the catalogue filters from a #/catalogue/<key>:<value> link. */
+function applyCatalogueLink(arg) {
+  const i = arg.indexOf(":");
+  if (i < 0) return;
+  const [key, value] = [arg.slice(0, i), arg.slice(i + 1)];
+  filters.q = key === "q" ? value : "";
+  filters.d = new Set(key === "d" ? [+value] : []);
+  filters.tags = new Set(key === "tag" ? [value] : []);
+  filters.spectrum = key === "spectrum";
+}
+
 function route() {
   const [page, arg] = location.hash.replace(/^#\/?/, "").split("/");
-  if (!page) viewBrowse();
+  if (!page) viewHome();
+  else if (page === "catalogue") {
+    if (arg) applyCatalogueLink(decodeURIComponent(arg));
+    viewBrowse();
+  } else if (page === "tables") viewTables();
+  else if (page === "flows") viewFlows();
+  else if (page === "feedback") viewFeedback();
   else if (page === "theory" && arg) viewTheory(decodeURIComponent(arg));
   else if (page === "contribute") viewContribute();
   else if (page === "landscape") viewLandscape();
   else viewNotFound();
   document.querySelectorAll("[data-nav]").forEach((a) =>
-    a.classList.toggle("active", a.dataset.nav === (page || "browse"))
+    a.classList.toggle("active", a.dataset.nav === (page === "theory" ? "catalogue" : page))
   );
   window.scrollTo(0, 0);
 }
+
+window.addEventListener("resize", drawFlowArrows);
+document.fonts?.addEventListener?.("loadingdone", drawFlowArrows);
 
 app.addEventListener("change", (e) => {
   if (e.target.id === "spectrum-member" && SPEC_STATE.t) showSpectrum(SPEC_STATE.t, +e.target.value);
@@ -913,6 +1281,11 @@ app.addEventListener("change", (e) => {
 
 // Clicks shared by all views: citation links, tag pills, "show more" members / rows.
 app.addEventListener("click", (e) => {
+  const jump = e.target.closest("[data-jump]");
+  if (jump) {
+    document.getElementById(`sec-${jump.dataset.jump}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
   const specMember = e.target.closest("[data-spec-member]");
   if (specMember && SPEC_STATE.t) {
     const sel = document.getElementById("spectrum-member");
@@ -956,7 +1329,7 @@ app.addEventListener("click", (e) => {
       filters.q = "";
       filters.d.clear();
       filters.tags = new Set([tag]);
-      location.hash = "#/";
+      location.hash = "#/catalogue";
     }
   }
 });

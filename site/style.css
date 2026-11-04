@@ -1,20 +1,30 @@
 /* QFT Zoo — single stylesheet. Light/dark via prefers-color-scheme. */
 
+@font-face {
+  font-family: Jost; /* Jost, SIL Open Font License: see fonts/OFL.txt */
+  src: url("fonts/jost-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
-  --bg: #fbfbf9;
+  --bg: #f7f7f3;
   --surface: #ffffff;
-  --text: #1c1d21;
-  --muted: #646670;
-  --border: #e2e2dc;
-  --accent: #2f5d8a;
-  --accent-soft: #e6eef6;
+  --text: #1c2624;
+  --muted: #56635f;
+  --border: #d8ddd8;
+  --accent: #17594a;
+  --accent-soft: #e3efeb;
   --accent-text: #ffffff;
-  --row-hover: #f4f6f8;
+  --row-hover: #f3f6f4;
+  --band: #17594a;
+  --band-text: #ffffff;
+  --band-muted: #cfe5de;
   --flash: #fff3c4;
-  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --display: Jost, "Century Gothic", Futura, ui-sans-serif, system-ui, sans-serif;
   --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --radius: 8px;
+  --radius: 3px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,10 +34,11 @@
     --text: #e7e7ea;
     --muted: #9a9ca6;
     --border: #2d3036;
-    --accent: #8db6e2;
-    --accent-soft: #1f2d3c;
-    --accent-text: #0f1a26;
+    --accent: #7cc7b2;
+    --accent-soft: #1c2f2a;
+    --accent-text: #0e1f1a;
     --row-hover: #1f2226;
+    --band: #12332b;
     --flash: #4a4220;
   }
 }
@@ -56,19 +67,19 @@ main.wrap { padding-top: 28px; padding-bottom: 48px; min-height: 70vh; outline: 
 
 /* ---------------------------------------------------------------- header */
 
-.site-header { border-bottom: 1px solid var(--border); background: var(--surface); }
+.site-header { background: var(--band); }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
-.brand { font: 600 1.3rem var(--serif); color: var(--text); letter-spacing: 0.01em; }
+.brand { font: 600 1.35rem var(--display); color: var(--band-text); letter-spacing: 0.01em; }
 .brand:hover { text-decoration: none; }
 .site-header nav { display: flex; gap: 22px; }
-.site-header nav a { color: var(--muted); font-size: 0.95rem; }
-.site-header nav a.active, .site-header nav a:hover { color: var(--text); text-decoration: none; }
+.site-header nav a { color: var(--band-muted); font: 500 0.98rem var(--display); }
+.site-header nav a.active, .site-header nav a:hover { color: var(--band-text); text-decoration: none; }
 
 .site-footer { border-top: 1px solid var(--border); color: var(--muted); font-size: 0.875rem; padding: 18px 0 28px; }
 
 /* ------------------------------------------------------------- headings */
 
-h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.2; }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.2; }
 h1 { font-size: 2.1rem; margin: 0 0 0.35em; }
 h2 { font-size: 1.35rem; margin: 0 0 0.6em; }
 h3 { font-size: 1.1rem; margin: 0 0 0.4em; }
@@ -92,9 +103,6 @@ h3 { font-size: 1.1rem; margin: 0 0 0.4em; }
 
 /* ------------------------------------------------------- browse controls */
 
-.hero { margin-bottom: 26px; }
-.hero h1 { font-size: 2.5rem; }
-
 .controls { display: grid; gap: 12px; margin-bottom: 14px; }
 .controls input[type="search"] {
   width: 100%; max-width: 520px; padding: 9px 12px; font: inherit;
@@ -117,10 +125,11 @@ h3 { font-size: 1.1rem; margin: 0 0 0.4em; }
 /* --------------------------------------------------------------- tables */
 
 .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--border); }
-th .katex { text-transform: none; font-size: 1.15rem; }
-th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; background: var(--bg); }
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+th, td { text-align: left; vertical-align: top; padding: 6px 10px; border-bottom: 1px solid var(--border); }
+th .katex { text-transform: none; font-size: 1.1rem; }
+th { font: 500 0.9rem var(--display); color: var(--band-text); background: var(--band); }
+table.data tbody tr:nth-child(even) { background: var(--row-hover); }
 tbody tr:last-child td { border-bottom: 0; }
 .num { text-align: center; white-space: nowrap; }
 
@@ -155,7 +164,11 @@ table.data .value { white-space: nowrap; }
 .theory-head .pills { margin: 8px 0 4px; }
 .aliases { color: var(--muted); margin: 0; }
 
-.block { margin: 0 0 30px; }
+.block { margin: 0 0 30px; scroll-margin-top: 12px; }
+section.block > h2 { font-size: 1.2rem; color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 3px; }
+
+.jump { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 0 0 26px; padding: 8px 12px; font-size: 0.9rem;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
 .prose { max-width: 75ch; }
 .prose p:first-child { margin-top: 0; }
 
@@ -192,11 +205,14 @@ ol.refs li.flash { animation: flash 1.6s ease-out; }
 /* ------------------------------------------------------------- mobile */
 
 @media (max-width: 640px) {
-  h1, .hero h1 { font-size: 1.8rem; }
+  h1 { font-size: 1.8rem; }
   .chips-label { min-width: 100%; }
   table.catalogue td.sym, table.catalogue th:nth-child(3) { display: none; }
+  table.summary-2d th:nth-child(4), table.summary-2d td:nth-child(4) { display: none; }
   dl.kv { grid-template-columns: 1fr; gap: 2px; }
   dl.kv dd { margin-bottom: 10px; }
+  .site-header .wrap { flex-wrap: wrap; height: auto; padding-top: 10px; padding-bottom: 10px; gap: 4px 16px; }
+  .site-header nav { flex-wrap: wrap; gap: 4px 14px; }
 }
 
 /* ---------------------------------------------------- landscape chart
@@ -269,3 +285,81 @@ section.block h3 { font-size: 1.05rem; margin: 1.6rem 0 0.35rem; }
 table.spectrum td { white-space: nowrap; }
 table.spectrum td:last-child { white-space: normal; min-width: 14rem; }
 #spectrum-body .prose.small p { margin: 0.3rem 0; }
+
+/* ---------------------------------------------------------- home portal
+   A directory of large buttons; the longer lists expand in place.        */
+
+.portal { max-width: 860px; margin: 0 auto; text-align: center; }
+.portal h1 { font: 500 clamp(2.4rem, 6vw, 3.4rem)/1.1 var(--display); margin: 8px 0 6px; }
+.portal-sub { font: 400 1.15rem/1.4 var(--display); margin: 0 0 4px; }
+.portal-meta { font-size: 0.875rem; color: var(--muted); margin: 0 0 22px; }
+
+.portal-search { margin: 0 0 14px; }
+.portal-search input {
+  width: 100%; padding: 10px 14px; font: inherit; color: var(--text); background: var(--surface);
+  border: 1.5px solid var(--border); border-radius: 4px;
+}
+.portal-search input:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+
+.portal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 28px; align-items: start; text-align: left; }
+.portal-col { display: grid; gap: 10px; min-width: 0; }
+
+.portal-btn {
+  display: block; padding: 11px 14px; text-align: center; color: var(--accent); cursor: pointer;
+  font: 500 1.15rem/1.3 var(--display);
+  background: var(--surface); border: 1.5px solid var(--accent); border-radius: 4px;
+  transition: background 0.1s, color 0.1s;
+}
+.portal-btn:hover, .portal-btn:focus-visible { background: var(--accent); color: var(--accent-text); text-decoration: none; }
+
+.portal-group summary { position: relative; list-style: none; }
+.portal-group summary::-webkit-details-marker { display: none; }
+.portal-group summary::after { content: "+"; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 1rem; }
+.portal-group[open] summary::after { content: "\2212"; }
+.portal-group ul {
+  list-style: none; margin: 6px 0 0; padding: 10px 14px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 4px; font-size: 0.95rem;
+}
+.portal-group ul.two-col { columns: 2; column-gap: 20px; }
+.portal-group li { padding: 2px 0; break-inside: avoid; }
+.portal-group .n { color: var(--muted); font-size: 0.82rem; }
+
+@media (max-width: 640px) {
+  .portal-grid { grid-template-columns: 1fr; }
+}
+
+/* ------------------------------------------------------------- feedback */
+
+.comment {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 10px 14px; margin-bottom: 10px;
+}
+.comment p { margin: 0; }
+.comment-meta { margin-bottom: 6px !important; }
+.comment-body { white-space: pre-wrap; overflow-wrap: anywhere; margin-bottom: 6px !important; }
+
+/* ------------------------------------------------------------- RG flows */
+
+.flow-graph {
+  position: relative; display: flex; flex-direction: column; gap: 36px; margin-bottom: 14px; padding: 18px 34px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+}
+.flow-graph::before, .flow-graph::after { position: absolute; left: 10px; font-size: 0.75rem; color: var(--muted); }
+.flow-graph::before { content: "UV"; top: 8px; }
+.flow-graph::after { content: "IR"; bottom: 8px; }
+/* Equal columns keep the gap between two nodes on the centre line, clear of a flow that skips this row. */
+.flow-row {
+  position: relative; z-index: 1; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
+  justify-items: center; align-items: center; column-gap: 36px;
+  width: min(100%, calc(var(--n) * 320px)); margin: 0 auto;
+}
+.flow-node {
+  display: block; max-width: 260px; padding: 6px 12px; text-align: center; color: var(--accent);
+  background: var(--surface); border: 1.5px solid var(--accent); border-radius: 4px;
+}
+a.flow-node:hover, a.flow-node:focus-visible { background: var(--accent-soft); text-decoration: none; }
+.flow-node.current { background: var(--accent); color: var(--accent-text); }
+.flow-kind { display: block; font-size: 0.75rem; opacity: 0.8; }
+.flow-arrows { position: absolute; inset: 0; pointer-events: none; }
+.flow-arrows line { stroke: var(--accent); stroke-width: 1.5; }
+.flow-arrows polygon { fill: var(--accent); }
