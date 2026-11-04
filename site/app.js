@@ -175,6 +175,8 @@ function viewHome() {
             item(`${gh.repo()}/issues/new?template=correction.yml`, "Report a problem", null, ext),
             item("https://arxiv.org/list/hep-th/recent", "arXiv hep-th", null, ext),
             item("https://inspirehep.net/", "INSPIRE", null, ext),
+            item("https://www.math.ksu.edu/~gerald/voas/", "VOA database", null, ext),
+            item("https://anyonatlas.org", "Anyon Atlas (3d TQFTs)", null, ext),
           ])}
         </div>
       </div>
