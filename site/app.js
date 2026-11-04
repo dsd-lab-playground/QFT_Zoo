@@ -3,9 +3,18 @@
    renders a catalogue view and one page per theory, using hash routing:
      #/                 catalogue
      #/theory/<id>      a theory
+     #/landscape        2d CFTs in the (c, gap) plane
      #/contribute       how to contribute                                   */
 
+// Display order and labels of relation types (incl. reverse links from build.py).
 const REL_LABEL = {
+  member_of: "Member of",
+  has_member: "Members with their own page",
+  product_of: "Tensor product containing",
+  factor_of: "Appears as a factor in",
+  orbifold_of: "Orbifold of",
+  has_orbifold: "Orbifolds",
+  same_partition_function: "Same torus partition function as",
   flows_from: "Flows from (UV)",
   flows_to: "Flows to (IR)",
   dual_to: "Dual to",
@@ -56,8 +65,11 @@ function md(src, inline = false) {
 }
 
 /** Strip LaTeX markup for plain-text contexts (search, page titles). */
+const TEX_SYMBOLS = { pm: "±", mp: "∓", times: "×", le: "≤", leq: "≤", ge: "≥", geq: "≥", prime: "′", sqrt: "√",
+  Delta: "Δ", sigma: "σ", epsilon: "ε", phi: "φ", tau: "τ", lambda: "λ", mu: "μ", nu: "ν", eta: "η", theta: "θ", to: "→" };
 const plain = (s) =>
   String(s ?? "")
+    .replace(/\\([a-zA-Z]+)/g, (m, w) => TEX_SYMBOLS[w] ?? m)
     .replace(/\\(mathcal|mathbb|mathbf|mathrm|text|rm)\b/g, "")
     .replace(/\\([a-zA-Z]+)/g, "$1")
     .replace(/[${}\\^_]/g, "")
@@ -112,12 +124,22 @@ function searchText(t) {
   ).toLowerCase();
 }
 
+/** Catalogue "Key data" cell: keyed quantities (c, gap) if present, else symmetry. */
+function keyData(t) {
+  const q = Object.fromEntries((t.quantities || []).filter((x) => x.key).map((x) => [x.key, x.value]));
+  const parts = [];
+  if (q.c != null) parts.push(tex(`c = ${q.c}`));
+  if (q.gap != null) parts.push(tex(`\\Delta_{\\rm gap} = ${q.gap}`));
+  if (parts.length) return parts.join("<br>");
+  return symmetrySummary(t);
+}
+
 function renderRow(t) {
   return `<tr data-id="${esc(t.id)}">
     <td class="name"><a href="#/theory/${encodeURIComponent(t.id)}">${md(t.name, true)}</a>
       <div class="pills">${(t.tags || []).map((g) => tagPill(g)).join("")}</div></td>
     <td class="num">${t.d}</td>
-    <td class="sym">${symmetrySummary(t)}</td>
+    <td class="sym">${keyData(t)}</td>
     <td class="summary">${md(t.summary, true)}</td>
   </tr>`;
 }
@@ -141,6 +163,7 @@ function viewBrowse() {
       <p class="actions">
         <a class="btn primary" href="${gh.newTheory()}" target="_blank" rel="noopener">Add a theory</a>
         <a class="btn" href="${gh.suggest()}" target="_blank" rel="noopener">Suggest one (no code)</a>
+        <a class="btn" href="#/landscape">2d CFT landscape</a>
         <a class="btn" href="data/theories.json">Download all data (JSON)</a>
       </p>
     </section>
@@ -161,7 +184,7 @@ function viewBrowse() {
 
     <div class="table-wrap">
       <table class="catalogue">
-        <thead><tr><th>Theory</th><th class="num">d</th><th>Symmetry</th><th>Summary</th></tr></thead>
+        <thead><tr><th>Theory</th><th class="num">d</th><th>Key data</th><th>Summary</th></tr></thead>
         <tbody id="rows">${theories.map((t) => rowCache.get(t.id)).join("")}</tbody>
       </table>
     </div>
@@ -253,6 +276,8 @@ function viewTheory(id) {
       )
     );
 
+  if (t.family && t.members?.length) out.push(section("members", "Members", membersTable(t)));
+
   if (t.symmetry) {
     const s = t.symmetry;
     const rows = [
@@ -283,25 +308,23 @@ function viewTheory(id) {
       )
     );
 
-  if (t.operators?.length)
-    out.push(
-      section(
-        "operators",
-        "Operators",
-        table(
-          ["Operator", "Δ", "Spin", "Representation", "Notes", "Source"],
-          t.operators.map((o) => [
-            tex(o.name),
-            `<span class="value">${tex(o.Delta)}</span>`,
-            o.spin != null ? tex(o.spin) : "",
-            md(o.rep, true),
-            md(o.note, true),
-            source(o),
-          ]),
-          "data"
-        )
-      )
-    );
+  if (t.operators?.length) {
+    // Only show columns that some operator fills.
+    const cols = [
+      ["Operator", (o) => tex(o.name), true],
+      ["Δ", (o) => `<span class="value">${tex(o.Delta)}</span>`, true],
+      [tex("(h, \\bar h)"), (o) => (o.weights ? tex(o.weights) : ""), "weights"],
+      ["Mult.", (o) => (o.degeneracy ? tex(o.degeneracy) : ""), "degeneracy"],
+      ["Spin", (o) => (o.spin != null ? tex(o.spin) : ""), "spin"],
+      ["Representation", (o) => md(o.rep, true), "rep"],
+      ["Notes", (o) => md(o.note, true), "note"],
+      ["Source", source, null],
+    ].filter(([, , key]) => key === true || key === null || t.operators.some((o) => o[key] != null));
+    const hasSource = t.operators.some((o) => o.method || o.refs?.length);
+    const use = cols.filter(([h]) => h !== "Source" || hasSource);
+    out.push(section("operators", "Operators",
+      table(use.map(([h]) => h), t.operators.map((o) => use.map(([, f]) => f(o))), "data")));
+  }
 
   const links = [...(t.relations || []), ...(t.backlinks || [])];
   if (links.length) {
@@ -318,7 +341,13 @@ function viewTheory(id) {
               `<dt>${REL_LABEL[type]}</dt><dd><ul>${ls
                 .map((l) => {
                   const other = BY_ID.get(l.target);
-                  return `<li><a href="#/theory/${encodeURIComponent(l.target)}">${md(other ? other.name : l.target, true)}</a>${
+                  // Which member of a family: the parameter belongs to the family side of the link.
+                  const famSide = other?.family ? other : t.family ? t : null;
+                  const at = l.at != null
+                    ? ` <span class="muted">(${tex(`${famSide?.family.parameter ?? ""}${famSide ? " = " : ""}${l.at}`)}${
+                        l.variant ? `, ${esc(l.variant)}` : ""})</span>`
+                    : "";
+                  return `<li><a href="#/theory/${encodeURIComponent(l.target)}">${md(other ? other.name : l.target, true)}</a>${at}${
                     l.note ? ` <span class="muted">— ${md(l.note, true)}</span>` : ""
                   }</li>`;
                 })
@@ -354,6 +383,38 @@ function viewTheory(id) {
       <a href="${gh.blob(t.source)}" target="_blank" rel="noopener"><code>${esc(t.source)}</code></a></p>`;
 }
 
+/** Members of a family: the first `show` parameter values (all variants of each),
+ *  with a toggle for the rest that build.py computed. */
+function membersTable(t) {
+  const f = t.family;
+  const p = f.parameter || "m";
+  const values = [...new Set(t.members.map((m) => String(m.at)))];
+  const shown = new Set(values.slice(0, f.show || 8));
+  const hasVariant = t.members.some((m) => m.variant);
+  const hasLabel = t.members.some((m) => m.label);
+  const hasNotes = t.members.some((m) => m.entries?.length || m.note);
+  const head = [tex(p), ...(hasVariant ? ["Variant"] : []), ...(hasLabel ? ["Theory"] : []), tex("c"), tex("\\Delta_{\\rm gap}"),
+    ...(hasNotes ? ["Entry / notes"] : [])];
+  const rows = t.members.map((m) => {
+    const entries = (m.entries || [])
+      .map((id) => `<a href="#/theory/${encodeURIComponent(id)}">${md(BY_ID.get(id)?.name ?? id, true)}</a>`)
+      .join(", ");
+    const notes = [entries, m.note ? md(m.note, true) : ""].filter(Boolean).join(" · ");
+    const cells = [tex(m.at), ...(hasVariant ? [esc(m.variant ?? "")] : []), ...(hasLabel ? [md(m.label, true)] : []),
+      m.c != null ? tex(m.c) : "", m.gap != null ? tex(m.gap) : "", ...(hasNotes ? [notes] : [])];
+    return `<tr${shown.has(String(m.at)) ? "" : ' class="extra" hidden'}>${cells.map((c) => `<td>${c}</td>`).join("")}</tr>`;
+  });
+  const more = values.length > shown.size
+    ? `<p><button type="button" class="linkish" data-more-members>Show ${values.length - shown.size} more values of ${tex(p)}</button></p>`
+    : "";
+  const formula = f.formulas
+    ? `<p class="muted small">Computed exactly from the closed forms ${Object.entries(f.formulas).map(([k, v]) => `<code>${esc(k)} = ${esc(v)}</code>`).join(", ")}${
+        f.overrides?.length ? ", with listed exceptions" : ""}.</p>`
+    : "";
+  return `${formula}<div class="table-wrap"><table class="data members"><thead><tr>${head.map((h) => `<th>${h}</th>`).join("")}</tr></thead>
+    <tbody>${rows.join("")}</tbody></table></div>${more}`;
+}
+
 function refItem(r) {
   const links = [];
   if (r.arxiv) links.push(`<a href="https://arxiv.org/abs/${encodeURI(r.arxiv)}" target="_blank" rel="noopener">arXiv:${esc(r.arxiv)}</a>`);
@@ -363,7 +424,246 @@ function refItem(r) {
   if (q) links.push(`<a href="https://inspirehep.net/literature?q=${encodeURIComponent(q)}" target="_blank" rel="noopener">INSPIRE</a>`);
   return `<li id="ref-${esc(r.key)}">${r.authors ? `${esc(r.authors)}, ` : ""}<em>${md(r.title, true)}</em>${
     r.journal ? `, ${esc(r.journal)}` : ""
-  }${r.year ? ` (${r.year})` : ""}. <span class="ref-links">${links.join(" · ")}</span></li>`;
+  }${r.year ? ` (${r.year})` : ""}. <span class="ref-links">${links.join(" · ")}</span>${
+    r.note ? ` <span class="muted small">— ${md(r.note, true)}</span>` : ""}</li>`;
+}
+
+/* --------------------------------------------------------- landscape view */
+
+const SVGNS = "http://www.w3.org/2000/svg";
+const LANDSCAPE = { range: "window", family: "" };
+const KIND_LABEL = {
+  theory: "Individual theory",
+  member: "Member of a family (minimal models, parafermions, …)",
+  continuous: "Continuous family at c = 1 (circle, orbifold)",
+};
+
+function svgEl(name, attrs = {}, parent) {
+  const el = document.createElementNS(SVGNS, name);
+  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+  if (parent) parent.appendChild(el);
+  return el;
+}
+
+/** All plottable 2d data: individual theories, family members, continuous spans. */
+function landscapeData() {
+  const points = [];
+  const spans = [];
+  const familyMemberEntries = new Set();
+  for (const t of DB.theories) {
+    if (t.d !== 2 || !t.family) continue;
+    const continuous = !!t.family.span;
+    if (t.span_num) spans.push({ fam: t, ...t.span_num });
+    for (const m of t.members || []) {
+      if (m.c_num == null || m.gap_num == null || m.c_num > 1.5 + 1e-12) continue;
+      (m.entries || []).forEach((id) => familyMemberEntries.add(id));
+      points.push({
+        c: m.c_num, gap: m.gap_num, cs: m.c, gs: m.gap, fam: t, member: m,
+        kind: continuous ? "continuous" : "member",
+        link: m.entries?.length ? m.entries[0] : t.id,
+      });
+    }
+  }
+  for (const t of DB.theories) {
+    if (t.d !== 2 || t.family || t.c_num == null || t.gap_num == null || familyMemberEntries.has(t.id)) continue;
+    const q = Object.fromEntries(t.quantities.filter((x) => x.key).map((x) => [x.key, x.value]));
+    points.push({ c: t.c_num, gap: t.gap_num, cs: q.c, gs: q.gap, theory: t, kind: "theory", link: t.id });
+  }
+  return { points, spans };
+}
+
+function pointLabel(p) {
+  if (p.theory) return md(p.theory.name, true);
+  const m = p.member;
+  const own = m.entries?.length ? md(BY_ID.get(m.entries[0]).name, true) : md(p.fam.name, true);
+  const where = m.label ? md(m.label, true) : tex(`${p.fam.family.parameter} = ${m.at}`) + (m.variant ? `, ${esc(m.variant)}` : "");
+  return m.entries?.length ? `${own} <span class="muted">(${where})</span>` : `${own} <span class="muted">— ${where}</span>`;
+}
+
+function viewLandscape() {
+  document.title = "2d CFT landscape — QFT Zoo";
+  const { points, spans } = landscapeData();
+  const families = DB.theories.filter((t) => t.d === 2 && t.family && points.some((p) => p.fam === t));
+
+  app.innerHTML = `
+    <header class="theory-head">
+      <h1>2d CFT landscape</h1>
+      <p class="lede">Every unitary compact 2d CFT in the zoo with known central charge $c$ and spectral gap
+        $\\Delta_{\\rm gap}$ (lightest non-vacuum Virasoro primary). Infinite families are drawn member by member;
+        hover a point for the theories there, click to open its page.</p>
+    </header>
+    <div class="viz-controls">
+      <div class="chips" role="group" aria-label="Range of c">
+        <span class="chips-label">Range</span>
+        <button type="button" class="chip" data-range="window" aria-pressed="${LANDSCAPE.range === "window"}">${tex("1 \\le c \\le 3/2")}</button>
+        <button type="button" class="chip" data-range="all" aria-pressed="${LANDSCAPE.range === "all"}">${tex("c \\le 3/2")}</button>
+      </div>
+      <label class="select-label">Highlight family
+        <select id="fam-select">
+          <option value="">None</option>
+          ${families.map((f) => `<option value="${esc(f.id)}"${LANDSCAPE.family === f.id ? " selected" : ""}>${esc(plain(f.name))}</option>`).join("")}
+        </select>
+      </label>
+    </div>
+    <div class="viz-root">
+      <ul class="legend" aria-label="Legend">
+        <li><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="4.5" fill="var(--series-1)"/></svg>${KIND_LABEL.theory}</li>
+        <li><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="4.5" fill="var(--series-2)"/></svg>${KIND_LABEL.member}</li>
+        <li><svg width="14" height="14" aria-hidden="true"><rect x="4" y="1" width="6" height="12" rx="3" fill="var(--series-3)"/></svg>${KIND_LABEL.continuous.replace("c = 1", tex("c=1"))}</li>
+      </ul>
+      <div class="chart-wrap" id="chart"></div>
+      <div class="tooltip" id="tip" role="status" hidden></div>
+    </div>
+    <details class="table-view">
+      <summary>Table view (${points.length} points)</summary>
+      <div class="table-wrap"><table class="data"><thead><tr><th>${tex("c")}</th><th>${tex("\\Delta_{\\rm gap}")}</th><th>Theory</th><th>Kind</th></tr></thead>
+      <tbody>${[...points].sort((a, b) => a.c - b.c || a.gap - b.gap)
+        .map((p) => `<tr><td>${tex(p.cs)}</td><td>${tex(p.gs)}</td><td><a href="#/theory/${encodeURIComponent(p.link)}">${pointLabel(p)}</a></td><td class="muted">${p.kind === "theory" ? "individual" : p.kind === "member" ? "family member" : "c = 1 branch"}</td></tr>`)
+        .join("")}</tbody></table></div>
+    </details>`;
+  // Render the $...$ in the lede.
+  const lede = app.querySelector(".lede");
+  lede.innerHTML = md(lede.textContent.trim(), true);
+
+  app.querySelectorAll("[data-range]").forEach((b) =>
+    b.addEventListener("click", () => {
+      LANDSCAPE.range = b.dataset.range;
+      app.querySelectorAll("[data-range]").forEach((x) => x.setAttribute("aria-pressed", x === b));
+      drawLandscape(points, spans);
+    })
+  );
+  app.querySelector("#fam-select").addEventListener("change", (e) => {
+    LANDSCAPE.family = e.target.value;
+    drawLandscape(points, spans);
+  });
+  drawLandscape(points, spans);
+}
+
+function drawLandscape(points, spans) {
+  const host = app.querySelector("#chart");
+  const tip = app.querySelector("#tip");
+  host.textContent = "";
+  tip.hidden = true;
+
+  const W = 960, H = 540, M = { l: 64, r: 24, t: 28, b: 52 };
+  const [x0, x1] = LANDSCAPE.range === "window" ? [0.98, 1.52] : [0.45, 1.52];
+  const cMin = LANDSCAPE.range === "window" ? 1 : x0;
+  const [y0, y1] = [0, 0.52];
+  const X = (c) => M.l + ((c - x0) / (x1 - x0)) * (W - M.l - M.r);
+  const Y = (g) => H - M.b - ((g - y0) / (y1 - y0)) * (H - M.t - M.b);
+  const crisp = (v) => Math.round(v) + 0.5;
+
+  const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
+    "aria-label": "Scatter plot of spectral gap against central charge for 2d CFTs; see the table view for the data." }, host);
+
+  // Grid, ticks, axis titles.
+  const grid = svgEl("g", { class: "grid" }, svg);
+  for (let i = Math.ceil(x0 * 10); i <= Math.floor(x1 * 10); i++) {
+    const c = i / 10, x = crisp(X(c));
+    svgEl("line", { x1: x, x2: x, y1: M.t, y2: H - M.b }, grid);
+    svgEl("text", { x, y: H - M.b + 20, class: "tick", "text-anchor": "middle" }, grid).textContent = c.toFixed(1);
+  }
+  for (let i = 0; i <= Math.floor(y1 * 10); i++) {
+    const g = i / 10, y = crisp(Y(g));
+    svgEl("line", { x1: M.l, x2: W - M.r, y1: y, y2: y, class: g === 0 ? "baseline" : "" }, grid);
+    svgEl("text", { x: M.l - 10, y: y + 4, class: "tick", "text-anchor": "end" }, grid).textContent = g.toFixed(1);
+  }
+  svgEl("text", { x: (M.l + W - M.r) / 2, y: H - 10, class: "axis-title", "text-anchor": "middle" }, svg).textContent = "central charge c";
+  svgEl("text", { x: 16, y: (M.t + H - M.b) / 2, class: "axis-title", "text-anchor": "middle",
+    transform: `rotate(-90 16 ${(M.t + H - M.b) / 2})` }, svg).textContent = "spectral gap Δgap";
+
+  // Continuous families at c = 1: side-by-side rounded columns, direct-labelled.
+  spans.forEach((s, i) => {
+    const w = 6, x = X(s.c) + (i - (spans.length - 1) / 2) * (w + 2) - w / 2;
+    const yTop = Y(s.gap[1]), yBot = Y(s.gap[0]);
+    const dim = LANDSCAPE.family && LANDSCAPE.family !== s.fam.id;
+    svgEl("rect", { x, y: yTop, width: w, height: yBot - yTop, rx: 3, class: `span${dim ? " dim" : ""}` }, svg);
+    const label = svgEl("text", { x: X(s.c) + (spans.length * (w + 2)) / 2 + 8, y: yTop + 4, class: "direct-label",
+      "text-anchor": "start" }, svg);
+    label.textContent = /orbifold/i.test(s.fam.id) ? "orbifold branch" : "circle branch";
+  });
+
+  // Highlighted family: thin connector through its members, per variant.
+  if (LANDSCAPE.family) {
+    const mine = points.filter((p) => p.fam?.id === LANDSCAPE.family && p.kind === "member");
+    const byVar = new Map();
+    mine.forEach((p) => byVar.set(p.member.variant ?? "", [...(byVar.get(p.member.variant ?? "") || []), p]));
+    for (const ps of byVar.values()) {
+      if (ps.length < 2) continue;
+      svgEl("polyline", { points: ps.map((p) => `${X(p.c)},${Y(p.gap)}`).join(" "), class: "connector" }, svg);
+    }
+  }
+
+  // Points, grouped by exact position so coincident theories share one mark.
+  const groups = new Map();
+  for (const p of points) {
+    if (p.c < cMin - 1e-12 || p.c > x1) continue;
+    const k = `${p.c.toFixed(10)}|${p.gap.toFixed(10)}`;
+    if (!groups.has(k)) groups.set(k, { c: p.c, gap: p.gap, items: [] });
+    groups.get(k).items.push(p);
+  }
+  const order = { continuous: 0, member: 1, theory: 2 };
+  const marks = [...groups.values()].map((g) => {
+    g.kind = g.items.map((p) => p.kind).sort((a, b) => order[b] - order[a])[0];
+    g.on = !LANDSCAPE.family || g.items.some((p) => p.fam?.id === LANDSCAPE.family || p.link === LANDSCAPE.family);
+    g.x = X(g.c);
+    g.y = Y(g.gap);
+    return g;
+  });
+  marks.sort((a, b) => a.on - b.on || order[a.kind] - order[b.kind]);
+  const layer = svgEl("g", {}, svg);
+  for (const g of marks) {
+    g.el = svgEl("circle", { cx: g.x, cy: g.y, r: g.on && LANDSCAPE.family ? 5 : 4, class: `dot ${g.kind}${g.on ? "" : " dim"}` }, layer);
+  }
+
+  // Hover: nearest mark within 24px (in screen pixels); click opens or pins.
+  let active = null, pinned = false;
+  const show = (g, clientX, clientY) => {
+    if (active && active !== g) active.el.classList.remove("hover");
+    active = g;
+    g.el.classList.add("hover");
+    const items = g.items.map((p) => `<li><a href="#/theory/${encodeURIComponent(p.link)}">${pointLabel(p)}</a></li>`).join("");
+    tip.innerHTML = `<div class="tip-value">${tex(`c = ${g.items[0].cs}`)} &nbsp; ${tex(`\\Delta_{\\rm gap} = ${g.items[0].gs}`)}</div><ul>${items}</ul>`;
+    tip.hidden = false;
+    const box = app.querySelector(".viz-root").getBoundingClientRect();
+    const left = Math.min(clientX - box.left + 14, box.width - tip.offsetWidth - 4);
+    tip.style.left = `${Math.max(4, left)}px`;
+    tip.style.top = `${clientY - box.top + 14}px`;
+  };
+  const hide = () => {
+    if (pinned) return;
+    if (active) active.el.classList.remove("hover");
+    active = null;
+    tip.hidden = true;
+  };
+  const nearest = (evt) => {
+    const pt = svg.createSVGPoint();
+    pt.x = evt.clientX;
+    pt.y = evt.clientY;
+    const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+    const scale = svg.getBoundingClientRect().width / W;
+    let best = null, bd = (24 / scale) ** 2;
+    for (const g of marks) {
+      const d = (g.x - p.x) ** 2 + (g.y - p.y) ** 2;
+      if (d < bd) [best, bd] = [g, d];
+    }
+    return best;
+  };
+  svg.addEventListener("pointermove", (e) => {
+    if (pinned) return;
+    const g = nearest(e);
+    g ? show(g, e.clientX, e.clientY) : hide();
+  });
+  svg.addEventListener("pointerleave", hide);
+  svg.addEventListener("click", (e) => {
+    const g = nearest(e);
+    if (!g) { pinned = false; hide(); return; }
+    const links = new Set(g.items.map((p) => p.link));
+    if (links.size === 1) { location.hash = `#/theory/${encodeURIComponent([...links][0])}`; return; }
+    pinned = false;
+    show(g, e.clientX, e.clientY);
+    pinned = true; // several theories here: keep the list open so its links can be clicked
+  });
 }
 
 /* -------------------------------------------------------- contribute view */
@@ -422,6 +722,7 @@ function route() {
   if (!page) viewBrowse();
   else if (page === "theory" && arg) viewTheory(decodeURIComponent(arg));
   else if (page === "contribute") viewContribute();
+  else if (page === "landscape") viewLandscape();
   else viewNotFound();
   document.querySelectorAll("[data-nav]").forEach((a) =>
     a.classList.toggle("active", a.dataset.nav === (page || "browse"))
@@ -429,8 +730,14 @@ function route() {
   window.scrollTo(0, 0);
 }
 
-// Clicks shared by all views: citation links and tag pills.
+// Clicks shared by all views: citation links, tag pills, "show more" members.
 app.addEventListener("click", (e) => {
+  const more = e.target.closest("[data-more-members]");
+  if (more) {
+    more.closest("section").querySelectorAll("tr.extra").forEach((tr) => (tr.hidden = false));
+    more.parentElement.remove();
+    return;
+  }
   const cite = e.target.closest("[data-ref]");
   if (cite) {
     e.preventDefault();

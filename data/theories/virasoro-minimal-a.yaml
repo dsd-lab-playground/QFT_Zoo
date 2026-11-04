@@ -1,0 +1,78 @@
+id: virasoro-minimal-a
+name: 'Unitary Virasoro minimal models $\mathcal{M}_m$ (A-series)'
+aliases: ['Diagonal minimal models $\mathcal{M}(m+1,m)$', '$\mathcal{M}_m^{(A,A)}$']
+d: 2
+summary: 'The diagonal unitary minimal models, $c = 1 - \frac{6}{m(m+1)}$ for $m \geq 3$: Ising, tricritical Ising, tetracritical Ising, …'
+tags: [CFT, interacting, unitary, rational, exactly solvable, minimal model, family]
+
+description: |
+  The diagonal (A-type) modular invariant $Z = \frac12\sum_{r,s}|\chi_{r,s}|^2$ exists for every $m$.
+
+  Weights are given by the Kac formula
+  $$h_{r,s} = \frac{\big((m+1)r - ms\big)^2 - 1}{4m(m+1)}, \qquad 1 \le r \le m-1,\ 1 \le s \le m,$$
+  with $(r,s) \sim (m-r, m+1-s)$. Friedan, Qiu and Shenker showed these are the only unitary
+  theories with $c<1$; Cappelli, Itzykson and Zuber classified their modular invariants by pairs of
+  ADE Dynkin diagrams $(G, G^\prime)$ with Coxeter numbers $m$ and $m+1$.
+
+  The lightest non-vacuum primary is $\phi_{2,2}$ with $h = \frac{3}{4m(m+1)}$. Central charges accumulate at $c = 1$.
+
+parameters:
+- symbol: m
+  description: 'Label of the minimal model $\mathcal{M}(m+1, m)$.'
+  range: 'integer $m \geq 3$'
+
+family:
+  parameter: m
+  start: 3
+  formulas:
+    c: '1 - 6/(m*(m+1))'
+    gap: '3/(2*m*(m+1))'
+  show: 8
+
+symmetry:
+  spacetime: 'conformal (Virasoro $\times$ Virasoro)'
+  supercharges: 0
+  global: '$\mathbb{Z}_2$ (for $m \geq 3$)'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '1 - \frac{6}{m(m+1)}'
+  method: exact
+  refs: [bpz1984, fqs1984]
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '\frac{3}{2m(m+1)}'
+  method: exact
+  refs: [bpz1984]
+
+operators:
+- name: '\phi_{2,2}'
+  Delta: '\frac{3}{2m(m+1)}'
+  spin: 0
+  weights: '(h_{2,2}, h_{2,2})'
+  note: Lightest non-vacuum primary.
+
+references:
+- key: bpz1984
+  title: Infinite conformal symmetry in two-dimensional quantum field theory
+  authors: Belavin, Polyakov, Zamolodchikov
+  year: 1984
+  journal: Nucl. Phys. B241, 333
+  doi: '10.1016/0550-3213(84)90052-X'
+- key: fqs1984
+  title: Conformal Invariance, Unitarity, and Critical Exponents in Two Dimensions
+  authors: Friedan, Qiu, Shenker
+  year: 1984
+  journal: Phys. Rev. Lett. 52, 1575
+  doi: '10.1103/PhysRevLett.52.1575'
+- key: ciz1987
+  title: 'The A-D-E classification of minimal and $A_1^{(1)}$ conformal invariant theories'
+  authors: Cappelli, Itzykson, Zuber
+  year: 1987
+  journal: Commun. Math. Phys. 113, 1
+  doi: '10.1007/BF01221394'
+
+contributors: [nathansbenjamin]

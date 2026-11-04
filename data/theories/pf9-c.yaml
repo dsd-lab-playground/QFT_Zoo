@@ -1,0 +1,47 @@
+id: pf9-c
+name: '$\mathrm{PF}_9/C$'
+d: 2
+summary: 'Orbifold of the $\mathbb{Z}_9$ parafermions by charge conjugation $C$.'
+tags: [CFT, interacting, unitary, rational, orbifold]
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '16/11'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '8/99'
+  method: exact
+
+operators:
+- name: '\Phi^1_{1} + \Phi^1_{-1}'
+  Delta: '8/99'
+  spin: 0
+  weights: '(\tfrac{4}{99}, \tfrac{4}{99})'
+  note: Lightest non-vacuum Virasoro primary.
+
+relations:
+- type: orbifold_of
+  target: pf9
+  note: 'By charge conjugation $C$.'
+
+references:
+- key: gepnerqiu1987
+  title: Modular invariant partition functions for parafermionic field theories
+  authors: Gepner, Qiu
+  year: 1987
+  journal: Nucl. Phys. B285, 423
+  doi: '10.1016/0550-3213(87)90348-8'
+  note: construction ingredients
+- key: dvvv1989
+  title: The operator algebra of orbifold models
+  authors: Dijkgraaf, Vafa, Verlinde, Verlinde
+  year: 1989
+  journal: Commun. Math. Phys. 123, 485
+  doi: '10.1007/BF01238812'
+  note: construction ingredients
+
+contributors: [nathansbenjamin]

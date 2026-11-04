@@ -1,0 +1,64 @@
+id: ising-x-minimal-a
+name: 'Ising $\times\ \mathcal{M}_m$ (A-series)'
+d: 2
+summary: 'Tensor product of the Ising CFT with a diagonal unitary minimal model: $c = \frac32 - \frac{6}{m(m+1)}$, inside $1 < c < \frac32$ for $m \geq 4$.'
+tags: [CFT, interacting, unitary, rational, family]
+
+description: 'The gap comes from $\phi_{2,2}$ of $\mathcal{M}_m$, with $h = \frac{3}{4m(m+1)}$, lighter than the Ising spin field for $m \geq 4$. Along the family $\Delta_{\rm gap} = \frac14\big(\frac32 - c\big)$, and the central charges accumulate at $c = \frac32$. Products with the exceptional E-type minimal models ($m = 11, 12, 17, 18, 29, 30$) have their own entries.'
+
+parameters:
+- symbol: m
+  description: 'Label of $\mathcal{M}_m$.'
+  range: 'integer $m \geq 4$'
+
+family:
+  parameter: m
+  start: 4
+  formulas:
+    c: '3/2 - 6/(m*(m+1))'
+    gap: '3/(2*m*(m+1))'
+  show: 8
+  overrides:
+  - at: 4
+    note: 'Ising $\times$ TIM. Same torus partition function as $\mathcal{W}_3(5,6)/S_3$.'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '\frac32 - \frac{6}{m(m+1)}'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '\frac{3}{2m(m+1)}'
+  method: exact
+
+operators:
+- name: '1 \otimes \phi_{2,2}'
+  Delta: '\frac{3}{2m(m+1)}'
+  spin: 0
+  note: Lightest non-vacuum primary.
+
+relations:
+- type: product_of
+  target: ising-2d
+- type: product_of
+  target: virasoro-minimal-a
+  note: 'Second factor, $m \geq 4$.'
+
+references:
+- key: bpz1984
+  title: Infinite conformal symmetry in two-dimensional quantum field theory
+  authors: Belavin, Polyakov, Zamolodchikov
+  year: 1984
+  journal: Nucl. Phys. B241, 333
+  doi: '10.1016/0550-3213(84)90052-X'
+- key: ciz1987
+  title: 'The A-D-E classification of minimal and $A_1^{(1)}$ conformal invariant theories'
+  authors: Cappelli, Itzykson, Zuber
+  year: 1987
+  journal: Commun. Math. Phys. 113, 1
+  doi: '10.1007/BF01221394'
+
+contributors: [nathansbenjamin]

@@ -1,0 +1,46 @@
+id: ising-x-m12-e6a-z2
+name: '(Ising $\times\ \mathcal{M}_{12}^{(E_6,A)})/\mathbb{Z}_2$'
+d: 2
+summary: 'Diagonal $\mathbb{Z}_2$ orbifold of Ising $\times\ \mathcal{M}_{12}^{(E_6,A)}$.'
+tags: [CFT, interacting, unitary, rational, orbifold]
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '19/13'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '1/13'
+  method: exact
+
+operators:
+- name: '\mathcal{O}'
+  Delta: '1/13'
+  spin: 0
+  weights: '(\tfrac{1}{26}, \tfrac{1}{26})'
+  note: Lightest non-vacuum Virasoro primary.
+
+relations:
+- type: orbifold_of
+  target: ising-x-m12-e6a
+  note: 'By the diagonal $\mathbb{Z}_2$.'
+
+references:
+- key: ciz1987
+  title: 'The A-D-E classification of minimal and $A_1^{(1)}$ conformal invariant theories'
+  authors: Cappelli, Itzykson, Zuber
+  year: 1987
+  journal: Commun. Math. Phys. 113, 1
+  doi: '10.1007/BF01221394'
+  note: construction ingredients
+- key: ks1993
+  title: Simple currents versus orbifolds with discrete torsion -- a complete classification
+  authors: Kreuzer, Schellekens
+  year: 1993
+  arxiv: hep-th/9306145
+  note: construction ingredients
+
+contributors: [nathansbenjamin]

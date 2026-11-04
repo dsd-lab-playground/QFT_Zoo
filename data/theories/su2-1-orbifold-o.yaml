@@ -1,0 +1,62 @@
+id: su2-1-orbifold-o
+name: '$SU(2)_1/O$ (octahedral $c=1$ orbifold)'
+aliases: [Ginsparg's octahedral point, '$c=1$ exceptional orbifold $O$']
+d: 2
+summary: 'One of the three isolated $c=1$ CFTs: the orbifold of the self-dual compact boson ($SU(2)_1$) by the octahedral group $O \cong S_4$.'
+tags: [CFT, unitary, rational, exactly solvable, orbifold]
+
+description: |
+  The octahedral rotation group $O \cong S_4$ (order 24) acts on the currents $J^a$, $\bar J^a$ of $SU(2)_1$ through the diagonal $SO(3)$. The only invariant marginal operator, $\sum_a J^a \bar J^a$, has a non-zero three-point coefficient, so it is not exactly marginal: unlike the cyclic and dihedral orbifolds (which lie on the circle and orbifold branches), the $T$, $O$, $I$ orbifolds are isolated points of the $c=1$ moduli space (Ginsparg).
+
+  A rotation by angle $2\pi t$ twists the winding by $t$, so its twisted-sector ground state is a scalar Virasoro primary with $h = \bar h = t^2/4$. The smallest rotation in $O$ has order 4, giving $\Delta_{\rm gap} = \frac{1}{2\cdot4^2} = 1/32$; the lightest untwisted invariant has $\Delta = \tfrac12$.
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '1'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '1/32'
+  method: exact (twisted-sector ground state)
+  note: 'Derived from the twisted-sector ground state for this entry; cross-check against Ginsparg (1988) welcome.'
+
+operators:
+- name: '\sigma_{4}'
+  Delta: '1/32'
+  spin: 0
+  weights: '(\tfrac{1}{64}, \tfrac{1}{64})'
+  note: Ground state of the twisted sector of the order-4 rotations.
+
+relations:
+- type: orbifold_of
+  target: compact-boson
+  at: '\sqrt{2}'
+  note: 'Orbifold of the self-dual point ($SU(2)_1$).'
+
+references:
+- key: ginsparg1988
+  title: 'Curiosities at c = 1'
+  authors: Ginsparg
+  year: 1988
+  journal: Nucl. Phys. B295, 153
+  doi: '10.1016/0550-3213(88)90249-0'
+- key: ginsparg-lectures
+  title: Applied Conformal Field Theory
+  authors: Ginsparg
+  year: 1988
+  arxiv: hep-th/9108028
+- key: dvvv1989
+  title: The operator algebra of orbifold models
+  authors: Dijkgraaf, Vafa, Verlinde, Verlinde
+  year: 1989
+  journal: Commun. Math. Phys. 123, 485
+  doi: '10.1007/BF01238812'
+
+contributors: [nathansbenjamin]

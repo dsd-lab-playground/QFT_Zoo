@@ -1,0 +1,66 @@
+id: virasoro-minimal-d
+name: Unitary Virasoro minimal models (D-series)
+aliases: ['$\mathcal{M}_m^{(A,D)}$, $\mathcal{M}_m^{(D,A)}$']
+d: 2
+summary: 'Non-diagonal unitary minimal models with a D-type modular invariant, $m \geq 5$; the first is the 3-state Potts model.'
+tags: [CFT, interacting, unitary, rational, exactly solvable, minimal model, family]
+
+description: |
+  For odd $m$ the invariant is $(A_{m-1}, D_{(m+3)/2})$ and for even $m$ it is $(D_{m/2+1}, A_m)$. When the D label is even the invariant is block-diagonal (an extended chiral algebra); when it is odd it is a permutation invariant.
+
+  Weights are given by the Kac formula
+  $$h_{r,s} = \frac{\big((m+1)r - ms\big)^2 - 1}{4m(m+1)}, \qquad 1 \le r \le m-1,\ 1 \le s \le m,$$
+  with $(r,s) \sim (m-r, m+1-s)$. Friedan, Qiu and Shenker showed these are the only unitary
+  theories with $c<1$; Cappelli, Itzykson and Zuber classified their modular invariants by pairs of
+  ADE Dynkin diagrams $(G, G^\prime)$ with Coxeter numbers $m$ and $m+1$.
+
+  The D-projection removes $\phi_{2,2}$ as a scalar, so the gap comes from $\phi_{3,3}$ with $h = \frac{2}{m(m+1)}$.
+
+parameters:
+- symbol: m
+  description: Label of the minimal model.
+  range: 'integer $m \geq 5$'
+
+family:
+  parameter: m
+  start: 5
+  formulas:
+    c: '1 - 6/(m*(m+1))'
+    gap: '4/(m*(m+1))'
+  show: 8
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '1 - \frac{6}{m(m+1)}'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '\frac{4}{m(m+1)}'
+  method: exact
+  refs: [ciz1987]
+
+operators:
+- name: '\phi_{3,3}'
+  Delta: '\frac{4}{m(m+1)}'
+  spin: 0
+  weights: '(h_{3,3}, h_{3,3})'
+  note: Lightest non-vacuum primary.
+
+references:
+- key: ciz1987
+  title: 'The A-D-E classification of minimal and $A_1^{(1)}$ conformal invariant theories'
+  authors: Cappelli, Itzykson, Zuber
+  year: 1987
+  journal: Commun. Math. Phys. 113, 1
+  doi: '10.1007/BF01221394'
+- key: fqs1984
+  title: Conformal Invariance, Unitarity, and Critical Exponents in Two Dimensions
+  authors: Friedan, Qiu, Shenker
+  year: 1984
+  journal: Phys. Rev. Lett. 52, 1575
+  doi: '10.1103/PhysRevLett.52.1575'
+
+contributors: [nathansbenjamin]

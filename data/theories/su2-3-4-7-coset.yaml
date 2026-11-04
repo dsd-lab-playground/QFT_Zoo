@@ -1,0 +1,40 @@
+id: su2-3-4-7-coset
+name: '$SU(2)_3\times SU(2)_4/SU(2)_7$ coset'
+d: 2
+summary: 'The diagonal coset $SU(2)_3\times SU(2)_4/SU(2)_7$.'
+tags: [CFT, interacting, unitary, rational, coset]
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '22/15'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '1/12'
+  method: exact
+
+operators:
+- name: '\Phi_{(0;\,\frac12;\,\frac12)}'
+  Delta: '1/12'
+  spin: 0
+  weights: '(\tfrac{1}{24}, \tfrac{1}{24})'
+  note: Lightest non-vacuum Virasoro primary.
+
+references:
+- key: gko1985
+  title: Virasoro algebras and coset space models
+  authors: Goddard, Kent, Olive
+  year: 1985
+  journal: Phys. Lett. B152, 88
+  doi: '10.1016/0370-2693(85)91145-1'
+- key: gko1986
+  title: Unitary representations of the Virasoro and super-Virasoro algebras
+  authors: Goddard, Kent, Olive
+  year: 1986
+  journal: Commun. Math. Phys. 103, 105
+  doi: '10.1007/BF01464283'
+
+contributors: [nathansbenjamin]

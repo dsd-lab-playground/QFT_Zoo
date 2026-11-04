@@ -10,7 +10,8 @@ Every theory is a small, human-readable YAML file in [`data/theories/`](data/the
 The website is generated from these files automatically, and the whole dataset is
 also published as a single JSON file
 ([`data/theories.json`](https://nathansbenjamin.github.io/QFT_Zoo/data/theories.json))
-for use in your own code.
+for use in your own code. The [landscape page](https://nathansbenjamin.github.io/QFT_Zoo/#/landscape)
+plots every 2d CFT with known central charge and spectral gap.
 
 ## Contributing
 

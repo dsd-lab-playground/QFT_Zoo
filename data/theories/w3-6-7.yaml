@@ -1,0 +1,58 @@
+id: w3-6-7
+name: '$\mathcal{W}_3(6,7)$ minimal model'
+d: 2
+summary: 'The $p=6$ unitary $\mathcal{W}_3$ minimal model with the diagonal invariant.'
+tags: [CFT, interacting, unitary, rational, coset, minimal model]
+
+description: '$\mathcal{W}_3(6,7) = SU(3)_3\times SU(3)_1/SU(3)_4$. Its modular invariants (Beltaos–Gannon) are the diagonal one, a $\mathbb{Z}_3$ extension $D$ (from $SU(3)_3 \subset SO(8)_1$) and the partial conjugation $C_a$ acting on the level-3 label only.'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$S_3$ ($\mathbb{Z}_3$ and $C: W \to -W$)'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '10/7'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '4/63'
+  method: exact
+
+operators:
+- name: '\Phi_{(\omega_1;\omega_1)},\ \Phi_{(\omega_2;\omega_2)}'
+  Delta: '4/63'
+  spin: 0
+  weights: '(\tfrac{2}{63}, \tfrac{2}{63})'
+  degeneracy: 2
+  note: Lightest non-vacuum Virasoro primary.
+
+relations:
+- type: member_of
+  target: w3-minimal-models
+  at: 6
+
+references:
+- key: fz1987
+  title: 'Conformal quantum field theory models in two dimensions having $\mathbb{Z}_3$ symmetry'
+  authors: Fateev, Zamolodchikov
+  year: 1987
+  journal: Nucl. Phys. B280, 644
+  doi: '10.1016/0550-3213(87)90166-0'
+- key: fkw1992
+  title: Characters and fusion rules for W-algebras via quantized Drinfeld-Sokolov reduction
+  authors: Frenkel, Kac, Wakimoto
+  year: 1992
+  journal: Commun. Math. Phys. 147, 295
+  doi: '10.1007/BF02096589'
+- key: bg2010
+  title: 'The $W_N$ minimal model classification'
+  authors: Beltaos, Gannon
+  year: 2010
+  arxiv: '1004.1205'
+
+contributors: [nathansbenjamin]

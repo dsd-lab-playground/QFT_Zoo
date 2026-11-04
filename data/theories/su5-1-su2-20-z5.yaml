@@ -1,0 +1,47 @@
+id: su5-1-su2-20-z5
+name: '$(SU(5)_1/SU(2)_{20})/\mathbb{Z}_5$'
+d: 2
+summary: 'Orbifold of the $SU(5)_1/SU(2)_{20}$ coset by its non-anomalous $\mathbb{Z}_5$ simple-current symmetry.'
+tags: [CFT, interacting, unitary, rational, coset, orbifold]
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '14/11'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '6/55'
+  method: exact
+
+operators:
+- name: '\mathcal{O}'
+  Delta: '6/55'
+  spin: 0
+  weights: '(\tfrac{3}{55}, \tfrac{3}{55})'
+  degeneracy: 2
+  note: Lightest non-vacuum Virasoro primary.
+
+relations:
+- type: orbifold_of
+  target: su5-1-su2-20
+  note: 'By the $\mathbb{Z}_5$ simple current.'
+
+references:
+- key: gko1985
+  title: Virasoro algebras and coset space models
+  authors: Goddard, Kent, Olive
+  year: 1985
+  journal: Phys. Lett. B152, 88
+  doi: '10.1016/0370-2693(85)91145-1'
+  note: construction ingredients
+- key: ks1993
+  title: Simple currents versus orbifolds with discrete torsion -- a complete classification
+  authors: Kreuzer, Schellekens
+  year: 1993
+  arxiv: hep-th/9306145
+  note: construction ingredients
+
+contributors: [nathansbenjamin]

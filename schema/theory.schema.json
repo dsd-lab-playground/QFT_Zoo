@@ -5,7 +5,14 @@
   "description": "One quantum field theory. Each entry lives in data/theories/<id>.yaml.\n\nText conventions: fields marked [markdown] accept Markdown with inline math $...$ and display math $$...$$. Fields marked [latex] are always typeset as math and must NOT contain $ delimiters. In YAML, put LaTeX in single quotes ('\\mathbb{Z}_2') or a block scalar (|) so backslashes are kept literally.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "name", "d", "summary", "tags", "references"],
+  "required": [
+    "id",
+    "name",
+    "d",
+    "summary",
+    "tags",
+    "references"
+  ],
   "properties": {
     "id": {
       "type": "string",
@@ -18,7 +25,9 @@
     },
     "aliases": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "[markdown] Other names the theory goes by (also used by search)."
     },
     "d": {
@@ -58,7 +67,11 @@
           "confining",
           "asymptotically free",
           "minimal model",
-          "critical phenomena"
+          "critical phenomena",
+          "rational",
+          "orbifold",
+          "coset",
+          "family"
         ]
       },
       "description": "Controlled vocabulary used for filtering. To propose a new tag, add it to this list in the same pull request."
@@ -73,129 +86,443 @@
     },
     "parameters": {
       "type": "array",
-      "items": { "$ref": "#/$defs/parameter" },
+      "items": {
+        "$ref": "#/$defs/parameter"
+      },
       "description": "Couplings, ranks, angles, ... that label a family of theories."
     },
-    "symmetry": { "$ref": "#/$defs/symmetry" },
+    "family": {
+      "$ref": "#/$defs/family"
+    },
+    "symmetry": {
+      "$ref": "#/$defs/symmetry"
+    },
     "quantities": {
       "type": "array",
-      "items": { "$ref": "#/$defs/quantity" },
+      "items": {
+        "$ref": "#/$defs/quantity"
+      },
       "description": "Numbers characterising the theory: central charges, critical exponents, OPE coefficients, beta-function coefficients, free energies, ..."
     },
     "operators": {
       "type": "array",
-      "items": { "$ref": "#/$defs/operator" },
+      "items": {
+        "$ref": "#/$defs/operator"
+      },
       "description": "Local operator spectrum (for CFTs: scaling dimensions)."
     },
     "relations": {
       "type": "array",
-      "items": { "$ref": "#/$defs/relation" },
+      "items": {
+        "$ref": "#/$defs/relation"
+      },
       "description": "Links to other entries. List each relation once; the reverse link is added automatically."
     },
     "references": {
       "type": "array",
       "minItems": 1,
-      "items": { "$ref": "#/$defs/reference" }
+      "items": {
+        "$ref": "#/$defs/reference"
+      }
     },
     "contributors": {
       "type": "array",
-      "items": { "type": "string", "pattern": "^[A-Za-z0-9-]+$" },
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9-]+$"
+      },
       "description": "GitHub usernames of people who wrote or substantially edited this entry."
     }
   },
   "$defs": {
     "refKeys": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "Keys of entries in this theory's references list."
     },
     "value": {
-      "type": ["string", "number"],
+      "type": [
+        "string",
+        "number"
+      ],
       "description": "[latex] Exact expression ('\\frac{1}{8}') or measured value with uncertainty in parenthesis notation ('0.518148806(24)'). Prefer strings so trailing digits are kept."
     },
     "parameter": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["symbol", "description"],
+      "required": [
+        "symbol",
+        "description"
+      ],
       "properties": {
-        "symbol": { "type": "string", "description": "[latex]" },
-        "description": { "type": "string", "description": "[markdown]" },
-        "range": { "type": "string", "description": "[markdown] Allowed values, e.g. '$N \\geq 2$'." }
+        "symbol": {
+          "type": "string",
+          "description": "[latex]"
+        },
+        "description": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "range": {
+          "type": "string",
+          "description": "[markdown] Allowed values, e.g. '$N \\geq 2$'."
+        }
       }
     },
     "symmetry": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "spacetime": { "type": "string", "description": "[markdown] e.g. 'conformal', 'Poincaré', 'superconformal $PSU(2,2|4)$'." },
-        "supercharges": { "type": "integer", "minimum": 0, "description": "Number of real Poincaré supercharges (0 if not supersymmetric)." },
-        "global": { "type": "string", "description": "[markdown] Internal global symmetry, including higher-form and discrete symmetries." },
-        "gauge": { "type": "string", "description": "[markdown] Gauge group, if any." },
-        "notes": { "type": "string", "description": "[markdown] Anomalies, emergent symmetries, subtleties." }
+        "spacetime": {
+          "type": "string",
+          "description": "[markdown] e.g. 'conformal', 'Poincaré', 'superconformal $PSU(2,2|4)$'."
+        },
+        "supercharges": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of real Poincaré supercharges (0 if not supersymmetric)."
+        },
+        "global": {
+          "type": "string",
+          "description": "[markdown] Internal global symmetry, including higher-form and discrete symmetries."
+        },
+        "gauge": {
+          "type": "string",
+          "description": "[markdown] Gauge group, if any."
+        },
+        "notes": {
+          "type": "string",
+          "description": "[markdown] Anomalies, emergent symmetries, subtleties."
+        }
       }
     },
     "quantity": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["symbol", "value"],
+      "required": [
+        "symbol",
+        "value"
+      ],
       "properties": {
-        "symbol": { "type": "string", "description": "[latex] e.g. 'c', 'C_T/C_T^{\\text{free}}', '\\nu'." },
-        "description": { "type": "string", "description": "[markdown]" },
-        "value": { "$ref": "#/$defs/value" },
-        "method": { "type": "string", "description": "How it was obtained: exact, conformal bootstrap, Monte Carlo, epsilon-expansion, perturbation theory, derived, ..." },
-        "refs": { "$ref": "#/$defs/refKeys" },
-        "note": { "type": "string", "description": "[markdown]" }
+        "key": {
+          "enum": [
+            "c",
+            "gap",
+            "a",
+            "C_T",
+            "F"
+          ],
+          "description": "Machine-readable meaning, used for sorting and plots. c: 2d Virasoro central charge (c_L = c_R). gap: 2d spectral gap, the scaling dimension h+h̄ of the lightest non-vacuum Virasoro primary. a, C_T, F: conformal anomaly, stress-tensor two-point coefficient, sphere free energy."
+        },
+        "symbol": {
+          "type": "string",
+          "description": "[latex] e.g. 'c', 'C_T/C_T^{\\text{free}}', '\\nu'."
+        },
+        "description": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "value": {
+          "$ref": "#/$defs/value"
+        },
+        "method": {
+          "type": "string",
+          "description": "How it was obtained: exact, conformal bootstrap, Monte Carlo, epsilon-expansion, perturbation theory, derived, ..."
+        },
+        "refs": {
+          "$ref": "#/$defs/refKeys"
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
+        }
       }
     },
     "operator": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "Delta"],
+      "required": [
+        "name",
+        "Delta"
+      ],
       "properties": {
-        "name": { "type": "string", "description": "[latex] e.g. '\\sigma', 'T_{\\mu\\nu}'." },
-        "Delta": { "$ref": "#/$defs/value", "description": "[latex] Scaling dimension." },
-        "spin": { "type": ["integer", "string"], "description": "Spin / Lorentz representation, e.g. 0, 2, '1/2', '(h,\\bar h)'." },
-        "rep": { "type": "string", "description": "[markdown] Representation under the global symmetry, e.g. '$\\mathbb{Z}_2$-odd', '$\\mathbf{20}\\prime$'." },
-        "method": { "type": "string" },
-        "refs": { "$ref": "#/$defs/refKeys" },
-        "note": { "type": "string", "description": "[markdown]" }
+        "name": {
+          "type": "string",
+          "description": "[latex] e.g. '\\sigma', 'T_{\\mu\\nu}'."
+        },
+        "Delta": {
+          "$ref": "#/$defs/value",
+          "description": "[latex] Scaling dimension."
+        },
+        "spin": {
+          "type": [
+            "integer",
+            "string"
+          ],
+          "description": "Spin / Lorentz representation, e.g. 0, 2, '1/2', '(h,\\bar h)'."
+        },
+        "rep": {
+          "type": "string",
+          "description": "[markdown] Representation under the global symmetry, e.g. '$\\mathbb{Z}_2$-odd', '$\\mathbf{20}\\prime$'."
+        },
+        "method": {
+          "type": "string"
+        },
+        "refs": {
+          "$ref": "#/$defs/refKeys"
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "weights": {
+          "type": "string",
+          "description": "[latex] 2d conformal weights, e.g. '(\\tfrac{1}{16}, \\tfrac{1}{16})'."
+        },
+        "degeneracy": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of primaries with these quantum numbers."
+        }
       }
     },
     "relation": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["type", "target"],
+      "required": [
+        "type",
+        "target"
+      ],
       "properties": {
         "type": {
-          "enum": ["flows_to", "dual_to", "related_to"],
-          "description": "flows_to: this theory flows to the target under an RG flow (this = UV, target = IR). dual_to / related_to: symmetric."
+          "enum": [
+            "flows_to",
+            "dual_to",
+            "related_to",
+            "member_of",
+            "orbifold_of",
+            "product_of",
+            "same_partition_function"
+          ],
+          "description": "flows_to: this theory (UV) flows to the target (IR). member_of: this theory belongs to the target family (give `at`). orbifold_of: this theory is an orbifold (gauging of a finite symmetry) of the target. product_of: the target is a tensor factor of this theory. same_partition_function: equal torus partition functions. dual_to, related_to: symmetric."
         },
-        "target": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "id of another entry." },
-        "note": { "type": "string", "description": "[markdown] e.g. which deformation triggers the flow." }
+        "target": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "id of another entry."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown] e.g. which deformation triggers the flow."
+        },
+        "at": {
+          "type": [
+            "integer",
+            "string"
+          ],
+          "description": "For member_of (or any relation to a family): which member, i.e. the value of the family parameter."
+        },
+        "variant": {
+          "type": "string",
+          "description": "For member_of: which variant, if the family has variants."
+        }
       }
     },
     "reference": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["key", "title"],
+      "required": [
+        "key",
+        "title"
+      ],
       "anyOf": [
-        { "required": ["arxiv"] },
-        { "required": ["doi"] },
-        { "required": ["url"] }
+        {
+          "required": [
+            "arxiv"
+          ]
+        },
+        {
+          "required": [
+            "doi"
+          ]
+        },
+        {
+          "required": [
+            "url"
+          ]
+        }
       ],
       "properties": {
-        "key": { "type": "string", "pattern": "^[A-Za-z0-9_:-]+$", "description": "Short handle used in refs lists, e.g. 'kos2016'." },
-        "title": { "type": "string" },
-        "authors": { "type": "string" },
-        "year": { "type": "integer", "minimum": 1800, "maximum": 2100 },
-        "journal": { "type": "string" },
+        "key": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_:-]+$",
+          "description": "Short handle used in refs lists, e.g. 'kos2016'."
+        },
+        "title": {
+          "type": "string"
+        },
+        "authors": {
+          "type": "string"
+        },
+        "year": {
+          "type": "integer",
+          "minimum": 1800,
+          "maximum": 2100
+        },
+        "journal": {
+          "type": "string"
+        },
         "arxiv": {
           "type": "string",
           "pattern": "^([0-9]{4}\\.[0-9]{4,5}|[a-z-]+(\\.[A-Z]{2})?/[0-9]{7})$",
           "description": "arXiv identifier without version, e.g. '1603.04436' or 'hep-th/9711200'."
         },
-        "doi": { "type": "string", "pattern": "^10\\.[0-9]{4,9}/\\S+$" },
-        "url": { "type": "string", "format": "uri" }
+        "doi": {
+          "type": "string",
+          "pattern": "^10\\.[0-9]{4,9}/\\S+$"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown] What this reference is used for, e.g. 'construction ingredients'."
+        }
+      }
+    },
+    "family": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Marks this entry as a family of theories. Either give closed-form `formulas` with `start`/`step` (an infinite discrete family; the site computes the members), or list `members` explicitly (finite families, or special points of a continuous family).",
+      "properties": {
+        "parameter": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_]*$",
+          "description": "Name of the parameter labelling members, e.g. m, k, R."
+        },
+        "start": {
+          "type": "integer",
+          "description": "First value of an integer parameter."
+        },
+        "step": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        },
+        "formulas": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "c": {
+              "type": "string",
+              "description": "Plain arithmetic in the parameter: + - * / ** and parentheses, e.g. '3/2 - 6/(m*(m+1))'. Evaluated exactly."
+            },
+            "gap": {
+              "type": "string",
+              "description": "Same syntax; the spectral gap."
+            }
+          }
+        },
+        "variants": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "[markdown] Several theories per parameter value sharing the formulas, e.g. ['+', '−']."
+        },
+        "overrides": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "at"
+            ],
+            "properties": {
+              "at": {
+                "type": [
+                  "integer",
+                  "string"
+                ]
+              },
+              "variant": {
+                "type": "string"
+              },
+              "c": {
+                "type": "string"
+              },
+              "gap": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string",
+                "description": "[markdown]"
+              }
+            }
+          },
+          "description": "Members for which the closed form does not apply."
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "at"
+            ],
+            "properties": {
+              "at": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
+                "description": "[latex] Parameter value, e.g. 11 or '\\sqrt{2}'."
+              },
+              "label": {
+                "type": "string",
+                "description": "[markdown] e.g. '$(A_{10},E_6)$' or 'SU(2)$_1$ WZW'."
+              },
+              "c": {
+                "type": "string"
+              },
+              "gap": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string",
+                "description": "[markdown]"
+              }
+            }
+          }
+        },
+        "span": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Continuous family at fixed c: the range of gaps it covers (drawn as a segment in the landscape plot).",
+          "properties": {
+            "c": {
+              "type": "string"
+            },
+            "gap": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        "show": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "default": 8,
+          "description": "How many parameter values to list on the page."
+        }
       }
     }
   }

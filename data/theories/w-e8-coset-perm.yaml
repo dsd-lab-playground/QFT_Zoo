@@ -1,0 +1,51 @@
+id: w-e8-coset-perm
+name: '$E_{8,1}\times E_{8,3}/E^{\pi}_{8,4}$ (exceptional $(E_8)_4$ permutation)'
+d: 2
+summary: 'The $\mathcal{W}(E_8)$ coset at $c = \frac{256}{187}$ with the exceptional automorphism invariant of $(E_8)_4$ applied to the denominator.'
+tags: [CFT, interacting, unitary, rational, coset]
+
+description: 'The exceptional automorphism invariant of $(E_8)_4$ exchanges the modules $\mathbf{248}$ and $\mathbf{6696000}$ (Gannon–Ruelle–Walton: the only automorphism invariant of an affine algebra not explained by simple currents, conjugations or Galois symmetries). Equivalently, the asymmetric coset $E_{8,3}/Spin(16)_3$ with the two spinor classes exchanged. The diagonal light scalars of the $\mathcal{W}(E_8)$ model are paired with spin-2 and spin-4 partners instead, and the gap comes from $(\mathbf{3875};\mathbf{3875})$.'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '256/187'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '16/187'
+  method: exact
+
+operators:
+- name: '\Phi_{(\mathbf{3875};\,\mathbf{3875})}'
+  Delta: '16/187'
+  spin: 0
+  weights: '(\tfrac{8}{187}, \tfrac{8}{187})'
+  note: Lightest non-vacuum Virasoro primary.
+
+relations:
+- type: related_to
+  target: w-e8-coset
+  note: 'Same chiral algebra; differs by the $(E_8)_4$ automorphism invariant.'
+
+references:
+- key: grw1995
+  title: Automorphism Modular Invariants of Current Algebras
+  authors: Gannon, Ruelle, Walton
+  year: 1995
+  arxiv: hep-th/9503141
+- key: qs2002
+  title: Asymmetric Cosets
+  authors: Quella, Schomerus
+  year: 2002
+  arxiv: hep-th/0212119
+- key: gko1985
+  title: Virasoro algebras and coset space models
+  authors: Goddard, Kent, Olive
+  year: 1985
+  journal: Phys. Lett. B152, 88
+  doi: '10.1016/0370-2693(85)91145-1'
+
+contributors: [nathansbenjamin]

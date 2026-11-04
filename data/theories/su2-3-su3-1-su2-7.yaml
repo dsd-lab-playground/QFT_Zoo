@@ -1,0 +1,48 @@
+id: su2-3-su3-1-su2-7
+name: '$SU(2)_3\times SU(3)_1/SU(2)_7$ coset'
+d: 2
+summary: 'The coset $SU(2)_3\times SU(2)_4/SU(2)_7$ with the $D_4$-type extension $SU(2)_4 \subset SU(3)_1$.'
+tags: [CFT, interacting, unitary, rational, coset]
+
+description: 'The conformal embedding $SU(2)_4 \subset SU(3)_1$ extends the numerator; this removes the $\Delta = \frac1{12}$ field of the diagonal coset and leaves three fields at $h = \frac{1}{15}$.'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '22/15'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '2/15'
+  method: exact
+
+operators:
+- name: '\mathcal{O}'
+  Delta: '2/15'
+  spin: 0
+  weights: '(\tfrac{1}{15}, \tfrac{1}{15})'
+  degeneracy: 3
+  note: Lightest non-vacuum Virasoro primary.
+
+relations:
+- type: related_to
+  target: su2-3-4-7-coset
+  note: 'Extension by the conformal embedding $SU(2)_4 \subset SU(3)_1$.'
+
+references:
+- key: gko1985
+  title: Virasoro algebras and coset space models
+  authors: Goddard, Kent, Olive
+  year: 1985
+  journal: Phys. Lett. B152, 88
+  doi: '10.1016/0370-2693(85)91145-1'
+- key: ciz1987
+  title: 'The A-D-E classification of minimal and $A_1^{(1)}$ conformal invariant theories'
+  authors: Cappelli, Itzykson, Zuber
+  year: 1987
+  journal: Commun. Math. Phys. 113, 1
+  doi: '10.1007/BF01221394'
+
+contributors: [nathansbenjamin]

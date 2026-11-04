@@ -1,0 +1,47 @@
+id: ising-x-m30-e8a
+name: 'Ising $\times\ \mathcal{M}_{30}^{(E_8,A)}$'
+d: 2
+summary: 'Ising times the exceptional $(E_8, A_{30})$ minimal model.'
+tags: [CFT, interacting, unitary, rational]
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '463/310'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '4/155'
+  method: exact
+
+operators:
+- name: '1\otimes\phi_{7,7}'
+  Delta: '4/155'
+  spin: 0
+  weights: '(\tfrac{2}{155}, \tfrac{2}{155})'
+  note: Lightest non-vacuum Virasoro primary.
+
+relations:
+- type: product_of
+  target: ising-2d
+- type: product_of
+  target: virasoro-minimal-e
+  at: 30
+
+references:
+- key: ciz1987
+  title: 'The A-D-E classification of minimal and $A_1^{(1)}$ conformal invariant theories'
+  authors: Cappelli, Itzykson, Zuber
+  year: 1987
+  journal: Commun. Math. Phys. 113, 1
+  doi: '10.1007/BF01221394'
+- key: bpz1984
+  title: Infinite conformal symmetry in two-dimensional quantum field theory
+  authors: Belavin, Polyakov, Zamolodchikov
+  year: 1984
+  journal: Nucl. Phys. B241, 333
+  doi: '10.1016/0550-3213(84)90052-X'
+
+contributors: [nathansbenjamin]

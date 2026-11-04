@@ -1,0 +1,86 @@
+id: compact-boson
+name: 'Compact boson ($c=1$ circle branch)'
+aliases: [Free boson on a circle, Gaussian model, Luttinger liquid, Tomonaga–Luttinger liquid]
+d: 2
+summary: 'A free scalar valued in a circle of radius $R$: a one-parameter family of $c=1$ CFTs, rational when $R^2$ is rational.'
+tags: [CFT, free, unitary, Lagrangian, exactly solvable, family]
+
+description: |
+  Convention: $X \sim X + 2\pi R$ with $T$-duality $R \to 2/R$ and self-dual radius $R = \sqrt2$. Vertex operators $V_{n,w}$ ($n, w \in \mathbb{Z}$) have $(h, \bar h) = \big(\tfrac12(\tfrac{n}{R} + \tfrac{wR}{2})^2, \tfrac12(\tfrac{n}{R} - \tfrac{wR}{2})^2\big)$, i.e. $\Delta = \frac{n^2}{R^2} + \frac{w^2R^2}{4}$ and spin $nw$. (Ginsparg's radius is $r = R/2$.)
+
+  The Virasoro primaries are the $V_{n,w}$ and the $U(1)$ currents $\partial X$, $\bar\partial X$ ($\Delta = 1$). The gap is $\min(1/R^2, R^2/4)$, maximised at the self-dual point where the symmetry enhances to $SU(2)\times SU(2)$ and the theory is the $SU(2)_1$ WZW model. Orbifolds of $SU(2)_1$ by cyclic groups $C_n$ give the points $R = n\sqrt2$. At $R = 2\sqrt2$ this branch meets the orbifold branch.
+
+lagrangian: '\mathcal{L} = \frac{1}{8\pi}\,\partial_\mu X\,\partial^\mu X, \qquad X \sim X + 2\pi R'
+
+parameters:
+- symbol: R
+  description: Radius of the target circle.
+  range: '$R > 0$, with $R \sim 2/R$'
+
+family:
+  parameter: R
+  members:
+  - at: '\sqrt{2}'
+    label: '$SU(2)_1$ WZW model (self-dual radius)'
+    c: '1'
+    gap: '1/2'
+  - at: '2'
+    label: 'Dirac fermion, bosonized (equivalently $R = 1$)'
+    c: '1'
+    gap: '1/4'
+  - at: '2\sqrt{2}'
+    label: 'Meets the orbifold branch (= orbifold at $R = \sqrt2$)'
+    c: '1'
+    gap: '1/8'
+  span:
+    c: '1'
+    gap: ['0', '1/2']
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$U(1)_{\rm momentum} \times U(1)_{\rm winding}$, plus $X \to -X$; enhanced to $SU(2)\times SU(2)$ at $R=\sqrt2$'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '1'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '\min\!\left(\frac{1}{R^2}, \frac{R^2}{4}\right)'
+  method: exact
+  refs: [ginsparg-lectures]
+
+operators:
+- name: 'V_{n,w}'
+  Delta: '\frac{n^2}{R^2} + \frac{w^2R^2}{4}'
+  spin: nw
+  note: 'Momentum $n$, winding $w$.'
+- name: '\partial X,\ \bar\partial X'
+  Delta: 1
+  spin: 1
+  note: '$U(1)$ currents.'
+
+references:
+- key: ginsparg1988
+  title: 'Curiosities at c = 1'
+  authors: Ginsparg
+  year: 1988
+  journal: Nucl. Phys. B295, 153
+  doi: '10.1016/0550-3213(88)90249-0'
+- key: ginsparg-lectures
+  title: Applied Conformal Field Theory
+  authors: Ginsparg
+  year: 1988
+  arxiv: hep-th/9108028
+- key: dvv1988
+  title: 'c = 1 conformal field theories on Riemann surfaces'
+  authors: Dijkgraaf, Verlinde, Verlinde
+  year: 1988
+  journal: Commun. Math. Phys. 115, 649
+  doi: '10.1007/BF01224132'
+
+contributors: [nathansbenjamin]

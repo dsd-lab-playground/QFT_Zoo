@@ -1,0 +1,64 @@
+id: w3-5-6
+name: '$\mathcal{W}_3(5,6)$ minimal model'
+d: 2
+summary: 'The $p=5$ unitary $\mathcal{W}_3$ minimal model with the diagonal invariant.'
+tags: [CFT, interacting, unitary, rational, coset, minimal model]
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$S_3$ ($\mathbb{Z}_3$ and $C: W \to -W$)'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '6/5'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '4/45'
+  method: exact
+
+operators:
+- name: '\Phi_{(\omega_1;\omega_1)},\ \Phi_{(\omega_2;\omega_2)}'
+  Delta: '4/45'
+  spin: 0
+  weights: '(\tfrac{2}{45}, \tfrac{2}{45})'
+  degeneracy: 2
+  note: Lightest non-vacuum Virasoro primary.
+
+relations:
+- type: member_of
+  target: w3-minimal-models
+  at: 5
+- type: related_to
+  target: ising-x-minimal-a
+  at: 4
+  note: '$\mathcal{W}_3(5,6)/S_3$ has the same torus partition function as Ising $\times$ TIM.'
+- type: related_to
+  target: ising-x-minimal-z2
+  at: 4
+  note: 'The D-type invariant $\mathcal{W}_3(5,6)^D$ has the same torus partition function as (Ising $\times$ TIM)$/\mathbb{Z}_2$.'
+
+references:
+- key: fz1987
+  title: 'Conformal quantum field theory models in two dimensions having $\mathbb{Z}_3$ symmetry'
+  authors: Fateev, Zamolodchikov
+  year: 1987
+  journal: Nucl. Phys. B280, 644
+  doi: '10.1016/0550-3213(87)90166-0'
+- key: fkw1992
+  title: Characters and fusion rules for W-algebras via quantized Drinfeld-Sokolov reduction
+  authors: Frenkel, Kac, Wakimoto
+  year: 1992
+  journal: Commun. Math. Phys. 147, 295
+  doi: '10.1007/BF02096589'
+- key: bg2010
+  title: 'The $W_N$ minimal model classification'
+  authors: Beltaos, Gannon
+  year: 2010
+  arxiv: '1004.1205'
+
+contributors: [nathansbenjamin]

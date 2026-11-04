@@ -1,0 +1,51 @@
+id: pf9
+name: '$\mathrm{PF}_9$ ($\mathbb{Z}_9$ parafermions)'
+d: 2
+summary: 'The $\mathbb{Z}_9$ parafermion CFT $SU(2)_9/U(1)$ with the diagonal invariant.'
+tags: [CFT, interacting, unitary, rational, coset]
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: 'Dihedral $D_{9}$: $\mathbb{Z}_{9}$ rotations $r$ and charge conjugation $C$'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '16/11'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '8/99'
+  method: exact
+
+operators:
+- name: '\Phi^1_{\pm1}'
+  Delta: '8/99'
+  spin: 0
+  weights: '(\tfrac{4}{99}, \tfrac{4}{99})'
+  degeneracy: 2
+  note: Lightest non-vacuum Virasoro primary.
+
+relations:
+- type: member_of
+  target: zk-parafermions
+  at: 9
+
+references:
+- key: gepnerqiu1987
+  title: Modular invariant partition functions for parafermionic field theories
+  authors: Gepner, Qiu
+  year: 1987
+  journal: Nucl. Phys. B285, 423
+  doi: '10.1016/0550-3213(87)90348-8'
+- key: kacpeterson1984
+  title: Infinite-dimensional Lie algebras, theta functions and modular forms
+  authors: Kac, Peterson
+  year: 1984
+  journal: Adv. Math. 53, 125
+  doi: '10.1016/0001-8708(84)90032-X'
+
+contributors: [nathansbenjamin]

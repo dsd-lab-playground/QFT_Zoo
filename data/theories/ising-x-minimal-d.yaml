@@ -1,0 +1,65 @@
+id: ising-x-minimal-d
+name: 'Ising $\times\ \mathcal{M}_m$ (D-series)'
+d: 2
+summary: 'Ising times a D-series minimal model, $m \geq 5$; $c = \frac32 - \frac{6}{m(m+1)}$.'
+tags: [CFT, interacting, unitary, rational, family]
+
+description: 'The D-projection removes $\phi_{2,2}$, so for $m \geq 6$ the gap is $\phi_{3,3}$ with $h = \frac{2}{m(m+1)}$, i.e. $\Delta_{\rm gap} = \frac23\big(\frac32 - c\big)$. At $m = 5$ (Ising $\times$ 3-state Potts) the Ising spin field is lighter.'
+
+parameters:
+- symbol: m
+  description: 'Label of $\mathcal{M}_m$.'
+  range: 'integer $m \geq 5$'
+
+family:
+  parameter: m
+  start: 5
+  formulas:
+    c: '3/2 - 6/(m*(m+1))'
+    gap: '4/(m*(m+1))'
+  show: 8
+  overrides:
+  - at: 5
+    gap: '1/8'
+    note: 'Ising $\times$ 3-state Potts: the Ising spin field ($\Delta = \frac18$) is lighter than $\phi_{3,3}$.'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '\frac32 - \frac{6}{m(m+1)}'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '\frac{4}{m(m+1)}'
+  method: exact
+  note: 'For $m \geq 6$; $\tfrac18$ at $m=5$.'
+
+operators:
+- name: '1 \otimes \phi_{3,3}'
+  Delta: '\frac{4}{m(m+1)}'
+  spin: 0
+  note: 'Lightest non-vacuum primary for $m \geq 6$.'
+
+relations:
+- type: product_of
+  target: ising-2d
+- type: product_of
+  target: virasoro-minimal-d
+
+references:
+- key: bpz1984
+  title: Infinite conformal symmetry in two-dimensional quantum field theory
+  authors: Belavin, Polyakov, Zamolodchikov
+  year: 1984
+  journal: Nucl. Phys. B241, 333
+  doi: '10.1016/0550-3213(84)90052-X'
+- key: ciz1987
+  title: 'The A-D-E classification of minimal and $A_1^{(1)}$ conformal invariant theories'
+  authors: Cappelli, Itzykson, Zuber
+  year: 1987
+  journal: Commun. Math. Phys. 113, 1
+  doi: '10.1007/BF01221394'
+
+contributors: [nathansbenjamin]

@@ -7,7 +7,7 @@ d: 2
 summary: >-
   The $c=\tfrac12$ unitary minimal model, describing the critical point of the
   2d Ising model. Exactly solvable.
-tags: [CFT, interacting, unitary, exactly solvable, minimal model, integrable, critical phenomena]
+tags: [CFT, interacting, unitary, rational, exactly solvable, minimal model, integrable, critical phenomena]
 
 description: |
   The simplest unitary Virasoro minimal model, $\mathcal{M}(4,3)$, with three
@@ -26,9 +26,16 @@ symmetry:
   notes: 'Kramers–Wannier duality is a non-invertible symmetry of the critical theory.'
 
 quantities:
-  - symbol: 'c'
+  - key: c
+    symbol: 'c'
     description: Virasoro central charge
-    value: '\frac{1}{2}'
+    value: '1/2'
+    method: exact
+    refs: [bpz1984]
+  - key: gap
+    symbol: '\Delta_{\rm gap}'
+    description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary ($\sigma$)'
+    value: '1/8'
     method: exact
     refs: [bpz1984]
   - symbol: 'C_{\sigma\sigma\epsilon}'
@@ -70,6 +77,12 @@ operators:
     note: 'Stress tensor, Virasoro descendant of the identity.'
 
 relations:
+  - type: member_of
+    target: virasoro-minimal-a
+    at: 3
+  - type: member_of
+    target: zk-parafermions
+    at: 2
   - type: related_to
     target: ising-3d
     note: 'The Ising critical point in $d=2$ and $d=3$: the $\mathbb{Z}_2$ Wilson–Fisher fixed point continued in dimension.'

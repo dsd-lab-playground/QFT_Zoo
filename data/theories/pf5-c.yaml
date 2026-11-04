@@ -1,0 +1,49 @@
+id: pf5-c
+name: '$\mathrm{PF}_5/C$'
+d: 2
+summary: 'Orbifold of the $\mathbb{Z}_5$ parafermions by charge conjugation $C: \Phi^l_m \to \Phi^l_{-m}$.'
+tags: [CFT, interacting, unitary, rational, orbifold]
+
+description: 'The $C$-twisted sectors have weights $h = \frac{k-2+(k-2s)^2}{16(k+2)}$; for $k=5$ the lightest is $h = \frac{1}{28}$.'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '8/7'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '1/14'
+  method: exact
+
+operators:
+- name: '\tau_C'
+  Delta: '1/14'
+  spin: 0
+  weights: '(\tfrac{1}{28}, \tfrac{1}{28})'
+  note: 'Lightest $C$-twisted-sector field; lightest non-vacuum primary.'
+
+relations:
+- type: orbifold_of
+  target: pf5
+  note: 'By charge conjugation $C$.'
+
+references:
+- key: gepnerqiu1987
+  title: Modular invariant partition functions for parafermionic field theories
+  authors: Gepner, Qiu
+  year: 1987
+  journal: Nucl. Phys. B285, 423
+  doi: '10.1016/0550-3213(87)90348-8'
+  note: construction ingredients
+- key: dvvv1989
+  title: The operator algebra of orbifold models
+  authors: Dijkgraaf, Vafa, Verlinde, Verlinde
+  year: 1989
+  journal: Commun. Math. Phys. 123, 485
+  doi: '10.1007/BF01238812'
+  note: construction ingredients
+
+contributors: [nathansbenjamin]

@@ -1,0 +1,50 @@
+id: pf8-cr
+name: '$\mathrm{PF}_8/C^\prime$'
+aliases: ['$\mathrm{PF}_8/Cr$']
+d: 2
+summary: 'Orbifold of the $\mathbb{Z}_8$ parafermions by the other class of reflections, $C^\prime = Cr$.'
+tags: [CFT, interacting, unitary, rational, orbifold]
+
+description: 'For even $k$ the reflections of the dihedral group form two classes, $C$ and $Cr$ ($r$ the $\mathbb{Z}_k$ generator). $\mathrm{PF}_8/C$ is $\mathrm{Sym}^2(\mathrm{TIM})$; this is the orbifold by the other class.'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '7/5'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '7/80'
+  method: exact
+
+operators:
+- name: '\mathcal{O}'
+  Delta: '7/80'
+  spin: 0
+  weights: '(\tfrac{7}{160}, \tfrac{7}{160})'
+  note: Lightest non-vacuum Virasoro primary.
+
+relations:
+- type: orbifold_of
+  target: pf8
+  note: 'By the reflection $Cr$.'
+
+references:
+- key: gepnerqiu1987
+  title: Modular invariant partition functions for parafermionic field theories
+  authors: Gepner, Qiu
+  year: 1987
+  journal: Nucl. Phys. B285, 423
+  doi: '10.1016/0550-3213(87)90348-8'
+  note: construction ingredients
+- key: dvvv1989
+  title: The operator algebra of orbifold models
+  authors: Dijkgraaf, Vafa, Verlinde, Verlinde
+  year: 1989
+  journal: Commun. Math. Phys. 123, 485
+  doi: '10.1007/BF01238812'
+  note: construction ingredients
+
+contributors: [nathansbenjamin]

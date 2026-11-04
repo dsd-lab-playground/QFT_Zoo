@@ -1,0 +1,89 @@
+id: potts-3-state
+name: '3-state Potts CFT'
+aliases: ['$\mathcal{M}_5^{(A_4,D_4)}$', '$\mathbb{Z}_3$ parafermions $\mathrm{PF}_3$', '$\mathcal{W}_3(4,5)$']
+d: 2
+summary: 'The critical 3-state Potts model, $c = \tfrac45$: the first D-series minimal model, also the $\mathbb{Z}_3$ parafermion and $\mathcal{W}_3$ minimal model.'
+tags: [CFT, interacting, unitary, rational, exactly solvable, minimal model, critical phenomena]
+
+description: 'The $(A_4, D_4)$ invariant of $\mathcal{M}(6,5)$. Its chiral algebra is extended by a spin-3 current $W$, making it the first $\mathcal{W}_3$ minimal model; it is also the $\mathbb{Z}_3$ parafermion theory $SU(2)_3/U(1)$.'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$S_3$'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '4/5'
+  method: exact
+  refs: [fz1987]
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '2/15'
+  method: exact
+  refs: [fz1987]
+
+operators:
+- name: '\sigma,\ \sigma^\dagger'
+  Delta: '2/15'
+  spin: 0
+  weights: '(\tfrac{1}{15}, \tfrac{1}{15})'
+  degeneracy: 2
+  rep: '$\mathbb{Z}_3$ charge $\pm1$'
+- name: '\epsilon'
+  Delta: '4/5'
+  spin: 0
+  weights: '(\tfrac{2}{5}, \tfrac{2}{5})'
+  rep: singlet
+- name: 'Z,\ Z^\dagger'
+  Delta: '4/3'
+  spin: 0
+  weights: '(\tfrac{2}{3}, \tfrac{2}{3})'
+  degeneracy: 2
+  rep: '$\mathbb{Z}_3$ charge $\pm1$'
+- name: X
+  Delta: '14/5'
+  spin: 0
+  weights: '(\tfrac{7}{5}, \tfrac{7}{5})'
+  rep: singlet
+- name: 'W,\ \bar W'
+  Delta: 3
+  spin: 3
+  weights: '(3,0),\ (0,3)'
+  note: Spin-3 currents of the extended chiral algebra.
+
+relations:
+- type: member_of
+  target: virasoro-minimal-d
+  at: 5
+- type: member_of
+  target: zk-parafermions
+  at: 3
+- type: member_of
+  target: w3-minimal-models
+  at: 4
+
+references:
+- key: fz1987
+  title: 'Conformal quantum field theory models in two dimensions having $\mathbb{Z}_3$ symmetry'
+  authors: Fateev, Zamolodchikov
+  year: 1987
+  journal: Nucl. Phys. B280, 644
+  doi: '10.1016/0550-3213(87)90166-0'
+- key: ciz1987
+  title: 'The A-D-E classification of minimal and $A_1^{(1)}$ conformal invariant theories'
+  authors: Cappelli, Itzykson, Zuber
+  year: 1987
+  journal: Commun. Math. Phys. 113, 1
+  doi: '10.1007/BF01221394'
+- key: gepnerqiu1987
+  title: Modular invariant partition functions for parafermionic field theories
+  authors: Gepner, Qiu
+  year: 1987
+  journal: Nucl. Phys. B285, 423
+  doi: '10.1016/0550-3213(87)90348-8'
+
+contributors: [nathansbenjamin]

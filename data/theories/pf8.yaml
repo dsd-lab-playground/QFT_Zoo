@@ -1,0 +1,57 @@
+id: pf8
+name: '$\mathrm{PF}_8$ ($\mathbb{Z}_8$ parafermions)'
+aliases: ['$\mathrm{TIM}^2/V_4$']
+d: 2
+summary: 'The $\mathbb{Z}_8$ parafermion CFT $SU(2)_8/U(1)$ with the diagonal invariant.'
+tags: [CFT, interacting, unitary, rational, coset]
+
+description: 'Same torus partition function as the orbifold of TIM$^2$ by $V_4 = \langle f_1 f_2, s\rangle$.'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: 'Dihedral $D_{8}$: $\mathbb{Z}_{8}$ rotations $r$ and charge conjugation $C$'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '7/5'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '7/80'
+  method: exact
+
+operators:
+- name: '\Phi^1_{\pm1}'
+  Delta: '7/80'
+  spin: 0
+  weights: '(\tfrac{7}{160}, \tfrac{7}{160})'
+  degeneracy: 2
+  note: Lightest non-vacuum Virasoro primary.
+
+relations:
+- type: member_of
+  target: zk-parafermions
+  at: 8
+- type: related_to
+  target: tim-squared
+  note: '$\mathrm{TIM}^2/\langle f_1f_2, s\rangle$ has the same torus partition function.'
+
+references:
+- key: gepnerqiu1987
+  title: Modular invariant partition functions for parafermionic field theories
+  authors: Gepner, Qiu
+  year: 1987
+  journal: Nucl. Phys. B285, 423
+  doi: '10.1016/0550-3213(87)90348-8'
+- key: kacpeterson1984
+  title: Infinite-dimensional Lie algebras, theta functions and modular forms
+  authors: Kac, Peterson
+  year: 1984
+  journal: Adv. Math. 53, 125
+  doi: '10.1016/0001-8708(84)90032-X'
+
+contributors: [nathansbenjamin]

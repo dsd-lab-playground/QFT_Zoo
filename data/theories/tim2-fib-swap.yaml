@@ -1,0 +1,51 @@
+id: tim2-fib-swap
+name: 'TIM$^2$ with Fibonacci swap'
+aliases: ['$\mathrm{PF}_8/V_4^\prime$', '$\mathrm{PF}_8/\langle r^4, Cr\rangle$']
+d: 2
+summary: 'The modular invariant of TIM$^2$ that exchanges only the Fibonacci factors of the two copies.'
+tags: [CFT, interacting, unitary, rational]
+
+description: 'The modular data of TIM factorise as Fibonacci $\boxtimes$ a braided Ising category. Exchanging only the Fibonacci labels, $(f_1 i_1, f_2 i_2) \mapsto (f_2 i_1, f_1 i_2)$, is a braided autoequivalence of Rep(TIM$^2$) and therefore defines a full CFT. Its torus partition function equals that of the orbifold of $\mathrm{PF}_8$ by $\langle r^4, Cr\rangle \cong \mathbb{Z}_2^2$.'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '7/5'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '3/20'
+  method: exact
+
+operators:
+- name: '\mathcal{O}'
+  Delta: '3/20'
+  spin: 0
+  weights: '(\tfrac{3}{40}, \tfrac{3}{40})'
+  note: Lightest non-vacuum Virasoro primary.
+
+relations:
+- type: related_to
+  target: tim-squared
+  note: 'Same chiral algebra; permutation invariant.'
+- type: related_to
+  target: pf8
+  note: '$\mathrm{PF}_8/\langle r^4, Cr\rangle$ has the same torus partition function.'
+
+references:
+- key: dkr2010
+  title: Invertible defects and isomorphisms of rational CFTs
+  authors: Davydov, Kong, Runkel
+  year: 2010
+  arxiv: '1004.4725'
+  note: construction ingredients
+- key: kr2007
+  title: Morita classes of algebras in modular tensor categories
+  authors: Kong, Runkel
+  year: 2007
+  arxiv: '0708.1897'
+  note: construction ingredients
+
+contributors: [nathansbenjamin]

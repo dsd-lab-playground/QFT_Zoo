@@ -1,0 +1,59 @@
+id: n1-12-e6d
+name: '$\mathcal{N}_{12}^{(E_6,D)}$'
+aliases: ['$\mathcal{W}_3(6,7)^D$']
+d: 2
+summary: 'Bosonized $\mathcal{N}=1$ minimal model at $m=12$ with the exceptional $(E_6, D)$ invariant.'
+tags: [CFT, interacting, unitary, rational, coset, minimal model]
+
+description: 'Same torus partition function as the D-type ($\mathbb{Z}_3$-extended) invariant $\mathcal{W}_3(6,7)^D$.'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '10/7'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '1/7'
+  method: exact
+
+operators:
+- name: '\mathcal{O}'
+  Delta: '1/7'
+  spin: 0
+  weights: '(\tfrac{1}{14}, \tfrac{1}{14})'
+  degeneracy: 3
+  note: Lightest non-vacuum Virasoro primary.
+
+relations:
+- type: related_to
+  target: w3-6-7
+  note: '$\mathcal{W}_3(6,7)^D$ has the same torus partition function.'
+- type: related_to
+  target: n1-minimal-aa-even
+  at: 12
+  note: 'Exceptional invariant at $m=12$.'
+
+references:
+- key: cappelli1987
+  title: Modular invariant partition functions of superconformal theories
+  authors: Cappelli
+  year: 1987
+  journal: Phys. Lett. B185, 82
+  doi: '10.1016/0370-2693(87)91532-2'
+- key: fqs1985
+  title: Superconformal invariance in two dimensions and the tricritical Ising model
+  authors: Friedan, Qiu, Shenker
+  year: 1985
+  journal: Phys. Lett. B151, 37
+  doi: '10.1016/0370-2693(85)90819-6'
+- key: fz1987
+  title: 'Conformal quantum field theory models in two dimensions having $\mathbb{Z}_3$ symmetry'
+  authors: Fateev, Zamolodchikov
+  year: 1987
+  journal: Nucl. Phys. B280, 644
+  doi: '10.1016/0550-3213(87)90166-0'
+
+contributors: [nathansbenjamin]

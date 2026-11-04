@@ -1,0 +1,87 @@
+id: virasoro-minimal-e
+name: Exceptional Virasoro minimal models (E-series)
+aliases: ['$\mathcal{M}_m^{(A,E)}$, $\mathcal{M}_m^{(E,A)}$']
+d: 2
+summary: 'The six unitary minimal models with an exceptional $E_6$, $E_7$ or $E_8$ modular invariant, at $m = 11, 12, 17, 18, 29, 30$.'
+tags: [CFT, interacting, unitary, rational, exactly solvable, minimal model, family]
+
+description: |
+  The E-type invariants exist when $m$ or $m+1$ equals the Coxeter number of $E_6$ (12), $E_7$ (18) or $E_8$ (30). The $E_6$ and $E_8$ invariants are block-diagonal (extended chiral algebras); $E_7$ is a permutation of the $D_{10}$ blocks.
+
+  Weights are given by the Kac formula
+  $$h_{r,s} = \frac{\big((m+1)r - ms\big)^2 - 1}{4m(m+1)}, \qquad 1 \le r \le m-1,\ 1 \le s \le m,$$
+  with $(r,s) \sim (m-r, m+1-s)$. Friedan, Qiu and Shenker showed these are the only unitary
+  theories with $c<1$; Cappelli, Itzykson and Zuber classified their modular invariants by pairs of
+  ADE Dynkin diagrams $(G, G^\prime)$ with Coxeter numbers $m$ and $m+1$.
+
+  The surviving labels are the exponents of the E diagram ($E_6$: 1, 4, 5, 7, 8, 11; $E_7$: 1, 5, 7, 9, 11, 13, 17; $E_8$: 1, 7, 11, 13, 17, 19, 23, 29), so the lightest primary is $\phi_{k,k}$ with $k = 4, 5, 7$ and $\Delta_{\rm gap} = \frac{k^2-1}{2m(m+1)}$.
+
+parameters:
+- symbol: m
+  description: Label of the minimal model.
+  range: '$m \in \{11, 12, 17, 18, 29, 30\}$'
+
+family:
+  parameter: m
+  members:
+  - at: 11
+    label: '$(A_{10}, E_6)$'
+    c: '21/22'
+    gap: '5/88'
+  - at: 12
+    label: '$(E_6, A_{12})$'
+    c: '25/26'
+    gap: '5/104'
+  - at: 17
+    label: '$(A_{16}, E_7)$'
+    c: '50/51'
+    gap: '2/51'
+  - at: 18
+    label: '$(E_7, A_{18})$'
+    c: '56/57'
+    gap: '2/57'
+  - at: 29
+    label: '$(A_{28}, E_8)$'
+    c: '144/145'
+    gap: '4/145'
+  - at: 30
+    label: '$(E_8, A_{30})$'
+    c: '154/155'
+    gap: '4/155'
+  show: 6
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '1 - \frac{6}{m(m+1)}'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '\frac{k^2-1}{2m(m+1)}'
+  method: exact
+  refs: [ciz1987]
+  note: '$k = 4, 5, 7$ for $E_6, E_7, E_8$.'
+
+operators:
+- name: '\phi_{k,k}'
+  Delta: '\frac{k^2-1}{2m(m+1)}'
+  spin: 0
+  note: 'Lightest non-vacuum primary; $k$ is the smallest exponent of the E diagram above 1.'
+
+references:
+- key: ciz1987
+  title: 'The A-D-E classification of minimal and $A_1^{(1)}$ conformal invariant theories'
+  authors: Cappelli, Itzykson, Zuber
+  year: 1987
+  journal: Commun. Math. Phys. 113, 1
+  doi: '10.1007/BF01221394'
+- key: fqs1984
+  title: Conformal Invariance, Unitarity, and Critical Exponents in Two Dimensions
+  authors: Friedan, Qiu, Shenker
+  year: 1984
+  journal: Phys. Rev. Lett. 52, 1575
+  doi: '10.1103/PhysRevLett.52.1575'
+
+contributors: [nathansbenjamin]

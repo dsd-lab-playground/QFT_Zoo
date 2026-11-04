@@ -1,0 +1,84 @@
+id: n1-minimal-aa-even
+name: 'Bosonized $\mathcal{N}=1$ minimal models $\mathcal{N}_m^{(A,A)\pm}$, even $m$'
+d: 2
+summary: 'Bosonized $\mathcal{N}=1$ minimal models with the $(A,A)$ invariant, even $m \geq 6$, two GSO choices each.'
+tags: [CFT, interacting, unitary, rational, coset, minimal model, family]
+
+description: |
+  $\mathcal{N}_m$ denotes the $\mathcal{N}=1$ superconformal minimal model, the coset $SU(2)_{m-2}\times SU(2)_2/SU(2)_m$ with $c = \frac32 - \frac{12}{m(m+2)}$ ($m=3$ is the tricritical Ising model), made bosonic by summing over spin structures. Weights are $h_{r,s} = \frac{((m+2)r - ms)^2 - 4}{8m(m+2)} + \frac{1-(-1)^{r-s}}{32}$. For even $m$ the invariants come in pairs $\pm$ (the GSO choice): $+$ keeps the Ramond ground state $(c/24, c/24)$ as a scalar, $-$ pairs it as $(c/24, c/24+1)$.
+
+  For even $m$ there are six simple-current invariants, $(A,A)^\pm$, $(A,D)^\pm$, $(D,A)^\pm$. Both $(A,A)^\pm$ have $\Delta_{\rm gap} = \frac{3}{m(m+2)} = \frac14\big(\frac32 - c\big)$, from the NS field $(2,2)$.
+
+parameters:
+- symbol: m
+  description: Minimal-model label.
+  range: 'even $m \geq 6$'
+
+family:
+  parameter: m
+  start: 6
+  step: 2
+  variants: ['+', '-']
+  formulas:
+    c: '3/2 - 12/(m*(m+2))'
+    gap: '3/(m*(m+2))'
+  show: 6
+  overrides:
+  - at: 6
+    variant: '+'
+    note: 'Same partition function as $\mathrm{PF}_6/C$.'
+  - at: 6
+    variant: '-'
+    note: 'Same partition function as $\mathrm{PF}_6/D_3$.'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '\frac32 - \frac{12}{m(m+2)}'
+  method: exact
+  refs: [fqs1985]
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '\frac{3}{m(m+2)}'
+  method: exact
+
+operators:
+- name: '\Phi_{2,2}'
+  Delta: '\frac{3}{m(m+2)}'
+  spin: 0
+  note: 'NS sector; lightest non-vacuum primary.'
+
+relations:
+- type: related_to
+  target: zk-parafermions
+  at: 6
+  note: 'At $m=6$ all six invariants are orbifolds of $\mathrm{PF}_6$.'
+
+references:
+- key: fqs1985
+  title: Superconformal invariance in two dimensions and the tricritical Ising model
+  authors: Friedan, Qiu, Shenker
+  year: 1985
+  journal: Phys. Lett. B151, 37
+  doi: '10.1016/0370-2693(85)90819-6'
+- key: gko1986
+  title: Unitary representations of the Virasoro and super-Virasoro algebras
+  authors: Goddard, Kent, Olive
+  year: 1986
+  journal: Commun. Math. Phys. 103, 105
+  doi: '10.1007/BF01464283'
+- key: cappelli1987
+  title: Modular invariant partition functions of superconformal theories
+  authors: Cappelli
+  year: 1987
+  journal: Phys. Lett. B185, 82
+  doi: '10.1016/0370-2693(87)91532-2'
+- key: ks1993
+  title: Simple currents versus orbifolds with discrete torsion -- a complete classification
+  authors: Kreuzer, Schellekens
+  year: 1993
+  arxiv: hep-th/9306145
+
+contributors: [nathansbenjamin]

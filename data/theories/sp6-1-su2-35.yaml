@@ -1,0 +1,40 @@
+id: sp6-1-su2-35
+name: '$Sp(6)_1/SU(2)_{35}$ coset'
+d: 2
+summary: 'Coset of $Sp(6)_1$ by its principal $SU(2)$ subalgebra (embedding index 35), with the diagonal invariant.'
+tags: [CFT, interacting, unitary, rational, coset]
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '252/185'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '12/185'
+  method: exact
+
+operators:
+- name: '\Phi_{(\mathbf{6};\,j=13/2)}'
+  Delta: '12/185'
+  spin: 0
+  weights: '(\tfrac{6}{185}, \tfrac{6}{185})'
+  note: 'From a grade-one branch of $\mathbf{6}$; lighter than all grade-zero branches.'
+
+references:
+- key: gko1985
+  title: Virasoro algebras and coset space models
+  authors: Goddard, Kent, Olive
+  year: 1985
+  journal: Phys. Lett. B152, 88
+  doi: '10.1016/0370-2693(85)91145-1'
+- key: gko1986
+  title: Unitary representations of the Virasoro and super-Virasoro algebras
+  authors: Goddard, Kent, Olive
+  year: 1986
+  journal: Commun. Math. Phys. 103, 105
+  doi: '10.1007/BF01464283'
+
+contributors: [nathansbenjamin]

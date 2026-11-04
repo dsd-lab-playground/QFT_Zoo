@@ -1,0 +1,97 @@
+id: compact-boson-orbifold
+name: 'Orbifold branch $S^1/\mathbb{Z}_2$ ($c=1$)'
+aliases: [Ashkin–Teller critical line, Orbifold line]
+d: 2
+summary: 'The $\mathbb{Z}_2$ ($X \to -X$) orbifolds of the compact boson: a second one-parameter family of $c=1$ CFTs, containing Ising$^2$, $\mathbb{Z}_4$ parafermions and the 4-state Potts model.'
+tags: [CFT, unitary, exactly solvable, orbifold, critical phenomena, family]
+
+description: |
+  Convention: $X \sim X + 2\pi R$ with $T$-duality $R \to 2/R$ and self-dual radius $R = \sqrt2$. Vertex operators $V_{n,w}$ ($n, w \in \mathbb{Z}$) have $(h, \bar h) = \big(\tfrac12(\tfrac{n}{R} + \tfrac{wR}{2})^2, \tfrac12(\tfrac{n}{R} - \tfrac{wR}{2})^2\big)$, i.e. $\Delta = \frac{n^2}{R^2} + \frac{w^2R^2}{4}$ and spin $nw$. (Ginsparg's radius is $r = R/2$.) Here $R$ is the radius of the parent circle.
+
+  The twisted sectors contain two twist fields $\sigma_{1,2}$ with $h = \bar h = \tfrac{1}{16}$ and their excitations $\tau_{1,2}$ with $h = \bar h = \tfrac{9}{16}$; the untwisted sector keeps the $\mathbb{Z}_2$-even combinations of $V_{n,w}$. Hence $\Delta_{\rm gap} = \min(\tfrac18, \tfrac{1}{R^2}, \tfrac{R^2}{4}) \le \tfrac18$. Orbifolds of $SU(2)_1$ by dihedral groups $D_n$ give the points $R = n\sqrt2$. The orbifold at $R=\sqrt2$ equals the circle at $R = 2\sqrt2$, where the two branches meet.
+
+parameters:
+- symbol: R
+  description: Radius of the parent circle.
+  range: '$R > 0$, with $R \sim 2/R$'
+
+family:
+  parameter: R
+  members:
+  - at: '\sqrt{2}'
+    label: 'Meets the circle branch (= circle at $R = 2\sqrt2$)'
+    c: '1'
+    gap: '1/8'
+  - at: '2'
+    label: 'Ising$^2$ (two decoupled Ising models)'
+    c: '1'
+    gap: '1/8'
+  - at: '\sqrt{6}'
+    label: '$\mathbb{Z}_4$ parafermions $\mathrm{PF}_4$'
+    c: '1'
+    gap: '1/8'
+  - at: '2\sqrt{2}'
+    label: '4-state Potts model'
+    c: '1'
+    gap: '1/8'
+  span:
+    c: '1'
+    gap: ['0', '1/8']
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$D_4$ at generic radius'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '1'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '\min\!\left(\frac18, \frac{1}{R^2}, \frac{R^2}{4}\right)'
+  method: exact
+  refs: [ginsparg-lectures]
+
+operators:
+- name: '\sigma_1,\ \sigma_2'
+  Delta: '1/8'
+  spin: 0
+  weights: '(\tfrac{1}{16}, \tfrac{1}{16})'
+  degeneracy: 2
+  note: Twist fields.
+- name: '\tau_1,\ \tau_2'
+  Delta: '9/8'
+  spin: 0
+  weights: '(\tfrac{9}{16}, \tfrac{9}{16})'
+  degeneracy: 2
+  note: Excited twist fields.
+
+relations:
+- type: orbifold_of
+  target: compact-boson
+  note: 'Gauging $X \to -X$ at the same radius.'
+
+references:
+- key: ginsparg1988
+  title: 'Curiosities at c = 1'
+  authors: Ginsparg
+  year: 1988
+  journal: Nucl. Phys. B295, 153
+  doi: '10.1016/0550-3213(88)90249-0'
+- key: ginsparg-lectures
+  title: Applied Conformal Field Theory
+  authors: Ginsparg
+  year: 1988
+  arxiv: hep-th/9108028
+- key: dvv1988
+  title: 'c = 1 conformal field theories on Riemann surfaces'
+  authors: Dijkgraaf, Verlinde, Verlinde
+  year: 1988
+  journal: Commun. Math. Phys. 115, 649
+  doi: '10.1007/BF01224132'
+
+contributors: [nathansbenjamin]

@@ -1,0 +1,48 @@
+id: w-e7-coset
+name: '$\mathcal{W}(E_7)$ minimal model $E_{7,1}\times E_{7,2}/E_{7,3}$'
+d: 2
+summary: 'The diagonal coset $(E_7)_1\times(E_7)_2/(E_7)_3$, a minimal model of the $\mathcal{W}(E_7)$ algebra.'
+tags: [CFT, interacting, unitary, rational, coset]
+
+description: 'Weights $h = \frac{|p^\prime(\lambda+\rho) - p(\mu+\rho)|^2 - \rho^2}{2pp^\prime}$ at $(p, p^\prime) = (20, 21)$; the gap comes from the $\mathbf{56}$. The $E_7$ simple current has weight $\tfrac92$ and fixes every field it could move, so its orbifold is the same theory.'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '13/10'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '19/280'
+  method: exact
+
+operators:
+- name: '\Phi_{\mathbf{56}}'
+  Delta: '19/280'
+  spin: 0
+  weights: '(\tfrac{19}{560}, \tfrac{19}{560})'
+  note: Lightest non-vacuum Virasoro primary.
+
+references:
+- key: gko1985
+  title: Virasoro algebras and coset space models
+  authors: Goddard, Kent, Olive
+  year: 1985
+  journal: Phys. Lett. B152, 88
+  doi: '10.1016/0370-2693(85)91145-1'
+- key: bbss1988
+  title: Coset construction for extended Virasoro algebras
+  authors: Bais, Bouwknegt, Surridge, Schoutens
+  year: 1988
+  journal: Nucl. Phys. B304, 371
+  doi: '10.1016/0550-3213(88)90632-3'
+- key: fkw1992
+  title: Characters and fusion rules for W-algebras via quantized Drinfeld-Sokolov reduction
+  authors: Frenkel, Kac, Wakimoto
+  year: 1992
+  journal: Commun. Math. Phys. 147, 295
+  doi: '10.1007/BF02096589'
+
+contributors: [nathansbenjamin]

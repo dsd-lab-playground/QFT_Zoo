@@ -1,0 +1,49 @@
+id: n1-28-ae8
+name: '$\mathcal{N}_{28}^{(A,E_8)}$'
+aliases: ['$\mathcal{N}_{28}^{(D,E_8)}$']
+d: 2
+summary: 'Bosonized $\mathcal{N}=1$ minimal model at $m=28$ with an exceptional $E_8$ invariant.'
+tags: [CFT, interacting, unitary, rational, coset, minimal model]
+
+description: 'The $(A, E_8)$ and $(D, E_8)$ (respectively $(E_8, A)$ and $(E_8, D)$) invariants coincide on the coset fields. The gap comes from the NS field $(7,7)$.'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '52/35'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '2/35'
+  method: exact
+
+operators:
+- name: '\Phi_{7,7}'
+  Delta: '2/35'
+  spin: 0
+  weights: '(\tfrac{1}{35}, \tfrac{1}{35})'
+  note: Lightest non-vacuum Virasoro primary.
+
+relations:
+- type: related_to
+  target: n1-minimal-aa-even
+  at: 28
+  note: 'Exceptional invariant at $m=28$.'
+
+references:
+- key: cappelli1987
+  title: Modular invariant partition functions of superconformal theories
+  authors: Cappelli
+  year: 1987
+  journal: Phys. Lett. B185, 82
+  doi: '10.1016/0370-2693(87)91532-2'
+- key: fqs1985
+  title: Superconformal invariance in two dimensions and the tricritical Ising model
+  authors: Friedan, Qiu, Shenker
+  year: 1985
+  journal: Phys. Lett. B151, 37
+  doi: '10.1016/0370-2693(85)90819-6'
+
+contributors: [nathansbenjamin]

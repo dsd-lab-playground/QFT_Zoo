@@ -1,0 +1,45 @@
+id: so5-2-su2-20
+name: '$SO(5)_2/SU(2)_{20}$ coset'
+d: 2
+summary: 'Coset of $SO(5)_2$ by its principal $SU(2)$ subalgebra (embedding index 20), with the diagonal invariant.'
+tags: [CFT, interacting, unitary, rational, coset]
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '14/11'
+  method: exact
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '3/44'
+  method: exact
+
+operators:
+- name: '\Phi_{(\mathbf{16};\,j=7/2)}'
+  Delta: '3/44'
+  spin: 0
+  weights: '(\tfrac{3}{88}, \tfrac{3}{88})'
+  note: Lightest non-vacuum Virasoro primary.
+
+relations:
+- type: related_to
+  target: su5-1-su2-20
+  note: 'Conformal embedding $SO(5)_2 \subset SU(5)_1$ relates the two cosets.'
+
+references:
+- key: gko1985
+  title: Virasoro algebras and coset space models
+  authors: Goddard, Kent, Olive
+  year: 1985
+  journal: Phys. Lett. B152, 88
+  doi: '10.1016/0370-2693(85)91145-1'
+- key: gko1986
+  title: Unitary representations of the Virasoro and super-Virasoro algebras
+  authors: Goddard, Kent, Olive
+  year: 1986
+  journal: Commun. Math. Phys. 103, 105
+  doi: '10.1007/BF01464283'
+
+contributors: [nathansbenjamin]
