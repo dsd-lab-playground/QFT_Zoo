@@ -73,7 +73,10 @@ operators:
 relations:
   - type: related_to
     target: free-scalar-3d
-    note: 'The same free theory one dimension lower, where $\phi^4$ is relevant and triggers the flow to the 3d Ising CFT.'
+    note: 'The free scalar in $d=3$ and $d=4$: $\phi^4$ is relevant in $d=3$ (flowing to the 3d Ising CFT) and marginally irrelevant in $d=4$.'
+  - type: related_to
+    target: n4-sym
+    note: 'At $g_{\rm YM} \to 0$, $\mathcal{N}=4$ SYM becomes free fields (keeping only gauge-invariant operators), including $6\dim G$ real scalars.'
 
 references:
   - key: duff1994

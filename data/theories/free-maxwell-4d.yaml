@@ -1,0 +1,149 @@
+id: free-maxwell-4d
+name: Free Maxwell theory (4d)
+aliases:
+  - Free $U(1)$ gauge theory (4d)
+  - 4d free photon
+d: 4
+summary: >-
+  Free $U(1)$ gauge theory in four dimensions: a conformal manifold labelled by
+  the complexified coupling $\tau$, with $SL(2,\mathbb{Z})$ electric–magnetic
+  duality.
+tags: [CFT, free, unitary, gauge theory, Lagrangian, exactly solvable]
+
+description: |
+  The field strength $F_{\mu\nu}$ has $\Delta = 2$ and Lorentz representation
+  $(1,0)\oplus(0,1)$. This saturates the unitarity bound, so $F$ obeys the free
+  Maxwell equations $\partial^\mu F_{\mu\nu} = \partial^\mu \tilde F_{\mu\nu} = 0$.
+  The gauge-invariant local operators are built from $F$ and its derivatives, and
+  their correlators follow from Wick contractions.
+
+  The complexified coupling $\tau = \frac{\theta}{2\pi} + \frac{2\pi i}{e^2}$ is
+  exactly marginal. The theory is a conformal manifold: the upper half-plane
+  modulo $SL(2,\mathbb{Z})$ electric–magnetic duality. In flat space, $e$ only sets
+  the normalisation of $F$ and $\theta$ multiplies a total derivative, so
+  normalised correlators of local operators do not depend on $\tau$. The coupling
+  shows up in line operators (Wilson and 't Hooft lines) and in partition functions
+  on four-manifolds, which transform as modular forms rather than being invariant.
+
+  The global symmetries are electric and magnetic $U(1)$ one-form symmetries,
+  which act on Wilson and 't Hooft lines and have a mixed 't Hooft anomaly, and
+  charge conjugation $A \to -A$. At $\tau = i$ the $S$ transformation
+  $\tau \to -1/\tau$ is a symmetry. At $\tau = iN$, $S$ combined with gauging
+  $\mathbb{Z}_N \subset U(1)^{(1)}_e$ gives a non-invertible duality defect.
+
+  In $d \neq 4$ free Maxwell theory is scale invariant but not conformal: $F_{\mu\nu}$
+  is then neither a primary nor a descendant.
+
+lagrangian: '\mathcal{L} = \frac{1}{4e^2}F_{\mu\nu}F^{\mu\nu} + \frac{\theta}{8\pi^2}\,F\wedge F, \qquad \tau = \frac{\theta}{2\pi} + \frac{2\pi i}{e^2}'
+
+parameters:
+  - symbol: '\tau'
+    description: 'Complexified gauge coupling (exactly marginal), normalised so that $SL(2,\mathbb{Z})$ acts by $\tau \to \tau + 1$ and $\tau \to -1/\tau$.'
+    range: 'upper half-plane, modulo $SL(2,\mathbb{Z})$'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$U(1)^{(1)}_e \times U(1)^{(1)}_m$ one-form symmetries (with a mixed anomaly), and charge conjugation $\mathbb{Z}_2^C$'
+  gauge: '$U(1)$'
+
+quantities:
+  - key: a
+    symbol: 'a'
+    description: 'Euler conformal anomaly'
+    value: '31/180'
+    method: exact
+    refs: [duff1994]
+    note: 'Same normalisation as the 4d free scalar ($a = 1/360$) and $\mathcal{N}=4$ SYM. Duff''s eq. (31) with $N_V = 1$. Independent of $\tau$.'
+  - symbol: 'c'
+    description: 'Weyl conformal anomaly'
+    value: '1/10'
+    method: exact
+    refs: [duff1994]
+    note: 'Duff''s eq. (30) with $N_V = 1$. Independent of $\tau$.'
+  - key: C_T
+    symbol: 'C_T'
+    description: 'Stress-tensor two-point coefficient'
+    value: '\frac{4}{\pi^4}'
+    method: exact
+    refs: [osborn1994]
+    note: 'Osborn–Petkou eq. (5.16), $C_T = 16/S_4^2$ with $S_4 = 2\pi^2$. It agrees with $C_T = 40c/\pi^4$, their eq. (8.12) in this normalisation.'
+
+operators:
+  - name: 'F_{\mu\nu}'
+    Delta: 2
+    spin: '(1,0)\oplus(0,1)'
+    rep: '$C$-odd'
+    method: exact
+    note: 'Free field. $F$ and its dual $\tilde F$ are the conserved two-form currents of the electric and magnetic one-form symmetries.'
+  - name: 'F_{\mu\nu}F^{\mu\nu}'
+    Delta: 4
+    spin: 0
+    rep: '$C$-even'
+    method: exact
+    note: 'Exactly marginal: it shifts $1/e^2$.'
+  - name: 'F_{\mu\nu}\tilde F^{\mu\nu}'
+    Delta: 4
+    spin: 0
+    rep: '$C$-even, $P$-odd'
+    method: exact
+    note: 'Locally a total derivative; its integral is the $\theta$ term.'
+  - name: 'T_{\mu\nu}'
+    Delta: 4
+    spin: 2
+    rep: '$C$-even'
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: n4-sym
+    note: 'At $g_{\rm YM} \to 0$, $\mathcal{N}=4$ SYM becomes free fields (keeping only gauge-invariant operators), including $\dim G$ gauge fields.'
+
+references:
+  - key: duff1994
+    title: Twenty years of the Weyl anomaly
+    authors: Duff
+    year: 1994
+    journal: Class. Quant. Grav. 11, 1387
+    arxiv: hep-th/9308075
+    doi: 10.1088/0264-9381/11/6/004
+  - key: osborn1994
+    title: Implications of conformal invariance in field theories for general dimensions
+    authors: Osborn, Petkou
+    year: 1994
+    journal: Annals Phys. 231, 311
+    arxiv: hep-th/9307010
+    doi: 10.1006/aphy.1994.1045
+  - key: witten1995
+    title: On S-duality in abelian gauge theory
+    authors: Witten
+    year: 1995
+    journal: Selecta Math. 1, 383
+    arxiv: hep-th/9505186
+    note: 'The partition function on a four-manifold is a modular form.'
+  - key: gksw2014
+    title: Generalized global symmetries
+    authors: Gaiotto, Kapustin, Seiberg, Willett
+    year: 2014
+    journal: JHEP 02 (2015) 172
+    arxiv: '1412.5148'
+    doi: 10.1007/JHEP02(2015)172
+    note: 'One-form symmetries of Maxwell theory and their mixed anomaly.'
+  - key: choi2021
+    title: Non-invertible duality defects in 3+1 dimensions
+    authors: Choi, Córdova, Hsin, Lam, Shao
+    year: 2021
+    journal: Phys. Rev. D 105, 125016
+    arxiv: '2111.01139'
+    doi: 10.1103/PhysRevD.105.125016
+    note: 'The duality defect of Maxwell theory at $\tau = iN$.'
+  - key: elshowk2011
+    title: What Maxwell theory in $d \neq 4$ teaches us about scale and conformal invariance
+    authors: El-Showk, Nakayama, Rychkov
+    year: 2011
+    journal: Nucl. Phys. B 848, 578
+    arxiv: '1101.5385'
+    doi: 10.1016/j.nuclphysb.2011.03.008
+
+contributors: [nathansbenjamin]
