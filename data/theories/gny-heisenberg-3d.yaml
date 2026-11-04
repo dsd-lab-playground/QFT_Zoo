@@ -1,0 +1,111 @@
+id: gny-heisenberg-3d
+name: '3d chiral Heisenberg Gross–Neveu–Yukawa model ($N=8$)'
+aliases:
+  - Gross–Neveu–Heisenberg universality class
+  - 'Semimetal–Néel transition of the honeycomb Hubbard model'
+d: 3
+summary: >-
+  Two four-component Dirac fermions coupled to an $O(3)$ vector order parameter.
+  It describes the transition of the half-filled honeycomb Hubbard model from a
+  Dirac semimetal to an antiferromagnetic Mott insulator.
+tags: [CFT, interacting, unitary, Lagrangian, critical phenomena]
+
+description: |
+  The spin-1/2 electrons of graphene's honeycomb lattice form two four-component
+  Dirac fermions ($N=8$ Majorana components). An on-site repulsion $U$ drives a
+  continuous transition to Néel order, described by coupling the fermions to a
+  three-component order parameter through $\vec\phi\cdot\bar\psi\vec\sigma\psi$.
+  The Néel order parameter breaks $SU(2)$ spin symmetry, and it gaps the fermions.
+
+  Unlike the chiral Ising case, there is no conformal bootstrap island yet, and the
+  quantum Monte Carlo estimates disagree beyond their error bars, especially for
+  $\eta_\psi$. The values below are the three most recent large-scale studies.
+
+lagrangian: '\mathcal{L} = \bar\psi\,\gamma^\mu\partial_\mu\psi + \tfrac{1}{2}(\partial\vec\phi)^2 + g\,\vec\phi\cdot\bar\psi\,(\mathbb{1}_2\otimes\vec\sigma)\,\psi + \tfrac{1}{2}m^2\vec\phi^{\,2} + \tfrac{\lambda}{4!}(\vec\phi^{\,2})^2 \quad (m^2 \text{ tuned})'
+
+symmetry:
+  spacetime: conformal (emergent Lorentz)
+  supercharges: 0
+  global: '$SU(2)$ spin, plus the lattice-derived flavour and discrete symmetries'
+
+quantities:
+  - symbol: '\nu'
+    description: 'Correlation-length exponent: projector QMC of the honeycomb Hubbard model (up to 10368 sites)'
+    value: '1.11(9)'
+    method: quantum Monte Carlo
+    refs: [wang2026]
+    note: 'Same study: $\eta_\phi = 0.79(2)$, $\eta_\psi = 0.1888(40)$.'
+  - symbol: '\nu'
+    description: 'Correlation-length exponent: finite-temperature AFQMC of the honeycomb Hubbard model'
+    value: '1.097(7)'
+    method: quantum Monte Carlo
+    refs: [du2026]
+    note: 'Same study: $\eta_\phi = 0.72(2)$, $\eta_\psi = 0.155(6)$.'
+  - symbol: '\nu'
+    description: 'Correlation-length exponent: Hubbard model with a single Dirac cone (SLAC fermions)'
+    value: '1.02(3)'
+    method: quantum Monte Carlo
+    refs: [lang2025]
+    note: 'Same study: $\eta_\phi = 0.73(1)$, $\eta_\psi = 0.09(1)$.'
+
+operators:
+  - name: '\vec\phi'
+    Delta: '\approx 0.86\text{–}0.90'
+    spin: 0
+    rep: $SU(2)$ triplet (Néel order parameter)
+    method: quantum Monte Carlo
+    refs: [wang2026, du2026, lang2025]
+    note: '$\Delta = (1+\eta_\phi)/2$, from the spread of recent estimates $\eta_\phi = 0.72$–$0.79$.'
+  - name: '\psi'
+    Delta: '\approx 1.05\text{–}1.09'
+    spin: '1/2'
+    rep: fermion
+    method: quantum Monte Carlo
+    refs: [wang2026, du2026, lang2025]
+    note: '$\Delta = 1 + \eta_\psi/2$, from the spread of recent estimates $\eta_\psi = 0.09$–$0.19$.'
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: gny-n8-3d
+    note: 'Same fermion content; Ising instead of Heisenberg order parameter.'
+  - type: related_to
+    target: o3-model-3d
+    note: 'Same order parameter; the GNY coupling to Dirac fermions changes the universality class.'
+
+references:
+  - key: wang2026
+    title: Resolving quantum criticality in the honeycomb Hubbard model
+    authors: Wang, Sun, He, Xu
+    year: 2026
+    arxiv: '2602.03656'
+  - key: du2026
+    title: 'Finite-temperature quantum Monte Carlo study of Dirac quantum criticality: algorithmic advances and comprehensive analysis'
+    authors: Du, Sun, He
+    year: 2026
+    arxiv: '2609.14668'
+  - key: lang2025
+    title: 'Chiral Heisenberg Gross-Neveu-Yukawa criticality: honeycomb vs. SLAC fermions'
+    authors: Lang, Läuchli
+    year: 2025
+    journal: Phys. Rev. B 112, 245121
+    arxiv: '2503.15000'
+  - key: herbut2006
+    title: Interactions and phase transitions on graphene's honeycomb lattice
+    authors: Herbut
+    year: 2006
+    journal: Phys. Rev. Lett. 97, 146401
+    arxiv: cond-mat/0606195
+  - key: ihrig2018
+    title: Critical behavior of Dirac fermions from perturbative renormalization
+    authors: Ihrig, Mihaila, Scherer
+    year: 2018
+    journal: Phys. Rev. B 98, 125109
+    arxiv: '1806.04977'
+
+contributors: [nathansbenjamin]

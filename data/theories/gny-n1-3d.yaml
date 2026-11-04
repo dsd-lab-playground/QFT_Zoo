@@ -1,0 +1,135 @@
+id: gny-n1-3d
+name: '3d $\mathcal{N}=1$ super-Ising CFT (GNY model, $N=1$)'
+aliases:
+  - '$\mathcal{N}=1$ super-Ising model'
+  - 'Gross–Neveu–Yukawa model with one Majorana fermion'
+  - Minimal 3d $\mathcal{N}=1$ SCFT
+d: 3
+summary: >-
+  The Gross–Neveu–Yukawa fixed point of one real scalar and one two-component
+  Majorana fermion. Supersymmetry emerges at the critical point, making it the
+  minimal 3d $\mathcal{N}=1$ superconformal field theory.
+tags: [CFT, SCFT, interacting, unitary, Lagrangian, supersymmetric, critical phenomena]
+
+description: |
+  A real pseudoscalar $\phi$ coupled to one Majorana fermion through $\phi\bar\psi\psi$.
+  At the critical point the theory has emergent $\mathcal{N}=1$ supersymmetry: it is the
+  Wess–Zumino model of one real superfield with a cubic superpotential.
+  It describes the time-reversal-breaking transition on the surface of a $3+1$d
+  topological superconductor, reached by tuning a single parameter.
+
+  Supersymmetry relates the leading operators: $\sigma\sim\phi$, its fermionic partner
+  $\psi$ and $\epsilon \sim \phi^2$ have $\Delta_\psi = \Delta_\sigma + \tfrac12$ and
+  $\Delta_\epsilon = \Delta_\sigma + 1$. The same island is found by the GNY bootstrap
+  without assuming supersymmetry, which supports its emergence.
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2 + \tfrac{1}{2}\bar\psi\gamma^\mu\partial_\mu\psi + \tfrac{g}{2}\,\phi\,\bar\psi\psi + \tfrac{1}{2}m^2\phi^2 + \tfrac{\lambda}{4!}\phi^4, \quad \text{one Majorana fermion } \psi \quad (m^2 \text{ tuned})'
+
+symmetry:
+  spacetime: '$\mathcal{N}=1$ superconformal (emergent)'
+  supercharges: 2
+  global: 'time reversal / parity ($\sigma$ odd)'
+
+quantities:
+  - symbol: '\eta_\sigma = \eta_\psi'
+    description: 'Anomalous dimensions, $\eta_\sigma = 2\Delta_\sigma - 1 = \eta_\psi$'
+    value: '0.168887(17)'
+    method: conformal bootstrap (supersymmetric)
+    refs: [atanasov2022]
+  - symbol: '\nu^{-1}'
+    description: 'Inverse correlation-length exponent, $3 - \Delta_\epsilon$'
+    value: '1.415557(8)'
+    method: conformal bootstrap (supersymmetric)
+    refs: [atanasov2022]
+  - symbol: '\omega'
+    description: 'Correction-to-scaling exponent, $\Delta_{\epsilon^\prime} - 3$'
+    value: '0.8869(25)'
+    method: conformal bootstrap (supersymmetric)
+    refs: [atanasov2022]
+  - symbol: '\lambda_{\sigma\sigma\epsilon}'
+    description: OPE coefficient
+    value: '1.072125(9)'
+    method: conformal bootstrap (supersymmetric)
+    refs: [atanasov2022]
+  - symbol: '\lambda_{\epsilon\epsilon\epsilon}/\lambda_{\sigma\sigma\epsilon}'
+    description: 'Fixed by supersymmetry in terms of $\Delta_\sigma$'
+    value: '1.55775(36)'
+    method: conformal bootstrap (supersymmetric)
+    refs: [atanasov2022]
+
+operators:
+  - name: '\sigma'
+    Delta: '0.5844435(83)'
+    spin: 0
+    rep: parity odd; bottom of the scalar multiplet
+    method: conformal bootstrap
+    refs: [atanasov2022]
+  - name: '\psi'
+    Delta: '1.0844435(83)'
+    spin: '1/2'
+    rep: superpartner of $\sigma$
+    method: supersymmetry
+    refs: [atanasov2022]
+    note: '$\Delta_\psi = \Delta_\sigma + \tfrac12$.'
+  - name: '\epsilon'
+    Delta: '1.5844435(83)'
+    spin: 0
+    rep: parity even; top of the $\sigma$ multiplet
+    method: supersymmetry
+    refs: [atanasov2022]
+    note: '$\Delta_\epsilon = \Delta_\sigma + 1$. The only relevant parity-even scalar (the tuning parameter).'
+  - name: '\sigma'''
+    Delta: '2.8869(25)'
+    spin: 0
+    rep: parity odd
+    method: conformal bootstrap
+    refs: [atanasov2022]
+  - name: '\epsilon'''
+    Delta: '3.8869(25)'
+    spin: 0
+    rep: parity even; partner of $\sigma'$
+    method: supersymmetry
+    refs: [atanasov2022]
+  - name: 'S_{\mu\alpha}'
+    Delta: '5/2'
+    spin: '3/2'
+    rep: supercurrent
+    method: exact
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor, in the same multiplet as the supercurrent.
+
+references:
+  - key: atanasov2022
+    title: Precision bootstrap for the $\mathcal{N}=1$ super-Ising model
+    authors: Atanasov, Hillman, Poland, Rong, Su
+    year: 2022
+    journal: JHEP 08 (2022) 136
+    arxiv: '2201.02206'
+  - key: rong2018
+    title: Bootstrapping minimal $\mathcal{N}=1$ superconformal field theory in three dimensions
+    authors: Rong, Su
+    year: 2018
+    arxiv: '1807.04434'
+  - key: grover2014
+    title: Emergent space-time supersymmetry at the boundary of a topological phase
+    authors: Grover, Sheng, Vishwanath
+    year: 2014
+    journal: Science 344, 280
+    arxiv: '1301.7449'
+  - key: erramilli2022
+    title: The Gross-Neveu-Yukawa archipelago
+    authors: Erramilli, Iliesiu, Kravchuk, Liu, Poland, Simmons-Duffin
+    year: 2023
+    journal: JHEP 02 (2023) 036
+    arxiv: '2210.02492'
+  - key: iliesiu2017
+    title: Bootstrapping 3D fermions with global symmetries
+    authors: Iliesiu, Kos, Poland, Pufu, Simmons-Duffin
+    year: 2017
+    arxiv: '1705.03484'
+
+contributors: [nathansbenjamin]

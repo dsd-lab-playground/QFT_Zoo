@@ -1,0 +1,140 @@
+id: gny-n4-3d
+name: '3d Gross–Neveu–Yukawa model, $N=4$'
+aliases:
+  - 'Chiral Ising GNY fixed point, $N=4$'
+  - '$O(4)$ Gross–Neveu–Yukawa CFT'
+d: 3
+summary: >-
+  The critical point of 4 two-component Majorana fermions coupled to a real
+  pseudoscalar order parameter, with $O(4)$ symmetry. Its chiral cousin describes charge-density-wave order of spinless fermions on the honeycomb lattice.
+tags: [CFT, interacting, unitary, Lagrangian, critical phenomena]
+
+description: |
+  $N=4$ Majorana fermions $\psi_i$ (one four-component Dirac fermion) coupled through
+  $\phi\,\bar\psi_i\psi_i$ to a real scalar that is odd under parity (time reversal).
+  When the scalar orders, the fermions become massive and parity is broken. The
+  critical point has a single relevant parity-even singlet, $\epsilon \sim \phi^2$.
+
+  The chiral version describes the transition of spinless fermions on the honeycomb lattice (two Dirac cones) from a semimetal to a charge-density-wave insulator, driven by nearest-neighbour repulsion (the $t$-$V$ model).
+
+  The values below are from the bootstrap of mixed fermion–scalar correlators, which
+  confines the theory to an isolated island. They assume that the second parity-odd
+  singlet $\sigma'$ is irrelevant; a later bootstrap bounds $\sigma'$ and $\epsilon'$
+  above 3 at this $N$, so only $\sigma$ and $\epsilon$ are relevant singlets.
+  Lattice models usually realize the closely related chiral GNY class with
+  $O(N/2)^2\rtimes\mathbb{Z}_2$ symmetry, whose low-lying dimensions are expected to be
+  nearly the same.
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2 + \tfrac{1}{2}\bar\psi_i\gamma^\mu\partial_\mu\psi_i + \tfrac{g}{2}\,\phi\,\bar\psi_i\psi_i + \tfrac{1}{2}m^2\phi^2 + \tfrac{\lambda}{4!}\phi^4, \quad i = 1,\dots,4 \text{ Majorana} \quad (m^2 \text{ tuned})'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$O(4)$ and parity / time reversal ($\sigma$ odd)'
+
+quantities:
+  - symbol: '\eta_\psi'
+    description: 'Fermion anomalous dimension, $\Delta_\psi = 1 + \eta_\psi/2$'
+    value: '0.08712(32)'
+    method: conformal bootstrap
+    refs: [erramilli2022]
+  - symbol: '\eta_\phi'
+    description: 'Order-parameter anomalous dimension, $\eta_\phi = 2\Delta_\sigma - 1$'
+    value: '0.5155(30)'
+    method: conformal bootstrap
+    refs: [erramilli2022]
+  - symbol: '\nu^{-1}'
+    description: 'Inverse correlation-length exponent, $3 - \Delta_\epsilon$'
+    value: '1.101(10)'
+    method: conformal bootstrap
+    refs: [erramilli2022]
+    note: 'So $\nu = 0.908(8)$.'
+  - symbol: '\eta_\phi'
+    description: 'Quantum Monte Carlo, spinless honeycomb $t$-$V$ model (chiral class)'
+    value: '0.49(3)'
+    method: quantum Monte Carlo
+    refs: [wang2026]
+    note: 'Also $\nu = 0.87(6)$ and $\eta_\psi = 0.0905(35)$; reported to agree with the bootstrap.'
+
+operators:
+  - name: '\sigma'
+    Delta: '0.7578(15)'
+    spin: 0
+    rep: singlet, parity odd (order parameter)
+    method: conformal bootstrap
+    refs: [erramilli2022]
+  - name: '\psi_i'
+    Delta: '1.04356(16)'
+    spin: '1/2'
+    rep: vector of $O(4)$
+    method: conformal bootstrap
+    refs: [erramilli2022]
+  - name: '\epsilon'
+    Delta: '1.899(10)'
+    spin: 0
+    rep: singlet, parity even
+    method: conformal bootstrap
+    refs: [erramilli2022]
+    note: The only relevant parity-even singlet (the tuning parameter).
+  - name: 'J_\mu^{[ij]}'
+    Delta: 2
+    spin: 1
+    rep: adjoint of $O(4)$
+    method: exact
+    note: Conserved $O(4)$ currents.
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+  - name: '\sigma'''
+    Delta: '3.2455(4)'
+    spin: 0
+    rep: singlet, parity odd
+    method: Padé estimate (large N and N = 1)
+    refs: [mitchell2024]
+    note: 'Bootstrap bounds: $3.241 \le \Delta \le 3.506$ (with mild gap assumptions).'
+  - name: '\epsilon'''
+    Delta: '3.63674(7)'
+    spin: 0
+    rep: singlet, parity even
+    method: Padé estimate (large N and N = 1)
+    refs: [mitchell2024]
+    note: 'Bootstrap bounds: $3.137 \le \Delta \le 3.783$ (with mild gap assumptions).'
+
+relations:
+  - type: related_to
+    target: gny-n2-3d
+    note: 'The $O(N)$ GNY model at another $N$.'
+
+references:
+  - key: erramilli2022
+    title: The Gross-Neveu-Yukawa archipelago
+    authors: Erramilli, Iliesiu, Kravchuk, Liu, Poland, Simmons-Duffin
+    year: 2023
+    journal: JHEP 02 (2023) 036
+    arxiv: '2210.02492'
+  - key: mitchell2024
+    title: Bounding irrelevant operators in the 3d Gross-Neveu-Yukawa CFTs
+    authors: Mitchell, Poland
+    year: 2024
+    arxiv: '2406.12974'
+  - key: ihrig2018
+    title: Critical behavior of Dirac fermions from perturbative renormalization
+    authors: Ihrig, Mihaila, Scherer
+    year: 2018
+    journal: Phys. Rev. B 98, 125109
+    arxiv: '1806.04977'
+  - key: iliesiu2017
+    title: Bootstrapping 3D fermions with global symmetries
+    authors: Iliesiu, Kos, Poland, Pufu, Simmons-Duffin
+    year: 2017
+    arxiv: '1705.03484'
+  - key: wang2026
+    title: Resolving quantum criticality in the honeycomb Hubbard model
+    authors: Wang, Sun, He, Xu
+    year: 2026
+    arxiv: '2602.03656'
+
+contributors: [nathansbenjamin]

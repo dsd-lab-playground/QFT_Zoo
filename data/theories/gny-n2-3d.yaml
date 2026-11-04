@@ -1,0 +1,141 @@
+id: gny-n2-3d
+name: '3d Gross–Neveu–Yukawa model, $N=2$'
+aliases:
+  - 'Chiral Ising GNY fixed point, $N=2$'
+  - '$O(2)$ Gross–Neveu–Yukawa CFT'
+d: 3
+summary: >-
+  The critical point of 2 two-component Majorana fermions coupled to a real
+  pseudoscalar order parameter, with $O(2)$ symmetry. It describes a single two-component Dirac cone at an Ising ordering transition.
+tags: [CFT, interacting, unitary, Lagrangian, critical phenomena]
+
+description: |
+  $N=2$ Majorana fermions $\psi_i$ (one two-component Dirac fermion) coupled through
+  $\phi\,\bar\psi_i\psi_i$ to a real scalar that is odd under parity (time reversal).
+  When the scalar orders, the fermions become massive and parity is broken. The
+  critical point has a single relevant parity-even singlet, $\epsilon \sim \phi^2$.
+
+  It describes a single Dirac cone, for example on the surface of a topological insulator or in lattice models with one Dirac cone, at a transition where an Ising order parameter gaps it. Quantum Monte Carlo of such a model (SLAC fermions with on-site repulsion, ferromagnetic order) agrees with the bootstrap for $\eta_\phi$ and $\eta_\psi$.
+
+  The values below are from the bootstrap of mixed fermion–scalar correlators, which
+  confines the theory to an isolated island. They assume that the second parity-odd
+  singlet $\sigma'$ is irrelevant; a later bootstrap bounds $\sigma'$ and $\epsilon'$
+  above 3 at this $N$, so only $\sigma$ and $\epsilon$ are relevant singlets.
+  Lattice models usually realize the closely related chiral GNY class with
+  $O(N/2)^2\rtimes\mathbb{Z}_2$ symmetry, whose low-lying dimensions are expected to be
+  nearly the same.
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2 + \tfrac{1}{2}\bar\psi_i\gamma^\mu\partial_\mu\psi_i + \tfrac{g}{2}\,\phi\,\bar\psi_i\psi_i + \tfrac{1}{2}m^2\phi^2 + \tfrac{\lambda}{4!}\phi^4, \quad i = 1,\dots,2 \text{ Majorana} \quad (m^2 \text{ tuned})'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$O(2)$ and parity / time reversal ($\sigma$ odd)'
+
+quantities:
+  - symbol: '\eta_\psi'
+    description: 'Fermion anomalous dimension, $\Delta_\psi = 1 + \eta_\psi/2$'
+    value: '0.13722(24)'
+    method: conformal bootstrap
+    refs: [erramilli2022]
+  - symbol: '\eta_\phi'
+    description: 'Order-parameter anomalous dimension, $\eta_\phi = 2\Delta_\sigma - 1$'
+    value: '0.3000(23)'
+    method: conformal bootstrap
+    refs: [erramilli2022]
+  - symbol: '\nu^{-1}'
+    description: 'Inverse correlation-length exponent, $3 - \Delta_\epsilon$'
+    value: '1.275(7)'
+    method: conformal bootstrap
+    refs: [erramilli2022]
+    note: 'So $\nu = 0.784(4)$.'
+  - symbol: '\nu^{-1}'
+    description: 'Quantum Monte Carlo (single Dirac cone, SLAC fermions)'
+    value: '1.19(3)'
+    method: quantum Monte Carlo
+    refs: [tabatabaei2022]
+    note: 'Also $\eta_\phi = 0.31(1)$, $\eta_\psi = 0.136(5)$.'
+
+operators:
+  - name: '\sigma'
+    Delta: '0.6500(12)'
+    spin: 0
+    rep: singlet, parity odd (order parameter)
+    method: conformal bootstrap
+    refs: [erramilli2022]
+  - name: '\psi_i'
+    Delta: '1.06861(12)'
+    spin: '1/2'
+    rep: vector of $O(2)$
+    method: conformal bootstrap
+    refs: [erramilli2022]
+  - name: '\epsilon'
+    Delta: '1.725(7)'
+    spin: 0
+    rep: singlet, parity even
+    method: conformal bootstrap
+    refs: [erramilli2022]
+    note: The only relevant parity-even singlet (the tuning parameter).
+  - name: 'J_\mu^{[ij]}'
+    Delta: 2
+    spin: 1
+    rep: adjoint of $O(2)$
+    method: exact
+    note: Conserved $O(2)$ currents.
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+  - name: '\sigma'''
+    Delta: '3.1487(11)'
+    spin: 0
+    rep: singlet, parity odd
+    method: Padé estimate (large N and N = 1)
+    refs: [mitchell2024]
+    note: 'Bootstrap bounds: $3.071 \le \Delta \le 3.328$ (with mild gap assumptions).'
+  - name: '\epsilon'''
+    Delta: '3.5474(5)'
+    spin: 0
+    rep: singlet, parity even
+    method: Padé estimate (large N and N = 1)
+    refs: [mitchell2024]
+    note: 'Bootstrap bounds: $3.169 \le \Delta \le 3.835$ (with mild gap assumptions).'
+
+relations:
+  - type: related_to
+    target: gny-n1-3d
+    note: 'The $O(N)$ GNY model at another $N$ (supersymmetric at $N=1$).'
+
+references:
+  - key: erramilli2022
+    title: The Gross-Neveu-Yukawa archipelago
+    authors: Erramilli, Iliesiu, Kravchuk, Liu, Poland, Simmons-Duffin
+    year: 2023
+    journal: JHEP 02 (2023) 036
+    arxiv: '2210.02492'
+  - key: mitchell2024
+    title: Bounding irrelevant operators in the 3d Gross-Neveu-Yukawa CFTs
+    authors: Mitchell, Poland
+    year: 2024
+    arxiv: '2406.12974'
+  - key: ihrig2018
+    title: Critical behavior of Dirac fermions from perturbative renormalization
+    authors: Ihrig, Mihaila, Scherer
+    year: 2018
+    journal: Phys. Rev. B 98, 125109
+    arxiv: '1806.04977'
+  - key: iliesiu2017
+    title: Bootstrapping 3D fermions with global symmetries
+    authors: Iliesiu, Kos, Poland, Pufu, Simmons-Duffin
+    year: 2017
+    arxiv: '1705.03484'
+  - key: tabatabaei2022
+    title: 'Chiral Ising Gross-Neveu criticality of a single Dirac cone: a quantum Monte Carlo study'
+    authors: Tabatabaei, Negari, Maciejko, Vaezi
+    year: 2022
+    journal: Phys. Rev. Lett. 128, 225701
+    arxiv: '2112.09209'
+
+contributors: [nathansbenjamin]
