@@ -499,7 +499,7 @@ function showSpectrum(t, i) {
   SPEC_STATE.t = t;
   const hit = SPECTRUM_CACHE.get(row.path);
   if (hit) return done(hit);
-  fetch(row.path)
+  fetch(row.path, { cache: "no-cache" })
     .then((r) => {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       return r.json();
@@ -961,7 +961,8 @@ app.addEventListener("click", (e) => {
   }
 });
 
-fetch("data/theories.json")
+// "no-cache": revalidate with GitHub Pages (cheap 304 if unchanged) so new data shows up at once.
+fetch("data/theories.json", { cache: "no-cache" })
   .then((r) => {
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     return r.json();
