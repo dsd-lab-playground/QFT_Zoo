@@ -23,17 +23,12 @@ description: |
   symmetric, and the two- and three-point functions are the universal functions
   $\rho_0^{(b)}$ and $C_b$.
 
-  ### Conventions
-
   $$c=1+6Q^2,\qquad Q=b+b^{-1},\qquad h_P=\bar h_P=\frac{Q^2}{4}+P^2=\frac{c-1}{24}+P^2.$$
 
   The primaries $V_P$ are labelled by a Liouville momentum $P$, with $V_{-P}=V_P$.
   The spectrum is the continuum $P\in\mathbb{R}_{\geq 0}$, in which each Verma
-  module $\mathcal{V}_P\otimes\overline{\mathcal{V}}_P$ appears once:
-
-  $$\mathcal{H}=\int_{\mathbb{R}_{\geq 0}}\mathrm{d}P\;\mathcal{V}_P\otimes\overline{\mathcal{V}}_P.$$
-
-  In the Lagrangian description $V_P\propto e^{2\alpha\phi}$ with
+  module $\mathcal{V}_P\otimes\overline{\mathcal{V}}_P$ appears once. In the
+  Lagrangian description $V_P\propto e^{2\alpha\phi}$ with
   $\alpha=\frac{Q}{2}+iP$, so reflection is $\alpha\to Q-\alpha$. The parameter
   $\mu$ only enters the normalisation of $e^{2\alpha\phi}$, so it does not appear
   in $\rho_0^{(b)}$ or $C_b$.

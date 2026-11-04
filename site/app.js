@@ -405,6 +405,19 @@ function applyFilters() {
 
 /* ------------------------------------------------------------ theory view */
 
+/** Split a description at its "### Title" lines. The text before the first one is the
+ *  overview; each titled part becomes a section of its own, listed in the contents bar. */
+function splitDescription(src) {
+  const [overview, ...parts] = String(src ?? "").split(/^### +/m);
+  return {
+    overview,
+    topics: parts.map((part) => {
+      const [title, ...body] = part.split("\n");
+      return { title: title.trim(), body: body.join("\n") };
+    }),
+  };
+}
+
 function viewTheory(id) {
   const t = BY_ID.get(id);
   if (!t) return viewNotFound(`No theory with id “${id}”.`);
@@ -418,7 +431,8 @@ function viewTheory(id) {
 
   const out = [];
 
-  if (t.description) out.push(section("overview", "Overview", `<div class="prose">${md(t.description)}</div>`));
+  const { overview, topics } = splitDescription(t.description);
+  if (overview.trim()) out.push(section("overview", "Overview", `<div class="prose">${md(overview)}</div>`));
 
   const flows = theoryLinks(t).filter(isFlow);
   if (flows.length) {
@@ -492,6 +506,10 @@ function viewTheory(id) {
     );
 
   if (t.spectra?.length) out.push(section("spectrum", "Spectrum", spectrumShell(t)));
+
+  topics.forEach(({ title, body }, i) =>
+    out.push(section(`topic-${i}`, md(title, true), `<div class="prose">${md(body)}</div>`))
+  );
 
   const others = theoryLinks(t).filter((l) => !isFlow(l));
   if (others.length) out.push(section("relations", "Relations", relationList(t, others)));

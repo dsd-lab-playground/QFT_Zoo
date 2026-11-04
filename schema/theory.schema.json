@@ -78,7 +78,7 @@
     },
     "description": {
       "type": "string",
-      "description": "[markdown] Longer free-form description: definition, key facts, open questions."
+      "description": "[markdown] Longer free-form description: definition, key facts, open questions. A '### Title' line starts a separate section of the page."
     },
     "lagrangian": {
       "type": "string",

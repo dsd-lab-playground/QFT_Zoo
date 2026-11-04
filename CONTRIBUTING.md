@@ -35,7 +35,7 @@ match the filename. See the existing entries for worked examples, e.g.
 | `d` | yes | spacetime dimension |
 | `summary` | yes | one or two sentences for the catalogue table |
 | `tags` | yes | from the list in [`schema/theory.schema.json`](schema/theory.schema.json) |
-| `description` | | longer Markdown text |
+| `description` | | longer Markdown text; a `### Title` line starts a separate section, shown after the data and listed in the page's contents bar |
 | `lagrangian` | | LaTeX, shown in display mode |
 | `parameters` | | `symbol`, `description`, `range` |
 | `family` | | marks the entry as a family of theories (see *Families* below) |
