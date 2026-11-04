@@ -1,7 +1,11 @@
 "use strict";
 /* QFT Zoo front end: loads data/theories.json (built by scripts/build.py) and
    renders a catalogue view and one page per theory, using hash routing:
-     #/                 catalogue
+     #/                 home: a directory of everything on the site
+     #/catalogue        searchable catalogue; #/catalogue/<k>:<v> opens it filtered
+                        (k = d, tag, q or spectrum)
+     #/tables           summary tables, grouped by dimension and type
+     #/feedback         comments on the site, read live from GitHub issues
      #/theory/<id>      a theory (with its spectrum, if data/spectra has one)
      #/landscape        2d CFTs in the (c, gap) plane
      #/contribute       how to contribute                                   */
@@ -86,6 +90,8 @@ const gh = {
     `${gh.repo()}/new/${DB.branch}/data/theories?filename=${encodeURIComponent("my-theory.yaml")}` +
     `&value=${encodeURIComponent(DB.template)}`,
   suggest: () => `${gh.repo()}/issues/new?template=new-theory.yml`,
+  feedback: (page = "") =>
+    `${gh.repo()}/issues/new?template=feedback.yml&title=${encodeURIComponent(`[Feedback] ${page}`)}&page=${encodeURIComponent(page)}`,
   correction: (t) =>
     `${gh.repo()}/issues/new?template=correction.yml&title=${encodeURIComponent(`[Correction] ${plain(t.name)}`)}` +
     `&theory=${encodeURIComponent(t.id)}`,
@@ -111,6 +117,152 @@ function symmetrySummary(t) {
   if (s.gauge) parts.push(`<span class="muted">gauge</span> ${md(s.gauge, true)}`);
   if (s.supercharges) parts.push(`<span class="muted">${s.supercharges} supercharges</span>`);
   return parts.join("<br>");
+}
+
+/* -------------------------------------------------------------- home view */
+
+const catalogueLink = (key, value) => `#/catalogue/${key}:${encodeURIComponent(value)}`;
+
+function viewHome() {
+  document.title = "QFT Zoo";
+  const theories = DB.theories;
+  const count = (items) => {
+    const m = new Map();
+    items.forEach((x) => m.set(x, (m.get(x) || 0) + 1));
+    return m;
+  };
+  const dims = count(theories.map((t) => t.d));
+  const tags = count(theories.flatMap((t) => t.tags || []));
+  const nSpectra = theories.filter((t) => t.spectra?.length).length;
+  const ext = 'target="_blank" rel="noopener"';
+  const item = (href, label, n, attrs = "") =>
+    `<li><a href="${href}" ${attrs}>${label}</a>${n != null ? ` <span class="n">${n}</span>` : ""}</li>`;
+  const group = (title, cls, items) =>
+    `<details class="portal-group"><summary class="portal-btn">${title}</summary><ul class="${cls}">${items.join("")}</ul></details>`;
+
+  app.innerHTML = `
+    <section class="portal">
+      <h1>QFT Zoo</h1>
+      <p class="portal-sub">An open, community-curated catalogue of quantum field theories and their data</p>
+      <p class="portal-meta">${theories.length} theories · data built ${esc(DB.generated)}</p>
+      <form class="portal-search" role="search">
+        <input id="home-q" type="search" placeholder="Search names, symmetries, tags…" autocomplete="off" aria-label="Search the catalogue">
+      </form>
+      <div class="portal-grid">
+        <div class="portal-col">
+          <a class="portal-btn" href="#/catalogue">Interactive Catalogue</a>
+          <a class="portal-btn" href="#/tables">Summary Tables</a>
+          <a class="portal-btn" href="#/landscape">2d CFT Landscape</a>
+          <a class="portal-btn" href="#/contribute">Contribute</a>
+          <a class="portal-btn" href="#/feedback">Comments &amp; Feedback</a>
+        </div>
+        <div class="portal-col">
+          <a class="portal-btn" href="${gh.newTheory()}" ${ext}>Add a Theory</a>
+          ${group("By Dimension", "", [...dims.keys()].sort((a, b) => a - b).map((d) => item(catalogueLink("d", d), `d = ${d}`, dims.get(d))))}
+          ${group("Topical Index", "two-col", [...tags.keys()].sort((a, b) => tags.get(b) - tags.get(a) || a.localeCompare(b)).map((g) => item(catalogueLink("tag", g), esc(g), tags.get(g))))}
+          ${group("Downloads &amp; Data", "", [
+            item("data/theories.json", "All theories (JSON)"),
+            item("data/theory.schema.json", "Theory schema"),
+            item("data/spectrum.schema.json", "Spectrum schema"),
+            item(catalogueLink("spectrum", 1), "Theories with full spectra", nSpectra),
+          ])}
+          ${group("Other Resources", "", [
+            item(gh.repo(), "Source &amp; data on GitHub", null, ext),
+            item(gh.blob("CONTRIBUTING.md"), "Contributing guide", null, ext),
+            item(gh.suggest(), "Suggest a theory", null, ext),
+            item(`${gh.repo()}/issues/new?template=correction.yml`, "Report a problem", null, ext),
+            item("https://arxiv.org/list/hep-th/recent", "arXiv hep-th", null, ext),
+            item("https://inspirehep.net/", "INSPIRE", null, ext),
+          ])}
+        </div>
+      </div>
+    </section>`;
+
+  app.querySelector(".portal-search").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const q = app.querySelector("#home-q").value.trim();
+    location.hash = q ? catalogueLink("q", q) : "#/catalogue";
+  });
+}
+
+/* ------------------------------------------------------------ summary tables */
+
+// A theory goes in the first of these groups whose tag it has.
+const TABLE_GROUPS_2D = [
+  ["minimal model", "Minimal models"],
+  ["free", "Free theories"],
+  ["orbifold", "Orbifolds"],
+  ["coset", "Cosets"],
+  [null, "Other 2d CFTs"],
+];
+
+const keyed = (t) => Object.fromEntries((t.quantities || []).filter((x) => x.key).map((x) => [x.key, x.value]));
+
+function summaryName(t) {
+  return `<a href="#/theory/${encodeURIComponent(t.id)}">${md(t.name, true)}</a>${t.family ? ' <span class="muted small">(family)</span>' : ""}`;
+}
+
+function summaryTable2d(list) {
+  const sorted = [...list].sort((a, b) => (a.c_num ?? Infinity) - (b.c_num ?? Infinity));
+  return table(
+    ["Theory", tex("c"), tex("\\Delta_{\\rm gap}"), "Global symmetry", "Spectrum"],
+    sorted.map((t) => {
+      const q = keyed(t);
+      return [
+        summaryName(t),
+        q.c != null ? `<span class="value">${tex(q.c)}</span>` : "",
+        q.gap != null ? `<span class="value">${tex(q.gap)}</span>` : "",
+        md(t.symmetry?.global, true),
+        t.spectra?.length ? (t.family ? `${t.spectra.length} members` : "yes") : "",
+      ];
+    }),
+    "data summary-2d"
+  );
+}
+
+function summaryTableHigherD(list) {
+  // Some values carry their own relation ("≈ 0.86–0.90"), so "=" is added only when they don't.
+  const delta = (v) => (/^\s*(≈|~|<|>|\\approx|\\sim|\\le|\\ge)/.test(String(v)) ? `\\Delta ${v}` : `\\Delta = ${v}`);
+  const hasGauge = list.some((t) => t.symmetry?.gauge);
+  return table(
+    ["Theory", "Global symmetry", ...(hasGauge ? ["Gauge group"] : []), "First listed operators"],
+    list.map((t) => [
+      summaryName(t),
+      md(t.symmetry?.global, true),
+      ...(hasGauge ? [md(t.symmetry?.gauge, true)] : []),
+      (t.operators || [])
+        .filter((o) => o.Delta != null)
+        .slice(0, 2)
+        .map((o) => `<span class="value">${tex(`${o.name}:\\ ${delta(o.Delta)}`)}</span>`)
+        .join("<br>"),
+    ]),
+    "data"
+  );
+}
+
+function viewTables() {
+  document.title = "Summary Tables — QFT Zoo";
+  const groups = [];
+  const remaining = DB.theories.filter((t) => t.d === 2);
+  for (const [tag, title] of TABLE_GROUPS_2D) {
+    const list = remaining.filter((t) => tag === null || (t.tags || []).includes(tag));
+    list.forEach((t) => remaining.splice(remaining.indexOf(t), 1));
+    if (list.length) groups.push({ id: `d2-${groups.length}`, title: `d = 2: ${title}`, list, render: summaryTable2d });
+  }
+  const higher = [...new Set(DB.theories.map((t) => t.d))].filter((d) => d !== 2).sort((a, b) => a - b);
+  for (const d of higher)
+    groups.push({ id: `d${d}`, title: `d = ${d}`, list: DB.theories.filter((t) => t.d === d), render: summaryTableHigherD });
+
+  app.innerHTML = `
+    <header class="theory-head">
+      <h1>Summary Tables</h1>
+      <p class="lede">Key data for every theory in the zoo, at a glance. Each theory appears once, in the first group that
+        fits it; values, methods and references are on its own page.</p>
+    </header>
+    <nav class="jump" aria-label="Contents">
+      ${groups.map((g) => `<button type="button" class="linkish" data-jump="${g.id}">${g.title} <span class="muted">(${g.list.length})</span></button>`).join("")}
+    </nav>
+    ${groups.map((g) => section(g.id, `${g.title} <span class="muted small">(${g.list.length})</span>`, g.render(g.list))).join("")}`;
 }
 
 /* ------------------------------------------------------------ browse view */
@@ -146,7 +298,7 @@ function renderRow(t) {
 }
 
 function viewBrowse() {
-  document.title = "QFT Zoo";
+  document.title = "Catalogue — QFT Zoo";
   const theories = DB.theories;
   const dims = [...new Set(theories.map((t) => t.d))].sort((a, b) => a - b);
   const tagCount = new Map();
@@ -156,18 +308,11 @@ function viewBrowse() {
   if (!rowCache) rowCache = new Map(theories.map((t) => [t.id, renderRow(t)]));
 
   app.innerHTML = `
-    <section class="hero">
-      <h1>QFT Zoo</h1>
-      <p class="lede">An open, community-curated catalogue of quantum field theories and their data —
-        symmetries, spectra, central charges, RG flows and dualities. Every entry is a plain-text file in a
+    <header class="theory-head">
+      <h1>Interactive Catalogue</h1>
+      <p class="lede">Symmetries, spectra, central charges, RG flows and dualities. Every entry is a plain-text file in a
         public GitHub repository, and anyone can propose additions.</p>
-      <p class="actions">
-        <a class="btn primary" href="${gh.newTheory()}" target="_blank" rel="noopener">Add a theory</a>
-        <a class="btn" href="${gh.suggest()}" target="_blank" rel="noopener">Suggest one (no code)</a>
-        <a class="btn" href="#/landscape">2d CFT landscape</a>
-        <a class="btn" href="data/theories.json">Download all data (JSON)</a>
-      </p>
-    </section>
+    </header>
 
     <section class="controls" aria-label="Filters">
       <input id="q" type="search" placeholder="Search names, symmetries, tags…" autocomplete="off"
@@ -379,7 +524,7 @@ function viewTheory(id) {
     .join(", ");
 
   app.innerHTML = `
-    <nav class="crumbs"><a href="#/">← All theories</a></nav>
+    <nav class="crumbs"><a href="#/catalogue">← All theories</a></nav>
     <header class="theory-head">
       <h1>${md(t.name, true)}</h1>
       ${t.aliases?.length ? `<p class="aliases">Also known as: ${t.aliases.map((a) => md(a, true)).join(" · ")}</p>` : ""}
@@ -389,12 +534,23 @@ function viewTheory(id) {
         <a class="btn" href="${gh.edit(t.source)}" target="_blank" rel="noopener">Edit this entry</a>
         <a class="btn" href="${gh.blob(t.source)}" target="_blank" rel="noopener">View source</a>
         <a class="btn" href="${gh.correction(t)}" target="_blank" rel="noopener">Report a problem</a>
+        <a class="btn" href="${gh.feedback(t.id)}" target="_blank" rel="noopener">Leave a comment</a>
       </p>
     </header>
+    ${jumpBar(out)}
     ${out.join("")}
     <p class="muted small">${contributors ? `Contributors: ${contributors}. ` : ""}Source:
       <a href="${gh.blob(t.source)}" target="_blank" rel="noopener"><code>${esc(t.source)}</code></a></p>`;
   if (t.spectra?.length) showSpectrum(t, 0);
+}
+
+/** Contents line for a page built from section() blocks; omitted on short pages. */
+function jumpBar(sections) {
+  const items = sections.map((s) => s.match(/id="sec-([^"]+)"><h2>(.*?)<\/h2>/)).filter(Boolean);
+  if (items.length < 3) return "";
+  return `<nav class="jump" aria-label="Contents">${items
+    .map(([, id, title]) => `<button type="button" class="linkish" data-jump="${esc(id)}">${title}</button>`)
+    .join("")}</nav>`;
 }
 
 /** Members of a family: the first `show` parameter values (all variants of each),
@@ -886,23 +1042,107 @@ python scripts/build.py --serve</code></pre>
     )}`;
 }
 
+/* ---------------------------------------------------------- feedback view */
+
+const FEEDBACK_PREFIX = "[Feedback]";
+
+/** Split an issue-form body into its Page and Comment fields. Other bodies are all comment. */
+function parseFeedback(body) {
+  const text = body || "";
+  const comment = /^###\s*Comment\s*\n+([\s\S]*)$/m.exec(text);
+  const page = /^###\s*Page\s*\n+(.*)$/m.exec(text);
+  const p = page ? page[1].trim() : "";
+  return { page: p === "_No response_" ? "" : p, comment: (comment ? comment[1] : text).trim() };
+}
+
+/** Comments are public and unreviewed, so unlike theory data they are shown as plain
+ *  text: escaped, with no Markdown, links or images. */
+function renderComment(issue) {
+  const { page, comment } = parseFeedback(issue.body);
+  const target = BY_ID.has(page)
+    ? `<a href="#/theory/${encodeURIComponent(page)}">${md(BY_ID.get(page).name, true)}</a>`
+    : esc(page);
+  const replies = issue.comments ? `${issue.comments} ${issue.comments === 1 ? "reply" : "replies"}` : "Reply";
+  return `<article class="comment">
+    <p class="comment-meta small muted"><b>${esc(issue.user?.login ?? "unknown")}</b> · ${esc(String(issue.created_at).slice(0, 10))}${
+      target ? ` · on ${target}` : ""}${issue.state === "closed" ? " · handled" : ""}</p>
+    <p class="comment-body">${esc(comment)}</p>
+    <p class="small"><a href="${safeUrl(issue.html_url)}" target="_blank" rel="noopener">${replies} on GitHub</a></p>
+  </article>`;
+}
+
+function viewFeedback() {
+  document.title = "Comments & Feedback — QFT Zoo";
+  const all = `${gh.repo()}/issues?q=${encodeURIComponent(`"${FEEDBACK_PREFIX}" in:title`)}`;
+  app.innerHTML = `
+    <header class="theory-head">
+      <h1>Comments &amp; Feedback</h1>
+      <p class="lede">This site is a pilot, and your comments decide what changes next: what works, what doesn’t,
+        and what you wish it had. Comments are public and need a free GitHub account.</p>
+      <p class="actions">
+        <a class="btn primary" href="${gh.feedback()}" target="_blank" rel="noopener">Leave a comment</a>
+        <a class="btn" href="${all}" target="_blank" rel="noopener">See all on GitHub</a>
+      </p>
+    </header>
+    <section class="block" aria-live="polite"><h2 id="feedback-count">Comments</h2>
+      <div id="feedback-list"><p class="muted">Loading comments…</p></div></section>`;
+
+  fetch(`https://api.github.com/repos/${DB.repo}/issues?state=all&sort=created&direction=desc&per_page=100`, {
+    headers: { Accept: "application/vnd.github+json" },
+  })
+    .then((r) => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json();
+    })
+    .then((issues) => {
+      const list = document.getElementById("feedback-list");
+      if (!list) return; // the reader has moved to another page
+      const items = issues.filter((i) => !i.pull_request && String(i.title).startsWith(FEEDBACK_PREFIX));
+      document.getElementById("feedback-count").textContent = `Comments (${items.length})`;
+      list.innerHTML = items.length
+        ? items.map(renderComment).join("")
+        : `<p class="muted">No comments yet. Yours could be the first.</p>`;
+    })
+    .catch(() => {
+      const list = document.getElementById("feedback-list");
+      if (list) list.innerHTML = `<p class="muted">Comments couldn’t be loaded right now.
+        <a href="${all}" target="_blank" rel="noopener">Read them on GitHub</a> instead.</p>`;
+    });
+}
+
 function viewNotFound(msg = "Page not found.") {
   document.title = "Not found — QFT Zoo";
   app.innerHTML = `<header class="theory-head"><h1>Not found</h1><p class="lede">${esc(msg)}</p>
-    <p><a class="btn" href="#/">Back to all theories</a></p></header>`;
+    <p><a class="btn" href="#/catalogue">Back to all theories</a></p></header>`;
 }
 
 /* ----------------------------------------------------------------- router */
 
+/** Set the catalogue filters from a #/catalogue/<key>:<value> link. */
+function applyCatalogueLink(arg) {
+  const i = arg.indexOf(":");
+  if (i < 0) return;
+  const [key, value] = [arg.slice(0, i), arg.slice(i + 1)];
+  filters.q = key === "q" ? value : "";
+  filters.d = new Set(key === "d" ? [+value] : []);
+  filters.tags = new Set(key === "tag" ? [value] : []);
+  filters.spectrum = key === "spectrum";
+}
+
 function route() {
   const [page, arg] = location.hash.replace(/^#\/?/, "").split("/");
-  if (!page) viewBrowse();
+  if (!page) viewHome();
+  else if (page === "catalogue") {
+    if (arg) applyCatalogueLink(decodeURIComponent(arg));
+    viewBrowse();
+  } else if (page === "tables") viewTables();
+  else if (page === "feedback") viewFeedback();
   else if (page === "theory" && arg) viewTheory(decodeURIComponent(arg));
   else if (page === "contribute") viewContribute();
   else if (page === "landscape") viewLandscape();
   else viewNotFound();
   document.querySelectorAll("[data-nav]").forEach((a) =>
-    a.classList.toggle("active", a.dataset.nav === (page || "browse"))
+    a.classList.toggle("active", a.dataset.nav === (page === "theory" ? "catalogue" : page))
   );
   window.scrollTo(0, 0);
 }
@@ -913,6 +1153,11 @@ app.addEventListener("change", (e) => {
 
 // Clicks shared by all views: citation links, tag pills, "show more" members / rows.
 app.addEventListener("click", (e) => {
+  const jump = e.target.closest("[data-jump]");
+  if (jump) {
+    document.getElementById(`sec-${jump.dataset.jump}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
   const specMember = e.target.closest("[data-spec-member]");
   if (specMember && SPEC_STATE.t) {
     const sel = document.getElementById("spectrum-member");
@@ -956,7 +1201,7 @@ app.addEventListener("click", (e) => {
       filters.q = "";
       filters.d.clear();
       filters.tags = new Set([tag]);
-      location.hash = "#/";
+      location.hash = "#/catalogue";
     }
   }
 });
