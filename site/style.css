@@ -337,3 +337,29 @@ table.spectrum td:last-child { white-space: normal; min-width: 14rem; }
 .comment p { margin: 0; }
 .comment-meta { margin-bottom: 6px !important; }
 .comment-body { white-space: pre-wrap; overflow-wrap: anywhere; margin-bottom: 6px !important; }
+
+/* ------------------------------------------------------------- RG flows */
+
+.flow-graph {
+  position: relative; display: flex; flex-direction: column; gap: 36px; margin-bottom: 14px; padding: 18px 34px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+}
+.flow-graph::before, .flow-graph::after { position: absolute; left: 10px; font-size: 0.75rem; color: var(--muted); }
+.flow-graph::before { content: "UV"; top: 8px; }
+.flow-graph::after { content: "IR"; bottom: 8px; }
+/* Equal columns keep the gap between two nodes on the centre line, clear of a flow that skips this row. */
+.flow-row {
+  position: relative; z-index: 1; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
+  justify-items: center; align-items: center; column-gap: 36px;
+  width: min(100%, calc(var(--n) * 320px)); margin: 0 auto;
+}
+.flow-node {
+  display: block; max-width: 260px; padding: 6px 12px; text-align: center; color: var(--accent);
+  background: var(--surface); border: 1.5px solid var(--accent); border-radius: 4px;
+}
+a.flow-node:hover, a.flow-node:focus-visible { background: var(--accent-soft); text-decoration: none; }
+.flow-node.current { background: var(--accent); color: var(--accent-text); }
+.flow-kind { display: block; font-size: 0.75rem; opacity: 0.8; }
+.flow-arrows { position: absolute; inset: 0; pointer-events: none; }
+.flow-arrows line { stroke: var(--accent); stroke-width: 1.5; }
+.flow-arrows polygon { fill: var(--accent); }

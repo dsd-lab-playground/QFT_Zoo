@@ -5,6 +5,7 @@
      #/catalogue        searchable catalogue; #/catalogue/<k>:<v> opens it filtered
                         (k = d, tag, q or spectrum)
      #/tables           summary tables, grouped by dimension and type
+     #/flows            RG flows between the theories
      #/feedback         comments on the site, read live from GitHub issues
      #/theory/<id>      a theory (with its spectrum, if data/spectra has one)
      #/landscape        2d CFTs in the (c, gap) plane
@@ -152,6 +153,7 @@ function viewHome() {
         <div class="portal-col">
           <a class="portal-btn" href="#/catalogue">Interactive Catalogue</a>
           <a class="portal-btn" href="#/tables">Summary Tables</a>
+          <a class="portal-btn" href="#/flows">RG Flows</a>
           <a class="portal-btn" href="#/landscape">2d CFT Landscape</a>
           <a class="portal-btn" href="#/contribute">Contribute</a>
           <a class="portal-btn" href="#/feedback">Comments &amp; Feedback</a>
@@ -418,6 +420,13 @@ function viewTheory(id) {
 
   if (t.description) out.push(section("overview", "Overview", `<div class="prose">${md(t.description)}</div>`));
 
+  const flows = theoryLinks(t).filter(isFlow);
+  if (flows.length) {
+    const cluster = flowClusters(allFlows()).find((c) => c.some((f) => f.uv === t.id || f.ir === t.id));
+    out.push(section("flows", "RG flows", `${flowDiagram(cluster, t.id)}${relationList(t, flows)}
+      <p class="small"><a href="#/flows">All RG flows in the zoo →</a></p>`));
+  }
+
   if (t.lagrangian) out.push(section("lagrangian", "Lagrangian", `<div class="display-math">${tex(t.lagrangian, true)}</div>`));
 
   if (t.parameters?.length)
@@ -446,6 +455,24 @@ function viewTheory(id) {
     out.push(section("symmetry", "Symmetry", `<dl class="kv">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>`));
   }
 
+  if (t.operators?.length) {
+    // Only show columns that some operator fills.
+    const cols = [
+      ["Operator", (o) => tex(o.name), true],
+      ["Δ", (o) => `<span class="value">${tex(o.Delta)}</span>`, true],
+      [tex("(h, \\bar h)"), (o) => (o.weights ? tex(o.weights) : ""), "weights"],
+      ["Mult.", (o) => (o.degeneracy ? tex(o.degeneracy) : ""), "degeneracy"],
+      ["Spin", (o) => (o.spin != null ? tex(o.spin) : ""), "spin"],
+      ["Representation", (o) => md(o.rep, true), "rep"],
+      ["Notes", (o) => md(o.note, true), "note"],
+      ["Source", source, null],
+    ].filter(([, , key]) => key === true || key === null || t.operators.some((o) => o[key] != null));
+    const hasSource = t.operators.some((o) => o.method || o.refs?.length);
+    const use = cols.filter(([h]) => h !== "Source" || hasSource);
+    out.push(section("operators", "Operators",
+      table(use.map(([h]) => h), t.operators.map((o) => use.map(([, f]) => f(o))), "data")));
+  }
+
   if (t.quantities?.length)
     out.push(
       section(
@@ -466,55 +493,8 @@ function viewTheory(id) {
 
   if (t.spectra?.length) out.push(section("spectrum", "Spectrum", spectrumShell(t)));
 
-  if (t.operators?.length) {
-    // Only show columns that some operator fills.
-    const cols = [
-      ["Operator", (o) => tex(o.name), true],
-      ["Δ", (o) => `<span class="value">${tex(o.Delta)}</span>`, true],
-      [tex("(h, \\bar h)"), (o) => (o.weights ? tex(o.weights) : ""), "weights"],
-      ["Mult.", (o) => (o.degeneracy ? tex(o.degeneracy) : ""), "degeneracy"],
-      ["Spin", (o) => (o.spin != null ? tex(o.spin) : ""), "spin"],
-      ["Representation", (o) => md(o.rep, true), "rep"],
-      ["Notes", (o) => md(o.note, true), "note"],
-      ["Source", source, null],
-    ].filter(([, , key]) => key === true || key === null || t.operators.some((o) => o[key] != null));
-    const hasSource = t.operators.some((o) => o.method || o.refs?.length);
-    const use = cols.filter(([h]) => h !== "Source" || hasSource);
-    out.push(section("operators", "Operators",
-      table(use.map(([h]) => h), t.operators.map((o) => use.map(([, f]) => f(o))), "data")));
-  }
-
-  const links = [...(t.relations || []), ...(t.backlinks || [])];
-  if (links.length) {
-    const groups = Object.keys(REL_LABEL)
-      .map((type) => [type, links.filter((l) => l.type === type)])
-      .filter(([, ls]) => ls.length);
-    out.push(
-      section(
-        "relations",
-        "Relations",
-        `<dl class="kv relations">${groups
-          .map(
-            ([type, ls]) =>
-              `<dt>${REL_LABEL[type]}</dt><dd><ul>${ls
-                .map((l) => {
-                  const other = BY_ID.get(l.target);
-                  // Which member of a family: the parameter belongs to the family side of the link.
-                  const famSide = other?.family ? other : t.family ? t : null;
-                  const at = l.at != null
-                    ? ` <span class="muted">(${tex(`${famSide?.family.parameter ?? ""}${famSide ? " = " : ""}${l.at}`)}${
-                        l.variant ? `, ${esc(l.variant)}` : ""})</span>`
-                    : "";
-                  return `<li><a href="#/theory/${encodeURIComponent(l.target)}">${md(other ? other.name : l.target, true)}</a>${at}${
-                    l.note ? ` <span class="muted">— ${md(l.note, true)}</span>` : ""
-                  }</li>`;
-                })
-                .join("")}</ul></dd>`
-          )
-          .join("")}</dl>`
-      )
-    );
-  }
+  const others = theoryLinks(t).filter((l) => !isFlow(l));
+  if (others.length) out.push(section("relations", "Relations", relationList(t, others)));
 
   if (refs.length)
     out.push(section("references", "References", `<ol class="refs">${refs.map(refItem).join("")}</ol>`));
@@ -542,6 +522,150 @@ function viewTheory(id) {
     <p class="muted small">${contributors ? `Contributors: ${contributors}. ` : ""}Source:
       <a href="${gh.blob(t.source)}" target="_blank" rel="noopener"><code>${esc(t.source)}</code></a></p>`;
   if (t.spectra?.length) showSpectrum(t, 0);
+  drawFlowArrows();
+}
+
+/* ------------------------------------------------------------- relations */
+
+const theoryLinks = (t) => [...(t.relations || []), ...(t.backlinks || [])];
+const isFlow = (l) => l.type === "flows_to" || l.type === "flows_from";
+
+/** "(p = 3, D-series)": which member of a family a link refers to. The parameter
+ *  belongs to the family side of the link. */
+function linkAt(t, l) {
+  if (l.at == null) return "";
+  const other = BY_ID.get(l.target);
+  const famSide = other?.family ? other : t.family ? t : null;
+  return ` <span class="muted">(${tex(`${famSide?.family.parameter ?? ""}${famSide ? " = " : ""}${l.at}`)}${
+    l.variant ? `, ${esc(l.variant)}` : ""})</span>`;
+}
+
+function relationList(t, links) {
+  const groups = Object.keys(REL_LABEL)
+    .map((type) => [type, links.filter((l) => l.type === type)])
+    .filter(([, ls]) => ls.length);
+  return `<dl class="kv relations">${groups
+    .map(
+      ([type, ls]) =>
+        `<dt>${REL_LABEL[type]}</dt><dd><ul>${ls
+          .map((l) => {
+            const other = BY_ID.get(l.target);
+            return `<li><a href="#/theory/${encodeURIComponent(l.target)}">${md(other ? other.name : l.target, true)}</a>${linkAt(t, l)}${
+              l.note ? ` <span class="muted">— ${md(l.note, true)}</span>` : ""
+            }</li>`;
+          })
+          .join("")}</ul></dd>`
+    )
+    .join("")}</dl>`;
+}
+
+/* ---------------------------------------------------------------- RG flows */
+
+/** Every recorded flow once, whichever side of the link it was read from. */
+function allFlows() {
+  const flows = new Map();
+  for (const t of DB.theories)
+    for (const l of theoryLinks(t).filter(isFlow)) {
+      if (!BY_ID.has(l.target)) continue;
+      const [uv, ir] = l.type === "flows_to" ? [t.id, l.target] : [l.target, t.id];
+      const key = [uv, ir, l.at ?? "", l.variant ?? ""].join("|");
+      if (!flows.has(key)) flows.set(key, { uv, ir, note: l.note, at: linkAt(t, l) });
+    }
+  return [...flows.values()];
+}
+
+/** Flows grouped into connected networks. */
+function flowClusters(flows) {
+  const parent = new Map();
+  const find = (x) => {
+    while (parent.has(x)) x = parent.get(x);
+    return x;
+  };
+  flows.forEach((f) => {
+    const [a, b] = [find(f.uv), find(f.ir)];
+    if (a !== b) parent.set(a, b);
+  });
+  const clusters = new Map();
+  flows.forEach((f) => {
+    const r = find(f.uv);
+    clusters.set(r, [...(clusters.get(r) || []), f]);
+  });
+  return [...clusters.values()];
+}
+
+/** One network, UV at the top and IR at the bottom. A theory's row is the longest chain
+ *  of flows below it, so the vertical position shows order, not an energy scale. */
+function flowDiagram(cluster, current = null) {
+  const ranks = new Map();
+  const rank = (id, path) => {
+    if (ranks.has(id)) return ranks.get(id);
+    if (path.has(id)) return 0; // a cycle would be a data error; don't hang on it
+    path.add(id);
+    const r = Math.max(0, ...cluster.filter((f) => f.uv === id).map((f) => 1 + rank(f.ir, path)));
+    path.delete(id);
+    ranks.set(id, r);
+    return r;
+  };
+  const ids = [...new Set(cluster.flatMap((f) => [f.uv, f.ir]))];
+  ids.forEach((id) => rank(id, new Set()));
+  const node = (id) => {
+    const t = BY_ID.get(id);
+    const kind = t.tags?.includes("CFT") ? "" : `<span class="flow-kind">not a CFT</span>`;
+    return id === current
+      ? `<span class="flow-node current" data-flow-node="${esc(id)}" aria-current="page">${md(t.name, true)}${kind}</span>`
+      : `<a class="flow-node" data-flow-node="${esc(id)}" href="#/theory/${encodeURIComponent(id)}">${md(t.name, true)}${kind}</a>`;
+  };
+  const rows = [];
+  for (let r = Math.max(...ranks.values()); r >= 0; r--) {
+    const row = ids.filter((id) => ranks.get(id) === r);
+    rows.push(`<div class="flow-row" style="--n:${row.length}">${row.map(node).join("")}</div>`);
+  }
+  const edges = cluster.map((f) => [f.uv, f.ir]);
+  return `<div class="flow-graph" data-edges="${esc(JSON.stringify(edges))}">${rows.join("")}</div>`;
+}
+
+/** The arrows are decoration: the links and lists next to each diagram carry the same content. */
+function drawFlowArrows() {
+  app.querySelectorAll(".flow-graph").forEach((g) => {
+    g.querySelector("svg")?.remove();
+    const box = g.getBoundingClientRect();
+    const svg = svgEl("svg", { class: "flow-arrows", width: box.width, height: box.height, "aria-hidden": "true" });
+    for (const [uv, ir] of JSON.parse(g.dataset.edges)) {
+      const a = g.querySelector(`[data-flow-node="${CSS.escape(uv)}"]`).getBoundingClientRect();
+      const b = g.querySelector(`[data-flow-node="${CSS.escape(ir)}"]`).getBoundingClientRect();
+      const [x1, y1] = [a.left + a.width / 2 - box.left, a.bottom - box.top];
+      const [x2, y2] = [b.left + b.width / 2 - box.left, b.top - box.top - 2];
+      const len = Math.hypot(x2 - x1, y2 - y1) || 1;
+      const [ux, uy] = [(x2 - x1) / len, (y2 - y1) / len];
+      const [bx, by] = [x2 - 8 * ux, y2 - 8 * uy];
+      svgEl("line", { x1, y1, x2: bx, y2: by }, svg);
+      svgEl("polygon", { points: `${x2},${y2} ${bx - 4 * uy},${by + 4 * ux} ${bx + 4 * uy},${by - 4 * ux}` }, svg);
+    }
+    g.prepend(svg);
+  });
+}
+
+function viewFlows() {
+  document.title = "RG Flows — QFT Zoo";
+  const flows = allFlows();
+  const dimOf = (c) => Math.min(...c.flatMap((f) => [BY_ID.get(f.uv).d, BY_ID.get(f.ir).d]));
+  const clusters = flowClusters(flows).sort((a, b) => dimOf(a) - dimOf(b));
+  const nTheories = new Set(flows.flatMap((f) => [f.uv, f.ir])).size;
+  const name = (id) => `<a href="#/theory/${encodeURIComponent(id)}">${md(BY_ID.get(id).name, true)}</a>`;
+  app.innerHTML = `
+    <header class="theory-head">
+      <h1>RG Flows</h1>
+      <p class="lede">Surf the zoo along its renormalization-group flows, from the UV at the top to the IR at the bottom.
+        Open a theory and its page shows where it flows to and from.</p>
+      <p class="small muted">${flows.length} flows among ${nTheories} theories so far. Height in a diagram shows the order of
+        the flows, not an energy scale. Know one that’s missing? Add a <code>flows_to</code> relation to the UV theory’s
+        entry: see <a href="#/contribute">Contribute</a>.</p>
+    </header>
+    ${clusters
+      .map((c) => `<section class="block"><h2>${tex(`d = ${dimOf(c)}`)}</h2>${flowDiagram(c)}
+        ${table(["UV", "IR", "Deformation"], c.map((f) => [name(f.uv) + f.at, name(f.ir), f.note ? md(f.note, true) : ""]), "data")}</section>`)
+      .join("")}`;
+  drawFlowArrows();
 }
 
 /** Contents line for a page built from section() blocks; omitted on short pages. */
@@ -1136,6 +1260,7 @@ function route() {
     if (arg) applyCatalogueLink(decodeURIComponent(arg));
     viewBrowse();
   } else if (page === "tables") viewTables();
+  else if (page === "flows") viewFlows();
   else if (page === "feedback") viewFeedback();
   else if (page === "theory" && arg) viewTheory(decodeURIComponent(arg));
   else if (page === "contribute") viewContribute();
@@ -1146,6 +1271,9 @@ function route() {
   );
   window.scrollTo(0, 0);
 }
+
+window.addEventListener("resize", drawFlowArrows);
+document.fonts?.addEventListener?.("loadingdone", drawFlowArrows);
 
 app.addEventListener("change", (e) => {
   if (e.target.id === "spectrum-member" && SPEC_STATE.t) showSpectrum(SPEC_STATE.t, +e.target.value);
