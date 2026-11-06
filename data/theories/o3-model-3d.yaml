@@ -157,6 +157,12 @@ relations:
   - type: flows_to
     target: o2-model-3d
     note: 'Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy plane, with the mass tuned to criticality.'
+  - type: member_of
+    target: on-model-3d
+    at: 3
+  - type: flows_to
+    target: cubic-3d
+    note: 'Cubic anisotropy (the cubic-invariant component of the rank-4 traceless symmetric operator), which is relevant at the $O(3)$ fixed point, with the mass tuned to criticality.'
 
 references:
   - key: chester2020

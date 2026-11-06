@@ -163,6 +163,9 @@ relations:
   - type: flows_to
     target: ising-3d
     note: 'Relevant charge-2 anisotropy $t \propto \phi_1^2 - \phi_2^2$, with the mass tuned so that the lighter component is critical.'
+  - type: member_of
+    target: on-model-3d
+    at: 2
 
 references:
   - key: chester2019
