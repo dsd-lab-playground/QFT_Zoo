@@ -1,0 +1,195 @@
+id: cs-quasi-bosonic-3d
+name: 'Chern–Simons theory with fundamental scalars (quasi-bosonic family)'
+aliases:
+  - 'Quasi-bosonic theories'
+  - '$U(N)_k$ Chern–Simons theory coupled to a fundamental scalar'
+  - 'Chern–Simons theory coupled to a critical fermion (Chern–Simons–Gross–Neveu)'
+d: 3
+summary: >-
+  $U(N)_k$ Chern–Simons theory coupled to a fundamental complex scalar, in the 't Hooft
+  limit. At $N=\infty$ a two-parameter family of CFTs in $(\lambda, \lambda_6)$, where
+  the conformal vacuum is stable, equivalent to Chern–Simons theory coupled to a
+  critical (Gross–Neveu) fermion.
+tags: [CFT, interacting, unitary, Lagrangian, gauge theory, large N, holographic, family]
+
+description: |
+  One complex scalar $\phi$ in the fundamental of $U(N)$, coupled to a $U(N)$
+  Chern–Simons gauge field at level $k$, with $\lambda = N/k$ as in the fermionic family
+  ($k$ in the dimensional-reduction convention, $-1<\lambda<1$). The scalar mass and the
+  quartic coupling $(\bar\phi\phi)^2$ are tuned to zero. The sextic coupling
+  $\tfrac{\lambda_6}{3!\,N^2}(\bar\phi\phi)^3$ is classically marginal (conventions of
+  Aharony, Gur-Ari and Yacoby 2012; their 2011 paper used real scalars and $\lambda = 4\pi N/k$).
+
+  ### Planar conformal manifold and finite $N$
+  At $N=\infty$ the beta function of $\lambda_6$ vanishes to all orders in perturbation
+  theory, so there is a
+  two-parameter family of CFTs labelled by $\lambda$ and $\lambda_6$ (Aharony, Gur-Ari and
+  Yacoby 2011, Sec. 3). At finite $N$ a beta function for $\lambda_6$ of order $1/N$ is
+  generated. Their two-loop result for the $O(N)$ theory has, for $N\ge10$, two lines of
+  zeros $\lambda_6^\pm(\lambda)\propto\lambda^2$, of which $\lambda_6^+$ is IR-stable, so at
+  large finite $N$ and small $\lambda$ there is a one-parameter family of CFTs labelled by
+  $\lambda$ alone; without Chern–Simons coupling, $\lambda_6 > 0$ is IR-free. So $\lambda_6$
+  is a free parameter only of the planar theory.
+
+  The conformal vacuum must also be stable, which restricts $\lambda_6$. Dey et al.
+  computed the exact large-$N$ Landau–Ginzburg potential for $\bar\phi\phi$ on both the
+  unHiggsed and the Higgsed branch. Writing $\lambda_6 = 24\pi^2\lambda^2(1+x_6)$, it is
+  bounded below only for $\tfrac43\big(\tfrac{1}{(2-|\lambda|)^2}-1\big) \le x_6 \le
+  \tfrac43\big(\tfrac{1}{\lambda^2}-1\big)$, that is
+  $8\pi^2\lambda^2\big(\tfrac{4}{(2-|\lambda|)^2}-1\big) \le \lambda_6 \le 8\pi^2(4-\lambda^2)$.
+  As $\lambda\to0$ this becomes $0 \le \lambda_6 \le 32\pi^2$: below the free theory the
+  potential is unbounded along $\bar\phi\phi\to+\infty$, and at the upper end conformal
+  symmetry can be broken spontaneously (the Bardeen–Moshe–Bander phenomenon; Aharony,
+  Gur-Ari and Yacoby 2011, Sec. 3.3). At $|\lambda|=1$ the range shrinks to the single
+  point $\lambda_6 = 24\pi^2$ ($x_6 = 0$).
+
+  The planar data below do not depend on
+  $\lambda_6$; among planar two- and three-point functions it enters only
+  $\langle J_0J_0J_0\rangle$.
+
+  At $N=\infty$ the spectrum is that of the free theory: conserved currents $J_s$ and one
+  scalar $J_0 = \bar\phi\phi$ of dimension 1. The planar correlators are those of the
+  Maldacena–Zhiboedov quasi-bosonic theories, with $\tilde N = 2N\sin(\pi\lambda)/(\pi\lambda)$,
+  $\tilde\lambda = \tan(\pi\lambda/2)$ and a third parameter set by $\lambda_6$.
+
+  ### Bosonization
+  The theory is dual at large $N$ to $U(N_f)$ Chern–Simons theory coupled to a fundamental
+  fermion at its Gross–Neveu (critical) point, with the same map
+  $|\lambda_b| + |\lambda_f| = 1$, ${\rm sign}(\lambda_b) = -{\rm sign}(\lambda_f)$,
+  $N_f = |k_b| - N_b$, and with the sextic couplings related by
+  $\lambda^b_6 = 8\pi^2(1-|\lambda_f|)^2(3 - 8\pi\lambda_f\lambda^f_6)$, where
+  $\tfrac{N}{3!}\lambda_6^f\sigma^3$ is the cubic term of the Hubbard–Stratonovich field
+  $\sigma\sim\bar\psi\psi$ on the fermionic side (Gur-Ari and Yacoby; Aharony et al. 2012).
+  The critical fermion with $\lambda^f_6 = 0$ corresponds to $\lambda_6 = 24\pi^2\lambda^2$.
+  As $|\lambda|\to1$ the fermionic description becomes weakly coupled: the large-$N$
+  Gross–Neveu model. A double-trace $(\bar\phi\phi)^2$ deformation, with the mass tuned,
+  flows to Chern–Simons theory with critical bosons, the quasi-fermionic family.
+
+lagrangian: 'S = \frac{ik}{4\pi}\int {\rm Tr}\left(A\wedge dA + \tfrac{2}{3}A\wedge A\wedge A\right) + \int d^3x \left( |D_\mu\phi|^2 + \frac{\lambda_6}{3!\,N^2}(\bar\phi\phi)^3 \right) \quad (\text{mass and } (\bar\phi\phi)^2 \text{ tuned to zero})'
+
+parameters:
+  - symbol: N
+    description: Rank of the gauge group $U(N)$; one fundamental complex scalar.
+    range: '$N \to \infty$ for the data below'
+  - symbol: '\lambda = N/k'
+    description: '''t Hooft coupling, with $k$ in the dimensional-reduction convention.'
+    range: '$-1 < \lambda < 1$'
+  - symbol: '\lambda_6'
+    description: 'Sextic coupling; exactly marginal at $N=\infty$, runs at order $1/N$.'
+    range: '$8\pi^2\lambda^2\big(\frac{4}{(2-|\lambda|)^2}-1\big) \le \lambda_6 \le 8\pi^2(4-\lambda^2)$ for a stable vacuum (Dey et al.); $0 \le \lambda_6 \le 32\pi^2$ as $\lambda \to 0$'
+
+family:
+  parameter: lambda
+  members:
+    - at: 0
+      label: Free scalars
+      note: 'At $\lambda_6 = 0$: singlet sector of $N$ free complex scalars.'
+    - at: '\pm 1'
+      label: Gross–Neveu (limit)
+      note: 'As $|\lambda|\to1$ the dual fermion is weakly coupled: the large-$N$ Gross–Neveu model with $N_f = |k| - N$.'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  gauge: '$U(N)$, Chern–Simons level $k$'
+  global: '$U(1)$ (baryon number for gauge group $SU(N)$; for $U(N)$ a combination with the topological $U(1)$). Higher-spin symmetry at $N=\infty$, broken at order $1/N$.'
+  notes: 'Parity and time reversal map $\lambda\to-\lambda$.'
+
+quantities:
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor two-point coefficient, relative to $N$ free complex scalars ($2N$ free real scalars)'
+    value: '\frac{\sin(\pi\lambda)}{\pi\lambda} + O(1/N)'
+    method: exact (planar limit)
+    refs: [aharony2012]
+    note: 'Independent of $\lambda_6$. This is $\tilde N/2N$.'
+  - symbol: 'C_J/C_J^{\rm free}'
+    description: '$U(1)$ current two-point coefficient, relative to $N$ free complex scalars'
+    value: '\frac{\sin(\pi\lambda)}{\pi\lambda} + O(1/N)'
+    method: exact (planar limit)
+    refs: [aharony2012]
+  - symbol: '\tilde\lambda'
+    description: 'Maldacena–Zhiboedov parity-violation parameter'
+    value: '\tan\frac{\pi\lambda}{2}'
+    method: exact (planar limit)
+    refs: [aharony2012]
+
+operators:
+  - name: 'J_0 = \bar\phi\phi'
+    Delta: '1 + O(1/N)'
+    spin: 0
+    rep: singlet
+    method: exact (planar limit)
+    refs: [aharony2011, maldacena2012]
+  - name: 'J_\mu'
+    Delta: 2
+    spin: 1
+    rep: singlet
+    method: exact
+    note: Conserved $U(1)$ current.
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+  - name: 'J_s\ (s\ge3)'
+    Delta: 's + 1 + O(1/N)'
+    spin: s
+    rep: singlet
+    method: exact (planar limit)
+    refs: [aharony2011, maldacena2012]
+    note: 'Higher-spin currents, conserved at $N=\infty$.'
+
+relations:
+  - type: related_to
+    target: free-scalar-3d
+    note: '$\lambda = \lambda_6 = 0$: the $U(N)$-singlet sector of $N$ free complex scalars.'
+  - type: related_to
+    target: gny-3d
+    note: '$|\lambda|\to1$ is the large-$N$ Gross–Neveu model (singlet sector).'
+  - type: related_to
+    target: cs-quasi-fermionic-3d
+    note: 'The double-trace $(\bar\phi\phi)^2$ deformation flows to Chern–Simons theory with critical bosons at the same $\lambda_b$, which is the quasi-fermionic theory at $\lambda_f = \lambda_b - {\rm sign}(\lambda_b)$.'
+
+references:
+  - key: aharony2011
+    title: d=3 Bosonic Vector Models Coupled to Chern-Simons Gauge Theories
+    authors: Aharony, Gur-Ari, Yacoby
+    year: 2012
+    journal: JHEP 03 (2012) 037
+    arxiv: '1110.4382'
+    note: 'Exact marginality of $\lambda_6$ at $N=\infty$ (Sec. 3.2); two-loop $\beta_{\lambda_6}$ at finite $N$ (eqs. (9), (11)).'
+  - key: aharony2012
+    title: Correlation Functions of Large N Chern-Simons-Matter Theories and Bosonization in Three Dimensions
+    authors: Aharony, Gur-Ari, Yacoby
+    year: 2012
+    journal: JHEP 12 (2012) 028
+    arxiv: '1207.4593'
+    note: 'Eqs. (1), (74), (75), (79), (83), (88).'
+  - key: maldacena2012
+    title: Constraining conformal field theories with a slightly broken higher spin symmetry
+    authors: Maldacena, Zhiboedov
+    year: 2013
+    journal: Class. Quant. Grav. 30, 104003
+    arxiv: '1204.3882'
+  - key: gurari2012
+    title: Correlators of Large N Fermionic Chern-Simons Vector Models
+    authors: Gur-Ari, Yacoby
+    year: 2013
+    journal: JHEP 02 (2013) 150
+    arxiv: '1211.1866'
+  - key: aharony2012b
+    title: The Thermal Free Energy in Large N Chern-Simons-Matter Theories
+    authors: Aharony, Giombi, Gur-Ari, Maldacena, Yacoby
+    year: 2013
+    journal: JHEP 03 (2013) 121
+    arxiv: '1211.4843'
+    note: 'Eqs. (5.30), (5.36) and Sec. 7.2: the map between the bosonic and critical-fermionic theories.'
+  - key: dey2018
+    title: Duality and an exact Landau-Ginzburg potential for quasi-bosonic Chern-Simons-Matter theories
+    authors: Dey, Halder, Jain, Janagal, Minwalla, Prabhakar
+    year: 2018
+    arxiv: '1808.04415'
+    note: 'Action (2.1): sextic coefficient $(2\pi)^2(x_6+1)/\kappa_B^2$; stability range $\phi_1 \le x_6 \le \phi_2$ with $\phi_{1,2}$ in eq. (5.11).'
+
+contributors: [Canonical111]

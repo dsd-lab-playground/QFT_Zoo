@@ -1,0 +1,170 @@
+id: free-fermion-3d
+name: Free massless Majorana fermion (3d)
+aliases:
+  - Free Dirac fermion (3d)
+  - Free two-component fermion
+d: 3
+summary: >-
+  A free massless two-component Majorana fermion in three dimensions; two of them
+  form a free Dirac fermion. The free Dirac fermion is a node of the 3d duality web:
+  it is dual to the $O(2)$ Wilson–Fisher fixed point coupled to $U(1)_1$ Chern–Simons theory.
+tags: [CFT, free, unitary, Lagrangian, exactly solvable]
+
+description: |
+  A two-component Majorana fermion $\psi$ has $\Delta_\psi = 1$. Its mass operator
+  $\bar\psi\psi$ ($\Delta = 2$) is odd under parity and time reversal, so these
+  symmetries forbid a mass. A gapless Majorana fermion protected by time reversal
+  appears on the surface of a $3+1$d topological superconductor (Grover, Sheng and
+  Vishwanath). Coupling $N$ Majorana fermions to a real pseudoscalar through
+  $\phi\,\bar\psi_i\psi_i$, with the scalar mass tuned, gives the $O(N)$
+  Gross–Neveu–Yukawa fixed points.
+
+  Two Majorana fermions form one two-component Dirac fermion $\Psi$, with an $O(2)$
+  symmetry ($U(1)$ charge and charge conjugation). Data below are per Majorana fermion
+  unless stated; for a Dirac fermion $F$ and $C_T$ are twice as large. A single Dirac
+  fermion has the parity anomaly: with its $U(1)$ coupled to a background gauge field it
+  is time-reversal invariant only as the boundary of a $3+1$d topological insulator
+  (Seiberg, Senthil, Wang and Witten).
+
+  ### Duality web
+  Seiberg, Senthil, Wang and Witten take as a seed the duality between a free Dirac
+  fermion coupled to a background spin$^c$ connection $A$ and the $O(2)$ Wilson–Fisher
+  scalar whose $U(1)$ is gauged by a dynamical $b$ with a level-1 Chern–Simons term,
+  $$i\bar\Psi\gamma^\mu D^{A}_\mu\Psi \;\longleftrightarrow\; |D_b\phi|^2 - |\phi|^4 + \tfrac{1}{4\pi}\,b\,db + \tfrac{1}{2\pi}\,b\,dA .$$
+  Gauging background fields and adding Chern–Simons counterterms then gives a web of
+  dualities (Seiberg, Senthil, Wang and Witten; Karch and Tong), including bosonic
+  particle–vortex duality (the $O(2)$ model and the Abelian Higgs model) and its fermionic
+  counterpart, which relates the free Dirac fermion to a Dirac fermion coupled to a
+  dynamical $U(1)$ gauge field. The fermionic version was proposed by Son for the
+  half-filled Landau level, and by Wang and Senthil and by Metlitski and Vishwanath for
+  topological-insulator surfaces (references in Seiberg et al.); Seiberg et al. give it
+  with properly quantized Chern–Simons terms. These are infrared dualities, conjectured
+  rather than proven.
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}\bar\psi\gamma^\mu\partial_\mu\psi \quad (\text{one Majorana}), \qquad \mathcal{L} = \bar\Psi\gamma^\mu\partial_\mu\Psi \quad (\text{one Dirac} = \text{two Majorana})'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: 'fermion parity $(-1)^F$, parity and time reversal; $O(2)$ for a Dirac fermion'
+  notes: 'Time reversal forbids the mass $\bar\psi\psi$. The Dirac fermion has a parity anomaly between $U(1)$ and time reversal.'
+
+quantities:
+  - key: F
+    symbol: 'F'
+    description: '$S^3$ free energy of one Majorana fermion, $F = -\log|Z_{S^3}|$'
+    value: '\frac{\log 2}{8} + \frac{3\zeta(3)}{16\pi^2} \approx 0.110'
+    method: exact
+    refs: [klebanov2011, fei2016]
+    note: 'Half the Dirac value.'
+  - symbol: 'F_{\rm Dirac}'
+    description: '$S^3$ free energy of one two-component Dirac fermion'
+    value: '\frac{\log 2}{4} + \frac{3\zeta(3)}{8\pi^2} \approx 0.219'
+    method: exact
+    refs: [klebanov2011]
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor two-point coefficient of one Majorana fermion, relative to one free real scalar'
+    value: '1'
+    method: derived
+    refs: [osborn1993, diab2016, fei2016]
+    note: 'From $C_T^{\rm sc} = \frac{d}{(d-1)S_d^2}$ and $C_T^{\rm fer} = {\rm Tr}\,\mathbb{1}\,\frac{d}{2S_d^2}$ with ${\rm Tr}\,\mathbb{1} = 2$, a two-component Dirac fermion has twice the $C_T$ of a real scalar (as also used by Fei et al.); a Majorana fermion has half of that.'
+
+operators:
+  - name: '\psi'
+    Delta: 1
+    spin: '1/2'
+    rep: 'fermion, $(-1)^F$ odd'
+    method: exact
+    refs: [iliesiu2017]
+  - name: '\bar\psi\psi'
+    Delta: 2
+    spin: 0
+    rep: odd under parity and time reversal
+    method: exact
+    refs: [diab2016, erramilli2022]
+    note: 'The mass term; for $N$ Majorana fermions the $O(N)$ singlet $\bar\psi_i\psi_i$.'
+  - name: 'J_\mu'
+    Delta: 2
+    spin: 1
+    rep: Dirac fermion only
+    method: exact
+    note: 'Conserved $U(1)$ current, $\bar\Psi\gamma_\mu\Psi$.'
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: gny-3d
+    note: '$N$ free Majorana fermions plus a real scalar with a Yukawa coupling flow to the GNY fixed point; the Gross–Neveu UV fixed point flows back to $N$ free Majorana fermions.'
+  - type: related_to
+    target: o2-model-3d
+    note: 'A free Dirac fermion is dual to the $O(2)$ Wilson–Fisher fixed point with its $U(1)$ gauged at Chern–Simons level 1 (Seiberg, Senthil, Wang and Witten).'
+
+references:
+  - key: klebanov2011
+    title: F-Theorem without Supersymmetry
+    authors: Klebanov, Pufu, Safdi
+    year: 2011
+    journal: JHEP 10 (2011) 038
+    arxiv: '1105.4598'
+    note: 'Eq. (48): $F$ of a Dirac fermion; a Majorana fermion has half.'
+  - key: fei2016
+    title: Yukawa CFTs and Emergent Supersymmetry
+    authors: Fei, Giombi, Klebanov, Tarnopolsky
+    year: 2016
+    journal: PTEP 2016, 12C105
+    arxiv: '1607.05316'
+  - key: osborn1993
+    title: Implications of conformal invariance in field theories for general dimensions
+    authors: Osborn, Petkou
+    year: 1994
+    journal: Annals Phys. 231, 311
+    arxiv: hep-th/9307010
+  - key: diab2016
+    title: On $C_J$ and $C_T$ in the Gross-Neveu and $O(N)$ Models
+    authors: Diab, Fei, Giombi, Klebanov, Tarnopolsky
+    year: 2016
+    journal: J. Phys. A 49, 405402
+    arxiv: '1601.07198'
+  - key: iliesiu2017
+    title: Bootstrapping 3D fermions with global symmetries
+    authors: Iliesiu, Kos, Poland, Pufu, Simmons-Duffin
+    year: 2018
+    journal: JHEP 01 (2018) 036
+    arxiv: '1705.03484'
+  - key: erramilli2022
+    title: The Gross-Neveu-Yukawa archipelago
+    authors: Erramilli, Iliesiu, Kravchuk, Liu, Poland, Simmons-Duffin
+    year: 2023
+    journal: JHEP 02 (2023) 036
+    arxiv: '2210.02492'
+  - key: seiberg2016
+    title: A Duality Web in 2+1 Dimensions and Condensed Matter Physics
+    authors: Seiberg, Senthil, Wang, Witten
+    year: 2016
+    journal: Annals Phys. 374, 395
+    arxiv: '1606.01989'
+  - key: karch2016
+    title: Particle-Vortex Duality from 3d Bosonization
+    authors: Karch, Tong
+    year: 2016
+    journal: Phys. Rev. X 6, 031043
+    arxiv: '1606.01893'
+  - key: son2015
+    title: Is the Composite Fermion a Dirac Particle?
+    authors: Son
+    year: 2015
+    journal: Phys. Rev. X 5, 031027
+    arxiv: '1502.03446'
+  - key: grover2014
+    title: Emergent space-time supersymmetry at the boundary of a topological phase
+    authors: Grover, Sheng, Vishwanath
+    year: 2014
+    journal: Science 344, 280
+    arxiv: '1301.7449'
+
+contributors: [Canonical111]
