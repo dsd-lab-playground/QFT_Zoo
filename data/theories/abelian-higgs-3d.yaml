@@ -1,0 +1,227 @@
+id: abelian-higgs-3d
+name: '3d Abelian Higgs model ($\mathbb{CP}^{N-1}$ model) with $N$ complex scalars'
+aliases:
+  - 'Noncompact $\mathbb{CP}^{N-1}$ model'
+  - 'Scalar QED$_3$'
+  - 'Bosonic QED$_3$'
+  - 'Inverted XY ($N=1$)'
+d: 3
+summary: >-
+  A $U(1)$ gauge field coupled to $N$ complex scalars of unit charge, tuned to its
+  Coulomb–Higgs transition. The critical point is a CFT at large $N$ and, by
+  particle–vortex duality, at $N = 1$; at small $N \geq 2$ the transition may be weakly
+  first order.
+tags: [CFT, interacting, unitary, Lagrangian, gauge theory, large N, critical phenomena, family]
+
+description: |
+  **Counting.** $N$ counts complex scalars $z_\alpha$ (so $2N$ real components). The model is
+  "noncompact": monopole operators are not added to the action, so the critical point has a
+  $U(1)_{\rm top}$ symmetry whose charged operators are monopoles $M_q$ of flux $4\pi q$,
+  $q \in \tfrac12\mathbb{Z}$. This entry is the fixed point with $SU(N)$-symmetric potential
+  and one relevant singlet ($\mathbb{CP}^{N-1}$, or "bQED$_+$"); a second, tricritical
+  fixed point with the quartic coupling also tuned is not included.
+
+  In $SU(N)$ quantum antiferromagnets on bipartite lattices the critical point describes
+  the transition between Néel order (the Higgs phase, order parameter $z^\dagger T^a z$) and
+  valence-bond-solid (VBS) order. Lattice Berry phases make the monopoles transform like
+  the VBS order parameter, so the minimal monopole is the VBS order parameter rather than
+  an allowed perturbation. The large-$N$ monopole dimensions agree well with quantum Monte
+  Carlo of such magnets.
+
+  At $N = 1$ there is no flavor symmetry. Particle–vortex duality maps the critical point
+  to the $O(2)$ Wilson–Fisher CFT with the temperature axis reversed ("inverted XY"), with
+  $U(1)_{\rm top}$ becoming the $O(2)$ charge, so $\Delta_{M_{1/2}} = \Delta_\phi^{O(2)}$ and
+  $\nu = \nu_{O(2)}$. $N = 2$ is the deconfined quantum critical point between Néel and VBS
+  order of spin-1/2 magnets, which has its own page.
+
+  ### Status at small $N$
+  In $d = 4-\epsilon$ the charged fixed point exists only for $N > N_c$, with
+  $N_c = 182.95$ at one loop (Halperin–Lubensky–Ma); the four-loop series, resummed with
+  input from two dimensions, gives $N_c(d=3) \approx 12.2 \pm 3.9$ (Ihrig et al.), with a
+  large spread between resummations. In Monte Carlo simulations of the noncompact lattice
+  model the Coulomb–Higgs transition is continuous for $N \geq 10$ and weakly first order
+  for $N = 2, 4$ (Bonati–Pelissetto–Vicari). Other lattice realizations of $N = 2$ show
+  apparently continuous behavior with drifting exponents; see the $N=2$ page.
+
+lagrangian: '\mathcal{L} = \sum_{\alpha=1}^{N} |(\partial_\mu - i a_\mu) z_\alpha|^2 + m^2 |z|^2 + \frac{\lambda}{2}(|z|^2)^2 + \frac{1}{4e^2} f_{\mu\nu}f^{\mu\nu} \quad (m^2 \text{ tuned})'
+
+parameters:
+  - symbol: N
+    description: Number of complex scalars of gauge charge 1
+    range: 'integer $N \geq 1$'
+
+family:
+  parameter: N
+  members:
+    - at: 1
+      label: 'Inverted XY'
+      note: 'Particle–vortex dual to the $O(2)$ Wilson–Fisher CFT.'
+    - at: 2
+      label: 'NCCP$^1$, deconfined criticality'
+      note: 'Disputed: possibly weakly first order or pseudo-critical.'
+    - at: 10
+      note: 'Smallest of the values studied ($N = 2, 4, 10, 15, 25$) with a continuous transition in the noncompact lattice model.'
+    - at: 15
+    - at: 25
+    - at: '\infty'
+      note: 'Strict large-$N$ limit, where the $1/N$ expansion is controlled.'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$\big(PSU(N) \times U(1)_{\rm top}\big) \rtimes \mathbb{Z}_2^C$; for $N=1$ only $U(1)_{\rm top} \rtimes \mathbb{Z}_2^C = O(2)$'
+  gauge: '$U(1)$'
+  notes: 'The center $\mathbb{Z}_N$ of $SU(N)$ is part of the gauge group, so gauge-invariant operators, monopoles included, have zero $N$-ality.'
+
+quantities:
+  - symbol: '\nu'
+    description: 'Correlation-length exponent, $\nu = 1/(3-\Delta_{|z|^2})$'
+    value: '1 - \frac{48}{\pi^2 N} + O(N^{-2})'
+    method: large-N expansion
+    refs: [halperin1974, kaul2008]
+  - symbol: '\nu'
+    description: 'Monte Carlo, noncompact lattice model, $N = 25$'
+    value: '0.802(8)'
+    method: Monte Carlo
+    refs: [bonati2021]
+    note: 'Same study: $\eta_q = 0.883(7)$ for the adjoint bilinear, $\Delta = (1+\eta_q)/2$. Large $N$ at $O(1/N)$: $\nu = 0.805$, $\eta_q = 0.870$.'
+  - symbol: '\nu'
+    description: 'Monte Carlo, noncompact lattice model, $N = 15$'
+    value: '0.721(3)'
+    method: Monte Carlo
+    refs: [bonati2021]
+    note: 'Same study: $\eta_q = 0.815(10)$.'
+  - symbol: '\nu'
+    description: 'Monte Carlo, noncompact lattice model, $N = 10$'
+    value: '0.64(2)'
+    method: Monte Carlo
+    refs: [bonati2021]
+    note: 'Same study: $\eta_q = 0.74(2)$.'
+  - symbol: 'F'
+    description: 'Sphere free energy $-\log Z_{S^3}$'
+    value: 'N\Big(\frac{\log 2}{4} - \frac{3\zeta(3)}{8\pi^2}\Big) + \frac12\log\frac{\pi N}{8} - \frac{\zeta(3)}{8\pi^2} + O(1/N)'
+    method: large-N expansion
+    refs: [klebanov2012]
+    note: 'Eq. (1.4) of the reference at $N_f = k = 0$, plus the shift $-\zeta(3)/8\pi^2$ that the reference gives for the interacting ($u \to \infty$) fixed point.'
+  - symbol: 'C_J/C_J^{\rm free}'
+    description: '$SU(N)$ current two-point coefficient, relative to $N$ free complex scalars (its $N=\infty$ value)'
+    value: '1 - \frac{2.74}{N} + O(N^{-2})'
+    method: large-N expansion
+    refs: [huh2013]
+    note: 'The coefficient is $243.67/9\pi^2$ (numerical).'
+  - symbol: 'N_c'
+    description: 'Critical $N$ above which the transition is continuous, four-loop $4-\epsilon$ expansion resummed at $d=3$'
+    value: '12.2 \pm 3.9'
+    method: epsilon-expansion
+    refs: [ihrig2019]
+    note: 'One loop: $N_c = 182.95$.'
+
+operators:
+  - name: 'z^\dagger T^a z'
+    Delta: '1 - \frac{16}{\pi^2 N} + O(N^{-2})'
+    spin: 0
+    rep: '$SU(N)$ adjoint (Néel order parameter)'
+    method: derived (large-N expansion)
+    refs: [kaul2008, benvenuti2018]
+    note: '$\Delta = (1+\eta_q)/2$ with $\eta_q = 1 - 32/(\pi^2 N)$ (called $\eta_N$ by Kaul–Sachdev).'
+  - name: 'M_{1/2}'
+    Delta: '0.1245922\,N + 0.3815 + O(1/N)'
+    spin: 0
+    rep: 'unit topological charge, $SU(N)$ singlet'
+    method: large-N expansion
+    refs: [dyer2015, murthy1990]
+    note: 'Minimal monopole (VBS order parameter in $SU(N)$ magnets). The $O(N)$ term is from Murthy–Sachdev. Extrapolation gives $\Delta < 3$ for $N \leq 21$.'
+  - name: 'M_{1}'
+    Delta: '0.3110952\,N + 0.8745 + O(1/N)'
+    spin: 0
+    rep: 'topological charge 2'
+    method: large-N expansion
+    refs: [dyer2015]
+    note: 'Extrapolation gives $\Delta < 3$ for $N \leq 6$.'
+  - name: 'J_\mu^{\rm top},\ J_\mu^{SU(N)}'
+    Delta: 2
+    spin: 1
+    rep: 'singlet; $SU(N)$ adjoint'
+    method: exact
+    note: Conserved currents.
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: dual_to
+    target: o2-model-3d
+    note: 'The $N=1$ member (particle–vortex duality).'
+
+references:
+  - key: peskin1978
+    title: "Mandelstam–'t Hooft duality in abelian lattice models"
+    authors: Peskin
+    year: 1978
+    journal: Ann. Phys. 113, 122
+    doi: '10.1016/0003-4916(78)90252-X'
+  - key: dasgupta1981
+    title: Phase transition in a lattice model of superconductivity
+    authors: Dasgupta, Halperin
+    year: 1981
+    journal: Phys. Rev. Lett. 47, 1556
+    doi: '10.1103/PhysRevLett.47.1556'
+  - key: halperin1974
+    title: First-order phase transitions in superconductors and smectic-A liquid crystals
+    authors: Halperin, Lubensky, Ma
+    year: 1974
+    journal: Phys. Rev. Lett. 32, 292
+    doi: '10.1103/PhysRevLett.32.292'
+  - key: murthy1990
+    title: Action of hedgehog instantons in the disordered phase of the (2+1)-dimensional $\mathbb{CP}^{N-1}$ model
+    authors: Murthy, Sachdev
+    year: 1990
+    journal: Nucl. Phys. B 344, 557
+    doi: '10.1016/0550-3213(90)90670-9'
+  - key: kaul2008
+    title: Quantum criticality of U(1) gauge theories with fermionic and bosonic matter in two spatial dimensions
+    authors: Kaul, Sachdev
+    year: 2008
+    journal: Phys. Rev. B 77, 155105
+    arxiv: '0801.0723'
+  - key: huh2013
+    title: Conserved current correlators of conformal field theories in 2+1 dimensions
+    authors: Huh, Strack, Sachdev
+    year: 2013
+    journal: Phys. Rev. B 88, 155109
+    arxiv: '1307.6863'
+  - key: klebanov2012
+    title: Entanglement entropy of 3-d conformal gauge theories with many flavors
+    authors: Klebanov, Pufu, Sachdev, Safdi
+    year: 2012
+    journal: JHEP 05 (2012) 036
+    arxiv: '1112.5342'
+  - key: dyer2015
+    title: Scaling dimensions of monopole operators in the $\mathbb{CP}^{N_b-1}$ theory in 2+1 dimensions
+    authors: Dyer, Mezei, Pufu, Sachdev
+    year: 2015
+    journal: 'JHEP 06 (2015) 037; Erratum JHEP 03 (2016) 111'
+    arxiv: '1504.00368'
+    note: 'Values from Table 1 of v2, which corrects a sign error.'
+  - key: benvenuti2018
+    title: "QED's in 2+1 dimensions: complex fixed points and dualities"
+    authors: Benvenuti, Khachatryan
+    year: 2018
+    arxiv: '1812.01544'
+  - key: ihrig2019
+    title: Abelian Higgs model at four loops, fixed-point collision and deconfined criticality
+    authors: Ihrig, Zerf, Marquard, Herbut, Scherer
+    year: 2019
+    journal: Phys. Rev. B 100, 134507
+    arxiv: '1907.08140'
+  - key: bonati2021
+    title: Lattice Abelian-Higgs model with noncompact gauge fields
+    authors: Bonati, Pelissetto, Vicari
+    year: 2021
+    journal: Phys. Rev. B 103, 085104
+    arxiv: '2010.06311'
+
+contributors: [Canonical111]

@@ -1,0 +1,138 @@
+id: qed3-gn-3d
+name: 'QED$_3$–Gross–Neveu–Yukawa model with $N_f$ fermion flavors'
+aliases:
+  - 'QED$_3$–GN'
+  - 'QED-GN$_+$'
+d: 3
+summary: >-
+  QED$_3$ with $N_f$ two-component Dirac fermions coupled through a Yukawa term to a
+  time-reversal-odd real scalar, tuned to its time-reversal-breaking transition. The
+  $N_f = 2$ member is conjectured to be dual to the NCCP$^1$ deconfined critical point.
+tags: [CFT, interacting, unitary, Lagrangian, gauge theory, large N, critical phenomena, family]
+
+description: |
+  **Counting.** $N_f$ counts two-component Dirac fermions, as for QED$_3$. Janssen and He
+  write $2N$ for this number; their $N$ is $N_f/2$.
+
+  The real scalar $\phi$ couples to the flavor-singlet mass $\bar\psi_i\psi_i$, which is odd
+  under parity and time reversal, so $\phi$ is odd too. Tuning the $\phi$ mass $r$ drives a
+  transition between a phase with $\langle\phi\rangle = 0$, whose IR limit is plain QED$_3$,
+  and a phase where $\langle\phi\rangle \neq 0$ gaps the fermions and breaks time reversal.
+  In $d = 4-\epsilon$ the critical point is stable for every $N_f$; unlike plain QED$_3$, it
+  does not annihilate with another fixed point at small $N_f$ (Janssen–He).
+
+  $N_f = 2$ is conjectured to be dual to the $SU(2)$-symmetric NCCP$^1$ model (the Néel–VBS
+  deconfined critical point), and the duality implies the emergent $SO(5)$ of that theory
+  (Wang et al.). Under the duality the adjoint bilinear $\bar\psi\sigma^z\psi$ maps to the tuning operator of NCCP$^1$, so
+  $3 - \Delta_{\rm adj} = 1/\nu_{\rm N\acute eel\text{–}VBS}$. $N_f = 4$ has been proposed for
+  the transition between the $U(1)$ Dirac spin liquid and a chiral spin liquid on the kagome
+  lattice.
+
+  The large-$N_f$ data below include Aslamazov–Larkin diagrams that exist only for
+  two-component fermions in $d = 3$; earlier $1/N$ and $\epsilon$-expansion studies with
+  four-component fermions missed them. At $N_f = 2$ the $1/N_f$ series must be resummed:
+  the naive values violate unitarity.
+
+lagrangian: '\mathcal{L} = \sum_{i=1}^{N_f}\bar\psi_i\gamma^\mu(\partial_\mu - i a_\mu)\psi_i + g\,\phi\,\bar\psi_i\psi_i + \tfrac12(\partial\phi)^2 + \tfrac12 r\,\phi^2 + \lambda\phi^4 + \frac{1}{4e^2}f_{\mu\nu}f^{\mu\nu} \quad (r \text{ tuned})'
+
+parameters:
+  - symbol: N_f
+    description: Number of two-component Dirac fermions of gauge charge 1
+    range: 'even $N_f \geq 2$'
+
+family:
+  parameter: N_f
+  members:
+    - at: 2
+      label: 'Conjectured dual of NCCP$^1$'
+      note: 'Inherits the dispute over the deconfined critical point.'
+    - at: 4
+      label: 'Dirac spin liquid to chiral spin liquid (kagome)'
+    - at: '\infty'
+      note: 'Strict large-$N_f$ limit, where the $1/N_f$ expansion is controlled.'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$SU(N_f)$ flavor, $U(1)_{\rm top}$, charge conjugation, and parity / time reversal ($\phi$ odd)'
+  gauge: '$U(1)$'
+  notes: 'At $N_f = 2$ the conjectured duality implies an emergent, anomalously realized $SO(5)$.'
+
+quantities:
+  - symbol: '\nu^{-1}'
+    description: 'Inverse correlation-length exponent, $3 - \Delta_{\phi^2}$'
+    value: '1 + \frac{80}{\pi^2 N_f} + O(N_f^{-2})'
+    method: large-N_f expansion
+    refs: [boyack2019, benvenuti2018]
+    note: 'At $N_f = 2$ this exceeds the unitarity bound, and the Padé and Borel–Padé approximants either do not exist or are negative.'
+  - symbol: '\eta_\phi'
+    description: 'Scalar anomalous dimension, $\Delta_\phi = (1+\eta_\phi)/2$, extrapolated to $N_f = 2$'
+    value: '0.17\text{–}0.30'
+    method: large-N_f expansion with Padé and Borel–Padé resummation
+    refs: [boyack2019]
+    note: 'For comparison, numerics on the Néel–VBS transition give $\eta_{\rm N\acute eel}, \eta_{\rm VBS} \approx 0.25$–$0.35$.'
+
+operators:
+  - name: '\phi'
+    Delta: '1 - \frac{48}{\pi^2 N_f} + O(N_f^{-2})'
+    spin: 0
+    rep: 'singlet, parity and time-reversal odd'
+    method: large-N_f expansion
+    refs: [boyack2019, benvenuti2018]
+    note: '$\eta_\phi = 1 - 96/(\pi^2 N_f)$.'
+  - name: '\bar\psi_i\psi^j - \tfrac{1}{N_f}\delta_i^j\bar\psi_k\psi^k'
+    Delta: '2 - \frac{16}{\pi^2 N_f} + O(N_f^{-2})'
+    spin: 0
+    rep: '$SU(N_f)$ adjoint'
+    method: large-N_f expansion
+    refs: [boyack2019, benvenuti2018]
+    note: 'Resummed at $N_f = 2$: $3 - \Delta \approx 1.49$–$1.58$, to be compared with $1/\nu$ of the dual NCCP$^1$.'
+  - name: 'J_\mu^{\rm top},\ J_\mu^{SU(N_f)}'
+    Delta: 2
+    spin: 1
+    rep: 'singlet; $SU(N_f)$ adjoint'
+    method: exact
+    note: Conserved currents.
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: dqcp-3d
+    note: 'The $N_f = 2$ member is conjectured to be dual to NCCP$^1$ (Wang et al.).'
+  - type: flows_to
+    target: qed3-3d
+    note: 'Mass deformation of $\phi$ toward the $\langle\phi\rangle = 0$ phase, at the same $N_f$ (when the QED$_3$ fixed point exists).'
+
+references:
+  - key: janssen2017
+    title: 'Critical behavior of the QED$_3$-Gross-Neveu model: duality and deconfined criticality'
+    authors: Janssen, He
+    year: 2017
+    journal: Phys. Rev. B 96, 205113
+    arxiv: '1708.02256'
+  - key: wang2017
+    title: 'Deconfined quantum critical points: symmetries and dualities'
+    authors: Wang, Nahum, Metlitski, Xu, Senthil
+    year: 2017
+    journal: Phys. Rev. X 7, 031051
+    arxiv: '1703.02426'
+  - key: boyack2019
+    title: 'Deconfined criticality in the QED$_3$ Gross-Neveu-Yukawa model: the $1/N$ expansion revisited'
+    authors: Boyack, Rayyan, Maciejko
+    year: 2019
+    journal: Phys. Rev. B 99, 195135
+    arxiv: '1812.02720'
+    note: 'Table I; their $N$ counts two-component fermions.'
+  - key: benvenuti2018
+    title: "QED's in 2+1 dimensions: complex fixed points and dualities"
+    authors: Benvenuti, Khachatryan
+    year: 2018
+    arxiv: '1812.01544'
+    note: 'Eq. (2.32), the QED-GN$_+$ fixed point.'
+
+contributors: [Canonical111]

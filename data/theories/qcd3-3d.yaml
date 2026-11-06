@@ -1,0 +1,149 @@
+id: qcd3-3d
+name: 'QCD$_3$: $SU(N_c)$ gauge theory with $N_f$ fundamental fermions'
+aliases:
+  - 'QCD$_3$'
+  - '$SU(N_c)_0$ with $N_f$ fundamental fermions'
+d: 3
+summary: >-
+  $SU(N_c)$ gauge theory without Chern–Simons term, coupled to $N_f$ two-component Dirac
+  fermions in the fundamental representation. It flows to an interacting CFT for large
+  $N_f$; below some $N_*$ the flavor symmetry is expected to break.
+tags: [CFT, interacting, unitary, Lagrangian, gauge theory, large N, critical phenomena, family]
+
+description: |
+  **Counting.** $N_f$ counts two-component Dirac fermions, each a fundamental of $SU(N_c)$.
+  The Chern–Simons level vanishes, which with fundamental fermions requires even $N_f$; the
+  theory is then parity and time-reversal invariant. Giombi–Tarnopolsky–Klebanov count
+  four-component fermions, $N = 4N_f^{(4)} = 2N_f$; their results are converted below.
+
+  At large $N_f$ the theory flows to a CFT, and to leading order in $1/N_f$ its data follow
+  from those of QED$_3$ with group-theory factors: the corrections to $C_T$ and $C_J$ are
+  those of QED$_3$ times $d(G)/d(r) = (N_c^2-1)/N_c$. For smaller $N_f$, Komargodski and
+  Seiberg conjecture that in a window $0 < N_f < N_*(N_c)$ the flavor symmetry breaks as
+  $U(N_f) \to U(N_f/2)\times U(N_f/2)$, with the theory conformal for $N_f \geq N_*$;
+  $N_*$ is not known. With a level $k$, the breaking pattern becomes
+  $U(N_f/2+k)\times U(N_f/2-k)$ for $2k < N_f < N_*$, and level-rank dualities to bosonic
+  theories hold for $N_f \leq 2k$; those theories are not part of this entry.
+
+  For $N_c = 2$ the fundamental is pseudo-real and the flavor symmetry enlarges to
+  $Sp(N_f)$. $SU(2)$ with $N_f = 2$ has a manifest $Sp(2) \cong Spin(5)$ and is conjectured
+  to be dual to the NCCP$^1$ deconfined critical point, whose $SO(5)$ it would explain.
+  Quantum Monte Carlo of a sign-free fuzzy-sphere realization of the $Sp(N_f)$ sigma model
+  with a level-1 Wess–Zumino–Witten term, expected to flow to $SU(2)$ QCD$_3$ in its critical
+  phase, finds such a conformally invariant phase for $N_f \geq 4$ but not for $N_f = 2$,
+  tentatively placing the edge of the $SU(2)$ conformal window between $N_f = 2$ and $4$
+  (Huffman et al.).
+
+lagrangian: '\mathcal{L} = \sum_{i=1}^{N_f}\bar\psi_i\gamma^\mu(\partial_\mu - i A_\mu^a t^a)\psi_i + \frac{1}{2g^2}\operatorname{tr} F_{\mu\nu}F^{\mu\nu} \quad (\psi_i \text{ two-component, in the fundamental of } SU(N_c))'
+
+parameters:
+  - symbol: N_c
+    description: Number of colors
+    range: 'integer $N_c \geq 2$'
+  - symbol: N_f
+    description: Number of two-component Dirac fermions in the fundamental
+    range: 'even $N_f$; conformality established only at large $N_f$'
+
+family:
+  parameter: N_f
+  members:
+    - at: 2
+      label: '$SU(2)$, $N_f = 2$'
+      note: 'Conjectured dual of NCCP$^1$ (deconfined criticality); no critical phase is seen on the fuzzy sphere.'
+    - at: 4
+      label: '$SU(2)$, $N_f = 4$'
+      note: 'Smallest $N_f$ with a critical phase on the fuzzy sphere.'
+    - at: '\infty'
+      note: 'Strict large-$N_f$ limit at fixed $N_c$.'
+
+symmetry:
+  spacetime: conformal (at large $N_f$)
+  supercharges: 0
+  global: '$U(N_f)$ flavor (enlarged to $Sp(N_f)$ for $N_c = 2$), charge conjugation, parity and time reversal'
+  gauge: '$SU(N_c)$'
+
+quantities:
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor two-point coefficient, relative to $N_c N_f$ free two-component Dirac fermions (no gluons)'
+    value: '1 + \frac{N_c^2-1}{N_c}\,\frac{1}{N_f}\Big(\frac{2096}{45\pi^2} - 4\Big) + O(N_f^{-2})'
+    method: derived (large-N_f expansion)
+    refs: [giombi2016]
+    note: 'Eq. (7.5) of the reference with $C_{T1} = \frac{4192}{45\pi^2} - 8$ and $N = 2N_f$. The Abelian (QED$_3$) result is not the $N_c = 1$ case of this $SU(N_c)$ formula; it follows from the $U(1)$ group factors instead (see the QED$_3$ entry).'
+  - symbol: 'C_J/C_J^{\rm free}'
+    description: 'Flavor-current two-point coefficient, relative to $N_c N_f$ free two-component Dirac fermions'
+    value: '1 + \frac{N_c^2-1}{N_c}\,\frac{1}{N_f}\Big(\frac{368}{9\pi^2} - 4\Big) + O(N_f^{-2})'
+    method: derived (large-N_f expansion)
+    refs: [giombi2016]
+    note: 'Eq. (7.9) of the reference with $C_{J1} = \frac{736}{9\pi^2} - 8$ and $N = 2N_f$.'
+
+operators:
+  - name: '\phi^{[ij]}\ (N_c = 2)'
+    Delta: '2 - \frac{32}{3\pi^2 N_f} + O(N_f^{-2})'
+    spin: 0
+    rep: '$Sp(N_f)$ traceless antisymmetric rank-2 fermion bilinear'
+    method: large-N_f expansion
+    refs: [huffman2026]
+    note: 'Eq. (11) of the reference, from Xu (2008) converted to this $N_f$. For $N_f = 2$ this is the $SO(5)$ vector of deconfined criticality.'
+  - name: '\phi^{[ij]}\ (N_c = 2,\ N_f = 4)'
+    Delta: '1.10(1)'
+    spin: 0
+    rep: '$Sp(4)$ traceless antisymmetric rank-2'
+    method: quantum Monte Carlo (fuzzy sphere)
+    refs: [huffman2026]
+    note: 'Same study: $1.32(3)$, $1.57(1)$, $1.75(2)$, $1.85(2)$, $1.90(2)$, $1.95(5)$ for $N_f = 6, 8, \dots, 16$, approaching the large-$N_f$ formula.'
+  - name: 'S^- \ (N_c = 2)'
+    Delta: '2 + \frac{64}{3\pi^2 N_f} + O(N_f^{-2})'
+    spin: 0
+    rep: '$Sp(N_f)$ singlet fermion mass, parity odd'
+    method: large-N_f expansion
+    refs: [huffman2026]
+  - name: 'J_\mu'
+    Delta: 2
+    spin: 1
+    rep: flavor adjoint
+    method: exact
+    note: Conserved flavor currents.
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: qed3-3d
+    note: 'Abelian counterpart; at leading order in $1/N_f$ the corrections to $C_T$ and $C_J$ differ only by the factor $d(G)/d(r)$.'
+  - type: related_to
+    target: dqcp-3d
+    note: '$SU(2)$ with $N_f = 2$ is conjectured to be dual to NCCP$^1$, with manifest $SO(5)$ (Wang et al.).'
+
+references:
+  - key: komargodski2018
+    title: A symmetry breaking scenario for QCD$_3$
+    authors: Komargodski, Seiberg
+    year: 2018
+    journal: JHEP 01 (2018) 109
+    arxiv: '1706.08755'
+  - key: giombi2016
+    title: On $C_J$ and $C_T$ in conformal QED
+    authors: Giombi, Tarnopolsky, Klebanov
+    year: 2016
+    journal: JHEP 08 (2016) 156
+    arxiv: '1602.01076'
+    note: 'Section 7 treats large-$N_f$ QCD$_d$.'
+  - key: wang2017
+    title: 'Deconfined quantum critical points: symmetries and dualities'
+    authors: Wang, Nahum, Metlitski, Xu, Senthil
+    year: 2017
+    journal: Phys. Rev. X 7, 031051
+    arxiv: '1703.02426'
+  - key: huffman2026
+    title: Generalizing deconfined criticality to 3D $N$-flavor $SU(2)$ quantum chromodynamics on the fuzzy sphere
+    authors: Huffman, Zhou, He, Hofmann
+    year: 2026
+    journal: Phys. Rev. D 114, 034503
+    arxiv: '2602.11255'
+    note: 'Their $N$ is our $N_f$ (two-component Dirac fermions in the $SU(2)$ fundamental).'
+
+contributors: [Canonical111]
