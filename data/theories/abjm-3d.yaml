@@ -1,0 +1,192 @@
+id: abjm-3d
+name: 'ABJM theory, $U(N)_k \times U(N)_{-k}$'
+aliases:
+  - Aharony–Bergman–Jafferis–Maldacena theory
+  - '$\mathcal{N}=6$ superconformal Chern–Simons-matter theory'
+  - M2-brane SCFT
+d: 3
+summary: >-
+  The $\mathcal{N}=6$ Chern–Simons-matter SCFT $U(N)_k\times U(N)_{-k}$ on $N$ M2-branes
+  probing $\mathbb{C}^4/\mathbb{Z}_k$, dual to M-theory on $AdS_4\times S^7/\mathbb{Z}_k$.
+  Supersymmetry is enhanced to $\mathcal{N}=8$ at $k = 1, 2$.
+tags: [CFT, SCFT, interacting, unitary, gauge theory, supersymmetric, Lagrangian, holographic, large N, family]
+
+description: |
+  Two $U(N)$ Chern–Simons gauge fields at levels $k$ and $-k$ are coupled to two
+  bifundamental hypermultiplets. In $\mathcal{N}=2$ language the matter is the chiral
+  superfields $\mathcal{A}_{1,2}$ in $(\mathbf{N},\bar{\mathbf{N}})$ and $\mathcal{B}_{1,2}$ in
+  $(\bar{\mathbf{N}},\mathbf{N})$, with the quartic superpotential below. The theory has
+  $\mathcal{N}=6$ superconformal symmetry (12 real Poincaré supercharges) and a parity
+  symmetry that also exchanges the two gauge groups. The coupling is $1/k$: at large $N$
+  with $\lambda = N/k$ fixed there is a 't Hooft expansion, weakly coupled for
+  $k \gg N$ and strongly coupled for $k \ll N$. For $N = k = 1$ the theory is free.
+
+  Aharony, Bergman, Jafferis and Maldacena argued that the theory describes $N$ M2-branes
+  probing $\mathbb{C}^4/\mathbb{Z}_k$. At large $N$ it is dual to M-theory on
+  $AdS_4\times S^7/\mathbb{Z}_k$, which is weakly curved for $N \gg k^5$. For larger $k$
+  the M-theory circle is small and type IIA string theory on $AdS_4\times\mathbb{CP}^3$ is
+  the better description; it is weakly curved for $k \ll N$ and also describes the 't Hooft
+  limit.
+
+  At $k = 1$ and $k = 2$ the theory has $\mathcal{N}=8$ superconformal symmetry
+  ($\mathfrak{osp}(8|4)$, 16 supercharges, $SO(8)_R$), which is not visible in the
+  Lagrangian. ABJM conjectured it, noting that at $k = 1, 2$ monopole ('t Hooft) operators
+  give extra conserved currents, and Bashkirov and Kapustin showed, using monopole
+  operators, that the hidden supersymmetry is present. At $k = 1$ the theory describes $N$
+  M2-branes in flat space. For $N > 1$ it flows to a free sector (eight real scalars and
+  eight Majorana fermions, the centre-of-mass motion) times a strongly coupled interacting
+  SCFT. At $k = 2$ it describes M2-branes probing $\mathbb{R}^8/\mathbb{Z}_2$.
+
+  Aharony, Bergman and Jafferis generalized the construction to the $\mathcal{N}=6$ ABJ
+  theories $U(N+l)_k\times U(N)_{-k}$. They describe $N$ M2-branes on
+  $\mathbb{C}^4/\mathbb{Z}_k$ with $l$ units of discrete torsion (fractional M2-branes),
+  exist as unitary SCFTs only for $l \le k$, and $U(N+l)_k\times U(N)_{-k}$ is equivalent to
+  $U(N)_k\times U(N+k-l)_{-k}$. With gauge group $SU(2)\times SU(2)$ the same construction
+  gives the $\mathcal{N}=8$ BLG theory.
+
+  ### Exact results from localization
+  Supersymmetric localization reduces $Z_{S^3}$ to a matrix model. Its planar limit gives
+  $F \propto N^{3/2}$ at strong coupling, the scaling of the number of degrees of freedom
+  on $N$ M2-branes, with the coefficient of the classical supergravity action (Drukker,
+  Mariño and Putrov). At fixed $k$, all perturbative $1/N$ corrections sum to an Airy
+  function (Fuji, Hirano and Moriyama), which Mariño and Putrov derived by rewriting the
+  matrix model as an ideal Fermi gas.
+
+  The $\mathcal{N}=8$ numerical bootstrap bounds the CFT data as a function of $c_T$.
+  Comparing these bounds with BPS OPE coefficients computed by localization, Agmon,
+  Chester and Pufu conjectured that some of the $\mathcal{N}=8$ ABJ(M) theories saturate
+  them (an OPE coefficient minimization principle).
+
+lagrangian: '\mathcal{L} = \frac{k}{4\pi}\,\mathrm{Tr}\Big(A\wedge dA + \tfrac{2}{3}A^3 - \hat A\wedge d\hat A - \tfrac{2}{3}\hat A^3\Big) + \text{(bifundamental matter)}, \qquad W = \frac{4\pi}{k}\,\mathrm{Tr}\big(\mathcal{A}_1\mathcal{B}_1\mathcal{A}_2\mathcal{B}_2 - \mathcal{A}_1\mathcal{B}_2\mathcal{A}_2\mathcal{B}_1\big)'
+
+parameters:
+  - symbol: 'N'
+    description: Rank of each gauge group factor (number of M2-branes).
+    range: '$N \geq 1$'
+  - symbol: 'k'
+    description: Chern–Simons level.
+    range: 'positive integer'
+
+family:
+  parameter: k
+  members:
+    - at: 1
+      label: '$\mathcal{N}=8$: M2-branes in flat space'
+      note: 'Hidden $\mathcal{N}=8$. For $N > 1$ a free sector decouples. $U(2)_1\times U(2)_{-1}$ is dual to the $(SU(2)_1\times SU(2)_{-1})/\mathbb{Z}_2$ BLG theory.'
+    - at: 2
+      label: '$\mathcal{N}=8$: M2-branes at $\mathbb{R}^8/\mathbb{Z}_2$'
+      note: '$U(2)_2\times U(2)_{-2}$ is dual to the $SU(2)_2\times SU(2)_{-2}$ BLG theory.'
+    - at: 'k \geq 3'
+      label: '$\mathcal{N}=6$'
+      note: 'Generic member; type IIA on $AdS_4\times\mathbb{CP}^3$ in the regime $k \ll N \ll k^5$.'
+
+symmetry:
+  spacetime: 'superconformal, $\mathcal{N}=6$ ($\mathcal{N}=8$, $\mathfrak{osp}(8|4)$, at $k = 1, 2$)'
+  supercharges: 12
+  global: '$SO(6)_R \simeq SU(4)_R$ and a $U(1)$ (enhanced to $SO(8)_R$ at $k = 1, 2$); parity combined with exchange of the two gauge groups'
+  gauge: '$U(N)_k \times U(N)_{-k}$'
+  notes: '12 real Poincaré supercharges for generic $k$ and 16 at $k = 1, 2$, where the enhancement is not manifest in the Lagrangian.'
+
+quantities:
+  - symbol: 'F'
+    description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$, at leading order in large $N$ (fixed $k$)'
+    value: '\frac{\pi\sqrt{2k}}{3}\,N^{3/2}'
+    method: supersymmetric localization (large N)
+    refs: [drukker2011, chester2014]
+    note: 'Planar strong-coupling free energy $\log Z \simeq -\frac{\pi\sqrt2}{3}k^2\hat\lambda^{3/2}$, $\hat\lambda = N/k - \frac{1}{24}$ (eq. (5.37) of Drukker et al.), which matches the supergravity action on $AdS_4\times\mathbb{CP}^3$.'
+  - symbol: 'Z_{S^3}'
+    description: 'All orders in $1/N$ at fixed $k$, up to corrections exponentially small in $N$'
+    value: 'C^{-1/3} e^{A(k)}\,\mathrm{Ai}\!\left[C^{-1/3}\Big(N - \frac{1}{3k} - \frac{k}{24}\Big)\right], \quad C = \frac{2}{\pi^2 k}'
+    method: supersymmetric localization (Fermi gas)
+    refs: [fuji2011, marino2012]
+    note: '$A(k)$ is independent of $N$; for small $k$, $A(k) = \frac{2\zeta(3)}{\pi^2 k} - \frac{k}{12} - \frac{\pi^2 k^3}{4320} + O(k^5)$ (Mariño and Putrov, eqs. (5.67)–(5.68)).'
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor coefficient $c_T$, relative to one free real scalar (equivalently one free Majorana fermion); leading order at large $N$'
+    value: '\frac{64}{3\pi}\sqrt{2k}\,N^{3/2}'
+    method: supersymmetric localization (large N)
+    refs: [chester2014]
+    note: 'At this order $c_T = \frac{64}{\pi^2}F$, as for any theory with an Einstein-gravity dual on $AdS_4$ (eq. (5.9) of Chester et al.). In this normalization the free $\mathcal{N}=8$ theory, and $U(1)_k\times U(1)_{-k}$, have $c_T = 16$.'
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: '$U(2)_1 \times U(2)_{-1}$, relative to one free real scalar'
+    value: '\frac{112}{3}'
+    method: supersymmetric localization
+    refs: [chester2014, agmon2018]
+    note: 'Includes the free sector ($c_T = 16$). The interacting sector has $16/c_T = \frac{3}{4}$, i.e. $c_T = \frac{64}{3}$, the same as $U(2)_2\times U(1)_{-2}$ ABJ (Table 4 of Agmon, Chester and Pufu).'
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: '$U(2)_2 \times U(2)_{-2}$, relative to one free real scalar'
+    value: '\frac{128}{3}'
+    method: supersymmetric localization
+    refs: [chester2014]
+
+operators:
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+  - name: 'J_\mu^R'
+    Delta: 2
+    spin: 1
+    rep: 'adjoint ($\mathbf{15}$) of $SU(4)_R$'
+    method: exact
+    note: 'Conserved R-symmetry currents. At $k = 1, 2$ further conserved currents built from monopole operators enhance the symmetry to $SO(8)_R$.'
+  - name: '\mathcal{O}_{\mathbf{35}_c}'
+    Delta: 1
+    spin: 0
+    rep: '$\mathbf{35}_c$ of $SO(8)_R$ ($k = 1, 2$)'
+    method: exact
+    refs: [chester2014]
+    note: 'Superconformal primary of the half-BPS $\mathcal{N}=8$ stress-tensor multiplet; protected.'
+
+references:
+  - key: abjm2008
+    title: 'N=6 superconformal Chern-Simons-matter theories, M2-branes and their gravity duals'
+    authors: Aharony, Bergman, Jafferis, Maldacena
+    year: 2008
+    journal: JHEP 10 (2008) 091
+    arxiv: '0806.1218'
+  - key: abj2008
+    title: Fractional M2-branes
+    authors: Aharony, Bergman, Jafferis
+    year: 2008
+    journal: JHEP 11 (2008) 043
+    arxiv: '0807.4924'
+  - key: bashkirov2011
+    title: Supersymmetry enhancement by monopole operators
+    authors: Bashkirov, Kapustin
+    year: 2011
+    journal: JHEP 05 (2011) 015
+    arxiv: '1007.4861'
+  - key: drukker2011
+    title: From weak to strong coupling in ABJM theory
+    authors: Drukker, Mariño, Putrov
+    year: 2011
+    journal: Commun. Math. Phys. 306, 511
+    arxiv: '1007.3837'
+  - key: fuji2011
+    title: Summing Up All Genus Free Energy of ABJM Matrix Model
+    authors: Fuji, Hirano, Moriyama
+    year: 2011
+    journal: JHEP 08 (2011) 001
+    arxiv: '1106.4631'
+  - key: marino2012
+    title: ABJM theory as a Fermi gas
+    authors: Mariño, Putrov
+    year: 2012
+    journal: J. Stat. Mech. (2012) P03001
+    arxiv: '1110.4066'
+  - key: chester2014
+    title: The $\mathcal{N}=8$ superconformal bootstrap in three dimensions
+    authors: Chester, Lee, Pufu, Yacoby
+    year: 2014
+    journal: JHEP 09 (2014) 143
+    arxiv: '1406.4814'
+  - key: agmon2018
+    title: Solving M-theory with the Conformal Bootstrap
+    authors: Agmon, Chester, Pufu
+    year: 2018
+    journal: JHEP 06 (2018) 159
+    arxiv: '1711.07343'
+
+contributors: [Canonical111]
