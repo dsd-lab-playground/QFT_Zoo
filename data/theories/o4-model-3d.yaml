@@ -1,0 +1,185 @@
+id: o4-model-3d
+name: 3d $O(4)$ model
+aliases:
+  - '$O(4)$ universality class'
+  - '$O(4)$ Wilson–Fisher fixed point'
+d: 3
+summary: >-
+  The infrared fixed point of four real scalars with an $O(4)$-invariant quartic
+  interaction. It is the expected universality class of the chiral transition of QCD
+  with two massless quark flavours, if that transition is second order.
+tags: [CFT, interacting, unitary, Lagrangian, critical phenomena]
+
+description: |
+  The $N=4$ member of the $O(N)$ Wilson–Fisher family: the IR endpoint of the flow from
+  four free real scalars triggered by the $O(4)$-invariant quartic coupling, with the
+  mass tuned to criticality.
+
+  In QCD with two massless flavours the chiral order parameter is
+  $M_{ij} = \langle \bar q_{Li} q_{Rj}\rangle$. Since the axial $U(1)$ is broken by the
+  anomaly, $M$ can be restricted to $M = \sigma + i\vec\pi\cdot\vec\tau$, and
+  $SU(2)_L \times SU(2)_R$ acts on $(\sigma, \vec\pi)$ by $O(4)$ rotations. If the finite-temperature
+  chiral transition is second order, it is therefore expected in the $O(4)$ class
+  (Pisarski and Wilczek; Rajagopal and Wilczek).
+
+  The most precise exponents come from Monte Carlo simulations of an improved lattice
+  $\phi^4$ model, in which the leading correction to scaling is tuned away. A mixed-correlator
+  bootstrap, assuming one relevant vector and one relevant singlet, confines
+  $(\Delta_\phi, \Delta_s)$ to a small region, larger than for $N = 2, 3$ (Kos et al. 2015);
+  the Monte Carlo $\nu$ and $\eta$ lie inside it.
+
+  Anisotropies are classified by the rank-$l$ traceless symmetric operators $t_l$. The
+  rank-2 (uniaxial), rank-3 and rank-4 (cubic) anisotropies are all relevant. In
+  particular $\Delta_{t_4} < 3$ by a clear margin, so cubic anisotropy drives the flow to
+  a cubic fixed point with distinct exponents ($\nu = 0.7202(7)$, $\eta = 0.0371(2)$ for
+  $N=4$; Hasenbusch 2023).
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\vec\phi)^2 + \tfrac{1}{2} m^2 \vec\phi^{\,2} + \tfrac{\lambda}{4!}(\vec\phi^{\,2})^2, \quad \vec\phi\in\mathbb{R}^4 \quad (m^2 \text{ tuned to criticality, flow to the IR})'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$O(4)$'
+  notes: 'In the QCD application, $SO(4) \cong (SU(2)_L \times SU(2)_R)/\mathbb{Z}_2$.'
+
+quantities:
+  - symbol: '\nu'
+    description: 'Correlation-length exponent, $\nu = 1/(3-\Delta_s)$'
+    value: '0.74817(20)'
+    method: Monte Carlo (improved φ⁴ model)
+    refs: [hasenbusch2022]
+  - symbol: '\eta'
+    description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 1$'
+    value: '0.03624(8)'
+    method: Monte Carlo (improved φ⁴ model)
+    refs: [hasenbusch2022]
+  - symbol: '\omega'
+    description: 'Leading correction-to-scaling exponent, $\omega = \Delta_{s^\prime} - 3$'
+    value: '0.755(5)'
+    method: Monte Carlo
+    refs: [hasenbusch2022]
+  - symbol: 'Y_2'
+    description: 'RG eigenvalue of the rank-2 (uniaxial) anisotropy, $Y_2 = 3 - \Delta_t$'
+    value: '1.8145(5)'
+    method: Monte Carlo
+    refs: [hasenbusch2011]
+    note: 'Crossover exponent $\phi_T = Y_2\,\nu \approx 1.358$ with the $\nu$ above.'
+  - symbol: 'Y_4'
+    description: 'RG eigenvalue of the cubic (rank-4) anisotropy, $Y_4 = 3 - \Delta_{t_4}$'
+    value: '0.125(5)'
+    method: Monte Carlo
+    refs: [hasenbusch2011]
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor two-point coefficient, relative to four free real scalars'
+    value: '0.94581^{+0.00071}_{-0.00039}'
+    method: conformal bootstrap (non-rigorous)
+    refs: [kos2013]
+    note: 'Value at which the lower bound on $C_T$ is saturated for the Monte Carlo $\Delta_\phi$, assuming that the $O(4)$ model saturates it.'
+
+operators:
+  - name: '\phi_i'
+    Delta: '0.51812(4)'
+    spin: 0
+    rep: vector (order parameter)
+    method: derived
+    refs: [hasenbusch2022]
+    note: 'From $\Delta_\phi = (1+\eta)/2$.'
+  - name: 't_{ij}'
+    Delta: '1.1855(5)'
+    spin: 0
+    rep: rank-2 symmetric traceless
+    method: derived
+    refs: [hasenbusch2011]
+    note: 'From $3 - Y_2$. Bootstrap (bound saturation): $1.1864^{+0.0024}_{-0.0034}$ (Kos et al. 2013).'
+  - name: 's'
+    Delta: '1.6634(4)'
+    spin: 0
+    rep: singlet (thermal)
+    method: derived
+    refs: [hasenbusch2022]
+    note: 'From $\Delta_s = 3 - 1/\nu$.'
+  - name: 't_{ijk}'
+    Delta: '1.9768(10)'
+    spin: 0
+    rep: rank-3 symmetric traceless
+    method: derived
+    refs: [hasenbusch2011]
+    note: 'From $3 - Y_3$ with $Y_3 = 1.0232(10)$ (Monte Carlo).'
+  - name: 'J_\mu^{[ij]}'
+    Delta: 2
+    spin: 1
+    rep: antisymmetric (adjoint)
+    method: exact
+    note: Conserved $O(4)$ currents.
+  - name: 't_4'
+    Delta: '2.875(5)'
+    spin: 0
+    rep: rank-4 symmetric traceless
+    method: derived
+    refs: [hasenbusch2011]
+    note: 'From $3 - Y_4$. Relevant: cubic anisotropy destabilizes the fixed point.'
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+  - name: "s'"
+    Delta: '3.755(5)'
+    spin: 0
+    rep: singlet
+    method: derived
+    refs: [hasenbusch2022]
+    note: 'From $3 + \omega$. Leading irrelevant singlet.'
+
+relations:
+  - type: member_of
+    target: on-model-3d
+    at: 4
+
+references:
+  - key: hasenbusch2022
+    title: 'Three-dimensional $O(N)$-invariant $\phi^4$ models at criticality for $N\ge 4$'
+    authors: Hasenbusch
+    year: 2022
+    journal: Phys. Rev. B 105, 054428
+    arxiv: '2112.03783'
+    note: 'Table VI compares with earlier Monte Carlo, bootstrap and field-theory results.'
+  - key: hasenbusch2011
+    title: Anisotropic perturbations in three-dimensional O(N)-symmetric vector models
+    authors: Hasenbusch, Vicari
+    year: 2011
+    journal: Phys. Rev. B 84, 125136
+    arxiv: '1108.0491'
+  - key: kos2013
+    title: Bootstrapping the O(N) Vector Models
+    authors: Kos, Poland, Simmons-Duffin
+    year: 2014
+    journal: JHEP 06 (2014) 091
+    arxiv: '1307.6856'
+  - key: kos2015
+    title: Bootstrapping the O(N) Archipelago
+    authors: Kos, Poland, Simmons-Duffin, Vichi
+    year: 2015
+    journal: JHEP 11 (2015) 106
+    arxiv: '1504.07997'
+  - key: hasenbusch2023
+    title: 'Cubic fixed point in three dimensions: Monte Carlo simulations of the $\phi^4$ model on the lattice'
+    authors: Hasenbusch
+    year: 2023
+    journal: Phys. Rev. B 107, 024409
+    arxiv: '2211.16170'
+  - key: pisarski1984
+    title: Remarks on the chiral phase transition in chromodynamics
+    authors: Pisarski, Wilczek
+    year: 1984
+    journal: Phys. Rev. D 29, 338
+    doi: '10.1103/PhysRevD.29.338'
+  - key: rajagopal1993
+    title: Static and Dynamic Critical Phenomena at a Second Order QCD Phase Transition
+    authors: Rajagopal, Wilczek
+    year: 1993
+    journal: Nucl. Phys. B 399, 395
+    arxiv: hep-ph/9210253
+
+contributors: [Canonical111]

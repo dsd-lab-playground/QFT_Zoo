@@ -1,0 +1,146 @@
+id: percolation-3d
+name: 3d percolation CFT
+aliases:
+  - Critical percolation in three dimensions
+  - '$q \to 1$ Potts model'
+  - Bond and site percolation universality class
+d: 3
+summary: >-
+  The critical point of bond and site percolation in three dimensions, the $q \to 1$ limit
+  of the $q$-state Potts model. A non-unitary CFT, expected to be logarithmic, whose
+  exponents are known most precisely from Monte Carlo simulations.
+tags: [CFT, interacting, non-unitary, Lagrangian, critical phenomena]
+
+description: |
+  In bond (site) percolation each bond (site) of a lattice is occupied independently with
+  probability $p$, and at $p = p_c$ an infinite cluster first appears. Writing the
+  $q$-state Potts model in terms of Fortuin–Kasteleyn clusters, the limit $q \to 1$ is a sum
+  over bond percolation configurations; the partition function becomes trivial, but its
+  correlation functions describe the geometry of critical clusters. The field theory is a
+  cubic theory of $q-1$ scalars with an $S_q$-invariant coupling, continued to $q - 1 \to 0$,
+  with upper critical dimension 6.
+
+  Two basic scaling fields are the thermal operator $\epsilon$, an $S_q$ singlet coupled to
+  $p - p_c$, with $\Delta_\epsilon = 3 - 1/\nu$; and the order parameter (spin) operator
+  $\sigma$ in the $(q-1)$-dimensional representation of $S_q$, whose two-point function
+  vanishes unless the two points lie in the same cluster. Its dimension is
+  $\Delta_\sigma = 3 - d_f = \beta/\nu$, where $d_f$ is the fractal dimension of critical
+  clusters. $\Delta_\sigma \approx 0.477$ lies below the unitarity bound $\tfrac12$
+  ($\eta < 0$), a direct sign that the theory is not unitary.
+
+  The most precise exponents come from Monte Carlo simulations on several lattices with
+  periodic boundary conditions, analysed by finite-size scaling (Wang, Zhou, Zhang, Garoni
+  and Deng; Xu, Wang, Lv and Deng). The $6-\epsilon$ expansion is known to five loops
+  (Borinsky, Gracey, Kompaniets and Schnetz), but in $d = 3$ its resummed values are much
+  less precise. The leading correction-to-scaling exponent $\omega$ is large, though
+  Monte Carlo estimates of it differ.
+
+  ### Conformal invariance and logarithms
+  Conformal invariance of 3d percolation is not proven. Gori and Trombettoni tested it
+  numerically: crossing probabilities in bounded domains are invariant under conformal
+  maps, most clearly in continuum percolation. As in two dimensions, the CFT is expected to
+  be logarithmic. Vasseur, Jacobsen and Saleur found that at $q = 1$ the energy operator
+  mixes with a logarithmic partner, the field that creates two propagating clusters, so
+  that suitable two-point functions scale logarithmically. They worked in $d = 2$ but argue
+  that the mechanism, which rests only on the $S_q$ symmetry, holds in any dimension.
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi_i)^2 + \tfrac{1}{2} m^2 \phi_i\phi_i + \tfrac{g}{3!}\, d_{ijk}\,\phi_i\phi_j\phi_k, \quad d_{ijk} = \sum_{\alpha=1}^{N+1} e^i_\alpha e^j_\alpha e^k_\alpha, \quad i = 1,\dots,N = q - 1 \to 0 \quad (m^2 \text{ tuned})'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$S_q$ permutation symmetry of the Potts model, at $q \to 1$ (formal)'
+  notes: 'The $N+1$ vectors $e_\alpha$ are the vertices of an $N$-dimensional tetrahedron, so $d_{ijk}$ is invariant under their permutations, the $S_{N+1} = S_q$ of the Potts model.'
+
+quantities:
+  - symbol: '1/\nu'
+    description: 'Thermal exponent $y_t = 1/\nu = 3 - \Delta_\epsilon$'
+    value: '1.1410(15)'
+    method: Monte Carlo (bond and site, simple cubic)
+    refs: [wang2013]
+    note: 'Simultaneous fit of eight lattice models: $1.1413(15)$ (Xu et al.). Site percolation: $\nu = 0.8765(16)(2)$ (Ballesteros et al.).'
+  - symbol: '\nu'
+    description: Correlation-length exponent
+    value: '0.89(3)'
+    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    refs: [borinsky2021]
+    note: 'Resummation of the series for $1/\nu$, all methods combined (Table 15).'
+  - symbol: 'd_f'
+    description: 'Fractal dimension of critical clusters, $d_f = y_h = 3 - \Delta_\sigma$'
+    value: '2.52293(10)'
+    method: Monte Carlo (eight lattice models)
+    refs: [xu2014]
+    note: 'Simple cubic lattice alone: $2.52295(15)$ (Wang et al.).'
+  - symbol: '\eta'
+    description: 'Anomalous dimension, $\eta = 2 + d - 2d_f = 2\Delta_\sigma - 1$'
+    value: '-0.04602(27)(7)'
+    method: Monte Carlo (site, simple cubic)
+    refs: [ballesteros1999]
+    note: 'The second error comes from the uncertainty in $\omega$. From $d_f$ of Xu et al., $\eta = -0.04586(20)$ (derived). Five-loop $6-\epsilon$: $-0.06(10)$.'
+  - symbol: '\omega'
+    description: 'Leading correction-to-scaling exponent'
+    value: '1.62(13)'
+    method: Monte Carlo (site, simple cubic)
+    refs: [ballesteros1999]
+    note: 'Wang et al. find the leading irrelevant exponent $y_i = -1.2(2)$, i.e. $\omega = 1.2(2)$. Five-loop $6-\epsilon$: $1.7(3)$ (Borinsky et al.).'
+
+operators:
+  - name: '\sigma'
+    Delta: '0.47705(15)'
+    spin: 0
+    rep: '$(q-1)$-dimensional representation of $S_q$ (order parameter)'
+    method: Monte Carlo
+    refs: [wang2013]
+    note: 'Quoted as $\beta/\nu$. Below the unitarity bound $\tfrac12$. From $d_f$ of Xu et al.: $0.47707(10)$ (derived).'
+  - name: '\epsilon'
+    Delta: '1.8590(15)'
+    spin: 0
+    rep: '$S_q$ singlet (thermal)'
+    method: derived
+    refs: [wang2013]
+    note: '$3 - y_t$ with $y_t = 1.1410(15)$.'
+
+relations:
+  - type: related_to
+    target: lee-yang-3d
+    note: 'Both are fixed points of cubic scalar theories with upper critical dimension 6 (one real field with imaginary coupling, or $q - 1 \to 0$ fields), and their $6-\epsilon$ expansions come from the same renormalization functions.'
+
+references:
+  - key: wang2013
+    title: Bond and Site Percolation in Three Dimensions
+    authors: Wang, Zhou, Zhang, Garoni, Deng
+    year: 2013
+    journal: Phys. Rev. E 87, 052107
+    arxiv: '1302.0421'
+  - key: xu2014
+    title: Simultaneous analysis of three-dimensional percolation models
+    authors: Xu, Wang, Lv, Deng
+    year: 2014
+    journal: Front. Phys. 9, 113
+    arxiv: '1310.5399'
+  - key: ballesteros1999
+    title: 'Scaling corrections: site percolation and Ising model in three dimensions'
+    authors: Ballesteros, Fernández, Martín-Mayor, Muñoz Sudupe, Parisi, Ruiz-Lorenzo
+    year: 1999
+    journal: J. Phys. A 32, 1
+    arxiv: cond-mat/9805125
+  - key: borinsky2021
+    title: Five loop renormalization of $\phi^3$ theory with applications to the Lee-Yang edge singularity and percolation theory
+    authors: Borinsky, Gracey, Kompaniets, Schnetz
+    year: 2021
+    journal: Phys. Rev. D 103, 116024
+    arxiv: '2103.16224'
+  - key: gori2015
+    title: Conformal invariance in three dimensional percolation
+    authors: Gori, Trombettoni
+    year: 2015
+    journal: J. Stat. Mech. (2015) P07014
+    arxiv: '1504.07209'
+  - key: vasseur2012
+    title: Logarithmic observables in critical percolation
+    authors: Vasseur, Jacobsen, Saleur
+    year: 2012
+    journal: J. Stat. Mech. (2012) L07001
+    arxiv: '1206.2312'
+
+contributors: [Canonical111]

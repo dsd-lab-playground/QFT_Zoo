@@ -1,0 +1,209 @@
+id: on-om-chiral-3d
+name: '3d $O(m)\times O(n)$ chiral fixed points (frustrated magnets)'
+aliases:
+  - Chiral universality class
+  - '$O(n)\times O(2)$ chiral fixed point'
+  - Stacked triangular antiferromagnet criticality
+d: 3
+summary: >-
+  Status disputed: the stable ("chiral") fixed point of $m$ coupled $n$-vectors with
+  $O(m)\times O(n)$ symmetry. It exists for large $n$; for frustrated XY and Heisenberg
+  magnets ($m=2$, $n=2,3$) recent bootstrap and $\epsilon$-expansion results favour a first-order transition.
+tags: [CFT, interacting, unitary, Lagrangian, critical phenomena, large N, family]
+
+description: |
+  The fields form a real $m\times n$ matrix $\phi_{ar}$: $m$ vectors $\vec\phi_a$ of $n$
+  components each, with $O(m)$ acting on $a$ and $O(n)$ on $r$. Here $n$ is the number of
+  spin components, and $m = 2$ for coplanar noncollinear order, as in stacked triangular
+  antiferromagnets (120° structure) and helimagnets (Kawamura). Conventions vary: Nakayama–Ohtsuki write
+  $O(n)\times O(2)$, Reehorst et al. $O(N)\times O(2)$ with $N = n$, Henriksson et al.
+  $O(2)\times O(n)$, and Kompaniets et al. $O(n)\times O(m)$, all with $n$ the number
+  of spin components.
+
+  In the $\epsilon$-expansion the couplings $(u, v)$ have four fixed points for
+  $n > n^+(m)$: Gaussian, the $O(mn)$ point ($v=0$), the stable chiral point ($v>0$) and
+  the unstable antichiral point. At $n = n^+(m)$ the chiral and antichiral points merge
+  and move into the complex plane; below it no stable fixed point remains and the
+  transition is first order (other regimes, with collinear fixed points at $v<0$,
+  occur at smaller $n$). At large $n$ the chiral point exists in $2<d<4$ and is
+  computable in $1/n$. The question is the value of $n^+(2)$ in $d=3$.
+
+  ### Status
+  - **Against a fixed point at $n = 2, 3$.** The six-loop $\epsilon$-expansion, resummed,
+    gives $n^+(2) = 5.96(19)$ in $d=3$ (Kompaniets et al.). The functional RG finds
+    $n^+(2) \simeq 5.1$ in $d=3$ and explains the nonuniversal exponents seen in experiments by
+    a slow flow without a fixed point, i.e. weak first-order transitions (Delamotte,
+    Mouhanna and Tissier). Wang–Landau Monte Carlo finds first-order transitions in
+    the XY and Heisenberg stacked triangular antiferromagnets (Ngo and Diep).
+  - **For a fixed point.** Six-loop perturbation theory directly in $d=3$, resummed,
+    finds a stable chiral fixed point for $n = 2, 3$ (Pelissetto, Rossi and Vicari), of
+    focus type, with complex correction exponents (Calabrese, Parruccini and Sokolov).
+    Delamotte et al. (2010) argue that these fixed points are spurious, because the
+    exponents depend strongly on the resummation parameters and the loop order; a
+    complex correction exponent is also incompatible with a unitary fixed point
+    (Reehorst et al.). Monte Carlo of the Heisenberg antiferromagnet up to $384^3$
+    reports a continuous transition with $\nu = 0.52(1)$ (Nagano, Uematsu and Kawamura).
+  - **Bootstrap.** Nakayama and Ohtsuki found kinks for $n = 3, 4$ that they identified
+    with the chiral and collinear fixed points. Henriksson, Kousvos and Stergiou found
+    islands for $O(2)\times O(3)$ under gap-saturation assumptions ($\nu = 0.639(7)$),
+    but also that the kinks attributed to the large-$n$ chiral point fade between
+    $n = 5$ and $6$. Reehorst, Rychkov, Sirois and van Rees followed the island of the
+    chiral point continuously in $(d, n)$ and found that in $d = 3$ it disappears
+    already at some $n > 3.78$, i.e. $n^+(2) > 3.78$, which favours first-order
+    transitions at $n = 2, 3$.
+
+lagrangian: '\mathcal{L} = \tfrac12\sum_a\partial_\mu\vec{\phi}_{a}\cdot\partial^\mu\vec{\phi}_{a} + \tfrac{u}{24}\Big(\sum_a\vec{\phi}_a^{\,2}\Big)^2 + \tfrac{v}{24}\sum_{a,b}\big((\vec{\phi}_a\cdot\vec{\phi}_b)^2-\vec{\phi}_a^{\,2}\vec{\phi}_b^{\,2}\big), \quad \vec\phi_a\in\mathbb{R}^n,\ a = 1,\dots,m'
+
+parameters:
+  - symbol: n
+    description: Number of spin components (the $O(n)$ factor); the members below have $m = 2$.
+  - symbol: m
+    description: 'Number of $n$-vectors; $m = 2$ for coplanar noncollinear order, $m \ge 3$ for noncoplanar order.'
+
+family:
+  parameter: n
+  members:
+    - at: 2
+      label: XY stacked triangular antiferromagnets
+      note: 'Existence disputed; the $\epsilon$-expansion, the functional RG and Monte Carlo (Ngo and Diep 2008) indicate a first-order transition.'
+    - at: 3
+      label: Heisenberg stacked triangular antiferromagnets
+      note: 'Existence disputed. Bootstrap islands (Henriksson et al. 2020) and Monte Carlo (Nagano et al. 2019) support a fixed point but give incompatible $\nu$; the bootstrap of Reehorst et al. (2024) gives $n^+(2) > 3.78$.'
+    - at: '\infty'
+      label: Large-$n$ limit
+      note: 'The chiral fixed point exists and is stable; its data are computable in $1/n$.'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$(O(m)\times O(n))/\mathbb{Z}_2$'
+  notes: 'The $\mathbb{Z}_2$ generated by $\phi\to-\phi$ is common to both factors.'
+
+quantities:
+  - symbol: 'n^+(2)'
+    description: 'Critical $n$ for $m = 2$ in $d=3$, above which the chiral fixed point exists'
+    value: '5.96(19)'
+    method: epsilon-expansion (six loops, resummed)
+    refs: [kompaniets2020]
+  - symbol: 'n^+(2)'
+    description: 'Same quantity from the functional (nonperturbative) RG'
+    value: '\simeq 5.1'
+    method: functional RG
+    refs: [delamotte2004]
+    note: 'The authors note that this value is sensitive to the order of the truncation.'
+  - symbol: 'n^+(2)'
+    description: 'Lower bound from the disappearance of the bootstrap island of the chiral fixed point'
+    value: '> 3.78'
+    method: conformal bootstrap (with gap assumptions)
+    refs: [reehorst2024]
+  - symbol: '\nu'
+    description: 'Claimed $\nu$ of a chiral fixed point at $m = 2$, $n = 3$: bootstrap island'
+    value: '0.639(7)'
+    method: conformal bootstrap (gap saturation assumed)
+    refs: [henriksson2020]
+    note: 'Also $\eta = 0.077(3)$. The existence of this fixed point is disputed.'
+  - symbol: '\nu'
+    description: 'Claimed $\nu$ at $m = 2$, $n = 3$: Monte Carlo of the stacked triangular Heisenberg antiferromagnet'
+    value: '0.52(1)'
+    method: Monte Carlo
+    refs: [nagano2019]
+    note: 'Also $\eta = 0.02(5)$; the authors report a complex correction exponent (focus-type fixed point).'
+
+operators:
+  - name: '\phi_{ar}'
+    Delta: '\frac12+\frac{2(m+1)}{3\pi^2 n} + \frac{8(m^2-7m-26)}{27\pi^4 n^2} + O(n^{-3})'
+    spin: 0
+    rep: bifundamental (order parameter)
+    method: large N
+    refs: [henriksson2020]
+    note: 'Chiral fixed point at large $n$.'
+  - name: 'S'
+    Delta: '2-\frac{16(m+1)}{3\pi^2 n} - \frac{64(7m^2+5m-20)+108(m^2+3m+4)\pi^2}{27m^2\pi^4 n^2} + O(n^{-3})'
+    spin: 0
+    rep: singlet (thermal)
+    method: large N
+    refs: [henriksson2020]
+    note: 'Chiral fixed point at large $n$; $\nu = 1/(3-\Delta_S)$.'
+  - name: "S'"
+    Delta: '4-\frac{32(m+1)}{3\pi^2 n} + O(n^{-2})'
+    spin: 0
+    rep: singlet
+    method: large N
+    refs: [henriksson2020]
+    note: 'Chiral fixed point at large $n$; irrelevant, so the fixed point is stable.'
+
+references:
+  - key: kawamura1988
+    title: Renormalization-group analysis of chiral transitions
+    authors: Kawamura
+    year: 1988
+    journal: Phys. Rev. B 38, 4916
+    doi: '10.1103/PhysRevB.38.4916'
+  - key: kompaniets2020
+    title: 'Six-loop $\varepsilon$ expansion study of three-dimensional $O(n)\times O(m)$ spin models'
+    authors: Kompaniets, Kudlis, Sokolov
+    year: 2020
+    journal: Nucl. Phys. B 950, 114874
+    arxiv: '1911.01091'
+  - key: delamotte2004
+    title: Nonperturbative renormalization group approach to frustrated magnets
+    authors: Delamotte, Mouhanna, Tissier
+    year: 2004
+    journal: Phys. Rev. B 69, 134413
+    arxiv: cond-mat/0309101
+  - key: pelissetto2001
+    title: The critical behavior of frustrated spin models with noncollinear order
+    authors: Pelissetto, Rossi, Vicari
+    year: 2001
+    journal: Phys. Rev. B 63, 140414
+    arxiv: cond-mat/0007389
+  - key: calabrese2002
+    title: 'Chiral phase transitions: focus driven critical behavior in systems with planar and vector ordering'
+    authors: Calabrese, Parruccini, Sokolov
+    year: 2002
+    journal: Phys. Rev. B 66, 180403
+    arxiv: cond-mat/0205046
+  - key: delamotte2010
+    title: About the relevance of the fixed dimension perturbative approach to frustrated magnets in two and three dimensions
+    authors: Delamotte, Dudka, Holovatch, Mouhanna
+    year: 2010
+    journal: Phys. Rev. B 82, 104432
+    arxiv: '1009.1492'
+  - key: ngo2008a
+    title: 'Stacked triangular XY antiferromagnets: end of a controversial issue on the phase transition'
+    authors: Ngo, Diep
+    year: 2008
+    journal: J. Appl. Phys. 103, 07C712
+    arxiv: '0711.0296'
+  - key: ngo2008b
+    title: 'Phase transition in Heisenberg stacked triangular antiferromagnets: end of a controversy'
+    authors: Ngo, Diep
+    year: 2008
+    journal: Phys. Rev. E 78, 031119
+    arxiv: '0808.0520'
+  - key: nagano2019
+    title: 'Monte Carlo study of the critical properties of noncollinear Heisenberg magnets: $O(3)\times O(2)$ universality class'
+    authors: Nagano, Uematsu, Kawamura
+    year: 2019
+    journal: Phys. Rev. B 100, 224430
+    arxiv: '1910.13112'
+  - key: nakayama2015
+    title: Bootstrapping phase transitions in QCD and frustrated spin systems
+    authors: Nakayama, Ohtsuki
+    year: 2015
+    journal: Phys. Rev. D 91, 021901
+    arxiv: '1407.6195'
+  - key: henriksson2020
+    title: 'Analytic and Numerical Bootstrap of CFTs with $O(m)\times O(n)$ Global Symmetry in 3D'
+    authors: Henriksson, Kousvos, Stergiou
+    year: 2020
+    journal: SciPost Phys. 9, 035
+    arxiv: '2004.14388'
+  - key: reehorst2024
+    title: 'Bootstrapping frustrated magnets: the fate of the chiral $O(N)\times O(2)$ universality class'
+    authors: Reehorst, Rychkov, Sirois, van Rees
+    year: 2025
+    journal: SciPost Phys. 18, 060
+    arxiv: '2405.19411'
+
+contributors: [Canonical111]

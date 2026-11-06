@@ -1,0 +1,231 @@
+id: on-model-3d
+name: '3d $O(N)$ model (Wilson–Fisher family)'
+aliases:
+  - '$O(N)$ Wilson–Fisher fixed points'
+  - 'Critical $O(N)$ vector model'
+  - '$N$-vector model'
+d: 3
+summary: >-
+  The infrared fixed points of $N$ real scalars with an $O(N)$-invariant quartic
+  interaction, one for each $N$. They include the Ising ($N=1$), XY ($N=2$) and
+  Heisenberg ($N=3$) classes, self-avoiding walks ($N\to0$), and the large-$N$ limit,
+  conjectured to be dual to higher-spin gravity in AdS$_4$.
+tags: [CFT, interacting, unitary, Lagrangian, critical phenomena, large N, holographic, family]
+
+description: |
+  $N$ counts real scalar components, $\vec\phi \in \mathbb{R}^N$. For each $N$ the
+  critical point is reached from $N$ free scalars by the $O(N)$-invariant quartic
+  coupling, with the mass tuned to criticality (Wilson and Fisher). The order parameter
+  is the vector $\phi_i$, and the singlet $s \sim \vec\phi^{\,2}$ is the thermal
+  operator, with $\nu = 1/(3-\Delta_s)$ and $\eta = 2\Delta_\phi - 1$.
+
+  For every $N \ge 1$ the fixed point is a unitary CFT with a single relevant
+  $O(N)$ singlet, $s$ (the tuned mass); the next singlet has
+  $\Delta_{s'} = 3 + \omega$ with $\omega > 0$. So it is stable against
+  $O(N)$-invariant perturbations. Whether it is stable against cubic anisotropy depends on $N$:
+  the lightest rank-4 traceless symmetric scalar $t_4$ is irrelevant at $N=2$,
+  relevant at $N=3$ (barely; see the $O(3)$ page) and clearly relevant at $N=4$
+  (Monte Carlo: $3-\Delta_{t_4} = -0.108(6)$, $0.013(4)$, $0.125(5)$ for $N=2,3,4$,
+  Hasenbusch and Vicari) and at large $N$, where $\Delta_{t_4} = 2 + O(1/N)$. So for
+  $N \ge 3$ a cubic anisotropy drives the flow to the cubic fixed point or, for the
+  other sign, to a first-order transition.
+
+  The family continues to real $N$. At non-integer $N$ the theory is not unitary
+  (Binder and Rychkov). The limit $N \to 0$ describes self-avoiding walks (de Gennes)
+  and is a logarithmic CFT.
+
+  ### Large $N$
+  Introducing a Hubbard–Stratonovich field, $\mathcal{L} = \tfrac12(\partial\vec\phi)^2 + \tfrac{1}{2\sqrt N}\,\sigma\,\vec\phi^{\,2}$,
+  the fixed point is described in a $1/N$ expansion in which $\Delta_\phi = \tfrac12$ and
+  $\Delta_\sigma = 2$ at $N=\infty$; $\sigma$ is the singlet $s$. The expansions below are
+  in $d=3$. Klebanov and Polyakov proposed that the singlet sector at large $N$ is dual to
+  the minimal bosonic Vasiliev higher-spin theory in AdS$_4$, which contains massless
+  gauge fields of even spin; the free and the critical model correspond to the two
+  possible boundary conditions on the bulk scalar dual to $\vec\phi^{\,2}$ (Klebanov and Polyakov).
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\vec\phi)^2 + \tfrac{1}{2} m^2 \vec\phi^{\,2} + \tfrac{\lambda}{4!}(\vec\phi^{\,2})^2, \quad \vec\phi\in\mathbb{R}^N \quad (m^2 \text{ tuned to criticality, flow to the IR})'
+
+parameters:
+  - symbol: N
+    description: Number of real scalar components.
+    range: '$N = 1, 2, 3, \dots$ (unitary); continued to real $N$, e.g. $N \to 0$'
+
+family:
+  parameter: N
+  members:
+    - at: 0
+      label: Self-avoiding walks
+      note: 'Polymers in a good solvent (de Gennes). Non-unitary, logarithmic CFT.'
+    - at: 1
+      label: 3d Ising
+      note: 'Uniaxial magnets, liquid–gas critical points, binary mixtures.'
+    - at: 2
+      label: 3d XY
+      note: 'The λ transition of helium-4, XY ferromagnets.'
+    - at: 3
+      label: 3d Heisenberg
+      note: 'Isotropic magnets. Unstable to cubic anisotropy.'
+    - at: 4
+      label: '3d $O(4)$'
+      note: 'Expected class of the two-flavour QCD chiral transition, if second order. $\nu = 0.74817(20)$, $\eta = 0.03624(8)$ (Hasenbusch 2022).'
+    - at: 5
+      note: '$\nu = 0.7802(6)$, $\eta = 0.03397(9)$ (Monte Carlo, Hasenbusch 2022).'
+    - at: 6
+      note: '$1/\nu = 1.2375(9)$, $\eta = 0.03157(14)$ (Monte Carlo, Hasenbusch 2022).'
+    - at: 20
+      note: 'The bootstrap island is compatible with the $1/N$ expansion; $C_J/C_J^{\rm free} = 0.9674(8)$ (Kos et al. 2015).'
+    - at: '\infty'
+      label: Large-$N$ limit
+      note: '$\Delta_\phi = \tfrac12$, $\Delta_s = 2$. Singlet sector conjectured dual to the minimal bosonic Vasiliev theory in AdS$_4$ (Klebanov and Polyakov).'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$O(N)$'
+
+quantities:
+  - symbol: '\eta'
+    description: 'Anomalous dimension of the order parameter, $\eta = 2\Delta_\phi - 1$'
+    value: '\frac{8}{3\pi^2 N} - \frac{512}{27\pi^4 N^2} + O(N^{-3})'
+    method: large N
+    refs: [henriksson2022, hasenbusch2022]
+  - symbol: '\nu'
+    description: 'Correlation-length exponent, $\nu = 1/(3-\Delta_s)$'
+    value: '1 - \frac{32}{3\pi^2 N} - \left(\frac{9\pi^2}{2} - \frac{56}{3}\right)\left(\frac{8}{3\pi^2}\right)^2\frac{1}{N^2} + O(N^{-3})'
+    method: large N
+    refs: [hasenbusch2022]
+    note: 'Series as collected in Appendix B of the reference; it agrees with $1/(3-\Delta_s)$ for $\Delta_s$ below.'
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor two-point coefficient, relative to $N$ free real scalars'
+    value: '1 - \frac{40}{9\pi^2 N} + O(N^{-2})'
+    method: large N
+    refs: [petkou1995, henriksson2022]
+  - symbol: 'C_J/C_J^{\rm free}'
+    description: 'Current two-point coefficient, relative to $N$ free real scalars'
+    value: '1 - \frac{64}{9\pi^2 N} + O(N^{-2})'
+    method: large N
+    refs: [henriksson2022]
+    note: 'At $N=20$ this gives $0.964$, against the bootstrap value $0.9674(8)$ (Kos et al.).'
+  - symbol: 'F'
+    description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$, with $F_s = \frac{\log 2}{8} - \frac{3\zeta(3)}{16\pi^2}$ the value for one free real scalar'
+    value: 'N F_s - \frac{\zeta(3)}{8\pi^2} + O(1/N)'
+    method: large N
+    refs: [klebanov2011]
+    note: 'A conjectured formula for the next term, checked against the $\epsilon$-expansion, gives $+\frac{4}{9\pi^2 N}$ (Tarnopolsky).'
+
+operators:
+  - name: '\phi_i'
+    Delta: '\frac{1}{2} + \frac{4}{3\pi^2 N} - \frac{256}{27\pi^4 N^2} + O(N^{-3})'
+    spin: 0
+    rep: vector (order parameter)
+    method: large N
+    refs: [henriksson2022]
+  - name: 't_{ij}'
+    Delta: '1 + \frac{32}{3\pi^2 N} - \frac{512}{27\pi^4 N^2} + O(N^{-3})'
+    spin: 0
+    rep: rank-2 symmetric traceless
+    method: large N
+    refs: [henriksson2022]
+  - name: 's'
+    Delta: '2 - \frac{32}{3\pi^2 N} - \left(\frac{32}{\pi^2} - \frac{512}{27\pi^4}\right)\frac{1}{N^2} + O(N^{-3})'
+    spin: 0
+    rep: singlet (thermal; $\sigma$ at large $N$)
+    method: large N
+    refs: [henriksson2022]
+  - name: 'J_\mu^{[ij]}'
+    Delta: 2
+    spin: 1
+    rep: antisymmetric (adjoint)
+    method: exact
+    note: Conserved $O(N)$ currents.
+  - name: 't_4'
+    Delta: '2 + \frac{160}{3\pi^2 N} - \left(\frac{42496}{27\pi^4} - \frac{128}{\pi^2}\right)\frac{1}{N^2} + O(N^{-3})'
+    spin: 0
+    rep: rank-4 symmetric traceless
+    method: large N
+    refs: [henriksson2022]
+    note: 'Relevant at large $N$, so cubic anisotropy destabilizes the fixed point.'
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+  - name: "s'"
+    Delta: '4 - \frac{64}{3\pi^2 N} - \left(\frac{64}{\pi^2} - \frac{13312}{27\pi^4}\right)\frac{1}{N^2} + O(N^{-3})'
+    spin: 0
+    rep: singlet ($\sigma^2$ at large $N$)
+    method: large N
+    refs: [henriksson2022]
+    note: 'Leading irrelevant singlet; $\omega = \Delta_{s^\prime} - 3$ agrees with the large-$N$ series for $\omega$ in Hasenbusch (2022).'
+
+references:
+  - key: wilson1972
+    title: Critical exponents in 3.99 dimensions
+    authors: Wilson, Fisher
+    year: 1972
+    journal: Phys. Rev. Lett. 28, 240
+    doi: '10.1103/PhysRevLett.28.240'
+  - key: henriksson2022
+    title: 'The critical O(N) CFT: Methods and conformal data'
+    authors: Henriksson
+    year: 2023
+    journal: Phys. Rept. 1002 (2023) 1
+    arxiv: '2201.09520'
+    note: 'Review; large-$N$ expansions in $d=3$ (Sec. 2.4.2) with the original references.'
+  - key: hasenbusch2022
+    title: 'Three-dimensional $O(N)$-invariant $\phi^4$ models at criticality for $N\ge 4$'
+    authors: Hasenbusch
+    year: 2022
+    journal: Phys. Rev. B 105, 054428
+    arxiv: '2112.03783'
+  - key: petkou1995
+    title: 'C_T and C_J up to next-to-leading order in 1/N in the conformally invariant O(N) vector model for 2<d<4'
+    authors: Petkou
+    year: 1995
+    journal: Phys. Lett. B 359, 101
+    arxiv: hep-th/9506116
+  - key: klebanov2011
+    title: F-Theorem without Supersymmetry
+    authors: Klebanov, Pufu, Safdi
+    year: 2011
+    journal: JHEP 10 (2011) 038
+    arxiv: '1105.4598'
+  - key: tarnopolsky2016
+    title: On Large N Expansion of the Sphere Free Energy
+    authors: Tarnopolsky
+    year: 2017
+    journal: Phys. Rev. D 96, 025017
+    arxiv: '1609.09113'
+  - key: klebanov2002
+    title: AdS Dual of the Critical O(N) Vector Model
+    authors: Klebanov, Polyakov
+    year: 2002
+    journal: Phys. Lett. B 550, 213
+    arxiv: hep-th/0210114
+  - key: kos2015
+    title: Bootstrapping the O(N) Archipelago
+    authors: Kos, Poland, Simmons-Duffin, Vichi
+    year: 2015
+    journal: JHEP 11 (2015) 106
+    arxiv: '1504.07997'
+  - key: hasenbusch2011
+    title: Anisotropic perturbations in three-dimensional O(N)-symmetric vector models
+    authors: Hasenbusch, Vicari
+    year: 2011
+    journal: Phys. Rev. B 84, 125136
+    arxiv: '1108.0491'
+  - key: binder2019
+    title: 'Deligne Categories in Lattice Models and Quantum Field Theory, or Making Sense of $O(N)$ Symmetry with Non-integer $N$'
+    authors: Binder, Rychkov
+    year: 2020
+    journal: JHEP 04 (2020) 117
+    arxiv: '1911.07895'
+  - key: degennes1972
+    title: Exponents for the excluded volume problem as derived by the Wilson method
+    authors: de Gennes
+    year: 1972
+    journal: Phys. Lett. A 38, 339
+    doi: '10.1016/0375-9601(72)90149-1'
+
+contributors: [Canonical111]
