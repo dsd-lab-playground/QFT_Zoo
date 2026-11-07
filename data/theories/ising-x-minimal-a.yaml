@@ -22,6 +22,10 @@ family:
   - at: 4
     note: 'Ising $\times$ TIM. Same torus partition function as $\mathcal{W}_3(5,6)/S_3$.'
 
+symmetry:
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac32 - \tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity'
+  global: '$\mathbb{Z}_2 \times \mathbb{Z}_2$ (the spin flip of each factor)'
+
 quantities:
 - key: c
   symbol: c

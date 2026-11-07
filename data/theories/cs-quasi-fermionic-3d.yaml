@@ -1,6 +1,7 @@
 id: cs-quasi-fermionic-3d
-name: 'Chern–Simons theory with fundamental fermions (quasi-fermionic family)'
+name: '3d Chern–Simons theory with fundamental fermions (quasi-fermionic family)'
 aliases:
+  - 'Chern–Simons theory with fundamental fermions (quasi-fermionic family)'
   - 'Quasi-fermionic theories'
   - '$U(N)_k$ Chern–Simons theory coupled to a fundamental fermion'
   - 'Chern–Simons theory coupled to a critical boson'
@@ -15,31 +16,31 @@ tags: [CFT, interacting, unitary, Lagrangian, gauge theory, large N, holographic
 description: |
   One two-component Dirac fermion $\psi$ in the fundamental of $U(N)$, coupled to a
   $U(N)$ Chern–Simons gauge field at level $k$, with the fermion mass tuned to zero.
-  At finite $N$ the theory is still conformal (Gur-Ari and Yacoby); unlike the scalar
+  At finite $N$ the theory is still conformal [@gurari2012]; unlike the scalar
   theory it has no classically marginal coupling. In the 't Hooft limit $N, k\to\infty$
   with $\lambda = N/k$ fixed, $\lambda$ becomes continuous. Here $k$ is the level defined by dimensional reduction, related to the
   Yang–Mills-regularized level by $|k| = |k_{\rm YM}| + N$, so that $-1 < \lambda < 1$
-  (Giombi et al.; Aharony). The $O(N)_k$ version with Majorana fermions has the same planar
-  even-spin correlators (Aharony, Gur-Ari and Yacoby).
+  [@giombi2011; @aharony2015]. The $O(N)_k$ version with Majorana fermions has the same planar
+  even-spin correlators [@aharony2012].
 
   At $N=\infty$ the spectrum does not depend on $\lambda$: the single-trace operators are the
   currents $J_s$ ($s = 1, 2, \dots$; odd spins appear for $U(N)$), which are conserved at
-  $N=\infty$, and one scalar $J_0 = \bar\psi\psi$ of dimension 2 (Giombi et al.). Maldacena
-  and Zhiboedov showed that the slightly broken higher-spin symmetry fixes all planar
+  $N=\infty$, and one scalar $J_0 = \bar\psi\psi$ of dimension 2 [@giombi2011]. Maldacena
+  and Zhiboedov [@maldacena2012] showed that the slightly broken higher-spin symmetry fixes all planar
   three-point functions in terms of two parameters, $\tilde N$ (the normalization of
   $\langle TT\rangle$, counted in free real scalars) and $\tilde\lambda$; they call such
   theories quasi-fermionic. For this theory $\tilde N = 2N\sin(\pi\lambda)/(\pi\lambda)$ and
-  $\tilde\lambda = \tan(\pi\lambda/2)$ (Gur-Ari and Yacoby). The singlet sector is conjectured
-  to be dual to a parity-violating Vasiliev higher-spin theory in AdS$_4$ (Giombi et al.).
+  $\tilde\lambda = \tan(\pi\lambda/2)$ [@gurari2012]. The singlet sector is conjectured
+  to be dual to a parity-violating Vasiliev higher-spin theory in AdS$_4$ [@giombi2011].
 
   ### Bosonization
   The same planar correlators arise from $U(N_b)_{k_b}$ Chern–Simons theory coupled to a
   fundamental scalar at its Wilson–Fisher (critical) point, with
   $|\lambda_b| + |\lambda_f| = 1$, ${\rm sign}(\lambda_b) = -{\rm sign}(\lambda_f)$ and
-  $N_b/|\lambda_b| = N_f/|\lambda_f|$, i.e. $|k_b| = |k_f|$ and $N_b = |k_f| - N_f$ (Aharony,
-  Gur-Ari and Yacoby; Gur-Ari and Yacoby; Aharony et al. 2012, eq. (5.30)). So $|\lambda|\to1$
-  is the weakly coupled critical boson. The thermal free energies also match (Aharony et al. 2012).
-  Precise finite-$N$ versions, related by level-rank duality, were proposed by Aharony (2015),
+  $N_b/|\lambda_b| = N_f/|\lambda_f|$, i.e. $|k_b| = |k_f|$ and $N_b = |k_f| - N_f$
+  [@aharony2012; @gurari2012; @aharony2012b, Eq. (5.30)]. So $|\lambda|\to1$
+  is the weakly coupled critical boson. The thermal free energies also match [@aharony2012b].
+  Precise finite-$N$ versions, related by level-rank duality, were proposed by Aharony [@aharony2015],
   for example $SU(N)_k$ with $N_f$ scalars $\leftrightarrow$ $U(k)_{-N+N_f/2,\,-N+N_f/2}$ with
   $N_f$ fermions in Yang–Mills regularization (with the Legendre transform on one side).
   They are conjectures supported by large-$N$ computations.
@@ -67,7 +68,9 @@ family:
       note: 'As $|\lambda|\to1$ the dual boson has $\lambda_b\to0$: the large-$N$ critical $U(N_b)$ model, $N_b = |k| - N$.'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '3d conformal group, no parity for $\lambda \neq 0$ (Chern–Simons level $k$; parity maps $\lambda \to -\lambda$)'
+  euclidean: '$SO(4,1)$'
+  lorentzian: '$SO(3,2)$'
   supercharges: 0
   gauge: '$U(N)$, Chern–Simons level $k$'
   global: '$U(1)$ (baryon number for gauge group $SU(N)$; for $U(N)$ a combination with the topological $U(1)$). Higher-spin symmetry at $N=\infty$, broken at order $1/N$.'
@@ -77,18 +80,18 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N$ free Dirac fermions ($2N$ free real scalars)'
     value: '\frac{\sin(\pi\lambda)}{\pi\lambda} + O(1/N)'
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [gurari2012, aharony2012, maldacena2012]
-    note: 'This is $\tilde N/2N$. Gur-Ari and Yacoby read $\tilde N$ off the current two-point function; Aharony, Gur-Ari and Yacoby computed $\langle TT\rangle$ directly in the dual critical-boson theory.'
+    note: 'This is $\tilde N/2N$. Gur-Ari and Yacoby [@gurari2012] read $\tilde N$ off the current two-point function; Aharony, Gur-Ari and Yacoby [@aharony2012] computed $\langle TT\rangle$ directly in the dual critical-boson theory.'
   - symbol: 'C_J/C_J^{\rm free}'
     description: '$U(1)$ current two-point coefficient, relative to $N$ free Dirac fermions'
     value: '\frac{\sin(\pi\lambda)}{\pi\lambda} + O(1/N)'
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [gurari2012]
   - symbol: '\tilde\lambda'
     description: 'Maldacena–Zhiboedov parity-violation parameter, which fixes the planar three-point functions together with $\tilde N$'
     value: '\tan\frac{\pi\lambda}{2}'
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [gurari2012]
 
 operators:
@@ -96,7 +99,7 @@ operators:
     Delta: '2 + O(1/N)'
     spin: 0
     rep: singlet
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [giombi2011, maldacena2012]
   - name: 'J_\mu'
     Delta: 2
@@ -114,7 +117,7 @@ operators:
     Delta: 's + 1 + O(1/N)'
     spin: s
     rep: singlet
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [giombi2011, maldacena2012]
     note: 'Higher-spin currents, conserved at $N=\infty$.'
 

@@ -18,14 +18,14 @@ description: |
   $XY = YZ = ZX = 0$, and the moduli space is three one-dimensional cones meeting at the
   origin.
 
-  Aharony, Hanany, Intriligator, Seiberg and Strassler proposed that $\mathcal{N}=2$ SQED with
+  Aharony, Hanany, Intriligator, Seiberg and Strassler [@ahiss1997] proposed that $\mathcal{N}=2$ SQED with
   one flavour (a $U(1)$ vector multiplet and chirals $Q$, $\tilde Q$ of charge $\pm1$) flows to
   the same fixed point. The meson $M = \tilde QQ$ parametrizes the Higgs branch and the
   monopole operators $V_\pm$ the two halves of the Coulomb branch; in the dual description
   $W = -MV_+V_-$, so $(M, V_+, V_-)$ play the roles of $(X, Y, Z)$. The axial and topological
   symmetries $U(1)_A\times U(1)_J$ of SQED become the $U(1)\times U(1)$ flavor symmetry, and
   the permutation symmetry, which exchanges the three branches, is not visible in SQED.
-  Jafferis showed that extremizing $|Z_{S^3}|$ in SQED gives $R_Q = R_{\tilde Q} = 1/3$, hence
+  Jafferis [@jafferis2010] showed that extremizing $|Z_{S^3}|$ in SQED gives $R_Q = R_{\tilde Q} = 1/3$, hence
   $\Delta_{\tilde QQ} = 2/3$, and that the SQED and XYZ $S^3$ partition functions agree as
   functions of the trial R-charge.
 
@@ -41,12 +41,14 @@ description: |
 
   The XYZ model has been proposed as the theory of the tricritical point between a Dirac
   semimetal and a nematic pair-density-wave phase on the surface of a topological insulator
-  with three Dirac cones (Jian, Lin, Maciejko and Yao).
+  with three Dirac cones [@jian2017].
 
 lagrangian: '\mathcal{L} = \int d^4\theta\,\big(\bar XX + \bar YY + \bar ZZ\big) + \Big(\int d^2\theta\; h\,XYZ + \text{c.c.}\Big)'
 
 symmetry:
-  spacetime: '$\mathcal{N}=2$ superconformal'
+  spacetime: '3d $\mathcal{N}=2$ superconformal group (4 $Q$ + 4 $S$ supercharges), with parity'
+  euclidean: '$O(4,1)$ (bosonic conformal part)'
+  lorentzian: '$OSp(2|4)$'
   supercharges: 4
   global: '$U(1)\times U(1)\rtimes S_3$ flavor symmetry ($S_3$ permutes $X, Y, Z$), and $U(1)_R$'
   notes: 'In the SQED description the $S_3$ is emergent; only $U(1)_A\times U(1)_J$ is manifest.'
@@ -56,19 +58,19 @@ quantities:
     symbol: 'F'
     description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$'
     value: '-3\,\ell\left(\tfrac13\right) \approx 0.872'
-    method: exact (supersymmetric localization)
+    method: LOC
     refs: [jafferis2010, nishioka2013]
-    note: 'Three chiral multiplets of R-charge $2/3$, each contributing $-\ell(1/3)$ with $\ell(z)$ as defined by Jafferis; so $F$ is three times that of the $\mathcal{N}=2$ super-Ising model.'
+    note: 'Three chiral multiplets of R-charge $2/3$, each contributing $-\ell(1/3)$ with $\ell(z)$ as defined by Jafferis [@jafferis2010]; so $F$ is three times that of the $\mathcal{N}=2$ super-Ising model.'
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to three free chiral multiplets'
     value: '\frac{16(16\pi - 9\sqrt{3})}{243\pi} \approx 0.7268'
-    method: derived (supersymmetric localization)
+    method: LOC
     refs: [baggio2017]
-    note: 'Baggio et al. give $C_T = \tfrac{32}{27}\big(16 - \tfrac{9\sqrt3}{\pi}\big) \approx 13.0821$ in units where a free chiral multiplet has $C_T = 6$; divided here by 18. Independent of $\tau$ on the conformal manifold.'
+    note: 'Baggio et al. [@baggio2017] give $C_T = \tfrac{32}{27}\big(16 - \tfrac{9\sqrt3}{\pi}\big) \approx 13.0821$ in units where a free chiral multiplet has $C_T = 6$; divided here by 18. Independent of $\tau$ on the conformal manifold.'
   - symbol: 'C_J/C_J^{\rm free}'
     description: 'Two-point coefficient of either $U(1)$ flavor current (charges $(1,-1,0)$ on $(X,Y,Z)$), relative to one free chiral multiplet of unit charge'
     value: '\frac{16}{9} - \frac{4}{\sqrt{3}\,\pi} \approx 1.043'
-    method: exact (supersymmetric localization)
+    method: LOC
     refs: [baggio2017]
     note: 'The free theory with the same charges (two chirals of charge $\pm1$) has ratio 2.'
 

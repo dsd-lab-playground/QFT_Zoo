@@ -42,7 +42,7 @@ family:
   - {at: '(E_8)_1', label: '$(E_8)_1$', c: '8', gap: '1', note: 'Lattice CFT of the $E_8$ lattice; the vacuum is the only primary and $Z = |j(\tau)|^{2/3}$. The gap comes from the 248 currents.'}
 
 symmetry:
-  spacetime: conformal
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{k\dim G}{k+h^\vee}$ — 2d conformal symmetry, with parity (combined with $g \to g^{-1}$)'
   supercharges: 0
   global: 'Left and right multiplication of $g$ ($G_L \times G_R$), part of the chiral current algebras $\hat{\mathfrak g}_k \times \hat{\mathfrak g}_k$'
 
@@ -57,7 +57,7 @@ quantities:
   symbol: '\Delta_{\rm gap}'
   description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
   value: '\min(1,\, 2h_{\min})'
-  method: derived
+  method: exact
   refs: [walton1999]
   note: 'The currents at $(1,0)$ give $\Delta = 1$; a primary $\lambda$ gives $\Delta = 2h_\lambda$. Checked against the spectrum file of every member.'
 - symbol: 'h_\lambda'

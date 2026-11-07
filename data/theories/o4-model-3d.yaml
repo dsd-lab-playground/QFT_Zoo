@@ -20,24 +20,26 @@ description: |
   anomaly, $M$ can be restricted to $M = \sigma + i\vec\pi\cdot\vec\tau$, and
   $SU(2)_L \times SU(2)_R$ acts on $(\sigma, \vec\pi)$ by $O(4)$ rotations. If the finite-temperature
   chiral transition is second order, it is therefore expected in the $O(4)$ class
-  (Pisarski and Wilczek; Rajagopal and Wilczek).
+  [@pisarski1984; @rajagopal1993].
 
   The most precise exponents come from Monte Carlo simulations of an improved lattice
   $\phi^4$ model, in which the leading correction to scaling is tuned away. A mixed-correlator
   bootstrap, assuming one relevant vector and one relevant singlet, confines
-  $(\Delta_\phi, \Delta_s)$ to a small region, larger than for $N = 2, 3$ (Kos et al. 2015);
+  $(\Delta_\phi, \Delta_s)$ to a small region, larger than for $N = 2, 3$ [@kos2015];
   the Monte Carlo $\nu$ and $\eta$ lie inside it.
 
   Anisotropies are classified by the rank-$l$ traceless symmetric operators $t_l$. The
   rank-2 (uniaxial), rank-3 and rank-4 (cubic) anisotropies are all relevant. In
   particular $\Delta_{t_4} < 3$ by a clear margin, so cubic anisotropy drives the flow to
   a cubic fixed point with distinct exponents ($\nu = 0.7202(7)$, $\eta = 0.0371(2)$ for
-  $N=4$; Hasenbusch 2023).
+  $N=4$ [@hasenbusch2023]).
 
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\vec\phi)^2 + \tfrac{1}{2} m^2 \vec\phi^{\,2} + \tfrac{\lambda}{4!}(\vec\phi^{\,2})^2, \quad \vec\phi\in\mathbb{R}^4 \quad (m^2 \text{ tuned to criticality, flow to the IR})'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '3d conformal group with parity'
+  euclidean: '$O(4,1)$'
+  lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$O(4)$'
   notes: 'In the QCD application, $SO(4) \cong (SU(2)_L \times SU(2)_R)/\mathbb{Z}_2$.'
@@ -46,33 +48,33 @@ quantities:
   - symbol: '\nu'
     description: 'Correlation-length exponent, $\nu = 1/(3-\Delta_s)$'
     value: '0.74817(20)'
-    method: Monte Carlo (improved φ⁴ model)
+    method: MC, improved φ⁴ model
     refs: [hasenbusch2022]
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 1$'
     value: '0.03624(8)'
-    method: Monte Carlo (improved φ⁴ model)
+    method: MC, improved φ⁴ model
     refs: [hasenbusch2022]
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent, $\omega = \Delta_{s^\prime} - 3$'
     value: '0.755(5)'
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2022]
   - symbol: 'Y_2'
     description: 'RG eigenvalue of the rank-2 (uniaxial) anisotropy, $Y_2 = 3 - \Delta_t$'
     value: '1.8145(5)'
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2011]
     note: 'Crossover exponent $\phi_T = Y_2\,\nu \approx 1.358$ with the $\nu$ above.'
   - symbol: 'Y_4'
     description: 'RG eigenvalue of the cubic (rank-4) anisotropy, $Y_4 = 3 - \Delta_{t_4}$'
     value: '0.125(5)'
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2011]
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to four free real scalars'
     value: '0.94581^{+0.00071}_{-0.00039}'
-    method: conformal bootstrap (non-rigorous)
+    method: CB, non-rigorous
     refs: [kos2013]
     note: 'Value at which the lower bound on $C_T$ is saturated for the Monte Carlo $\Delta_\phi$, assuming that the $O(4)$ model saturates it.'
 
@@ -81,28 +83,34 @@ operators:
     Delta: '0.51812(4)'
     spin: 0
     rep: vector (order parameter)
-    method: derived
+    method: MC, from η
     refs: [hasenbusch2022]
     note: 'From $\Delta_\phi = (1+\eta)/2$.'
   - name: 't_{ij}'
     Delta: '1.1855(5)'
     spin: 0
     rep: rank-2 symmetric traceless
-    method: derived
+    method: MC, from Y₂
     refs: [hasenbusch2011]
-    note: 'From $3 - Y_2$. Bootstrap (bound saturation): $1.1864^{+0.0024}_{-0.0034}$ (Kos et al. 2013).'
+    note: 'From $3 - Y_2$.'
+  - name: 't_{ij}'
+    Delta: '1.1864^{+0.0024}_{-0.0034}'
+    spin: 0
+    rep: rank-2 symmetric traceless
+    method: CB, bound saturation
+    refs: [kos2013]
   - name: 's'
     Delta: '1.6634(4)'
     spin: 0
     rep: singlet (thermal)
-    method: derived
+    method: MC, from ν
     refs: [hasenbusch2022]
     note: 'From $\Delta_s = 3 - 1/\nu$.'
   - name: 't_{ijk}'
     Delta: '1.9768(10)'
     spin: 0
     rep: rank-3 symmetric traceless
-    method: derived
+    method: MC, from Y₃
     refs: [hasenbusch2011]
     note: 'From $3 - Y_3$ with $Y_3 = 1.0232(10)$ (Monte Carlo).'
   - name: 'J_\mu^{[ij]}'
@@ -115,7 +123,7 @@ operators:
     Delta: '2.875(5)'
     spin: 0
     rep: rank-4 symmetric traceless
-    method: derived
+    method: MC, from Y₄
     refs: [hasenbusch2011]
     note: 'From $3 - Y_4$. Relevant: cubic anisotropy destabilizes the fixed point.'
   - name: 'T_{\mu\nu}'
@@ -128,7 +136,7 @@ operators:
     Delta: '3.755(5)'
     spin: 0
     rep: singlet
-    method: derived
+    method: MC, from ω
     refs: [hasenbusch2022]
     note: 'From $3 + \omega$. Leading irrelevant singlet.'
 

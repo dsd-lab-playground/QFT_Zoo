@@ -43,7 +43,7 @@ family:
   show: 3
 
 symmetry:
-  spacetime: conformal
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{3k}{k+2}$ — 2d conformal symmetry; parity not recorded'
   supercharges: 0
 
 quantities:
@@ -57,7 +57,7 @@ quantities:
   symbol: '\Delta_{\rm gap}'
   description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
   value: '\frac{l(l+2)}{2(k+2)}'
-  method: derived
+  method: exact
   refs: [zuber2000, ginsparg-lectures]
   note: '$\Delta = 2h_l$ with $l = 3, 4, 6$ for $E_6, E_7, E_8$, giving $\frac58, \frac23, \frac45$; matches the spectrum checks.'
 
@@ -66,21 +66,21 @@ operators:
   Delta: '5/8'
   spin: 0
   weights: '(\tfrac{5}{16}, \tfrac{5}{16})'
-  method: derived
+  method: exact
   refs: [zuber2000, ginsparg-lectures]
   note: '$E_6$ ($k = 10$): lightest primary ($l = 3$), the spinor of $SO(5)_1$.'
 - name: '\Phi_{2}'
   Delta: '2/3'
   spin: 0
   weights: '(\tfrac13, \tfrac13)'
-  method: derived
+  method: exact
   refs: [zuber2000, ginsparg-lectures]
   note: '$E_7$ ($k = 16$): lightest primary ($l = 4$).'
 - name: '\Phi_{3}'
   Delta: '4/5'
   spin: 0
   weights: '(\tfrac25, \tfrac25)'
-  method: derived
+  method: exact
   refs: [zuber2000, ginsparg-lectures]
   note: '$E_8$ ($k = 28$): lightest primary ($l = 6$), the primary of $(G_2)_1$.'
 

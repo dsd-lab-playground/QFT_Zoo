@@ -37,7 +37,7 @@ family:
     gap: ['0', '1/2']
 
 symmetry:
-  spacetime: conformal
+  spacetime: 'Two Virasoro algebras, $c = \bar c = 1$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$U(1)_{\rm momentum} \times U(1)_{\rm winding}$, plus $X \to -X$; enhanced to $SU(2)\times SU(2)$ at $R=\sqrt2$'
 

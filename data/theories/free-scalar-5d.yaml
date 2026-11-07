@@ -19,41 +19,43 @@ description: |
   In $d=5$ the cubic operator $\phi^3$ is relevant and the quartic operator
   $\phi^4$ is irrelevant. For $4<d<6$ the large-$N$ analysis of the $O(N)$ model
   with a $(\phi^i\phi^i)^2$ interaction indicates a unitary UV fixed point, and
-  Fei, Giombi and Klebanov proposed that the same CFT is the IR fixed point of a
+  Fei, Giombi and Klebanov [@fei2014] proposed that the same CFT is the IR fixed point of a
   cubic theory of $N+1$ scalars (see the 5d $O(N)$ model entry for its status).
   The $\tilde F$-theorem then requires
   $N\tilde F_s < \tilde F_{\rm crit} < (N+1)\tilde F_s$, with $\tilde F_s$ the value
-  below. Fei, Giombi and Klebanov checked this inequality in $d=5$.
+  below. Fei, Giombi and Klebanov [@fei2014] checked this inequality in $d=5$.
 
   ### Sphere free energy
-  Giombi and Klebanov define $\tilde F = \sin(\pi d/2)\log Z_{S^d} = -\sin(\pi d/2)\,F$,
+  Giombi and Klebanov [@giombi2014, Eq. (1.5)] define $\tilde F = \sin(\pi d/2)\log Z_{S^d} = -\sin(\pi d/2)\,F$,
   where $F = -\log Z_{S^d}$. In $d=5$, $\sin(5\pi/2) = 1$, so $\tilde F = \log Z_{S^5} = -F$.
-  For the free conformal scalar $F$ is negative in $d=5$ (Klebanov, Pufu and
-  Safdi), and $\tilde F$ is positive. For free fields $\tilde F$ is a smooth,
+  For the free conformal scalar $F$ is negative in $d=5$
+  [@klebanov2011, Table 1], and $\tilde F$ is positive. For free fields $\tilde F$ is a smooth,
   positive function of continuous $d$ that equals $(-1)^{(d+1)/2}F$ in odd $d$ and
-  tends to $(-1)^{d/2}\frac{\pi}{2}a$ in even $d$. Giombi and Klebanov conjecture
+  tends to $(-1)^{d/2}\frac{\pi}{2}a$ in even $d$. Giombi and Klebanov [@giombi2014] conjecture
   that $\tilde F$ decreases under RG flow in every $d$ (the $\tilde F$-theorem).
 
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '5d conformal group with parity'
+  euclidean: '$O(6,1)$'
+  lorentzian: '$O(5,2)$'
   supercharges: 0
   global: '$\mathbb{Z}_2$ ($\phi\to-\phi$), plus shift symmetry $\phi \to \phi + \text{const}$'
 
 quantities:
   - symbol: '\tilde F'
-    description: 'Sphere free energy in the convention of Giombi and Klebanov, $\tilde F = \sin(\pi d/2)\log Z_{S^d}$; at $d=5$, $\tilde F = \log Z_{S^5} = -F$'
+    description: 'Sphere free energy in the convention of Giombi and Klebanov [@giombi2014], $\tilde F = \sin(\pi d/2)\log Z_{S^d}$; at $d=5$, $\tilde F = \log Z_{S^5} = -F$'
     value: '\frac{1}{2^8}\left(2\log 2 + \frac{2\zeta(3)}{\pi^2} - \frac{15\zeta(5)}{\pi^4}\right) \approx 5.74\times 10^{-3}'
-    method: derived
+    method: exact
     refs: [klebanov2011, giombi2014]
-    note: 'Klebanov, Pufu and Safdi, Table 1, give $F = -\log|Z_{S^5}| = \frac{-1}{2^8}\left(2\log 2 + \frac{2\zeta(3)}{\pi^2} - \frac{15\zeta(5)}{\pi^4}\right) \approx -5.74\times10^{-3}$. The sign is flipped with Giombi–Klebanov eq. (1.5). A numerical evaluation of the integral in Giombi–Klebanov eq. (2.5) at $d=5$ gives the same number.'
+    note: 'Klebanov, Pufu and Safdi [@klebanov2011, Table 1] give $F = -\log|Z_{S^5}| = \frac{-1}{2^8}\left(2\log 2 + \frac{2\zeta(3)}{\pi^2} - \frac{15\zeta(5)}{\pi^4}\right) \approx -5.74\times10^{-3}$. The sign is flipped with [@giombi2014, Eq. (1.5)]. A numerical evaluation of the integral in [@giombi2014, Eq. (2.5)] at $d=5$ gives the same number.'
   - symbol: 'C_T'
     description: 'Stress-tensor two-point coefficient in the absolute Osborn–Petkou normalization, $\langle T_{\mu\nu}(x)T_{\sigma\rho}(0)\rangle = C_T\,\mathcal{I}_{\mu\nu,\sigma\rho}(x)/x^{2d}$'
     value: '\frac{45}{256\pi^4}'
-    method: derived
+    method: exact
     refs: [osborn1994]
-    note: 'Osborn–Petkou eq. (5.5), $C_T = \frac{d}{d-1}\frac{1}{S_d^2}$ with $S_d = 2\pi^{d/2}/\Gamma(d/2)$, evaluated at $d=5$, where $S_5 = 8\pi^2/3$.'
+    note: '[@osborn1994, Eq. (5.5)], $C_T = \frac{d}{d-1}\frac{1}{S_d^2}$ with $S_d = 2\pi^{d/2}/\Gamma(d/2)$, evaluated at $d=5$, where $S_5 = 8\pi^2/3$.'
 
 operators:
   - name: '\phi'
@@ -62,7 +64,7 @@ operators:
     rep: '$\mathbb{Z}_2$-odd'
     method: exact
     refs: [osborn1994]
-    note: 'From the propagator $\langle\phi(x)\phi(0)\rangle = \frac{1}{(d-2)S_d\,x^{d-2}}$ (Osborn–Petkou eq. (5.3)).'
+    note: 'From the propagator $\langle\phi(x)\phi(0)\rangle = \frac{1}{(d-2)S_d\,x^{d-2}}$ [@osborn1994, Eq. (5.3)].'
   - name: '\phi^2'
     Delta: 3
     spin: 0

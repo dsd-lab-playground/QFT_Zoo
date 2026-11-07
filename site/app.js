@@ -8,8 +8,11 @@
      #/flows            RG flows between the theories
      #/feedback         comments on the site, read live from GitHub issues
      #/theory/<id>      a theory (with its spectrum, if data/spectra has one)
+     #/operation/<id>   how composite theories are built (direct sum, ...)
      #/landscape        2d CFTs in the (c, gap) plane
-     #/contribute       how to contribute                                   */
+     #/contribute       how to contribute
+     #/methods          the methods behind the data, with their abbreviations;
+                        #/methods/<abbr> highlights one                     */
 
 // Display order and labels of relation types (incl. reverse links from build.py).
 const REL_LABEL = {
@@ -26,8 +29,9 @@ const REL_LABEL = {
   related_to: "Related to",
 };
 
-let DB = null; // { generated, repo, branch, template, theories: [...] }
+let DB = null; // { generated, repo, branch, template, theories: [...], methods: [...] }
 const BY_ID = new Map();
+const METHODS = new Map(); // abbr -> method (data/methods.yaml, with usage counts from build.py)
 const filters = { q: "", d: new Set(), tags: new Set(), spectrum: false };
 const app = document.getElementById("app");
 
@@ -61,6 +65,48 @@ marked.use({
 
 /** Markdown with $inline$ and $$display$$ math. Math is typeset first and
  *  protected from the Markdown parser by placeholders. */
+/* Citations. A page keeps one numbered reference list (CITES) and every citation on it is a bracketed number
+ * linked to that list, shown at the bottom of the page. Prose cites with [@key] or [@key, Sec. 4.1.1] (several:
+ * [@a; @b, Eq. (3)]); build.py prefixes each key with its entry's id ([@ising-3d/kos2016]), so a note shown on
+ * another page still finds its reference. Data rows cite through `refs`, each "key" or "key, Table 2". */
+let CITES = null;
+let CITE_OWNER = null; // entry whose unprefixed keys a citation means (build.py prefixes them all)
+function citeStart(seed = []) {
+  CITES = { list: [], num: new Map() };
+  seed.forEach(([id, key]) => citeNum(id, key));
+}
+function citeNum(id, key) {
+  if (!CITES) return null;
+  const k = `${id}/${key}`;
+  if (!CITES.num.has(k)) {
+    const r = (BY_ID.get(id)?.references || []).find((x) => x.key === key);
+    if (!r) return null;
+    // The same paper under another entry's key keeps its number.
+    const same = CITES.list.findIndex(({ r: o }) => (r.arxiv && o.arxiv === r.arxiv) || (r.doi && o.doi === r.doi));
+    if (same >= 0) CITES.num.set(k, same + 1);
+    else { CITES.list.push({ id, r }); CITES.num.set(k, CITES.list.length); }
+  }
+  return CITES.num.get(k);
+}
+const splitRef = (k) => { const i = String(k).indexOf(","); return i < 0 ? [String(k).trim(), ""] : [k.slice(0, i).trim(), k.slice(i + 1).trim()]; };
+/** One bracket for several sources: parts = [[entry id, key, locator html]]. */
+function citeBracket(parts) {
+  if (!CITES) // no reference list on this page (e.g. a summary in the catalogue): point to the entry's page
+    return parts.length ? `<a class="cite" href="#/theory/${encodeURIComponent(parts[0][0])}">[ref]</a>` : "";
+  const bits = parts.map(([id, key, loc]) => {
+    const n = citeNum(id, key);
+    const label = `${n ?? "?"}${loc ? `, ${loc}` : ""}`;
+    return n == null
+      ? `<span class="cite-missing" title="${esc(`${id}: no reference ${key}`)}">${esc(key)}${loc ? `, ${loc}` : ""}</span>`
+      : `<a class="cite" href="#" data-ref="${esc(`${id}/${key}`)}">${label}</a>`;
+  });
+  return bits.length ? `<span class="cite-group">[${bits.join("; ")}]</span>` : "";
+}
+/** Citations from a data row's refs list (keys of entry `id`). */
+const citeRefs = (id, keys) => (keys?.length ? citeBracket(keys.map((k) => { const [key, loc] = splitRef(k); return [id, key, loc ? md(loc, true) : ""]; })) : "");
+/** The page's reference list, for its last section. */
+const citeList = () => `<ol class="refs">${CITES.list.map(({ id, r }) => refItem(r, id)).join("")}</ol>`;
+
 function md(src, inline = false) {
   if (src == null || src === "") return "";
   const stash = [];
@@ -68,7 +114,13 @@ function md(src, inline = false) {
   const s = String(src)
     .replace(/\$\$([\s\S]+?)\$\$/g, (_, m) => hold(tex(m, true)))
     .replace(/(^|[^\\])\$((?:\\.|[^$\\\n]|\n(?!\n))+?)\$/g, (_, pre, m) => pre + hold(tex(m)))
-    .replace(/\\\$/g, "$");
+    .replace(/\\\$/g, "$")
+    .replace(/\[(@[^\]]*)\]/g, (m, body) => {
+      const parts = body.split(";").map((p) => p.match(/^\s*@(?:([a-z0-9-]+)\/)?([A-Za-z0-9_:-]+)(?:\s*,\s*(\S[^]*?))?\s*$/));
+      if (parts.some((p) => !p)) return m;
+      const unhold = (x) => x.replace(/\uE000(\d+)\uE001/g, (_, i) => stash[+i]);
+      return hold(citeBracket(parts.map(([, id, key, loc]) => [id ?? CITE_OWNER, key, loc ? unhold(marked.parseInline(loc)) : ""])));
+    });
   const html = inline ? marked.parseInline(s) : marked.parse(s);
   return html.replace(/(\d+)/g, (_, i) => stash[+i]);
 }
@@ -102,6 +154,19 @@ const gh = {
     `&theory=${encodeURIComponent(t.id)}`,
 };
 
+/** A row's `method`: 'MC-BC, isotropic' -> the abbreviation linked to the Methods page (full name on hover),
+    then the qualifier. Legacy free text (not starting with a listed abbreviation) is shown as it is. */
+function methodHtml(value) {
+  const s = String(value ?? "");
+  const i = s.indexOf(",");
+  const abbr = (i < 0 ? s : s.slice(0, i)).trim();
+  const m = METHODS.get(abbr);
+  if (!m) return esc(s);
+  const q = i < 0 ? "" : s.slice(i + 1).trim();
+  return `<a class="method" href="#/methods/${encodeURIComponent(abbr)}" title="${esc(plain(m.name))}">${esc(abbr)}</a>${
+    q ? `<span class="method-q">, ${esc(q)}</span>` : ""}`;
+}
+
 const tagPill = (tag, active = false) =>
   `<button type="button" class="pill${active ? " on" : ""}" data-tag="${esc(tag)}" title="Filter by “${esc(tag)}”">${esc(tag)}</button>`;
 
@@ -114,6 +179,51 @@ function table(headers, rows, cls = "") {
 }
 
 const section = (id, title, body) => `<section class="block" id="sec-${id}"><h2>${title}</h2>${body}</section>`;
+
+/** Wikipedia articles for the standard names used in `symmetry.spacetime` (CONTRIBUTING.md, Spacetime symmetry). */
+const SPACETIME_LINKS = [
+  ["superconformal group", "Superconformal_algebra"],
+  ["superconformal symmetry", "Superconformal_algebra"],
+  ["super-Virasoro", "Super_Virasoro_algebra"],
+  ["conformal group", "Conformal_group"],
+  ["conformal symmetry", "Conformal_symmetry"],
+  ["Poincaré group", "Poincar%C3%A9_group"],
+  ["Virasoro", "Virasoro_algebra"],
+  ["parity", "Parity_(physics)"],
+  ["topological", "Topological_quantum_field_theory"],
+];
+const SPACETIME_RE = new RegExp(SPACETIME_LINKS.map(([w]) => w).join("|"), "gi");
+/** Link the first occurrence of each standard name, outside $...$ math. */
+function linkSpacetime(src) {
+  const used = new Set();
+  return String(src)
+    .split(/(\$[^$]*\$)/)
+    .map((part, i) =>
+      i % 2
+        ? part
+        : part.replace(SPACETIME_RE, (m) => {
+            const k = m.toLowerCase();
+            if (used.has(k)) return m;
+            used.add(k);
+            const page = SPACETIME_LINKS.find(([w]) => w.toLowerCase() === k)[1];
+            return `[${m}](https://en.wikipedia.org/wiki/${page})`;
+          })
+    )
+    .join("");
+}
+
+/** The Spacetime row: "Euclidean G_E · Lorentzian G_L — name and qualifiers" (CONTRIBUTING.md, Spacetime symmetry). */
+function spacetimeHtml(s) {
+  const groups = [
+    ["Euclidean", s.euclidean],
+    ["Lorentzian", s.lorentzian],
+  ]
+    .filter(([, g]) => g)
+    .map(([k, g]) => `<span class="muted">${k}</span> ${md(g, true)}`)
+    .join(" · ");
+  const name = s.spacetime && md(linkSpacetime(s.spacetime), true);
+  return [groups, name].filter(Boolean).join(" — ");
+}
 
 function symmetrySummary(t) {
   const s = t.symmetry || {};
@@ -175,6 +285,7 @@ function viewHome() {
           ${group("Other Resources", "", [
             item(gh.repo(), "Source &amp; data on GitHub", null, ext),
             item(gh.blob("CONTRIBUTING.md"), "Contributing guide", null, ext),
+            item("#/methods", "Methods and their abbreviations", DB.methods?.length),
             item(gh.suggest(), "Suggest a theory", null, ext),
             item(`${gh.repo()}/issues/new?template=correction.yml`, "Report a problem", null, ext),
             item("https://arxiv.org/list/hep-th/recent", "arXiv hep-th", null, ext),
@@ -280,7 +391,7 @@ let rowCache = null; // id -> rendered <tr>
 function searchText(t) {
   const s = t.symmetry || {};
   return plain(
-    [t.id, t.name, ...(t.aliases || []), t.summary, ...(t.tags || []), s.global, s.gauge, s.spacetime, `${t.d}d`, `d=${t.d}`].join(" ")
+    [t.id, t.name, ...(t.aliases || []), t.summary, ...(t.tags || []), s.global, s.gauge, s.spacetime, s.euclidean, s.lorentzian, `${t.d}d`, `d=${t.d}`].join(" ")
   ).toLowerCase();
 }
 
@@ -409,6 +520,393 @@ function applyFilters() {
   app.querySelector("#empty").hidden = shown > 0;
 }
 
+/* ------------------------------------------------------------ theory data */
+
+// A theory's quantities are shown by kind: central charges and free energies, anomalies, OPE
+// coefficients, critical exponents, other. A quantity's kind is its `category`, or else inferred
+// from its key, symbol and description (quantityCategory). Rows with the same symbol that describe
+// the same quantity (other papers or methods) are one item: the most precise first, the rest folded.
+const wiki = (page, text) => `<a href="https://en.wikipedia.org/wiki/${page}" target="_blank" rel="noopener">${text}</a>`;
+const QCATS = {
+  central: {
+    id: "central-charges",
+    title: "Central charges and free energy",
+    intro: () => `Normalizations of the stress tensor and of conserved currents (${wiki("Central_charge", "central charges")}), and free energies.`,
+  },
+  anomaly: {
+    id: "anomalies",
+    title: "Anomalies",
+    intro: () => `${wiki("Conformal_anomaly", "Conformal (Weyl) anomalies")} of the stress-tensor trace and ${wiki("%27t_Hooft_anomaly", "'t Hooft anomalies")} of global symmetries.`,
+  },
+  ope: {
+    id: "ope",
+    title: "OPE coefficients",
+    intro: (grouped) =>
+      `Coefficients of the ${wiki("Operator_product_expansion", "operator product expansion")}${
+        grouped ? ", grouped by the OPE they appear in and ordered by the dimension of the exchanged operator" : ""}. ` +
+      "Papers normalize operators and conformal blocks differently; a row states its convention where the entry records it.",
+  },
+  exponent: {
+    id: "exponents",
+    title: "Critical exponents",
+    intro: (rel) =>
+      `${wiki("Critical_exponent", "Critical exponents")} are derived quantities: ${
+        rel ? "most follow from scaling dimensions of operators, by the relation shown." : "they follow from scaling dimensions of operators."}`,
+  },
+  other: { id: "data-other", title: "Other data", intro: () => "" },
+};
+const QCAT_ORDER = ["central", "anomaly", "ope", "exponent", "other"];
+
+function quantityCategory(q, t) {
+  if (q.category) return q.category;
+  const s = String(q.symbol).trim();
+  const d = q.description || "";
+  if (q.key === "a") return "anomaly";
+  if (q.key === "c" || q.key === "C_T" || q.key === "F") return "central";
+  if (q.key === "gap") return "other";
+  // a, c (4d) and a, c_i (6d) are Weyl-anomaly coefficients; in 2d, c is the Virasoro central charge.
+  if (/\banomal(y|ies)\b/i.test(d) || (t.d >= 4 && /^(a|c|a\s*=\s*c|c_[1-3])$/.test(s)) || /^\[?I_\d/.test(s)) return "anomaly";
+  if (/OPE (coefficient|measure)|^(\S+\s)?three-point|structure constant|reflection amplitude|\\langle\s*TTT/i.test(d)) return "ope";
+  if (/^(C_T|C_J|k(?![A-Za-z])|\\tau_|F(?![A-Za-z])|\\tilde\s*F|Z_\{?S|\(c_L|c_\{\\rm eff\}|c$)/.test(s) ||
+      /central charge|two-point coefficient|free energy/i.test(d)) return "central";
+  if (/exponent|anomalous dimension|fractal dimension|RG eigenvalue/i.test(d) ||
+      /^(\\nu|\\eta|\\omega|\\beta|\\gamma|\\delta|\\theta|1\/\\nu|d_[fFH])(?![A-Za-z])/.test(s)) return "exponent";
+  if (/^\|?(\\lambda|f|C)(\^\{?[^_]*?\}?)?_\{/.test(s)) return "ope";
+  return "other";
+}
+
+/** LaTeX compared loosely: no spaces, primes as ', \varepsilon as \epsilon. */
+const normTex = (s) =>
+  String(s ?? "")
+    .replace(/\s+/g, "")
+    .replace(/\^\{((?:\\prime)+)\}/g, (_, p) => "'".repeat(p.length / 6))
+    .replace(/\^\\prime/g, "'")
+    .replace(/\\varepsilon/g, "\\epsilon");
+
+/** Index just past the group that opens at s[j] ("{" or "["). */
+function groupEnd(s, j) {
+  const open = s[j], close = open === "{" ? "}" : "]";
+  let depth = 0;
+  for (let k = j; k < s.length; k++) {
+    if (s[k] === open) depth++;
+    else if (s[k] === close && --depth === 0) return k + 1;
+  }
+  return s.length;
+}
+
+/** Split a product of operator names ("\sigma\sigma\epsilon'", "TT\epsilon", "\phi\phi s") into names. */
+function texTokens(src) {
+  const s = String(src);
+  const atom = (j) => {
+    if (s[j] === "{" || s[j] === "[") return groupEnd(s, j);
+    if (s[j] !== "\\") return j + 1;
+    let k = j + 1;
+    while (k < s.length && /[a-zA-Z]/.test(s[k])) k++;
+    if (k === j + 1) return k + 1;
+    if (/^(mathcal|mathbb|mathrm|mathbf|bar|tilde|hat|rm)$/.test(s.slice(j + 1, k))) {
+      while (s[k] === " ") k++;
+      return atom(k);
+    }
+    return k;
+  };
+  const out = [];
+  for (let i = 0; i < s.length; ) {
+    if (/[\s,]/.test(s[i])) { i++; continue; }
+    let k = atom(i);
+    for (;;) {
+      if (s[k] === "'") k++;
+      else if (s[k] === "_" || s[k] === "^") k = atom(k + 1);
+      else break;
+    }
+    out.push(s.slice(i, k));
+    i = k;
+  }
+  return out;
+}
+
+/** The operators of an OPE coefficient [O1, O2, O3] (O3 exchanged in O1 × O2), from its symbol
+ *  (\lambda_{O1 O2 O3}, f_{...}, C_{...}) or its description ("in $u\times u$", "<TTT>"); else null. */
+function opeOperators(q) {
+  const s = String(q.symbol).replace(/^\|/, "");
+  const d = q.description || "";
+  let toks = [];
+  const m = s.match(/^(?:\\lambda|f|C)(?:\^\{?[^_{}]*\}?)?_/);
+  if (m) {
+    const j = m[0].length;
+    toks = texTokens(s[j] === "{" ? s.slice(j + 1, groupEnd(s, j) - 1) : s[j]);
+  }
+  if (toks.length >= 3) return toks;
+  const x = d.match(/\$([^$]*?)\\times([^$]*?)\$/);
+  if (x) return [x[1].trim(), x[2].trim(), toks[0] ?? ""];
+  const y = d.match(/\\langle\s*([^$]*?)\s*\\rangle/);
+  if (y && texTokens(y[1]).length >= 3) return texTokens(y[1]);
+  return null;
+}
+
+/** Scaling dimension of a named operator in the theory's table (Infinity if not found). Names match
+ *  loosely: "T" finds T_{\mu\nu}, "C" finds C_{\mu\nu\rho\sigma}. */
+function operatorDims(t) {
+  const exact = new Map(), loose = new Map();
+  const strip = (n) => n.replace(/_\{(?:\\(?:mu|nu|rho|sigma|lambda|kappa|alpha|beta)(?:_\d)?|\\[cl]dots|\d)+\}/g, "");
+  for (const o of t.operators || []) {
+    const v = parseFloat(o.Delta);
+    const D = Number.isFinite(v) ? v : Infinity;
+    const n = normTex(o.name);
+    if (!exact.has(n) || exact.get(n) > D) exact.set(n, D);
+    if (!loose.has(strip(n)) || loose.get(strip(n)) > D) loose.set(strip(n), D);
+  }
+  return (name) => {
+    const n = normTex(name);
+    return exact.get(n) ?? loose.get(n) ?? loose.get(strip(n)) ?? Infinity;
+  };
+}
+
+/** A value as a range: { x, e } (central value and stated error; e = 0 when exact), { hi } or { lo } (a one-sided
+ *  bound), or null when it states no error ("1.41", "\approx 0.86", a series in 1/N). */
+function valueRange(value, method) {
+  const s = String(value ?? "").trim().replace(/\\[,;: ]|~/g, " ").replace(/\s+/g, " ");
+  const N = "(-?\\d*\\.?\\d+)";
+  let m;
+  if ((m = new RegExp(`^${N}\\((\\d+)\\)$`).exec(s))) return { x: +m[1], e: +m[2] * 10 ** -((m[1].split(".")[1] || "").length) };
+  if ((m = new RegExp(`^${N} ?\\\\pm ?${N}$`).exec(s))) return { x: +m[1], e: Math.abs(+m[2]) };
+  if ((m = new RegExp(`^${N} ?(?:\\\\text\\{[–-]\\}|–|--) ?${N}$`).exec(s)) || (m = new RegExp(`^\\[${N}, ?${N}\\]$`).exec(s)))
+    return +m[2] >= +m[1] ? { x: (+m[1] + +m[2]) / 2, e: (+m[2] - +m[1]) / 2 } : null;
+  if ((m = new RegExp(`^(?:\\\\leq?|≤|<) ?${N}$`).exec(s))) return { hi: +m[1] };
+  if ((m = new RegExp(`^(?:\\\\geq?|≥|>) ?${N}$`).exec(s))) return { lo: +m[1] };
+  if (/^-?\d+(?:\/\d+)?$|^\\[dt]?frac\{-?\d+\}\{\d+\}$/.test(s.replace(/ /g, "")) || (/^exact/i.test(method || "") && new RegExp(`^${N}$`).test(s)))
+    return { x: leadingNumber(s.replace(/ /g, "")), e: 0 };
+  return null;
+}
+
+/** Relative uncertainty of a value: 0 for an exact expression, Infinity if unknown. */
+function relError(q) {
+  const s = String(q.value);
+  if (/^exact/i.test(q.method || "")) return 0;
+  const r = valueRange(q.value, q.method);
+  if (r && "x" in r) return r.e / (Math.abs(r.x) || 1);
+  let m = s.match(/(-?\d*\.?\d+)\((\d+)\)/);
+  if (m) return (+m[2] * 10 ** -((m[1].split(".")[1] || "").length)) / (Math.abs(+m[1]) || 1);
+  m = s.match(/(-?\d*\.?\d+)\s*\\pm\s*(\d*\.?\d+)/);
+  if (m) return +m[2] / (Math.abs(+m[1]) || 1);
+  if (!/\d\.\d/.test(s) && !/\\(approx|sim|lesssim|gtrsim|leq?|geq?)|[<>≈~]|\.\.\./.test(s)) return 0;
+  return Infinity;
+}
+
+/** A rigorous determination: the bootstrap's bounds and islands (bare `CB`) or a qualifier saying "rigorous". */
+function isRigorous(method) {
+  const s = String(method ?? "");
+  if (/non-?rigorous|not rigorous|estimate/i.test(s)) return false;
+  return /\brigorous\b/i.test(s) || s.split(",")[0].trim() === "CB";
+}
+
+/** Several determinations of one quantity or operator, best first: exact; then rigorous intervals, the narrowest
+ *  first (a rigorous interval is never folded under a non-rigorous estimate that quotes a smaller error); then
+ *  everything else by relative error; ties keep the data order. `val` and `meth` give a row's value and method. */
+function orderDets(rows, val, meth = (q) => q.method) {
+  const rank = (q) => {
+    const e = relError({ value: val(q), method: meth(q) });
+    return e === 0 ? [0, 0] : Number.isFinite(e) && isRigorous(meth(q)) ? [1, e] : [2, e];
+  };
+  const r = new Map(rows.map((q, i) => [q, [...rank(q), i]]));
+  return [...rows].sort((a, b) => {
+    const [x, y] = [r.get(a), r.get(b)];
+    return x[0] - y[0] || x[1] - y[1] || x[2] - y[2];
+  });
+}
+
+/** Does determination b disagree with the preferred one a beyond their stated errors? Two values disagree when
+ *  they differ by more than twice their combined error (errors added in quadrature, i.e. beyond 2σ); a value and a
+ *  one-sided bound when the value lies more than twice its error beyond the bound. Values without a stated error
+ *  are not judged. Returns a short explanation, or "". */
+function disagreement(a, b, val) {
+  const [p, q] = [valueRange(val(a), a.method), valueRange(val(b), b.method)];
+  if (!p || !q) return "";
+  const fmt = (x) => (x >= 10 ? x.toFixed(0) : x.toPrecision(2));
+  if ("x" in p && "x" in q) {
+    const d = Math.abs(p.x - q.x), s = Math.hypot(p.e, q.e);
+    if (s === 0) return d > 1e-12 * Math.max(1, Math.abs(p.x)) ? "differs from the exact value shown first" : "";
+    return d > 2 * s ? `differs from the value shown first by ${fmt(d / s)}× the combined stated error` : "";
+  }
+  const [v, bd, vFirst] = "x" in p ? [p, q, true] : "x" in q ? [q, p, false] : [null];
+  if (!v) return "";
+  const out = "hi" in bd ? v.x - 2 * v.e > bd.hi : v.x + 2 * v.e < bd.lo;
+  if (!out) return "";
+  return vFirst ? "the value shown first lies more than twice its error beyond this bound" : "lies more than twice its error beyond the bound shown first";
+}
+
+/** "+n more" for a folded item, with a warning when some folded determination disagrees with the one shown. */
+function detsButton(id, n, nbad) {
+  return `<div class="sub"><button type="button" class="linkish dets" data-dets="${id}" data-n="${n}" aria-expanded="false"
+    title="Other determinations (papers or methods)">+${n} more</button>${nbad
+      ? ` <span class="badge warn" title="${nbad} of them disagree${nbad > 1 ? "" : "s"} with the value shown, beyond twice the combined stated error">${nbad} disagree${nbad > 1 ? "" : "s"}</span>` : ""}</div>`;
+}
+const disagreeBadge = (why) => (why ? ` <span class="badge warn" title="${esc(why)}">disagrees</span>` : "");
+
+/** "Edge exponent" for "Edge exponent, from the dimer density": the description up to its first , : ; or ( outside
+ *  math (so "$U(2)_1 \times U(2)_{-1}$" and "$U(2)_2 \times U(2)_{-2}$" stay apart). */
+const descBase = (d) => String(d ?? "").replace(/\$[^$]*\$/g, (m) => m.replace(/[,:;(]/g, " ")).split(/[,:;(]/)[0].trim().toLowerCase();
+// "N = 25", "$k = 1$": a description that fixes a parameter describes a different quantity.
+const fixesParameter = (d) => /(^|[\s$(])([A-Za-z]|\\[a-zA-Z]+)\s*=\s*-?\d+(\.\d+)?\s*($|[$,;)])/.test(String(d ?? ""));
+
+function sameQuantity(a, b) {
+  const da = String(a.description ?? "").trim(), db = String(b.description ?? "").trim();
+  if (da === db || /^same\b/i.test(db)) return true;
+  return descBase(da) !== "" && descBase(da) === descBase(db) && !fixesParameter(da) && !fixesParameter(db);
+}
+
+/** Quantities as items { cat, rows }: rows of one quantity (same symbol, same description up to the
+ *  method), best first (orderDets); items in the order of their first row. */
+function quantityItems(t) {
+  const items = [];
+  for (const q of t.quantities || []) {
+    const cat = quantityCategory(q, t);
+    const it = items.find((i) => i.cat === cat && normTex(i.rows[0].symbol) === normTex(q.symbol) && sameQuantity(i.rows[0], q));
+    if (it) it.rows.push(q);
+    else items.push({ cat, rows: [q] });
+  }
+  for (const it of items) it.rows = orderDets(it.rows, (q) => q.value);
+  return items;
+}
+
+/** The math in a description that relates an exponent to scaling dimensions ("$\nu = 1/(3-\Delta_\epsilon)$"). */
+function exponentRelation(it) {
+  const own = it.rows.find((q) => q.relation);
+  if (own) return { tex: own.relation };
+  const sym = normTex(it.rows[0].symbol);
+  for (const q of it.rows)
+    for (const m of String(q.description ?? "").matchAll(/\$([^$]+)\$/g)) {
+      const x = m[1], lhs = normTex(x.split("=")[0]);
+      if (/\\(propto|sim)\b/.test(x)) continue;
+      if ([...x.matchAll(/\\Delta(_\{[^}]*\}|_\\?[A-Za-z0-9]+)?/g)].some(([D]) => normTex(D) !== sym)) return { tex: /=/.test(x) ? x : `${it.rows[0].symbol} = ${x}`, src: m[0] };
+      if (/=/.test(x) && lhs === sym) return { tex: x, src: m[0] };
+    }
+  return null;
+}
+
+let DET_SEQ = 0;
+
+/** One table of quantity items. With `cat`, the table is shaped for that kind: exponents get a
+ *  relation column, OPE coefficients are grouped by OPE. */
+function quantityTable(t, items, cat, source) {
+  const rel = new Map(cat === "exponent" ? items.map((it) => [it, exponentRelation(it)]) : []);
+  const hasRel = [...rel.values()].some(Boolean);
+  const describe = (q, it) => {
+    let d = String(q.description ?? "");
+    const r = rel.get(it);
+    if (r?.src) d = d.replace(r.src, "").replace(/\s*[,:;]?\s*$/, "").replace(/\s*,\s*,/, ",").replace(/^\s*[,:;]\s*/, "").replace(/\s+([,;.])/g, "$1").replace(/,\s*\(/, " (");
+    if (cat === "exponent" && /^critical exponent\.?$/i.test(d.trim())) d = "";
+    if (cat === "ope" && /^(spinning\s+)?OPE coefficient\.?$/i.test(d.trim())) d = "";
+    return d.trim();
+  };
+  const row = (q, it, head) => {
+    const d = describe(q, it);
+    const desc = head || d !== describe(it.rows[0], it) ? md(d, true) : "";
+    const n = it.rows.length - 1;
+    const bad = (r) => disagreement(it.rows[0], r, (x) => x.value);
+    const more = head && n ? detsButton(it.id, n, it.rows.filter((r) => bad(r)).length) : head ? "" : disagreeBadge(bad(q));
+    return [
+      head ? tex(q.symbol) : "",
+      desc + (q.note ? `<div class="sub">${md(q.note, true)}</div>` : ""),
+      ...(hasRel ? [head && rel.get(it) ? `<span class="rel">${tex(rel.get(it).tex)}</span>` : ""] : []),
+      `<span class="value">${tex(q.value)}</span>${more}`,
+      source(q),
+    ];
+  };
+  const tr = (cells, attrs = "") => `<tr${attrs}>${cells.map((c) => `<td>${c ?? ""}</td>`).join("")}</tr>`;
+  const body = (it) => {
+    it.id = `det-${++DET_SEQ}`;
+    const [head, ...rest] = it.rows;
+    return `<tbody class="item">${tr(row(head, it, true))}${rest
+      .map((q) => tr(row(q, it, false), ` class="det" data-det="${it.id}" hidden`))
+      .join("")}</tbody>`;
+  };
+  const headers = [cat === "exponent" ? "Exponent" : cat === "ope" ? "Coefficient" : "Quantity", "Description",
+    ...(hasRel ? ["Relation"] : []), "Value", "Source"];
+  let groups = [[null, items]];
+  if (cat === "ope") groups = opeGroups(t, items);
+  const ncol = headers.length;
+  const html = groups
+    .map(([label, its]) => (label ? `<tbody class="group"><tr><th colspan="${ncol}" scope="rowgroup">${label}</th></tr></tbody>` : "") + its.map(body).join(""))
+    .join("");
+  return {
+    html: `<div class="table-wrap"><table class="qty"><thead><tr>${headers.map((h) => `<th>${h}</th>`).join("")}</tr></thead>${html}</table></div>`,
+    grouped: groups.length > 1,
+    hasRel,
+  };
+}
+
+/** OPE coefficients by OPE O1 × O2 (ordered by the dimensions of O1, O2), each ordered by the
+ *  dimension of the exchanged operator. Labels only when there are several OPEs. */
+/** OPE coefficients in one list, without per-OPE headings (David: grouping by OPE didn't make sense), ordered
+ *  by the operators involved: by their dimensions sorted from lightest, compared lexicographically, so
+ *  λσσε, λσσε′, …, λεεε, … ; coefficients whose operators aren't recognized go last, in data order. */
+function opeGroups(t, items) {
+  const dim = operatorDims(t);
+  const key = (it) => { const ops = opeOperators(it.rows[0]); return ops ? ops.map(dim).sort((x, y) => x - y) : null; };
+  const order = items.map((it, i) => ({ it, i, k: key(it) })).sort((a, b) => {
+    if (!a.k || !b.k) return (!a.k) - (!b.k) || a.i - b.i;
+    for (let j = 0; j < 3; j++) if (a.k[j] !== b.k[j]) return (a.k[j] ?? Infinity) - (b.k[j] ?? Infinity);
+    return a.i - b.i;
+  });
+  return [[null, order.map((x) => x.it)]];
+}
+
+/** The page sections for a theory's quantities. A small entry (one kind, or under six items and
+ *  under three of any named kind) keeps one table; otherwise each kind gets its own section, in the
+ *  contents bar. A description part
+ *  titled like "Anomalies" or "Weyl anomaly" is shown in the anomalies section (its index is added
+ *  to `used`). */
+function dataSections(t, source, topics, used) {
+  const items = quantityItems(t);
+  const cats = QCAT_ORDER.filter((c) => items.some((it) => it.cat === c));
+  const conv = t.conventions || {};
+  const convLine = (c) => (conv[c] ? `<p class="small conv">${md(conv[c], true)}</p>` : "");
+  const allBtn = (its) => its.some((it) => it.rows.length > 1)
+    ? ` <button type="button" class="linkish small" data-dets-all aria-expanded="false">Show all determinations</button>` : "";
+  const most = Math.max(...cats.filter((c) => c !== "other").map((c) => items.filter((it) => it.cat === c).length));
+  if (cats.length > 1 && items.length < 6 && most < 3) {
+    const tb = quantityTable(t, items, null, source);
+    const notes = QCAT_ORDER.filter((c) => conv[c]).map((c) => `<p class="small conv"><b>${QCATS[c].title}.</b> ${md(conv[c], true)}</p>`).join("");
+    const btn = allBtn(items);
+    return [section("data", "Data", `${notes}${btn ? `<p class="small">${btn}</p>` : ""}${tb.html}`)];
+  }
+  return cats.map((c) => {
+    const its = items.filter((it) => it.cat === c);
+    const tb = quantityTable(t, its, c, source);
+    const meta = QCATS[c];
+    let prose = "";
+    if (c === "anomaly")
+      topics.forEach((tp, i) => {
+        if (!used.has(i) && /anomal/i.test(tp.title)) {
+          used.add(i);
+          prose += `<div class="prose">${md(tp.body)}</div>`;
+        }
+      });
+    const intro = meta.intro(c === "ope" ? tb.grouped : tb.hasRel) + allBtn(its);
+    const id = cats.length === 1 && c === "other" ? "data" : meta.id;
+    const title = cats.length === 1 && c === "other" ? "Data" : meta.title;
+    return section(id, title, `${intro.trim() ? `<p class="small muted intro">${intro}</p>` : ""}${convLine(c)}${prose}${tb.html}`);
+  });
+}
+
+function setDets(btn, open) {
+  app.querySelectorAll(`[data-det="${btn.dataset.dets}"]`).forEach((tr) => (tr.hidden = !open));
+  btn.setAttribute("aria-expanded", open);
+  btn.textContent = open ? "fold" : `+${btn.dataset.n} more`;
+}
+
+app.addEventListener("click", (e) => {
+  const one = e.target.closest("[data-dets]");
+  if (one) return setDets(one, one.getAttribute("aria-expanded") !== "true");
+  const all = e.target.closest("[data-dets-all]");
+  if (all) {
+    const open = all.getAttribute("aria-expanded") !== "true";
+    all.closest("section").querySelectorAll("[data-dets]").forEach((b) => setDets(b, open));
+    all.setAttribute("aria-expanded", open);
+    all.textContent = open ? "Fold other determinations" : "Show all determinations";
+  }
+});
+
 /* ------------------------------------------------------------ theory view */
 
 /** Split a description at its "### Title" lines. The text before the first one is the
@@ -424,26 +922,483 @@ function splitDescription(src) {
   };
 }
 
+/* ------------------------------------------------- operators by representation */
+
+/** Leading numerical value of a Δ or spin: '1.412625(10)', '5/2', '\frac{1}{2}', '2 + \frac{3\lambda}{4\pi^2}' (leading
+ *  term of a series), '\leq 10.9293'. NaN when the value is not a number (e.g. '0.265\,N_f - 0.0383'). */
+function leadingNumber(s) {
+  if (typeof s === "number") return s;
+  const x = String(s ?? "").trim().replace(/^(?:\\leq?|\\geq?|\\approx|\\sim|[≤≥≈~<>])\s*/, "");
+  let m, v;
+  if ((m = /^\\[dt]?frac\s*\{\s*(-?\d+(?:\.\d+)?)\s*\}\s*\{\s*(\d+(?:\.\d+)?)\s*\}/.exec(x))) v = m[1] / m[2];
+  else if ((m = /^(-?\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)/.exec(x))) v = m[1] / m[2];
+  else if ((m = /^-?\d+(?:\.\d+)?(?:\(\d+\))?/.exec(x))) v = parseFloat(m[0]);
+  else return NaN;
+  const rest = x.slice(m[0].length).trim();
+  return !rest || /^(?:[+\-−–]|\\pm|\\mp|\\text\{[–-]\})/.test(rest) ? v : NaN;
+}
+
+/** Split s at the separators in `seps` outside math, brackets and parentheses: [{ sep, text }], sep being the
+ *  separator before the part ("" for the first). */
+function topSplit(s, seps) {
+  const out = [];
+  let math = false, depth = 0, start = 0, sep = "";
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    if (c === "\\") i++;
+    else if (c === "$") math = !math;
+    else if (math) continue;
+    else if ("([{".includes(c)) depth++;
+    else if (")]}".includes(c)) depth--;
+    else if (depth === 0 && seps.includes(c)) {
+      out.push({ sep, text: s.slice(start, i).trim() });
+      [sep, start] = [c, i + 1];
+    }
+  }
+  out.push({ sep, text: s.slice(start).trim() });
+  return out.filter((x) => x.text);
+}
+
+/** The parenthesized remarks of s outside math, " (...)" after a space: [{ start, end, inner }]. */
+function parenGroups(s) {
+  const out = [];
+  let math = false, depth = 0, open = -1;
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    if (c === "\\") i++;
+    else if (c === "$") math = !math;
+    else if (math) continue;
+    else if (c === "(") {
+      if (depth === 0) open = i > 0 && s[i - 1] !== " " ? -1 : i;
+      depth++;
+    } else if (c === ")" && --depth === 0 && open >= 0) out.push({ start: open, end: i + 1, inner: s.slice(open + 1, i).trim() });
+  }
+  return out;
+}
+const cutParens = (s, groups) =>
+  groups.reduceRight((acc, g) => acc.slice(0, g.start) + acc.slice(g.end), s).replace(/\s{2,}/g, " ").replace(/\s+([,;])/g, "$1").trim();
+
+// LEGACY PATH, for entries not yet migrated to structured representations (no symmetry.global_group; see
+// docs/REPRESENTATIONS.md and repTable below). Remove once every entry is migrated.
+// A rep string mixes three things: the internal-symmetry representation ("$\mathbb{Z}_2$-even", "adjoint of $O(N)$"),
+// spacetime parity / time reversal ("parity-odd", "odd under parity and time reversal", "$P$-odd") and remarks on
+// the operator's role ("thermal", "order parameter", "superpartner of $\sigma$"). Each part (split at top-level , and ;
+// with its parenthesized remarks) is classified by these words.
+const OP_PARITY = /^(?:(?:parity|\$P\$)(?:[- ]and[- ](time[- ]reversal))?[- ](even|odd)|(even|odd) under (?:parity(?: and (time[- ]reversal))?|reflections?))$/i;
+const OP_ROLE = /thermal|order parameter|energy|\\sim\b|∼|predominantly|at large|descends|contains|partner|multiplet|component|descendant|^degenerate|same anomalous|same for|walk|generator|permuted|sum over|Néel|VBS|primar(?:y|ies)\b|spin field|supercurrent|mass operator|^fermion|fermionic$|^dirac|^even \$|chirality/i;
+const OP_REP = /singlet|adjoint|vector|symmetric|traceless|triplet|doublet|charge|neutral|\beven\b|\bodd\b|-even|-odd|bifundamental|representation|\brank\b|rank-|\\mathbf|irreducible|trivial|invariant|tensor|fundamental|\\wedge|winding|momentum|dimensional|sector|series|continu|discrete|completely degenerate|weights?\b|\$\s*\(?\s*(?:S?U|S?O|Sp|E_|SL|\\mathbb\s*\{Z\}|\\mathfrak)/i;
+const mathOnly = (s) => /\$/.test(s) && !s.replace(/\$[^$]*\$/g, "").replace(/\b(?:and|or|resp\.?)\b|[\s,;()]/g, "");
+const roleLike = (s) => OP_ROLE.test(s) || !(OP_REP.test(s) || mathOnly(s));
+
+/** An operator's rep string as { internal, head, P, T, parityText, role }: the internal representation (head: its first
+ *  part, which names the sector), parity and time reversal ("even" / "odd" / ""), the parity's wording, and the
+ *  remarks on its role, which the table shows with the note. null without a rep. */
+function repParts(rep) {
+  if (rep == null || !String(rep).trim()) return null;
+  const r = { P: "", T: "", parityText: "" }, kept = [], role = [];
+  for (const { sep, text } of topSplit(String(rep), ",;")) {
+    const parens = parenGroups(text), bare = cutParens(text, parens);
+    const pm = OP_PARITY.exec(bare);
+    if (pm) {
+      r.P = (pm[2] || pm[3]).toLowerCase();
+      if (pm[1] || pm[4]) r.T = r.P;
+      r.parityText = bare;
+      role.push(...parens.map((p) => p.inner));
+    } else if (roleLike(bare)) role.push(text);
+    else {
+      const q = parens.filter((p) => roleLike(p.inner));
+      role.push(...q.map((p) => p.inner));
+      kept.push({ sep, text: cutParens(text, q) });
+    }
+  }
+  r.internal = kept.map((k, i) => (i ? `${k.sep} ` : "") + k.text).join("");
+  r.head = kept[0] ? cutParens(kept[0].text, parenGroups(kept[0].text)) : "";
+  r.role = role.join("; ");
+  return r;
+}
+
+/** Grouping key of a rep head: spelling-insensitive ('$\mathbb{Z}_2$-even' = 'Z2-even', case, spaces), nothing more. */
+const repKey = (s) =>
+  s.toLowerCase()
+    .replace(/\\mathbb\s*\{\s*z\s*\}\s*_\s*\{?\s*(\d+)\s*\}?/g, "z$1")
+    .replace(/\\(?:mathbf|mathrm|rm|text|bf)\s*\{([^{}]*)\}/g, "$1")
+    .replace(/[$\s]+|\\[,;:! ]/g, " ")
+    .replace(/\s*-\s*/g, "-")
+    .replace(/traceless symmetric/g, "symmetric traceless")
+    .trim();
+
+/** The trivial sector (singlet, neutral, even, charge 0) comes first in the table. */
+const trivialRep = (key) => /(?:^|\s)singlets?$|^(?:neutral|trivial|charge 0|r ?= ?0)$|-even$/.test(key);
+
+/** Operator rows { o, i, parts, hk, key }: the sector key is the rep's head plus parity-odd, so parity-odd operators
+ *  form their own sector and an unlabelled parity counts as even (T_{μν}, currents, ...). No internal rep and no
+ *  parity: key null. */
+function operatorRows(ops) {
+  return ops.map((o, i) => {
+    const parts = repParts(o.rep);
+    if (!parts || (!parts.head && !parts.P)) return { o, i, parts, hk: null, key: null };
+    const hk = repKey(parts.head);
+    return { o, i, parts, hk, key: `${hk}|${parts.P === "odd" ? "odd" : ""}` };
+  });
+}
+
+/** Rows that are one operator determined several times (by different methods or papers) as items { rows, id }: same
+ *  name, spin, weights and multiplicity (rows already share a sector), and no theory parameter fixed differently
+ *  ("N_f = 12" in the name, note or rep). Rows best first (orderDets); items in the order of their first row. */
+function operatorItems(t, rows) {
+  const pars = (t.parameters || []).map((p) => normTex(p.symbol)).filter(Boolean);
+  const reEsc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const fixed = (o) => {
+    const s = normTex([o.name, o.note, o.rep, o.role].join(" "));
+    return pars.map((p) => new RegExp(`(?<![A-Za-z\\\\{])${reEsc(p)}=(-?\\d+(?:\\.\\d+)?)`).exec(s)?.[1] ?? "").join(",");
+  };
+  const key = (o) => [o.name, o.spin, o.weights, o.degeneracy].map(normTex).join("|") + "|" + fixed(o);
+  const items = new Map();
+  for (const r of rows) {
+    const k = key(r.o);
+    if (!items.has(k)) items.set(k, { rows: [], first: r.i });
+    items.get(k).rows.push(r);
+  }
+  const list = [...items.values()];
+  for (const it of list) it.rows = orderDets(it.rows, (r) => r.o.Delta, (r) => r.o.method);
+  return list;
+}
+
+/** Operators grouped into representation sectors, each a list of items ordered by spin, then by the Δ shown (the
+ *  preferred determination). Returns { groups, grouped }; grouped is false when sectors would add nothing (no reps, or
+ *  one rep): then one group, in data order. */
+function operatorGroups(t) {
+  const rows = operatorRows(t.operators);
+  // In a theory with parity whose entry marks some operators parity-odd, an operator with no parity stated is
+  // parity-even: say so (P column "+", heading "parity-even") rather than leave it blank.
+  const sym = t.symmetry || {};
+  const hasParity = /with parity/i.test(sym.spacetime || "") || /^\$O\(/.test(sym.euclidean || "");
+  if (hasParity && rows.some((r) => r.parts?.P === "odd"))
+    rows.forEach((r) => { if (r.parts && !r.parts.P) Object.assign(r.parts, { P: "even", parityText: "parity-even" }); });
+  const groups = new Map();
+  for (const r of rows) {
+    if (!groups.has(r.key)) groups.set(r.key, { key: r.key, rows: [] });
+    groups.get(r.key).rows.push(r);
+  }
+  const named = [...groups.values()].filter((g) => g.key !== null);
+  if (named.length < 2 || named.every((g) => g.rows.length < 2)) {
+    // Ungrouped: still one item per operator, though only rows of the same sector fold together.
+    const items = [...groups.values()].flatMap((g) => operatorItems(t, g.rows)).sort((a, b) => a.first - b.first);
+    return { grouped: false, groups: [{ key: "", heading: null, base: null, items }] };
+  }
+
+  const headOrder = new Map();
+  rows.forEach((r) => r.key !== null && !headOrder.has(r.hk) && headOrder.set(r.hk, headOrder.size));
+  const trivial = (r) => trivialRep(r.hk) || (!r.hk && r.parts.P === "even");
+  const rank = (g) => (g.key === null ? [2, 0, 0] : [trivial(g.rows[0]) ? 0 : 1, headOrder.get(g.rows[0].hk), g.key.endsWith("|odd") ? 1 : 0]);
+  const list = [...groups.values()].sort((a, b) => {
+    const [x, y] = [rank(a), rank(b)];
+    return x[0] - y[0] || x[1] - y[1] || x[2] - y[2];
+  });
+
+  const num = (v) => { const x = leadingNumber(v); return Number.isFinite(x) ? x : Infinity; };
+  for (const g of list) {
+    if (g.key !== null) {
+      // The heading is the internal representation when the sector shares one (else the common head), plus the parity
+      // when all its operators state the same one. The Representation column then shows a row's internal
+      // representation only where it says more than the heading.
+      const h = g.rows[0].parts;
+      const same = g.rows.every((r) => r.parts.internal === h.internal);
+      const showParity = g.rows.every((r) => r.parts.P && r.parts.P === h.P);
+      g.base = same ? h.internal : h.head;
+      g.heading = [g.base, showParity || !g.base ? h.parityText : ""].filter(Boolean).join(", ");
+    } else [g.heading, g.base] = [null, null];
+    g.items = operatorItems(t, g.rows);
+    const sk = (it) => [num(it.rows[0].o.spin), num(it.rows[0].o.Delta), it.first];
+    g.items.sort((a, b) => {
+      const [x, y] = [sk(a), sk(b)];
+      for (let k = 0; k < 3; k++) if (x[k] !== y[k]) return x[k] < y[k] ? -1 : 1;
+      return 0;
+    });
+  }
+  return { grouped: true, groups: list };
+}
+
+/** A group heading links its first common rep word to Wikipedia (one link at most, never inside math). */
+const REP_WIKI = [
+  [/\bsinglets?\b/i, "https://en.wikipedia.org/wiki/Trivial_representation"],
+  [/\badjoint\b/i, "https://en.wikipedia.org/wiki/Adjoint_representation"],
+  [/\bparity\b/i, "https://en.wikipedia.org/wiki/Parity_(physics)"],
+];
+function repWikiLinks(heading) {
+  if (/\]\(/.test(heading)) return heading; // already has a link
+  const parts = heading.split(/(\$[^$]*\$)/); // odd parts are math
+  let best = null;
+  for (let i = 0; i < parts.length; i += 2)
+    for (const [re, url] of REP_WIKI) {
+      const m = re.exec(parts[i]);
+      if (m && (!best || i < best.i || (i === best.i && m.index < best.at))) best = { i, at: m.index, len: m[0].length, url };
+    }
+  if (best) {
+    const p = parts[best.i];
+    parts[best.i] = `${p.slice(0, best.at)}[${p.slice(best.at, best.at + best.len)}](${best.url})${p.slice(best.at + best.len)}`;
+  }
+  return parts.join("");
+}
+
+/* ------------------------------------- structured representations (docs/REPRESENTATIONS.md) */
+// An entry with symmetry.global_group gives each operator a representation of the full symmetry group: Δ, spin (or
+// `lorentz`, or 2d weights), `parity`, and a label per global factor (`global`), which the build has parsed into
+// o.irrep.global = [{ factor, canon, text, trivial, sort }]. This is the presentation policy applied to that data:
+// group by global irrep, then by parity; a level that is constant over the table is stated once above it; within a
+// group, order by spin, then Δ.
+
+const PARITY_RANK = { even: 0, odd: 1, pair: 2, unknown: 3 };
+const PARITY_TEXT = { even: "parity-even", odd: "parity-odd", pair: "parity-paired", unknown: "parity not recorded" };
+const PARITY_TIP = {
+  even: "parity even", odd: "parity odd", unknown: "parity not recorded",
+  pair: "no parity eigenvalue: parity maps the operator to a partner in another representation (spin s to −s in 2d, (j, j̄) to (j̄, j) in 4d, a charge q to −q)",
+};
+const PARITY_SIGN = { even: "+", odd: "−", pair: "↔", unknown: "?" };
+
+/** Compare sort keys: numbers, or arrays of them compared lexicographically (shorter first on a tie). */
+function cmpKey(x, y) {
+  if (!Array.isArray(x) || !Array.isArray(y)) return x === y ? 0 : x < y ? -1 : 1;
+  for (let i = 0; i < Math.min(x.length, y.length); i++) {
+    const c = cmpKey(x[i], y[i]);
+    if (c) return c;
+  }
+  return x.length - y.length;
+}
+
+/** Heading text of a global irrep: its non-trivial factors (a factor not named is in its trivial representation). */
+function globalText(t, labels) {
+  const fs = t.global_factors || [];
+  const non = labels.filter((v) => !v.trivial);
+  if (non.length) return non.map((v) => v.text).join(", ");
+  return fs.length === 1 ? labels[0]?.text ?? "" : `singlet of $${fs.map((f) => f.tex).join(" \\times ")}$`;
+}
+
+/** The grouping levels of a structured entry, in the policy's order; each gives a row's key, sort key and text. */
+function repLevels(t) {
+  const sym = t.symmetry || {};
+  const out = [];
+  if ((t.global_factors || []).length)
+    out.push({
+      id: "global", header: "Representation",
+      key: (r) => r.o.irrep?.key ?? "",
+      sort: (r) => (r.o.irrep?.global || []).map((v) => v.sort),
+      text: (r) => globalText(t, r.o.irrep?.global || []),
+    });
+  if (sym.parity === true || sym.parity === "conditional")
+    out.push({
+      id: "parity", header: `<span title="Parity: + even, − odd, ↔ paired with a partner, ? not recorded">P</span>`, narrow: true,
+      key: (r) => r.o.parity ?? "unknown",
+      sort: (r) => PARITY_RANK[r.o.parity ?? "unknown"],
+      text: (r) => PARITY_TEXT[r.o.parity ?? "unknown"],
+      cell: (r) => { const p = r.o.parity ?? "unknown"; return `<span title="${PARITY_TIP[p]}">${PARITY_SIGN[p]}</span>`; },
+    });
+  return out;
+}
+
+/** Operators of a structured entry as { groups, grouped, levels, constant }. Levels taking one value over the whole
+ *  table are `constant` (stated above it); the others group the table. Grouped is false when no group would have two
+ *  operators: then one group, the remaining levels become columns. */
+function repGroups(t) {
+  const rows = t.operators.map((o, i) => ({ o, i }));
+  const levels = repLevels(t);
+  const constant = levels.filter((L) => new Set(rows.map(L.key)).size === 1);
+  const active = levels.filter((L) => !constant.includes(L));
+  const groups = new Map();
+  for (const r of rows) {
+    const k = active.map((L) => L.key(r)).join("||");
+    if (!groups.has(k)) groups.set(k, { key: k, rows: [] });
+    groups.get(k).rows.push(r);
+  }
+  const list = [...groups.values()].sort((a, b) => {
+    for (const L of active) {
+      const c = cmpKey(L.sort(a.rows[0]), L.sort(b.rows[0]));
+      if (c) return c;
+    }
+    return a.rows[0].i - b.rows[0].i;
+  });
+  const num = (v) => { const x = leadingNumber(v); return Number.isFinite(x) ? x : Infinity; };
+  const spinOf = (o) => num(o.spin ?? 0);
+  for (const g of list) {
+    g.items = operatorItems(t, g.rows);
+    g.items.sort((a, b) => cmpKey([spinOf(a.rows[0].o), num(a.rows[0].o.Delta), a.first], [spinOf(b.rows[0].o), num(b.rows[0].o.Delta), b.first]));
+    g.heading = active.map((L) => L.text(g.rows[0])).filter(Boolean).join(", ");
+  }
+  const grouped = active.length > 0 && list.some((g) => g.items.length > 1);
+  return { groups: list, grouped, levels, constant, active };
+}
+
+/** Lorentz label for the Spin column: `lorentz` when given ('(1/2, 0)' -> (\tfrac12, 0)), else the spin. */
+function lorentzTex(o) {
+  if (o.lorentz == null) return o.spin != null ? tex(o.spin) : "";
+  return tex(String(o.lorentz).replace(/(\d+)\/(\d+)/g, "\\tfrac{$1}{$2}"));
+}
+
+function multipletHtml(m) {
+  if (!m) return "";
+  const comp = m.component === "primary" ? "primary" : tex(m.component);
+  return `${md(m.name, true)}, ${comp}${m.type ? ` <span class="op-role">(${md(m.type, true)})</span>` : ""}`;
+}
+
+/** The operators table of a structured entry (policy in docs/REPRESENTATIONS.md). */
+function repTable(t, source) {
+  const { groups, grouped, levels, constant, active } = repGroups(t);
+  const ops = t.operators;
+  const allRows = groups.flatMap((g) => g.items.flatMap((it) => it.rows));
+  const roleTag = (r) => (r.o.role ? ` <span class="op-role${r.o.role.length <= 24 ? " nowrap" : ""}">· ${md(r.o.role, true)}</span>` : "");
+  const differs = (f) => (r, it, g, head) => {
+    const v = f(r, it, g);
+    return head || v !== f(it.rows[0], it, g) ? v : "";
+  };
+  const spins = new Set(ops.map((o) => normTex(o.lorentz ?? o.spin ?? "")));
+  const spinConstant = spins.size === 1 && ops.every((o) => o.weights == null);
+  const T = t.symmetry?.time_reversal === "independent";
+  // Levels that group the table are in the headings; in an ungrouped table they are columns.
+  const levelCols = grouped ? [] : active.map((L) => [L.header, differs((r) => (L.cell ? L.cell(r) : md(L.text(r), true))), true, L.narrow]);
+  const cols = [
+    ["Operator", (r, it, g, head) => (head ? tex(r.o.name) + roleTag(r) : (r.o.role ?? "") !== (it.rows[0].o.role ?? "") ? roleTag(r).trim() : ""), true],
+    ["Δ", (r, it, g, head) => {
+      const v = `<span class="value">${tex(r.o.Delta)}</span>`;
+      const bad = (x) => disagreement(it.rows[0].o, x.o, (o) => o.Delta);
+      if (!head) return v + disagreeBadge(bad(r));
+      const n = it.rows.length - 1;
+      return v + (n ? detsButton(it.id, n, it.rows.filter((x) => bad(x)).length) : "");
+    }, true],
+    [tex("(h, \\bar h)"), differs((r) => (r.o.weights ? tex(r.o.weights) : "")), ops.some((o) => o.weights != null)],
+    ["Mult.", differs((r) => (r.o.degeneracy ? tex(r.o.degeneracy) : "")), ops.some((o) => o.degeneracy != null)],
+    [ops.some((o) => o.lorentz != null) && t.d === 4 ? tex("(j, \\bar\\jmath)") : "Spin", differs((r) => lorentzTex(r.o)),
+      ops.some((o) => o.spin != null || o.lorentz != null) && !spinConstant],
+    ...levelCols,
+    [`<span title="Time reversal: + even, − odd">T</span>`, differs((r) => (r.o.T ? `<span title="time reversal ${r.o.T}">${PARITY_SIGN[r.o.T]}</span>` : "")), T, true],
+    ["Multiplet", differs((r) => multipletHtml(r.o.multiplet)), ops.some((o) => o.multiplet)],
+    ["Notes", (r) => (r.o.note ? md(r.o.note, true) : ""), ops.some((o) => o.note != null)],
+    ["Source", (r) => source(r.o), ops.some((o) => o.method || o.refs?.length)],
+  ].filter(([, , shown]) => shown);
+  const narrow = new Set(cols.map((c, k) => (c[3] ? k : -1)).filter((k) => k >= 0));
+  const td = (c, k) => `<td${narrow.has(k) ? ` class="num"` : ""}>${c ?? ""}</td>`;
+  let seq = 0;
+  const body = groups
+    .map((g) => {
+      const gid = `opg-${++DET_SEQ}`;
+      const head = !grouped ? "" : `<tbody class="op-head"><tr class="op-group"><th colspan="${cols.length}" scope="rowgroup">
+        <button type="button" class="linkish op-fold" data-opgroup="${gid}" aria-expanded="true" title="Fold this group">▾</button>
+        ${md(repWikiLinks(g.heading), true)} <span class="op-count">${g.items.length}</span></th></tr></tbody>`;
+      return head + g.items
+        .map((it) => {
+          it.id = `det-${++DET_SEQ}`;
+          const [first, ...rest] = it.rows;
+          const tr = (r, isHead) => `<tr${isHead ? "" : ` class="det" data-det="${it.id}" hidden`}>${cols.map(([, f], k) => td(f(r, it, g, isHead), k)).join("")}</tr>`;
+          return `<tbody class="item${seq++ % 2 ? " alt" : ""}"${grouped ? ` data-ingroup="${gid}"` : ""}>${tr(first, true)}${rest.map((r) => tr(r, false)).join("")}</tbody>`;
+        })
+        .join("");
+    })
+    .join("");
+  // What every operator shares is said once, above the table.
+  const shared = [
+    ...constant.map((L) => L.text({ o: ops[0] })),
+    spinConstant && ops[0].spin != null ? (ops[0].lorentz == null ? `spin $${ops[0].spin}$` : `Lorentz representation $${ops[0].lorentz}$`) : "",
+  ].filter(Boolean);
+  const caption = shared.length ? `<p class="small muted intro">All operators listed: ${md(shared.join(", "), true)}.</p>` : "";
+  const btn = allRows.length > groups.reduce((n, g) => n + g.items.length, 0)
+    ? `<p class="small"><button type="button" class="linkish small" data-dets-all aria-expanded="false">Show all determinations</button></p>` : "";
+  return `${caption}${btn}<div class="table-wrap"><table class="ops"><thead><tr>${cols.map(([h], k) => `<th${narrow.has(k) ? ` class="num"` : ""}>${h}</th>`).join("")}</tr></thead>${body}</table></div>`;
+}
+
+app.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-opgroup]");
+  if (!b) return;
+  const open = b.getAttribute("aria-expanded") !== "true";
+  app.querySelectorAll(`[data-ingroup="${b.dataset.opgroup}"]`).forEach((tb) => (tb.hidden = !open));
+  b.setAttribute("aria-expanded", open);
+  b.textContent = open ? "▾" : "▸";
+  b.title = open ? "Fold this group" : "Show this group";
+});
+
+/** The operators table. One tbody per operator: the preferred determination shows (orderDets), the others fold under
+ *  "+n more" in the same item. Parity (P) and time reversal (T) get their own columns, as + / −, where some operator
+ *  states them. A grouped table has no Representation column: the sector heading carries the representation, and a
+ *  row whose representation says more than its heading ("singlet; $SU(N_f)$ adjoint" under "singlet") states it in
+ *  its note. An ungrouped table keeps a Representation column of internal representations only. Remarks on an
+ *  operator's role ("thermal", "order parameter") are a muted tag after its name, never a representation. */
+function operatorsTable(t, source) {
+  if (t.symmetry?.global_group) return repTable(t, source);
+  const { groups, grouped } = operatorGroups(t);
+  const allItems = groups.flatMap((g) => g.items);
+  const sign = (s, what) => (s ? `<span title="${what} ${s}">${s === "odd" ? "−" : "+"}</span>` : "");
+  const repOf = (g, r) => {
+    const x = r.parts?.internal ?? "";
+    return grouped && g.key !== null && x === g.base ? "" : x;
+  };
+  // A short remark stays on one line with the name; a long one wraps.
+  const roleTag = (r) => (r.parts?.role ? ` <span class="op-role${r.parts.role.length <= 24 ? " nowrap" : ""}">· ${md(r.parts.role, true)}</span>` : "");
+  const ops = t.operators;
+  // [header, cell(row, item, group, head?), shown?]. A folded row repeats a column only where it differs from the row shown.
+  const differs = (f) => (r, it, g, head) => {
+    const v = f(r, it, g);
+    return head || v !== f(it.rows[0], it, g) ? v : "";
+  };
+  const extraRep = (r, it, g) => (grouped && repOf(g, r) ? `<div class="op-rep">Representation: ${md(repOf(g, r), true)}</div>` : "");
+  const cols = [
+    ["Operator", (r, it, g, head) => (head ? tex(r.o.name) + roleTag(r) : (r.parts?.role ?? "") !== (it.rows[0].parts?.role ?? "") ? roleTag(r).trim() : ""), true],
+    ["Δ", (r, it, g, head) => {
+      const v = `<span class="value">${tex(r.o.Delta)}</span>`;
+      const bad = (x) => disagreement(it.rows[0].o, x.o, (o) => o.Delta);
+      if (!head) return v + disagreeBadge(bad(r));
+      const n = it.rows.length - 1;
+      return v + (n ? detsButton(it.id, n, it.rows.filter((x) => bad(x)).length) : "");
+    }, true],
+    [tex("(h, \\bar h)"), differs((r) => (r.o.weights ? tex(r.o.weights) : "")), ops.some((o) => o.weights != null)],
+    ["Mult.", differs((r) => (r.o.degeneracy ? tex(r.o.degeneracy) : "")), ops.some((o) => o.degeneracy != null)],
+    ["Spin", differs((r) => (r.o.spin != null ? tex(r.o.spin) : "")), ops.some((o) => o.spin != null)],
+    [`<span title="Parity: + even, − odd">P</span>`, differs((r) => sign(r.parts?.P, "parity")), allItems.some((it) => it.rows.some((r) => r.parts?.P))],
+    [`<span title="Time reversal: + even, − odd">T</span>`, differs((r) => sign(r.parts?.T, "time reversal")), allItems.some((it) => it.rows.some((r) => r.parts?.T))],
+    ["Representation", differs((r, it, g) => md(repOf(g, r), true)), !grouped && allItems.some((it) => it.rows.some((r) => r.parts?.internal))],
+    ["Notes", (r, it, g, head) => differs(extraRep)(r, it, g, head) + (r.o.note ? md(r.o.note, true) : ""),
+      ops.some((o) => o.note != null) || (grouped && groups.some((g) => g.items.some((it) => it.rows.some((r) => repOf(g, r)))))],
+    ["Source", (r) => source(r.o), ops.some((o) => o.method || o.refs?.length)],
+  ].filter(([, , shown]) => shown);
+  const narrow = new Set(["P", "T"].map((h) => cols.findIndex(([x]) => x.endsWith(`>${h}</span>`))));
+  const td = (c, k) => `<td${narrow.has(k) ? ` class="num"` : ""}>${c ?? ""}</td>`;
+  const body = groups
+    .map((g) => {
+      const head = !grouped ? "" : `<tbody class="op-head"><tr class="op-group"><th colspan="${cols.length}" scope="rowgroup">${
+        g.heading == null ? `<span class="op-group-none">representation not given</span>` : md(repWikiLinks(g.heading), true)}</th></tr></tbody>`;
+      return head + g.items
+        .map((it, j) => {
+          it.id = `det-${++DET_SEQ}`;
+          const [first, ...rest] = it.rows;
+          const tr = (r, isHead) => `<tr${isHead ? "" : ` class="det" data-det="${it.id}" hidden`}>${cols.map(([, f], k) => td(f(r, it, g, isHead), k)).join("")}</tr>`;
+          return `<tbody class="item${j % 2 ? " alt" : ""}">${tr(first, true)}${rest.map((r) => tr(r, false)).join("")}</tbody>`;
+        })
+        .join("");
+    })
+    .join("");
+  const btn = allItems.some((it) => it.rows.length > 1)
+    ? `<p class="small"><button type="button" class="linkish small" data-dets-all aria-expanded="false">Show all determinations</button></p>` : "";
+  return `${btn}<div class="table-wrap"><table class="ops"><thead><tr>${cols.map(([h], k) => `<th${narrow.has(k) ? ` class="num"` : ""}>${h}</th>`).join("")}</tr></thead>${body}</table></div>`;
+}
+
 function viewTheory(id) {
   const t = BY_ID.get(id);
   if (!t) return viewNotFound(`No theory with id “${id}”.`);
   document.title = `${plain(t.name)} — QFT Zoo`;
 
   const refs = t.references || [];
-  const refNum = new Map(refs.map((r, i) => [r.key, i + 1]));
-  const cite = (keys) =>
-    (keys || []).map((k) => `<a class="cite" href="#" data-ref="${esc(k)}">[${refNum.get(k)}]</a>`).join("");
-  const source = (x) => [x.method ? esc(x.method) : "", cite(x.refs)].filter(Boolean).join(" ");
+  citeStart(refs.map((r) => [t.id, r.key])); // the entry's own references keep their order; others cited on the page follow
+  CITE_OWNER = t.id;
+  const cite = (keys) => citeRefs(t.id, keys);
+  const source = (x) => [x.method ? methodHtml(x.method) : "", cite(x.refs)].filter(Boolean).join(" ");
 
   const out = [];
 
   const { overview, topics } = splitDescription(t.description);
   if (overview.trim()) out.push(section("overview", "Overview", `<div class="prose">${md(overview)}</div>`));
 
-  const flows = theoryLinks(t).filter(isFlow);
-  if (flows.length) {
-    const cluster = flowClusters(allFlows()).find((c) => c.some((f) => f.uv === t.id || f.ir === t.id));
-    out.push(section("flows", "RG flows", `${flowDiagram(cluster, t.id)}${relationList(t, flows)}
+  const fs = theoryFlows(t);
+  const mine = [...fs.from, ...fs.to, ...fs.part, ...fs.page];
+  if (mine.length) {
+    const clusters = flowClusters(allFlows()).filter((c) => c.some((f) => mine.includes(f)));
+    out.push(section("flows", "RG flows", `${clusters.map((c) => flowDiagram(c, t.id)).join("")}${flowList(t, fs)}
       <p class="small"><a href="#/flows">All RG flows in the zoo →</a></p>`));
   }
 
@@ -466,8 +1421,7 @@ function viewTheory(id) {
   if (t.symmetry) {
     const s = t.symmetry;
     const rows = [
-      ["Spacetime", s.spacetime && md(s.spacetime, true)],
-      ["Supercharges", s.supercharges != null && tex(s.supercharges)],
+      ["Spacetime", (s.spacetime || s.euclidean || s.lorentzian) && spacetimeHtml(s)],
       ["Global", s.global && md(s.global, true)],
       ["Gauge", s.gauge && md(s.gauge, true)],
       ["Notes", s.notes && md(s.notes, true)],
@@ -475,53 +1429,21 @@ function viewTheory(id) {
     out.push(section("symmetry", "Symmetry", `<dl class="kv">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>`));
   }
 
-  if (t.operators?.length) {
-    // Only show columns that some operator fills.
-    const cols = [
-      ["Operator", (o) => tex(o.name), true],
-      ["Δ", (o) => `<span class="value">${tex(o.Delta)}</span>`, true],
-      [tex("(h, \\bar h)"), (o) => (o.weights ? tex(o.weights) : ""), "weights"],
-      ["Mult.", (o) => (o.degeneracy ? tex(o.degeneracy) : ""), "degeneracy"],
-      ["Spin", (o) => (o.spin != null ? tex(o.spin) : ""), "spin"],
-      ["Representation", (o) => md(o.rep, true), "rep"],
-      ["Notes", (o) => md(o.note, true), "note"],
-      ["Source", source, null],
-    ].filter(([, , key]) => key === true || key === null || t.operators.some((o) => o[key] != null));
-    const hasSource = t.operators.some((o) => o.method || o.refs?.length);
-    const use = cols.filter(([h]) => h !== "Source" || hasSource);
-    out.push(section("operators", "Operators",
-      table(use.map(([h]) => h), t.operators.map((o) => use.map(([, f]) => f(o))), "data")));
-  }
+  if (t.operators?.length) out.push(section("operators", "Operators", operatorsTable(t, source)));
 
-  if (t.quantities?.length)
-    out.push(
-      section(
-        "data",
-        "Data",
-        table(
-          ["Quantity", "Description", "Value", "Source"],
-          t.quantities.map((q) => [
-            tex(q.symbol),
-            md(q.description, true) + (q.note ? `<div class="sub">${md(q.note, true)}</div>` : ""),
-            `<span class="value">${tex(q.value)}</span>`,
-            source(q),
-          ]),
-          "data"
-        )
-      )
-    );
+  const usedTopics = new Set();
+  if (t.quantities?.length) out.push(...dataSections(t, source, topics, usedTopics));
 
   if (t.spectra?.length) out.push(section("spectrum", "Spectrum", spectrumShell(t)));
 
   topics.forEach(({ title, body }, i) =>
-    out.push(section(`topic-${i}`, md(title, true), `<div class="prose">${md(body)}</div>`))
+    usedTopics.has(i) || out.push(section(`topic-${i}`, md(title, true), `<div class="prose">${md(body)}</div>`))
   );
 
   const others = theoryLinks(t).filter((l) => !isFlow(l));
   if (others.length) out.push(section("relations", "Relations", relationList(t, others)));
 
-  if (refs.length)
-    out.push(section("references", "References", `<ol class="refs">${refs.map(refItem).join("")}</ol>`));
+  if (CITES.list.length) out.push(section("references", "References", citeList()));
 
   const contributors = (t.contributors || [])
     .map((u) => `<a href="https://github.com/${encodeURIComponent(u)}" target="_blank" rel="noopener">@${esc(u)}</a>`)
@@ -585,18 +1507,79 @@ function relationList(t, links) {
 
 /* ---------------------------------------------------------------- RG flows */
 
-/** Every recorded flow once, whichever side of the link it was read from. */
+// A flow is identified by its UV entry and the relation's `id` (or its position), as
+// build.py records in `flow_key`. Only flows_to relations are read, never the reverse
+// links, so two flows between the same theories stay two flows, and none is counted twice.
+let FLOWS = null;
+const FLOW_BY_KEY = new Map();
+
+/** Every recorded flow once, read from the UV side. A composite IR (`target_expr`) is a node
+ *  of its own, "expr:<flow key>", so expressions from different flows never merge. */
 function allFlows() {
-  const flows = new Map();
+  if (FLOWS) return FLOWS;
+  FLOWS = [];
   for (const t of DB.theories)
-    for (const l of theoryLinks(t).filter(isFlow)) {
-      if (!BY_ID.has(l.target)) continue;
-      const [uv, ir] = l.type === "flows_to" ? [t.id, l.target] : [l.target, t.id];
-      const key = [uv, ir, l.at ?? "", l.variant ?? ""].join("|");
-      if (!flows.has(key)) flows.set(key, { uv, ir, note: l.note, at: linkAt(t, l) });
-    }
-  return [...flows.values()];
+    (t.relations || []).forEach((l, i) => {
+      if (l.type !== "flows_to") return;
+      const key = l.flow_key ?? `${t.id}@${i}`;
+      let f;
+      if (l.target_expr) {
+        if (!exprLeaves(l.target_expr).every((x) => BY_ID.has(x.entry))) return;
+        f = { key, uv: t.id, ir: `expr:${key}`, expr: l.target_expr, note: l.note, at: "", rel: l, flow: l.flow };
+      } else {
+        if (!BY_ID.has(l.target)) return;
+        f = { key, uv: t.id, ir: l.target, note: l.note, at: linkAt(t, l), rel: l, flow: l.flow };
+      }
+      FLOWS.push(f);
+      FLOW_BY_KEY.set(key, f);
+    });
+  return FLOWS;
 }
+
+const isExprNode = (id) => id.startsWith("expr:");
+const exprLeaves = (x) => (x.entry ? [x] : x.terms.flatMap((term) => exprLeaves(term.expr)));
+const nodeDim = (id) => BY_ID.get(isExprNode(id) ? FLOW_BY_KEY.get(id.slice(5)).uv : id).d;
+
+const OPERATION = {
+  direct_sum: { symbol: "⊕", page: "direct-sum", name: "direct sum" },
+  tensor_product: { symbol: "⊗", page: "tensor-product", name: "tensor product" },
+};
+const operationPage = (op) => (DB.operations || []).find((o) => o.id === OPERATION[op].page);
+
+/** A composite IR as HTML: entry names linked, operations linked to their explanation pages. */
+function exprHtml(x, top = true) {
+  if (x.entry) {
+    const t = BY_ID.get(x.entry);
+    const at = x.at != null
+      ? ` <span class="muted">(${tex(`${paramTex(t.family?.parameter ?? "")}${t.family ? " = " : ""}${x.at}`)}${x.variant ? `, ${esc(x.variant)}` : ""})</span>`
+      : "";
+    return `<a href="#/theory/${encodeURIComponent(x.entry)}">${md(t.name, true)}</a>${at}`;
+  }
+  const op = OPERATION[x.operation];
+  const sym = operationPage(x.operation)
+    ? `<a class="flow-op" href="#/operation/${op.page}" title="${esc(op.name)}">${op.symbol}</a>`
+    : `<span class="flow-op" title="${esc(op.name)}">${op.symbol}</span>`;
+  const terms = x.terms.map((term) => {
+    const inner = exprHtml(term.expr, false);
+    return (term.multiplicity ?? 1) > 1 ? `${inner}<sup>${op.symbol}${term.multiplicity}</sup>` : inner;
+  });
+  const body = terms.join(` ${sym} `);
+  return top ? body : `(${body})`;
+}
+
+function exprPlain(x, top = true) {
+  if (x.entry) return plain(BY_ID.get(x.entry).name) + (x.at != null ? ` (${plain(String(x.at))})` : "");
+  const op = OPERATION[x.operation];
+  const body = x.terms
+    .map((term) => exprPlain(term.expr, false) + ((term.multiplicity ?? 1) > 1 ? ` ${op.symbol}${term.multiplicity}` : ""))
+    .join(` ${op.symbol} `);
+  return top ? body : `(${body})`;
+}
+
+/** In flow diagrams, lists and previews a theory goes by its short name when it has one. */
+const shortName = (t) => t.short_name ?? t.name;
+const nodeName = (id) => (isExprNode(id) ? exprHtml(FLOW_BY_KEY.get(id.slice(5)).expr) : `<a href="#/theory/${encodeURIComponent(id)}">${md(shortName(BY_ID.get(id)), true)}</a>`);
+const nodePlain = (id) => (isExprNode(id) ? exprPlain(FLOW_BY_KEY.get(id.slice(5)).expr) : plain(shortName(BY_ID.get(id))));
 
 /** Flows grouped into connected networks. */
 function flowClusters(flows) {
@@ -617,79 +1600,496 @@ function flowClusters(flows) {
   return [...clusters.values()];
 }
 
-/** One network, UV at the top and IR at the bottom. A theory's row is the longest chain
- *  of flows below it, so the vertical position shows order, not an energy scale. */
-function flowDiagram(cluster, current = null) {
-  const ranks = new Map();
-  const rank = (id, path) => {
-    if (ranks.has(id)) return ranks.get(id);
-    if (path.has(id)) return 0; // a cycle would be a data error; don't hang on it
-    path.add(id);
-    const r = Math.max(0, ...cluster.filter((f) => f.uv === id).map((f) => 1 + rank(f.ir, path)));
-    path.delete(id);
-    ranks.set(id, r);
-    return r;
-  };
-  const ids = [...new Set(cluster.flatMap((f) => [f.uv, f.ir]))];
-  ids.forEach((id) => rank(id, new Set()));
-  const node = (id) => {
-    const t = BY_ID.get(id);
-    const kind = t.tags?.includes("CFT") ? "" : `<span class="flow-kind">not a CFT</span>`;
-    return id === current
-      ? `<span class="flow-node current" data-flow-node="${esc(id)}" aria-current="page">${md(t.name, true)}${kind}</span>`
-      : `<a class="flow-node" data-flow-node="${esc(id)}" href="#/theory/${encodeURIComponent(id)}">${md(t.name, true)}${kind}</a>`;
-  };
-  const rows = [];
-  for (let r = Math.max(...ranks.values()); r >= 0; r--) {
-    const row = ids.filter((id) => ranks.get(id) === r);
-    rows.push(`<div class="flow-row" style="--n:${row.length}">${row.map(node).join("")}</div>`);
-  }
-  const edges = cluster.map((f) => [f.uv, f.ir]);
-  return `<div class="flow-graph" data-edges="${esc(JSON.stringify(edges))}">${rows.join("")}</div>`;
+const SIGN_REL = { positive: "> 0", negative: "< 0", zero: "= 0", either: "\\gtrless 0" };
+const SIGN_SHORT = { positive: "+", negative: "−", zero: "0", either: "±" };
+const SIGN_WORD = { positive: "positive", negative: "negative", zero: "zero", either: "either sign" };
+
+/** Plain-text name of an arrow, for screen readers and the tooltip's heading. */
+function edgeName(f) {
+  const fl = f.flow;
+  const what = [];
+  for (const d of fl?.deformations || [])
+    what.push(`${plain(d.operator)}${d.sign ? `, ${plain(d.coupling)} ${SIGN_WORD[d.sign]}` : ""}`);
+  for (const v of fl?.vevs || []) what.push(`vev of ${plain(v.operator)}`);
+  const page = fl?.page && BY_ID.get(fl.page);
+  return `Flow from ${nodePlain(f.uv)} to ${nodePlain(f.ir)}${what.length ? `: ${what.join("; ")}` : ""}${
+    page ? `. Flow page: ${plain(page.name)}` : ""}`;
 }
 
-/** The arrows are decoration: the links and lists next to each diagram carry the same content. */
+let FLOW_VIEWS = 0;
+
+const MONOTONE_SYM = { 2: "c", 3: "F", 4: "a", 5: "\\tilde F", 6: "a" };
+
+/** Rows of one network, UV at the top and IR at the bottom, as compact as the flows allow. Theories are taken
+ *  in order of the quantity that decreases along flows (c, F or a: build.py's flow_height; where none is
+ *  recorded, a rough count of UV degrees of freedom), always after their UV theories. A theory joins the
+ *  lowest row so far unless a flow joins it to that row or its value is well below the row's (factor 1.6),
+ *  so height follows the monotone roughly while unrelated theories sit side by side. */
+function flowRows(cluster) {
+  const ids = [...new Set(cluster.flatMap((f) => [f.uv, f.ir]))];
+  const h = (id) => BY_ID.get(id).flow_height?.value;
+  const parents = (id) => cluster.filter((f) => f.ir === id).map((f) => f.uv);
+  const placed = new Set();
+  const order = [];
+  while (order.length < ids.length) {
+    const ready = ids.filter((id) => !placed.has(id) && parents(id).every((p) => placed.has(p)));
+    if (!ready.length) { order.push(...ids.filter((id) => !placed.has(id))); break; } // a cycle would be a data error
+    ready.sort((a, b) => (h(b) ?? Infinity) - (h(a) ?? Infinity));
+    placed.add(ready[0]);
+    order.push(ready[0]);
+  }
+  const rows = [];
+  for (const id of order) {
+    const row = rows.at(-1);
+    const [x, top] = [h(id), row && Math.max(...row.map(h).filter((v) => v != null))];
+    const near = x == null || !isFinite(top) || x === top || (x > 0 && top / x <= 1.6);
+    if (row && near && !parents(id).some((p) => row.includes(p))) row.push(id);
+    else rows.push([id]);
+  }
+  // Within a row, order theories by where their UV theories sit, to keep arrows from crossing.
+  const pos = new Map();
+  rows.forEach((row) => {
+    const bary = (id) => { const ps = parents(id).map((p) => pos.get(p)); return ps.length ? ps.reduce((s, v) => s + v, 0) / ps.length : 0.5; };
+    row.sort((a, b) => bary(a) - bary(b));
+    row.forEach((id, i) => pos.set(id, (i + 0.5) / row.length));
+  });
+  return rows;
+}
+
+function flowDiagram(cluster, current = null) {
+  const node = (id) => {
+    if (isExprNode(id)) {
+      const f = FLOW_BY_KEY.get(id.slice(5));
+      const deco = f.expr.decoration ? `<span class="flow-deco">${md(f.expr.decoration, true)}</span>` : "";
+      return `<div class="flow-node composite" data-flow-node="${esc(id)}">${exprHtml(f.expr)}${deco}<span class="flow-kind">composite</span></div>`;
+    }
+    const t = BY_ID.get(id);
+    const fh = t.flow_height;
+    const sym = MONOTONE_SYM[t.d];
+    // Tooltip: the full name, and the value that set the theory's height.
+    const height = fh && sym
+      ? (fh.estimated ? `$${sym}$ not recorded: placed by a rough count of UV degrees of freedom` : `$${sym}$ ${fh.exact ? "=" : "≈"} ${+fh.value.toPrecision(4)}`)
+      : "";
+    const title = ` data-tip="${esc(`<b>${md(t.name, true)}</b>${height ? `<div class="muted small">${md(height, true)}</div>` : ""}`)}"`;
+    return id === current
+      ? `<span class="flow-node current" data-flow-node="${esc(id)}" aria-current="page"${title}>${md(shortName(t), true)}</span>`
+      : `<a class="flow-node" data-flow-node="${esc(id)}" href="#/theory/${encodeURIComponent(id)}"${title}>${md(shortName(t), true)}</a>`;
+  };
+  const view = `flowview-${++FLOW_VIEWS}`;
+  const rows = flowRows(cluster).map(
+    (row) => `<div class="flow-row" style="--n:${row.length}">${row.map(node).join("")}</div>`);
+  // Parallel flows (same two nodes) get separate lanes, drawn as curves either side of the line.
+  const lanes = new Map();
+  cluster.forEach((f) => lanes.set(`${f.uv}|${f.ir}`, [...(lanes.get(`${f.uv}|${f.ir}`) || []), f.key]));
+  const edges = cluster.map((f) => {
+    const lane = lanes.get(`${f.uv}|${f.ir}`);
+    return [f.uv, f.ir, f.key, lane.indexOf(f.key), lane.length];
+  });
+  return `<div class="flow-view" id="${view}">
+    <div class="flow-graph" data-edges="${esc(JSON.stringify(edges))}">${rows.join("")}
+      <div class="flow-tip" id="${view}-tip" role="tooltip" hidden></div></div>
+    <p class="small muted flow-hint">Hover over an arrow to see what drives the flow; click or tap it for the details.</p>
+    <section class="flow-panel" id="${view}-panel" aria-label="Flow details" tabindex="-1" hidden></section>
+    <p class="visually-hidden" aria-live="polite" data-flow-status></p></div>`;
+}
+
+/** The arrows are decoration for keyboard and screen-reader users, who reach the same details from the
+ *  list or table next to each diagram; for the mouse, each arrow is a thick line that shows a preview on hover
+ *  and opens the details on click. Every arrow from a theory starts at one point, marked by a dot, in the middle
+ *  of the bottom of its box; arrows into a box spread along its top edge in the order they arrive from. Each
+ *  arrow takes the gentlest bend (straight first) that keeps it from being mistaken for another: running along
+ *  another arrow, or passing near another box's dot or arrowheads. Passing under a box is allowed but costs a
+ *  little, so an arrow curves around boxes when that takes only a slight bend. Parallel flows between the same
+ *  two theories take lanes either side. */
 function drawFlowArrows() {
   app.querySelectorAll(".flow-graph").forEach((g) => {
-    g.querySelector("svg")?.remove();
+    g.querySelector("svg.flow-arrows:not(.flow-dots)")?.remove();
     const box = g.getBoundingClientRect();
+    const rel = (r) => ({ l: r.left - box.left, t: r.top - box.top, r: r.right - box.left, b: r.bottom - box.top });
+    const selected = g.closest(".flow-view")?.dataset.selected;
     const svg = svgEl("svg", { class: "flow-arrows", width: box.width, height: box.height, "aria-hidden": "true" });
-    for (const [uv, ir] of JSON.parse(g.dataset.edges)) {
-      const a = g.querySelector(`[data-flow-node="${CSS.escape(uv)}"]`).getBoundingClientRect();
-      const b = g.querySelector(`[data-flow-node="${CSS.escape(ir)}"]`).getBoundingClientRect();
-      const [x1, y1] = [a.left + a.width / 2 - box.left, a.bottom - box.top];
-      const [x2, y2] = [b.left + b.width / 2 - box.left, b.top - box.top - 2];
-      const len = Math.hypot(x2 - x1, y2 - y1) || 1;
-      const [ux, uy] = [(x2 - x1) / len, (y2 - y1) / len];
-      const [bx, by] = [x2 - 8 * ux, y2 - 8 * uy];
-      svgEl("line", { x1, y1, x2: bx, y2: by }, svg);
-      svgEl("polygon", { points: `${x2},${y2} ${bx - 4 * uy},${by + 4 * ux} ${bx + 4 * uy},${by - 4 * ux}` }, svg);
+    const els = new Map([...g.querySelectorAll("[data-flow-node]")].map((n) => [n.dataset.flowNode, n]));
+    els.forEach((n) => (n.style.transform = ""));
+    const R = new Map([...els].map(([id, n]) => [id, rel(n.getBoundingClientRect())]));
+    const cx = (id) => (R.get(id).l + R.get(id).r) / 2;
+    // Shift a box sideways (top row first) when that takes it out from under arrows that aren't its own,
+    // keeping clear of its neighbours and inside the diagram.
+    const E = JSON.parse(g.dataset.edges);
+    const shift = (id, dx) => { const r = R.get(id); return { ...r, l: r.l + dx, r: r.r + dx }; };
+    const crossing = (id, r) => E.filter(([u, v]) => u !== id && v !== id).filter(([u, v]) => {
+      const [a, b] = [R.get(u), R.get(v)];
+      const [x1, y1, x2, y2] = [(a.l + a.r) / 2, a.b, (b.l + b.r) / 2, b.t];
+      if (Math.min(y1, y2) > r.b || Math.max(y1, y2) < r.t) return false;
+      const x = (y) => x1 + ((x2 - x1) * (y - y1)) / (y2 - y1 || 1);
+      const [xa, xb] = [x(Math.max(r.t, Math.min(y1, y2))), x(Math.min(r.b, Math.max(y1, y2)))];
+      return Math.max(xa, xb) > r.l - 10 && Math.min(xa, xb) < r.r + 10;
+    }).length;
+    for (const [id] of [...R].sort((a, b) => a[1].t - b[1].t)) {
+      const r0 = R.get(id);
+      const row = [...R].filter(([o, r]) => o !== id && r.t < r0.b && r.b > r0.t).map(([, r]) => r);
+      let best = { cost: crossing(id, r0), dx: 0 };
+      for (const dx of [40, -40, 80, -80, 120, -120, 160, -160, 200, -200, 240, -240]) {
+        const r = shift(id, dx);
+        if (r.l < 30 || r.r > box.width - 30 || row.some((o) => r.l < o.r + 24 && o.l < r.r + 24)) continue;
+        const cost = crossing(id, r) + Math.abs(dx) / 400;
+        if (cost < best.cost - 0.2) best = { cost, dx };
+      }
+      if (best.dx) { R.set(id, shift(id, best.dx)); els.get(id).style.transform = `translateX(${best.dx}px)`; }
     }
+    const arrows = E.map(([uv, ir, key, lane, n]) => ({ uv, ir, key,
+      lane: (lane - (n - 1) / 2) * 112, x1: cx(uv), y1: R.get(uv).b, x2: cx(ir), y2: R.get(ir).t }));
+    // A course bent `off` px sideways at its middle (quadratic), and points along it.
+    const course = (A, off) => {
+      const len = Math.hypot(A.x2 - A.x1, A.y2 - A.y1) || 1;
+      return [(A.x1 + A.x2) / 2 - (2 * off * (A.y2 - A.y1)) / len, (A.y1 + A.y2) / 2 + (2 * off * (A.x2 - A.x1)) / len];
+    };
+    const sample = (A, [qx, qy]) => { const n = Math.ceil(Math.hypot(A.x2 - A.x1, A.y2 - A.y1) / 4);
+      return [...Array(n + 1).keys()].map((i) => { const s = i / n;
+        return [(1 - s) ** 2 * A.x1 + 2 * (1 - s) * s * qx + s * s * A.x2, (1 - s) ** 2 * A.y1 + 2 * (1 - s) * s * qy + s * s * A.y2]; }); };
+    const into = new Map();
+    arrows.forEach((A) => into.set(A.ir, [...(into.get(A.ir) || []), A]));
+    const dots = [...new Set(arrows.map((A) => A.uv))].map((id) => [cx(id), R.get(id).b, id]);
+    // Colour: arrows from one theory share a colour with its dot. The theories with several arrows out, the
+    // busiest first (then top to bottom, left to right), take the four flow colours in fixed order; the rest
+    // keep the site's green.
+    const outs = (id) => arrows.filter((A) => A.uv === id).length;
+    const hue = new Map(dots.map(([, , id]) => id).filter((id) => outs(id) > 1)
+      .sort((a, b) => outs(b) - outs(a) || R.get(a).t - R.get(b).t || cx(a) - cx(b)).slice(0, 4).map((id, i) => [id, ` c${i + 1}`]));
+    // The box takes the colour of its arrows.
+    els.forEach((n, id) => { n.classList.remove("c1", "c2", "c3", "c4"); if (hue.has(id)) n.classList.add(hue.get(id).trim()); });
+    const confusable = (A, p) => [...dots, ...arrows.map((B) => [B.x2, B.y2, B.ir])].some(([x, y, id]) =>
+      id !== A.uv && id !== A.ir && p.some(([px, py]) => Math.hypot(px - x, py - y) < 14));
+    const runsAlong = (p, q) => { // p stays within 6px of q for 20px or more
+      let run = 0;
+      for (let i = 1; i < p.length; i++) {
+        const close = q.some(([x, y]) => Math.hypot(x - p[i][0], y - p[i][1]) < 6);
+        run = close ? run + Math.hypot(p[i][0] - p[i - 1][0], p[i][1] - p[i - 1][1]) : 0;
+        if (run >= 20) return true;
+      }
+      return false;
+    };
+    const under = (A, p) => [...R].filter(([id, o]) => id !== A.uv && id !== A.ir &&
+      p.some(([x, y]) => x > o.l - 4 && x < o.r + 4 && y > o.t - 4 && y < o.b + 4)).length;
+    const mid = box.width / 2;
+    const offs = [0, ...[10, 20, 30, 40, 55, 70, 85, 100].flatMap((d) => [d, -d])];
+    // Two passes: arrowheads ordered along each box's top by where the arrows come from (first the straight
+    // courses, then the bent ones), and bends chosen for that order.
+    for (let pass = 0; pass < 2; pass++) {
+      for (const [id, list] of into) {
+        const r = R.get(id), w = Math.min(r.r - r.l - 16, 22 * (list.length - 1));
+        const from = (A) => { const [qx] = A.q ?? course(A, A.lane); return 0.36 * A.x1 + 0.48 * qx + 0.16 * A.x2 - 1e-3 * A.y1; };
+        list.sort((a, b) => from(a) - from(b));
+        list.forEach((A, i) => { A.x2 = list.length > 1 ? cx(id) - w / 2 + (w * i) / (list.length - 1) : cx(id); });
+      }
+      const done = [];
+      for (const A of [...arrows].sort((a, b) => Math.hypot(a.x2 - a.x1, a.y2 - a.y1) - Math.hypot(b.x2 - b.x1, b.y2 - b.y1))) {
+        const outward = Math.sign((A.x1 + A.x2) / 2 - mid) || 1; // a tie bends away from the diagram's middle
+        let best = null;
+        for (const off of offs) {
+          const q = course(A, A.lane + off), p = sample(A, q);
+          const bad = confusable(A, p) || done.some((B) => runsAlong(p, B.p));
+          const side = off * (A.y2 > A.y1 ? -1 : 1); // > 0 bends right
+          const cost = (bad ? 1000 : 0) + 30 * under(A, p) + Math.abs(off) + (off && Math.sign(side) !== outward ? 0.5 : 0);
+          if (!best || cost < best.cost) best = { cost, q, p };
+        }
+        [A.q, A.p] = [best.q, best.p];
+        done.push(A);
+      }
+    }
+    for (const A of arrows) {
+      const [qx, qy] = A.q;
+      const t = Math.hypot(A.x2 - qx, A.y2 - qy) || 1;
+      const [ux, uy] = [(A.x2 - qx) / t, (A.y2 - qy) / t];
+      const [bx, by] = [A.x2 - 10 * ux, A.y2 - 10 * uy];
+      const d = `M${A.x1},${A.y1} Q${qx},${qy} ${bx},${by}`;
+      const on = A.key === selected ? " selected" : "";
+      // The wide invisible copy comes first, so hovering it can thicken the visible line after it (CSS +).
+      svgEl("path", { d, class: "flow-hit", "data-flow-open": A.key }, svg);
+      const c = hue.get(A.uv) ?? "";
+      svgEl("path", { d, class: `flow-line${on}${c}`, "data-flow-line": A.key }, svg);
+      svgEl("polygon", { points: `${A.x2},${A.y2} ${bx - 5 * uy},${by + 5 * ux} ${bx + 5 * uy},${by - 5 * ux}`, class: `flow-head${on}${c}`, "data-flow-line": A.key }, svg);
+    }
+    // Dots go on their own layer above the boxes.
+    g.querySelector(".flow-dots")?.remove();
+    const top = svgEl("svg", { class: "flow-arrows flow-dots", width: box.width, height: box.height, "aria-hidden": "true" });
+    for (const [x, y, id] of dots) svgEl("circle", { cx: x, cy: y, r: 4, class: `flow-dot${hue.get(id) ?? ""}` }, top);
     g.prepend(svg);
+    g.append(top);
   });
+}
+
+/* Flow details: the panel opened from an arrow or from the list next to the diagram. */
+
+/** The references a flow cites, numbered for the panel. Keys are always the UV entry's. */
+function flowSources(f) {
+  const uv = BY_ID.get(f.uv);
+  const fl = f.flow || {};
+  const keys = [];
+  const add = (ks) => (ks || []).map((k) => splitRef(k)[0]).forEach((k) => keys.includes(k) || keys.push(k));
+  add(fl.identification?.refs);
+  add(fl.identification?.competing_refs);
+  ["deformations", "vevs", "tuned", "symmetry_changes"].forEach((s) => (fl[s] || []).forEach((x) => add(x.refs)));
+  add(fl.spectrum?.refs);
+  (fl.spectrum?.particles || []).forEach((p) => add(p.refs));
+  add(fl.integrability?.refs);
+  const refs = keys.map((k) => (uv.references || []).find((r) => r.key === k)).filter(Boolean);
+  // An item's sources, or "standard" for a textbook statement.
+  const cite = (ks, x = {}) =>
+    (ks || []).map(splitRef).map(([k, loc]) => [keys.indexOf(k), loc]).filter(([i]) => i >= 0)
+      .map(([i, loc]) => `<span class="cite">[${i + 1}${loc ? `, ${md(loc, true)}` : ""}]</span>`).join("") +
+    (x.standard ? ' <span class="muted small">(standard)</span>' : "");
+  return { refs, cite };
+}
+
+function spectrumSummary(sp) {
+  if (sp.summary) return md(sp.summary, true);
+  const parts = [];
+  const ps = sp.particles || [];
+  if (ps.length) {
+    const names = new Set(ps.map((p) => p.label));
+    const stable = new Set(ps.filter((p) => p.stable).map((p) => p.label));
+    parts.push(`${names.size} particle${names.size > 1 ? "s" : ""}${stable.size ? ` (${stable.size} recorded stable)` : ""}`);
+  }
+  if (sp.vacua) parts.push(`${sp.vacua} vacu${sp.vacua > 1 ? "a" : "um"}`);
+  if (sp.kinks) parts.push(`kinks: ${md(sp.kinks, true)}`);
+  return parts.join("; ");
+}
+
+const NOT_RECORDED = `<span class="muted">Not recorded</span>`;
+const INTEGRABILITY = { integrable: "Integrable", not_integrable: "Not integrable", open: "Open question" };
+const IDENT = { established: "Established", conjectured: "Conjectured", disputed: "Disputed" };
+
+function flowPanel(f) {
+  const fl = f.flow;
+  const uv = BY_ID.get(f.uv);
+  const { refs, cite } = flowSources(f);
+  const note = (x) => (x.note ? `<div class="sub">${md(x.note, true)}</div>` : "");
+  const rows = [];
+  const row = (k, v) => rows.push(`<dt>${k}</dt><dd>${v}</dd>`);
+  row("From (UV)", nodeName(f.uv) + f.at);
+  row("To (IR)", nodeName(f.ir) + (f.expr?.decoration ? `<div class="sub">${md(f.expr.decoration, true)}</div>` : ""));
+  if (f.note) row("Description", md(f.note, true));
+  if (!fl) {
+    row("Details", `${NOT_RECORDED}: this flow has no structured data yet (who identified it, operator, sign, symmetry, spectrum, integrability).`);
+  } else {
+    const id = fl.identification;
+    row("Identification", `${IDENT[id.status]}, by ${md(id.method, true)} ${cite(id.refs)}${
+      id.competing_refs ? `<div class="sub">Argued otherwise: ${cite(id.competing_refs)}</div>` : ""}${note(id)}`);
+    const kind = [fl.deformations?.length && "relevant deformation", fl.vevs?.length && "vacuum expectation value"].filter(Boolean);
+    row("Kind", kind.join(" and ").replace(/^./, (c) => c.toUpperCase()));
+    for (const d of fl.deformations || []) {
+      const dims = [d.Delta != null ? tex(`\\Delta = ${d.Delta}`) : "", d.rep ? md(d.rep, true) : ""].filter(Boolean).join(", ");
+      const sign = d.sign
+        ? `${tex(`${d.coupling} ${SIGN_REL[d.sign]}`)} <span class="muted">(${SIGN_WORD[d.sign]})</span><div class="sub">Convention: ${md(d.sign_convention, true)}</div>`
+        : `<div class="sub">Sign: ${NOT_RECORDED}</div>`;
+      row("Deformation", `${tex(d.operator)}${dims ? ` <span class="muted">(${dims})</span>` : ""}, coupling ${tex(d.coupling)} ${cite(d.refs, d)}<div>${sign}</div>${note(d)}`);
+    }
+    for (const v of fl.vevs || [])
+      row("Vev", `${tex(`\\langle ${v.operator} \\rangle \\neq 0`)}: ${md(v.direction, true)}${v.branch ? ` <span class="muted">(${md(v.branch, true)})</span>` : ""} ${cite(v.refs, v)}${note(v)}`);
+    row("Tuned", fl.tuned?.length
+      ? fl.tuned.map((x) => `<div>${tex(x.operator)}, coupling ${tex(x.coupling)}: ${md(x.condition, true)} ${cite(x.refs, x)}${note(x)}</div>`).join("")
+      : NOT_RECORDED);
+    row("Symmetry", fl.symmetry_changes?.length
+      ? fl.symmetry_changes.map((s) => `<div>${md(s.from, true)} → ${md(s.to, true)} <span class="muted">(${esc(s.kind)}${
+          s.vacua ? `, ${s.vacua} vacu${s.vacua > 1 ? "a" : "um"}` : ""})</span>${s.manifold ? `, vacuum manifold ${md(s.manifold, true)}` : ""} ${cite(s.refs, s)}${note(s)}</div>`).join("")
+      : NOT_RECORDED);
+    const sp = fl.spectrum;
+    let spec = NOT_RECORDED;
+    if (sp) {
+      spec = `${spectrumSummary(sp)} ${cite(sp.refs, sp)}${note(sp)}`;
+      // With a flow page, the full table lives there; otherwise it can be opened here.
+      if (sp.particles?.length && !fl.page)
+        spec += `<details class="flow-particles"><summary>Particles (${sp.particles.length} rows)</summary>${table(
+          ["Particle", "Mass", "Method", ""],
+          sp.particles.map((p) => [tex(p.label) + (p.rep ? ` <span class="muted">${md(p.rep, true)}</span>` : ""),
+            `<span class="value">${tex(p.mass)}</span>${p.stable === true ? ' <span class="muted">stable</span>' : p.stable === false ? ' <span class="muted">unstable</span>' : ""}`,
+            esc(p.method) + " " + cite(p.refs), p.note ? md(p.note, true) : ""]), "data")}</details>`;
+    }
+    row("Massive spectrum", spec);
+    const ig = fl.integrability;
+    row("Integrability", ig ? `${INTEGRABILITY[ig.status]} ${cite(ig.refs, ig)}${note(ig)}` : NOT_RECORDED);
+    if (fl.page && BY_ID.get(fl.page)) row("Flow page", `<a href="#/theory/${encodeURIComponent(fl.page)}">${md(BY_ID.get(fl.page).name, true)}</a>`);
+    if (fl.note) row("Notes", md(fl.note, true));
+  }
+  const srcList = refs.length
+    ? `<ol class="refs flow-refs">${refs.map(refItem).join("").replace(/ id="ref-[^"]*"/g, "")}</ol>`
+    : `<span class="muted">None recorded for this flow.</span>`;
+  row("Sources", `${srcList}<div class="sub">From the references of <a href="#/theory/${encodeURIComponent(f.uv)}">${md(uv.name, true)}</a>
+    (<a href="${gh.blob(uv.source)}" target="_blank" rel="noopener">source file</a>).</div>`);
+  return `<div class="flow-panel-head"><h3>${nodeName(f.uv)} → ${nodeName(f.ir)}</h3>
+      <button type="button" class="linkish flow-close" aria-label="Close flow details">Close ✕</button></div>
+    <dl class="kv flow-facts">${rows.join("")}</dl>`;
+}
+
+/** The short text shown on hover or keyboard focus. */
+/** The hover preview: short on purpose, so it never hides the diagram. Which flow, the driving operator and
+ *  sign when recorded, and a pointer to the details. */
+function flowPreview(f) {
+  const d = f.flow?.deformations?.[0];
+  const v = f.flow?.vevs?.[0];
+  const what = d ? tex(d.sign ? `${d.operator},\ ${d.coupling} ${SIGN_REL[d.sign]}` : d.operator)
+    : v ? tex(`\langle ${v.operator} \rangle \neq 0`) : "";
+  return `<b>${esc(nodePlain(f.uv))} → ${esc(nodePlain(f.ir))}</b>${what ? `<div>${what}</div>` : ""}
+    <div class="muted small">Click for description</div>`;
+}
+
+/** The diagram whose panel shows a control's flow: its own, or for a list button the one drawing that flow. */
+function viewOf(el) {
+  const own = el.closest(".flow-view");
+  if (own) return own;
+  const views = [...(el.closest("section")?.querySelectorAll(".flow-view") || [])];
+  const key = el.dataset.flowOpen;
+  return views.find((v) => v.querySelector(`.flow-graph [data-flow-open="${CSS.escape(key ?? "")}"]`)) ?? views[0];
+}
+
+/** Open the details of `key` in `view` (or close them if they are already open from this trigger). */
+function openFlow(view, key, trigger) {
+  const panel = view.querySelector(".flow-panel");
+  const f = FLOW_BY_KEY.get(key);
+  if (!f) return;
+  if (!panel.hidden && view.dataset.selected === key && panel._trigger === trigger) return closeFlow(view, false);
+  view.dataset.selected = key;
+  panel._trigger = trigger;
+  panel.innerHTML = flowPanel(f);
+  panel.hidden = false;
+  view.querySelector(".flow-tip").hidden = true;
+  markSelected(view);
+  view.querySelector("[data-flow-status]").textContent = `Showing details: ${edgeName(f)}`;
+  panel.scrollIntoView({ block: "nearest" });
+}
+
+function closeFlow(view, restoreFocus) {
+  const panel = view.querySelector(".flow-panel");
+  const trigger = panel._trigger;
+  panel.hidden = true;
+  panel.innerHTML = "";
+  delete view.dataset.selected;
+  markSelected(view);
+  view.querySelector("[data-flow-status]").textContent = "Flow details closed";
+  if (restoreFocus && trigger?.isConnected) trigger.focus();
+}
+
+function markSelected(view) {
+  const key = view.dataset.selected;
+  // The list buttons may sit outside the view, in the same section.
+  const scope = view.closest("section.block") ?? view;
+  scope.querySelectorAll("[data-flow-open]").forEach((b) => {
+    if (b.tagName === "BUTTON") b.setAttribute("aria-expanded", b.dataset.flowOpen === key);
+  });
+  view.querySelectorAll("[data-flow-line]").forEach((p) => p.classList.toggle("selected", p.dataset.flowLine === key));
+}
+
+function showTip(el, e = null) {
+  const view = viewOf(el);
+  const g = el.closest(".flow-graph");
+  if (!view || !g) return;
+  const tip = view.querySelector(".flow-tip");
+  const f = FLOW_BY_KEY.get(el.dataset.flowOpen);
+  if (!f && !el.dataset.tip) return;
+  tip.innerHTML = f ? flowPreview(f) : el.dataset.tip; // an arrow's preview, or a theory box's full name
+  tip.hidden = false;
+  const box = g.getBoundingClientRect();
+  // Next to the pointer when there is one, else under the arrow.
+  const r = el.getBoundingClientRect();
+  const [px, py] = e ? [e.clientX, e.clientY] : [r.left + r.width / 2, r.bottom];
+  const left = Math.max(4, Math.min(px - box.left + 12, box.width - tip.offsetWidth - 4));
+  tip.style.left = `${left}px`;
+  tip.style.top = `${py - box.top + 14}px`;
+}
+
+function hideTip(el) {
+  const tip = viewOf(el)?.querySelector(".flow-tip");
+  if (tip) tip.hidden = true;
+}
+
+/** The list of flows next to a diagram, each with a button opening the same panel. */
+function flowItem(f, other, at = "", withSources = false) {
+  const desc = f.note ? md(f.note, true) : f.flow ? flowPreviewText(f) : "";
+  let ident = "";
+  if (withSources && f.flow) {
+    // On a flow's own page: who identified the flow, with the papers (from the UV entry's references).
+    const id = f.flow.identification;
+    const refs = BY_ID.get(f.uv).references || [];
+    const list = (ks) => ks.map((k) => refs.find((r) => r.key === k)).filter(Boolean).map((r) => refItem(r).replace(/ id="ref-[^"]*"/, "")).join("");
+    ident = `<div class="sub">Identification: ${IDENT[id.status]}, by ${md(id.method, true)}.</div><ol class="refs flow-refs">${list(id.refs)}</ol>${
+      id.competing_refs ? `<div class="sub">Argued otherwise:</div><ol class="refs flow-refs">${list(id.competing_refs)}</ol>` : ""}`;
+  }
+  return `<li>${nodeName(other)}${at}${desc ? ` <span class="muted">— ${desc}</span>` : ""}
+    <button type="button" class="linkish flow-open" data-flow-open="${esc(f.key)}" aria-expanded="false"
+      aria-label="Details of the ${esc(edgeName(f).replace(/^Flow/, "flow"))}">details</button>${ident}</li>`;
+}
+
+function flowPreviewText(f) {
+  const fl = f.flow;
+  return [...(fl.deformations || []).map((d) => `${tex(d.operator)}${d.sign ? `, ${tex(`${d.coupling} ${SIGN_REL[d.sign]}`)}` : ""}`),
+    ...(fl.vevs || []).map((v) => `vev ${tex(`\\langle ${v.operator} \\rangle`)}`)].join("; ");
+}
+
+/** The flows a theory page shows: from and to it, composite IRs it is part of, and flows its page describes. */
+function theoryFlows(t) {
+  const flows = allFlows();
+  return {
+    from: flows.filter((f) => f.ir === t.id),
+    to: flows.filter((f) => f.uv === t.id),
+    part: flows.filter((f) => f.expr && exprLeaves(f.expr).some((x) => x.entry === t.id)),
+    page: flows.filter((f) => f.flow?.page === t.id),
+  };
+}
+
+function flowList(t, fs) {
+  const groups = [
+    ["Flows from (UV)", fs.from.map((f) => flowItem(f, f.uv, linkAt(t, { target: f.uv, at: f.rel.at, variant: f.rel.variant })))],
+    ["Flows to (IR)", fs.to.map((f) => flowItem(f, f.ir, linkAt(t, f.rel)))],
+    ["Part of a composite IR", fs.part.map((f) => flowItem(f, f.ir, ` <span class="muted">(from ${nodeName(f.uv)})</span>`))],
+    ["Flows described on this page", fs.page.map((f) => flowItem(f, f.ir, ` <span class="muted">(from ${nodeName(f.uv)})</span>`, true))],
+  ].filter(([, items]) => items.length);
+  return `<dl class="kv relations">${groups.map(([title, items]) => `<dt>${title}</dt><dd><ul>${items.join("")}</ul></dd>`).join("")}</dl>`;
 }
 
 function viewFlows() {
   document.title = "RG Flows — QFT Zoo";
+  citeStart();
   const flows = allFlows();
-  const dimOf = (c) => Math.min(...c.flatMap((f) => [BY_ID.get(f.uv).d, BY_ID.get(f.ir).d]));
+  const dimOf = (c) => Math.min(...c.flatMap((f) => [nodeDim(f.uv), nodeDim(f.ir)]));
   const clusters = flowClusters(flows).sort((a, b) => dimOf(a) - dimOf(b));
-  const nTheories = new Set(flows.flatMap((f) => [f.uv, f.ir])).size;
-  const name = (id) => `<a href="#/theory/${encodeURIComponent(id)}">${md(BY_ID.get(id).name, true)}</a>`;
+  const nTheories = new Set(flows.flatMap((f) => [f.uv, ...(f.expr ? exprLeaves(f.expr).map((x) => x.entry) : [f.ir])])).size;
+  const details = (f) => `<button type="button" class="linkish flow-open" data-flow-open="${esc(f.key)}" aria-expanded="false"
+      aria-label="Details of the ${esc(edgeName(f).replace(/^Flow/, "flow"))}">details</button>`;
   app.innerHTML = `
     <header class="theory-head">
       <h1>RG Flows</h1>
       <p class="lede">Surf the zoo along its renormalization-group flows, from the UV at the top to the IR at the bottom.
         Open a theory and its page shows where it flows to and from.</p>
-      <p class="small muted">${flows.length} flows among ${nTheories} theories so far. Height in a diagram shows the order of
-        the flows, not an energy scale. Know one that’s missing? Add a <code>flows_to</code> relation to the UV theory’s
-        entry: see <a href="#/contribute">Contribute</a>.</p>
+      <p class="small muted">${flows.length} flows among ${nTheories} theories so far. Height in a diagram follows the quantity
+        that decreases along flows (${tex("c")} in 2d, ${tex("F")} in 3d, ${tex("a")} in 4d) where it is recorded, and otherwise a
+        rough count of UV degrees of freedom; it is not an energy scale. Hover over an arrow, or select “details” in a table,
+        to see what drives the flow. Know one that’s missing? Add a <code>flows_to</code> relation to the UV theory’s entry:
+        see <a href="#/contribute">Contribute</a>.</p>
     </header>
     ${clusters
       .map((c) => `<section class="block"><h2>${tex(`d = ${dimOf(c)}`)}</h2>${flowDiagram(c)}
-        ${table(["UV", "IR", "Deformation"], c.map((f) => [name(f.uv) + f.at, name(f.ir), f.note ? md(f.note, true) : ""]), "data")}</section>`)
+        ${table(["UV", "IR", "Deformation", ""], c.map((f) => [nodeName(f.uv) + f.at, nodeName(f.ir),
+          f.note ? md(f.note, true) : f.flow ? flowPreviewText(f) : "", details(f)]), "data")}</section>`)
       .join("")}`;
+  // The papers cited in the flow descriptions above (CITES filled while they were rendered).
+  if (CITES.list.length) app.insertAdjacentHTML("beforeend", section("references", "References", citeList()));
   drawFlowArrows();
+}
+
+/** A page explaining an operation used in composite flow targets (data/operations/). */
+function viewOperation(id) {
+  const o = (DB.operations || []).find((x) => x.id === id);
+  if (!o) return viewNotFound(`No operation page “${id}”.`);
+  document.title = `${plain(o.name)} — QFT Zoo`;
+  const op = Object.keys(OPERATION).find((k) => OPERATION[k].page === id);
+  const uses = op ? allFlows().filter((f) => f.expr && JSON.stringify(f.expr).includes(`"operation":"${op}"`)) : [];
+  app.innerHTML = `
+    <nav class="crumbs"><a href="#/flows">← RG flows</a></nav>
+    <header class="theory-head"><h1>${md(o.name, true)}</h1><p class="lede">${md(o.summary, true)}</p></header>
+    ${section("overview", "Definition", `<div class="prose">${md(o.description)}</div>`)}
+    ${uses.length ? section("uses", "Flows ending in such a theory", `<ul>${uses.map((f) => `<li>${nodeName(f.uv)} → ${nodeName(f.ir)}</li>`).join("")}</ul>`) : ""}
+    ${section("references", "References", `<ol class="refs">${o.references.map(refItem).join("")}</ol>`)}
+    <p class="muted small">Source: <a href="${gh.blob(o.source)}" target="_blank" rel="noopener"><code>${esc(o.source)}</code></a></p>`;
 }
 
 /** Contents line for a page built from section() blocks; omitted on short pages. */
@@ -743,14 +2143,14 @@ function membersTable(t) {
     <tbody>${rows.join("")}</tbody></table></div>${more}`;
 }
 
-function refItem(r) {
+function refItem(r, id = null) {
   const links = [];
   if (r.arxiv) links.push(`<a href="https://arxiv.org/abs/${encodeURI(r.arxiv)}" target="_blank" rel="noopener">arXiv:${esc(r.arxiv)}</a>`);
   if (r.doi) links.push(`<a href="https://doi.org/${encodeURI(r.doi)}" target="_blank" rel="noopener">DOI</a>`);
   if (r.url) links.push(`<a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener">link</a>`);
   const q = r.arxiv ? `arxiv:${r.arxiv}` : r.doi ? `doi:${r.doi}` : null;
   if (q) links.push(`<a href="https://inspirehep.net/literature?q=${encodeURIComponent(q)}" target="_blank" rel="noopener">INSPIRE</a>`);
-  return `<li id="ref-${esc(r.key)}">${r.authors ? `${esc(r.authors)}, ` : ""}<em>${md(r.title, true)}</em>${
+  return `<li id="ref-${esc(id ? `${id}/${r.key}` : r.key)}">${r.authors ? `${esc(r.authors)}, ` : ""}<em>${md(r.title, true)}</em>${
     r.journal ? `, ${esc(r.journal)}` : ""
   }${r.year ? ` (${r.year})` : ""}. <span class="ref-links">${links.join(" · ")}</span>${
     r.note ? ` <span class="muted small">— ${md(r.note, true)}</span>` : ""}</li>`;
@@ -1191,8 +2591,51 @@ python scripts/build.py --serve</code></pre>
       ${tex("Z(\\tau) = Z(-1/\\tau)")}, non-negative integer degeneracies, a unique vacuum, and that the lightest
       Virasoro primary matches the theory's ${tex("\\Delta_{\\rm gap}")}. See the
       <a href="${gh.blob("CONTRIBUTING.md")}#spectra-of-2d-cfts" target="_blank" rel="noopener">contributing guide</a>.</p>
+      <p>How each number was obtained is given by a method abbreviation (${methodHtml("CB")}, ${methodHtml("MC-BC, isotropic")}, …),
+      listed with explanations on the <a href="#/methods">Methods</a> page.</p>
       <p>The complete dataset is available as <a href="data/theories.json">one JSON file</a> for use in your own code.</p></div>`
     )}`;
+}
+
+/* ----------------------------------------------------------- methods view */
+
+function viewMethods(focus = null) {
+  document.title = "Methods — QFT Zoo";
+  const list = DB.methods || [];
+  // Each method followed by its sub-methods (parent: in data/methods.yaml), in file order.
+  const kids = (abbr) => list.filter((m) => (m.parent ?? null) === abbr);
+  const ordered = [];
+  const walk = (m, depth) => { ordered.push([m, depth]); kids(m.abbr).forEach((k) => walk(k, depth + 1)); };
+  kids(null).forEach((m) => walk(m, 0));
+  const n = (k, one, many) => `${k} ${k === 1 ? one : many}`;
+  const rows = ordered.map(([m, depth]) => {
+    const used = m.entries.map((id) => `<a href="#/theory/${encodeURIComponent(id)}">${md(BY_ID.get(id)?.name ?? id, true)}</a>`);
+    const usage = m.rows
+      ? `<details class="method-uses"><summary>${n(m.rows, "row", "rows")}, ${n(m.entries.length, "entry", "entries")}</summary>${used.join(", ")}</details>`
+      : `<span class="muted">none yet</span>`;
+    const links = (m.links || []).map((l) => `<div class="method-link"><a href="${esc(safeUrl(l.url))}" target="_blank" rel="noopener">${esc(l.label)}</a></div>`).join("");
+    return `<tr id="method-${esc(m.abbr)}" class="${m.abbr === focus ? "flash" : ""}">
+      <td class="method-abbr" style="padding-left:${10 + 18 * depth}px">${depth ? '<span class="muted" aria-hidden="true">└ </span>' : ""}<b>${esc(m.abbr)}</b></td>
+      <td><b>${md(m.name, true)}</b>${m.parent ? `<div class="sub">A kind of <a href="#/methods/${encodeURIComponent(m.parent)}">${esc(m.parent)}</a></div>` : ""}</td>
+      <td>${md(m.description, true)}</td>
+      <td class="small">${links}</td>
+      <td class="small">${usage}</td></tr>`;
+  });
+  const legacy = DB.theories.reduce((k, t) =>
+    k + [...(t.quantities || []), ...(t.operators || [])].filter((x) => x.method && !METHODS.has(String(x.method).split(",")[0].trim())).length, 0);
+  app.innerHTML = `
+    <header class="theory-head"><h1>Methods</h1>
+      <p class="lede">How the numbers in the zoo were obtained. Data rows name a method by its abbreviation,
+      sometimes followed by a short qualifier: ${methodHtml("CB, rigorous")} is the numerical conformal bootstrap with
+      rigorous errors, ${methodHtml("MC-BC, isotropic")} Monte Carlo of an improved Blume–Capel model also tuned for isotropy.</p>
+    </header>
+    <div class="table-wrap"><table class="data methods">
+      <thead><tr><th>Abbr.</th><th>Method</th><th>Description</th><th>Explained in</th><th>Used in</th></tr></thead>
+      <tbody>${rows.join("")}</tbody></table></div>
+    <p class="muted small">The list is <a href="${gh.blob("data/methods.yaml")}" target="_blank" rel="noopener"><code>data/methods.yaml</code></a>;
+      to add a method, see the <a href="${gh.blob("CONTRIBUTING.md")}#methods" target="_blank" rel="noopener">contributing guide</a>.
+      ${legacy ? `${n(legacy, "row still describes its", "rows still describe their")} method in free text.` : ""}</p>`;
+  if (focus) requestAnimationFrame(() => document.getElementById(`method-${focus}`)?.scrollIntoView({ block: "center" }));
 }
 
 /* ---------------------------------------------------------- feedback view */
@@ -1283,6 +2726,7 @@ function applyCatalogueLink(arg) {
 }
 
 function route() {
+  [CITES, CITE_OWNER] = [null, null]; // each page starts its own reference list
   const [page, arg] = location.hash.replace(/^#\/?/, "").split("/");
   if (!page) viewHome();
   else if (page === "catalogue") {
@@ -1292,24 +2736,61 @@ function route() {
   else if (page === "flows") viewFlows();
   else if (page === "feedback") viewFeedback();
   else if (page === "theory" && arg) viewTheory(decodeURIComponent(arg));
+  else if (page === "operation" && arg) viewOperation(decodeURIComponent(arg));
   else if (page === "contribute") viewContribute();
   else if (page === "landscape") viewLandscape();
+  else if (page === "methods") viewMethods(arg ? decodeURIComponent(arg) : null);
   else viewNotFound();
   document.querySelectorAll("[data-nav]").forEach((a) =>
-    a.classList.toggle("active", a.dataset.nav === (page === "theory" ? "catalogue" : page))
+    a.classList.toggle("active", a.dataset.nav === (page === "theory" ? "catalogue" : page === "operation" ? "flows" : page))
   );
   window.scrollTo(0, 0);
 }
 
 window.addEventListener("resize", drawFlowArrows);
+// Boxes change size after the first drawing (math fonts, KaTeX styles): redraw so arrows meet them exactly.
+const FLOW_RESIZE = new ResizeObserver(() => requestAnimationFrame(drawFlowArrows));
+new MutationObserver(() => app.querySelectorAll(".flow-node").forEach((n) => FLOW_RESIZE.observe(n)))
+  .observe(app, { childList: true, subtree: true });
 document.fonts?.addEventListener?.("loadingdone", drawFlowArrows);
 
 app.addEventListener("change", (e) => {
   if (e.target.id === "spectrum-member" && SPEC_STATE.t) showSpectrum(SPEC_STATE.t, +e.target.value);
 });
 
+// Flow arrows: a preview on hover; click or tap opens the details (keyboard: the "details" buttons by the diagram).
+app.addEventListener("mouseover", (e) => {
+  const el = e.target.closest(".flow-graph [data-flow-open], .flow-graph [data-tip]");
+  if (el) showTip(el, el.dataset.tip ? null : e);
+});
+app.addEventListener("mouseout", (e) => {
+  const el = e.target.closest(".flow-graph [data-flow-open], .flow-graph [data-tip]");
+  if (el && !el.contains(e.relatedTarget)) hideTip(el);
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") return;
+  const open = [...app.querySelectorAll(".flow-panel:not([hidden])")];
+  app.querySelectorAll(".flow-tip:not([hidden])").forEach((t) => (t.hidden = true));
+  if (!open.length) return;
+  // Close the panel the focus is in or came from, else every open one.
+  const here = open.filter((p) => p.contains(document.activeElement) || p._trigger === document.activeElement);
+  (here.length ? here : open).forEach((p) => closeFlow(p.closest(".flow-view"), p.contains(document.activeElement)));
+});
+
 // Clicks shared by all views: citation links, tag pills, "show more" members / rows.
 app.addEventListener("click", (e) => {
+  const flowOpen = e.target.closest("[data-flow-open]");
+  if (flowOpen) {
+    const view = viewOf(flowOpen);
+    const trigger = flowOpen.tagName === "BUTTON" ? flowOpen : null; // the focus returns to a button on close
+    if (view) openFlow(view, flowOpen.dataset.flowOpen, trigger);
+    return;
+  }
+  const flowClose = e.target.closest(".flow-close");
+  if (flowClose) {
+    closeFlow(flowClose.closest(".flow-view"), true);
+    return;
+  }
   const jump = e.target.closest("[data-jump]");
   if (jump) {
     document.getElementById(`sec-${jump.dataset.jump}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1375,10 +2856,12 @@ fetch("data/theories.json", { cache: "no-cache" })
       t._search = searchText(t);
       BY_ID.set(t.id, t);
     }
+    for (const m of DB.methods || []) METHODS.set(m.abbr, m);
     document.getElementById("repo-link").href = gh.repo();
     document.getElementById("footer").innerHTML =
       `QFT Zoo — an open catalogue of quantum field theories. ` +
       `<a href="${gh.repo()}" target="_blank" rel="noopener">Source &amp; data on GitHub</a> · ` +
+      `<a href="#/methods">Methods</a> · ` +
       `${DB.theories.length} theories · built ${esc(DB.generated)}`;
     window.addEventListener("hashchange", route);
     route();

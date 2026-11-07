@@ -14,7 +14,7 @@ description: |
   The field content of $\mathcal{N}=4$ SYM in $\mathcal{N}=1$ language (a vector multiplet and three
   adjoint chiral multiplets $\Phi_{1,2,3}$) with superpotential
   $$W = h\,\mathrm{Tr}\big(e^{i\pi\beta}\,\Phi_1\Phi_2\Phi_3 - e^{-i\pi\beta}\,\Phi_1\Phi_3\Phi_2\big).$$
-  At $\beta = 0$, with $|h|$ fixed in terms of $g$, this is $\mathcal{N}=4$ SYM. Leigh and Strassler
+  At $\beta = 0$, with $|h|$ fixed in terms of $g$, this is $\mathcal{N}=4$ SYM. Leigh and Strassler [@ls1995]
   showed that for $SU(N)$, $N > 2$, conformal invariance imposes a single condition on $g$, $h$, $\beta$
   and the coefficient $h'$ of a further term $\mathrm{Tr}(\Phi_1^3+\Phi_2^3+\Phi_3^3)$, so the
   $\mathcal{N}=4$ line sits inside a three-parameter family of $\mathcal{N}=1$ fixed points. Setting $h' = 0$ preserves
@@ -27,33 +27,33 @@ description: |
   **Conformality.** For $SU(N)$ the one-loop condition (a relation among $|h|$, $q = e^{i\pi\beta}$ and
   $g$ with explicit $1/N^2$ terms) makes the theory conformal through two loops; higher loops can
   modify it, but a fixed-point set of real codimension one in the couplings $(h, q, g)$ always exists
-  (Freedman and Gürsoy). For real $\beta$ in the planar limit, the one-loop condition is exact to all
-  orders (Mauri, Penati, Santambrogio and Zanon). With gauge group $U(N)$ the traces
+  [@fg2005]. For real $\beta$ in the planar limit, the one-loop condition is exact to all
+  orders [@mpsz2005]. With gauge group $U(N)$ the traces
   $\mathrm{Tr}\,\Phi_i$ couple to the $SU(N)$ fields through $W$ and the deformed $U(N)$ theory is not
-  conformal; these couplings flow to zero, leaving the $SU(N)$ theory in the infrared (Lunin and
-  Maldacena). This supersymmetric deformation differs from the non-supersymmetric three-parameter
+  conformal; these couplings flow to zero, leaving the $SU(N)$ theory in the infrared
+  [@lm2005]. This supersymmetric deformation differs from the non-supersymmetric three-parameter
   $\gamma_i$-deformation, which is not conformal even in the 't Hooft limit because a double-trace
-  coupling runs (Fokken, Sieg and Wilhelm).
+  coupling runs [@fsw2014].
 
   **Holography.** For real $\beta$ the deformation acts on component fields as a star product
   $f * g = e^{i\pi\beta(Q^1_fQ^2_g - Q^2_fQ^1_g)}fg$ in the $U(1)\times U(1)$ charges, so planar diagrams
   equal those of $\mathcal{N}=4$ SYM. The dual geometry follows from $AdS_5\times S^5$ by an
   $SL(2,\mathbb{R})$ transformation $\rho \to \rho/(1+\beta\rho)$ of $\rho = B_{12} + i\sqrt{g}$, the
-  parameter of the two-torus on which $U(1)\times U(1)$ acts (Lunin and Maldacena). Its holographic central charge is
-  independent of $\beta$ (Freedman and Gürsoy).
+  parameter of the two-torus on which $U(1)\times U(1)$ acts [@lm2005]. Its holographic central charge is
+  independent of $\beta$ [@fg2005].
 
   **Chiral ring.** For generic $\beta$ the single-trace chiral primaries are $\mathrm{Tr}\,\Phi_i^J$ and
   one operator with $U(1)^3$ charges $(J,J,J)$. The latter is not the ordered word
   $\mathrm{Tr}\,\Phi_1^J\Phi_2^J\Phi_3^J$ but a coupling-dependent combination of its orderings
-  (Freedman and Gürsoy), and the Coulomb branch consists of diagonal matrices with only
+  [@fg2005], and the Coulomb branch consists of diagonal matrices with only
   one $\Phi_i$ nonzero in each entry (for $SU(N)$ there is one further branch, from the traceless
   projection of the F-terms). For rational real $\beta = m/n$ there are extra chiral primaries and extra
   branches of vacua. The spin chain of the sector built from $\Phi_{1,2,3}$ is integrable for real
-  $\beta$ but not for complex $\beta$ (results quoted by Lunin and Maldacena).
+  $\beta$ but not for complex $\beta$ (results quoted by Lunin and Maldacena [@lm2005]).
 
 parameters:
   - symbol: 'N'
-    description: Rank of the gauge group $SU(N)$. Leigh and Strassler take $N > 2$, where the symmetric invariant $d^{abc}$ is nonzero.
+    description: Rank of the gauge group $SU(N)$. Leigh and Strassler [@ls1995] take $N > 2$, where the symmetric invariant $d^{abc}$ is nonzero.
     range: '$N \geq 3$'
   - symbol: '\beta'
     description: Deformation parameter, $q = e^{i\pi\beta}$.
@@ -73,7 +73,9 @@ family:
       note: '$m, n$ coprime: extra branches where $n$ D3-branes form a toroidal D5-brane (the $\Phi_i$ form a fuzzy torus), and extra single-trace chiral primaries with $U(1)^3$ charges $k_1 \equiv k_2 \equiv k_3 \pmod n$.'
 
 symmetry:
-  spacetime: '$\mathcal{N}=1$ superconformal'
+  spacetime: '4d $\mathcal{N}=1$ superconformal group (4 $Q$ + 4 $S$ supercharges); parity not recorded'
+  euclidean: '$SO(5,1)$ (bosonic conformal part)'
+  lorentzian: '$SU(2,2|1)$'
   supercharges: 4
   global: '$U(1)\times U(1)$ flavour symmetry and $U(1)_R$, plus the $\mathbb{Z}_3$ cyclic permutation of the $\Phi_i$'
   gauge: '$SU(N)$'
@@ -82,9 +84,9 @@ quantities:
   - symbol: 'a = c'
     description: 'Conformal anomalies (normalized so a free real scalar has $a = \tfrac{1}{360}$, $c = \tfrac{1}{120}$)'
     value: '\frac{N^2-1}{4}'
-    method: derived (anomaly matching)
+    method: anomaly
     refs: [mpsz2005, iw2003, fg2005]
-    note: 'The superconformal $R$-symmetry gives the same charge to all three $\Phi_i$ (Mauri et al.), hence $\tfrac23$ since $W$ has $R = 2$, as in $\mathcal{N}=4$ SYM. So $\mathrm{Tr}R = 0$, $\mathrm{Tr}R^3 = \tfrac89(N^2-1)$ and $a = c = (N^2-1)/4$ for every $\beta$. The holographic $c$ is $\beta$-independent (Freedman–Gürsoy).'
+    note: 'The superconformal $R$-symmetry gives the same charge to all three $\Phi_i$ [@mpsz2005], hence $\tfrac23$ since $W$ has $R = 2$, as in $\mathcal{N}=4$ SYM. So $\mathrm{Tr}R = 0$, $\mathrm{Tr}R^3 = \tfrac89(N^2-1)$ and $a = c = (N^2-1)/4$ for every $\beta$. The holographic $c$ is $\beta$-independent [@fg2005].'
 
 operators:
   - name: '\mathrm{Tr}\,\Phi_i^J'
@@ -97,7 +99,7 @@ operators:
   - name: '\mathcal{O}_{(J,J,J)}'
     Delta: '3J'
     spin: 0
-    rep: '$U(1)^3$ charges $(J,J,J)$; $R = 2J$; a coupling-dependent sum over orderings of $\mathrm{Tr}\,\Phi_1^J\Phi_2^J\Phi_3^J$ (Freedman and Gürsoy)'
+    rep: '$U(1)^3$ charges $(J,J,J)$; $R = 2J$; a coupling-dependent sum over orderings of $\mathrm{Tr}\,\Phi_1^J\Phi_2^J\Phi_3^J$ [@fg2005]'
     method: exact
     refs: [lm2005, mpsz2005, fg2005]
     note: 'Chiral primaries for generic $\beta$.'

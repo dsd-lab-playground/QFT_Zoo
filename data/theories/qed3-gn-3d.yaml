@@ -1,6 +1,8 @@
 id: qed3-gn-3d
-name: 'QED$_3$–Gross–Neveu–Yukawa model with $N_f$ fermion flavors'
+name: '3d QED–Gross–Neveu–Yukawa model with $N_f$ fermion flavors'
+short_name: 'QED$_3$–GNY, $N_f$ fermions'
 aliases:
+  - 'QED$_3$–Gross–Neveu–Yukawa model with $N_f$ fermion flavors'
   - 'QED$_3$–GN'
   - 'QED-GN$_+$'
 d: 3
@@ -11,7 +13,7 @@ summary: >-
 tags: [CFT, interacting, unitary, Lagrangian, gauge theory, large N, critical phenomena, family]
 
 description: |
-  **Counting.** $N_f$ counts two-component Dirac fermions, as for QED$_3$. Janssen and He
+  **Counting.** $N_f$ counts two-component Dirac fermions, as for QED$_3$. Janssen and He [@janssen2017]
   write $2N$ for this number; their $N$ is $N_f/2$.
 
   The real scalar $\phi$ couples to the flavor-singlet mass $\bar\psi_i\psi_i$, which is odd
@@ -19,11 +21,11 @@ description: |
   transition between a phase with $\langle\phi\rangle = 0$, whose IR limit is plain QED$_3$,
   and a phase where $\langle\phi\rangle \neq 0$ gaps the fermions and breaks time reversal.
   In $d = 4-\epsilon$ the critical point is stable for every $N_f$; unlike plain QED$_3$, it
-  does not annihilate with another fixed point at small $N_f$ (Janssen–He).
+  does not annihilate with another fixed point at small $N_f$ [@janssen2017].
 
   $N_f = 2$ is conjectured to be dual to the $SU(2)$-symmetric NCCP$^1$ model (the Néel–VBS
   deconfined critical point), and the duality implies the emergent $SO(5)$ of that theory
-  (Wang et al.). Under the duality the adjoint bilinear $\bar\psi\sigma^z\psi$ maps to the tuning operator of NCCP$^1$, so
+  [@wang2017]. Under the duality the adjoint bilinear $\bar\psi\sigma^z\psi$ maps to the tuning operator of NCCP$^1$, so
   $3 - \Delta_{\rm adj} = 1/\nu_{\rm N\acute eel\text{–}VBS}$. $N_f = 4$ has been proposed for
   the transition between the $U(1)$ Dirac spin liquid and a chiral spin liquid on the kagome
   lattice.
@@ -52,7 +54,9 @@ family:
       note: 'Strict large-$N_f$ limit, where the $1/N_f$ expansion is controlled.'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '3d conformal group with parity'
+  euclidean: '$O(4,1)$'
+  lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$SU(N_f)$ flavor, $U(1)_{\rm top}$, charge conjugation, and parity / time reversal ($\phi$ odd)'
   gauge: '$U(1)$'
@@ -62,13 +66,13 @@ quantities:
   - symbol: '\nu^{-1}'
     description: 'Inverse correlation-length exponent, $3 - \Delta_{\phi^2}$'
     value: '1 + \frac{80}{\pi^2 N_f} + O(N_f^{-2})'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [boyack2019, benvenuti2018]
     note: 'At $N_f = 2$ this exceeds the unitarity bound, and the Padé and Borel–Padé approximants either do not exist or are negative.'
   - symbol: '\eta_\phi'
     description: 'Scalar anomalous dimension, $\Delta_\phi = (1+\eta_\phi)/2$, extrapolated to $N_f = 2$'
     value: '0.17\text{–}0.30'
-    method: large-N_f expansion with Padé and Borel–Padé resummation
+    method: 1/Nf, Padé and Borel–Padé resummation
     refs: [boyack2019]
     note: 'For comparison, numerics on the Néel–VBS transition give $\eta_{\rm N\acute eel}, \eta_{\rm VBS} \approx 0.25$–$0.35$.'
 
@@ -77,14 +81,14 @@ operators:
     Delta: '1 - \frac{48}{\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
     rep: 'singlet, parity and time-reversal odd'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [boyack2019, benvenuti2018]
     note: '$\eta_\phi = 1 - 96/(\pi^2 N_f)$.'
   - name: '\bar\psi_i\psi^j - \tfrac{1}{N_f}\delta_i^j\bar\psi_k\psi^k'
     Delta: '2 - \frac{16}{\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
     rep: '$SU(N_f)$ adjoint'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [boyack2019, benvenuti2018]
     note: 'Resummed at $N_f = 2$: $3 - \Delta \approx 1.49$–$1.58$, to be compared with $1/\nu$ of the dual NCCP$^1$.'
   - name: 'J_\mu^{\rm top},\ J_\mu^{SU(N_f)}'
@@ -103,7 +107,7 @@ operators:
 relations:
   - type: related_to
     target: dqcp-3d
-    note: 'The $N_f = 2$ member is conjectured to be dual to NCCP$^1$ (Wang et al.).'
+    note: 'The $N_f = 2$ member is conjectured to be dual to NCCP$^1$ [@wang2017].'
   - type: flows_to
     target: qed3-3d
     note: 'Mass deformation of $\phi$ toward the $\langle\phi\rangle = 0$ phase, at the same $N_f$ (when the QED$_3$ fixed point exists).'

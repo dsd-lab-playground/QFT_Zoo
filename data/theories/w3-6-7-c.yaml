@@ -4,6 +4,10 @@ d: 2
 summary: 'Orbifold of the $\mathcal{W}_3(6,7)$ minimal model by charge conjugation $C: W \to -W$.'
 tags: [CFT, interacting, unitary, rational, orbifold]
 
+symmetry:
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{10}{7}$ — 2d conformal symmetry, with parity'
+  global: 'Contains the dual $\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sector'
+
 quantities:
 - key: c
   symbol: c

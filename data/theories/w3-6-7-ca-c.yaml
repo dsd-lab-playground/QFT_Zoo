@@ -6,6 +6,10 @@ tags: [CFT, interacting, unitary, rational, orbifold]
 
 description: 'It has the same gap as $\mathcal{N}_{12}^{(E_6,A)}$ but a different partition function.'
 
+symmetry:
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{10}{7}$ — 2d conformal symmetry; parity not recorded'
+  global: 'Contains the dual $\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sector'
+
 quantities:
 - key: c
   symbol: c

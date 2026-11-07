@@ -23,6 +23,10 @@ family:
     gap: '1/8'
     note: 'Ising $\times$ 3-state Potts: the Ising spin field ($\Delta = \frac18$) is lighter than $\phi_{3,3}$.'
 
+symmetry:
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac32 - \tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity'
+  global: '$\mathbb{Z}_2 \times \mathbb{Z}_2$ (the Ising spin flip and the $\mathbb{Z}_2$ of the D-series factor); $\mathbb{Z}_2 \times S_3$ at $m = 5, 6$, where the D-series factor is the 3-state Potts or tricritical 3-state Potts model'
+
 quantities:
 - key: c
   symbol: c

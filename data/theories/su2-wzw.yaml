@@ -9,11 +9,11 @@ summary: 'The sigma model on the group manifold $SU(2)$ with a Wess–Zumino ter
 tags: [CFT, interacting, unitary, Lagrangian, rational, exactly solvable, family]
 
 description: |
-  The Wess–Zumino–Witten (WZW) model is the two-dimensional sigma model with target the group manifold $SU(2)$, plus a Wess–Zumino term whose coefficient $k$ must be an integer because the term is defined only modulo $2\pi$ (Witten). At the coupling $\lambda^2 = 4\pi/k$ the theory is conformal, and the currents $J \sim \partial g\, g^{-1}$ and $\bar J \sim g^{-1}\bar\partial g$ generate two commuting affine $\widehat{su}(2)_k$ algebras. The stress tensor is quadratic in the currents (Sugawara construction), with $c = \frac{3k}{k+2}$, which grows from 1 at $k = 1$ towards 3 as $k \to \infty$.
+  The Wess–Zumino–Witten (WZW) model is the two-dimensional sigma model with target the group manifold $SU(2)$, plus a Wess–Zumino term whose coefficient $k$ must be an integer because the term is defined only modulo $2\pi$ [@witten1984]. At the coupling $\lambda^2 = 4\pi/k$ the theory is conformal, and the currents $J \sim \partial g\, g^{-1}$ and $\bar J \sim g^{-1}\bar\partial g$ generate two commuting affine $\widehat{su}(2)_k$ algebras. The stress tensor is quadratic in the currents (Sugawara construction), with $c = \frac{3k}{k+2}$, which grows from 1 at $k = 1$ towards 3 as $k \to \infty$.
 
-  Unitary highest-weight representations at level $k$ have spin $j = 0, \frac12, \dots, \frac k2$, and any realization of the current algebra by a 2d quantum field theory gives only these integrable representations (Gepner and Witten). The primary $\Phi_j$ has $h_j = \frac{j(j+1)}{k+2}$; with $l = 2j$, $h_l = \frac{l(l+2)}{4(k+2)}$. Knizhnik and Zamolodchikov found these dimensions exactly and showed that correlation functions of primaries obey first-order linear differential equations (the Knizhnik–Zamolodchikov equations).
+  Unitary highest-weight representations at level $k$ have spin $j = 0, \frac12, \dots, \frac k2$, and any realization of the current algebra by a 2d quantum field theory gives only these integrable representations [@gepnerwitten1986]. The primary $\Phi_j$ has $h_j = \frac{j(j+1)}{k+2}$; with $l = 2j$, $h_l = \frac{l(l+2)}{4(k+2)}$. Knizhnik and Zamolodchikov [@kz1984] found these dimensions exactly and showed that correlation functions of primaries obey first-order linear differential equations (the Knizhnik–Zamolodchikov equations).
 
-  This entry is the diagonal ($A_{k+1}$) theory, $Z = \sum_{l=0}^{k} |\chi_l|^2$, which exists for every $k$. Cappelli, Itzykson and Zuber classified all modular invariants with non-negative integer multiplicities built from $SU(2)_k$ characters: besides $A_{k+1}$ there is a D-series for even $k \geq 4$ (the orbifold by the centre $\mathbb{Z}_2$, which is the WZW model on $SO(3)$) and three exceptional invariants $E_6$, $E_7$, $E_8$ at $k = 10, 16, 28$. Each has its own entry. The lightest non-vacuum primary is $\Phi_{1/2}$, with $\Delta = \frac{3}{2(k+2)} \leq \frac12$, so the currents ($\Delta = 1$) never set the gap.
+  This entry is the diagonal ($A_{k+1}$) theory, $Z = \sum_{l=0}^{k} |\chi_l|^2$, which exists for every $k$. Cappelli, Itzykson and Zuber [@ciz1987] classified all modular invariants with non-negative integer multiplicities built from $SU(2)_k$ characters: besides $A_{k+1}$ there is a D-series for even $k \geq 4$ (the orbifold by the centre $\mathbb{Z}_2$, which is the WZW model on $SO(3)$) and three exceptional invariants $E_6$, $E_7$, $E_8$ at $k = 10, 16, 28$. Each has its own entry. The lightest non-vacuum primary is $\Phi_{1/2}$, with $\Delta = \frac{3}{2(k+2)} \leq \frac12$, so the currents ($\Delta = 1$) never set the gap.
 
   At $k = 1$ the theory is the compact boson at the self-dual radius, where the $U(1)$ currents are enhanced to affine $SU(2) \times SU(2)$ at level 1 and $Z = |\chi_0|^2 + |\chi_1|^2$ with $\chi_0 = \eta^{-1}\sum_{n} q^{n^2}$ and $\chi_1 = \eta^{-1}\sum_{n} q^{(n+1/2)^2}$. At $k = 2$, $Z$ equals the partition function of three free Majorana fermions summed over a common spin structure. The coset $SU(2)_k \times SU(2)_1/SU(2)_{k+1}$ has the central charge $c = 1 - \frac{6}{(k+2)(k+3)}$ of the unitary minimal model with $m = k+2$ (the Goddard–Kent–Olive construction), and $SU(2)_k/U(1)$ gives the $\mathbb{Z}_k$ parafermions with $c = \frac{2(k-1)}{k+2}$.
 
@@ -21,7 +21,7 @@ lagrangian: 'S = -\frac{k}{8\pi}\int d^2x\, \mathrm{tr}\big(g^{-1}\partial^\mu g
 
 parameters:
 - symbol: k
-  description: 'Level: the integer coefficient of the Wess–Zumino term. In the action, $\mathrm{tr}$ is the trace in the fundamental representation (the normalization of the WZW models page specialized to $SU(2)$, Walton eqs. (2.1)–(2.3)), the signature is Euclidean with weight $e^{-S}$, and $\tilde g$ extends $g$ to a 3-manifold $B$ bounded by spacetime. The Wess–Zumino term is imaginary, and $e^{-S}$ is independent of the extension because $k$ is an integer; its sign depends on the orientation of $B$.'
+  description: 'Level: the integer coefficient of the Wess–Zumino term. In the action, $\mathrm{tr}$ is the trace in the fundamental representation (the normalization of the WZW models page specialized to $SU(2)$, [@walton1999, Eqs. (2.1)–(2.3)]), the signature is Euclidean with weight $e^{-S}$, and $\tilde g$ extends $g$ to a 3-manifold $B$ bounded by spacetime. The Wess–Zumino term is imaginary, and $e^{-S}$ is independent of the extension because $k$ is an integer; its sign depends on the orientation of $B$.'
   range: 'integer $k \geq 1$'
 
 family:
@@ -38,7 +38,7 @@ family:
     note: 'Same partition function as three free Majorana fermions summed over a common spin structure.'
 
 symmetry:
-  spacetime: conformal
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{3k}{k+2}$ — 2d conformal symmetry, with parity (combined with $g \to g^{-1}$)'
   supercharges: 0
   global: '$SU(2) \times SU(2)$ acting as $g \to h_L\, g\, h_R^{-1}$, part of the affine $\widehat{su}(2)_k \times \widehat{su}(2)_k$ symmetry'
   notes: 'The centre $\mathbb{Z}_2$ acts as $(-1)^{2j}$ on $\Phi_j$. It has a mixed anomaly for odd $k$; for even $k$ it can be gauged, and the orbifold is the D-series theory.'
@@ -54,7 +54,7 @@ quantities:
   symbol: '\Delta_{\rm gap}'
   description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
   value: '\frac{3}{2(k+2)}'
-  method: derived
+  method: exact
   refs: [ginsparg-lectures]
   note: '$\Delta = 2h_{1/2}$ from $h_j = \frac{j(j+1)}{k+2}$; matches the spectrum checks for $k = 1, \dots, 10$.'
 

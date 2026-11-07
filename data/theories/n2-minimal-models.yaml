@@ -48,7 +48,7 @@ family:
     note: 'The Ramond ground states ($\Delta = \frac{3}{20}$) are lighter than the chiral primary ($\Delta = \frac15$).'
 
 symmetry:
-  spacetime: '$\mathcal{N}=(2,2)$ superconformal'
+  spacetime: 'Two $\mathcal{N}=2$ super-Virasoro algebras at $c = \bar c = \tfrac{3k}{k+2}$ — 2d $\mathcal{N}=(2,2)$ superconformal symmetry (4 $Q$ + 4 $S$ supercharges), with parity'
   supercharges: 4
   global: '$U(1)$ R-symmetry on each side (currents $J$, $\bar J$)'
 
@@ -63,7 +63,7 @@ quantities:
   symbol: '\Delta_{\rm gap}'
   description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
   value: '\min\!\left(\frac{1}{k+2}, \frac{k}{4(k+2)}\right)'
-  method: derived
+  method: exact
   refs: [cordovarizi2025, gray2012]
   note: 'From the weights: the chiral primary $(1,1,0)$ for $k \geq 4$, the Ramond ground states ($\Delta = \frac{c}{12}$) for $k \leq 3$ (equal at $k = 4$). Confirmed by the spectrum files for $k \leq 8$.'
 - symbol: 'N_{\rm prim}'

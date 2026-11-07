@@ -14,28 +14,28 @@ tags: [CFT, interacting, unitary, Lagrangian, critical phenomena, large N, famil
 description: |
   $N$ counts two-component Majorana fermions and is even ($N/2$ two-component Dirac
   fermions). The Lagrangian is usually written with $N_f$ four-component Dirac fermions,
-  $N = 4N_f$ (Fei et al.); Zerf et al. and Li et al. call $N_f$ "$N$", and their values are
+  $N = 4N_f$ [@fei2016]; Zerf et al. [@zerf2017] and Li et al. [@li2017] call $N_f$ "$N$", and their values are
   converted here. The complex scalar $\phi = \phi_1 + i\phi_2$ couples through
   $\bar\psi(\phi_1 + i\gamma_5\phi_2)\psi$, so the theory is invariant under
   $\psi\to e^{i\alpha\gamma_5}\psi$, $\phi\to e^{-2i\alpha}\phi$. When $\phi$ orders, this
   $U(1)$ is broken and the fermions are gapped; the mass $m^2|\phi|^2$ is tuned to
   criticality. The Yukawa theory is the UV completion of the Nambu–Jona-Lasinio model
   $\tfrac{g}{2}[(\bar\psi\psi)^2 - (\bar\psi\gamma_5\psi)^2]$, as in the Gross–Neveu case
-  (Fei et al.).
+  [@fei2016].
 
   For $N=2$ (one two-component Dirac fermion, $N_f = 1/2$) the fixed point is expected to
   be the $\mathcal{N}=2$ Wess–Zumino model with $W = \Phi^3$, with emergent supersymmetry; the
-  chiral $U(1)$ becomes the $R$-symmetry (Fei et al., Sec. 4.1; four-loop check by Zerf et al.).
+  chiral $U(1)$ becomes the $R$-symmetry ([@fei2016, Sec. 4.1]; four-loop check by Zerf et al. [@zerf2017]).
 
   For $N=8$ ($N_f = 2$: the spin-1/2 electrons of graphene) the class describes
   superconducting transitions of the Dirac semimetal and the transition to a Kekulé
-  valence-bond solid (Zerf et al.). The Kekulé order parameter has a $\mathbb{Z}_3$ cubic
-  anisotropy; Li, Jiang, Jian and Yao argue that the Dirac fermions make it irrelevant at
+  valence-bond solid [@zerf2017]. The Kekulé order parameter has a $\mathbb{Z}_3$ cubic
+  anisotropy; Li, Jiang, Jian and Yao [@li2017] argue that the Dirac fermions make it irrelevant at
   this fixed point, and they find continuous transitions in sign-free quantum Monte Carlo
   for $N_f = 2,\dots,6$.
 
   ### Large $N$
-  The expansions below are from Fei et al., eq. (3.33), in $d=3$ with the same $N$. The
+  The expansions below are from [@fei2016, Eq. (3.33)], in $d=3$ with the same $N$. The
   leading fermion anomalous dimension is twice that of the $O(N)$ Gross–Neveu model.
   At $N=\infty$, $\Delta_\psi = \Delta_\phi = 1$ and $\Delta_{|\phi|^2} = 2$.
 
@@ -61,7 +61,9 @@ family:
       label: Large-$N$ limit
 
 symmetry:
-  spacetime: conformal
+  spacetime: '3d conformal group with parity'
+  euclidean: '$O(4,1)$'
+  lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$U(1)$ chiral symmetry ($\phi$ has charge 2), and $U(N_f)$ flavour symmetry in the four-component notation'
   notes: '$\mathcal{N}=2$ supersymmetry emerges at $N=2$, where the $U(1)$ is the $R$-symmetry.'
@@ -70,52 +72,52 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N$ free Majorana fermions'
     value: '1 + \frac{16}{9\pi^2 N} + O(N^{-2})'
-    method: derived
+    method: 1/N, from the Gross–Neveu value
     refs: [fei2016, diab2016]
-    note: 'Fei et al. show that the $1/N$ coefficient is twice the Gross–Neveu one, which is $8/(9\pi^2)$ in $d=3$ (Diab et al.).'
+    note: 'Fei et al. [@fei2016] show that the $1/N$ coefficient is twice the Gross–Neveu one, which is $8/(9\pi^2)$ in $d=3$ [@diab2016].'
   - symbol: 'F'
     description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$, with $F_f = \frac{\log 2}{8} + \frac{3\zeta(3)}{16\pi^2}$ the value for one free Majorana fermion'
     value: 'N F_f + \frac{\zeta(3)}{4\pi^2} + \frac{4}{9\pi^2 N} + O(N^{-2})'
-    method: large N
+    method: 1/N
     refs: [fei2016, tarnopolsky2016]
-    note: 'The $O(N^0)$ term is twice the Gross–Neveu one (Fei et al.). The $1/N$ term is a conjecture of Tarnopolsky, checked against the $\epsilon$-expansions.'
+    note: 'The $O(N^0)$ term is twice the Gross–Neveu one [@fei2016]. The $1/N$ term is a conjecture of Tarnopolsky [@tarnopolsky2016], checked against the $\epsilon$-expansions.'
   - symbol: '\Delta_\phi\ (N=4)'
     description: 'Order-parameter dimension at $N=4$: two-sided Padé of the $4-\epsilon$ and $2+\epsilon$ expansions'
     value: '0.807'
-    method: Padé (4 − ε and 2 + ε)
+    method: Padé, 4 − ε and 2 + ε
     refs: [fei2016]
     note: 'Same table: $\Delta_\psi = 1.074$, $\Delta_{|\phi|^2} = 2.018$. At $N=8$: $\Delta_\phi = 0.903$, $\Delta_\psi = 1.041$, $\Delta_{|\phi|^2} = 2.055$.'
   - symbol: '\nu^{-1}\ (N=8)'
     description: 'Inverse correlation-length exponent at $N=8$, four-loop $4-\epsilon$ expansion, Padé [2/2]'
     value: '0.840'
-    method: epsilon-expansion (4 loops, Padé)
+    method: ε-exp, 4 loops, Padé
     refs: [zerf2017]
     note: 'Padé [3/1]: $0.841$. Same work: $\eta_\phi = 0.810$ ($0.788$), $\eta_\psi = 0.117$ ($0.108$) for Padé [2/2] ([3/1]).'
   - symbol: '\nu\ (N=8)'
     description: 'Correlation-length exponent at $N=8$: quantum Monte Carlo of the Kekulé transition of spin-1/2 fermions on the honeycomb lattice'
     value: '1.06(5)'
-    method: quantum Monte Carlo
+    method: QMC
     refs: [li2017]
-    note: 'Same work: $\eta = 0.71(3)$ for the order parameter. Zerf et al. (Table II) list this value under $1/\nu$; Li et al. (Table I) give it as $\nu$.'
+    note: 'Same work: $\eta = 0.71(3)$ for the order parameter. Zerf et al. [@zerf2017, Table II] list this value under $1/\nu$; Li et al. [@li2017, Table I] give it as $\nu$.'
 
 operators:
   - name: '\psi_j'
     Delta: '1 + \frac{8}{3\pi^2 N} + \frac{1280}{27\pi^4 N^2} + O(N^{-3})'
     spin: '1/2'
     rep: fermion
-    method: large N
+    method: 1/N
     refs: [fei2016]
   - name: '\phi'
     Delta: '1 - \frac{16}{3\pi^2 N} + \frac{4352}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: '$U(1)$ charge 2 (order parameter)'
-    method: large N
+    method: 1/N
     refs: [fei2016]
   - name: '|\phi|^2'
     Delta: '2 + \frac{64}{3\pi^2 N} - \frac{128(364 + 27\pi^2)}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: singlet
-    method: large N
+    method: 1/N
     refs: [fei2016]
     note: 'The tuning parameter: $\nu^{-1} = 3 - \Delta_{|\phi|^2}$.'
   - name: 'J_\mu'

@@ -4,6 +4,9 @@ d: 2
 summary: 'Coset of $Sp(6)_1$ by its principal $SU(2)$ subalgebra (embedding index 35), with the diagonal invariant.'
 tags: [CFT, interacting, unitary, rational, coset]
 
+symmetry:
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{252}{185}$ — 2d conformal symmetry, with parity'
+
 quantities:
 - key: c
   symbol: c

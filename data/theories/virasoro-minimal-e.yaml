@@ -10,8 +10,8 @@ description: |
 
   Weights are given by the Kac formula
   $$h_{r,s} = \frac{\big((m+1)r - ms\big)^2 - 1}{4m(m+1)}, \qquad 1 \le r \le m-1,\ 1 \le s \le m,$$
-  with $(r,s) \sim (m-r, m+1-s)$. Friedan, Qiu and Shenker showed these are the only unitary
-  theories with $c<1$; Cappelli, Itzykson and Zuber classified their modular invariants by pairs of
+  with $(r,s) \sim (m-r, m+1-s)$. Friedan, Qiu and Shenker [@fqs1984] showed these are the only unitary
+  theories with $c<1$; Cappelli, Itzykson and Zuber [@ciz1987] classified their modular invariants by pairs of
   ADE Dynkin diagrams $(G, G^\prime)$ with Coxeter numbers $m$ and $m+1$.
 
   The surviving labels are the exponents of the E diagram ($E_6$: 1, 4, 5, 7, 8, 11; $E_7$: 1, 5, 7, 9, 11, 13, 17; $E_8$: 1, 7, 11, 13, 17, 19, 23, 29), so the lightest primary is $\phi_{k,k}$ with $k = 4, 5, 7$ and $\Delta_{\rm gap} = \frac{k^2-1}{2m(m+1)}$.
@@ -49,6 +49,10 @@ family:
     c: '154/155'
     gap: '4/155'
   show: 6
+
+symmetry:
+  spacetime: 'Two Virasoro algebras, $c = \bar c = 1 - \tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity for the $E_6$ and $E_8$ invariants (diagonal invariants of the extended chiral algebra); parity not recorded for the $E_7$ permutation invariant'
+  global: '$\mathbb{Z}_2$ for the $E_6$ models ($m = 11, 12$), $-1$ on the fields whose $E_6$ label is 4 or 8; not recorded for $E_7$ and $E_8$'
 
 quantities:
 - key: c

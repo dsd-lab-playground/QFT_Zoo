@@ -15,36 +15,36 @@ tags: [CFT, interacting, non-unitary, Lagrangian, exactly solvable]
 description: |
   The $H_3^+$ model is the sigma model with a Wess–Zumino term whose target is three-dimensional hyperbolic space
   $H_3^+=SL(2,\mathbb{C})/SU(2)$, the hermitian $2\times2$ matrices of determinant one, that is, Euclidean $AdS_3$
-  with an NS–NS $B$-field. It is obtained from the $SL(2,\mathbb{C})$ WZW model by gauging $SU(2)$ (Gawedzki). The
+  with an NS–NS $B$-field. It is obtained from the $SL(2,\mathbb{C})$ WZW model by gauging $SU(2)$ [@gawedzki1991]. The
   chiral algebra is two commuting $\widehat{sl}(2)_k$ current algebras, and the Sugawara stress tensor has
   $c=\frac{3k}{k-2}$. The level $k$ is real, and the Euclidean functional integral is stable for $k>2$. As
   $k\to\infty$ the model reduces to quantum mechanics on $H_3^+$; as $k\to2$, the critical level, the
-  Knizhnik–Zamolodchikov equations reduce to the eigenvalue equations of the Gaudin Hamiltonians (Ribault and
-  Teschner).
+  Knizhnik–Zamolodchikov equations reduce to the eigenvalue equations of the Gaudin Hamiltonians
+  [@rt2005].
 
   The primary fields $\Phi^j(x|z)$ carry a spin $j$ and a label $x\in\mathbb{C}$ for the $SL(2,\mathbb{C})$ quantum
   numbers (in string theory on $AdS_3$, a point on the boundary). With $b^2=\frac{1}{k-2}$ their weights are
   $\Delta_j=\bar\Delta_j=-b^2j(j+1)=-\frac{j(j+1)}{k-2}$. The spectrum is the continuum
   $j\in-\frac12+i\mathbb{R}_{\geq0}$, built on the principal series of $SL(2,\mathbb{C})$ that decomposes
-  $L^2(H_3^+)$, and $\Phi^j$ is identified with $\Phi^{-j-1}$ by reflection (Teschner). At $j=-\frac12+is$,
+  $L^2(H_3^+)$, and $\Phi^j$ is identified with $\Phi^{-j-1}$ by reflection [@teschner1997, Sec. 3.1, Eq. (40)]. At $j=-\frac12+is$,
   $\Delta_j=\frac{1/4+s^2}{k-2}>0$. The vacuum is not normalizable, like that of a free boson on $\mathbb{R}$, but it
-  lies $\frac{1}{4(k-2)}$ below the continuum, so it is not a limit of normalizable states; Gawedzki showed that these
-  representations and their descendants make up the whole space of states (Maldacena and Ooguri). Unlike for compact
+  lies $\frac{1}{4(k-2)}$ below the continuum, so it is not a limit of normalizable states; Gawedzki [@gawedzki1991] showed that these
+  representations and their descendants make up the whole space of states [@mo2002]. Unlike for compact
   WZW models, the representations do not factorize into left and right current-algebra modules.
 
-  The model is not unitary (Teschner; Gawedzki). On a Euclidean worldsheet the action is real and positive, because
+  The model is not unitary [@teschner1997, Sec. 1; @gawedzki1991, Sec. 1]. On a Euclidean worldsheet the action is real and positive, because
   the $B$-field is imaginary there, and normalizable operators have positive weights, so the Euclidean theory is well
-  behaved. But the hermitian form that makes the Hamiltonian symmetric is not positive definite (Teschner), and on a
-  Lorentzian worldsheet the action is complex and the modes $J^3_{-n}$ create negative-norm states (Maldacena and
-  Ooguri). The model is used as the Euclidean version of the $SL(2,\mathbb{R})$ WZW model for strings on $AdS_3$, and
+  behaved. But the hermitian form that makes the Hamiltonian symmetric is not positive definite [@teschner1997, Sec. 2.1; @teschner1999, Sec. 2.1], and on a
+  Lorentzian worldsheet the action is complex and the modes $J^3_{-n}$ create negative-norm states
+  [@mo2002]. The model is used as the Euclidean version of the $SL(2,\mathbb{R})$ WZW model for strings on $AdS_3$, and
   as the parent of the Euclidean black hole coset $H_3^+/U(1)$.
 
   ### Correlation functions
-  Teschner derived the structure constants from crossing symmetry of four-point functions with a degenerate field, the
+  Teschner [@teschner1997] derived the structure constants from crossing symmetry of four-point functions with a degenerate field, the
   method that gives the DOZZ formula in Liouville theory, and the reflection amplitude from them. He then established
-  the operator product expansion and the factorization of four-point functions, and proved crossing symmetry by
-  reduction to Liouville theory. In the basis $\Phi^j(\mu|z)=\frac{1}{\pi}|\mu|^{2j+2}\int d^2x\,e^{\mu x-\bar\mu\bar
-  x}\,\Phi^j(x|z)$ of Ribault and Teschner,
+  the operator product expansion and the factorization of four-point functions [@teschner1999], and proved crossing
+  symmetry by reduction to Liouville theory [@teschner2001]. In the basis $\Phi^j(\mu|z)=\frac{1}{\pi}|\mu|^{2j+2}\int d^2x\,e^{\mu x-\bar\mu\bar
+  x}\,\Phi^j(x|z)$ of Ribault and Teschner [@rt2005],
   $$\langle\Phi^{j_2}(\mu_2|z_2)\Phi^{j_1}(\mu_1|z_1)\rangle=|z_{21}|^{-4\Delta_{j_1}}|\mu_1|^2\,\delta^{(2)}(\mu_2+\mu_1)\big(\delta(j_2+j_1+1)+R^H(j_1)\,\delta(j_2-j_1)\big).$$
   The three-point function is $\delta^{(2)}(\mu_1+\mu_2+\mu_3)$ times an $SL(2,\mathbb{C})$ Clebsch–Gordan
   coefficient, the usual powers of $|z_{ij}|$, and the structure constant $C^H(j_3,j_2,j_1)$. The table above gives
@@ -52,26 +52,26 @@ description: |
   $\Upsilon_b(x)=1/\big(\Gamma_b(x)\Gamma_b(Q-x)\big)$, $Q=b+b^{-1}$, the function of the DOZZ formula defined on the
   Liouville CFT page; it obeys $\Upsilon_b(x+b)=\gamma(bx)\,b^{1-2bx}\,\Upsilon_b(x)$ and $\Upsilon_b(\frac{Q}{2})=1$.
 
-  Ribault and Teschner proved that every $n$-point function on the sphere is a Liouville correlator with $n-2$ extra
+  Ribault and Teschner [@rt2005] proved that every $n$-point function on the sphere is a Liouville correlator with $n-2$ extra
   degenerate fields:
   $$\Big\langle\prod_{i=1}^n\Phi^{j_i}(\mu_i|z_i)\Big\rangle=\frac{\pi}{2}(-\pi)^{-n}b\,\delta^{(2)}\Big(\sum_i\mu_i\Big)|\Theta_n|^2\Big\langle\prod_{i=1}^nV_{\alpha_i}(z_i)\prod_{a=1}^{n-2}V_{-\frac{1}{2b}}(y_a)\Big\rangle .$$
-  The Liouville theory, in the conventions of Zamolodchikov and Zamolodchikov, has the same $b$ and cosmological
+  The Liouville theory, in the conventions of Zamolodchikov and Zamolodchikov [@zz1996], has the same $b$ and cosmological
   constant $\mu_L=\frac{b^2}{\pi^2}$; the momenta are $\alpha_i=b(j_i+1)+\frac{1}{2b}$; the $y_a$ and $u$ are fixed by
   $\sum_i\frac{\mu_i}{t-z_i}=u\,\frac{\prod_a(t-y_a)}{\prod_i(t-z_i)}$; and
   $\Theta_n=u\prod_{r<s}z_{rs}^{1/2b^2}\prod_{a<a'}y_{aa'}^{1/2b^2}\prod_{r,a}(z_r-y_a)^{-1/2b^2}$. Then
   $\Delta_j=\Delta_\alpha-\frac{k}{4}$ and $R^L(\alpha)=R^H(j)$. The proof relates the Knizhnik–Zamolodchikov and
-  Belavin–Polyakov–Zamolodchikov equations. Hikida and Schomerus derived the correspondence from the path integral and
+  Belavin–Polyakov–Zamolodchikov equations. Hikida and Schomerus [@hs2009] derived the correspondence from the path integral and
   extended it to higher genus.
 
 lagrangian: 'S=\frac{k}{\pi}\int d^2z\,\big(\partial\phi\,\bar\partial\phi+e^{2\phi}\,\partial\bar\gamma\,\bar\partial\gamma\big)'
 
 parameters:
   - symbol: k
-    description: 'Level of the $\widehat{sl}(2)_k$ current algebras, a real number; $b^2=\frac{1}{k-2}$. In the action (Maldacena and Ooguri, Part 3, eq. (2.1)) the worldsheet is Euclidean with $\partial=\partial_z$, the weight is $e^{-S}$, and $(\phi,\gamma,\bar\gamma)$ are Poincaré coordinates on $H_3^+$ with $\bar\gamma=\gamma^*$, so $S$ is real and positive. The overall factor depends on the normalization of $d^2z$, which the source does not fix; Ribault and Teschner write $k$ in place of $\frac{k}{\pi}$.'
+    description: 'Level of the $\widehat{sl}(2)_k$ current algebras, a real number; $b^2=\frac{1}{k-2}$. In the action [@mo2002, Eq. (2.1)] the worldsheet is Euclidean with $\partial=\partial_z$, the weight is $e^{-S}$, and $(\phi,\gamma,\bar\gamma)$ are Poincaré coordinates on $H_3^+$ with $\bar\gamma=\gamma^*$, so $S$ is real and positive. The overall factor depends on the normalization of $d^2z$, which the source does not fix; Ribault and Teschner [@rt2005] write $k$ in place of $\frac{k}{\pi}$.'
     range: '$k>2$'
 
 symmetry:
-  spacetime: conformal
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{3k}{k-2}$ — 2d conformal symmetry, with parity (combined with $h \to h^{-1}$)'
   supercharges: 0
   global: '$SL(2,\mathbb{C})$, the isometries of $H_3^+$, generated by the zero modes of the two $\widehat{sl}(2)_k$ current algebras'
   notes: 'The representations with spins $j$ and $-j-1$ are equivalent, and the reflection $\Phi^j=R^H(j)\,\Phi^{-j-1}$ is an identification. The identity is not normalizable and is not in the spectrum.'
@@ -89,13 +89,13 @@ quantities:
     value: '-\Big(\frac{b^2\gamma(b^2)}{\pi}\Big)^{-(2j+1)}\frac{\Gamma(2j+1)\,\Gamma(b^2(2j+1))}{\Gamma(-2j-1)\,\Gamma(-b^2(2j+1))}'
     method: exact
     refs: [rt2005, teschner1999]
-    note: 'In the $\mu$ basis (Ribault and Teschner, eq. (2.31)). The coefficient $B^H(j)$ of $|x_{21}|^{4j_1}$ in the $x$-basis two-point function is $R^H(j)/(\pi\gamma(2j+1))$ (their eq. (A.6)).'
+    note: 'In the $\mu$ basis [@rt2005, Eq. (2.31)]. The coefficient $B^H(j)$ of $|x_{21}|^{4j_1}$ in the $x$-basis two-point function is $R^H(j)/(\pi\gamma(2j+1))$ [@rt2005, Eq. (A.6)].'
   - symbol: 'C^H(j_3,j_2,j_1)'
     description: 'Three-point structure constant'
     value: '-\frac{1}{2\pi^3b}\Big[\frac{\gamma(b^2)\,b^{2-2b^2}}{\pi}\Big]^{-2-\sum_ij_i}\frac{\Upsilon_b''(0)\,\Upsilon_b(-b(2j_1+1))\,\Upsilon_b(-b(2j_2+1))\,\Upsilon_b(-b(2j_3+1))}{\Upsilon_b(-b(j_1+j_2+j_3+1))\,\Upsilon_b(-bj^3_{12})\,\Upsilon_b(-bj^2_{13})\,\Upsilon_b(-bj^1_{23})}'
     method: exact
     refs: [rt2005, teschner1997, teschner1999]
-    note: 'Ribault and Teschner, eq. (2.28), with the normalization discussed by Teschner (1999). In the $x$ basis the three-point function is $C^H$ times $|x_{21}|^{2j^3_{21}}|x_{31}|^{2j^2_{31}}|x_{32}|^{2j^1_{32}}$ and the powers of $|z_{ij}|$ (their eq. (A.4)).'
+    note: '[@rt2005, Eq. (2.28)], with the normalization discussed by Teschner [@teschner1999]. In the $x$ basis the three-point function is $C^H$ times $|x_{21}|^{2j^3_{21}}|x_{31}|^{2j^2_{31}}|x_{32}|^{2j^1_{32}}$ and the powers of $|z_{ij}|$ [@rt2005, Eq. (A.4)].'
 
 operators:
   - name: '\Phi^j'
@@ -124,7 +124,7 @@ relations:
     note: 'Ribault–Teschner correspondence: sphere correlators of $H_3^+$ at level $k$ are Liouville correlators at $b^2=\frac{1}{k-2}$ with extra degenerate fields, and $\Delta_j=\Delta_\alpha-\frac{k}{4}$ for $\alpha=b(j+1)+\frac{1}{2b}$.'
   - type: related_to
     target: su2-wzw
-    note: 'Ribault and Teschner view the $H_3^+$ model as the non-compact counterpart of the $SU(2)$ WZW model.'
+    note: 'Ribault and Teschner [@rt2005] view the $H_3^+$ model as the non-compact counterpart of the $SU(2)$ WZW model.'
 
 references:
   - key: gawedzki1991
@@ -175,5 +175,13 @@ references:
     journal: JHEP 03, 095
     arxiv: '0805.3931'
     doi: '10.1088/1126-6708/2009/03/095'
+  - key: zz1996
+    title: 'Structure constants and conformal bootstrap in Liouville field theory'
+    authors: Zamolodchikov, Zamolodchikov
+    year: 1996
+    journal: 'Nucl. Phys. B477, 577'
+    arxiv: 'hep-th/9506136'
+    doi: '10.1016/0550-3213(96)00351-3'
+    note: 'Liouville conventions used by the $H_3^+$–Liouville correspondence [@rt2005].'
 
 contributors: [Canonical111]

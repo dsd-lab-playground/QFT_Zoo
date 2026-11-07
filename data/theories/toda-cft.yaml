@@ -6,13 +6,13 @@ summary: 'The $\mathfrak{sl}(N)$ generalisation of Liouville CFT ($N=2$): $N-1$ 
 tags: [CFT, interacting, Lagrangian]
 
 description: |
-  Toda CFT is the theory of an $(N-1)$-component scalar $\varphi$ valued in the Cartan subalgebra of $\mathfrak{sl}(N)$, with one exponential interaction for each simple root $e_k$. Liouville CFT is the case $N=2$. Like Liouville it is non-compact and non-rational, with a continuum of scalar primaries. This page is a single entry with parameters $N$ and $b$, in the conventions of Fateev and Litvinov: $(\cdot,\cdot)$ is the inner product on the root space and $\rho$ is the Weyl vector, with $(\rho,\rho)=\frac{N(N^2-1)}{12}$.
+  Toda CFT is the theory of an $(N-1)$-component scalar $\varphi$ valued in the Cartan subalgebra of $\mathfrak{sl}(N)$, with one exponential interaction for each simple root $e_k$. Liouville CFT is the case $N=2$. Like Liouville it is non-compact and non-rational, with a continuum of scalar primaries. This page is a single entry with parameters $N$ and $b$, in the conventions of Fateev and Litvinov [@fl2007]: $(\cdot,\cdot)$ is the inner product on the root space and $\rho$ is the Weyl vector, with $(\rho,\rho)=\frac{N(N^2-1)}{12}$.
 
   $$Q=\big(b+b^{-1}\big)\rho,\qquad c=N-1+12(Q,Q)=(N-1)\big(1+N(N+1)(b+b^{-1})^2\big).$$
 
   The Miura transformation builds from $\varphi$ holomorphic currents $W_k$ of spin $k=2,\dots,N$, with $W_2=T$. They form the $\mathcal{W}_N$ algebra, so the symmetry is $\mathcal{W}_N\otimes\overline{\mathcal{W}}_N$. The central charge is invariant under $b\to b^{-1}$, and the theory has dual screening charges $e^{b^{-1}(e_k,\varphi)}$ with a dual cosmological constant $\tilde\mu$.
 
-  The primaries are $V_\alpha=e^{(\alpha,\varphi)}$, labelled by a vector momentum $\alpha$, with $h=\bar h=\frac12(\alpha,2Q-\alpha)$. The physical spectrum is $\alpha=Q+ip$ with $p$ a real vector, for which the weights are real and non-negative. It is diagonal: one $\mathcal{W}_N\otimes\overline{\mathcal{W}}_N$ representation for each Weyl orbit of $p$, integrated over $p$ (Coman, Gabella and Teschner, eq. (6.2)). The character of a continuous representation is $q^{(p,p)/2}/\eta(\tau)^{N-1}$ (Fateev and Ribault, eq. (2.22) at $\alpha=Q+ip$). The continuum starts at $p=0$, with $h=\frac12(Q,Q)=\frac{c-N+1}{24}$; at $N=2$ this is Liouville's $\frac{c-1}{24}$.
+  The primaries are $V_\alpha=e^{(\alpha,\varphi)}$, labelled by a vector momentum $\alpha$, with $h=\bar h=\frac12(\alpha,2Q-\alpha)$. The physical spectrum is $\alpha=Q+ip$ with $p$ a real vector, for which the weights are real and non-negative. It is diagonal: one $\mathcal{W}_N\otimes\overline{\mathcal{W}}_N$ representation for each Weyl orbit of $p$, integrated over $p$ [@cgt2015, Eq. (6.2)]. The character of a continuous representation is $q^{(p,p)/2}/\eta(\tau)^{N-1}$ ([@fr2010, Eq. (2.22)], at $\alpha=Q+ip$). The continuum starts at $p=0$, with $h=\frac12(Q,Q)=\frac{c-N+1}{24}$; at $N=2$ this is Liouville's $\frac{c-1}{24}$.
 
   Momenta related by the Weyl group acting on $\alpha-Q$ have the same $\mathcal{W}_N$ charges, and the fields agree up to a reflection amplitude ($\gamma(x)=\Gamma(x)/\Gamma(1-x)$, product over positive roots):
 
@@ -22,21 +22,21 @@ description: |
 
   ### Three-point functions
 
-  For $N\geq3$ the general three-point function is not known. Unlike in Liouville CFT, the four-point function of a completely degenerate field with three generic fields does not obey an ordinary Fuchsian differential equation of order $N$, and $\mathcal{W}_N$ symmetry does not reduce higher-point functions of $\mathcal{W}_N$ primaries to their three-point functions, because the descendants $(W_{-1})^nV_\alpha$ enter independently. When one field is semi-degenerate, Fateev and Litvinov derived
+  For $N\geq3$ the general three-point function is not known. Unlike in Liouville CFT, the four-point function of a completely degenerate field with three generic fields does not obey an ordinary Fuchsian differential equation of order $N$, and $\mathcal{W}_N$ symmetry does not reduce higher-point functions of $\mathcal{W}_N$ primaries to their three-point functions, because the descendants $(W_{-1})^nV_\alpha$ enter independently. When one field is semi-degenerate, Fateev and Litvinov [@fl2007, Eq. (1.39)] derived
 
   $$C(\alpha_1,\alpha_2,\kappa\omega_{N-1})=\big[\pi\mu\gamma(b^2)b^{2-2b^2}\big]^{\frac{(2Q-\sum_i\alpha_i,\rho)}{b}}\,\frac{\Upsilon(b)^{N-1}\,\Upsilon(\kappa)\prod_{e>0}\Upsilon\big((Q-\alpha_1,e)\big)\Upsilon\big((Q-\alpha_2,e)\big)}{\prod_{i,j=1}^{N}\Upsilon\big(\frac{\kappa}{N}+(\alpha_1-Q,h_i)+(\alpha_2-Q,h_j)\big)}.$$
 
-  Here $h_k=\omega_1-e_1-\dots-e_{k-1}$ are the weights of the fundamental representation, $\Upsilon$ is the function of the DOZZ formula, normalised by $\Upsilon(\frac{b+b^{-1}}{2})=1$, and $\sum_i\alpha_i=\alpha_1+\alpha_2+\kappa\omega_{N-1}$. The case $\alpha_3=\kappa\omega_1$ follows from $h_k\to-h_{N+1-k}$. With a semi-degenerate field, the four-point function with the completely degenerate field $V_{-b\omega_1}$ obeys a Fuchsian equation of order $N$, solved by hypergeometric functions of type $(N,N-1)$. For $N=3$, Fateev and Litvinov also give fields degenerate at higher level as Coulomb-type integrals.
+  Here $h_k=\omega_1-e_1-\dots-e_{k-1}$ are the weights of the fundamental representation, $\Upsilon$ is the function of the DOZZ formula, normalised by $\Upsilon(\frac{b+b^{-1}}{2})=1$, and $\sum_i\alpha_i=\alpha_1+\alpha_2+\kappa\omega_{N-1}$. The case $\alpha_3=\kappa\omega_1$ follows from $h_k\to-h_{N+1-k}$. With a semi-degenerate field, the four-point function with the completely degenerate field $V_{-b\omega_1}$ obeys a Fuchsian equation of order $N$, solved by hypergeometric functions of type $(N,N-1)$. For $N=3$, Fateev and Litvinov [@fl2009, Sec. 3] also give fields degenerate at higher level as Coulomb-type integrals.
 
-  For imaginary $b$ ($c\leq N-1$) Dupic, Estienne and Ikhlef computed the semi-degenerate structure constants by the conformal bootstrap; they are not the analytic continuation of the formula above.
+  For imaginary $b$ ($c\leq N-1$) Dupic, Estienne and Ikhlef [@dei2019] computed the semi-degenerate structure constants by the conformal bootstrap; they are not the analytic continuation of the formula above.
 
   ### AGT relation
 
-  Alday, Gaiotto and Tachikawa conjectured that Liouville correlators on a punctured Riemann surface equal integrals of $|Z|^2$, with $Z$ the full Nekrasov partition function of a four-dimensional $\mathcal{N}=2$ $SU(2)$ superconformal theory of the corresponding class, at $\epsilon_1=b$, $\epsilon_2=b^{-1}$. The sphere with four punctures gives $SU(2)$ with four flavours, and $b=1$ gives Pestun's $S^4$ partition function. Wyllard extended the conjecture to $A_{N-1}$ Toda CFT and conformal $\mathcal{N}=2$ $SU(N)$ quiver gauge theories. A puncture with $U(1)$ flavour symmetry corresponds to a semi-degenerate field and a full puncture to a generic $\alpha$; the one-loop factors match the semi-degenerate structure constants up to normalisation, and the one-instanton term of $SU(3)$ with six fundamentals matches the $\mathcal{W}_3$ conformal block.
+  Alday, Gaiotto and Tachikawa [@agt2010] conjectured that Liouville correlators on a punctured Riemann surface equal integrals of $|Z|^2$, with $Z$ the full Nekrasov partition function of a four-dimensional $\mathcal{N}=2$ $SU(2)$ superconformal theory of the corresponding class, at $\epsilon_1=b$, $\epsilon_2=b^{-1}$. The sphere with four punctures gives $SU(2)$ with four flavours, and $b=1$ gives Pestun's $S^4$ partition function [@pestun2007]. Wyllard [@wyllard2009] extended the conjecture to $A_{N-1}$ Toda CFT and conformal $\mathcal{N}=2$ $SU(N)$ quiver gauge theories. A puncture with $U(1)$ flavour symmetry corresponds to a semi-degenerate field and a full puncture to a generic $\alpha$; the one-loop factors match the semi-degenerate structure constants up to normalisation, and the one-instanton term of $SU(3)$ with six fundamentals matches the $\mathcal{W}_3$ conformal block.
 
   ### $\mathcal{W}_N$ minimal models
 
-  At imaginary $b$ with $b^2=-p'/p$, the central charge becomes $(N-1)\big(1-N(N+1)\frac{(p-p')^2}{pp'}\big)$, that of the $\mathcal{W}_N$ minimal models. Bouwknegt and Schoutens review the argument that Toda theory at these couplings nevertheless cannot be identified directly with the minimal model: projections are needed, and the Toda spectrum gives only a subset of the minimal-model primaries. The minimal models have $c<N-1$, with supremum $N-1$, reached by Toda at $b=i$. Fredenhagen showed that the disc one-point functions of Toda CFT have a limit at $c=N-1$ that agrees, up to normalisation of the fields, with the limit of the $\mathcal{W}_N$ minimal models.
+  At imaginary $b$ with $b^2=-p'/p$, the central charge becomes $(N-1)\big(1-N(N+1)\frac{(p-p')^2}{pp'}\big)$, that of the $\mathcal{W}_N$ minimal models. Bouwknegt and Schoutens [@bs1993, Sec. 6.2] review the argument that Toda theory at these couplings nevertheless cannot be identified directly with the minimal model: projections are needed, and the Toda spectrum gives only a subset of the minimal-model primaries. The minimal models have $c<N-1$, with supremum $N-1$, reached by Toda at $b=i$. Fredenhagen [@fredenhagen2011] showed that the disc one-point functions of Toda CFT have a limit at $c=N-1$ that agrees, up to normalisation of the fields, with the limit of the $\mathcal{W}_N$ minimal models.
 
 lagrangian: 'S[\varphi]=\int\mathrm{d}^2x\,\sqrt{g}\,\Big(\frac{1}{8\pi}g^{ab}(\partial_a\varphi,\partial_b\varphi)+\frac{(Q,\varphi)}{4\pi}R+\mu\sum_{k=1}^{N-1}e^{b(e_k,\varphi)}\Big)'
 
@@ -52,7 +52,7 @@ parameters:
     range: '$\mu>0$'
 
 symmetry:
-  spacetime: conformal
+  spacetime: 'Two Virasoro algebras, $c = \bar c = (N-1)\big(1+N(N+1)(b+b^{-1})^2\big)$ — 2d conformal symmetry, with parity'
   supercharges: 0
   notes: 'Chiral algebra $\mathcal{W}_N$, generated by currents of spin $2,\dots,N$. Weyl reflections of $\alpha-Q$ are identifications of fields, not symmetries.'
 
@@ -67,14 +67,14 @@ quantities:
   - symbol: '\Delta_{\min}'
     description: 'Lower edge of the continuous spectrum, $h+\bar h$ at $p=0$'
     value: '(Q,Q)=\frac{c-N+1}{12}'
-    method: derived
+    method: exact
     note: 'From $h=\frac12(\alpha,2Q-\alpha)=\frac12\big((Q,Q)+(p,p)\big)$ at $\alpha=Q+ip$. There is no gap above it. Reduces to the Liouville value $\frac{c-1}{12}$ at $N=2$.'
     refs: [fredenhagen2011, fl2007]
   - symbol: 'C(\alpha_1,\alpha_2,\kappa\omega_{N-1})'
-    description: 'Three-point function with one semi-degenerate field (Fateev–Litvinov)'
+    description: 'Three-point function with one semi-degenerate field [@fl2007]'
     value: '\big[\pi\mu\gamma(b^2)b^{2-2b^2}\big]^{\frac{(2Q-\sum_i\alpha_i,\rho)}{b}}\frac{\Upsilon(b)^{N-1}\Upsilon(\kappa)\prod_{e>0}\Upsilon((Q-\alpha_1,e))\Upsilon((Q-\alpha_2,e))}{\prod_{i,j}\Upsilon(\frac{\kappa}{N}+(\alpha_1-Q,h_i)+(\alpha_2-Q,h_j))}'
     method: exact
-    note: 'Eq. (1.39) of Fateev–Litvinov I. At $N=2$ it reduces to the DOZZ formula.'
+    note: '[@fl2007, Eq. (1.39)]. At $N=2$ it reduces to the DOZZ formula.'
     refs: [fl2007, fl2009]
 
 operators:
@@ -100,7 +100,7 @@ relations:
     note: '$N=2$ is Liouville CFT; with $\alpha=a\,e_1$, $V_\alpha$ is the Liouville operator $e^{2a\phi}$, and the semi-degenerate three-point function is the DOZZ formula.'
   - type: related_to
     target: w3-minimal-models
-    note: 'At $N=3$ and $b^2=-\frac{p}{p+1}$ the Toda central charge is $2\big(1-\frac{12}{p(p+1)}\big)$, that of $\mathcal{W}_3(p,p+1)$, but Toda theory there is not the minimal model. Both approach a common limit at $c=2$ ($b=i$), where disc one-point functions agree (Fredenhagen).'
+    note: 'At $N=3$ and $b^2=-\frac{p}{p+1}$ the Toda central charge is $2\big(1-\frac{12}{p(p+1)}\big)$, that of $\mathcal{W}_3(p,p+1)$, but Toda theory there is not the minimal model. Both approach a common limit at $c=2$ ($b=i$), where disc one-point functions agree [@fredenhagen2011].'
 
 references:
   - key: fl2007
@@ -170,5 +170,13 @@ references:
     journal: J. Phys. A 52, 105201
     arxiv: '1809.05568'
     doi: '10.1088/1751-8121/aafeaa'
+  - key: pestun2007
+    title: 'Localization of gauge theory on a four-sphere and supersymmetric Wilson loops'
+    authors: Pestun
+    year: 2012
+    journal: 'Commun. Math. Phys. 313, 71'
+    arxiv: '0712.2824'
+    doi: '10.1007/s00220-012-1485-0'
+    note: 'The $S^4$ partition function of $\mathcal{N}=2$ theories, the $b=1$ case of AGT.'
 
 contributors: [Canonical111]

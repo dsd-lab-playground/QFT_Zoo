@@ -4,6 +4,9 @@ d: 2
 summary: 'Coset of $SO(5)_2$ by its principal $SU(2)$ subalgebra (embedding index 20), with the diagonal invariant.'
 tags: [CFT, interacting, unitary, rational, coset]
 
+symmetry:
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{14}{11}$ — 2d conformal symmetry, with parity'
+
 quantities:
 - key: c
   symbol: c

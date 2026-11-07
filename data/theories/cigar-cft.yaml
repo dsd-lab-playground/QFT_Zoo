@@ -14,56 +14,56 @@ summary: >-
 tags: [CFT, interacting, Lagrangian, coset]
 
 description: |
-  Witten found an exact CFT for a black hole in two-dimensional spacetime, the $SL(2,\mathbb{R})/U(1)$ gauged WZW
+  Witten [@witten1991] found an exact CFT for a black hole in two-dimensional spacetime, the $SL(2,\mathbb{R})/U(1)$ gauged WZW
   model at level $k$. Its Euclidean version is the cigar CFT, the coset $SL(2,\mathbb{R})_k/U(1)$, which can also be
-  written as $H_3^+/U(1)$ (Kazakov, Kostov and Kutasov). Gawedzki constructed it by gauging a one-parameter group of
+  written as $H_3^+/U(1)$ [@kkk2002]. Gawedzki [@gawedzki1991] constructed it by gauging a one-parameter group of
   boosts in the $H_3^+$ model, which makes the Euclidean theory manifestly stable. The coset is defined for all $k>2$.
   For large $k$ it is the sigma model with metric and dilaton
   $$ds^2=k\,(d\rho^2+\tanh^2\rho\,d\varphi^2),\qquad\Phi=\Phi_0-\log\cosh\rho,\qquad\varphi\sim\varphi+2\pi,$$
-  in units $\alpha'=1$, with string coupling $e^\Phi$ (Giribet and Ranjbar, eqs. (1)–(2); Hori and Kapustin and Kazakov, Kostov and Kutasov write $\Phi_0-2\log\cosh\rho$, a different normalization of the dilaton). The asymptotic slope then gives $c \approx 2 + \frac6k$ at large $k$, consistent with the exact $c$ below. The circle shrinks at the tip $\rho=0$, where the string coupling $e^\Phi$ is largest, so the
+  in units $\alpha'=1$, with string coupling $e^\Phi$ [@gr2015, Eqs. (1)–(2)] (Hori and Kapustin [@hk2001] and Kazakov, Kostov and Kutasov [@kkk2002] write $\Phi_0-2\log\cosh\rho$, a different normalization of the dilaton). The asymptotic slope then gives $c \approx 2 + \frac6k$ at large $k$, consistent with the exact $c$ below. The circle shrinks at the tip $\rho=0$, where the string coupling $e^\Phi$ is largest, so the
   target is a semi-infinite cigar. As $\rho\to\infty$ it becomes a cylinder of radius $\sqrt k$ with a linear dilaton,
-  $\Phi\sim-\rho$, and $e^\Phi\to0$ (Hori and Kapustin). The exact background charge of the linear dilaton is
-  $Q=\frac{1}{\sqrt{k-2}}$ (Hikida and Schomerus), and a compact boson plus a linear dilaton with this $Q$ has
+  $\Phi\sim-\rho$, and $e^\Phi\to0$ [@hk2001]. The exact background charge of the linear dilaton is
+  $Q=\frac{1}{\sqrt{k-2}}$ [@hs2009], and a compact boson plus a linear dilaton with this $Q$ has
   $c=1+(1+6Q^2)=\frac{2(k+1)}{k-2}$.
 
   The central charge is $c=\frac{3k}{k-2}-1$, that of $SL(2,\mathbb{R})_k$ minus one for the gauged $U(1)$. It tends
   to 2 as $k\to\infty$, where the cigar is weakly curved, and equals 26 at $k=\frac94$, where the cigar is a solution
-  of two-dimensional bosonic string theory (Witten).
+  of two-dimensional bosonic string theory [@witten1991].
 
   Vertex operators carry a radial label $j$, a momentum $n$ and a winding $w$ around the cigar. Momentum is conserved,
-  but winding is not, because a wound string can slip off the tip (Kazakov, Kostov and Kutasov). Hanany, Prezas and
-  Troost computed the torus partition function from the path integral and found the spectrum expected from the coset
+  but winding is not, because a wound string can slip off the tip [@kkk2002]. Hanany, Prezas and
+  Troost [@hpt2002] computed the torus partition function from the path integral and found the spectrum expected from the coset
   construction. With the Casimir written as $-j(j-1)$, as on the $SL(2,\mathbb{R})$ WZW page, it has a continuum
   $j=\frac12+is$, $s\in\mathbb{R}$, with
   $$h=\frac{s^2+\frac14}{k-2}+\frac{(n-kw)^2}{4k},\qquad\bar h=\frac{s^2+\frac14}{k-2}+\frac{(n+kw)^2}{4k},$$
   and discrete states with $h=-\frac{j(j-1)}{k-2}+\frac{(n-kw)^2}{4k}$ and $\bar h$ the same with $n+kw$. For the
   discrete states the constraint $J^3_0+\bar J^3_0=-kw$ fixes $j$, which lies in $\frac12<j<\frac{k-1}{2}$, the bound
-  of the $SL(2,\mathbb{R})$ model. Earlier, Dijkgraaf, Verlinde and Verlinde studied the spectrum, the winding states
+  of the $SL(2,\mathbb{R})$ model. Earlier, Dijkgraaf, Verlinde and Verlinde [@dvv1992] studied the spectrum, the winding states
   and the bound states of the Euclidean solution, and found that in the Lorentzian black hole target-space duality
   exchanges the horizon and the singularity.
 
   ### FZZ duality
-  Fateev, Zamolodchikov and Zamolodchikov conjectured, in unpublished work presented by Kazakov, Kostov and Kutasov,
+  Fateev, Zamolodchikov and Zamolodchikov conjectured, in unpublished work presented by Kazakov, Kostov and Kutasov [@kkk2002],
   that the cigar CFT is equivalent to sine-Liouville theory, a compact boson $x$ and a linear dilaton $\phi$ with a
   winding-mode potential,
   $$\mathcal{L}=\frac{1}{4\pi}\Big[(\partial x)^2+(\partial\phi)^2+Q\hat R\phi+\lambda\,e^{b\phi}\cos R(x_L-x_R)\Big],\qquad Q^2=\frac{1}{k-2},\quad R=\sqrt k,\quad b=-\frac1Q .$$
   Its central charge $2+6Q^2$ equals that of the cigar, and $b$ makes the potential marginal. The duality is
   strong–weak: the cigar is weakly coupled at large $k$, sine-Liouville theory as $k\to2$. In one description the
   strong-coupling end of the asymptotic cylinder is capped off by the tip of the cigar, in the other it is cut off by
-  the potential, which also breaks winding conservation. Two- and three-point functions agree. Hikida and Schomerus
+  the potential, which also breaks winding conservation. Two- and three-point functions agree. Hikida and Schomerus [@hs2009]
   proved that all correlators of tachyon vertex operators agree, on the sphere and on all closed surfaces, by
   combining the $H_3^+$–Liouville correspondence with the self-duality of Liouville theory.
 
   ### The supersymmetric cigar
   The $\mathcal{N}=2$ version is the $SL(2,\mathbb{R})_k/U(1)$ Kazama–Suzuki supercoset, the fermionic 2d black hole:
   an $\mathcal{N}=(2,2)$ SCFT with $c=3\big(1+\frac2k\big)$, defined for all $k>0$. Unlike in the bosonic case, the
-  $1/k$ expansion of its central charge stops at one loop. Hori and Kapustin proved that it is equivalent to
+  $1/k$ expansion of its central charge stops at one loop. Hori and Kapustin [@hk2001] proved that it is equivalent to
   $\mathcal{N}=2$ Liouville theory and that this equivalence is mirror symmetry, by realizing the supercoset as the
   infrared limit of a gauged linear sigma model and dualizing. The lowest weight in its spectrum is
   $h_{\min}=\frac{1}{4k}$, so the effective central charge is $c-24h_{\min}=3$.
 
   ### Status
-  Gawedzki expected the Euclidean black hole CFT to be unitary, citing the result of Dixon, Lykken and Peskin that the
+  Gawedzki [@gawedzki1991, Sec. 5] expected the Euclidean black hole CFT to be unitary, citing the result of Dixon, Lykken and Peskin [@dlp1989] that the
   conditions $J^3_n|\psi\rangle=0$, $n\geq1$, remove the negative-norm states of the $SL(2,\mathbb{R})$ modules for
   discrete spins in a range bounded by $\frac{k}{2}$.
 
@@ -73,7 +73,7 @@ parameters:
     range: '$k>2$'
 
 symmetry:
-  spacetime: conformal
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{3k}{k-2} - 1$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$U(1)$ momentum around the cigar; winding is not conserved'
 
@@ -84,7 +84,7 @@ quantities:
     value: '\frac{3k}{k-2}-1'
     method: exact
     refs: [kkk2002, hs2009]
-    note: 'Equal to $\frac{2(k+1)}{k-2}$ (Hikida and Schomerus). It is 26 at $k=\frac94$ and tends to 2 as $k\to\infty$.'
+    note: 'Equal to $\frac{2(k+1)}{k-2}$ [@hs2009]. It is 26 at $k=\frac94$ and tends to 2 as $k\to\infty$.'
   - symbol: 'Q'
     description: 'Background charge of the asymptotic linear dilaton'
     value: '\frac{1}{\sqrt{k-2}}'
@@ -116,10 +116,10 @@ operators:
 relations:
   - type: related_to
     target: sl2r-wzw
-    note: 'The cigar is the coset of the $SL(2,\mathbb{R})_k$ WZW model by a $U(1)$ subgroup (Witten), and its discrete states obey the bound $\frac12<j<\frac{k-1}{2}$ of that model (Hanany, Prezas and Troost).'
+    note: 'The cigar is the coset of the $SL(2,\mathbb{R})_k$ WZW model by a $U(1)$ subgroup [@witten1991], and its discrete states obey the bound $\frac12<j<\frac{k-1}{2}$ of that model [@hpt2002].'
   - type: related_to
     target: h3-wzw
-    note: 'The cigar is also the coset $H_3^+/U(1)$ (Gawedzki; Kazakov, Kostov and Kutasov). Hikida and Schomerus obtain its correlators from those of the $H_3^+$ model, and through them from Liouville theory.'
+    note: 'The cigar is also the coset $H_3^+/U(1)$ [@gawedzki1991; @kkk2002]. Hikida and Schomerus [@hs2009] obtain its correlators from those of the $H_3^+$ model, and through them from Liouville theory.'
   - type: related_to
     target: zk-parafermions
     note: 'Compact analogue $SU(2)_k/U(1)$. Under $k\to-k$ the parafermion central charge $\frac{2(k-1)}{k+2}$ becomes $\frac{2(k+1)}{k-2}$, that of the cigar.'
@@ -184,5 +184,12 @@ references:
     year: 1989
     journal: Nucl. Phys. B321, 232
     doi: '10.1016/0550-3213(89)90250-2'
+  - key: dlp1989
+    title: 'N=2 superconformal symmetry and SO(2,1) current algebra'
+    authors: Dixon, Peskin, Lykken
+    year: 1989
+    journal: 'Nucl. Phys. B325, 329'
+    doi: '10.1016/0550-3213(89)90459-8'
+    note: 'No-ghost result for $SL(2,\mathbb{R})$ modules with $J^3_n|\psi\rangle = 0$, cited in [@gawedzki1991, Sec. 5].'
 
 contributors: [Canonical111]

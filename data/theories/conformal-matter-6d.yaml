@@ -15,7 +15,7 @@ description: |
   subgroup of type $G = A, D, E$, carries 7d super Yang–Mills theory with gauge group $G$. An
   M5-brane at a point of $\mathbb{R}$ is a domain wall of this theory, and the 7d gauge fields on
   its two sides give the 6d theory on the brane a $G_L\times G_R$ flavor symmetry. Del Zotto,
-  Heckman, Tomasiello and Vafa call it $(G,G)$ conformal matter, since it plays the role of
+  Heckman, Tomasiello and Vafa [@delzotto2014] call it $(G,G)$ conformal matter, since it plays the role of
   bifundamental matter. For $G=SU(k)$ it is a free hypermultiplet in the bifundamental. For $D$-
   and $E$-type $G$ it is an interacting 6d $(1,0)$ SCFT. In F-theory it sits where two
   non-compact seven-branes with gauge algebra $\mathfrak{g}$ collide; resolving the collision
@@ -34,13 +34,13 @@ description: |
   of $-2$ curves, linked by conformal matter.
 
   ### Anomalies
-  Ohmori, Shimizu, Tachikawa and Yonekura obtain the anomaly polynomial by anomaly matching on
+  Ohmori, Shimizu, Tachikawa and Yonekura [@ohmori2014b] obtain the anomaly polynomial by anomaly matching on
   the tensor branch:
   $I_8 = \frac{\alpha}{24}c_2(R)^2 - \frac{\beta}{48}c_2(R)p_1(T) + \gamma\,\frac{7p_1(T)^2-4p_2(T)}{5760} + \left(-\frac{x}{8}c_2(R)+\frac{y}{96}p_1(T)\right)\left(\mathrm{Tr}F_L^2+\mathrm{Tr}F_R^2\right) + \frac{1}{48}\left(\mathrm{tr}_G F_L^4+\mathrm{tr}_G F_R^4\right) - \frac12\left(\frac14\mathrm{Tr}F_L^2-\frac14\mathrm{Tr}F_R^2\right)^2$
-  (their eq. (3.19)), with $\gamma = \dim G + 1$, $x = |\Gamma_G| - h^\vee_G$ and $y = h^\vee_G$.
-  The members table gives their Table 1. The $a$-anomaly, in the normalization with $a = 1$ for
+  [@ohmori2014b, Eq. (3.19)], with $\gamma = \dim G + 1$, $x = |\Gamma_G| - h^\vee_G$ and $y = h^\vee_G$.
+  The members table gives [@ohmori2014b, Table 1]. The $a$-anomaly, in the normalization with $a = 1$ for
   a free $(2,0)$ tensor multiplet, is derived here from the formula of Córdova, Dumitrescu and
-  Intriligator, which in the coefficients above reads
+  Intriligator [@cordova2015], which in the coefficients above reads
   $a = \tfrac{16}{7}\alpha + \tfrac{8}{7}\beta + \tfrac{11}{210}\gamma$.
 
 parameters:
@@ -68,17 +68,19 @@ family:
       note: '$\alpha = 12489$, $\beta = 831$, $\gamma = 249$, $x = 90$, $y = 30$; $a = \tfrac{2065633}{70} \approx 29509.0$ (derived).'
 
 symmetry:
-  spacetime: '6d $\mathcal{N}=(1,0)$ superconformal'
+  spacetime: '6d $\mathcal{N}=(1,0)$ superconformal group (8 $Q$ + 8 $S$ supercharges); no parity (chiral)'
+  euclidean: '$SO(7,1)$ (bosonic conformal part)'
+  lorentzian: '$OSp(8^*|2)$'
   supercharges: 8
   global: 'Flavor $G_L\times G_R$; R-symmetry $SU(2)_R$'
 
 quantities:
   - symbol: '(\alpha,\beta,\gamma,x,y)'
-    description: 'Coefficients of the anomaly polynomial in the form of Ohmori et al. eq. (3.19), for $G = E_8$'
+    description: 'Coefficients of the anomaly polynomial in the form of [@ohmori2014b, Eq. (3.19)], for $G = E_8$'
     value: '(12489,\ 831,\ 249,\ 90,\ 30)'
-    method: anomaly matching on the tensor branch
+    method: anomaly, tensor branch
     refs: [ohmori2014b]
-    note: 'Their Table 1, which also gives the other members listed above. For $G=D_4$, $(\alpha,\beta,\gamma) = (13, 11, 29)$ give the same $c_2(R)$ and gravitational anomalies as the rank-1 E-string without its free hypermultiplet, which Ohmori et al. identify with $(D_4,D_4)$ conformal matter.'
+    note: '[@ohmori2014b, Table 1], which also gives the other members listed above. For $G=D_4$, $(\alpha,\beta,\gamma) = (13, 11, 29)$ give the same $c_2(R)$ and gravitational anomalies as the rank-1 E-string without its free hypermultiplet, which Ohmori et al. [@ohmori2014b] identify with $(D_4,D_4)$ conformal matter.'
 
 operators:
   - name: 'J_\mu'
@@ -97,7 +99,7 @@ operators:
 relations:
   - type: related_to
     target: e-string-6d
-    note: '$(D_4,D_4)$ conformal matter is the rank-1 E-string. On the tensor branches of the $E$-type members, the empty $-1$ curves between two algebras carry rank-1 E-strings whose $E_8$ contains both (Ohmori et al. 2014, Sec. 3.2.1).'
+    note: '$(D_4,D_4)$ conformal matter is the rank-1 E-string. On the tensor branches of the $E$-type members, the empty $-1$ curves between two algebras carry rank-1 E-strings whose $E_8$ contains both [@ohmori2014b, Sec. 3.2.1].'
   - type: related_to
     target: nhc-6d
     note: 'The tensor branches of $(E_6,E_6)$ and $(E_8,E_8)$ conformal matter contain the $-3$ curve with $\mathfrak{su}(3)$ and the $-5$ curve with $\mathfrak{f}_4$ of the minimal 6d SCFTs, joined to the rest through $-1$ curves.'

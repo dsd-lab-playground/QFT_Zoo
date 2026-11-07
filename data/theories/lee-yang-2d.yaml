@@ -14,9 +14,9 @@ tags: [CFT, interacting, non-unitary, rational, exactly solvable, minimal model,
 
 description: |
   Above the critical temperature, the zeros of the Ising partition function in the complex magnetic
-  field $h$ lie on the imaginary axis (Lee and Yang) and become dense beyond an edge $h_c$, near
-  which their density behaves as $(h - h_c)^\sigma$. Fisher recognized the edge as a critical point
-  and described it by a scalar field theory with an imaginary cubic coupling. Cardy showed that in
+  field $h$ lie on the imaginary axis [@lee1952] and become dense beyond an edge $h_c$, near
+  which their density behaves as $(h - h_c)^\sigma$. Fisher [@fisher1978] recognized the edge as a critical point
+  and described it by a scalar field theory with an imaginary cubic coupling. Cardy [@cardy1985] showed that in
   two dimensions the critical theory is the simplest non-unitary minimal model, $\mathcal{M}(2,5)$
   with $c = -\tfrac{22}{5}$, and obtained $\sigma = -\tfrac16$: the first application of conformal
   field theory to a non-unitary critical point.
@@ -33,24 +33,23 @@ description: |
   $q^{-1/60}\sum_{n\ge0} q^{n^2}/(q)_n$, with $(q)_n = \prod_{k=1}^{n}(1-q^k)$. Since $h_\phi < 0$,
   the lowest state on a circle is $\phi$, not the vacuum, and finite-size scaling (for instance the
   free energy of a long periodic strip) is governed by $c_{\rm eff} = c - 24h_\phi = \tfrac25$
-  instead of $c$ (Itzykson, Saleur and Zuber, with transfer matrices of the Ising model at the edge).
+  instead of $c$ ([@isz1986], with transfer matrices of the Ising model at the edge).
 
   ### Related problems
   The same universality class describes the singularity of lattice gases with purely repulsive
   interactions at negative activity; its pressure exponent $\sigma + 1 = \tfrac56$ in two dimensions
-  agrees with Baxter's solution of the hard-hexagon model (see Cardy's review). Parisi and Sourlas
+  agrees with Baxter's solution of the hard-hexagon model [@baxter1980] (see [@cardy2023]). Parisi and Sourlas [@parisi1981]
   related the Yang–Lee edge in $d$ dimensions to branched polymers in $d + 2$ dimensions, so this
   theory is expected to describe branched polymers in four dimensions. Perturbing the CFT by $\phi$
   gives an integrable massive field theory with a single particle, whose factorized S-matrix was
-  found by Cardy and Mussardo. Imaginary magnetic deformations of the tricritical Ising model reach
-  this fixed point and, it is argued, its tricritical version $\mathcal{M}(2,7)$ (Lencsés,
-  Miscioscia, Mussardo and Takács).
+  found by Cardy and Mussardo [@cardymussardo1989]. Imaginary magnetic deformations of the tricritical Ising model reach
+  this fixed point and, it is argued, its tricritical version $\mathcal{M}(2,7)$ [@lencses2023].
 
 symmetry:
-  spacetime: 'conformal (Virasoro $\times$ Virasoro)'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = -\tfrac{22}{5}$ — 2d conformal symmetry, with parity; Euclidean only (non-unitary statistical model)'
   supercharges: 0
   global: 'No invertible internal symmetry: since $C_{\phi\phi\phi} \neq 0$, no phase rotation of $\phi$ is allowed (the Ising $\mathbb{Z}_2$ is broken by the imaginary field).'
-  notes: 'Not unitary. The spectrum is real because the quantum Hamiltonian is invariant under complex conjugation, $H \to H^*$, combined with $\phi \to -\phi$ (Cardy, review).'
+  notes: 'Not unitary. The spectrum is real because the quantum Hamiltonian is invariant under complex conjugation, $H \to H^*$, combined with $\phi \to -\phi$ [@cardy2023].'
 
 quantities:
   - key: c
@@ -64,7 +63,7 @@ quantities:
     value: '\frac{2}{5}'
     method: exact
     refs: [isz1986]
-    note: 'Replaces $c$ in the finite-size free energy of a long periodic strip. Transfer-matrix estimates for the Ising model at the edge converge to $\tfrac25$ rather than to $c$ (Table I of Itzykson, Saleur and Zuber).'
+    note: 'Replaces $c$ in the finite-size free energy of a long periodic strip. Transfer-matrix estimates for the Ising model at the edge converge to $\tfrac25$ rather than to $c$ [@isz1986, Table I].'
   - symbol: '\sigma'
     description: 'Yang–Lee edge exponent, $\sigma = \Delta_\phi/(2 - \Delta_\phi)$'
     value: '-\frac{1}{6}'
@@ -80,7 +79,7 @@ quantities:
     value: 'i\left(\frac{\Gamma(6/5)^2\,\Gamma(1/5)\,\Gamma(2/5)}{\Gamma(3/5)\,\Gamma(4/5)^3}\right)^{1/2}'
     method: exact
     refs: [arguellocruz2025, cardy2023]
-    note: '$\approx 1.911312699\,i$ (eq. (2.2) of Arguello Cruz et al.), defined by $\phi(x)\times\phi(0) = |x|^{4/5}\,1 + C_{\phi\phi\phi}\,|x|^{2/5}\,\phi$. Purely imaginary; its sign flips under $\phi \to -\phi$.'
+    note: '$\approx 1.911312699\,i$ [@arguellocruz2025, Eq. (2.2)], defined by $\phi(x)\times\phi(0) = |x|^{4/5}\,1 + C_{\phi\phi\phi}\,|x|^{2/5}\,\phi$. Purely imaginary; its sign flips under $\phi \to -\phi$.'
 
 operators:
   - name: '\phi = \phi_{1,2}'
@@ -101,7 +100,7 @@ relations:
     note: 'The Lee–Yang edge singularity in $d = 2$ and $d = 3$: one universality class (the $i\phi^3$ theory, upper critical dimension 6) continued in dimension.'
   - type: related_to
     target: ising-2d
-    note: 'The Ising CFT perturbed by the energy operator and a purely imaginary magnetic field flows to the Lee–Yang fixed point (Lencsés, Miscioscia, Mussardo and Takács).'
+    note: 'The Ising CFT perturbed by the energy operator and a purely imaginary magnetic field flows to the Lee–Yang fixed point [@lencses2023].'
 
 references:
   - key: lee1952
@@ -170,5 +169,12 @@ references:
     year: 2026
     journal: Phys. Rev. X 16, 011022
     arxiv: '2505.06369'
+  - key: baxter1980
+    title: 'Hard hexagons: exact solution'
+    authors: Baxter
+    year: 1980
+    journal: 'J. Phys. A 13, L61'
+    doi: '10.1088/0305-4470/13/3/007'
+    note: 'Exact hard-hexagon exponent $5/6$, as cited by [@cardy2023].'
 
 contributors: [Canonical111]

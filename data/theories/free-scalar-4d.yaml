@@ -20,7 +20,9 @@ description: |
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '4d conformal group with parity'
+  euclidean: '$O(5,1)$'
+  lorentzian: '$O(4,2)$'
   supercharges: 0
   global: '$\mathbb{Z}_2$ ($\phi\to-\phi$), plus shift symmetry $\phi \to \phi + \text{const}$'
 

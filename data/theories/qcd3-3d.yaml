@@ -1,6 +1,7 @@
 id: qcd3-3d
-name: 'QCD$_3$: $SU(N_c)$ gauge theory with $N_f$ fundamental fermions'
+name: '3d QCD (QCD$_3$): $SU(N_c)$ gauge theory with $N_f$ fundamental fermions'
 aliases:
+  - 'QCD$_3$: $SU(N_c)$ gauge theory with $N_f$ fundamental fermions'
   - 'QCD$_3$'
   - '$SU(N_c)_0$ with $N_f$ fundamental fermions'
 d: 3
@@ -13,13 +14,13 @@ tags: [CFT, interacting, unitary, Lagrangian, gauge theory, large N, critical ph
 description: |
   **Counting.** $N_f$ counts two-component Dirac fermions, each a fundamental of $SU(N_c)$.
   The Chern–Simons level vanishes, which with fundamental fermions requires even $N_f$; the
-  theory is then parity and time-reversal invariant. Giombi–Tarnopolsky–Klebanov count
+  theory is then parity and time-reversal invariant. Giombi–Tarnopolsky–Klebanov [@giombi2016] count
   four-component fermions, $N = 4N_f^{(4)} = 2N_f$; their results are converted below.
 
   At large $N_f$ the theory flows to a CFT, and to leading order in $1/N_f$ its data follow
   from those of QED$_3$ with group-theory factors: the corrections to $C_T$ and $C_J$ are
   those of QED$_3$ times $d(G)/d(r) = (N_c^2-1)/N_c$. For smaller $N_f$, Komargodski and
-  Seiberg conjecture that in a window $0 < N_f < N_*(N_c)$ the flavor symmetry breaks as
+  Seiberg [@komargodski2018] conjecture that in a window $0 < N_f < N_*(N_c)$ the flavor symmetry breaks as
   $U(N_f) \to U(N_f/2)\times U(N_f/2)$, with the theory conformal for $N_f \geq N_*$;
   $N_*$ is not known. With a level $k$, the breaking pattern becomes
   $U(N_f/2+k)\times U(N_f/2-k)$ for $2k < N_f < N_*$, and level-rank dualities to bosonic
@@ -32,7 +33,7 @@ description: |
   with a level-1 Wess–Zumino–Witten term, expected to flow to $SU(2)$ QCD$_3$ in its critical
   phase, finds such a conformally invariant phase for $N_f \geq 4$ but not for $N_f = 2$,
   tentatively placing the edge of the $SU(2)$ conformal window between $N_f = 2$ and $4$
-  (Huffman et al.).
+  [@huffman2026].
 
 lagrangian: '\mathcal{L} = \sum_{i=1}^{N_f}\bar\psi_i\gamma^\mu(\partial_\mu - i A_\mu^a t^a)\psi_i + \frac{1}{2g^2}\operatorname{tr} F_{\mu\nu}F^{\mu\nu} \quad (\psi_i \text{ two-component, in the fundamental of } SU(N_c))'
 
@@ -57,7 +58,9 @@ family:
       note: 'Strict large-$N_f$ limit at fixed $N_c$.'
 
 symmetry:
-  spacetime: conformal (at large $N_f$)
+  spacetime: '3d conformal group with parity (even $N_f$, no Chern–Simons term; conformal at large $N_f$)'
+  euclidean: '$O(4,1)$'
+  lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$U(N_f)$ flavor (enlarged to $Sp(N_f)$ for $N_c = 2$), charge conjugation, parity and time reversal'
   gauge: '$SU(N_c)$'
@@ -66,36 +69,36 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N_c N_f$ free two-component Dirac fermions (no gluons)'
     value: '1 + \frac{N_c^2-1}{N_c}\,\frac{1}{N_f}\Big(\frac{2096}{45\pi^2} - 4\Big) + O(N_f^{-2})'
-    method: derived (large-N_f expansion)
+    method: 1/Nf
     refs: [giombi2016]
-    note: 'Eq. (7.5) of the reference with $C_{T1} = \frac{4192}{45\pi^2} - 8$ and $N = 2N_f$. The Abelian (QED$_3$) result is not the $N_c = 1$ case of this $SU(N_c)$ formula; it follows from the $U(1)$ group factors instead (see the QED$_3$ entry).'
+    note: '[@giombi2016, Eq. (7.5)] with $C_{T1} = \frac{4192}{45\pi^2} - 8$ and $N = 2N_f$. The Abelian (QED$_3$) result is not the $N_c = 1$ case of this $SU(N_c)$ formula; it follows from the $U(1)$ group factors instead (see the QED$_3$ entry).'
   - symbol: 'C_J/C_J^{\rm free}'
     description: 'Flavor-current two-point coefficient, relative to $N_c N_f$ free two-component Dirac fermions'
     value: '1 + \frac{N_c^2-1}{N_c}\,\frac{1}{N_f}\Big(\frac{368}{9\pi^2} - 4\Big) + O(N_f^{-2})'
-    method: derived (large-N_f expansion)
+    method: 1/Nf
     refs: [giombi2016]
-    note: 'Eq. (7.9) of the reference with $C_{J1} = \frac{736}{9\pi^2} - 8$ and $N = 2N_f$.'
+    note: '[@giombi2016, Eq. (7.9)] with $C_{J1} = \frac{736}{9\pi^2} - 8$ and $N = 2N_f$.'
 
 operators:
   - name: '\phi^{[ij]}\ (N_c = 2)'
     Delta: '2 - \frac{32}{3\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
     rep: '$Sp(N_f)$ traceless antisymmetric rank-2 fermion bilinear'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [huffman2026]
-    note: 'Eq. (11) of the reference, from Xu (2008) converted to this $N_f$. For $N_f = 2$ this is the $SO(5)$ vector of deconfined criticality.'
+    note: '[@huffman2026, Eq. (11)], from Xu [@xu2008] converted to this $N_f$. For $N_f = 2$ this is the $SO(5)$ vector of deconfined criticality.'
   - name: '\phi^{[ij]}\ (N_c = 2,\ N_f = 4)'
     Delta: '1.10(1)'
     spin: 0
     rep: '$Sp(4)$ traceless antisymmetric rank-2'
-    method: quantum Monte Carlo (fuzzy sphere)
+    method: QMC, fuzzy sphere
     refs: [huffman2026]
     note: 'Same study: $1.32(3)$, $1.57(1)$, $1.75(2)$, $1.85(2)$, $1.90(2)$, $1.95(5)$ for $N_f = 6, 8, \dots, 16$, approaching the large-$N_f$ formula.'
   - name: 'S^- \ (N_c = 2)'
     Delta: '2 + \frac{64}{3\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
     rep: '$Sp(N_f)$ singlet fermion mass, parity odd'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [huffman2026]
   - name: 'J_\mu'
     Delta: 2
@@ -116,7 +119,7 @@ relations:
     note: 'Abelian counterpart; at leading order in $1/N_f$ the corrections to $C_T$ and $C_J$ differ only by the factor $d(G)/d(r)$.'
   - type: related_to
     target: dqcp-3d
-    note: '$SU(2)$ with $N_f = 2$ is conjectured to be dual to NCCP$^1$, with manifest $SO(5)$ (Wang et al.).'
+    note: '$SU(2)$ with $N_f = 2$ is conjectured to be dual to NCCP$^1$, with manifest $SO(5)$ [@wang2017].'
 
 references:
   - key: komargodski2018
@@ -145,5 +148,13 @@ references:
     journal: Phys. Rev. D 114, 034503
     arxiv: '2602.11255'
     note: 'Their $N$ is our $N_f$ (two-component Dirac fermions in the $SU(2)$ fundamental).'
+  - key: xu2008
+    title: 'Renormalization group studies on four-fermion interaction instabilities on algebraic spin liquids'
+    authors: Xu
+    year: 2008
+    journal: 'Phys. Rev. B 78, 054432'
+    arxiv: '0803.0794'
+    doi: '10.1103/PhysRevB.78.054432'
+    note: 'Large-$N$ dimensions at the $SU(2)$ QCD$_3$ fixed point, as used by [@huffman2026].'
 
 contributors: [Canonical111]

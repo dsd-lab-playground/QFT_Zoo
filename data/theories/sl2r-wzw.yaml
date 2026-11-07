@@ -8,13 +8,13 @@ aliases:
 d: 2
 summary: >-
   The WZW model on the universal cover of $SL(2,\mathbb{R})$, Lorentzian $AdS_3$, at real level $k>2$:
-  $c=\frac{3k}{k-2}$. Its spectrum (Maldacena–Ooguri) has continuous and discrete representations and
+  $c=\frac{3k}{k-2}$. Its spectrum [@mo2001a] has continuous and discrete representations and
   all their spectral flows. The worldsheet theory of strings on $AdS_3$ with NS–NS flux.
 tags: [CFT, interacting, non-unitary, Lagrangian]
 
 description: |
   The target of this WZW model is the group manifold $SL(2,\mathbb{R})$, the hyperboloid that is Lorentzian $AdS_3$,
-  with metric $-\cosh^2\rho\,dt^2+d\rho^2+\sinh^2\rho\,d\phi^2$ in global coordinates. Maldacena and Ooguri take its
+  with metric $-\cosh^2\rho\,dt^2+d\rho^2+\sinh^2\rho\,d\phi^2$ in global coordinates. Maldacena and Ooguri [@mo2001a] take its
   universal cover, so that global time $t$ is not compact. The level $k$ is real, since $H^3$ of $SL(2,\mathbb{R})$
   vanishes; large $k$ is the semiclassical limit, and $k>2$ is assumed. The currents generate two copies of
   $\widehat{sl}(2,\mathbb{R})_k$,
@@ -25,7 +25,7 @@ description: |
   The kinetic term has indefinite signature, because of the timelike direction, so the space of states contains states
   with negative $L_0$ and states with negative norm. Representations of $\widehat{sl}(2,\mathbb{R})_k$ are not unitary
   except for the trivial one, and the model cannot be continued to a Euclidean worldsheet because its Hamiltonian is
-  not positive definite (Maldacena and Ooguri). In string theory this is acceptable: the requirement is that physical
+  not positive definite [@mo2001a]. In string theory this is acceptable: the requirement is that physical
   states have non-negative norm after the Virasoro constraints are imposed. For bosonic strings on $AdS_3\times M$
   with NS–NS flux, with a **unitary** CFT for $M$ of central charge $26-\frac{3k}{k-2}$ (which requires $c_M \geq 0$, i.e. $k \geq \frac{52}{23}$, a stronger condition than $k > 2$; derived), the no-ghost theorem states that the
   constraints $(L_n+L^M_n-\delta_{n,0})|\text{phys}\rangle=0$, $n\geq0$, remove all negative-norm states from the
@@ -41,7 +41,7 @@ description: |
   $w\in\mathbb{Z}$,
   $$\tilde J^3_n=J^3_n-\tfrac{k}{2}w\,\delta_{n,0},\qquad\tilde J^\pm_n=J^\pm_{n\pm w},\qquad\tilde L_n=L_n+wJ^3_n-\tfrac{k}{4}w^2\delta_{n,0},$$
   maps these to inequivalent modules whose $L_0$ is not bounded below, unlike for $SU(2)$. The proposal of Maldacena
-  and Ooguri is
+  and Ooguri [@mo2001a] is
   $$\mathcal{H}=\bigoplus_{w\in\mathbb{Z}}\Big[\int_{1/2}^{(k-1)/2}dj\,\hat{\mathcal{D}}^w_j\otimes\hat{\mathcal{D}}^w_j\;\oplus\;\int_{\frac12+i\mathbb{R}}dj\int_0^1d\alpha\,\hat{\mathcal{C}}^w_{j,\alpha}\otimes\hat{\mathcal{C}}^w_{j,\alpha}\Big],$$
   with equal flow on the left and right, as required on the universal cover. Flow by one unit maps
   $\hat{\mathcal{D}}^+_{\tilde j}$ to $\hat{\mathcal{D}}^-_{k/2-\tilde j}$, so $j>\frac12$ from harmonic analysis
@@ -53,32 +53,32 @@ description: |
   unflowed continuous modules give only the tachyon. With spectral flow, the masses of short strings are no longer
   bounded above. Three checks support the proposal. Summing the discrete characters over $\frac12<j<\frac{k-1}{2}$ and
   over $w$ reproduces, after continuation and up to contact terms, the partition function of the $H_3^+$ model
-  computed by Gawedzki. The one-loop partition function on thermal $AdS_3$ reproduces the spectrum (Maldacena, Ooguri
-  and Son). Four-point functions, obtained from the $H_3^+$ model by analytic continuation, factorize on these states
+  computed by Gawedzki [@gawedzki1991]. The one-loop partition function on thermal $AdS_3$ reproduces the spectrum
+  [@mos2001]. Four-point functions, obtained from the $H_3^+$ model by analytic continuation, factorize on these states
   exactly when the dual boundary CFT says they should, and in an $N$-point function of $x$-basis operators with
-  $w_i\geq0$ the windings obey $w_i-\sum_{j\neq i}w_j\leq N-2$ (Maldacena and Ooguri).
+  $w_i\geq0$ the windings obey $w_i-\sum_{j\neq i}w_j\leq N-2$ [@mo2002].
 
   ### Superstrings and the $k=1$ point
   For superstrings on $AdS_3\times S^3\times T^4$ with pure NS–NS flux, the RNS worldsheet contains the supersymmetric
   $\widehat{sl}(2,\mathbb{R})^{(1)}_k$, a bosonic $\widehat{sl}(2,\mathbb{R})_{k+2}$ plus three free fermions, where
   $k$ is the NS–NS flux; this description needs $k\geq2$. For one unit of flux, $k=1$, Eberhardt, Gaberdiel and
-  Gopakumar use instead the hybrid formalism with a $\mathfrak{psu}(1,1|2)_1$ WZW model. Its string spectrum has no
+  Gopakumar [@egg2019] use instead the hybrid formalism with a $\mathfrak{psu}(1,1|2)_1$ WZW model. Its string spectrum has no
   long-string continuum except the bottom of it and no discrete representations, and it matches the large-$N$ limit of
   the symmetric orbifold $\mathrm{Sym}^N(T^4)$; they interpret this point as the tensionless limit. The $k=1$ point is
   therefore not an instance of the bosonic model on this page.
 
   ### Status
   The space of states above is a proposal, supported by the no-ghost theorem, the partition functions and the
-  factorization of four-point functions. In 2005 Ribault and Teschner described the definition and analytic properties
+  factorization of four-point functions. In 2005 Ribault and Teschner [@rt2005] described the definition and analytic properties
   of correlators with more than three insertions as not yet under control.
 
 parameters:
   - symbol: k
     description: 'Level of the $\widehat{sl}(2,\mathbb{R})_k$ current algebras, a real number. Large $k$ is the semiclassical limit; in superstring backgrounds the level is the NS–NS flux.'
-    range: '$k>2$ (assumed by Maldacena and Ooguri)'
+    range: '$k>2$ (assumed by Maldacena and Ooguri [@mo2001a])'
 
 symmetry:
-  spacetime: conformal
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{3k}{k-2}$ — 2d conformal symmetry, with parity (combined with $g \to g^{-1}$)'
   supercharges: 0
   global: '$SL(2,\mathbb{R})_L\times SL(2,\mathbb{R})_R$ (universal cover), the isometries of $AdS_3$, generated by the zero modes of the currents'
 
@@ -95,7 +95,7 @@ quantities:
     value: '\frac12<j<\frac{k-1}{2}'
     method: spectral-flow consistency
     refs: [mo2001a, mos2001]
-    note: 'The no-ghost theorem alone requires $0<j<\frac{k}{2}$. The thermal partition function of Maldacena, Ooguri and Son is consistent with this spectrum.'
+    note: 'The no-ghost theorem alone requires $0<j<\frac{k}{2}$. The thermal partition function of Maldacena, Ooguri and Son [@mos2001] is consistent with this spectrum.'
   - symbol: 'J^3_0'
     description: 'Spacetime energy $J^3_0$ of a long string with winding $w$ and radial momentum $s$'
     value: '\frac{k}{4}w+\frac{1}{w}\Big(\frac{s^2+\frac14}{k-2}+N+h-1\Big)'

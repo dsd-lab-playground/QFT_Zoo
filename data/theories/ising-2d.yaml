@@ -15,12 +15,12 @@ description: |
   $\sigma\times\sigma = 1 + \epsilon$, $\sigma\times\epsilon = \sigma$,
   $\epsilon\times\epsilon = 1$.
 
-  Onsager solved the lattice model exactly; Belavin, Polyakov and Zamolodchikov
-  identified the critical point with this minimal model. The theory is closely
+  Onsager [@onsager1944] solved the lattice model exactly; Belavin, Polyakov and
+  Zamolodchikov [@bpz1984] identified the critical point with this minimal model. The theory is closely
   related to a free Majorana fermion (they differ by a sum over spin structures).
 
 symmetry:
-  spacetime: 'conformal (Virasoro $\times$ Virasoro)'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac12$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$\mathbb{Z}_2$'
   notes: 'Kramers–Wannier duality is a non-invertible symmetry of the critical theory.'

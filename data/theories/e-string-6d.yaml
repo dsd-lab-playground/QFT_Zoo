@@ -14,7 +14,7 @@ tags: [CFT, SCFT, interacting, unitary, supersymmetric, non-Lagrangian, family]
 
 description: |
   When an $E_8$ instanton of the $E_8\times E_8$ heterotic string shrinks to zero size, a
-  tensionless non-critical string appears (Ganor and Hanany; Seiberg and Witten), and the low-energy
+  tensionless non-critical string appears [@ganor1996a; @seiberg1996b], and the low-energy
   theory near the small instanton is an interacting 6d $(1,0)$ SCFT with $E_8$ flavor symmetry.
   In M-theory it lives on an M5-brane inside the $E_8$ end-of-the-world brane. $Q$ coincident
   M5-branes give the rank-$Q$ E-string theory together with a decoupled free hypermultiplet,
@@ -31,8 +31,7 @@ description: |
   (in minus the self-intersections). It is the glue of the F-theory classification: other 6d
   SCFTs are built by joining curves with gauge algebras through $-1$ curves, which gauges a
   subgroup of the $E_8$ of the E-string. The anomaly polynomial, computed by anomaly inflow
-  (Ohmori, Shimizu and Tachikawa) and rederived from the circle compactification (Ohmori et al.
-  2014b), determines the anomalies below.
+  [@ohmori2014a] and rederived from the circle compactification [@ohmori2014b], determines the anomalies below.
 
 parameters:
   - symbol: 'Q'
@@ -50,7 +49,9 @@ family:
       note: '$a = \tfrac{1286}{7}$ with the free hypermultiplet (from the formula for $a$). Curves $1,2$.'
 
 symmetry:
-  spacetime: '6d $\mathcal{N}=(1,0)$ superconformal'
+  spacetime: '6d $\mathcal{N}=(1,0)$ superconformal group (8 $Q$ + 8 $S$ supercharges); no parity (chiral)'
+  euclidean: '$SO(7,1)$ (bosonic conformal part)'
+  lorentzian: '$OSp(8^*|2)$'
   supercharges: 8
   global: 'Flavor $E_8$ for $Q=1$ and $E_8\times SU(2)_L$ for $Q\ge2$; R-symmetry $SU(2)_R$'
 
@@ -58,33 +59,33 @@ quantities:
   - symbol: 'I_8'
     description: 'Anomaly polynomial, including the free hypermultiplet'
     value: 'Q^3\frac{p_2(N)}{6} + Q^2\frac{\chi_4(N)\,I_4}{2} + Q\left(\frac{I_4^2}{2} - J_8\right)'
-    method: anomaly inflow
+    method: anomaly, inflow
     refs: [ohmori2014a]
-    note: 'Ohmori–Shimizu–Tachikawa eq. (1.1), where their $I_8$ is called $J_8$ here: $I_4 = \tfrac14\left(p_1(N)+p_1(T)+\mathrm{Tr}F^2\right)$, $J_8 = \tfrac{1}{48}\left(p_2(N)+p_2(T)-\tfrac14(p_1(N)-p_1(T))^2\right)$. $N$ is the $SO(4)$ normal bundle with $p_1(N) = -2(c_2(R)+c_2(L))$, $\chi_4(N) = c_2(L)-c_2(R)$, $p_2(N) = \chi_4(N)^2$; $F$ is the $E_8$ background and Tr is the adjoint trace divided by 30. A Weyl fermion in the representation $\rho$ contributes $\hat A(T)\,\mathrm{tr}_\rho e^{iF}$. The free hypermultiplet contributes $\frac{7p_1(T)^2-4p_2(T)}{5760}+\frac{c_2(L)p_1(T)}{48}+\frac{c_2(L)^2}{24}$ (eq. (1.5)).'
+    note: 'Ohmori–Shimizu–Tachikawa [@ohmori2014a, Eq. (1.1)], where their $I_8$ is called $J_8$ here: $I_4 = \tfrac14\left(p_1(N)+p_1(T)+\mathrm{Tr}F^2\right)$, $J_8 = \tfrac{1}{48}\left(p_2(N)+p_2(T)-\tfrac14(p_1(N)-p_1(T))^2\right)$. $N$ is the $SO(4)$ normal bundle with $p_1(N) = -2(c_2(R)+c_2(L))$, $\chi_4(N) = c_2(L)-c_2(R)$, $p_2(N) = \chi_4(N)^2$; $F$ is the $E_8$ background and Tr is the adjoint trace divided by 30. A Weyl fermion in the representation $\rho$ contributes $\hat A(T)\,\mathrm{tr}_\rho e^{iF}$. The free hypermultiplet contributes $\frac{7p_1(T)^2-4p_2(T)}{5760}+\frac{c_2(L)p_1(T)}{48}+\frac{c_2(L)^2}{24}$ [@ohmori2014a, Eq. (1.5)].'
   - symbol: '(\alpha,\beta,\gamma,\delta)'
     description: '''t Hooft anomalies in $I_8 = \frac{1}{4!}\left(\alpha c_2(R)^2 + \beta c_2(R)p_1(T) + \gamma p_1(T)^2 + \delta p_2(T)\right)$, including the free hypermultiplet'
     value: '\left(Q(4Q^2+6Q+3),\ -\tfrac{Q}{2}(6Q+5),\ \tfrac{7Q}{8},\ -\tfrac{Q}{2}\right)'
-    method: anomaly inflow
+    method: anomaly, inflow
     refs: [cordova2015, ohmori2014a]
-    note: 'Córdova–Dumitrescu–Intriligator eq. (5.1); the same as the formula above with the flavor backgrounds set to zero. In this normalization a free hypermultiplet has $(0,0,\tfrac{7}{240},-\tfrac{1}{60})$ and a free tensor multiplet $(1,\tfrac12,\tfrac{23}{240},-\tfrac{29}{60})$.'
+    note: 'Córdova–Dumitrescu–Intriligator [@cordova2015, Eq. (5.1)]; the same as the formula above with the flavor backgrounds set to zero. In this normalization a free hypermultiplet has $(0,0,\tfrac{7}{240},-\tfrac{1}{60})$ and a free tensor multiplet $(1,\tfrac12,\tfrac{23}{240},-\tfrac{29}{60})$.'
   - symbol: 'a'
     description: '$a$-type Weyl anomaly, normalized so that a free $(2,0)$ tensor multiplet has $a = 1$; including the free hypermultiplet'
     value: '\frac{64}{7}Q^3 + \frac{144}{7}Q^2 + \frac{99}{7}Q'
-    method: from 't Hooft anomalies
+    method: anomaly
     refs: [cordova2015]
-    note: 'Córdova–Dumitrescu–Intriligator eq. (5.2), from their formula $a = \tfrac{16}{7}(\alpha-\beta+\gamma)+\tfrac67\delta$, which assumes a universal linear relation between $a$ and the ''t Hooft anomalies. A free hypermultiplet has $a = \tfrac{11}{210}$. Moving one M5-brane off the wall gives $\Delta a = \tfrac{12}{7}(4Q+1)^2 > 0$ (eq. (5.5)).'
+    note: 'Córdova–Dumitrescu–Intriligator [@cordova2015, Eq. (5.2)], from their formula $a = \tfrac{16}{7}(\alpha-\beta+\gamma)+\tfrac67\delta$, which assumes a universal linear relation between $a$ and the ''t Hooft anomalies. A free hypermultiplet has $a = \tfrac{11}{210}$. Moving one M5-brane off the wall gives $\Delta a = \tfrac{12}{7}(4Q+1)^2 > 0$ [@cordova2015, Eq. (5.5)].'
   - symbol: 'C_T'
     description: 'Stress-tensor two-point coefficient, normalized so that a free real scalar has $C_T = 6/5$ and a free hypermultiplet $84/5$; including the free hypermultiplet'
     value: '84\,Q\,(16Q^2+42Q+33)'
-    method: from 't Hooft anomalies (conjectured c3 relation)
+    method: anomaly, conjectured c3 relation
     refs: [chang2017b]
-    note: 'Chang–Lin eqs. (6.5)–(6.17): $C_T = 3024\,c_3$, with $c_3$ given by the linear relation of Beccaria and Tseytlin between $c_3$ and $(\alpha,\beta,\gamma,\delta)$. Rank 1 without the free hypermultiplet: $C_T = \tfrac{38136}{5}$ (eq. (6.18)).'
+    note: 'Chang–Lin [@chang2017b, Eqs. (6.5)–(6.17)]: $C_T = 3024\,c_3$, with $c_3$ given by the linear relation of Beccaria and Tseytlin [@bt2015; @bt2017] between $c_3$ and $(\alpha,\beta,\gamma,\delta)$. Rank 1 without the free hypermultiplet: $C_T = \tfrac{38136}{5}$ [@chang2017b, Eq. (6.18)].'
   - symbol: 'C_J^{E_8}'
-    description: '$E_8$ flavor central charge, in the normalization of Chang–Lin Sec. 6.2 (a free hypermultiplet has $C_J = 5/2$)'
+    description: '$E_8$ flavor central charge, in the normalization of Chang–Lin [@chang2017b, Sec. 6.2] (a free hypermultiplet has $C_J = 5/2$)'
     value: '60Q^2 + 90Q'
-    method: from 't Hooft anomalies
+    method: anomaly
     refs: [chang2017b]
-    note: 'Chang–Lin eq. (6.25); $C_J = 150$ at rank 1. Their bootstrap bounds support the conjecture that this is the minimum among interacting SCFTs with $E_8$ flavor symmetry.'
+    note: 'Chang–Lin [@chang2017b, Eq. (6.25)]; $C_J = 150$ at rank 1. Their bootstrap bounds support the conjecture that this is the minimum among interacting SCFTs with $E_8$ flavor symmetry.'
 
 operators:
   - name: '\mu^a_{(ij)}'
@@ -93,7 +94,7 @@ operators:
     rep: '$\mathbf{248}$ of $E_8$; triplet of $SU(2)_R$'
     method: exact
     refs: [chang2017b]
-    note: 'Moment map, superconformal primary of the $E_8$ current multiplet. For $Q = 1$, with the free centre-of-mass hypermultiplet removed, it generates the Higgs-branch chiral ring (Chang and Lin); for $Q > 1$ the $SU(2)_L$ moment maps are further generators.'
+    note: 'Moment map, superconformal primary of the $E_8$ current multiplet. For $Q = 1$, with the free centre-of-mass hypermultiplet removed, it generates the Higgs-branch chiral ring [@chang2017b]; for $Q > 1$ the $SU(2)_L$ moment maps are further generators.'
   - name: 'J_\mu^a'
     Delta: 5
     spin: 1
@@ -110,13 +111,13 @@ operators:
 relations:
   - type: related_to
     target: seiberg-en-5d
-    note: 'On a circle with $E_8$ Wilson lines, the rank-1 E-string gives the 5d Seiberg $E_n$ theories (Ganor, Morrison and Seiberg).'
+    note: 'On a circle with $E_8$ Wilson lines, the rank-1 E-string gives the 5d Seiberg $E_n$ theories [@ganor1996b].'
   - type: related_to
     target: usp-5d
-    note: 'On a circle with a holonomy breaking $E_8$ to $SO(16)$, the rank-$Q$ E-string gives 5d $USp(2Q)$ gauge theory with one antisymmetric and 8 fundamental hypermultiplets, one flavor more than the 5d SCFTs (Ohmori et al. 2014b, Sec. 2.4).'
+    note: 'On a circle with a holonomy breaking $E_8$ to $SO(16)$, the rank-$Q$ E-string gives 5d $USp(2Q)$ gauge theory with one antisymmetric and 8 fundamental hypermultiplets, one flavor more than the 5d SCFTs [@ohmori2014b, Sec. 2.4].'
   - type: related_to
     target: minahan-nemeschansky-4d
-    note: 'On $T^2$ the rank-1 E-string gives the 4d $\mathcal{N}=2$ $E_8$ Minahan–Nemeschansky theory (Heckman, Morrison and Vafa).'
+    note: 'On $T^2$ the rank-1 E-string gives the 4d $\mathcal{N}=2$ $E_8$ Minahan–Nemeschansky theory [@heckman2014].'
 
 references:
   - key: ganor1996a
@@ -183,5 +184,21 @@ references:
     journal: JHEP 08 (2017) 128
     arxiv: '1705.05392'
     doi: 10.1007/JHEP08(2017)128
+  - key: bt2015
+    title: 'Conformal anomaly c-coefficients of superconformal 6d theories'
+    authors: Beccaria, Tseytlin
+    year: 2016
+    journal: 'JHEP 01 (2016) 001'
+    arxiv: '1510.02685'
+    doi: '10.1007/JHEP01(2016)001'
+    note: 'Linear relation between $c_3$ and $(\alpha,\beta,\gamma,\delta)$ up to one parameter [@chang2017b, Eq. (6.7)].'
+  - key: bt2017
+    title: '$C_T$ for higher derivative conformal fields and anomalies of (1,0) superconformal 6d theories'
+    authors: Beccaria, Tseytlin
+    year: 2017
+    journal: 'JHEP 06 (2017) 002'
+    arxiv: '1705.00305'
+    doi: '10.1007/JHEP06(2017)002'
+    note: 'Fixes the remaining parameter of the relation [@chang2017b, Eqs. (6.12)–(6.14)].'
 
 contributors: [Canonical111]

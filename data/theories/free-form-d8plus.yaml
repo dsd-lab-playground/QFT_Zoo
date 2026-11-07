@@ -13,13 +13,12 @@ tags: [CFT, free, unitary, Lagrangian, exactly solvable, gauge theory, family]
 
 description: |
   In $d = 2n$ the standard free kinetic term of an $(n-1)$-form potential $A$ is conformally
-  invariant (Buchel et al.). The gauge-invariant local operator is the field strength
+  invariant [@buchel2010]. The gauge-invariant local operator is the field strength
   $F = dA$, an $n$-form of dimension $\Delta = n = d/2$. Maxwell theory is the case $n = 2$; in
-  $d \ne 4$ the free Maxwell field is scale but not conformally invariant (El-Showk, Nakayama
-  and Rychkov), which is why only the middle-dimensional form appears here.
+  $d \ne 4$ the free Maxwell field is scale but not conformally invariant [@elshowk2011], which is why only the middle-dimensional form appears here.
 
   For odd $n$ one may impose that $F$ be (anti-)self-dual, which halves the number of degrees of
-  freedom and $C_T$ (Buchel et al.). In this range that happens in $d = 10$ (a chiral 4-form, as
+  freedom and $C_T$ [@buchel2010]. In this range that happens in $d = 10$ (a chiral 4-form, as
   in type IIB supergravity); the 6d case is the separate self-dual tensor page.
 
 parameters:
@@ -38,7 +37,9 @@ family:
       note: '$\Delta_F = 5$; $\tilde n_t = 70$; $C_T = \frac{504000}{\pi^{10}}$ (3150 times the free scalar). With self-dual $F$: $\tilde n_t = 35$, $C_T = \frac{252000}{\pi^{10}}$.'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$d$-dimensional conformal group with parity'
+  euclidean: '$O(d+1,1)$'
+  lorentzian: '$O(d,2)$'
   supercharges: 0
   gauge: '$U(1)$ $(n-1)$-form gauge symmetry $A \to A + d\lambda$'
 
@@ -48,7 +49,7 @@ quantities:
     value: '\frac{d^2}{2}\,\frac{\tilde n_t}{S_d^2},\quad \tilde n_t = \frac{\Gamma(2n-1)}{\Gamma(n)^2}\ (d = 2n)'
     method: exact
     refs: [buchel2010]
-    note: 'Tensor term of Buchel et al. eq. (7.6), with $\tilde n_t$ from the text after their eq. (3.39). At $d = 4$ it gives $\tilde n_t = 2$ and $C_T = 4/\pi^4$, the free Maxwell value. The member values are this formula at each $d$ (derived).'
+    note: 'Tensor term of Buchel et al. [@buchel2010, Eq. (7.6)], with $\tilde n_t$ from the text after their eq. (3.39). At $d = 4$ it gives $\tilde n_t = 2$ and $C_T = 4/\pi^4$, the free Maxwell value. The member values are this formula at each $d$ (derived).'
 
 operators:
   - name: 'F_{\mu_1\cdots\mu_n}'

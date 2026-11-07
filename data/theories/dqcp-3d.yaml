@@ -1,6 +1,7 @@
 id: dqcp-3d
-name: 'Deconfined quantum critical point (NCCP$^1$, $SO(5)$)'
+name: '3d deconfined quantum critical point (NCCP$^1$, $SO(5)$)'
 aliases:
+  - 'Deconfined quantum critical point (NCCP$^1$, $SO(5)$)'
   - 'Néel–VBS deconfined criticality'
   - 'NCCP$^1$ model'
   - '$SO(5)$ deconfined criticality'
@@ -27,38 +28,40 @@ description: |
   Proposed dual descriptions with the same anomalous $SO(5)$ include the $SO(5)$ nonlinear
   sigma model with a Wess–Zumino–Witten term, QED$_3$–Gross–Neveu with $N_f = 2$ and
   $SU(2)$ gauge theory with $N_f = 2$ fermions; the resulting duality web implies that
-  NCCP$^1$ is self-dual (Wang et al.).
+  NCCP$^1$ is self-dual [@wang2017].
 
   ### Status
   **Numerics.** Loop-model simulations up to linear size $L = 512$ see no conventional
   first-order signal, but finite-size scaling fails: the estimate of $\nu$ drifts from
   $0.62(1)$ ($L \le 64$) to $0.476(18)$ ($L \ge 256$), and finite-size estimates of
   $\eta_{\rm N\acute eel}$ and $\eta_{\rm VBS}$ drift to negative values, which unitarity
-  forbids, while correlators at $r \ll L$ give $\eta \approx 0.25$ (Nahum et al.). Early
-  $J$–$Q$ simulations gave $\nu = 0.78(3)$ (Sandvik).
+  forbids, while correlators at $r \ll L$ give $\eta \approx 0.25$ [@nahum2015a]. Early
+  $J$–$Q$ simulations gave $\nu = 0.78(3)$ [@sandvik2007].
 
   **Bootstrap.** For a unitary $SO(5)$-invariant CFT, an irrelevant singlet $S$ requires
   $\Delta_\Phi > 0.76$, whereas the measured value is $\Delta_\Phi \approx 0.63$
-  (Nakayama–Ohtsuki and Simmons-Duffin; the bound $0.76$ is quoted by Poland–Rychkov–Vichi
-  and Gorbenko–Rychkov–Zan). Li also excludes the lattice and perturbative estimates once
+  ([@nakayama2016]; Simmons-Duffin made the same observation [@nakayama2016, fn. 33]; the bound $0.76$ is quoted in
+  [@poland2019; @gorbenko2018]). Li [@li2022] also excludes the lattice and perturbative estimates once
   $S$ is assumed irrelevant. So the measured exponents cannot belong to a unitary $SO(5)$
   CFT without a relevant singlet.
 
   **Interpretations.** (i) A weakly first-order, pseudo-critical transition, with walking RG
   flow near a pair of complex fixed points (complex CFTs), which would explain the drifts
-  (Nahum et al.; Wang et al.; Gorbenko–Rychkov–Zan). The fuzzy-sphere study of the $SO(5)$
+  [@nahum2015a; @wang2017; @gorbenko2018]. The fuzzy-sphere study of the $SO(5)$
   WZW model sees approximate conformal symmetry and a singlet $\Delta_S$ that drifts from
-  slightly irrelevant to slightly relevant with system size, supporting this (Zhou et al.).
+  slightly irrelevant to slightly relevant with system size, supporting this [@zhou2024].
   (ii) A tricritical point, at which the singlet $S$ is relevant too: bootstrap bounds for
   $SO(5)$ CFTs with one relevant singlet are saturated by the large-$N$ monopole dimensions
-  extrapolated to $N = 2$ and predict $\Delta_S \approx 2.36$ (Chester–Su), and $J$–$Q$
-  simulations find weak first-order transitions controlled by a nearby $SO(5)$ multicritical point (Takahashi et al., preprint).
+  extrapolated to $N = 2$ and predict $\Delta_S \approx 2.36$ [@chester2024], and $J$–$Q$
+  simulations find weak first-order transitions controlled by a nearby $SO(5)$ multicritical point [@takahashi2024] (preprint).
   The values below are effective exponents from specific studies, not settled CFT data.
 
 lagrangian: '\mathcal{L} = \sum_{\alpha=1}^{2} |(\partial_\mu - i a_\mu) z_\alpha|^2 + m^2 |z|^2 + \frac{\lambda}{2}(|z|^2)^2 + \frac{1}{4e^2} f_{\mu\nu}f^{\mu\nu} \quad (m^2 \text{ tuned}, a_\mu \text{ noncompact})'
 
 symmetry:
-  spacetime: conformal if the transition is continuous (Lorentz invariance is emergent in lattice magnets)
+  spacetime: '3d conformal group with parity, if the transition is continuous (Lorentz invariance is emergent in lattice magnets)'
+  euclidean: '$O(4,1)$'
+  lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$SO(3)\times O(2)$ manifest (spin rotations; $U(1)_{\rm top}\rtimes\mathbb{Z}_2^C$), plus time reversal; emergent $SO(5)$ proposed'
   gauge: '$U(1)$'
@@ -68,25 +71,25 @@ quantities:
   - symbol: '\eta_{\rm N\acute eel},\ \eta_{\rm VBS}'
     description: 'Order-parameter anomalous dimensions, $\Delta = (1+\eta)/2$: classical loop model, from correlators at $r \ll L$'
     value: '0.259(6),\ 0.25(3)'
-    method: Monte Carlo
+    method: MC
     refs: [nahum2015a]
     note: 'Finite-size scaling of susceptibilities instead drifts, e.g. $\eta_{\rm VBS}$ from $0.164(13)$ to $-0.35(10)$.'
   - symbol: '\nu'
     description: 'Correlation-length exponent: classical loop model, sizes $L \ge 256$'
     value: '0.476(18)'
-    method: Monte Carlo
+    method: MC
     refs: [nahum2015a]
     note: 'Sizes $L \le 64$ give $0.62(1)$.'
   - symbol: '\nu'
     description: 'Correlation-length exponent: $J$–$Q$ model'
     value: '0.78(3)'
-    method: quantum Monte Carlo
+    method: QMC
     refs: [sandvik2007]
     note: 'Same study: $\eta = 0.26(3)$.'
   - symbol: '\nu'
     description: 'Correlation-length exponent: fuzzy sphere, $\nu = 1/(3-\Delta_T)$ at $N_{\rm orb} = 10$'
     value: '0.647'
-    method: fuzzy sphere (derived from Δ_T)
+    method: FS, from Δ_T
     refs: [zhou2024]
 
 operators:
@@ -94,30 +97,43 @@ operators:
     Delta: '0.583(7)'
     spin: 0
     rep: '$SO(5)$ vector (Néel $\oplus$ VBS)'
-    method: fuzzy sphere (exact diagonalization)
+    method: FS, exact diagonalization
     refs: [zhou2024, chester2024]
     note: 'Fit to the flow, in the walking region. Loop model: $\Delta = (1+\eta)/2 \approx 0.63$ (above). Large-$N$ monopole formula at $N=2$: $0.630$.'
   - name: 'T'
     Delta: '1.456(12)'
     spin: 0
     rep: '$SO(5)$ rank-2 symmetric traceless (contains $|z|^2$ and the charge-2 monopole)'
-    method: fuzzy sphere (exact diagonalization)
-    refs: [zhou2024, sreejith2015]
-    note: 'Cubic dimer model, charge-2 monopole: $\Delta = 3 - y_2 = 1.52(7)$ (Sreejith–Powell).'
+    method: FS, exact diagonalization
+    refs: [zhou2024]
+  - name: 'T'
+    Delta: '1.52(7)'
+    spin: 0
+    rep: '$SO(5)$ rank-2 symmetric traceless (contains $|z|^2$ and the charge-2 monopole)'
+    method: MC, cubic dimer model, from y₂
+    refs: [sreejith2015]
+    note: 'Charge-2 monopole, $\Delta = 3 - y_2$.'
   - name: 'M_{3/2}'
     Delta: '2.569(19)'
     spin: 0
     rep: '$SO(5)$ rank-3 symmetric traceless (contains the $6\pi$-flux monopole)'
-    method: fuzzy sphere (exact diagonalization)
-    refs: [zhou2024, sreejith2015]
-    note: 'Cubic dimer model: $\Delta = 3 - y_3 = 2.80(3)$. Relevant, so on the honeycomb lattice, where this monopole is allowed by symmetry, it destabilizes the proposed $SO(5)$ fixed point: the Néel–VBS transition there cannot be described by the $SO(5)$ DQCP (Zhou et al.).'
+    method: FS, exact diagonalization
+    refs: [zhou2024]
+    note: 'Relevant, so on the honeycomb lattice, where this monopole is allowed by symmetry, it destabilizes the proposed $SO(5)$ fixed point: the Néel–VBS transition there cannot be described by the $SO(5)$ DQCP [@zhou2024].'
+  - name: 'M_{3/2}'
+    Delta: '2.80(3)'
+    spin: 0
+    rep: '$SO(5)$ rank-3 symmetric traceless (contains the $6\pi$-flux monopole)'
+    method: MC, cubic dimer model, from y₃
+    refs: [sreejith2015]
+    note: '$\Delta = 3 - y_3$.'
   - name: 'S'
     Delta: '2.90(6)'
     spin: 0
     rep: '$SO(5)$ singlet'
-    method: fuzzy sphere (exact diagonalization)
+    method: FS, exact diagonalization
     refs: [zhou2024, chester2024]
-    note: 'Fit to the flow; at $N_{\rm orb} = 10$ the level is $2.831$ and decreases with size. Tricritical scenario: $\approx 2.36$ (Chester–Su).'
+    note: 'Fit to the flow; at $N_{\rm orb} = 10$ the level is $2.831$ and decreases with size. Tricritical scenario: $\approx 2.36$ [@chester2024].'
 
 relations:
   - type: member_of

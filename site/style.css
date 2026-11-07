@@ -8,6 +8,7 @@
 }
 
 :root {
+  --flow-1: #3a65b8; --flow-2: #c65d26; --flow-3: #b23e88; --flow-4: #ad8100; /* validated with the green (dataviz checks) */
   --bg: #f7f7f3;
   --surface: #ffffff;
   --text: #1c2624;
@@ -21,6 +22,8 @@
   --band-text: #ffffff;
   --band-muted: #cfe5de;
   --flash: #fff3c4;
+  --warn: #8a4600;
+  --warn-soft: #fbe8cf;
   --display: Jost, "Century Gothic", Futura, ui-sans-serif, system-ui, sans-serif;
   --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -30,6 +33,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #131417;
+    --flow-1: #547ecd; --flow-2: #d06d3d; --flow-3: #bc5694; --flow-4: #b38c15;
     --surface: #1b1d21;
     --text: #e7e7ea;
     --muted: #9a9ca6;
@@ -40,6 +44,8 @@
     --row-hover: #1f2226;
     --band: #12332b;
     --flash: #4a4220;
+    --warn: #f0b46a;
+    --warn-soft: #3a2a15;
   }
 }
 
@@ -141,7 +147,41 @@ table.catalogue td.sym { min-width: 150px; }
 table.catalogue td.summary { color: var(--muted); min-width: 260px; }
 
 table.data .value { white-space: nowrap; }
+/* Operators: one tbody per operator (its other determinations folded below it), sectors headed by their rep. */
+table.ops .value { white-space: nowrap; }
+table.ops tbody.alt > tr:not(.det) > td { background: var(--row-hover); }
+table.ops tr.op-group th {
+  background: var(--accent-soft); color: var(--text); font: 600 0.92rem var(--sans);
+  padding: 5px 10px; border-top: 1px solid var(--border);
+}
+table.ops tr.op-group th .katex { font-size: 1.05em; }
+table.ops tbody tr:last-child td { border-bottom: 1px solid var(--border); }
+table.ops tbody:last-child tr:last-child td { border-bottom: 0; }
+table.ops .num { padding-left: 4px; padding-right: 4px; }
+/* A remark on an operator's role ("thermal", "order parameter"), after its name; a representation that says more than
+   the sector heading, at the top of the note. */
+.op-role { color: var(--muted); font-size: 0.88em; }
+.op-role.nowrap { white-space: nowrap; }
+.op-rep { color: var(--muted); font-size: 0.88em; }
+.op-rep:not(:last-child) { margin-bottom: 2px; }
+/* Structured entries: each group heading folds its group; the count of operators follows the heading. */
+table.ops .op-fold { color: var(--muted); font-size: 0.85em; margin-right: 3px; text-decoration: none; }
+table.ops .op-count { color: var(--muted); font-weight: 400; font-size: 0.82em; margin-left: 3px; }
+.op-group-none { color: var(--muted); font-weight: 400; font-style: italic; }
 .sub { color: var(--muted); font-size: 0.88rem; margin-top: 2px; }
+
+/* Quantity tables: one tbody per quantity; further determinations folded below it. */
+table.qty .value, table.qty .rel { white-space: nowrap; }
+table.qty tbody tr:last-child td { border-bottom: 1px solid var(--border); }
+table.qty tbody:last-child tr:last-child td { border-bottom: 0; }
+table.qty tr.det td, table.ops tr.det td { background: var(--row-hover); font-size: 0.86rem; }
+table.qty tr.det td:first-child, table.ops tr.det td:first-child { border-left: 3px solid var(--accent-soft); }
+table.qty tbody.group th {
+  background: var(--accent-soft); color: var(--text); font: 500 0.9rem var(--sans); padding: 4px 10px;
+  border-bottom: 1px solid var(--border);
+}
+table.qty .dets, table.ops .dets { font-size: 0.82rem; white-space: nowrap; }
+.block > p.intro, .block > p.conv { margin: -4px 0 10px; }
 
 .empty { text-align: center; color: var(--muted); padding: 30px 0; }
 
@@ -156,6 +196,8 @@ table.data .value { white-space: nowrap; }
 .pill:hover { border-color: var(--accent); color: var(--text); }
 .pill.on { background: var(--accent-soft); border-color: var(--accent); color: var(--text); }
 .badge { background: var(--accent-soft); border-color: transparent; color: var(--text); font-weight: 600; }
+/* A determination that disagrees with the one shown first, beyond twice the combined stated error. */
+.badge.warn { background: var(--warn-soft); color: var(--warn); font-weight: 500; white-space: nowrap; cursor: help; }
 
 /* ----------------------------------------------------------- theory page */
 
@@ -341,7 +383,7 @@ table.spectrum td:last-child { white-space: normal; min-width: 14rem; }
 /* ------------------------------------------------------------- RG flows */
 
 .flow-graph {
-  position: relative; display: flex; flex-direction: column; gap: 36px; margin-bottom: 14px; padding: 18px 34px;
+  position: relative; display: flex; flex-direction: column; gap: 40px; margin-bottom: 14px; padding: 18px 34px;
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
 }
 .flow-graph::before, .flow-graph::after { position: absolute; left: 10px; font-size: 0.75rem; color: var(--muted); }
@@ -352,14 +394,58 @@ table.spectrum td:last-child { white-space: normal; min-width: 14rem; }
   position: relative; z-index: 1; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
   justify-items: center; align-items: center; column-gap: 36px;
   width: min(100%, calc(var(--n) * 320px)); margin: 0 auto;
+  pointer-events: none; /* the row strip lets the mouse reach arrows between boxes; the boxes take it back */
 }
+.flow-row > * { pointer-events: auto; }
 .flow-node {
   display: block; max-width: 260px; padding: 6px 12px; text-align: center; color: var(--accent);
   background: var(--surface); border: 1.5px solid var(--accent); border-radius: 4px;
 }
 a.flow-node:hover, a.flow-node:focus-visible { background: var(--accent-soft); text-decoration: none; }
 .flow-node.current { background: var(--accent); color: var(--accent-text); }
-.flow-kind { display: block; font-size: 0.75rem; opacity: 0.8; }
+.flow-node.c1 { --node: var(--flow-1); } .flow-node.c2 { --node: var(--flow-2); }
+.flow-node.c3 { --node: var(--flow-3); } .flow-node.c4 { --node: var(--flow-4); }
+.flow-node:is(.c1, .c2, .c3, .c4) { border-color: var(--node); color: var(--node); }
+.flow-node.current:is(.c1, .c2, .c3, .c4) { background: var(--node); color: var(--accent-text); }
 .flow-arrows { position: absolute; inset: 0; pointer-events: none; }
-.flow-arrows line { stroke: var(--accent); stroke-width: 1.5; }
-.flow-arrows polygon { fill: var(--accent); }
+.flow-dots { z-index: 2; }
+.flow-kind { display: block; font-size: 0.75rem; opacity: 0.8; }
+.flow-arrows .flow-line { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; }
+.flow-arrows .flow-head, .flow-arrows .flow-dot { fill: var(--accent); }
+.flow-arrows .flow-line.c1 { stroke: var(--flow-1); } .flow-arrows .c1:is(.flow-head, .flow-dot) { fill: var(--flow-1); }
+.flow-arrows .flow-line.c2 { stroke: var(--flow-2); } .flow-arrows .c2:is(.flow-head, .flow-dot) { fill: var(--flow-2); }
+.flow-arrows .flow-line.c3 { stroke: var(--flow-3); } .flow-arrows .c3:is(.flow-head, .flow-dot) { fill: var(--flow-3); }
+.flow-arrows .flow-line.c4 { stroke: var(--flow-4); } .flow-arrows .c4:is(.flow-head, .flow-dot) { fill: var(--flow-4); }
+/* A wide invisible copy of each arrow, drawn just before it, so the line itself can be hovered, clicked or tapped. */
+.flow-arrows .flow-hit { fill: none; stroke: transparent; stroke-width: 18; pointer-events: stroke; cursor: pointer; }
+.flow-arrows .flow-line.selected, .flow-arrows .flow-hit:hover + .flow-line { stroke-width: 4.5; }
+.flow-node.composite { color: var(--text); border-style: dashed; }
+.flow-node.composite a { color: var(--accent); }
+.flow-deco { display: block; font-size: 0.75rem; color: var(--muted); }
+.flow-op { padding: 0 2px; }
+.flow-tip {
+  position: absolute; z-index: 3; max-width: 260px; padding: 4px 9px; font-size: 0.8rem; pointer-events: none;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+}
+.flow-hint { margin: -8px 0 10px; }
+.flow-panel { margin: 0 0 14px; padding: 10px 16px 14px; background: var(--surface); border: 1.5px solid var(--accent); border-radius: var(--radius); }
+.flow-panel:focus { outline: none; }
+.flow-panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.flow-panel-head h3 { margin: 4px 0 10px; font-size: 1.05rem; }
+.flow-panel .refs { margin: 0; padding-left: 1.4em; }
+.flow-open { margin-left: 4px; font-size: 0.85rem; }
+.flow-particles summary { cursor: pointer; color: var(--accent); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* --------------------------------------------------------------- methods */
+/* A row's method: the abbreviation links to #/methods (full name on hover), then the qualifier. */
+a.method { font-weight: 600; text-decoration: none; border-bottom: 1px dotted currentColor; white-space: nowrap; }
+a.method:hover { border-bottom-style: solid; }
+.method-q { color: var(--muted); }
+table.methods td.method-abbr { white-space: nowrap; }
+table.methods td:nth-child(3) { min-width: 260px; }
+table.methods tr.flash td { animation: flash 2.4s ease-out; }
+table.methods tr { scroll-margin-top: 80px; }
+.method-uses summary { cursor: pointer; white-space: nowrap; }
+.method-uses[open] { min-width: 200px; }
+.method-link + .method-link { margin-top: 6px; }

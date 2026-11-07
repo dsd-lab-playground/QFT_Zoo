@@ -6,6 +6,9 @@ tags: [CFT, interacting, unitary, rational, coset]
 
 description: 'The conformal embedding $SU(2)_4 \subset SU(3)_1$ extends the numerator; this removes the $\Delta = \frac1{12}$ field of the diagonal coset and leaves three fields at $h = \frac{1}{15}$.'
 
+symmetry:
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{22}{15}$ — 2d conformal symmetry, with parity'
+
 quantities:
 - key: c
   symbol: c

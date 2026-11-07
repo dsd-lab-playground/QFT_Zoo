@@ -29,17 +29,17 @@ description: |
 
   The most precise values come from Monte Carlo simulations of bond percolation on
   hypercubic lattices: the two-cluster exponent, which equals $\Delta_\epsilon$, from a
-  transfer Monte Carlo method on cylinders (Tan, Deng and Jacobsen), and $d_f$ on periodic
-  hypercubes (Zhang, Hou, Fang, Hu and Deng). For $1/\nu$ these two groups and Koza and
-  Poła (site percolation, $1/\nu \approx 1.747$) differ by up to about two standard
-  deviations; Tan et al. argue that the central value $1.747$ is nearly excluded by their
+  transfer Monte Carlo method on cylinders [@tan2020], and $d_f$ on periodic
+  hypercubes [@zhang2021]. For $1/\nu$ these two groups and Koza and
+  Poła [@koza2016] (site percolation, $1/\nu \approx 1.747$) differ by up to about two standard
+  deviations; Tan et al. [@tan2020] argue that the central value $1.747$ is nearly excluded by their
   data.
 
   ### Logarithmic CFT
-  Vasseur, Jacobsen and Saleur showed that at $q = 1$ the thermal operator mixes with a
+  Vasseur, Jacobsen and Saleur [@vasseur2012] showed that at $q = 1$ the thermal operator mixes with a
   partner that creates two propagating clusters, so that suitable two-point functions
   scale logarithmically, and expect the mechanism to hold also for $d > 2$. Tan, Deng and
-  Jacobsen measured the $N$-cluster correlation functions ($N = 2, 3$) of this
+  Jacobsen [@tan2020] measured the $N$-cluster correlation functions ($N = 2, 3$) of this
   logarithmic CFT in $d = 4$ and $5$, including the logarithmic combination and its
   universal amplitude, and conclude that their results confirm the logarithmic CFT
   description.
@@ -47,7 +47,8 @@ description: |
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi_i)^2 + \tfrac{1}{2} m^2 \phi_i\phi_i + \tfrac{g}{3!}\, d_{ijk}\,\phi_i\phi_j\phi_k, \quad d_{ijk} = \sum_{\alpha=1}^{N+1} e^i_\alpha e^j_\alpha e^k_\alpha, \quad i = 1,\dots,N = q - 1 \to 0 \quad (m^2 \text{ tuned})'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '5d conformal group with parity; Euclidean only (non-unitary statistical model)'
+  euclidean: '$O(6,1)$'
   supercharges: 0
   global: '$S_q$ permutation symmetry of the Potts model, at $q \to 1$ (formal)'
   notes: 'The $N+1$ vectors $e_\alpha$ are the vertices of an $N$-dimensional tetrahedron, so $d_{ijk}$ is invariant under their permutations, the $S_{N+1} = S_q$ of the Potts model.'
@@ -56,47 +57,61 @@ quantities:
   - symbol: '1/\nu'
     description: 'Thermal exponent $y_t = 1/\nu = 5 - \Delta_\epsilon$'
     value: '1.737(2)'
-    method: Monte Carlo (bond, hypercubic)
-    refs: [tan2020, zhang2021, koza2016]
-    note: 'Other Monte Carlo values: $1.743(10)$ (bond, Zhang et al.); site percolation $\nu = 0.5723(18)$ (Koza and Poła).'
+    method: MC, bond, hypercubic
+    refs: [tan2020]
+  - symbol: '1/\nu'
+    description: 'Thermal exponent $y_t = 1/\nu = 5 - \Delta_\epsilon$'
+    value: '1.743(10)'
+    method: MC, bond
+    refs: [zhang2021]
   - symbol: '\nu'
     description: Correlation-length exponent
     value: '0.5741(6)'
-    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
     refs: [borinsky2021]
-    note: 'Resummation of the series for $1/\nu$, all methods combined (Table 15).'
+    note: 'Resummation of the series for $1/\nu$, all methods combined [@borinsky2021, Table 15].'
+  - symbol: '\nu'
+    description: Correlation-length exponent
+    value: '0.5723(18)'
+    method: MC, site
+    refs: [koza2016]
   - symbol: 'd_f'
     description: 'Fractal dimension of critical clusters, $d_f = y_h = 5 - \Delta_\sigma$'
     value: '3.5260(14)'
-    method: Monte Carlo (bond, hypercubic)
+    method: MC, bond, hypercubic
     refs: [zhang2021, mertens2018]
-    note: 'Consistent with the site-percolation Fisher exponent $\tau = 1 + 5/d_f = 2.419(1)$ (Mertens and Moore).'
+    note: 'Consistent with the site-percolation Fisher exponent $\tau = 1 + 5/d_f = 2.419(1)$ [@mertens2018].'
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 7 - 2d_f = 2\Delta_\sigma - 3$'
     value: '-0.0520(28)'
-    method: derived
-    refs: [zhang2021, borinsky2021]
-    note: 'From $d_f = 3.5260(14)$. Five-loop $6-\epsilon$: $-0.056(3)$ (Borinsky et al., Table 13).'
+    method: MC, from d_f
+    refs: [zhang2021]
+    note: 'Computed by this relation from $d_f = 3.5260(14)$.'
+  - symbol: '\eta'
+    description: 'Anomalous dimension, $\eta = 7 - 2d_f = 2\Delta_\sigma - 3$'
+    value: '-0.056(3)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
+    refs: ['borinsky2021, Table 13']
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent'
     value: '0.746(11)'
-    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
     refs: [borinsky2021]
-    note: 'All methods combined (Table 19).'
+    note: 'All methods combined [@borinsky2021, Table 19].'
 
 operators:
   - name: '\sigma'
     Delta: '1.4740(14)'
     spin: 0
     rep: '$(q-1)$-dimensional representation of $S_q$ (order parameter)'
-    method: derived
+    method: MC, from d_f
     refs: [zhang2021, tan2020]
-    note: '$5 - d_f$ with $d_f = 3.5260(14)$, listed as the magnetic dimension $X_1$ in Table IV of Tan et al. Below the unitarity bound $\tfrac32$.'
+    note: '$5 - d_f$ with $d_f = 3.5260(14)$, listed as the magnetic dimension $X_1$ in [@tan2020, Table IV]. Below the unitarity bound $\tfrac32$.'
   - name: '\epsilon'
     Delta: '3.263(2)'
     spin: 0
     rep: '$S_q$ singlet (thermal)'
-    method: Monte Carlo (bond, hypercubic)
+    method: MC, bond, hypercubic
     refs: [tan2020]
     note: 'Measured as the two-cluster exponent $X_{2s}$, which equals $5 - y_t$.'
 
@@ -106,7 +121,7 @@ relations:
     note: 'The same universality class in four dimensions; both are continuations of the $q \to 1$ Potts fixed point from $d = 6-\epsilon$, with $\epsilon = 1$ here and $\epsilon = 2$ there.'
   - type: related_to
     target: lee-yang-5d
-    note: 'Both are fixed points of cubic scalar theories with upper critical dimension 6: one real field with an imaginary coupling, or $N = q-1 \to 0$ fields with the Potts tensor $d_{ijk}$. Borinsky et al. obtain both $6-\epsilon$ expansions from the same five-loop renormalization of the general cubic theory, which differ only in the tensor factors of each Feynman graph.'
+    note: 'Both are fixed points of cubic scalar theories with upper critical dimension 6: one real field with an imaginary coupling, or $N = q-1 \to 0$ fields with the Potts tensor $d_{ijk}$. Borinsky et al. [@borinsky2021] obtain both $6-\epsilon$ expansions from the same five-loop renormalization of the general cubic theory, which differ only in the tensor factors of each Feynman graph.'
 
 references:
   - key: tan2020

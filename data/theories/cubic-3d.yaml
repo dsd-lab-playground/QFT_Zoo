@@ -1,9 +1,11 @@
 id: cubic-3d
 name: '3d cubic fixed point ($N=3$)'
+short_name: '3d cubic fixed point'
 aliases:
   - Cubic universality class
   - 'Cubic fixed point of three scalars'
 d: 3
+uv_dof: 3
 summary: >-
   The fixed point of three real scalars with a cubic-symmetric quartic interaction.
   Cubic anisotropy is relevant at the $O(3)$ (Heisenberg) point, so for one sign of it
@@ -15,33 +17,35 @@ description: |
   group (sign flips and permutations of the three components). In the $\epsilon$-expansion
   the quartic couplings $(u, v)$ have, besides the free theory, three fixed points: three
   decoupled Ising models ($u = 0$), the $O(3)$ point ($v = 0$) and the cubic point
-  ($u, v \neq 0$) (Aharony).
+  ($u, v \neq 0$) [@aharony1973].
   The cubic term $\sum_i \phi_i^4$ is a singlet plus a component of the rank-4 traceless
   symmetric operator $t_4$ of $O(3)$, so the stability of the $O(3)$ point is decided by
-  $\Delta_{t_4}$. The bootstrap proves $\Delta_{t_4} < 2.99056$ (Chester et al.) and Monte
-  Carlo gives $\Delta_{t_4} = 2.9858(6)$ (Hasenbusch 2023), so the $O(3)$ point is unstable and the cubic
+  $\Delta_{t_4}$. The bootstrap proves $\Delta_{t_4} < 2.99056$ [@chester2020] and Monte
+  Carlo gives $\Delta_{t_4} = 2.9858(6)$ [@hasenbusch2023], so the $O(3)$ point is unstable and the cubic
   point is the stable one. Depending on the sign of the anisotropy, the transition of a
   cubic system is either continuous and governed by this fixed point, or first order
-  (Hasenbusch 2023).
+  [@hasenbusch2023].
 
   Because $3 - \Delta_{t_4} \approx 0.014$ is so small, the cubic point lies close to
   the $O(3)$ point and the flow between them is extremely slow: the leading irrelevant
   cubic-invariant scalar has $\Delta = 3 + \omega_2$ with $\omega_2 = 0.0133(8)$.
   Conformal perturbation theory around $O(3)$, with $\delta = \Delta_X - 3 \approx 0.01$ at
   the cubic point, shifts $\Delta_\phi$ and $\Delta_s$ only at order $\delta^2$, while
-  $\Delta_t$ (rank 2) shifts at order $\delta$ (Chester et al.). Monte Carlo confirms that
+  $\Delta_t$ (rank 2) shifts at order $\delta$ [@chester2020]. Monte Carlo confirms that
   $\nu$ and $\eta$ barely move.
 
   The numerical bootstrap has not yet isolated this fixed point. Single-correlator bounds
   with cubic symmetry have singlet-sector kinks that coincide with the $O(N)$ ones
-  (Stergiou), and mixed-correlator studies (Kousvos and Stergiou) found an island that
+  [@stergiou2018], and mixed-correlator studies [@kousvos2018; @kousvos2019] found an island that
   contains the decoupled Ising theory and a candidate "Platonic" CFT, whose dimensions do
-  not match the cubic fixed point found in Monte Carlo (Chester et al.; Hasenbusch 2023).
+  not match the cubic fixed point found in Monte Carlo [@chester2020; @hasenbusch2023].
 
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\vec\phi)^2 + \tfrac{1}{2} m^2 \vec\phi^{\,2} + \tfrac{u}{4!}(\vec\phi^{\,2})^2 + \tfrac{v}{4!}\sum_{i=1}^{3}\phi_i^4, \quad \vec\phi\in\mathbb{R}^3 \quad (m^2 \text{ tuned to criticality})'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '3d conformal group with parity'
+  euclidean: '$O(4,1)$'
+  lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$\mathbb{Z}_2^3 \rtimes S_3$ (cubic group, order 48)'
   notes: 'The $O(3)$ of the Heisenberg point is broken to this discrete group, so there are no conserved spin-1 currents.'
@@ -50,40 +54,40 @@ quantities:
   - symbol: '\nu'
     description: 'Correlation-length exponent, $\nu = 1/(3-\Delta_s)$'
     value: '0.7111(3)'
-    method: Monte Carlo (improved two-parameter φ⁴ model)
+    method: MC, improved two-parameter φ⁴ model
     refs: [hasenbusch2023]
   - symbol: '\nu - \nu_{O(3)}'
     description: 'Difference from the $O(3)$ fixed point'
     value: '-0.00061(10)'
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2023]
     note: 'From ratios of observables in which subleading corrections largely cancel.'
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 1$'
     value: '0.03782(13)'
-    method: Monte Carlo (improved two-parameter φ⁴ model)
+    method: MC, improved two-parameter φ⁴ model
     refs: [hasenbusch2023]
     note: 'Difference from $O(3)$: $-0.00001 \lesssim \eta - \eta_{O(3)} \lesssim 0.00007$.'
   - symbol: '\omega_2'
     description: 'Small correction-to-scaling exponent of the slow cubic direction, $\omega_2 = \Delta_X - 3$'
     value: '0.0133(8)'
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2023]
-    note: 'Conformal perturbation theory: $\omega_2 \approx 3 - \Delta_{t_4}^{O(3)}$ (Chester et al.).'
+    note: 'Conformal perturbation theory: $\omega_2 \approx 3 - \Delta_{t_4}^{O(3)}$ [@chester2020].'
 
 operators:
   - name: '\phi_i'
     Delta: '0.51891(7)'
     spin: 0
     rep: three-dimensional (order parameter)
-    method: derived
+    method: MC, from η
     refs: [hasenbusch2023]
     note: 'From $\Delta_\phi = (1+\eta)/2$.'
   - name: 's'
     Delta: '1.5937(6)'
     spin: 0
     rep: singlet (thermal)
-    method: derived
+    method: MC, from ν
     refs: [hasenbusch2023]
     note: 'From $\Delta_s = 3 - 1/\nu$.'
   - name: 'T_{\mu\nu}'
@@ -96,14 +100,17 @@ operators:
     Delta: '3.0133(8)'
     spin: 0
     rep: singlet (descends from $t_4$ of $O(3)$)
-    method: derived
+    method: MC, from ω₂
     refs: [hasenbusch2023, chester2020]
-    note: 'From $3 + \omega_2$. Leading irrelevant singlet; conformal perturbation theory gives $\Delta_X \approx 3.01$ (Chester et al.).'
+    note: 'From $3 + \omega_2$. Leading irrelevant singlet; conformal perturbation theory gives $\Delta_X \approx 3.01$ [@chester2020].'
 
 relations:
+  - type: flows_to
+    target: trivial-tqft-3d
+    note: 'Singlet mass deformation $t\,\phi_a\phi_a$ on the disordered (high-temperature) side: gapped, with the cubic symmetry unbroken. Pelissetto and Vicari [@pelissetto2002] review the phases of these models.'
   - type: related_to
     target: ising-3d
-    note: 'Three decoupled 3d Ising CFTs form another, unstable fixed point of the same Lagrangian. The coupling $\sum_{i \neq j}\epsilon_i\epsilon_j$ is relevant there, and with the mass tuned it drives the flow to the cubic fixed point (Binder).'
+    note: 'Three decoupled 3d Ising CFTs form another, unstable fixed point of the same Lagrangian. The coupling $\sum_{i \neq j}\epsilon_i\epsilon_j$ is relevant there, and with the mass tuned it drives the flow to the cubic fixed point [@binder2021].'
 
 references:
   - key: hasenbusch2023
@@ -148,5 +155,11 @@ references:
     year: 2020
     journal: SciPost Phys. 8, 085
     arxiv: '1911.00522'
+  - key: pelissetto2002
+    title: Critical phenomena and renormalization-group theory
+    authors: Andrea Pelissetto and Ettore Vicari
+    year: 2002
+    journal: Phys. Rept. 368, 549
+    arxiv: 'cond-mat/0012164'
 
 contributors: [Canonical111]

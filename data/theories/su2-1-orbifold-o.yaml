@@ -11,7 +11,7 @@ description: |
   A rotation by angle $2\pi t$ twists the winding by $t$, so its twisted-sector ground state is a scalar Virasoro primary with $h = \bar h = t^2/4$. The smallest rotation in $O$ has order 4, giving $\Delta_{\rm gap} = \frac{1}{2\cdot4^2} = 1/32$; the lightest untwisted invariant has $\Delta = \tfrac12$.
 
 symmetry:
-  spacetime: conformal
+  spacetime: 'Two Virasoro algebras, $c = \bar c = 1$ — 2d conformal symmetry; parity not recorded'
   supercharges: 0
 
 quantities:
@@ -24,7 +24,7 @@ quantities:
   symbol: '\Delta_{\rm gap}'
   description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
   value: '1/32'
-  method: exact (twisted-sector ground state)
+  method: exact, twisted-sector ground state
   note: 'The lowest state of the modular-invariant partition function in the Spectrum section, built from the circle and orbifold partition functions of the subgroups.'
 
 operators:

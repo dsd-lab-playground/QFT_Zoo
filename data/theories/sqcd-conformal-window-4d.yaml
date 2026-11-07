@@ -13,7 +13,7 @@ tags: [CFT, SCFT, interacting, unitary, gauge theory, supersymmetric, Lagrangian
 description: |
   An $\mathcal{N}=1$ $SU(N_c)$ vector multiplet coupled to $N_f$ chiral multiplets $Q^i$ in the
   fundamental and $N_f$ chiral multiplets $\tilde Q_{\tilde\imath}$ in the antifundamental, with no
-  superpotential. The theory is asymptotically free for $N_f < 3N_c$. Seiberg argued that for
+  superpotential. The theory is asymptotically free for $N_f < 3N_c$. Seiberg [@seiberg1995] argued that for
   $\tfrac32 N_c < N_f < 3N_c$ the theory at the origin of the moduli space flows to an interacting
   SCFT. Near the upper edge the fixed point is weakly coupled (a Banks–Zaks fixed point): at large
   $N_c$ with $N_f/N_c = 3-\epsilon$ fixed, $N_c g_*^2 = \tfrac{8\pi^2}{3}\epsilon + O(\epsilon^2)$.
@@ -32,13 +32,13 @@ description: |
   window the infrared theory is free: for $N_f \ge 3N_c$ the electric theory is not asymptotically free
   (free electric phase), and for $N_c+2 \le N_f \le \tfrac32 N_c$ the magnetic theory is not (free
   magnetic phase). At smaller $N_f$ there is no interacting SCFT: $N_f = N_c, N_c+1$ confine, and for
-  $N_f < N_c$ there is no ground state (Seiberg).
+  $N_f < N_c$ there is no ground state [@seiberg1995].
 
   At $N_f = 2N_c$ both gauge groups are $SU(N_c)$. Adding an adjoint chiral multiplet with a Yukawa
   coupling turns this theory into $\mathcal{N}=2$ superconformal $SU(N_c)$ QCD with $2N_c$ flavours
-  (Seiberg). Conversely, a mass for the adjoint of that $\mathcal{N}=2$ theory leads to $N_f = 2N_c$
+  [@seiberg1995]. Conversely, a mass for the adjoint of that $\mathcal{N}=2$ theory leads to $N_f = 2N_c$
   SQCD with a quartic superpotential in the mesons that is exactly marginal, so this member lies on a
-  curve of fixed points (Leigh and Strassler).
+  curve of fixed points [@ls1995].
 
   **Conformal bootstrap.** Crossing symmetry of $\langle \Phi\Phi^\dagger\Phi\Phi^\dagger\rangle$ for a
   chiral primary $\Phi$ bounds the central charge, flavour-current coefficients and the dimension of
@@ -46,9 +46,9 @@ description: |
   $\Delta_{\Phi^\dagger\Phi} \le 2\Delta_\Phi$. Applied to one meson component, the flavour-current and
   central-charge bounds are satisfied throughout the window and are most constraining at small $N_c$.
   For $N_c = 3$, $N_f = 5$ ($\Delta_M = 1.2$) the flavour-current contribution is about $0.3$, against
-  a bound of about $2$ (Poland and Simmons-Duffin). For many values of $N_c$ and $N_f$, later bounds on the $SU(N_f)$ current
+  a bound of about $2$ [@psd2010]. For many values of $N_c$ and $N_f$, later bounds on the $SU(N_f)$ current
   two-point function come within an $O(1)$ factor of the SQCD value, closest near $\Delta_M \sim 1$
-  (Poland, Simmons-Duffin and Vichi).
+  [@psdv2011].
 
 parameters:
   - symbol: 'N_c'
@@ -66,13 +66,15 @@ family:
       note: '$\Delta_M \to 1$. At $N_f = \tfrac32 N_c$ itself the infrared theory is the free magnetic theory.'
     - at: '2N_c'
       label: 'Electric and magnetic gauge groups coincide'
-      note: '$R_Q = \tfrac12$, $\Delta_M = \tfrac32$. A quartic superpotential is exactly marginal here (Leigh–Strassler).'
+      note: '$R_Q = \tfrac12$, $\Delta_M = \tfrac32$. A quartic superpotential is exactly marginal here [@ls1995].'
     - at: '\lesssim 3N_c'
       label: 'Upper edge: Banks–Zaks regime'
       note: 'Weakly coupled electric description, $N_c g_*^2 = \tfrac{8\pi^2}{3}\epsilon + O(\epsilon^2)$ with $\epsilon = 3 - N_f/N_c$.'
 
 symmetry:
-  spacetime: '$\mathcal{N}=1$ superconformal'
+  spacetime: '4d $\mathcal{N}=1$ superconformal group (4 $Q$ + 4 $S$ supercharges), with parity combined with charge conjugation ($\theta$ is unphysical with massless quarks)'
+  euclidean: '$O(5,1)$ (bosonic conformal part)'
+  lorentzian: '$SU(2,2|1)$'
   supercharges: 4
   global: '$SU(N_f)\times SU(N_f)\times U(1)_B$ flavour symmetry and $U(1)_R$'
   gauge: '$SU(N_c)$ (electric) or $SU(N_f-N_c)$ (magnetic)'
@@ -83,25 +85,25 @@ quantities:
     value: '1 - \frac{N_c}{N_f}'
     method: exact
     refs: [seiberg1995]
-    note: 'Seiberg eq. (1.2). The magnetic quarks have $R = N_c/N_f$ and the meson $R_M = 2(1 - N_c/N_f)$.'
+    note: '[@seiberg1995, Eq. (1.2)]. The magnetic quarks have $R = N_c/N_f$ and the meson $R_M = 2(1 - N_c/N_f)$.'
   - symbol: 'a'
     description: 'Euler conformal anomaly (normalized so that a free chiral multiplet has $a = \tfrac{1}{48}$)'
     value: '\frac{3}{16}\Big(2N_c^2 - 1 - \frac{3N_c^4}{N_f^2}\Big)'
-    method: exact (anomaly matching)
+    method: exact, anomaly matching
     refs: [afgj1998, seiberg1995, iw2003]
-    note: 'Eq. (4.23) of Anselmi et al., whose normalization gives $\tfrac{1}{48}$ per free chiral and $\tfrac{3}{16}$ per free vector multiplet. Equivalently $a = \tfrac{3}{32}(3\mathrm{Tr}R^3 - \mathrm{Tr}R)$ with $\mathrm{Tr}R = -N_c^2-1$ and $\mathrm{Tr}R^3 = N_c^2 - 1 - 2N_c^4/N_f^2$ (Seiberg eq. (3.4)).'
+    note: 'Anselmi et al. [@afgj1998, Eq. (4.23)], whose normalization gives $\tfrac{1}{48}$ per free chiral and $\tfrac{3}{16}$ per free vector multiplet. Equivalently $a = \tfrac{3}{32}(3\mathrm{Tr}R^3 - \mathrm{Tr}R)$ with $\mathrm{Tr}R = -N_c^2-1$ and $\mathrm{Tr}R^3 = N_c^2 - 1 - 2N_c^4/N_f^2$ [@seiberg1995, Eq. (3.4)].'
   - symbol: 'c'
     description: 'Weyl conformal anomaly (same normalization; a free chiral multiplet has $c = \tfrac{1}{24}$)'
     value: '\frac{1}{16}\Big(7N_c^2 - 2 - \frac{9N_c^4}{N_f^2}\Big)'
-    method: exact (anomaly matching)
+    method: exact, anomaly matching
     refs: [afgj1998, psd2010]
-    note: 'Eq. (4.23) of Anselmi et al. and eq. (5.3) of Poland–Simmons-Duffin. Their eq. (4.22) gives $c - a = (N_c^2+1)/16$.'
+    note: 'Anselmi et al. [@afgj1998, Eq. (4.23)] and Poland–Simmons-Duffin [@psd2010, Eq. (5.3)]. Anselmi et al. [@afgj1998, Eq. (4.22)] also give $c - a = (N_c^2+1)/16$.'
   - symbol: '\tau_{SU(N_f)}'
     description: 'Two-point coefficient of the $SU(N_f)_L$ (or $SU(N_f)_R$) currents, $\tau^{IJ} = -3\,\mathrm{Tr}(R\,T^IT^J) = \tau\,\delta^{IJ}$ with $\mathrm{Tr}(T^IT^J) = \tfrac12\delta^{IJ}$ in the fundamental'
     value: '\frac{3N_c^2}{2N_f}'
-    method: exact (anomaly matching)
+    method: exact, anomaly matching
     refs: [psd2010, psdv2011]
-    note: 'Eq. (5.1) of Poland–Simmons-Duffin. In this normalization one free chiral multiplet in the fundamental gives $\tfrac12$ (derived).'
+    note: '[@psd2010, Eq. (5.1)]. In this normalization one free chiral multiplet in the fundamental gives $\tfrac12$ (derived).'
 
 operators:
   - name: 'M^i_{\ \tilde\jmath} = Q^i\tilde Q_{\tilde\jmath}'
@@ -110,14 +112,14 @@ operators:
     rep: '$(\mathbf{N_f}, \overline{\mathbf{N_f}})$ of $SU(N_f)\times SU(N_f)$, $U(1)_B$ neutral'
     method: exact
     refs: [seiberg1995]
-    note: 'Chiral primary, Seiberg eq. (2.3). It equals 1 at $N_f = \tfrac32 N_c$. In the magnetic description $M$ is an elementary field.'
+    note: 'Chiral primary [@seiberg1995, Eq. (2.3)]. It equals 1 at $N_f = \tfrac32 N_c$. In the magnetic description $M$ is an elementary field.'
   - name: 'B = Q^{N_c},\ \tilde B = \tilde Q^{N_c}'
     Delta: '\frac{3N_c(N_f - N_c)}{2N_f}'
     spin: 0
     rep: 'rank-$N_c$ antisymmetric tensor of $SU(N_f)_L$ (resp. $SU(N_f)_R$), $U(1)_B$ charge $\pm N_c$'
     method: exact
     refs: [seiberg1995]
-    note: 'Baryons, Seiberg eq. (2.4). In the magnetic description $B \propto q^{N_f - N_c}$.'
+    note: 'Baryons [@seiberg1995, Eq. (2.4)]. In the magnetic description $B \propto q^{N_f - N_c}$.'
   - name: 'J_\mu^{SU(N_f)_{L,R}},\ J_\mu^{B},\ J_\mu^{R}'
     Delta: 3
     spin: 1
@@ -134,7 +136,7 @@ operators:
 relations:
   - type: related_to
     target: n2-sqcd-4d
-    note: 'At $N_f = 2N_c$: adding an adjoint chiral multiplet gives $\mathcal{N}=2$ superconformal QCD (Seiberg), and a mass for that adjoint flows back to $N_f = 2N_c$ SQCD with an exactly marginal quartic superpotential (Leigh–Strassler).'
+    note: 'At $N_f = 2N_c$: adding an adjoint chiral multiplet gives $\mathcal{N}=2$ superconformal QCD [@seiberg1995], and a mass for that adjoint flows back to $N_f = 2N_c$ SQCD with an exactly marginal quartic superpotential [@ls1995].'
   - type: related_to
     target: qcd-conformal-window-4d
     note: 'The non-supersymmetric analogue.'

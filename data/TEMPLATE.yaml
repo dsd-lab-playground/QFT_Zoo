@@ -3,7 +3,8 @@
 # Delete any optional section you don't need. Full field reference: CONTRIBUTING.md
 #
 # LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).
-#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math.
+#   - Prose fields (summary, description, note, role, ...) are Markdown: use $...$ for math,
+#     and cite as [@key] or [@key, Sec. 2] (never a direct link; see CONTRIBUTING.md, Citations).
 #   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.
 
 id: my-theory                      # lowercase-with-hyphens, = filename
@@ -26,9 +27,12 @@ parameters:
     range: '$N \geq 1$'
 
 symmetry:
-  spacetime: conformal
-  supercharges: 0
-  global: '$O(N)$'
+  spacetime: '$O(4,1)$ — 3d conformal group with parity'   # group — colloquial name; see CONTRIBUTING.md, Spacetime symmetry
+  supercharges: 0                  # real Poincaré supercharges Q; for SUSY theories also state Q and S in spacetime
+  global: '$O(N)$'                 # the global symmetry in words (Markdown)
+  parity: true                     # true | false | conditional (docs/REPRESENTATIONS.md)
+  global_group:                    # the factors operators' representations refer to; [] if none
+    - {id: O(N), group: O(N)}      # group: Z2, Z_n, U(1), O(N), SO(N), SU(N), Sp(N), S_n, D_n, finite
   # gauge: '$SU(N)$'
   # notes: 'Anomalies, emergent symmetries, ...'
 
@@ -36,21 +40,29 @@ quantities:
   - symbol: 'C_T/C_T^{\text{free}}'
     description: Stress-tensor central charge
     value: '0.9(1)'                # parenthesis notation for uncertainties
-    method: conformal bootstrap
-    refs: [author2025]
+    method: 'CB, rigorous'         # an abbreviation from data/methods.yaml, then an optional qualifier (CONTRIBUTING.md, Methods)
+    refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)
 
 operators:
   - name: '\phi'
     Delta: '0.5(1)'
     spin: 0
-    rep: 'vector'
-    method: conformal bootstrap
+    parity: even                   # even | odd | pair | unknown
+    global: {O(N): vector}         # a label per factor of global_group (docs/REPRESENTATIONS.md)
+    role: 'order parameter'        # optional remark; never part of the representation
+    method: CB
     refs: [author2025]
 
 relations:
   - type: flows_to                 # flows_to | dual_to | related_to
     target: ising-3d               # id of an existing entry
     note: 'Which deformation, and any subtleties.'
+    # Optional details for a flow (see CONTRIBUTING.md, "RG flows in detail"):
+    # id: my-flow
+    # flow:
+    #   identification: {status: established, method: 'numerics', refs: [author2025]}
+    #   deformations:
+    #     - {operator: '\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}
 
 references:
   - key: author2025                # short handle used in refs: [...] above

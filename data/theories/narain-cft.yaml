@@ -6,28 +6,28 @@ summary: 'The CFTs of $d$ compact free bosons, one for each even self-dual latti
 tags: [CFT, free, unitary, Lagrangian, exactly solvable, family]
 
 description: |
-  The sigma model on a torus $T^d$ with constant metric $G$ and $B$-field has $c_L = c_R = d$ and a $U(1)^d\times U(1)^d$ current algebra. These theories are believed to be the most general ones with these central charges and abelian current algebras (Maloney–Witten). Momenta and windings combine into a vector $(p_L, p_R)$ of a lattice $\Lambda\subset\mathbb{R}^{d,d}$, with inner product $p_L\cdot p_L' - p_R\cdot p_R'$, and
+  The sigma model on a torus $T^d$ with constant metric $G$ and $B$-field has $c_L = c_R = d$ and a $U(1)^d\times U(1)^d$ current algebra. These theories are believed to be the most general ones with these central charges and abelian current algebras [@mw2020]. Momenta and windings combine into a vector $(p_L, p_R)$ of a lattice $\Lambda\subset\mathbb{R}^{d,d}$, with inner product $p_L\cdot p_L' - p_R\cdot p_R'$, and
   $$Z_\Lambda(\tau,\bar\tau) = \frac{1}{|\eta(\tau)|^{2d}}\sum_{(p_L,p_R)\in\Lambda} q^{p_L^2/2}\,\bar q^{p_R^2/2}$$
-  (Afkhami-Jeddi, Cohn, Hartman and Tajdini (ACHT), eq. (2.18)). Each lattice vector gives a primary with $\Delta = \frac12(p_L^2+p_R^2)$ and spin $\frac12(p_L^2-p_R^2)$. $Z_\Lambda$ is invariant under $T$ because $\Lambda$ is even and under $S$ because it is self-dual. Narain found this condition for toroidal compactifications of the heterotic string, where the lattice has signature $(26-d', 10-d')$ for $d'$ uncompactified dimensions; Narain, Sarmadi and Witten related these theories to conventional toroidal compactification.
+  (Afkhami-Jeddi, Cohn, Hartman and Tajdini (ACHT) [@acht2021, Eq. (2.18)]). Each lattice vector gives a primary with $\Delta = \frac12(p_L^2+p_R^2)$ and spin $\frac12(p_L^2-p_R^2)$. $Z_\Lambda$ is invariant under $T$ because $\Lambda$ is even and under $S$ because it is self-dual. Narain [@narain1986] found this condition for toroidal compactifications of the heterotic string, where the lattice has signature $(26-d', 10-d')$ for $d'$ uncompactified dimensions; Narain, Sarmadi and Witten [@nsw1987] related these theories to conventional toroidal compactification.
 
   **Moduli space.** All even self-dual lattices of signature $(d,d)$ are related by $O(d,d;\mathbb{R})$. Rotations in $O(d)\times O(d)$ leave the spectrum unchanged, and the automorphisms $O(d,d;\mathbb{Z})$ of the lattice (T-dualities) relate equivalent theories, so the moduli space is
   $$\mathcal{M}_d = O(d,d;\mathbb{Z})\backslash O(d,d;\mathbb{R})/(O(d)\times O(d))$$
-  (Giveon–Porrati–Rabinovici, §2.4; ACHT, eq. (2.20); Maloney and Witten use the $SO$ groups). Its real dimension is $d^2$, the number of components of $G$ and $B$ (derived). The Zamolodchikov metric is the homogeneous metric, and the volume is finite for $d > 1$ (Maloney–Witten).
+  ([@gpr1994, Sec. 2.4; @acht2021, Eq. (2.20)]; Maloney and Witten [@mw2020, Eq. (1.1)] use the $SO$ groups). Its real dimension is $d^2$, the number of components of $G$ and $B$ (derived). The Zamolodchikov metric is the homogeneous metric, and the volume is finite for $d > 1$ [@mw2020].
 
-  **Currents and gap.** The currents $\partial X^p$, $\bar\partial X^p$ are Virasoro primaries with $\Delta = 1$, so the lightest non-vacuum Virasoro primary has $\Delta = \min(1, \Delta_1)$, where $\Delta_1$ is the smallest $\frac12(p_L^2+p_R^2)$ over non-zero lattice vectors (derived). At special points of the moduli space there are additional currents. At the points of maximal enhancement the symmetry is $G_L\times G_R$ with $G$ simply laced of rank $d$, and the theory is the level-one WZW model of $G$ (Giveon–Porrati–Rabinovici). Rationality is special too: for $d = 2$ the theory is rational exactly when the purely left-moving momenta form a sublattice of finite index in the set of all left-moving momenta, and generically there are none (Gukov–Vafa).
+  **Currents and gap.** The currents $\partial X^p$, $\bar\partial X^p$ are Virasoro primaries with $\Delta = 1$, so the lightest non-vacuum Virasoro primary has $\Delta = \min(1, \Delta_1)$, where $\Delta_1$ is the smallest $\frac12(p_L^2+p_R^2)$ over non-zero lattice vectors (derived). At special points of the moduli space there are additional currents. At the points of maximal enhancement the symmetry is $G_L\times G_R$ with $G$ simply laced of rank $d$, and the theory is the level-one WZW model of $G$ [@gpr1994]. Rationality is special too: for $d = 2$ the theory is rational exactly when the purely left-moving momenta form a sublattice of finite index in the set of all left-moving momenta, and generically there are none [@gv2004, Sec. 5.2].
 
   ### Enhanced symmetry and the largest gap
-  For $d = 2$ the moduli are the complex structure $\tau$ and the complexified Kähler modulus $\rho$ of the torus. The $(SU(2)\times SU(2))_L\times(SU(2)\times SU(2))_R$ point is $(\tau,\rho) = (i, i)$, and the $SU(3)_L\times SU(3)_R$ point is $\tau = \rho = \frac12 + \frac{\sqrt3}{2}i$ (Giveon–Porrati–Rabinovici, eqs. (2.4.63)–(2.4.65)).
+  For $d = 2$ the moduli are the complex structure $\tau$ and the complexified Kähler modulus $\rho$ of the torus. The $(SU(2)\times SU(2))_L\times(SU(2)\times SU(2))_R$ point is $(\tau,\rho) = (i, i)$, and the $SU(3)_L\times SU(3)_R$ point is $\tau = \rho = \frac12 + \frac{\sqrt3}{2}i$ [@gpr1994, Eqs. (2.4.63)–(2.4.65)].
 
-  ACHT bound $\Delta_1$ with the spinning modular bootstrap for $U(1)^d\times U(1)^d$ and search the moduli numerically for the largest $\Delta_1$. The bound is saturated at $d = 1$ by the self-dual radius ($\Delta_1 = \frac12$, proved analytically), at $d = 2$ by the $SU(3)_1$ point ($\Delta_1 = \frac23$, against a numerical bound $\frac23 + 2\times10^{-11}$; an analytic proof is open) and at $d = 4$ by the $SO(8)_1$ point ($\Delta_1 = 1$). Their best lattices for $d = 3, 5, 6, 7, 8$ are the $SU(4)_1$ and $SO(10)_1$ points, the Coxeter–Todd lattice, a lattice not previously known and the Barnes–Wall lattice, with $\Delta_1 = \frac34, 1, \sqrt{4/3}, \sqrt{4/3}, \sqrt2$, below the bootstrap bounds (ACHT, Table 1 and Appendix B). For $\Delta_1 > 1$ the Virasoro gap is set by the currents (derived). As $d\to\infty$ there are Narain lattices with $\Delta_1 \geq d/(2\pi e) + o(d)$ (ACHT).
+  ACHT [@acht2021] bound $\Delta_1$ with the spinning modular bootstrap for $U(1)^d\times U(1)^d$ and search the moduli numerically for the largest $\Delta_1$. The bound is saturated at $d = 1$ by the self-dual radius ($\Delta_1 = \frac12$, proved analytically), at $d = 2$ by the $SU(3)_1$ point ($\Delta_1 = \frac23$, against a numerical bound $\frac23 + 2\times10^{-11}$; an analytic proof is open) and at $d = 4$ by the $SO(8)_1$ point ($\Delta_1 = 1$). Their best lattices for $d = 3, 5, 6, 7, 8$ are the $SU(4)_1$ and $SO(10)_1$ points, the Coxeter–Todd lattice, a lattice not previously known and the Barnes–Wall lattice, with $\Delta_1 = \frac34, 1, \sqrt{4/3}, \sqrt{4/3}, \sqrt2$, below the bootstrap bounds [@acht2021, Table 1, App. B]. For $\Delta_1 > 1$ the Virasoro gap is set by the currents (derived). As $d\to\infty$ there are Narain lattices with $\Delta_1 \geq d/(2\pi e) + o(d)$ [@acht2021].
 
   ### Averaging over moduli and U(1) gravity
-  Maloney and Witten average $Z$ over $\mathcal{M}_d$ with the normalized Zamolodchikov measure. By the Siegel–Weil formula,
+  Maloney and Witten [@mw2020] average $Z$ over $\mathcal{M}_d$ with the normalized Zamolodchikov measure. By the Siegel–Weil formula,
   $$\langle Z\rangle = \frac{E_{d/2}(\tau)}{\tau_2^{d/2}|\eta(\tau)|^{2d}},\qquad E_s(\tau) = \sum_{\gamma\in\Gamma_\infty\backslash SL(2,\mathbb{Z})}(\mathrm{Im}\,\gamma\tau)^s,$$
-  which converges for $d > 2$. This is the sum over handlebodies of the vacuum character $1/|\eta|^{2d}$ of the current algebra, the one-loop partition function of $U(1)^{2d}$ Chern–Simons theory. ACHT obtained the same result and call the bulk theory U(1) gravity, perturbatively $U(1)^d\times U(1)^d$ Chern–Simons theory with a composite boundary graviton.
+  which converges for $d > 2$. This is the sum over handlebodies of the vacuum character $1/|\eta|^{2d}$ of the current algebra, the one-loop partition function of $U(1)^{2d}$ Chern–Simons theory. ACHT [@acht2021] obtained the same result and call the bulk theory U(1) gravity, perturbatively $U(1)^d\times U(1)^d$ Chern–Simons theory with a composite boundary graviton.
 
   ### Status
-  ACHT conjecture that the ensemble average for $d > 2$ is dual to U(1) gravity. The duality has been checked for the torus partition function; Maloney and Witten extend the Siegel–Weil formula to higher genus and to disconnected boundaries, where the bulk interpretation is less clear.
+  ACHT [@acht2021] conjecture that the ensemble average for $d > 2$ is dual to U(1) gravity. The duality has been checked for the torus partition function; Maloney and Witten [@mw2020] extend the Siegel–Weil formula to higher genus and to disconnected boundaries, where the bulk interpretation is less clear.
 
 lagrangian: '\mathcal{L} = \frac{1}{8\pi}\left(G_{pq}\,\partial_\alpha X^p\partial^\alpha X^q + i\,B_{pq}\,\epsilon^{\alpha\beta}\partial_\alpha X^p\partial_\beta X^q\right),\qquad X^p \sim X^p + 2\pi'
 
@@ -36,7 +36,7 @@ parameters:
   description: 'Number of compact bosons (dimension of the torus).'
   range: 'integer $d \geq 1$'
 - symbol: 'G_{pq},\ B_{pq}'
-  description: 'Constant metric and $B$-field on $T^d$, the moduli. The action is Maloney–Witten eq. (A.1) with $\alpha'' = 2$; for $d = 1$, $G_{11} = R^2$ gives the compact-boson action $\frac{1}{8\pi}(\partial X)^2$ with $X \sim X + 2\pi R$ (derived).'
+  description: 'Constant metric and $B$-field on $T^d$, the moduli. The action is Maloney–Witten [@mw2020, Eq. (A.1)] with $\alpha'' = 2$; for $d = 1$, $G_{11} = R^2$ gives the compact-boson action $\frac{1}{8\pi}(\partial X)^2$ with $X \sim X + 2\pi R$ (derived).'
 
 family:
   parameter: d
@@ -45,26 +45,26 @@ family:
   - at: 1
     label: 'Compact boson'
     c: '1'
-    note: 'In the compact-boson convention ($R\sim 2/R$) the lattice is $(p_L,p_R) = (\frac{n}{R}+\frac{wR}{2}, \frac{n}{R}-\frac{wR}{2})$ (ACHT, eq. (2.21)). The largest gap, $\frac12$, is at the self-dual radius ($SU(2)_1$).'
+    note: 'In the compact-boson convention ($R\sim 2/R$) the lattice is $(p_L,p_R) = (\frac{n}{R}+\frac{wR}{2}, \frac{n}{R}-\frac{wR}{2})$ [@acht2021, Eq. (2.21)]. The largest gap, $\frac12$, is at the self-dual radius ($SU(2)_1$).'
   - at: 2
     label: '$T^2$; largest gap at the $SU(3)_1$ point'
     c: '2'
-    note: 'The $SU(3)_1$ point ($\tau = \rho = e^{i\pi/3}$) has $\Delta_1 = \frac23$, the numerical bootstrap bound (ACHT). Collier, Lin and Yin find the same bound on the gap of Virasoro primaries at $c = 2$, saturated by $SU(3)_1$, i.e. $T^2$ at the $\mathbb{Z}_3$-symmetric point.'
+    note: 'The $SU(3)_1$ point ($\tau = \rho = e^{i\pi/3}$) has $\Delta_1 = \frac23$, the numerical bootstrap bound [@acht2021]. Collier, Lin and Yin [@cly2018] find the same bound on the gap of Virasoro primaries at $c = 2$, saturated by $SU(3)_1$, i.e. $T^2$ at the $\mathbb{Z}_3$-symmetric point.'
   - at: 3
     label: '$T^3$; best known gap at the $SU(4)_1$ point'
     c: '3'
-    note: '$\Delta_1 = \frac34$; the $K = 25$ bootstrap bound is $0.8227$ (ACHT, Table 1).'
+    note: '$\Delta_1 = \frac34$; the $K = 25$ bootstrap bound is $0.8227$ [@acht2021, Table 1].'
   - at: 4
     label: '$T^4$; largest gap at the $SO(8)_1$ point'
     c: '4'
-    note: 'The $D_4$ point, equivalently 8 free fermions with the diagonal GSO projection, saturates $\Delta_1 = 1$ (ACHT; Collier, Lin and Yin).'
+    note: 'The $D_4$ point, equivalently 8 free fermions with the diagonal GSO projection, saturates $\Delta_1 = 1$ [@acht2021; @cly2018].'
   - at: 8
     label: '$T^8$; contains the $(E_8)_1$ point'
     c: '8'
-    note: 'The holomorphically factorized $(E_8)_1$ point saturates the scalar-gap bound $\Delta = 2$ at $c = 8$ (Collier, Lin and Yin); the largest $\Delta_1$ found is $\sqrt2$, for the Barnes–Wall lattice (ACHT).'
+    note: 'The holomorphically factorized $(E_8)_1$ point saturates the scalar-gap bound $\Delta = 2$ at $c = 8$ [@cly2018]; the largest $\Delta_1$ found is $\sqrt2$, for the Barnes–Wall lattice [@acht2021].'
 
 symmetry:
-  spacetime: conformal
+  spacetime: 'Two Virasoro algebras, $c = \bar c = d$ — 2d conformal symmetry; parity for $d = 1$, and for $d \geq 2$ only on special loci of the moduli space such as $B = 0$, since parity maps $B \to -B$'
   supercharges: 0
   global: '$U(1)^d_L\times U(1)^d_R$ (momentum and winding), enhanced to $G_L\times G_R$ at special points'
   notes: 'T-duality $O(d,d;\mathbb{Z})$ acts on the moduli and identifies equivalent theories.'
@@ -85,13 +85,13 @@ quantities:
 - symbol: '\Delta_1^{\max}(d=2)'
   description: 'Largest gap $\Delta_1$ (lightest $U(1)^2\times U(1)^2$ primary) among Narain CFTs with $d = 2$'
   value: '2/3'
-  method: numerical conformal bootstrap
+  method: CB
   refs: [acht2021, cly2018]
   note: 'Bound $\Delta_1 < \frac23 + 2\times 10^{-11}$ at truncation order 19, saturated by the $SU(3)_1$ point; not proved analytically.'
 - symbol: '\langle Z\rangle'
   description: 'Torus partition function averaged over $\mathcal{M}_d$, for $d > 2$'
   value: '\frac{E_{d/2}(\tau)}{\tau_2^{d/2}\,|\eta(\tau)|^{2d}}'
-  method: exact (Siegel-Weil formula)
+  method: exact, Siegel-Weil formula
   refs: [mw2020, acht2021]
 
 operators:
@@ -112,7 +112,7 @@ operators:
 relations:
 - type: related_to
   target: compact-boson
-  note: 'The $d = 1$ member is the compact-boson family. Its convention ($X\sim X+2\pi R$, $R\sim 2/R$, $\Delta = \frac{n^2}{R^2}+\frac{w^2R^2}{4}$) agrees with ACHT eqs. (2.21)–(2.22) and with Maloney–Witten eq. (2.6) at $\alpha'' = 2$ (checked).'
+  note: 'The $d = 1$ member is the compact-boson family. Its convention ($X\sim X+2\pi R$, $R\sim 2/R$, $\Delta = \frac{n^2}{R^2}+\frac{w^2R^2}{4}$) agrees with ACHT [@acht2021, Eqs. (2.21)–(2.22)] and with Maloney–Witten [@mw2020, Eq. (2.6)] at $\alpha'' = 2$ (checked).'
 - type: related_to
   target: wzw-models
   note: 'The members $SU(3)_1$, $SU(4)_1$, $SO(8)_1$ and $(E_8)_1$ of that family are the maximally enhanced Narain points at $d = 2, 3, 4, 8$ (level-one WZW models of simply-laced groups).'

@@ -6,32 +6,32 @@ summary: 'The $\mathcal{N}=(4,4)$ superconformal sigma models with a K3 surface 
 tags: [CFT, SCFT, interacting, unitary, supersymmetric, Lagrangian]
 
 description: |
-  The supersymmetric sigma model on a K3 surface with a Ricci-flat metric and a $B$-field is conformal. Because the metric is hyperkähler, its superconformal symmetry is $\mathcal{N}=(4,4)$ with $c = 6$: the $\mathcal{N}=(2,2)$ algebra extended by an $su(2)\oplus su(2)$ current algebra at level 1 (Nahm–Wendland). These are fermionic theories, with Neveu–Schwarz and Ramond sectors. The $\mathcal{N}=(4,4)$ theories with $c = 6$ form two components, associated with $T^4$ (16-dimensional) and with K3 (80-dimensional) (Nahm–Wendland).
+  The supersymmetric sigma model on a K3 surface with a Ricci-flat metric and a $B$-field is conformal. Because the metric is hyperkähler, its superconformal symmetry is $\mathcal{N}=(4,4)$ with $c = 6$: the $\mathcal{N}=(2,2)$ algebra extended by an $su(2)\oplus su(2)$ current algebra at level 1 [@nw2001]. These are fermionic theories, with Neveu–Schwarz and Ramond sectors. The $\mathcal{N}=(4,4)$ theories with $c = 6$ form two components, associated with $T^4$ (16-dimensional) and with K3 (80-dimensional) [@nw2001].
 
-  **Moduli space.** Its real dimension is 80: 40 for complex structures, 20 for Kähler forms and 22 for the $B$-field, minus 2 because each Ricci-flat metric has a sphere of complex structures (Aspinwall–Morrison). Aspinwall and Morrison determined the global form
+  **Moduli space.** Its real dimension is 80: 40 for complex structures, 20 for Kähler forms and 22 for the $B$-field, minus 2 because each Ricci-flat metric has a sphere of complex structures [@am1996, fn. 1]. Aspinwall and Morrison [@am1996, Eq. (14)] determined the global form
   $$\mathcal{M}_{\rm K3} = O(\Gamma^{4,20})\backslash O(4,20)/(O(4)\times O(20)).$$
-  A point is a positive-definite four-plane $\Pi\subset\mathbb{R}^{4,20}\cong H^{\rm even}(\mathrm{K3},\mathbb{R})$, and $\Gamma^{4,20}$ is the even unimodular lattice $H^{\rm even}(\mathrm{K3},\mathbb{Z})$ of D-brane charges (Gaberdiel–Hohenegger–Volpato (GHV)). Nahm and Wendland treat worldsheet parity as a symmetry rather than an identification and write the moduli space with $O^+(H^{\rm even}(\mathrm{K3},\mathbb{Z}))$ acting on $O^+(4,20)/(SO(4)\times O(20))$. The theory is expected to be singular where $\Pi$ is orthogonal to a vector of norm $-2$ (GHV).
+  A point is a positive-definite four-plane $\Pi\subset\mathbb{R}^{4,20}\cong H^{\rm even}(\mathrm{K3},\mathbb{R})$, and $\Gamma^{4,20}$ is the even unimodular lattice $H^{\rm even}(\mathrm{K3},\mathbb{Z})$ of D-brane charges [@ghv2012] (GHV: Gaberdiel, Hohenegger and Volpato). Nahm and Wendland [@nw2001] treat worldsheet parity as a symmetry rather than an identification and write the moduli space with $O^+(H^{\rm even}(\mathrm{K3},\mathbb{Z}))$ acting on $O^+(4,20)/(SO(4)\times O(20))$. The theory is expected to be singular where $\Pi$ is orthogonal to a vector of norm $-2$ [@ghv2012].
 
-  **Elliptic genus.** The elliptic genus $\mathrm{Tr}_{\rm RR}(-1)^{F_L+F_R}q^{L_0-\frac{c}{24}}\bar q^{\bar L_0-\frac{c}{24}}e^{4\pi izJ^3_0}$, with $\frac{c}{24} = \frac14$, is the same at every point of the moduli space, because the weak Jacobi forms of weight 0 and index 1 form a one-dimensional space (Eguchi, Ooguri and Tachikawa (EOT); Gannon):
+  **Elliptic genus.** The elliptic genus $\mathrm{Tr}_{\rm RR}(-1)^{F_L+F_R}q^{L_0-\frac{c}{24}}\bar q^{\bar L_0-\frac{c}{24}}e^{4\pi izJ^3_0}$, with $\frac{c}{24} = \frac14$, is the same at every point of the moduli space, because the weak Jacobi forms of weight 0 and index 1 form a one-dimensional space [@eot2011; @gannon2016] (EOT: Eguchi, Ooguri and Tachikawa):
   $$\phi_{\rm K3}(\tau,z) = 8\sum_{i=2}^{4}\frac{\theta_i(\tau,z)^2}{\theta_i(\tau,0)^2} = 2\phi_{0,1}(\tau,z) = 2y + 20 + 2y^{-1} + O(q),\qquad y = e^{2\pi iz}.$$
-  At $z = 0$ it is the Euler number 24 of K3, and at $z = \frac12$ it is $16 + O(q)$, the signature (EOT). The 24 Ramond ground states have $h = \bar h = \frac14$ and split as $(\mathbf2,\mathbf2) + 20$ singlets under $SU(2)_L\times SU(2)_R$ (GHV).
+  At $z = 0$ it is the Euler number 24 of K3, and at $z = \frac12$ it is $16 + O(q)$, the signature [@eot2011]. The 24 Ramond ground states have $h = \bar h = \frac14$ and split as $(\mathbf2,\mathbf2) + 20$ singlets under $SU(2)_L\times SU(2)_R$ [@ghv2012].
 
   ### Mathieu moonshine
-  In terms of $\mathcal{N}=4$ characters (EOT, eq. (1.11)),
+  In terms of $\mathcal{N}=4$ characters [@eot2011, Eq. (1.11)],
   $$\phi_{\rm K3} = 20\,\mathrm{ch}_{\frac14,0} - 2\,\mathrm{ch}_{\frac14,\frac12} + 2\sum_{n\geq1}A_n\,q^{n-\frac18}\,\frac{\theta_1(\tau,z)^2}{\eta(\tau)^3},$$
-  with $A_n = 45, 231, 770, 2277, 5796, 13915, 30843, \dots$. EOT observed that $A_1,\dots,A_5$ are dimensions of irreducible representations of the Mathieu group $M_{24}$, and $A_6$, $A_7$ sums of such dimensions. Twined elliptic genera were then proposed for every element of $M_{24}$, and Gannon proved that the resulting multiplicities are those of true $M_{24}$ representations. By the theorem below, the symmetry groups of individual K3 sigma models are not all subgroups of $M_{24}$, so the explanation of this $M_{24}$ structure must be more subtle (GHV).
+  with $A_n = 45, 231, 770, 2277, 5796, 13915, 30843, \dots$. EOT [@eot2011] observed that $A_1,\dots,A_5$ are dimensions of irreducible representations of the Mathieu group $M_{24}$, and $A_6$, $A_7$ sums of such dimensions. Twined elliptic genera were then proposed for every element of $M_{24}$, and Gannon [@gannon2016] proved that the resulting multiplicities are those of true $M_{24}$ representations. By the theorem below, the symmetry groups of individual K3 sigma models are not all subgroups of $M_{24}$, so the explanation of this $M_{24}$ structure must be more subtle [@ghv2012].
 
   ### Symmetries and Conway's group
-  GHV classified the symmetries that preserve the $\mathcal{N}=(4,4)$ algebra and the spectral flow operators. At any non-singular point they form a subgroup of $\mathrm{Co}_0 = \mathrm{Aut}(\Lambda)$, the automorphism group of the Leech lattice, that fixes pointwise a sublattice of $\Lambda$ of rank at least 4; it does not contain $-1$, so it is also a subgroup of $\mathrm{Co}_1$. This is the stringy analogue of the Mukai–Kondo theorem, which puts the symplectic automorphisms of a K3 surface in $M_{23}$. The theorem allows four cases, one of which is a subgroup of $\mathbb{Z}_2^{11}$ extended by a subgroup of $M_{24}$ with at least four orbits; the other three are not subgroups of $M_{24}$.
+  GHV [@ghv2012] classified the symmetries that preserve the $\mathcal{N}=(4,4)$ algebra and the spectral flow operators. At any non-singular point they form a subgroup of $\mathrm{Co}_0 = \mathrm{Aut}(\Lambda)$, the automorphism group of the Leech lattice, that fixes pointwise a sublattice of $\Lambda$ of rank at least 4; it does not contain $-1$, so it is also a subgroup of $\mathrm{Co}_1$. This is the stringy analogue of the Mukai–Kondo theorem, which puts the symplectic automorphisms of a K3 surface in $M_{23}$. The theorem allows four cases, one of which is a subgroup of $\mathbb{Z}_2^{11}$ extended by a subgroup of $M_{24}$ with at least four orbits; the other three are not subgroups of $M_{24}$.
 
   ### Special loci and rational points
-  - **$T^4/\mathbb{Z}_2$ orbifolds.** The $\mathbb{Z}_2$ orbifold embeds the 16-dimensional moduli space of torus theories in $\mathcal{M}_{\rm K3}$, with $B$-field $\frac12$ on the exceptional divisors (Nahm–Wendland). The torus moduli vary continuously along it, so the theory is rational only at special points (for tori, see Gukov–Vafa). GHV find symmetries outside $M_{24}$ already at the orbifold of the self-dual torus.
-  - **Gepner model $(2)^4$.** Rational. Nahm and Wendland prove that it is the $\mathbb{Z}_4$ orbifold of the torus theory with lattice $\mathbb{Z}^4$ and has a geometric interpretation on the Fermat quartic, and that the $\mathbb{Z}_2$ and $\mathbb{Z}_4$ orbifold loci do not meet there, contrary to an earlier conjecture.
-  - **Gepner model $(1)^6$.** Rational, with symmetry group $\mathbb{Z}_3^4\rtimes A_6$, not a subgroup of $M_{24}$ (GHV).
-  - **The $\mathbb{Z}_2^8:\mathbb{M}_{20}$ model.** The $\mathbb{Z}_2$ orbifold of the $D_4$-torus theory, whose bosonic part has $so(8)_1$ currents on each side, i.e. the sigma model on the tetrahedral Kummer surface. It is also a theory of twelve free Majorana fermions on each side, a rational theory based on $su(2)_1^{\oplus 6}$, and a $\mathbb{Z}_2\times\mathbb{Z}_2$ orbifold of the Gepner model $(2)^4$. Its symmetry group $\mathbb{Z}_2^8:\mathbb{M}_{20}$ is one of the largest maximal symmetry groups of K3 sigma models (Gaberdiel, Taormina, Volpato and Wendland).
+  - **$T^4/\mathbb{Z}_2$ orbifolds.** The $\mathbb{Z}_2$ orbifold embeds the 16-dimensional moduli space of torus theories in $\mathcal{M}_{\rm K3}$, with $B$-field $\frac12$ on the exceptional divisors [@nw2001]. The torus moduli vary continuously along it, so the theory is rational only at special points (for tori, see [@gv2004]). GHV [@ghv2012] find symmetries outside $M_{24}$ already at the orbifold of the self-dual torus.
+  - **Gepner model $(2)^4$.** Rational. Nahm and Wendland [@nw2001, Sec. 3] prove that it is the $\mathbb{Z}_4$ orbifold of the torus theory with lattice $\mathbb{Z}^4$ and has a geometric interpretation on the Fermat quartic, and that the $\mathbb{Z}_2$ and $\mathbb{Z}_4$ orbifold loci do not meet there, contrary to an earlier conjecture.
+  - **Gepner model $(1)^6$.** Rational, with symmetry group $\mathbb{Z}_3^4\rtimes A_6$, not a subgroup of $M_{24}$ [@ghv2012].
+  - **The $\mathbb{Z}_2^8:\mathbb{M}_{20}$ model.** The $\mathbb{Z}_2$ orbifold of the $D_4$-torus theory, whose bosonic part has $so(8)_1$ currents on each side, i.e. the sigma model on the tetrahedral Kummer surface. It is also a theory of twelve free Majorana fermions on each side, a rational theory based on $su(2)_1^{\oplus 6}$, and a $\mathbb{Z}_2\times\mathbb{Z}_2$ orbifold of the Gepner model $(2)^4$. Its symmetry group $\mathbb{Z}_2^8:\mathbb{M}_{20}$ is one of the largest maximal symmetry groups of K3 sigma models [@gtvw2014].
 
 symmetry:
-  spacetime: '$\mathcal{N}=(4,4)$ superconformal (small $\mathcal{N}=4$ algebra at $c = 6$ on each side)'
+  spacetime: 'Two small $\mathcal{N}=4$ super-Virasoro algebras at $c = \bar c = 6$ — 2d $\mathcal{N}=(4,4)$ superconformal symmetry (8 $Q$ + 8 $S$ supercharges); parity not recorded (in a sigma-model description it maps $B \to -B$)'
   supercharges: 8
   global: '$SU(2)_L\times SU(2)_R$ R-symmetry; at special points, finite symmetry groups (subgroups of $\mathrm{Co}_0$)'
 
@@ -64,7 +64,7 @@ quantities:
   value: '45,\ 231,\ 770,\ 2277,\ 5796'
   method: exact
   refs: [eot2011]
-  note: 'Dimensions of irreducible $M_{24}$ representations. Recomputed numerically from EOT eqs. (1.2)–(1.11) up to $A_8 = 65550$ (derived).'
+  note: 'Dimensions of irreducible $M_{24}$ representations. Recomputed numerically from [@eot2011, Eqs. (1.2)–(1.11)] up to $A_8 = 65550$ (derived).'
 
 operators:
 - name: '\Phi^{\rm RR}_{a}'
@@ -93,7 +93,7 @@ operators:
 relations:
 - type: related_to
   target: conway-module
-  note: 'GHV place the symmetry groups of K3 sigma models in $\mathrm{Co}_0$, the symmetry group of the Conway module; Duncan and Mack-Crane recover twined K3 elliptic genera from its canonically twisted module (see that entry).'
+  note: 'GHV [@ghv2012] place the symmetry groups of K3 sigma models in $\mathrm{Co}_0$, the symmetry group of the Conway module; Duncan and Mack-Crane [@dmc2016] recover twined K3 elliptic genera from its canonically twisted module (see that entry).'
 
 references:
 - key: am1996
@@ -157,5 +157,13 @@ references:
   year: 2004
   journal: Commun. Math. Phys. 246, 181
   arxiv: hep-th/0203213
+- key: dmc2016
+  title: 'Derived equivalences of K3 surfaces and twined elliptic genera'
+  authors: Duncan, Mack-Crane
+  year: 2016
+  journal: 'Res. Math. Sci. 3, 1'
+  arxiv: '1506.06198'
+  doi: '10.1186/s40687-015-0050-9'
+  note: 'Twined K3 elliptic genera from the canonically twisted Conway module.'
 
 contributors: [Canonical111]

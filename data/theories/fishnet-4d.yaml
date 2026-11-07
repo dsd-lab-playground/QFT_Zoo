@@ -16,26 +16,25 @@ tags: [CFT, interacting, non-unitary, Lagrangian, integrable, large N, family]
 description: |
   The $\gamma$-deformation of $\mathcal{N}=4$ SYM twists the theory by three angles $\gamma_j$ and
   breaks all supersymmetry; for $\gamma_1=\gamma_2=\gamma_3$ it reduces to the $\mathcal{N}=1$
-  $\beta$-deformation. Gürdoğan and Kazakov take $g_{\rm YM}\to 0$ together with a large imaginary
-  twist, keeping $\xi^2 = g_{\rm YM}^2N_c\,e^{-i\gamma_3}/(4\pi)^2$ fixed (normalization of Gromov,
-  Kazakov and Korchemsky) and the other two effective couplings zero. The gauge fields and
+  $\beta$-deformation. Gürdoğan and Kazakov [@gurdogan2016] take $g_{\rm YM}\to 0$ together with a large imaginary
+  twist, keeping $\xi^2 = g_{\rm YM}^2N_c\,e^{-i\gamma_3}/(4\pi)^2$ fixed (normalization of
+  [@gromov2019]) and the other two effective couplings zero. The gauge fields and
   fermions decouple, leaving two complex scalars $\phi_1, \phi_2$ in the adjoint of a global
   $SU(N_c)$, with the Lagrangian below. The quartic term is complex (it has no
   Hermitian-conjugate partner), so the theory is not unitary. With all three effective couplings
   nonzero one gets a larger integrable theory with three scalars and Yukawa-coupled fermions.
 
   In the planar limit each correlator receives contributions from very few graphs, whose bulk is
-  a regular square lattice (a "fishnet"). Zamolodchikov showed that such graphs define an
+  a regular square lattice (a "fishnet"). Zamolodchikov [@zamolodchikov1980] showed that such graphs define an
   integrable lattice model, and the theory is described by a noncompact $SU(2,2)$ spin chain
-  and by a limit of the quantum spectral curve of $\mathcal{N}=4$ SYM (Gromov et al.).
+  and by a limit of the quantum spectral curve of $\mathcal{N}=4$ SYM [@gromov2018].
 
   The single-trace Lagrangian is not complete: double-trace couplings are generated and run even
-  in the planar limit, so the original proposal is not conformal (Sieg and Wilhelm). The
+  in the planar limit, so the original proposal is not conformal [@sieg2016]. The
   completed theory has
   $$\mathcal{L}_{\rm dt} = (4\pi)^2\alpha_1^2\,[\mathrm{tr}(\phi_1^2)\,\mathrm{tr}(\phi_1^{\dagger 2}) + \mathrm{tr}(\phi_2^2)\,\mathrm{tr}(\phi_2^{\dagger 2})] - (4\pi)^2\alpha_2^2\,[\mathrm{tr}(\phi_1\phi_2)\,\mathrm{tr}(\phi_1^\dagger\phi_2^\dagger) + \mathrm{tr}(\phi_1\phi_2^\dagger)\,\mathrm{tr}(\phi_1^\dagger\phi_2)].$$
   The beta functions of $\alpha_1^2$ and $\alpha_2^2$ vanish only at $\alpha_2^2 = \xi^2$ and at
-  the two complex values $\alpha_{1,\pm}^2$ below (Grabner, Gromov, Kazakov and Korchemsky,
-  checked to seven loops). Each value of $\xi$ therefore gives two planar,
+  the two complex values $\alpha_{1,\pm}^2$ below ([@grabner2018], checked to seven loops). Each value of $\xi$ therefore gives two planar,
   non-unitary CFTs, and the family consists of these two lines of fixed points. At them the
   dimension of $\mathrm{tr}(\phi_1^2)$ is complex. All data are for $N_c\to\infty$; whether the
   fixed points persist at finite $N_c$ is not established.
@@ -58,7 +57,8 @@ family:
       note: 'The exact relation for $\mathrm{tr}(\phi_1^2)$ below gives $\Delta \approx 2 \mp 2i\xi$ as $\xi\to\infty$ (derived).'
 
 symmetry:
-  spacetime: 'conformal (planar limit, at the fixed points)'
+  spacetime: '4d conformal group with parity (planar limit, at the fixed points); Lorentzian form not recorded (non-unitary: the Lagrangian is not Hermitian)'
+  euclidean: '$O(5,1)$'
   supercharges: 0
   global: '$U(1)\times U(1)$ charges $J_1, J_2$ counting $\phi_1$ and $\phi_2$, and the global $SU(N_c)$ (operators are $SU(N_c)$ singlets)'
   notes: 'Non-unitary: the action is not real.'
@@ -67,43 +67,43 @@ quantities:
   - symbol: '\alpha_{1,\pm}^2'
     description: 'Fixed-point values of the double-trace coupling of $\mathrm{tr}(\phi_i^2)\,\mathrm{tr}(\phi_i^{\dagger2})$'
     value: '\pm\frac{i\xi^2}{2} - \frac{\xi^4}{2} \mp \frac{3i\xi^6}{4} + \xi^8 \pm \frac{65i\xi^{10}}{48} - \frac{19\xi^{12}}{10} + O(\xi^{14})'
-    method: perturbation theory (seven loops, planar)
+    method: PT, seven loops, planar
     refs: [grabner2018]
-    note: 'Eq. (15). The beta function is quadratic in $\alpha_1^2$, so there are exactly two fixed points.'
+    note: '[@grabner2018, Eq. (15)]. The beta function is quadratic in $\alpha_1^2$, so there are exactly two fixed points.'
   - symbol: '\alpha_2^2'
     description: 'Fixed-point value of the other double-trace couplings'
     value: '\xi^2'
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [grabner2018, gromov2019]
-    note: 'The planar beta function is $2(\alpha_2^2 - \xi^2)^2$ (eq. 11), so the fixed point is a double zero.'
+    note: 'The planar beta function is $2(\alpha_2^2 - \xi^2)^2$ [@grabner2018, Eq. (11)], so the fixed point is a double zero.'
 
 operators:
   - name: '\mathrm{tr}(\phi_1\phi_1)'
     Delta: '2 \mp i\sqrt{2\sqrt{1+4\xi^4}-2}'
     spin: 0
     rep: '$J_1 = 2$ (same for $\mathrm{tr}(\phi_2\phi_2)$)'
-    method: derived (exact relation)
+    method: exact, root of the spectral relation
     refs: [grabner2018]
-    note: 'Root of $(\Delta-4)(\Delta-2)^2\Delta = 16\xi^4$ (eq. 6) that tends to 2 at $\xi = 0$; the sign labels the fixed point $\alpha_{1,\pm}^2$. Its expansion reproduces the seven-loop result $\Delta_\pm = 2 \mp 2i\xi^2 \pm i\xi^6 \mp \tfrac{7i}{4}\xi^{10} + O(\xi^{14})$ (eq. 16).'
+    note: 'Root of $(\Delta-4)(\Delta-2)^2\Delta = 16\xi^4$ [@grabner2018, Eq. (6)] that tends to 2 at $\xi = 0$; the sign labels the fixed point $\alpha_{1,\pm}^2$. Its expansion reproduces the seven-loop result $\Delta_\pm = 2 \mp 2i\xi^2 \pm i\xi^6 \mp \tfrac{7i}{4}\xi^{10} + O(\xi^{14})$ [@grabner2018, Eq. (16)].'
   - name: '\text{twist-4 scalar},\ J_1 = 2'
     Delta: '2 + \sqrt{2 + 2\sqrt{1+4\xi^4}}'
     spin: 0
     rep: '$J_1 = 2$'
-    method: derived (exact relation)
+    method: exact, root of the spectral relation
     refs: [grabner2018]
-    note: 'The root of eq. (6) that tends to 4; Grabner et al. give $4 + \xi^4 + O(\xi^8)$. Its shadow has $\Delta = -\xi^4 + O(\xi^8)$.'
+    note: 'The root of the relation [@grabner2018, Eq. (6)] that tends to 4; Grabner et al. [@grabner2018] give $4 + \xi^4 + O(\xi^8)$. Its shadow has $\Delta = -\xi^4 + O(\xi^8)$.'
   - name: '\text{twist-2, spin } S,\ J_1 = 2'
     Delta: 'S + 2 - \frac{2\xi^4}{S(S+1)} + O(\xi^8)'
     spin: 'S'
     rep: '$J_1 = 2$; even $S \geq 2$'
-    method: exact (planar limit), weak-coupling expansion
+    method: exact, planar limit, weak-coupling expansion
     refs: [grabner2018]
-    note: 'Exact dimensions solve $(\Delta+S-2)(\Delta+S)(\Delta-S-2)(\Delta-S-4) = 16\xi^4$ (eqs. 28, 30). The twist-4 partners have $\Delta = S + 4 + \frac{2\xi^4}{(S+1)(S+2)} + O(\xi^8)$.'
+    note: 'Exact dimensions solve $(\Delta+S-2)(\Delta+S)(\Delta-S-2)(\Delta-S-4) = 16\xi^4$ [@grabner2018, Eqs. (28), (30)]. The twist-4 partners have $\Delta = S + 4 + \frac{2\xi^4}{(S+1)(S+2)} + O(\xi^8)$.'
   - name: '\mathrm{tr}(\phi_1\phi_2),\ \mathrm{tr}(\phi_1\phi_2^\dagger)'
     Delta: 2
     spin: 0
     rep: '$(J_1, J_2) = (1, 1)$ and $(1, -1)$'
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [grabner2018]
     note: 'Protected at the fixed point $\alpha_2^2 = \xi^2$.'
   - name: 'T_{\mu\nu}'

@@ -16,7 +16,7 @@ description: |
   Five-dimensional $SU(2)$ gauge theory with $N_f$ fundamental hypermultiplets is
   non-renormalizable, but on its Coulomb branch $\mathbb{R}^+$ the one-loop effective coupling
   at zero masses is $1/g_{\rm eff}^2 = 1/g^2 + 2(8-N_f)\phi$. For $N_f\le7$ it stays positive as
-  $g\to\infty$, and Seiberg argued, from the D4–D8–O8 system of type I$'$ string theory, that this
+  $g\to\infty$, and Seiberg [@seiberg1996] argued, from the D4–D8–O8 system of type I$'$ string theory, that this
   limit is an interacting SCFT. Its flavor symmetry is $E_{N_f+1}$, enhanced from the
   $SO(2N_f)\times U(1)_I$ of the gauge theory, where $U(1)_I$ is the instanton-number symmetry:
   $E_8$, $E_7$, $E_6$, $E_5=Spin(10)$, $E_4=SU(5)$, $E_3=SU(3)\times SU(2)$,
@@ -25,7 +25,7 @@ description: |
   masses are further relevant deformations and induce flows $E_n\to E_m$, $m<n$. The Higgs branch
   is the moduli space of $E_n$ instantons.
 
-  Morrison and Seiberg found two more rank-1 fixed points. $\tilde E_1$ has $U(1)$ flavor
+  Morrison and Seiberg [@morrison1996] found two more rank-1 fixed points. $\tilde E_1$ has $U(1)$ flavor
   symmetry, one relevant parameter and no Higgs branch. $E_0$ has no flavor symmetry and no
   relevant deformation that preserves super-Poincaré symmetry, so it is not the UV completion of
   any gauge theory. Pure $SU(2)$ gauge theory has a discrete theta angle,
@@ -34,18 +34,18 @@ description: |
   $\theta$ give equivalent theories. In M-theory on a Calabi–Yau threefold these SCFTs appear
   when a del Pezzo surface shrinks to a point: $E_{N+1}$ for $\mathbb{P}^1\times\mathbb{P}^1$
   blown up at $N$ points, $\tilde E_1$ for $\mathbb{P}^2$ blown up at one point, and $E_0$ for
-  $\mathbb{P}^2$. Ganor, Morrison and Seiberg obtain the $E_n$ theories from the circle
+  $\mathbb{P}^2$. Ganor, Morrison and Seiberg [@ganor1996] obtain the $E_n$ theories from the circle
   compactification of the 6d E-string theory.
 
   ### Localization data
-  Chang, Fluder, Lin and Wang computed the $S^5$ partition function of the $E_1,\dots,E_8$ and
+  Chang, Fluder, Lin and Wang [@chang2017] computed the $S^5$ partition function of the $E_1,\dots,E_8$ and
   $\tilde E_1$ theories from the infrared $SU(2)$ gauge theory, assuming that it factorizes into
   three Nekrasov partition functions, and summed the instanton series to four instantons. They
   define $F = -\log Z_{S^5}$ and tabulate $-F$, which is positive. In the convention
-  $\tilde F = \log|Z_{S^5}|$ of Klebanov, Pufu and Safdi, $\tilde F = -F$. Their
+  $\tilde F = \log|Z_{S^5}|$ of Klebanov, Pufu and Safdi [@klebanov2011, Sec. 2], $\tilde F = -F$. Their
   $C_T$ is normalized so that a free real scalar has $C_T = d/(d-1) = 5/4$, a free Dirac fermion
   $C_T = 10$, and a free hypermultiplet $C_T = 15$. The members table quotes their four-instanton
-  totals (Tables 2 and 3). No error estimates are given; the summed instanton corrections to
+  totals [@chang2017, Tables 2–3]. No error estimates are given; the summed instanton corrections to
   $-F$ are at most $1.2\times10^{-2}$ in magnitude. Along the flows $E_n\to E_m$ both $-F$ and $C_T$
   decrease. $E_0$ has no gauge-theory description, and no such data exist for it.
 
@@ -75,7 +75,7 @@ family:
       note: '$-F = 8.9706$, $C_T = 662.78$ (localization).'
     - at: 'E_3'
       label: 'Flavor $SU(3)\times SU(2)$; IR $SU(2)$, $N_f=2$'
-      note: '$-F = 7.4046$, $C_T = 528.39$ (localization). Two Higgs branches, breaking $SU(3)$ or $SU(2)$ (Morrison and Seiberg).'
+      note: '$-F = 7.4046$, $C_T = 528.39$ (localization). Two Higgs branches, breaking $SU(3)$ or $SU(2)$ [@morrison1996].'
     - at: 'E_2'
       label: 'Flavor $SU(2)\times U(1)$; IR $SU(2)$, $N_f=1$'
       note: '$-F = 6.1478$, $C_T = 419.58$ (localization).'
@@ -87,10 +87,12 @@ family:
       note: '$-F = 5.0855$, $C_T = 334.35$ (localization). No Higgs branch.'
     - at: 'E_0'
       label: 'No flavor symmetry; no gauge-theory deformation'
-      note: 'No supersymmetric relevant deformation (Morrison–Seiberg).'
+      note: 'No supersymmetric relevant deformation [@morrison1996].'
 
 symmetry:
-  spacetime: '5d $\mathcal{N}=1$ superconformal, $F(4)$'
+  spacetime: '5d $\mathcal{N}=1$ superconformal group (8 $Q$ + 8 $S$ supercharges); parity not recorded'
+  euclidean: '$SO(6,1)$ (bosonic conformal part)'
+  lorentzian: '$F(4)$'
   supercharges: 8
   global: 'Flavor $E_n$ for $n\ge1$, $U(1)$ for $\tilde E_1$, none for $E_0$; R-symmetry $SU(2)_R$'
   notes: 'In the infrared gauge theory only $SO(2N_f)\times U(1)_I$ is manifest; the current of $U(1)_I$ is proportional to $*\,\mathrm{Tr}\,F\wedge F$.'
@@ -160,5 +162,13 @@ references:
     arxiv: '1710.08418'
     doi: 10.1007/JHEP03(2018)123
     note: 'Tables 2 and 3: $-F$ and $C_T$ to four instantons; footnote 7 and Fig. 1: discrete theta angle.'
+  - key: klebanov2011
+    title: 'F-Theorem without Supersymmetry'
+    authors: Klebanov, Pufu, Safdi
+    year: 2011
+    journal: 'JHEP 10 (2011) 038'
+    arxiv: '1105.4598'
+    doi: '10.1007/JHEP10(2011)038'
+    note: 'Sec. 2: $\tilde F = (-1)^{(d+1)/2}F$ with $F = -\log|Z_{S^d}|$, i.e. $\log|Z_{S^5}|$ in $d=5$.'
 
 contributors: [Canonical111]

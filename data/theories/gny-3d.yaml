@@ -13,39 +13,39 @@ tags: [CFT, interacting, unitary, Lagrangian, critical phenomena, large N, famil
 description: |
   $N$ counts two-component Majorana fermions, as in the member entries: $N=2$ is one
   two-component Dirac fermion, $N=4$ one four-component Dirac fermion, $N=8$ two of them.
-  Papers that use $N_f$ four-component Dirac fermions have $N = 4N_f$ (Fei et al.; Diab
-  et al. write $N = \tilde N\,{\rm Tr}\,\mathbb{1}$). The pseudoscalar $\sigma\sim\phi$ is odd
+  Papers that use $N_f$ four-component Dirac fermions have $N = 4N_f$ ([@fei2016]; Diab
+  et al. [@diab2016] write $N = \tilde N\,{\rm Tr}\,\mathbb{1}$). The pseudoscalar $\sigma\sim\phi$ is odd
   under parity and time reversal; the only relevant parity-even singlet is expected to be
-  $\epsilon\sim\phi^2$, whose coefficient is tuned (Erramilli et al.).
+  $\epsilon\sim\phi^2$, whose coefficient is tuned [@erramilli2022].
 
-  The Gross–Neveu model (Gross and Neveu),
+  The Gross–Neveu model [@grossneveu1974],
   $\mathcal{L} = \bar\psi_i\gamma^\mu\partial_\mu\psi_i + \tfrac{g}{2}(\bar\psi_i\psi_i)^2$,
   is non-renormalizable in $2<d<4$, but it has an interacting UV fixed point, under control in
   the $1/N$ expansion, at which $\sigma\sim\bar\psi_i\psi_i$ has $\Delta = 1 + O(1/N)$. Its
-  flow to the IR ends at $N$ free Majorana fermions (Klebanov, Pufu and Safdi). The Yukawa
-  theory below is its UV completion (Zinn-Justin; Fei et al.): the GNY infrared fixed point
+  flow to the IR ends at $N$ free Majorana fermions [@klebanov2011]. The Yukawa
+  theory below is its UV completion [@zinnjustin1991; @fei2016]: the GNY infrared fixed point
   is the GN ultraviolet fixed point. This equivalence requires $N\ge2$: for a single
-  Majorana fermion $(\bar\psi\psi)^2$ vanishes identically (Fei et al.), so the $N=1$ member
+  Majorana fermion $(\bar\psi\psi)^2$ vanishes identically [@fei2016], so the $N=1$ member
   is defined only as the infrared fixed point of the Yukawa theory, where it has emergent
   $\mathcal{N}=1$ supersymmetry (the super-Ising model).
 
   ### Chiral Ising variants are different CFTs
   The "chiral Ising" GNY models have two species $\psi_{L}$, $\psi_{R}$ of $N/2$ Majorana
   fermions with opposite Yukawa couplings, $\phi(\bar\psi_L\psi_L - \bar\psi_R\psi_R)$, and
-  symmetry $O(N/2)^2\rtimes\mathbb{Z}_2$. Erramilli et al. (Sec. 2.4) show that this is a
+  symmetry $O(N/2)^2\rtimes\mathbb{Z}_2$. Erramilli et al. [@erramilli2022, Sec. 2.4] show that this is a
   different fixed point: fermion loops with an odd number ($\ge 5$) of Yukawa vertices
   cancel there but not in the $O(N)$ model, so the two differ first at order $1/N^3$ in
   $\Delta_\phi$ and at high loop order in the $\epsilon$-expansion. The lattice transitions to
   charge-density-wave order on the honeycomb lattice (spinless, $N=4$; spinful, $N=8$)
   are in the chiral class, while the $d_{x^2-y^2}+id_{xy}$ pairing transition of $d$-wave
-  superconductors is in the $O(8)$ class (Erramilli et al., Sec. 2.5). No chiral-class data
+  superconductors is in the $O(8)$ class [@erramilli2022, Sec. 2.5]. No chiral-class data
   are used in this family.
 
   ### Large $N$
-  The expansions below are in $d=3$ with $N$ counting Majorana fermions (Erramilli et al.,
-  Table 2; Fei et al., eq. (2.49), with the same $N$). At $N=\infty$, $\Delta_\psi = 1$,
+  The expansions below are in $d=3$ with $N$ counting Majorana fermions
+  [@erramilli2022, Table 2; @fei2016, Eq. (2.49)] (both with the same $N$). At $N=\infty$, $\Delta_\psi = 1$,
   $\Delta_\sigma = 1$ and $\Delta_\epsilon = 2$; the singlet sector is conjectured to be dual
-  to the type B Vasiliev higher-spin theory in AdS$_4$ (as reviewed by Aharony, Gur-Ari and Yacoby).
+  to the type B Vasiliev higher-spin theory in AdS$_4$ (as reviewed in [@aharony2012]).
 
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2 + \tfrac{1}{2}\bar\psi_i\gamma^\mu\partial_\mu\psi_i + \tfrac{g}{2}\,\phi\,\bar\psi_i\psi_i + \tfrac{1}{2}m^2\phi^2 + \tfrac{\lambda}{4!}\phi^4, \quad i = 1,\dots,N \text{ Majorana} \quad (m^2 \text{ tuned})'
 
@@ -71,7 +71,9 @@ family:
       note: '$\Delta_\psi = \Delta_\sigma = 1$, $\Delta_\epsilon = 2$; conjectured dual to type B higher-spin gravity.'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '3d conformal group with parity'
+  euclidean: '$O(4,1)$'
+  lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$O(N)$ and parity / time reversal ($\sigma$ odd)'
   notes: '$\mathcal{N}=1$ supersymmetry emerges at $N=1$.'
@@ -80,45 +82,45 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N$ free Majorana fermions'
     value: '1 + \frac{8}{9\pi^2 N} + O(N^{-2})'
-    method: large N
+    method: 1/N
     refs: [diab2016, iliesiu2017]
   - symbol: 'C_J/C_J^{\rm free}'
     description: '$O(N)$ current two-point coefficient, relative to $N$ free Majorana fermions'
     value: '1 - \frac{64}{9\pi^2 N} + O(N^{-2})'
-    method: large N
+    method: 1/N
     refs: [diab2016, iliesiu2017]
   - symbol: 'F'
     description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$, with $F_f = \frac{\log 2}{8} + \frac{3\zeta(3)}{16\pi^2}$ the value for one free Majorana fermion'
     value: 'N F_f + \frac{\zeta(3)}{8\pi^2} + \frac{4}{9\pi^2 N} + O(N^{-2})'
-    method: large N
+    method: 1/N
     refs: [klebanov2011, tarnopolsky2016]
-    note: 'The $O(N^0)$ term is from Klebanov et al. The $1/N$ term is a conjecture of Tarnopolsky, checked against the $4-\epsilon$ and $2+\epsilon$ expansions.'
+    note: 'The $O(N^0)$ term is from Klebanov et al. [@klebanov2011]. The $1/N$ term is a conjecture of Tarnopolsky [@tarnopolsky2016], checked against the $4-\epsilon$ and $2+\epsilon$ expansions.'
 
 operators:
   - name: '\psi_i'
     Delta: '1 + \frac{4}{3\pi^2 N} + \frac{896}{27\pi^4 N^2} + O(N^{-3})'
     spin: '1/2'
     rep: vector of $O(N)$
-    method: large N
+    method: 1/N
     refs: [erramilli2022, fei2016]
   - name: '\sigma'
     Delta: '1 - \frac{32}{3\pi^2 N} + \frac{32(304 - 27\pi^2)}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: singlet, parity odd ($\sim\phi\sim\bar\psi_i\psi_i$)
-    method: large N
+    method: 1/N
     refs: [erramilli2022, fei2016]
   - name: '\epsilon'
     Delta: '2 + \frac{32}{3\pi^2 N} - \frac{64(632 + 27\pi^2)}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: singlet, parity even ($\sim\phi^2$)
-    method: large N
+    method: 1/N
     refs: [erramilli2022, fei2016]
     note: 'The tuning parameter: $\nu^{-1} = 3 - \Delta_\epsilon$.'
   - name: '\sigma_T'
     Delta: '2 + \frac{32}{3\pi^2 N} + \frac{4096}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: 'rank-2 symmetric traceless, parity odd ($\sim\psi_{(i}\psi_{j)}$)'
-    method: large N
+    method: 1/N
     refs: [erramilli2022]
   - name: 'J_\mu^{[ij]}'
     Delta: 2
@@ -130,7 +132,7 @@ operators:
     Delta: '3 + \frac{64}{\pi^2 N} - \frac{128(770 - 9\pi^2)}{9\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: singlet, parity odd ($\sim\phi^3$)
-    method: large N
+    method: 1/N
     refs: [erramilli2022, iliesiu2017]
   - name: 'T_{\mu\nu}'
     Delta: 3
@@ -142,14 +144,14 @@ operators:
     Delta: '4 - \frac{64}{3\pi^2 N} + \frac{64(400 - 27\pi^2)}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: singlet, parity even (predominantly $\phi\,\partial^2\phi$)
-    method: large N
+    method: 1/N
     refs: [mitchell2024]
-    note: 'Leading irrelevant singlet, $\omega = \Delta_{\epsilon^\prime} - 3$. At large $N$, $\phi\,\partial^2\phi$ and $\phi^4$ mix; $\epsilon^\prime$ is the lower eigenvalue (Mitchell and Poland, who note that this differs from the labelling in Erramilli et al.).'
+    note: 'Leading irrelevant singlet, $\omega = \Delta_{\epsilon^\prime} - 3$. At large $N$, $\phi\,\partial^2\phi$ and $\phi^4$ mix; $\epsilon^\prime$ is the lower eigenvalue (Mitchell and Poland [@mitchell2024, Table 1], who note that this differs from the labelling in Erramilli et al. [@erramilli2022]).'
   - name: "\\epsilon''"
     Delta: '4 + \frac{448}{3\pi^2 N} - \frac{256(3520 - 81\pi^2)}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: singlet, parity even (predominantly $\phi^4$)
-    method: large N
+    method: 1/N
     refs: [mitchell2024, erramilli2022]
     note: 'The upper eigenvalue of the $\phi\,\partial^2\phi$–$\phi^4$ mixing.'
 

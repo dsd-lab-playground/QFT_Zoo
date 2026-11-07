@@ -39,7 +39,7 @@ family:
     gap: ['0', '1/8']
 
 symmetry:
-  spacetime: conformal
+  spacetime: 'Two Virasoro algebras, $c = \bar c = 1$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$D_4$ at generic radius'
 

@@ -10,8 +10,8 @@ description: |
 
   Weights are given by the Kac formula
   $$h_{r,s} = \frac{\big((m+1)r - ms\big)^2 - 1}{4m(m+1)}, \qquad 1 \le r \le m-1,\ 1 \le s \le m,$$
-  with $(r,s) \sim (m-r, m+1-s)$. Friedan, Qiu and Shenker showed these are the only unitary
-  theories with $c<1$; Cappelli, Itzykson and Zuber classified their modular invariants by pairs of
+  with $(r,s) \sim (m-r, m+1-s)$. Friedan, Qiu and Shenker [@fqs1984] showed these are the only unitary
+  theories with $c<1$; Cappelli, Itzykson and Zuber [@ciz1987] classified their modular invariants by pairs of
   ADE Dynkin diagrams $(G, G^\prime)$ with Coxeter numbers $m$ and $m+1$.
 
   The D-projection removes $\phi_{2,2}$ as a scalar, so the gap comes from $\phi_{3,3}$ with $h = \frac{2}{m(m+1)}$.
@@ -28,6 +28,10 @@ family:
     c: '1 - 6/(m*(m+1))'
     gap: '4/(m*(m+1))'
   show: 8
+
+symmetry:
+  spacetime: 'Two Virasoro algebras, $c = \bar c = 1 - \tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity'
+  global: '$\mathbb{Z}_2$, dual to the spin flip of the A-series model of which the D-series model is the orbifold; $S_3$ for the two $D_4$ invariants, $m = 5$ (3-state Potts) and $m = 6$ (tricritical 3-state Potts)'
 
 quantities:
 - key: c

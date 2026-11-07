@@ -28,7 +28,9 @@ description: |
 lagrangian: '\mathcal{L} = i\,\bar\psi_{\dot\alpha}\,\bar\sigma^{\mu\,\dot\alpha\alpha}\partial_\mu\psi_\alpha'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '4d conformal group with parity combined with charge conjugation ($CP$; $P$ alone maps the left-handed fermion to a right-handed one)'
+  euclidean: '$O(5,1)$'
+  lorentzian: '$O(4,2)$'
   supercharges: 0
   global: '$U(1)$ ($\psi\to e^{i\alpha}\psi$), with $U(1)^3$ and $U(1)$–gravitational ''t Hooft anomalies; it contains fermion parity $(-1)^F$'
 

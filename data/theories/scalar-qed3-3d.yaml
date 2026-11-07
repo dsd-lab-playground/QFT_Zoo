@@ -1,6 +1,7 @@
 id: scalar-qed3-3d
-name: 'Scalar QED$_3$ with $N$ complex scalars'
+name: '3d scalar QED with $N$ complex scalars'
 aliases:
+  - 'Scalar QED$_3$ with $N$ complex scalars'
   - 'Abelian Higgs model'
   - 'Noncompact $\mathbb{CP}^{N-1}$ model'
   - 'Bosonic QED$_3$'
@@ -39,11 +40,11 @@ description: |
 
   ### Status at small $N$
   In $d = 4-\epsilon$ the charged fixed point exists only for $N > N_c$, with
-  $N_c = 182.95$ at one loop (Halperin–Lubensky–Ma); the four-loop series, resummed with
-  input from two dimensions, gives $N_c(d=3) \approx 12.2 \pm 3.9$ (Ihrig et al.), with a
+  $N_c = 182.95$ at one loop [@halperin1974]; the four-loop series, resummed with
+  input from two dimensions, gives $N_c(d=3) \approx 12.2 \pm 3.9$ [@ihrig2019], with a
   large spread between resummations. In Monte Carlo simulations of the noncompact lattice
   model the Coulomb–Higgs transition is continuous for $N \geq 10$ and weakly first order
-  for $N = 2, 4$ (Bonati–Pelissetto–Vicari). Other lattice realizations of $N = 2$ show
+  for $N = 2, 4$ [@bonati2021]. Other lattice realizations of $N = 2$ show
   apparently continuous behavior with drifting exponents; see the $N=2$ page.
 
 lagrangian: '\mathcal{L} = \sum_{\alpha=1}^{N} |(\partial_\mu - i a_\mu) z_\alpha|^2 + m^2 |z|^2 + \frac{\lambda}{2}(|z|^2)^2 + \frac{1}{4e^2} f_{\mu\nu}f^{\mu\nu} \quad (m^2 \text{ tuned})'
@@ -70,7 +71,9 @@ family:
       note: 'Strict large-$N$ limit, where the $1/N$ expansion is controlled.'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '3d conformal group with parity'
+  euclidean: '$O(4,1)$'
+  lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$\big(PSU(N) \times U(1)_{\rm top}\big) \rtimes \mathbb{Z}_2^C$; for $N=1$ only $U(1)_{\rm top} \rtimes \mathbb{Z}_2^C = O(2)$'
   gauge: '$U(1)$'
@@ -80,42 +83,42 @@ quantities:
   - symbol: '\nu'
     description: 'Correlation-length exponent, $\nu = 1/(3-\Delta_{|z|^2})$'
     value: '1 - \frac{48}{\pi^2 N} + O(N^{-2})'
-    method: large-N expansion
+    method: 1/N
     refs: [halperin1974, kaul2008]
   - symbol: '\nu'
     description: 'Monte Carlo, noncompact lattice model, $N = 25$'
     value: '0.802(8)'
-    method: Monte Carlo
+    method: MC
     refs: [bonati2021]
     note: 'Same study: $\eta_q = 0.883(7)$ for the adjoint bilinear, $\Delta = (1+\eta_q)/2$. Large $N$ at $O(1/N)$: $\nu = 0.805$, $\eta_q = 0.870$.'
   - symbol: '\nu'
     description: 'Monte Carlo, noncompact lattice model, $N = 15$'
     value: '0.721(3)'
-    method: Monte Carlo
+    method: MC
     refs: [bonati2021]
     note: 'Same study: $\eta_q = 0.815(10)$.'
   - symbol: '\nu'
     description: 'Monte Carlo, noncompact lattice model, $N = 10$'
     value: '0.64(2)'
-    method: Monte Carlo
+    method: MC
     refs: [bonati2021]
     note: 'Same study: $\eta_q = 0.74(2)$.'
   - symbol: 'F'
     description: 'Sphere free energy $-\log Z_{S^3}$'
     value: 'N\Big(\frac{\log 2}{4} - \frac{3\zeta(3)}{8\pi^2}\Big) + \frac12\log\frac{\pi N}{8} - \frac{\zeta(3)}{8\pi^2} + O(1/N)'
-    method: large-N expansion
+    method: 1/N
     refs: [klebanov2012]
-    note: 'Eq. (1.4) of the reference at $N_f = k = 0$, plus the shift $-\zeta(3)/8\pi^2$ that the reference gives for the interacting ($u \to \infty$) fixed point.'
+    note: '[@klebanov2012, Eq. (1.4)] at $N_f = k = 0$, plus the shift $-\zeta(3)/8\pi^2$ that the reference gives for the interacting ($u \to \infty$) fixed point.'
   - symbol: 'C_J/C_J^{\rm free}'
     description: '$SU(N)$ current two-point coefficient, relative to $N$ free complex scalars (its $N=\infty$ value)'
     value: '1 - \frac{2.74}{N} + O(N^{-2})'
-    method: large-N expansion
+    method: 1/N
     refs: [huh2013]
     note: 'The coefficient is $243.67/9\pi^2$ (numerical).'
   - symbol: 'N_c'
     description: 'Critical $N$ above which the transition is continuous, four-loop $4-\epsilon$ expansion resummed at $d=3$'
     value: '12.2 \pm 3.9'
-    method: epsilon-expansion
+    method: ε-exp
     refs: [ihrig2019]
     note: 'One loop: $N_c = 182.95$.'
 
@@ -124,21 +127,21 @@ operators:
     Delta: '1 - \frac{16}{\pi^2 N} + O(N^{-2})'
     spin: 0
     rep: '$SU(N)$ adjoint (Néel order parameter)'
-    method: derived (large-N expansion)
+    method: 1/N, from η_q
     refs: [kaul2008, benvenuti2018]
-    note: '$\Delta = (1+\eta_q)/2$ with $\eta_q = 1 - 32/(\pi^2 N)$ (called $\eta_N$ by Kaul–Sachdev).'
+    note: '$\Delta = (1+\eta_q)/2$ with $\eta_q = 1 - 32/(\pi^2 N)$ (called $\eta_N$ by Kaul–Sachdev [@kaul2008]).'
   - name: 'M_{1/2}'
     Delta: '0.1245922\,N + 0.3815 + O(1/N)'
     spin: 0
     rep: 'unit topological charge, $SU(N)$ singlet'
-    method: large-N expansion
+    method: 1/N
     refs: [dyer2015, murthy1990]
-    note: 'Minimal monopole (VBS order parameter in $SU(N)$ magnets). The $O(N)$ term is from Murthy–Sachdev. Extrapolation gives $\Delta < 3$ for $N \leq 21$.'
+    note: 'Minimal monopole (VBS order parameter in $SU(N)$ magnets). The $O(N)$ term is from [@murthy1990]. Extrapolation gives $\Delta < 3$ for $N \leq 21$.'
   - name: 'M_{1}'
     Delta: '0.3110952\,N + 0.8745 + O(1/N)'
     spin: 0
     rep: 'topological charge 2'
-    method: large-N expansion
+    method: 1/N
     refs: [dyer2015]
     note: 'Extrapolation gives $\Delta < 3$ for $N \leq 6$.'
   - name: 'J_\mu^{\rm top},\ J_\mu^{SU(N)}'

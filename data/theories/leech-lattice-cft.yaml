@@ -15,9 +15,9 @@ description: |
   For an even self-dual (unimodular) Euclidean lattice $L$ of rank $n$, the $n$ chiral bosons $X^i$
   with momenta in $L$ form a holomorphic CFT with $c_L = n$, $c_R = 0$, whose character is
   $\Theta_L(\tau)/\eta(\tau)^n$; it is modular invariant up to phases, and exactly invariant when
-  $n$ is a multiple of 24 (Schellekens, section 1). In rank 24 there are exactly 24 such lattices,
+  $n$ is a multiple of 24 [@schellekens1993, Sec. 1]. In rank 24 there are exactly 24 such lattices,
   the Niemeier lattices, each fixed by its root system; the Leech lattice $\Lambda$ is the unique one
-  without roots, i.e. with no vectors of norm 2 (Conway). Its shortest vectors have norm 4.
+  without roots, i.e. with no vectors of norm 2 [@conway1969]. Its shortest vectors have norm 4.
 
   The vertex operators $e^{ip\cdot X}$, $p \in \Lambda$, have weight $h = p^2/2 \geq 2$, so the only
   weight-1 states are the currents $\partial X^i$, generating $U(1)^{24}$. Modular invariance then
@@ -29,20 +29,20 @@ description: |
   $T$, the 24 descendants $\partial^2X^i$, and $196883 - 24 = 196859$ Virasoro primaries: the 196560
   vertex operators of norm-4 momenta and the 299 traceless products $\partial X^i\partial X^j$ (derived).
 
-  Schellekens showed that a holomorphic $c = 24$ theory whose weight-1 currents include an abelian
+  Schellekens [@schellekens1993] showed that a holomorphic $c = 24$ theory whose weight-1 currents include an abelian
   factor has exactly 24 currents, all abelian, and is the Leech lattice theory; it is No. 1 on his
   list. Every holomorphic $c = 24$ theory with $V_1 \neq 0$ is a cyclic orbifold of this one
-  (van Ekeren, Lam, Möller and Shimakura), and orbifolding by a lift of $X \to -X$ gives the
-  Monster CFT (Frenkel, Lepowsky and Meurman). Conversely, the Leech lattice theory can itself be
-  obtained as an orbifold of another Niemeier lattice theory (Witten, section 3.1).
+  [@elms2021], and orbifolding by a lift of $X \to -X$ gives the
+  Monster CFT [@flm1988]. Conversely, the Leech lattice theory can itself be
+  obtained as an orbifold of another Niemeier lattice theory [@witten2007, Sec. 3.1].
 
   Its automorphism group contains the inner automorphisms $\exp(a_{(0)})$, $a \in V_1$, generated
   by the zero modes of the currents, and the outer automorphism group is
   $\mathrm{Aut}(V_\Lambda)/\mathrm{Inn}(V_\Lambda) \cong O(\Lambda) = \mathrm{Co}_0$, Conway's group
-  (Betsumiya, Lam and Shimakura, Remark 3.1 and Table 1).
+  [@bls2023, Remark 3.1, Table 1].
 
 symmetry:
-  spacetime: 'conformal (holomorphic: Virasoro at $c = 24$ on one side only)'
+  spacetime: 'One Virasoro algebra at $c = 24$, on the holomorphic side only ($\bar c = 0$) — 2d conformal symmetry, no parity (holomorphic)'
   supercharges: 0
   global: '$U(1)^{24}$ (the currents $\partial X^i$), with outer automorphisms $O(\Lambda) = \mathrm{Co}_0$'
 
@@ -57,7 +57,7 @@ quantities:
     value: '\frac{\Theta_\Lambda(\tau)}{\eta(\tau)^{24}} = J(\tau) + 24 = q^{-1} + 24 + 196884\,q + 21493760\,q^2 + \dots'
     method: exact
     refs: [witten2007, schellekens1993]
-    note: 'Witten section 3.1: a holomorphic $c = 24$ theory with $s$ weight-1 primaries has $Z = J + s$; here $s = 24$. Checked independently by expanding $(E_4^3 - 720\Delta)/\eta^{24}$ (derived).'
+    note: '[@witten2007, Sec. 3.1]: a holomorphic $c = 24$ theory with $s$ weight-1 primaries has $Z = J + s$; here $s = 24$. Checked independently by expanding $(E_4^3 - 720\Delta)/\eta^{24}$ (derived).'
   - symbol: '\dim V_1'
     description: 'Number of weight-1 states (currents)'
     value: '24'
@@ -83,7 +83,7 @@ operators:
     spin: 2
     weights: '(2, 0)'
     degeneracy: 196560
-    method: derived
+    method: exact
     refs: [witten2007]
     note: 'Lightest vertex operators, one for each norm-4 vector of $\Lambda$. The count is the $q^2$ coefficient of $\Theta_\Lambda = E_4^3 - 720\Delta$ (derived).'
   - name: 'e^{ip\cdot X},\ p \in \Lambda'
@@ -97,7 +97,7 @@ relations:
   - type: member_of
     target: holomorphic-c24
     at: 24
-    note: 'The case $V_1 = U(1)^{24}$ (Schellekens No. 1).'
+    note: 'The case $V_1 = U(1)^{24}$ (Schellekens No. 1 [@schellekens1993]).'
 
 references:
   - key: schellekens1993
@@ -149,5 +149,12 @@ references:
     arxiv: '1308.2361'
     doi: '10.1016/j.jalgebra.2013.09.007'
     note: 'Lattice vertex operator algebras of positive-definite even lattices are unitary.'
+  - key: conway1969
+    title: 'A characterisation of Leech''s lattice'
+    authors: Conway
+    year: 1969
+    journal: 'Invent. Math. 7, 137'
+    doi: '10.1007/BF01389796'
+    note: 'Uniqueness of the Leech lattice as the even unimodular lattice of rank 24 without roots.'
 
 contributors: [Canonical111]

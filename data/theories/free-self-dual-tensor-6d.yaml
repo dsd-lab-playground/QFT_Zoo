@@ -15,74 +15,76 @@ description: |
   strength $H = dB$ is a 3-form, constrained to be self-dual, $H = \star H$ (or
   anti-self-dual, depending on conventions). The two-point function of $H$ falls
   off as $|x|^{-6}$, so $\Delta_H = 3$. A free $k$-form gauge field is conformal in
-  $d = 2k+2$ (Bastianelli, Frolov and Tseytlin, 1999): $k=1$ is Maxwell theory in
+  $d = 2k+2$ [@bastianelli1999]: $k=1$ is Maxwell theory in
   $d=4$, and $k=2$ is this theory. Free Maxwell theory in $d \neq 4$ is scale
-  invariant but not conformal (El-Showk, Nakayama and Rychkov).
+  invariant but not conformal [@elshowk2011].
 
   Lorentz-covariant actions for the self-dual field exist, for example that of
-  Pasti, Sorokin and Tonin, with one auxiliary scalar entering non-polynomially,
+  Pasti, Sorokin and Tonin [@pst1997], with one auxiliary scalar entering non-polynomially,
   but they are hard to use at the quantum level. In practice correlators and
   anomalies are computed with a non-chiral 2-form, projecting onto the self-dual
   part of $H$ in composite operators. With this prescription the two- and
   three-point functions of the stress tensor of the chiral field are half those of
-  the non-chiral 2-form (Bastianelli, Frolov and Tseytlin, 1999), and so is its
-  trace anomaly (Bastianelli, Frolov and Tseytlin, 2000).
+  the non-chiral 2-form [@bastianelli1999], and so is its
+  trace anomaly [@bastianelli2000].
 
   A self-dual antisymmetric tensor coupled to gravity in $4k+2$ dimensions has a
-  one-loop gravitational anomaly (Alvarez-Gaumé and Witten).
+  one-loop gravitational anomaly [@agw1984].
 
   ### Tensor multiplets
   The free $(2,0)$ tensor multiplet, the low-energy theory on a single M5-brane,
   consists of 5 real scalars, 2 Weyl fermions and this field. Its trace anomaly
-  (Bastianelli, Frolov and Tseytlin 2000, eq. (2.29)) has $a = -\frac{245}{8}$,
+  [@bastianelli2000, Eq. (2.29)] has $a = -\frac{245}{8}$,
   $c_1 = -1680$, $c_2 = -420$, $c_3 = 140$, in units of $\frac{1}{(4\pi)^3\,7!}$ and
   the conventions of the free 6d scalar page, and $C_T = \frac{84}{\pi^6}$
-  (Bastianelli, Frolov and Tseytlin 1999, eq. (3.23)). The values for the free
+  [@bastianelli1999, Eq. (3.23)]. The values for the free
   scalar, the free Weyl fermion and this field add up to these totals. Compared
   with the AdS$_7$ supergravity prediction for the $(2,0)$ theory of $N$ M5-branes
   at large $N$, the coefficients obey $c_n^{(2,0)} = 4N^3 c_n^{\rm (tens.)}$ but
-  $a^{(2,0)} = \frac{16}{7}N^3 a^{\rm (tens.)}$ (2000 paper, eq. (1.4)).
+  $a^{(2,0)} = \frac{16}{7}N^3 a^{\rm (tens.)}$ [@bastianelli2000, Eq. (1.4)].
 
   A self-dual tensor also sits in each $(1,0)$ tensor multiplet. On the tensor
   branch of 6d $(1,0)$ SCFTs its Bianchi identity can be deformed to $dH = I$, which
-  gives the Green–Schwarz contribution to the anomaly polynomial (Ohmori, Shimizu,
-  Tachikawa and Yonekura).
+  gives the Green–Schwarz contribution to the anomaly polynomial
+  [@osty2014].
 
 symmetry:
-  spacetime: conformal
+  spacetime: '6d conformal group, no parity (chiral)'
+  euclidean: '$SO(7,1)$'
+  lorentzian: '$SO(6,2)$'
   supercharges: 0
   gauge: '2-form gauge symmetry $B \to B + d\Lambda$'
-  notes: 'Gravitational anomaly (Alvarez-Gaumé and Witten).'
+  notes: 'Gravitational anomaly [@agw1984].'
 
 quantities:
   - symbol: 'a'
-    description: 'Euler (type A) Weyl-anomaly coefficient, normalization of Bastianelli, Frolov and Tseytlin (defined on the free 6d scalar page)'
+    description: 'Euler (type A) Weyl-anomaly coefficient, normalization of Bastianelli, Frolov and Tseytlin [@bastianelli2000] (defined on the free 6d scalar page)'
     value: '-\frac{221}{8}\cdot\frac{1}{(4\pi)^3\,7!}'
-    method: derived
+    method: exact
     refs: [bastianelli2000]
     note: 'Half of the non-chiral 2-form value $-\frac{221}{4}$ in eq. (2.27).'
   - symbol: 'c_1'
     description: 'Coefficient of the Weyl invariant $I_1$, same normalization'
     value: '-\frac{4004}{3}\cdot\frac{1}{(4\pi)^3\,7!}'
-    method: derived
+    method: exact
     refs: [bastianelli2000]
     note: 'Half of $-\frac{8008}{3}$ in eq. (2.27).'
   - symbol: 'c_2'
     description: 'Coefficient of the Weyl invariant $I_2$, same normalization'
     value: '-\frac{1189}{3}\cdot\frac{1}{(4\pi)^3\,7!}'
-    method: derived
+    method: exact
     refs: [bastianelli2000]
     note: 'Half of $-\frac{2378}{3}$ in eq. (2.27).'
   - symbol: 'c_3'
     description: 'Coefficient of the Weyl invariant $I_3$, same normalization'
     value: '90\cdot\frac{1}{(4\pi)^3\,7!}'
-    method: derived
+    method: exact
     refs: [bastianelli2000]
     note: 'Half of $180$ in eq. (2.27).'
   - symbol: 'C_T'
     description: 'Stress-tensor two-point coefficient in the absolute Osborn–Petkou normalization, $\langle T_{\mu\nu}(x)T_{\sigma\rho}(0)\rangle = C_T\,\mathcal{I}_{\mu\nu,\sigma\rho}(x)/x^{2d}$'
     value: '\frac{54}{\pi^6}'
-    method: derived
+    method: exact
     refs: [bastianelli1999]
     note: 'Eq. (3.22), $C_T = \frac{1}{\omega_{d-1}^2}\frac{d^2}{2}\tilde n_B$ with $\tilde n_B = \frac{(2k)!}{(k!)^2}n_B$, at $d=6$, $k=2$, $\omega_5 = \pi^3$ and $n_B = \tfrac12$ for a chiral 2-form. It is 45 times the value $\frac{6}{5\pi^6}$ of one real scalar.'
 
@@ -93,7 +95,7 @@ operators:
     rep: gauge invariant
     method: exact
     refs: [bastianelli1999]
-    note: 'Free field strength; its two-point function is eq. (2.5) of the 1999 paper at $d=6$, $k=2$.'
+    note: 'Free field strength; its two-point function is [@bastianelli1999, Eq. (2.5)] at $d=6$, $k=2$.'
   - name: 'T_{\mu\nu}'
     Delta: 6
     spin: 2

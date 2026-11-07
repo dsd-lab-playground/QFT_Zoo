@@ -5,6 +5,7 @@ aliases:
   - '$O(2)$ Wilson–Fisher fixed point'
   - Critical 3d XY model
 d: 3
+uv_dof: 2
 summary: >-
   The conformal field theory of the 3d XY universality class: the infrared
   fixed point of a complex scalar with a $|\phi|^4$ interaction. It describes the
@@ -39,7 +40,9 @@ description: |
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\vec\phi)^2 + \tfrac{1}{2} m^2 \vec\phi^{\,2} + \tfrac{\lambda}{4!}(\vec\phi^{\,2})^2, \quad \vec\phi\in\mathbb{R}^2 \quad (m^2 \text{ tuned to criticality, flow to the IR})'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '3d conformal group with parity'
+  euclidean: '$O(4,1)$'
+  lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$O(2) = U(1) \rtimes \mathbb{Z}_2^C$'
 
@@ -47,60 +50,69 @@ quantities:
   - symbol: '\nu'
     description: 'Correlation-length exponent, $\nu = 1/(3-\Delta_s)$'
     value: '0.67172(2)'
-    method: Monte Carlo (improved clock model)
+    method: MC, improved clock model
     refs: [hasenbusch2025]
-    note: 'From $1/\nu = 1.48872(5)$. Conformal bootstrap: $0.67175(10)$ (rigorous; Chester et al.).'
+    note: 'From $1/\nu = 1.48872(5)$.'
+  - symbol: '\nu'
+    description: 'Correlation-length exponent, $\nu = 1/(3-\Delta_s)$'
+    value: '0.67175(10)'
+    method: CB, rigorous
+    refs: [chester2019]
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 1$'
     value: '0.03816(2)'
-    method: Monte Carlo (improved clock model)
+    method: MC, improved clock model
     refs: [hasenbusch2025]
-    note: 'Conformal bootstrap: $0.038176(44)$ (rigorous; Chester et al.).'
+  - symbol: '\eta'
+    description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 1$'
+    value: '0.038176(44)'
+    method: CB, rigorous
+    refs: [chester2019]
   - symbol: '\alpha'
     description: 'Specific-heat exponent, $\alpha = 2 - 3\nu$ (theory)'
     value: '-0.01515(7)'
-    method: derived from ν
+    method: MC, from ν
     refs: [hasenbusch2025]
   - symbol: '\alpha_{\rm exp}'
     description: 'Specific-heat exponent measured at the λ point of helium-4 (Space Shuttle experiment)'
     value: '-0.0127(3)'
-    method: experiment
+    method: expt
     refs: [lipa2003]
     note: 'About $8\sigma$ from the theoretical value; unresolved.'
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent, $\omega = \Delta_{s^\prime} - 3$'
     value: '0.789(4)'
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2019]
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to two free real scalars'
     value: '0.944056(15)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2019]
   - symbol: 'C_J/C_J^{\rm free}'
     description: 'Current two-point coefficient, relative to two free real scalars; it gives the zero-temperature conductivity, $2\pi\sigma_\infty = 0.355155(11)$'
     value: '0.904395(28)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2019]
   - symbol: '\lambda_{\phi\phi s}'
     description: OPE coefficient
     value: '0.687126(27)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2019]
   - symbol: '\lambda_{sss}'
     description: OPE coefficient
     value: '0.830914(32)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2019]
   - symbol: '\lambda_{tts}'
     description: OPE coefficient
     value: '1.25213(14)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2019]
   - symbol: '\lambda_{\phi\phi t}'
     description: OPE coefficient
     value: '1.213408(65)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2019]
 
 operators:
@@ -108,23 +120,39 @@ operators:
     Delta: '0.51908(1)'
     spin: 0
     rep: charge 1 (order parameter)
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2025]
-    note: 'Bootstrap: $0.519088(22)$ (rigorous).'
+  - name: '\phi'
+    Delta: '0.519088(22)'
+    spin: 0
+    rep: charge 1 (order parameter)
+    method: CB, rigorous
+    refs: [chester2019]
   - name: 't'
     Delta: '1.23629(11)'
     spin: 0
     rep: charge 2
-    method: conformal bootstrap
+    method: CB
     refs: [chester2019]
-    note: 'Monte Carlo: $1.23630(12)$ (Hasenbusch, large charge). Relevant: a charge-2 anisotropy drives the flow to 3d Ising.'
+    note: 'Relevant: a charge-2 anisotropy drives the flow to 3d Ising.'
+  - name: 't'
+    Delta: '1.23630(12)'
+    spin: 0
+    rep: charge 2
+    method: MC
+    refs: [hasenbusch2025b]
   - name: 's'
     Delta: '1.51128(5)'
     spin: 0
     rep: charge 0 (thermal)
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2025]
-    note: 'Bootstrap: $1.51136(22)$ (rigorous).'
+  - name: 's'
+    Delta: '1.51136(22)'
+    spin: 0
+    rep: charge 0 (thermal)
+    method: CB, rigorous
+    refs: [chester2019]
   - name: 'J_\mu'
     Delta: 2
     spin: 1
@@ -135,9 +163,15 @@ operators:
     Delta: '2.10833(23)'
     spin: 0
     rep: charge 3
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2025b]
-    note: 'Relevant, so a $\mathbb{Z}_3$ clock anisotropy destabilizes the fixed point. Bootstrap estimate: $2.1086(3)$ (non-rigorous; Chester et al.).'
+    note: 'Relevant, so a $\mathbb{Z}_3$ clock anisotropy destabilizes the fixed point.'
+  - name: '\mathcal{O}_{q=3}'
+    Delta: '2.1086(3)'
+    spin: 0
+    rep: charge 3
+    method: CB, non-rigorous error
+    refs: [chester2019]
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
@@ -148,18 +182,21 @@ operators:
     Delta: '3.11203(34)'
     spin: 0
     rep: charge 4
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2025b]
     note: 'Irrelevant: $O(2)$ symmetry emerges in $\mathbb{Z}_q$ clock models with $q \ge 4$.'
   - name: "s'"
     Delta: '3.789(4)'
     spin: 0
     rep: charge 0
-    method: Monte Carlo (3 + ω)
+    method: MC, 3 + ω
     refs: [hasenbusch2019]
     note: Leading irrelevant singlet; controls corrections to scaling.
 
 relations:
+  - type: flows_to
+    target: trivial-tqft-3d
+    note: 'Singlet mass deformation $t\,\phi_a\phi_a$ on the disordered (high-temperature) side: gapped, with $O(2)$ unbroken. The other sign breaks $O(2)$ and leaves a Goldstone boson, not this theory. Pelissetto and Vicari [@pelissetto2002] review the phases of these models.'
   - type: flows_to
     target: ising-3d
     note: 'Relevant charge-2 anisotropy $t \propto \phi_1^2 - \phi_2^2$, with the mass tuned so that the lighter component is critical.'
@@ -226,5 +263,11 @@ references:
     year: 1972
     journal: Phys. Rev. Lett. 28, 240
     doi: '10.1103/PhysRevLett.28.240'
+  - key: pelissetto2002
+    title: Critical phenomena and renormalization-group theory
+    authors: Andrea Pelissetto and Ettore Vicari
+    year: 2002
+    journal: Phys. Rept. 368, 549
+    arxiv: 'cond-mat/0012164'
 
 contributors: [nathansbenjamin]

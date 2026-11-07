@@ -6,6 +6,9 @@ tags: [CFT, interacting, unitary, rational, coset]
 
 description: 'Weights $h = \frac{|p^\prime(\lambda+\rho) - p(\mu+\rho)|^2 - \rho^2}{2pp^\prime}$ at $(p, p^\prime) = (33, 34)$; the gap comes from the $\mathbf{248}$.'
 
+symmetry:
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{256}{187}$ — 2d conformal symmetry, with parity'
+
 quantities:
 - key: c
   symbol: c

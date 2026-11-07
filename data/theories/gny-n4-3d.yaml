@@ -28,7 +28,9 @@ description: |
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2 + \tfrac{1}{2}\bar\psi_i\gamma^\mu\partial_\mu\psi_i + \tfrac{g}{2}\,\phi\,\bar\psi_i\psi_i + \tfrac{1}{2}m^2\phi^2 + \tfrac{\lambda}{4!}\phi^4, \quad i = 1,\dots,4 \text{ Majorana} \quad (m^2 \text{ tuned})'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '3d conformal group with parity'
+  euclidean: '$O(4,1)$'
+  lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$O(4)$ and parity / time reversal ($\sigma$ odd)'
 
@@ -36,23 +38,23 @@ quantities:
   - symbol: '\eta_\psi'
     description: 'Fermion anomalous dimension, $\Delta_\psi = 1 + \eta_\psi/2$'
     value: '0.08712(32)'
-    method: conformal bootstrap
+    method: CB
     refs: [erramilli2022]
   - symbol: '\eta_\phi'
     description: 'Order-parameter anomalous dimension, $\eta_\phi = 2\Delta_\sigma - 1$'
     value: '0.5155(30)'
-    method: conformal bootstrap
+    method: CB
     refs: [erramilli2022]
   - symbol: '\nu^{-1}'
     description: 'Inverse correlation-length exponent, $3 - \Delta_\epsilon$'
     value: '1.101(10)'
-    method: conformal bootstrap
+    method: CB
     refs: [erramilli2022]
     note: 'So $\nu = 0.908(8)$.'
   - symbol: '\eta_\phi'
     description: 'Quantum Monte Carlo, spinless honeycomb $t$-$V$ model (chiral class)'
     value: '0.49(3)'
-    method: quantum Monte Carlo
+    method: QMC
     refs: [wang2026]
     note: 'Also $\nu = 0.87(6)$ and $\eta_\psi = 0.0905(35)$; reported to agree with the bootstrap.'
 
@@ -61,19 +63,19 @@ operators:
     Delta: '0.7578(15)'
     spin: 0
     rep: singlet, parity odd (order parameter)
-    method: conformal bootstrap
+    method: CB
     refs: [erramilli2022]
   - name: '\psi_i'
     Delta: '1.04356(16)'
     spin: '1/2'
     rep: vector of $O(4)$
-    method: conformal bootstrap
+    method: CB
     refs: [erramilli2022]
   - name: '\epsilon'
     Delta: '1.899(10)'
     spin: 0
     rep: singlet, parity even
-    method: conformal bootstrap
+    method: CB
     refs: [erramilli2022]
     note: The only relevant parity-even singlet (the tuning parameter).
   - name: 'J_\mu^{[ij]}'
@@ -92,16 +94,28 @@ operators:
     Delta: '3.2455(4)'
     spin: 0
     rep: singlet, parity odd
-    method: Padé estimate (large N and N = 1)
+    method: Padé, large N and N = 1
     refs: [mitchell2024]
-    note: 'Bootstrap bounds: $3.241 \le \Delta \le 3.506$ (with mild gap assumptions).'
+  - name: '\sigma'''
+    Delta: '[3.241,\ 3.506]'
+    spin: 0
+    rep: singlet, parity odd
+    method: CB, rigorous bounds
+    refs: [mitchell2024]
+    note: 'With mild gap assumptions.'
   - name: '\epsilon'''
     Delta: '3.63674(7)'
     spin: 0
     rep: singlet, parity even
-    method: Padé estimate (large N and N = 1)
+    method: Padé, large N and N = 1
     refs: [mitchell2024]
-    note: 'Bootstrap bounds: $3.137 \le \Delta \le 3.783$ (with mild gap assumptions).'
+  - name: '\epsilon'''
+    Delta: '[3.137,\ 3.783]'
+    spin: 0
+    rep: singlet, parity even
+    method: CB, rigorous bounds
+    refs: [mitchell2024]
+    note: 'With mild gap assumptions.'
 
 relations:
   - type: related_to

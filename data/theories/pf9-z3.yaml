@@ -6,6 +6,10 @@ tags: [CFT, interacting, unitary, rational, orbifold]
 
 description: '$\mathrm{PF}_k/\mathbb{Z}_d$ and $\mathrm{PF}_k/\mathbb{Z}_{k/d}$ have the same partition function. For $k=9$, $d=3$ this is the extension of $\mathrm{PF}_9$ by its weight-2, order-three parafermion currents.'
 
+symmetry:
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{16}{11}$ — 2d conformal symmetry, with parity'
+  global: 'Contains the dual $\mathbb{Z}_3$ of the orbifold and the action of $D_9/\mathbb{Z}_3 \cong S_3$ (images of $r$ and $C$)'
+
 quantities:
 - key: c
   symbol: c

@@ -1,0 +1,207 @@
+# How the numbers in the zoo were obtained: the `method` field of quantities and operators.
+#
+# A row's `method` is an abbreviation from this list, optionally followed by a comma and a short
+# qualifier:   method: CB        method: 'MC-BC, isotropic'        method: 'ε-exp, 6 − ε, five loops, resummed'
+# The site shows the abbreviation as a link to the Methods page (#/methods), with the full name on hover.
+# See CONTRIBUTING.md, "Methods". Add a method here before using a new abbreviation.
+#
+#   abbr         what data rows write (no spaces); short and readable, an established abbreviation if one exists
+#   name         the full name, shown on hover and on the Methods page
+#   parent       optional: the abbr of the broader method this is a kind of (MC-BC is a kind of MC)
+#   description  [markdown] one to three sentences: what the method is and what kind of error it gives
+#   links        optional: pages that explain the method, its Wikipedia article first; a paper or review only
+#                where Wikipedia has no good article. Check that each link exists before adding it.
+
+methods:
+  - abbr: exact
+    name: Exact result
+    description: >-
+      Known in closed form or to arbitrary precision: a solved model, a symmetry or a proof. The qualifier
+      says how, e.g. `exact, planar limit`.
+
+  - abbr: CB
+    name: Numerical conformal bootstrap
+    description: >-
+      Crossing symmetry and unitarity of four-point functions, imposed numerically (usually by semidefinite
+      programming), exclude regions of CFT data. Gives rigorous bounds or islands, or estimates where stated
+      in the qualifier (`CB, non-rigorous error`).
+    links:
+      - {label: Wikipedia, url: 'https://en.wikipedia.org/wiki/Conformal_bootstrap'}
+
+  - abbr: CB-EFM
+    name: Conformal bootstrap, extremal functional method
+    parent: CB
+    description: >-
+      Reads off the spectrum and OPE coefficients from the functional that saturates a numerical bootstrap
+      bound, assuming the theory lies at the boundary. An estimate, without a rigorous error.
+    links:
+      - {label: 'Wikipedia: conformal bootstrap', url: 'https://en.wikipedia.org/wiki/Conformal_bootstrap'}
+      - {label: 'El-Showk, Paulos (2012)', url: 'https://arxiv.org/abs/1211.2810'}
+
+  - abbr: CB-trunc
+    name: Truncated conformal bootstrap
+    parent: CB
+    description: >-
+      Gliozzi's method: keeps a few operators in the crossing equations and solves the truncated system
+      (vanishing minors). Works without unitarity, e.g. for Lee–Yang; no rigorous error.
+    links:
+      - {label: 'Wikipedia: conformal bootstrap', url: 'https://en.wikipedia.org/wiki/Conformal_bootstrap'}
+      - {label: 'Gliozzi (2013)', url: 'https://arxiv.org/abs/1307.3111'}
+
+  - abbr: MC
+    name: Monte Carlo simulation
+    description: >-
+      Stochastic sampling of a classical lattice model in the universality class, with finite-size scaling
+      to extract exponents. The qualifier names the lattice model or algorithm.
+    links:
+      - {label: Wikipedia, url: 'https://en.wikipedia.org/wiki/Monte_Carlo_method_in_statistical_mechanics'}
+
+  - abbr: MC-BC
+    name: Monte Carlo, improved Blume–Capel model
+    parent: MC
+    description: >-
+      Monte Carlo simulation of the Blume–Capel model (spins $0, \pm1$ on the cubic lattice) at the value of
+      its vacancy coupling where the leading correction to scaling vanishes, so that small lattices already
+      give precise exponents. `MC-BC, isotropic`: also tuned to cancel the leading breaking of rotation
+      symmetry.
+    links:
+      - {label: 'Wikipedia: Monte Carlo method in statistical mechanics', url: 'https://en.wikipedia.org/wiki/Monte_Carlo_method_in_statistical_mechanics'}
+      - {label: 'Hasenbusch (2010)', url: 'https://arxiv.org/abs/1004.4486'}
+
+  - abbr: QMC
+    name: Quantum Monte Carlo
+    parent: MC
+    description: >-
+      Monte Carlo sampling of a quantum lattice Hamiltonian (or its path integral), e.g. a fermion or spin
+      model realizing the transition.
+    links:
+      - {label: Wikipedia, url: 'https://en.wikipedia.org/wiki/Quantum_Monte_Carlo'}
+
+  - abbr: LGT
+    name: Lattice gauge theory
+    parent: MC
+    description: >-
+      Monte Carlo simulation of the gauge theory discretized on a spacetime lattice, extrapolated to the
+      continuum. The qualifier names the observable (e.g. Schrödinger functional, Dirac mode number).
+    links:
+      - {label: Wikipedia, url: 'https://en.wikipedia.org/wiki/Lattice_gauge_theory'}
+
+  - abbr: FS
+    name: Fuzzy sphere regularization
+    description: >-
+      The critical theory is realized by interacting fermions in the lowest Landau level on a sphere with a
+      magnetic monopole; scaling dimensions are read off from the energy spectrum by the state–operator
+      correspondence (usually by exact diagonalization or DMRG).
+    links:
+      - {label: 'Wikipedia: fuzzy sphere', url: 'https://en.wikipedia.org/wiki/Fuzzy_sphere'}
+      - {label: 'Zhu, Han, Huffman, Hofmann, He (2022)', url: 'https://arxiv.org/abs/2210.13482'}
+
+  - abbr: ε-exp
+    name: ε-expansion
+    description: >-
+      Perturbation theory in $\epsilon$ below an upper (or above a lower) critical dimension, e.g. $d = 4-\epsilon$
+      or $6-\epsilon$, usually resummed and evaluated at the physical $\epsilon$. The qualifier gives the
+      expansion, the loop order and the resummation.
+    links:
+      - {label: 'Wilson, Kogut (1974)', url: 'https://doi.org/10.1016/0370-1573(74)90023-4'}
+
+  - abbr: 1/N
+    name: Large-$N$ expansion
+    description: >-
+      Expansion in $1/N$, the inverse number of field components or colours, around the solvable $N=\infty$
+      limit.
+    links:
+      - {label: Wikipedia, url: 'https://en.wikipedia.org/wiki/1/N_expansion'}
+
+  - abbr: 1/Nf
+    name: Large-$N_f$ expansion
+    parent: 1/N
+    description: >-
+      Expansion in $1/N_f$, the inverse number of matter flavours, in gauge theories such as QED$_3$ and QCD$_3$.
+    links:
+      - {label: 'Wikipedia: 1/N expansion', url: 'https://en.wikipedia.org/wiki/1/N_expansion'}
+      - {label: 'Review: Gracey (2018)', url: 'https://arxiv.org/abs/1812.05368'}
+
+  - abbr: PT
+    name: Perturbation theory
+    description: >-
+      Expansion in a small coupling (Feynman diagrams); the qualifier gives the loop order or limit.
+    links:
+      - {label: 'Wikipedia: Feynman diagram', url: 'https://en.wikipedia.org/wiki/Feynman_diagram'}
+
+  - abbr: BZ
+    name: Banks–Zaks expansion
+    parent: PT
+    description: >-
+      Expansion of a gauge theory's infrared fixed point in the distance from the top of the conformal
+      window, $\Delta_f = N_f^{\max} - N_f$; scheme-independent when organized in powers of $\Delta_f$.
+    links:
+      - {label: Wikipedia, url: 'https://en.wikipedia.org/wiki/Banks%E2%80%93Zaks_fixed_point'}
+
+  - abbr: FRG
+    name: Functional renormalization group
+    description: >-
+      Non-perturbative flow equation for the effective average action, solved in a truncation (e.g. the
+      derivative expansion).
+    links:
+      - {label: Wikipedia, url: 'https://en.wikipedia.org/wiki/Functional_renormalization_group'}
+
+  - abbr: series
+    name: Lattice series expansion
+    description: >-
+      Long high-temperature, low-temperature or activity series of a lattice model, extrapolated to the
+      critical point (ratio or differential approximants).
+    links:
+      - {label: 'Wikipedia: cluster expansion', url: 'https://en.wikipedia.org/wiki/Cluster_expansion'}
+
+  - abbr: Padé
+    name: Padé approximants
+    description: >-
+      Rational functions matched to known expansions, e.g. interpolating between two expansions
+      ($4-\epsilon$ and $2+\epsilon$, or large $N$ and $N=1$). An estimate, without a rigorous error.
+    links:
+      - {label: Wikipedia, url: 'https://en.wikipedia.org/wiki/Pad%C3%A9_approximant'}
+
+  - abbr: LOC
+    name: Supersymmetric localization
+    description: >-
+      The path integral of a supersymmetric theory on a curved space (e.g. $S^3$) reduces to a finite-dimensional
+      matrix model, giving exact results for protected quantities such as the sphere free energy $F$ and $C_T$.
+    links:
+      - {label: Wikipedia, url: 'https://en.wikipedia.org/wiki/Supersymmetric_localization'}
+
+  - abbr: a-max
+    name: a-maximization
+    description: >-
+      In 4d $\mathcal{N}=1$ SCFTs the superconformal R-symmetry maximizes the trial $a$ built from 't Hooft
+      anomalies; this fixes $a$, $c$ and the dimensions of chiral operators.
+    links:
+      - {label: 'Intriligator, Wecht (2003)', url: 'https://arxiv.org/abs/hep-th/0304128'}
+
+  - abbr: F-max
+    name: F-maximization
+    description: >-
+      In 3d $\mathcal{N}=2$ SCFTs the superconformal R-symmetry extremizes the sphere free energy $F$
+      (computed by localization), fixing $F$ and the R-charges.
+    links:
+      - {label: 'Jafferis (2010)', url: 'https://arxiv.org/abs/1012.3210'}
+
+  - abbr: anomaly
+    name: Anomaly matching
+    description: >-
+      Quantities fixed by 't Hooft anomalies, which match along RG flows and across moduli spaces; computed
+      e.g. on the tensor branch or by anomaly inflow.
+    links:
+      - {label: Wikipedia, url: 'https://en.wikipedia.org/wiki/Anomaly_matching_condition'}
+
+  - abbr: AdS/CFT
+    name: Holography (AdS/CFT)
+    description: >-
+      Computed in a dual gravitational theory, usually supergravity, valid at large $N$ and strong coupling.
+    links:
+      - {label: Wikipedia, url: 'https://en.wikipedia.org/wiki/AdS/CFT_correspondence'}
+
+  - abbr: expt
+    name: Experiment
+    description: >-
+      A laboratory measurement on a physical system in the universality class.

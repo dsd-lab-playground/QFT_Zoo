@@ -23,6 +23,10 @@
       "type": "string",
       "description": "[markdown] Display name, e.g. '3d Ising CFT' or '$\\mathcal{N}=4$ super Yang–Mills'."
     },
+    "short_name": {
+      "type": "string",
+      "description": "[markdown] Optional short name for RG-flow diagrams and flow lists, e.g. 'QED$_3$ with $N_f$ fermions' for a long descriptive name. Defaults to name."
+    },
     "aliases": {
       "type": "array",
       "items": {
@@ -71,10 +75,11 @@
           "rational",
           "orbifold",
           "coset",
-          "family"
+          "family",
+          "RG flow"
         ]
       },
-      "description": "Controlled vocabulary used for filtering. To propose a new tag, add it to this list in the same pull request."
+      "description": "Controlled vocabulary used for filtering. To propose a new tag, add it to this list in the same pull request. 'RG flow' marks an entry that describes a famous RG flow (the deformed theory, often a family), linked from relations through `flow.page`."
     },
     "description": {
       "type": "string",
@@ -124,6 +129,23 @@
       "items": {
         "$ref": "#/$defs/reference"
       }
+    },
+    "conventions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "central": { "type": "string" },
+        "anomaly": { "type": "string" },
+        "ope": { "type": "string" },
+        "exponent": { "type": "string" },
+        "other": { "type": "string" }
+      },
+      "description": "[markdown] Normalization conventions shared by the entry's quantities of one category (see quantity.category), shown at the top of that section, e.g. ope: 'Operators unit-normalized, conformal blocks as in [@kos2016]'. A convention specific to one quantity goes in its description."
+    },
+    "uv_dof": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Rough number of UV degrees of freedom, in units of one real free scalar (e.g. 3 for three interacting scalars). Used only to place the theory in RG-flow diagrams when no c, F or a value is recorded; not physical data."
     },
     "contributors": {
       "type": "array",
@@ -177,16 +199,46 @@
       "properties": {
         "spacetime": {
           "type": "string",
-          "description": "[markdown] e.g. 'conformal', 'Poincaré', 'superconformal $PSU(2,2|4)$'."
+          "description": "[markdown] Colloquial name of the spacetime symmetry and its qualifiers, e.g. '3d conformal group with parity' or '4d $\\mathcal{N}=4$ superconformal group (16 $Q$ + 16 $S$ supercharges), with parity at $\\theta \\in \\{0, \\pi\\}$'. In 2d it names the Virasoro algebras, e.g. 'Two Virasoro algebras, $c = \\bar c = \\tfrac12$ — 2d conformal symmetry, with parity'. Conventions in CONTRIBUTING.md, Spacetime symmetry."
+        },
+        "euclidean": {
+          "type": "string",
+          "description": "[markdown] Spacetime symmetry group in Euclidean signature, d >= 3, e.g. '$O(4,1)$'; for superconformal theories its bosonic conformal part, '$O(5,1)$ (bosonic conformal part)'. Not used in 2d."
+        },
+        "lorentzian": {
+          "type": "string",
+          "description": "[markdown] Spacetime symmetry group in Lorentzian signature, d >= 3, e.g. '$O(3,2)$' or '$PSU(2,2|4)$'. Omitted when the theory has no unitary Lorentzian continuation ('Euclidean only' in `spacetime`) or its Lorentzian form is not recorded. Not used in 2d."
         },
         "supercharges": {
           "type": "integer",
           "minimum": 0,
-          "description": "Number of real Poincaré supercharges (0 if not supersymmetric)."
+          "description": "Number of real Poincaré supercharges (0 if not supersymmetric). Used for sorting and the catalogue; the page shows supercharges only through `spacetime`."
+        },
+        "parity": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "const": "conditional"
+            }
+          ],
+          "description": "Whether the theory has parity (a reflection symmetry, possibly combined with an internal symmetry; see CONTRIBUTING.md, Spacetime symmetry): true, false, or conditional (only at special values of the parameters, said in `spacetime`; operators then give their parity at those values). Required with `global_group`; then every operator gives `parity` when it is true or conditional."
+        },
+        "time_reversal": {
+          "const": "independent",
+          "description": "Set only when time reversal is an independent label of operators, i.e. not fixed by parity, spin and the declared global labels through CRT (docs/REPRESENTATIONS.md). Operators then give `T`."
         },
         "global": {
           "type": "string",
-          "description": "[markdown] Internal global symmetry, including higher-form and discrete symmetries."
+          "description": "[markdown] Internal global symmetry in words, including higher-form and discrete symmetries, quotients and anomalies; shown on the page. The group that operators' representations refer to is declared separately, factor by factor, in `global_group`."
+        },
+        "global_group": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/globalFactor"
+          },
+          "description": "The global symmetry group as a list of factors, in the order used for grouping tables. Every operator gives a label for each factor in its `global` mapping. Use [] for a theory with no internal global symmetry. Declaring it marks the entry as using structured representations (docs/REPRESENTATIONS.md): operators then give `global` and `parity` instead of the free-text `rep`."
         },
         "gauge": {
           "type": "string",
@@ -228,8 +280,7 @@
           "$ref": "#/$defs/value"
         },
         "method": {
-          "type": "string",
-          "description": "How it was obtained: exact, conformal bootstrap, Monte Carlo, epsilon-expansion, perturbation theory, derived, ..."
+          "$ref": "#/$defs/method"
         },
         "refs": {
           "$ref": "#/$defs/refKeys"
@@ -237,8 +288,27 @@
         "note": {
           "type": "string",
           "description": "[markdown]"
+        },
+        "category": {
+          "enum": [
+            "central",
+            "anomaly",
+            "ope",
+            "exponent",
+            "other"
+          ],
+          "description": "Section the quantity is shown in: central (central charges, C_T, C_J, sphere and thermal free energies), anomaly (Weyl anomalies a, c in d >= 4, 't Hooft anomalies, anomaly polynomials), ope (OPE coefficients and other three-point data), exponent (critical exponents), other. Omit it unless the site's inference from key, symbol and description is wrong."
+        },
+        "relation": {
+          "type": "string",
+          "description": "[latex] For a critical exponent: its relation to scaling dimensions, e.g. '\\nu = 1/(3-\\Delta_\\epsilon)'. Omit it when the description already contains it in $...$ (the site finds it there)."
         }
       }
+    },
+    "method": {
+      "type": "string",
+      "minLength": 1,
+      "description": "How the value was obtained: an abbreviation from data/methods.yaml, optionally followed by a comma and a short qualifier, e.g. 'CB', 'MC-BC, isotropic', 'ε-exp, 6 − ε, five loops, resummed'. The build rejects an unknown abbreviation (text before the first comma, without spaces). Text with a space before the first comma (e.g. 'Monte Carlo (pivot algorithm)') is the legacy free-text form, still accepted and counted. See CONTRIBUTING.md, Methods."
     },
     "operator": {
       "type": "object",
@@ -263,12 +333,84 @@
           ],
           "description": "Spin / Lorentz representation, e.g. 0, 2, '1/2', '(h,\\bar h)'."
         },
+        "lorentz": {
+          "type": "string",
+          "description": "Lorentz (rotation) representation when it is not symmetric traceless spin `spin`: in 4d '(j, jbar)', e.g. '(1/2, 0)'; in d >= 5 an SO(d) highest weight '[l1, l2, ...]' (Young diagram rows for tensors, half-integers for spinors). Not used in 2d and 3d."
+        },
+        "parity": {
+          "enum": [
+            "even",
+            "odd",
+            "pair",
+            "unknown"
+          ],
+          "description": "Parity, on par with spin and Delta: even, odd, pair (parity maps the operator to a partner in a different representation, e.g. spin s to -s in 2d, (j,jbar) to (jbar,j) in 4d, a monopole of charge q to -q), or unknown. Required when symmetry.parity is true or conditional."
+        },
+        "T": {
+          "enum": [
+            "even",
+            "odd",
+            "unknown"
+          ],
+          "description": "Time reversal, only when symmetry.time_reversal is `independent`."
+        },
+        "global": {
+          "type": "object",
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": [
+                  "string",
+                  "integer"
+                ]
+              },
+              {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": [
+                    "string",
+                    "integer"
+                  ]
+                }
+              }
+            ]
+          },
+          "description": "Irrep label for each factor of symmetry.global_group, e.g. {Z2: odd}, {O(3): vector}, {'SU(Nf)': adjoint, 'U(1)_top': 0}; `unknown` if not known; a list for a row that lists several irreps (a direct sum). Vocabulary in docs/REPRESENTATIONS.md."
+        },
+        "role": {
+          "type": "string",
+          "description": "[markdown] What the operator is or does, e.g. 'order parameter', 'thermal', 'Coulomb-branch generator'. Never part of the representation."
+        },
+        "multiplet": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "component"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "[markdown] The supermultiplet, named by its superconformal primary or its standard name, e.g. '$\\sigma$', 'stress tensor', 'Konishi'. Components of one multiplet use the same name."
+            },
+            "component": {
+              "type": "string",
+              "description": "'primary' or the [latex] supercharges acting on the primary, e.g. 'Q', 'Q^2', 'Q\\bar Q'."
+            },
+            "type": {
+              "type": "string",
+              "description": "[markdown] Shortening or standard symbol, e.g. 'half-BPS', 'long', '$A_1\\bar A_1$'."
+            }
+          },
+          "description": "Supersymmetric theories: the supermultiplet the operator belongs to and which component it is."
+        },
         "rep": {
           "type": "string",
-          "description": "[markdown] Representation under the global symmetry, e.g. '$\\mathbb{Z}_2$-odd', '$\\mathbf{20}\\prime$'."
+          "description": "[markdown] Legacy free-text representation, e.g. '$\\mathbb{Z}_2$-odd'. Accepted for entries without `symmetry.global_group` until they are migrated (the build counts them); structured entries give `global`, `parity` and `role` instead."
         },
         "method": {
-          "type": "string"
+          "$ref": "#/$defs/method"
         },
         "refs": {
           "$ref": "#/$defs/refKeys"
@@ -292,8 +434,7 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "type",
-        "target"
+        "type"
       ],
       "properties": {
         "type": {
@@ -306,12 +447,21 @@
             "product_of",
             "same_partition_function"
           ],
-          "description": "flows_to: this theory (UV) flows to the target (IR). member_of: this theory belongs to the target family (give `at`). orbifold_of: this theory is an orbifold (gauging of a finite symmetry) of the target. product_of: the target is a tensor factor of this theory. same_partition_function: equal torus partition functions. dual_to, related_to: symmetric."
+          "description": "flows_to: this theory (UV) flows to the target (IR). member_of: this theory belongs to the target family (give `at`). orbifold_of: this theory is an orbifold (gauging of a finite symmetry) of the target. product_of: the target is a tensor factor of this theory. same_partition_function: equal torus partition functions. dual_to, related_to: symmetric. Only flows_to relations may carry `id`, `flow` or `target_expr`."
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "flows_to only: a slug naming this flow, unique among the entry's flows_to relations. Required with `flow` or `target_expr`. Two flows between the same theories stay separate arrows."
         },
         "target": {
           "type": "string",
           "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
-          "description": "id of another entry."
+          "description": "id of another entry. Every relation needs `target`, except a flows_to relation with `target_expr` (give exactly one of the two)."
+        },
+        "target_expr": {
+          "$ref": "#/$defs/targetExpr",
+          "description": "flows_to only, instead of `target`: an IR theory built from entries, e.g. a direct sum or tensor product. Needs `id` and `flow`."
         },
         "note": {
           "type": "string",
@@ -327,6 +477,9 @@
         "variant": {
           "type": "string",
           "description": "For member_of: which variant, if the family has variants."
+        },
+        "flow": {
+          "$ref": "#/$defs/flow"
         }
       }
     },
@@ -522,6 +675,558 @@
           "maximum": 50,
           "default": 8,
           "description": "How many parameter values to list on the page."
+        }
+      }
+    },
+    "flow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identification"
+      ],
+      "description": "Structured description of a flows_to relation. Give `identification`, and `deformations`, `vevs` or both. Every item needs its own `refs` unless it is marked `standard: true` (textbook or exact by construction). A field that is absent is shown as 'not recorded', never as 'none'. Reference keys are always those of the UV entry.",
+      "properties": {
+        "identification": {
+          "$ref": "#/$defs/flowIdentification"
+        },
+        "deformations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/flowDeformation"
+          },
+          "description": "Relevant operators added to the UV action, each with its own coupling and sign."
+        },
+        "vevs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/flowVev"
+          },
+          "description": "Operators given a vacuum expectation value (a point on a moduli space, Higgs or Coulomb branch)."
+        },
+        "tuned": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/flowTuned"
+          },
+          "description": "Couplings that must be tuned for the flow to reach this IR (e.g. a mass tuned to criticality)."
+        },
+        "symmetry_changes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/flowSymmetryChange"
+          },
+          "description": "Ordered stages of symmetry breaking or enhancement along the flow. Absent means not recorded, not 'unbroken'."
+        },
+        "spectrum": {
+          "$ref": "#/$defs/flowSpectrum"
+        },
+        "integrability": {
+          "$ref": "#/$defs/flowIntegrability"
+        },
+        "page": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "id of an entry tagged 'RG flow' that describes this flow in detail (several flows may share one page)."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown] Assumptions, ranges of validity, retained symmetry, source locations."
+        }
+      }
+    },
+    "flowDeformation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operator",
+        "coupling"
+      ],
+      "properties": {
+        "operator": {
+          "type": "string",
+          "description": "[latex] The operator as named in the UV entry, e.g. '\\epsilon'. A display label, not a link to an operators row."
+        },
+        "coupling": {
+          "type": "string",
+          "description": "[latex] Its coupling, e.g. 't'."
+        },
+        "Delta": {
+          "$ref": "#/$defs/value",
+          "description": "[latex] Scaling dimension in the UV, if the cited source gives it."
+        },
+        "rep": {
+          "type": "string",
+          "description": "[markdown] Representation under the UV global symmetry."
+        },
+        "sign": {
+          "enum": [
+            "positive",
+            "negative",
+            "zero",
+            "either"
+          ],
+          "description": "Sign of the coupling that gives this flow. 'either' asserts that both signs give it (explain in `note`). Leave out if unknown."
+        },
+        "sign_convention": {
+          "type": "string",
+          "description": "[markdown] Required with `sign`: the action and normalization that fix the sign, e.g. '$S = S_{\\rm CFT} + t\\int \\epsilon$ with $\\lambda_{\\sigma\\sigma\\epsilon} > 0$'."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
+        },
+        "refs": {
+          "$ref": "#/$defs/refKeys",
+          "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
+        }
+      }
+    },
+    "flowVev": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operator",
+        "direction"
+      ],
+      "properties": {
+        "operator": {
+          "type": "string",
+          "description": "[latex] The operator that gets a vev, as named in the UV entry."
+        },
+        "direction": {
+          "type": "string",
+          "description": "[markdown] Which component or point of the moduli space, e.g. 'a generic point of the Coulomb branch'."
+        },
+        "branch": {
+          "type": "string",
+          "description": "[markdown] Moduli space, Higgs branch, Coulomb branch, ..."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
+        },
+        "refs": {
+          "$ref": "#/$defs/refKeys",
+          "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
+        }
+      }
+    },
+    "flowTuned": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operator",
+        "coupling",
+        "condition"
+      ],
+      "properties": {
+        "operator": {
+          "type": "string",
+          "description": "[latex]"
+        },
+        "coupling": {
+          "type": "string",
+          "description": "[latex]"
+        },
+        "condition": {
+          "type": "string",
+          "description": "[markdown] e.g. '$m^2 = m_c^2(t)$, the critical value'."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
+        },
+        "refs": {
+          "$ref": "#/$defs/refKeys",
+          "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
+        }
+      }
+    },
+    "flowSymmetryChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "from",
+        "to",
+        "kind"
+      ],
+      "properties": {
+        "from": {
+          "type": "string",
+          "description": "[markdown] Symmetry before this stage."
+        },
+        "to": {
+          "type": "string",
+          "description": "[markdown] Symmetry after it."
+        },
+        "kind": {
+          "enum": [
+            "explicit",
+            "spontaneous",
+            "emergent"
+          ],
+          "description": "explicit: broken by the deformation itself; spontaneous: broken by the choice of vacuum; emergent: enhanced in the IR."
+        },
+        "vacua": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of vacua, if finite and stated by the source."
+        },
+        "manifold": {
+          "type": "string",
+          "description": "[markdown] A continuous vacuum manifold, e.g. '$S^2$'."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
+        },
+        "refs": {
+          "$ref": "#/$defs/refKeys",
+          "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
+        }
+      }
+    },
+    "flowSpectrum": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "What is known about the massive spectrum when the IR is (partly) gapped. Needs `refs` (or `standard: true`); each particle row has its own.",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "[markdown] One line for the arrow's panel, e.g. '8 stable particles with masses in $E_8$ ratios'."
+        },
+        "particles": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/flowParticle"
+          },
+          "description": "One row per particle and method; repeated rows for one particle by different methods are allowed."
+        },
+        "vacua": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of vacua."
+        },
+        "kinks": {
+          "type": "string",
+          "description": "[markdown] Kinks or domain walls between the vacua."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown] e.g. how masses are normalized."
+        },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
+        },
+        "refs": {
+          "$ref": "#/$defs/refKeys",
+          "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
+        }
+      }
+    },
+    "flowParticle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "mass",
+        "method",
+        "refs"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "[latex] e.g. 'm_2'."
+        },
+        "mass": {
+          "$ref": "#/$defs/value",
+          "description": "[latex] A ratio to a named particle ('2\\cos\\frac{\\pi}{5}\\, m_1') or a value in a stated unit of the coupling."
+        },
+        "rep": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "stable": {
+          "type": "boolean",
+          "description": "Absent means not recorded."
+        },
+        "method": {
+          "type": "string",
+          "description": "exact, TCSA, lattice, Hamiltonian truncation, ..."
+        },
+        "refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
+        }
+      }
+    },
+    "flowIntegrability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "integrable",
+            "not_integrable",
+            "open"
+          ],
+          "description": "integrable and not_integrable need the evidence in `note` (conserved charges, an exact S-matrix; level statistics, particle decay). open means the cited literature calls the question open."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
+        },
+        "refs": {
+          "$ref": "#/$defs/refKeys",
+          "description": "Keys in the references list of the UV entry. Required unless `standard: true`."
+        }
+      }
+    },
+    "targetExpr": {
+      "description": "An entry (`entry`, with `at`/`variant` for a family member) or an operation applied to terms. Terms keep their order; nothing is simplified.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "entry"
+          ],
+          "properties": {
+            "entry": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "description": "id of an entry."
+            },
+            "at": {
+              "type": [
+                "integer",
+                "string"
+              ],
+              "description": "Family member, if `entry` is a family."
+            },
+            "variant": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "operation",
+            "terms"
+          ],
+          "properties": {
+            "operation": {
+              "enum": [
+                "direct_sum",
+                "tensor_product"
+              ]
+            },
+            "terms": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "expr"
+                ],
+                "properties": {
+                  "expr": {
+                    "$ref": "#/$defs/targetExpr"
+                  },
+                  "multiplicity": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "default": 1
+                  }
+                }
+              }
+            },
+            "decoration": {
+              "type": "string",
+              "description": "[markdown] How the symmetry acts on the result, background couplings, ... Never inferred from the terms."
+            }
+          }
+        }
+      ]
+    },
+    "operationPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "summary",
+        "description",
+        "references"
+      ],
+      "description": "A page in data/operations/<id>.yaml explaining an operation that builds theories from others. The ids direct-sum and tensor-product are linked from target_expr operations direct_sum and tensor_product.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Must equal the filename without .yaml."
+        },
+        "name": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "summary": {
+          "type": "string",
+          "maxLength": 300,
+          "description": "[markdown]"
+        },
+        "description": {
+          "type": "string",
+          "description": "[markdown] The definition and what it means for symmetries and data."
+        },
+        "references": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/reference"
+          }
+        },
+        "contributors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9-]+$"
+          }
+        }
+      }
+    },
+    "flowIdentification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "method",
+        "refs"
+      ],
+      "description": "Who established that this UV theory flows to this IR theory, and how. Separate from the sources of the deformation, spectrum, etc.",
+      "properties": {
+        "status": {
+          "enum": [
+            "established",
+            "conjectured",
+            "disputed"
+          ],
+          "description": "disputed needs `competing_refs`."
+        },
+        "method": {
+          "type": "string",
+          "description": "[markdown] The argument: anomaly matching, numerics, lattice, supersymmetry, a duality, ..."
+        },
+        "refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "description": "Keys in the references list of the UV entry: the papers that identified the flow."
+        },
+        "competing_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "description": "For a disputed or conjectured identification: papers that argue otherwise."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
+        }
+      }
+    },
+    "globalFactor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "group"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[^$\\s]+$",
+          "description": "Key operators use in `global`, e.g. 'Z2', 'O(3)', 'SU(Nf)', 'U(1)_top'."
+        },
+        "group": {
+          "type": "string",
+          "description": "Group type: Z2, Z_n (Z3, ...), U(1), O(N), SO(N), SU(N), Sp(N) (N even: Sp(2) = SU(2)), S_n, D_n (dihedral, order 2n) or finite (with `irreps`). N may be an integer or a parameter symbol of the entry, e.g. 'SU(N_f)'."
+        },
+        "tex": {
+          "type": "string",
+          "description": "[latex] Display name, if not the group's own, e.g. 'U(1)_{\\rm top}' or 'SU(4)_R'."
+        },
+        "irreps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "label"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "tex": {
+                "type": "string",
+                "description": "[latex]"
+              },
+              "dim": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          },
+          "description": "For `group: finite`: the irreps, the trivial one first, in the order tables use."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown] e.g. how the factor sits in the full group (quotients, semidirect products)."
         }
       }
     }

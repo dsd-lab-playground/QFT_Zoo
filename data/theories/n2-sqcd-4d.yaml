@@ -23,27 +23,27 @@ description: |
   $u_k = \langle\mathrm{Tr}\,\phi^k\rangle$, $k = 2,\dots,N$.
 
   For $N = 2$ the fundamental representation is pseudoreal, so the flavor symmetry is $SO(8)$
-  and the four hypermultiplets form its vector $\mathbf{8}_v$. Seiberg and Witten solved the
+  and the four hypermultiplets form its vector $\mathbf{8}_v$. Seiberg and Witten [@seiberg1994] solved the
   theory and found that its $SL(2,\mathbb{Z})$ duality is combined with $SO(8)$ triality. The
   elementary quarks, with magnetic and electric charges $(n_m, n_e) = (0,1)$, form the
   $\mathbf{8}_v$, while the states with $(1,0)$ and $(1,1)$ form the $\mathbf{8}_s$ and the
   $\mathbf{8}_c$, and duality permutes these three representations. The Higgs branch is the
   one-instanton moduli space of $SO(8)$, and
   $c$ and $k_{SO(8)}$ saturate the unitarity bounds that follow from the associated chiral
-  algebra, which Beem et al. conjecture to be the $\mathfrak{so}(8)$ affine algebra at level
+  algebra, which Beem et al. [@beem2013] conjecture to be the $\mathfrak{so}(8)$ affine algebra at level
   $-2$. This theory is the $D_4$ member of the rank-one series that also contains the
   Argyres–Douglas theories $H_0, H_1, H_2$ and the Minahan–Nemeschansky theories.
 
   For $N \geq 3$ the flavor symmetry is $U(2N) = SU(2N)\times U(1)$ and the S-duality group is
   only the subgroup $\Gamma_0(2)$ of $SL(2,\mathbb{Z})$, so the space of couplings has a second,
-  "very strongly coupled" cusp (Gaiotto). For $N = 3$ Argyres and Seiberg identified the theory
+  "very strongly coupled" cusp [@gaiotto2009]. For $N = 3$ Argyres and Seiberg [@argyres2007] identified the theory
   at this cusp: an $SU(2)$ gauge theory with one fundamental hypermultiplet, coupled to the
   rank-one $E_6$ Minahan–Nemeschansky theory by gauging the $SU(2)$ in
   $SU(2)\times SU(6) \subset E_6$.
 
   Coupling an adjoint chiral multiplet $M$ of the flavor symmetry through
   $W = \mathrm{Tr}\,M\mu$ and giving $M$ a principal nilpotent expectation value breaks
-  $\mathcal{N}=2$ to $\mathcal{N}=1$. Maruyoshi and Song found that these deformations flow to
+  $\mathcal{N}=2$ to $\mathcal{N}=1$. Maruyoshi and Song [@maruyoshi2016] found that these deformations flow to
   Argyres–Douglas theories with enhanced $\mathcal{N}=2$ supersymmetry: $SU(N)$ with $2N$
   flavors flows to the $(A_1, A_{2N-1})$ theory, and $SU(2)$ with the whole $SO(8)$ broken flows
   to the minimal Argyres–Douglas theory $H_0$ (plus free chiral multiplets).
@@ -64,12 +64,14 @@ family:
       note: '$SO(8)$ flavor symmetry with $k_{SO(8)} = 4$; $a = \tfrac{23}{24}$, $c = \tfrac{7}{6}$. $SL(2,\mathbb{Z})$ duality acts on $SO(8)$ by triality.'
     - at: 3
       label: '$SU(3)$, $N_f = 6$'
-      note: 'At infinite coupling, dual to $SU(2)$ with one fundamental hypermultiplet coupled to the $E_6$ Minahan–Nemeschansky theory (Argyres–Seiberg).'
+      note: 'At infinite coupling, dual to $SU(2)$ with one fundamental hypermultiplet coupled to the $E_6$ Minahan–Nemeschansky theory [@argyres2007].'
     - at: 'N \geq 4'
       note: 'Flavor symmetry $U(2N)$, $k_{SU(2N)} = 2N$; Coulomb-branch operators $\mathrm{Tr}\,\phi^k$, $k = 2,\dots,N$.'
 
 symmetry:
-  spacetime: '$\mathcal{N}=2$ superconformal, $SU(2,2|2)$'
+  spacetime: '4d $\mathcal{N}=2$ superconformal group (8 $Q$ + 8 $S$ supercharges), with parity at $\theta \in \{0, \pi\}$ (parity maps $\theta \to -\theta$)'
+  euclidean: '$O(5,1)$ (bosonic conformal part)'
+  lorentzian: '$SU(2,2|2)$'
   supercharges: 8
   global: '$U(2N) = SU(2N)\times U(1)$ flavor symmetry for $N\geq3$, enhanced to $SO(8)$ for $N=2$; R-symmetry $SU(2)_R\times U(1)_r$'
   gauge: '$SU(N)$'
@@ -79,27 +81,27 @@ quantities:
   - symbol: 'a'
     description: 'Euler conformal anomaly (normalized so a free real scalar has $a = \tfrac{1}{360}$)'
     value: '\frac{7N^2-5}{24}'
-    method: exact (free-field counting; independent of the coupling)
+    method: exact, free-field counting; independent of the coupling
     refs: [shapere2008]
-    note: 'Eq. (4.10) of Shapere and Tachikawa, who also rederive it from the Seiberg–Witten curve. It equals $(5n_v + n_h)/24$ with $n_v = N^2-1$, $n_h = 2N^2$, using $a = \tfrac{5}{24}$ per vector multiplet and $\tfrac{1}{24}$ per hypermultiplet (their eqs. (2.5), (2.6)). $SU(2)$: $\tfrac{23}{24}$.'
+    note: 'Shapere and Tachikawa [@shapere2008, Eq. (4.10)], who also rederive it from the Seiberg–Witten curve. It equals $(5n_v + n_h)/24$ with $n_v = N^2-1$, $n_h = 2N^2$, using $a = \tfrac{5}{24}$ per vector multiplet and $\tfrac{1}{24}$ per hypermultiplet [@shapere2008, Eqs. (2.5), (2.6)]. $SU(2)$: $\tfrac{23}{24}$.'
   - symbol: 'c'
     description: 'Weyl conformal anomaly (normalized so a free real scalar has $c = \tfrac{1}{120}$)'
     value: '\frac{2N^2-1}{6}'
-    method: exact (free-field counting; independent of the coupling)
+    method: exact, free-field counting; independent of the coupling
     refs: [shapere2008, beem2013]
-    note: 'Eq. (4.10) of Shapere and Tachikawa; $(2n_v + n_h)/12$. $SU(2)$: $\tfrac76$ (Beem et al. 2013, eq. (5.2)).'
+    note: '[@shapere2008, Eq. (4.10)]; $(2n_v + n_h)/12$. $SU(2)$: $\tfrac76$ [@beem2013, Eq. (5.2)].'
   - symbol: 'k_{SO(8)}'
     description: '$SO(8)$ flavor central charge for $N=2$'
     value: '4'
     method: exact
     refs: [beem2013, beem2014]
-    note: 'Saturates the unitarity bound $k_{SO(8)} \geq 4$ of Beem et al. (2013), Table 3.'
+    note: 'Saturates the unitarity bound $k_{SO(8)} \geq 4$ of [@beem2013, Table 3].'
   - symbol: 'k_{SU(2N)}'
     description: '$SU(2N)$ flavor central charge for $N\geq3$'
     value: '2N'
     method: exact
     refs: [beem2013, gimenezgrau2020]
-    note: 'The chiral algebra contains $\widehat{\mathfrak{su}}(2N)\times\widehat{\mathfrak{u}}(1)$ at level $k_{2d} = -N = -\tfrac12 k$ (Beem et al. 2013, §5.2).'
+    note: 'The chiral algebra contains $\widehat{\mathfrak{su}}(2N)\times\widehat{\mathfrak{u}}(1)$ at level $k_{2d} = -N = -\tfrac12 k$ [@beem2013, Sec. 5.2].'
 
 operators:
   - name: '\mathrm{Tr}\,\phi^k'
@@ -182,6 +184,6 @@ references:
 relations:
   - type: related_to
     target: n4-sym
-    note: 'Both are $\mathcal{N}=2$ conformal gauge theories with an exactly marginal coupling ($\mathcal{N}=4$ SYM is $SU(N)$ with one adjoint hypermultiplet). For gauge group $SU(2)$ they share the $D_4$ scale-invariant Seiberg–Witten curve: $\mathcal{N}=4$ SYM is the submaximal mass deformation with $\mathfrak{su}(2) \subset \mathfrak{so}(8)$ flavor symmetry (Beem et al. 2014).'
+    note: 'Both are $\mathcal{N}=2$ conformal gauge theories with an exactly marginal coupling ($\mathcal{N}=4$ SYM is $SU(N)$ with one adjoint hypermultiplet). For gauge group $SU(2)$ they share the $D_4$ scale-invariant Seiberg–Witten curve: $\mathcal{N}=4$ SYM is the submaximal mass deformation with $\mathfrak{su}(2) \subset \mathfrak{so}(8)$ flavor symmetry [@beem2014].'
 
 contributors: [Canonical111]

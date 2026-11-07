@@ -4,6 +4,9 @@ d: 2
 summary: 'The diagonal coset $SU(2)_3\times SU(2)_4/SU(2)_7$.'
 tags: [CFT, interacting, unitary, rational, coset]
 
+symmetry:
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{22}{15}$ — 2d conformal symmetry, with parity'
+
 quantities:
 - key: c
   symbol: c

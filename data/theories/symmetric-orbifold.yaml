@@ -2,25 +2,25 @@ id: symmetric-orbifold
 name: Symmetric orbifold CFTs
 aliases: ['$\mathrm{Sym}^N(X)$', Symmetric product orbifolds, 'Permutation orbifolds by $S_N$', '$\mathrm{Sym}^N(T^4)$', '$\mathrm{Sym}^N(\mathrm{K3})$', 'D1–D5 CFT at the orbifold point']
 d: 2
-summary: 'The orbifold $X^{\otimes N}/S_N$ of $N$ copies of a seed CFT $X$, with $c = N c_X$. Its spectrum follows from that of $X$ (DMVV) and is universal at large $N$; $\mathrm{Sym}^N(T^4)$ and $\mathrm{Sym}^N(\mathrm{K3})$ are believed to lie on the moduli spaces of the D1–D5 CFTs dual to $AdS_3$.'
+summary: 'The orbifold $X^{\otimes N}/S_N$ of $N$ copies of a seed CFT $X$, with $c = N c_X$. Its spectrum follows from that of $X$ [@dmvv1997] and is universal at large $N$; $\mathrm{Sym}^N(T^4)$ and $\mathrm{Sym}^N(\mathrm{K3})$ are believed to lie on the moduli spaces of the D1–D5 CFTs dual to $AdS_3$.'
 tags: [CFT, unitary, orbifold, holographic, large N, family]
 
 description: |
-  $\mathrm{Sym}^N(X)$ is the tensor product of $N$ copies of a seed CFT $X$, orbifolded by the symmetric group $S_N$ that permutes them, so $c = N c_X$. Its Hilbert space is a sum of twisted sectors labelled by conjugacy classes of $S_N$, i.e. by cycle types $(1)^{N_1}(2)^{N_2}\cdots$ with $\sum_n nN_n = N$; each sector keeps the states invariant under the centralizer $\prod_n S_{N_n}\ltimes\mathbb{Z}_n^{N_n}$ (Dijkgraaf, Moore, Verlinde and Verlinde (DMVV), eqs. (2.1)–(2.4)). A cycle of length $n$ joins $n$ copies of $X$ into one copy on an $n$ times longer circle, a "long string". For a bosonic seed with a unique vacuum, the lightest state of the $n$-cycle sector has $h = \bar h = \frac{c_X}{24}(n - \frac1n)$ (derived). If $X$ is fermionic, as for $T^4$ and K3, so is $\mathrm{Sym}^N(X)$. The members listed below take a seed with $c_X = 6$, $X = T^4$ or K3.
+  $\mathrm{Sym}^N(X)$ is the tensor product of $N$ copies of a seed CFT $X$, orbifolded by the symmetric group $S_N$ that permutes them, so $c = N c_X$. Its Hilbert space is a sum of twisted sectors labelled by conjugacy classes of $S_N$, i.e. by cycle types $(1)^{N_1}(2)^{N_2}\cdots$ with $\sum_n nN_n = N$; each sector keeps the states invariant under the centralizer $\prod_n S_{N_n}\ltimes\mathbb{Z}_n^{N_n}$ [@dmvv1997, Eqs. (2.1)–(2.4)] (DMVV: Dijkgraaf, Moore, Verlinde and Verlinde). A cycle of length $n$ joins $n$ copies of $X$ into one copy on an $n$ times longer circle, a "long string". For a bosonic seed with a unique vacuum, the lightest state of the $n$-cycle sector has $h = \bar h = \frac{c_X}{24}(n - \frac1n)$ (derived). If $X$ is fermionic, as for $T^4$ and K3, so is $\mathrm{Sym}^N(X)$. The members listed below take a seed with $c_X = 6$, $X = T^4$ or K3.
 
-  **Generating functions.** If the elliptic genus of $X$ is $\chi(X;q,y) = \sum_{m,\ell}c(m,\ell)\,q^my^\ell$, then (DMVV, eq. (1.3))
+  **Generating functions.** If the elliptic genus of $X$ is $\chi(X;q,y) = \sum_{m,\ell}c(m,\ell)\,q^my^\ell$, then [@dmvv1997, Eq. (1.3)]
   $$\sum_{N\geq0}p^N\chi(\mathrm{Sym}^NX;q,y) = \prod_{n>0,\,m\geq0,\,\ell}\frac{1}{(1-p^nq^my^\ell)^{c(nm,\ell)}}.$$
-  The right side is the partition function of a second-quantized string on $X\times S^1$, and the generating function is (almost) an automorphic form for $O(3,2;\mathbb{Z})$ (DMVV). For $X = $ K3 at $y = 1$ it reduces to $\prod_{n}(1-p^n)^{-24}$, the generating function of orbifold Euler numbers (derived). For a bosonic seed (all states of integer spin) the torus partition functions obey an analogous product formula (Keller, eq. (2.3); Hartman, Keller and Stoica (HKS), eq. (5.4)); it does not apply as written to fermionic seeds such as $T^4$ and K3, whose half-integer-spin states it would remove already at $N = 1$, so for those only the elliptic-genus formula above is quoted.
+  The right side is the partition function of a second-quantized string on $X\times S^1$, and the generating function is (almost) an automorphic form for $O(3,2;\mathbb{Z})$ [@dmvv1997]. For $X = $ K3 at $y = 1$ it reduces to $\prod_{n}(1-p^n)^{-24}$, the generating function of orbifold Euler numbers (derived). For a bosonic seed (all states of integer spin) the torus partition functions obey an analogous product formula [@keller2011, Eq. (2.3); @hks2014, Eq. (5.4)] (HKS: Hartman, Keller and Stoica); it does not apply as written to fermionic seeds such as $T^4$ and K3, whose half-integer-spin states it would remove already at $N = 1$, so for those only the elliptic-genus formula above is quoted.
 
   ### Universality at large N
-  As $N\to\infty$ the free energy per copy becomes universal, depending only on $c_X$, with a first-order phase transition at $\beta = 2\pi$, the analogue of the Hawking–Page transition. The number of states grows as $e^{4\pi\sqrt{m\bar m}}$ (Keller). HKS show that every 2d CFT with large $c$ and a sparse light spectrum, $\rho(E)\lesssim e^{2\pi(E + c/12)}$ for light states with $E = \Delta - \frac{c}{12}$ below a small positive cutoff, has a universal free energy and Cardy growth for $\Delta \geq \frac{c}{6}$. Symmetric orbifolds satisfy this, and their light spectrum saturates the bound,
+  As $N\to\infty$ the free energy per copy becomes universal, depending only on $c_X$, with a first-order phase transition at $\beta = 2\pi$, the analogue of the Hawking–Page transition. The number of states grows as $e^{4\pi\sqrt{m\bar m}}$ [@keller2011]. HKS [@hks2014] show that every 2d CFT with large $c$ and a sparse light spectrum, $\rho(E)\lesssim e^{2\pi(E + c/12)}$ for light states with $E = \Delta - \frac{c}{12}$ below a small positive cutoff, has a universal free energy and Cardy growth for $\Delta \geq \frac{c}{6}$. Symmetric orbifolds satisfy this, and their light spectrum saturates the bound,
   $$S(E) \simeq \frac{\pi c}{6} + 2\pi E,\qquad 0 < E < \frac{c}{12},$$
-  so in this sense they have the densest spectrum compatible with 3d gravity (HKS).
+  so in this sense they have the densest spectrum compatible with 3d gravity [@hks2014].
 
   ### D1–D5 system and AdS$_3$
-  The D1–D5 system on $X = T^4$ or K3 has near-horizon geometry $AdS_3\times S^3\times X$. For $X = T^4$ with $Q_1$ D1-branes and $Q_5$ D5-branes its boundary CFT has $c = 6Q_1Q_5$ (Seiberg–Witten). For $X = $ K3 with coprime $Q_1, Q_5 > 0$, the Mukai vector $v = (Q_5, 0, -Q_1)$ is primitive with $v\cdot v = 2Q_1Q_5$, and the moduli space of stable sheaves is smooth and deformation equivalent to the Hilbert scheme $\mathrm{K3}^{[Q_1Q_5+1]}$, whose orbifold limit is $\mathrm{Sym}^{Q_1Q_5+1}(\mathrm{K3})$; so $N = Q_1Q_5 + 1$ and $c = 6(Q_1Q_5+1)$ in this charge convention (Dijkgraaf, eqs. (3.8), (5.1), (7.7) and section 5.1; the shift is subleading at large charge). Non-primitive charges need separate treatment (Dijkgraaf). The CFT is believed to lie on the moduli space of $\mathrm{Sym}^N(X)$ with this $N$, but it is not known where on that moduli space, if anywhere, the orbifold point sits; at the loci where the branes can separate the CFT is singular (Seiberg–Witten). The orbifold point is a weak-coupling limit without a good geometric description (HKS). For $N \geq 2$ the moduli space of $\mathrm{Sym}^N(T^4)$ has 20 parameters (the 16 torus moduli plus 4 from the twist-2 sector), and generic twisted-sector deformations away from the orbifold point make the theory interacting; $N = 1$ is the free $T^4$ theory with 16 moduli (Eberhardt, Gaberdiel and Gopakumar (EGG)).
+  The D1–D5 system on $X = T^4$ or K3 has near-horizon geometry $AdS_3\times S^3\times X$. For $X = T^4$ with $Q_1$ D1-branes and $Q_5$ D5-branes its boundary CFT has $c = 6Q_1Q_5$ [@sw1999]. For $X = $ K3 with coprime $Q_1, Q_5 > 0$, the Mukai vector $v = (Q_5, 0, -Q_1)$ is primitive with $v\cdot v = 2Q_1Q_5$, and the moduli space of stable sheaves is smooth and deformation equivalent to the Hilbert scheme $\mathrm{K3}^{[Q_1Q_5+1]}$, whose orbifold limit is $\mathrm{Sym}^{Q_1Q_5+1}(\mathrm{K3})$; so $N = Q_1Q_5 + 1$ and $c = 6(Q_1Q_5+1)$ in this charge convention ([@dijkgraaf1999, Sec. 5.1, Eqs. (3.8), (5.1), (7.7)]; the shift is subleading at large charge). Non-primitive charges need separate treatment [@dijkgraaf1999]. The CFT is believed to lie on the moduli space of $\mathrm{Sym}^N(X)$ with this $N$, but it is not known where on that moduli space, if anywhere, the orbifold point sits; at the loci where the branes can separate the CFT is singular [@sw1999]. The orbifold point is a weak-coupling limit without a good geometric description [@hks2014]. For $N \geq 2$ the moduli space of $\mathrm{Sym}^N(T^4)$ has 20 parameters (the 16 torus moduli plus 4 from the twist-2 sector), and generic twisted-sector deformations away from the orbifold point make the theory interacting; $N = 1$ is the free $T^4$ theory with 16 moduli [@egg2019] (EGG: Eberhardt, Gaberdiel and Gopakumar).
 
-  EGG proposed a worldsheet dual of the large-$N$ orbifold point. Superstring theory on $AdS_3\times S^3\times T^4$ with one unit of NS–NS flux ($k = 1$), defined in the hybrid formalism with a $\mathfrak{psu}(1,1|2)_1$ WZW model, has no long-string continuum. Its spectrum matches the large-$N$ limit of $\mathrm{Sym}^N(T^4)$, and the worldsheet reproduces the fusion rules of the orbifold (EGG, following Gaberdiel–Gopakumar).
+  EGG [@egg2019] proposed a worldsheet dual of the large-$N$ orbifold point. Superstring theory on $AdS_3\times S^3\times T^4$ with one unit of NS–NS flux ($k = 1$), defined in the hybrid formalism with a $\mathfrak{psu}(1,1|2)_1$ WZW model, has no long-string continuum. Its spectrum matches the large-$N$ limit of $\mathrm{Sym}^N(T^4)$, and the worldsheet reproduces the fusion rules of the orbifold ([@egg2019], following [@gg2018]).
 
 parameters:
 - symbol: N
@@ -35,7 +35,7 @@ family:
   show: 6
 
 symmetry:
-  spacetime: 'conformal; $\mathcal{N}=(4,4)$ superconformal for $X = T^4$ or K3'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = N c_X$ — 2d conformal symmetry, with parity when the seed $X$ has it; for $X = T^4$ or K3, two small $\mathcal{N}=4$ super-Virasoro algebras at $c = \bar c = 6N$, $\mathcal{N}=(4,4)$ superconformal (8 $Q$ + 8 $S$ supercharges)'
   notes: 'The permutation group $S_N$ is gauged.'
 
 quantities:
@@ -55,7 +55,7 @@ quantities:
 - symbol: 'S(E)'
   description: 'Large-$N$ entropy for $0 < E < \frac{c}{12}$, where $E = \Delta - \frac{c}{12}$'
   value: '\frac{\pi c}{6} + 2\pi E \quad (0 < E < \tfrac{c}{12})'
-  method: exact (large-N asymptotics)
+  method: exact, large-N asymptotics
   refs: [hks2014]
 - symbol: 'T_H'
   description: 'Hagedorn (Hawking–Page) temperature at $N = \infty$'
@@ -68,7 +68,7 @@ operators:
   Delta: '\frac{c_X}{12}\left(n-\frac{1}{n}\right)'
   spin: 0
   weights: '\left(\tfrac{c_X}{24}(n-\tfrac1n),\ \tfrac{c_X}{24}(n-\tfrac1n)\right)'
-  method: derived
+  method: exact
   refs: [hks2014]
   note: 'Twist field: the lightest state of the sector of an $n$-cycle, for a bosonic seed with a unique vacuum. From the $n$-th factor of the generating function above with $h = \bar h = 0$.'
 

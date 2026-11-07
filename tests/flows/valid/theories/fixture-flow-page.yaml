@@ -1,0 +1,11 @@
+# Synthetic test fixture. Not physics.
+id: fixture-flow-page
+name: 'Fixture field theory'
+d: 3
+summary: 'Synthetic page for a famous flow; two relations point here.'
+tags: [RG flow, gapped]
+description: 'Synthetic flow page. The full particle table of a flow would live here.'
+references:
+  - key: src
+    title: 'Synthetic fixture source'
+    url: 'https://example.org/fixture-flow-page'

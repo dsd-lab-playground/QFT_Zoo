@@ -27,19 +27,19 @@ description: |
   scalar ($\eta < 0$).
 
   The most precise values come from Monte Carlo simulations of bond percolation on
-  hypercubic lattices: Tan, Deng and Jacobsen measured the two-cluster ("two-arm")
+  hypercubic lattices: Tan, Deng and Jacobsen [@tan2020] measured the two-cluster ("two-arm")
   exponent, which equals $\Delta_\epsilon$, by a transfer Monte Carlo method on cylinders,
-  and Zhang, Hou, Fang, Hu and Deng measured $d_f$ on periodic hypercubes. Site
-  percolation gives consistent values of $\nu$ (Ballesteros et al.; Koza and Poła) and a
-  slightly more negative $\eta$ (Ballesteros et al.). The five-loop $6-\epsilon$
-  expansion (Borinsky, Gracey, Kompaniets and Schnetz) is consistent with the Monte Carlo
+  and Zhang, Hou, Fang, Hu and Deng [@zhang2021] measured $d_f$ on periodic hypercubes. Site
+  percolation gives consistent values of $\nu$ [@ballesteros1997; @koza2016] and a
+  slightly more negative $\eta$ [@ballesteros1997]. The five-loop $6-\epsilon$
+  expansion [@borinsky2021] is consistent with the Monte Carlo
   values for $\nu$ and $\eta$, with larger errors.
 
   ### Logarithmic CFT
   As in two and three dimensions, the CFT is expected to be logarithmic: at $q = 1$ the
   thermal operator mixes with a partner that creates two propagating clusters (Vasseur,
-  Jacobsen and Saleur, whose derivation rests on the $S_q$ representation theory and who
-  expect it to hold also for $d > 2$). Tan, Deng and Jacobsen measured the $N$-cluster
+  Jacobsen and Saleur [@vasseur2012], whose derivation rests on the $S_q$ representation theory and who
+  expect it to hold also for $d > 2$). Tan, Deng and Jacobsen [@tan2020] measured the $N$-cluster
   correlation functions ($N = 2, 3$) of this framework in $d = 4$ and $5$, including a
   combination that depends logarithmically on distance with a universal amplitude, and
   conclude that their results confirm the logarithmic CFT description.
@@ -47,7 +47,8 @@ description: |
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi_i)^2 + \tfrac{1}{2} m^2 \phi_i\phi_i + \tfrac{g}{3!}\, d_{ijk}\,\phi_i\phi_j\phi_k, \quad d_{ijk} = \sum_{\alpha=1}^{N+1} e^i_\alpha e^j_\alpha e^k_\alpha, \quad i = 1,\dots,N = q - 1 \to 0 \quad (m^2 \text{ tuned})'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '4d conformal group with parity; Euclidean only (non-unitary statistical model)'
+  euclidean: '$O(5,1)$'
   supercharges: 0
   global: '$S_q$ permutation symmetry of the Potts model, at $q \to 1$ (formal)'
   notes: 'The $N+1$ vectors $e_\alpha$ are the vertices of an $N$-dimensional tetrahedron, so $d_{ijk}$ is invariant under their permutations, the $S_{N+1} = S_q$ of the Potts model.'
@@ -56,47 +57,82 @@ quantities:
   - symbol: '1/\nu'
     description: 'Thermal exponent $y_t = 1/\nu = 4 - \Delta_\epsilon$'
     value: '1.4610(12)'
-    method: Monte Carlo (bond, hypercubic)
-    refs: [tan2020, zhang2021, koza2016, ballesteros1997]
-    note: 'Other Monte Carlo values: $1.461(5)$ (bond, Zhang et al.); site percolation $\nu = 0.6852(28)$ (Koza and Poła) and $\nu = 0.689(10)$ (Ballesteros et al.).'
+    method: MC, bond, hypercubic
+    refs: [tan2020]
+  - symbol: '1/\nu'
+    description: 'Thermal exponent $y_t = 1/\nu = 4 - \Delta_\epsilon$'
+    value: '1.461(5)'
+    method: MC, bond
+    refs: [zhang2021]
   - symbol: '\nu'
     description: Correlation-length exponent
     value: '0.689(5)'
-    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
     refs: [borinsky2021]
     note: 'Resummation of the series for $1/\nu$, all methods combined (Table 15).'
+  - symbol: '\nu'
+    description: Correlation-length exponent
+    value: '0.6852(28)'
+    method: MC, site
+    refs: [koza2016]
+  - symbol: '\nu'
+    description: Correlation-length exponent
+    value: '0.689(10)'
+    method: MC, site
+    refs: [ballesteros1997]
   - symbol: 'd_f'
     description: 'Fractal dimension of critical clusters, $d_f = y_h = 4 - \Delta_\sigma$'
     value: '3.0446(7)'
-    method: Monte Carlo (bond, hypercubic)
+    method: MC, bond, hypercubic
     refs: [zhang2021, xun2020]
-    note: 'Consistent with the Fisher exponent $\tau = 1 + 4/d_f$: Xun and Ziff find $\tau = 2.3135(5)$ on four 4d lattices.'
+    note: 'Consistent with the Fisher exponent $\tau = 1 + 4/d_f$: Xun and Ziff [@xun2020] find $\tau = 2.3135(5)$ on four 4d lattices.'
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 6 - 2d_f = 2\Delta_\sigma - 2$'
     value: '-0.0892(14)'
-    method: derived
-    refs: [zhang2021, ballesteros1997, borinsky2021]
-    note: 'From $d_f = 3.0446(7)$. Direct Monte Carlo (site): $-0.0944(17+11)$, where the second error comes from the uncertainty in $\omega$ (Ballesteros et al.). Five-loop $6-\epsilon$: $-0.10(3)$ (Borinsky et al., Table 13).'
+    method: MC, from d_f
+    refs: [zhang2021]
+    note: 'Computed by this relation from $d_f = 3.0446(7)$.'
+  - symbol: '\eta'
+    description: 'Anomalous dimension, $\eta = 6 - 2d_f = 2\Delta_\sigma - 2$'
+    value: '-0.0944(17)(11)'
+    method: MC, site
+    refs: [ballesteros1997]
+    note: 'Measured directly. Quoted as $-0.0944(17+11)$; the second error comes from the uncertainty in $\omega$.'
+  - symbol: '\eta'
+    description: 'Anomalous dimension, $\eta = 6 - 2d_f = 2\Delta_\sigma - 2$'
+    value: '-0.10(3)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
+    refs: ['borinsky2021, Table 13']
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent'
     value: '1.22(9)'
-    method: Monte Carlo (bond, four 4d lattices)
-    refs: [xun2020, ballesteros1997, borinsky2021]
-    note: 'Quoted as $\omega = \Omega d_f$ with the measured $\Omega = 0.40(3)$. Site percolation: $1.13(10)$ (Ballesteros et al.). Five-loop $6-\epsilon$: $1.31(9)$ (Borinsky et al., Table 19).'
+    method: MC, bond, four 4d lattices
+    refs: [xun2020]
+    note: 'Quoted as $\omega = \Omega d_f$ with the measured $\Omega = 0.40(3)$.'
+  - symbol: '\omega'
+    description: 'Leading correction-to-scaling exponent'
+    value: '1.13(10)'
+    method: MC, site
+    refs: [ballesteros1997]
+  - symbol: '\omega'
+    description: 'Leading correction-to-scaling exponent'
+    value: '1.31(9)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
+    refs: ['borinsky2021, Table 19']
 
 operators:
   - name: '\sigma'
     Delta: '0.9554(7)'
     spin: 0
     rep: '$(q-1)$-dimensional representation of $S_q$ (order parameter)'
-    method: derived
+    method: MC, from d_f
     refs: [zhang2021, tan2020]
-    note: '$4 - d_f$ with $d_f = 3.0446(7)$, listed as the magnetic dimension $X_1$ in Table IV of Tan et al. Below the unitarity bound 1.'
+    note: '$4 - d_f$ with $d_f = 3.0446(7)$, listed as the magnetic dimension $X_1$ in [@tan2020, Table IV] Below the unitarity bound 1.'
   - name: '\epsilon'
     Delta: '2.5390(12)'
     spin: 0
     rep: '$S_q$ singlet (thermal)'
-    method: Monte Carlo (bond, hypercubic)
+    method: MC, bond, hypercubic
     refs: [tan2020]
     note: 'Measured as the two-cluster exponent $X_{2s}$, which equals $4 - y_t$.'
 
@@ -106,7 +142,7 @@ relations:
     note: 'The same universality class in three dimensions; both are continuations of the $q \to 1$ Potts fixed point from $d = 6-\epsilon$.'
   - type: related_to
     target: lee-yang-4d
-    note: 'Both are fixed points of cubic scalar theories with upper critical dimension 6: one real field with an imaginary coupling, or $N = q-1 \to 0$ fields with the Potts tensor $d_{ijk}$. Borinsky et al. obtain both $6-\epsilon$ expansions from the same five-loop renormalization of the general cubic theory, which differ only in the tensor factors of each Feynman graph.'
+    note: 'Both are fixed points of cubic scalar theories with upper critical dimension 6: one real field with an imaginary coupling, or $N = q-1 \to 0$ fields with the Potts tensor $d_{ijk}$. Borinsky et al. [@borinsky2021] obtain both $6-\epsilon$ expansions from the same five-loop renormalization of the general cubic theory, which differ only in the tensor factors of each Feynman graph.'
 
 references:
   - key: tan2020

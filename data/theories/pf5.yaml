@@ -5,7 +5,7 @@ summary: 'The $\mathbb{Z}_5$ parafermion CFT $SU(2)_5/U(1)$ with the diagonal in
 tags: [CFT, interacting, unitary, rational, coset]
 
 symmetry:
-  spacetime: conformal
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac87$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: 'Dihedral $D_{5}$: $\mathbb{Z}_{5}$ rotations $r$ and charge conjugation $C$'
 

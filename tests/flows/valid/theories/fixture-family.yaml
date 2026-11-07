@@ -1,0 +1,15 @@
+# Synthetic test fixture. Not physics.
+id: fixture-family
+name: 'Fixture family'
+d: 3
+summary: 'Synthetic family whose member appears in a composite IR.'
+tags: [CFT]
+family:
+  parameter: n
+  members:
+    - {at: 1}
+    - {at: 2}
+references:
+  - key: src
+    title: 'Synthetic fixture source'
+    url: 'https://example.org/fixture-family'

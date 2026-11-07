@@ -13,25 +13,26 @@ tags: [CFT, interacting, non-unitary, critical phenomena]
 description: |
   A branched polymer is a connected cluster (a "lattice animal", or a tree) on a lattice. The
   number of $N$-site animals grows as $P(N) \sim N^{-\theta}\lambda^N$ and their size as
-  $R \sim N^\nu$. Their field theory is a cubic theory in a replica limit; Parisi and Sourlas
+  $R \sim N^\nu$. Their field theory is a cubic theory in a replica limit; Parisi and Sourlas [@parisi1981]
   interpreted it as a random-field model with cubic potential and showed that its supersymmetry relates branched polymers in $d$ dimensions to the Lee–Yang edge
-  singularity in $d-2$ dimensions. The upper critical dimension is therefore 8 (Kaviraj,
-  Rychkov and Trevisani), so the fixed point is interacting in $d = 7$, the only integer
+  singularity in $d-2$ dimensions. The upper critical dimension is therefore 8
+  [@kaviraj2020b, App. A.4], so the fixed point is interacting in $d = 7$, the only integer
   dimension above six where it is.
 
-  Brydges and Imbrie proved the dimensional reduction exactly for a continuum model of
+  Brydges and Imbrie [@brydges2003] proved the dimensional reduction exactly for a continuum model of
   branched polymers with manifest supersymmetry, mapping it to the hard-core gas at negative
   activity in $d-2$ dimensions, a microscopic realization of the Lee–Yang class. Kaviraj,
-  Rychkov and Trevisani showed in general how a $d$-dimensional Parisi–Sourlas supersymmetric
+  Rychkov and Trevisani [@kaviraj2020] showed in general how a $d$-dimensional Parisi–Sourlas supersymmetric
   CFT reduces to an ordinary CFT in $d-2$ dimensions. The predicted relations are
   $\theta(d) = \sigma_{\rm LY}(d-2) + 2$ and $\theta = (d-2)\nu + 1$. Monte Carlo simulations of
   lattice animals confirm them below the upper critical dimension. At $d = 8$ the exponents take
   the values $\theta = 5/2$, $\nu = 1/4$ with logarithmic corrections, and above $d = 8$ they stay
-  at these mean-field values, where the second relation no longer holds (Hsu, Nadler and
-  Grassberger, Table I).
+  at these mean-field values, where the second relation no longer holds
+  [@hsu2005, Table I].
 
 symmetry:
-  spacetime: 'conformal (Parisi–Sourlas superconformal symmetry of the supersymmetric description)'
+  spacetime: '7d conformal group with parity (the Parisi–Sourlas description also has a superconformal $OSp(8,1|2)$, which is not a Poincaré supersymmetry); Euclidean only (non-unitary statistical model)'
+  euclidean: '$O(8,1)$'
   supercharges: 0
   notes: 'The Parisi–Sourlas supersymmetry acts on a superspace with two Grassmann coordinates; it is not a Poincaré supersymmetry.'
 
@@ -39,25 +40,25 @@ quantities:
   - symbol: '\theta'
     description: 'Animal-number exponent, $P(N) \sim N^{-\theta}\lambda^N$'
     value: '2.40(2)'
-    method: Monte Carlo (site animals, unrestricted fit)
+    method: MC, site animals, unrestricted fit
     refs: [hsu2005]
     note: 'Table I. Imposing $\theta = (d-2)\nu + 1$ gives $2.390(9)$.'
   - symbol: '\theta'
     description: 'From the Parisi–Sourlas relation $\theta(7) = \sigma_{\rm LY}(5) + 2$'
     value: '2.3983(6)'
-    method: derived
-    refs: [brydges2003, borinsky2021]
-    note: 'With the 5d Lee–Yang exponent $\sigma = 0.3983(6)$ from the five-loop $6-\epsilon$ expansion (Borinsky et al., Table 4).'
+    method: 'ε-exp, 6 − ε, five loops, resummed, from σ of 5d Lee–Yang'
+    refs: ['borinsky2021, Table 4', brydges2003]
+    note: 'With the 5d Lee–Yang exponent $\sigma = 0.3983(6)$ from the five-loop $6-\epsilon$ expansion [@borinsky2021, Table 4].'
   - symbol: '\nu'
     description: 'Size exponent, $R \sim N^{\nu}$'
     value: '0.282(5)'
-    method: Monte Carlo (site animals, unrestricted fit)
+    method: MC, site animals, unrestricted fit
     refs: [hsu2005]
     note: 'Table I. Imposing $\theta = (d-2)\nu + 1$ gives $0.278(2)$.'
   - symbol: '\nu'
     description: 'From $\theta = (d-2)\nu + 1$ with the Parisi–Sourlas value of $\theta$'
     value: '0.27966(12)'
-    method: derived
+    method: 'ε-exp, 6 − ε, five loops, resummed, from θ'
     refs: [hsu2005, brydges2003, borinsky2021]
     note: '$\nu = (\theta - 1)/5$ with $\theta = 2.3983(6)$.'
 

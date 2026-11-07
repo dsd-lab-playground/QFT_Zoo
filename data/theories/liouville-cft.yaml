@@ -19,7 +19,7 @@ description: |
   is not a normalisable operator. It is unitary when $c$ is real and $c>1$.
 
   This page follows the conventions of Collier, Eberhardt, Mühlmann and
-  Rodriguez, *The Virasoro minimal string*. The operators $V_P$ are reflection
+  Rodriguez, *The Virasoro minimal string* [@cemr2024]. The operators $V_P$ are reflection
   symmetric, and the two- and three-point functions are the universal functions
   $\rho_0^{(b)}$ and $C_b$.
 
@@ -73,9 +73,9 @@ description: |
 
   together with the same equation for $b\to b^{-1}$. For $b^2\notin\mathbb{Q}$ these
   determine $C_b$ up to a constant, which the two-point function then fixes. The
-  formula was found by Dorn and Otto and by Zamolodchikov and Zamolodchikov,
-  derived from the bootstrap by Teschner, and later proved from the path integral
-  by Kupiainen, Rhodes and Vargas.
+  formula was found by Dorn and Otto [@dornotto1994] and by Zamolodchikov and
+  Zamolodchikov [@zz1996], derived from the bootstrap by Teschner [@teschner1995], and
+  later proved from the path integral by Kupiainen, Rhodes and Vargas [@krv2017].
 
   ### Correlation functions
 
@@ -106,7 +106,7 @@ description: |
   $$\Gamma_b(z+b)=\frac{\sqrt{2\pi}\,b^{bz-\frac{1}{2}}}{\Gamma(bz)}\,\Gamma_b(z),\qquad\Gamma_b(z+b^{-1})=\frac{\sqrt{2\pi}\,b^{-b^{-1}z+\frac{1}{2}}}{\Gamma(b^{-1}z)}\,\Gamma_b(z),$$
 
   with the normalisation $\Gamma_b(\frac{Q}{2})=1$. Up to this normalisation it is
-  the double gamma function of Barnes for periods $b$ and $b^{-1}$, and
+  the double gamma function of Barnes [@barnes1901] for periods $b$ and $b^{-1}$, and
   $\Gamma_b=\Gamma_{b^{-1}}$.
 
   **Integral representation.** For $\operatorname{Re}z>0$,
@@ -132,15 +132,15 @@ description: |
   $$a_b=\frac{b}{2}\log 2\pi+\frac{Q}{2}\log b-\gamma_{\rm E}\,b-\frac{A(b^2)}{b},\qquad d_b=\frac{\pi^2b^2}{12}-\frac{1}{2}\log b-\frac{B(b^2)}{2b^2}.$$
 
   **Single product.** Resumming one direction of the lattice gives the form due to
-  Barnes that is used for numerics at complex $z$ and $b$ (Alexanian and Kuznetsov;
-  Collier et al., *The complex Liouville string: The worldsheet*, Appendix B):
+  Barnes [@barnes1901] that is used for numerics at complex $z$ and $b$
+  [@ak2023; @cemr2025, App. B]:
 
   $$\Gamma_b(z)=\frac{f_b(z)}{f_b(\frac{Q}{2})},$$
 
   $$\begin{aligned}f_b(z)={}&(2\pi)^{\frac{bz}{2}}\,b^{\frac{z(Q-z)}{2}}\,\Gamma(bz)\,e^{-\frac{z}{b}A(b^2)-\frac{z^2}{2b^2}B(b^2)}\\&\times\prod_{m=1}^{\infty}\frac{\Gamma(bz+mb^2)}{\Gamma(mb^2)}\,e^{-bz\,\psi(mb^2)-\frac{1}{2}(bz)^2\psi'(mb^2)}.\end{aligned}$$
 
   The constants are built from the gamma modular forms $C(\tau)$ and $D(\tau)$ of
-  Barnes:
+  Barnes [@barnes1901]:
 
   $$A(\tau)=\frac{\tau}{2}\log(2\pi\tau)+\frac{1}{2}\log\tau-\tau\,C(\tau),\qquad B(\tau)=-\tau\log\tau-\tau^2D(\tau),$$
 
@@ -256,7 +256,7 @@ description: |
   ### Relation to the standard normalisation
 
   The operators $e^{2\alpha\phi}$ have the Zamolodchikov–Zamolodchikov form of the
-  DOZZ formula. With $\lambda=\pi\mu\,\gamma(b^2)\,b^{2-2b^2}$ and
+  DOZZ formula [@zz1996]. With $\lambda=\pi\mu\,\gamma(b^2)\,b^{2-2b^2}$ and
   $\gamma(x)=\Gamma(x)/\Gamma(1-x)$,
 
   $$C^{\rm ZZ}(\alpha_1,\alpha_2,\alpha_3)=\lambda^{\frac{Q-\sigma}{b}}\,\frac{\Upsilon_b'(0)\prod_{j=1}^{3}\Upsilon_b(2\alpha_j)}{\Upsilon_b(\sigma-Q)\prod_{j=1}^{3}\Upsilon_b(\sigma-2\alpha_j)},\qquad\sigma=\alpha_1+\alpha_2+\alpha_3.$$
@@ -282,7 +282,7 @@ parameters:
     range: '$\mu>0$'
 
 symmetry:
-  spacetime: conformal
+  spacetime: 'Two Virasoro algebras, $c = \bar c = 1 + 6Q^2$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: none
   notes: 'The chiral algebra is Virasoro at central charge $c$. Reflection $V_{-P}=V_P$ and duality $b\to b^{-1}$ are identifications, not symmetries.'
