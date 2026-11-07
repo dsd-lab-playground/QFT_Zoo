@@ -29,6 +29,9 @@ symmetry:
   lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$\mathbb{Z}_2$'
+  parity: true
+  global_group:
+    - {id: Z2, group: Z2}
 
 quantities:
   - symbol: '\lambda_{\sigma\sigma\epsilon}'
@@ -269,270 +272,309 @@ operators:
   - name: '\sigma'
     Delta: '0.518148806(24)'
     spin: 0
-    rep: '$\mathbb{Z}_2$-odd'
+    parity: even
+    global: {Z2: odd}
     method: CB
     refs: [chang2024]
   - name: '\epsilon'
     Delta: '1.41262528(29)'
     spin: 0
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: CB
     refs: [chang2024]
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: exact
     note: Stress tensor (conserved).
   - name: '\epsilon'
     Delta: '1.416(8)'
     spin: 0
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: FS
     refs: [zhou2026]
     note: '[@zhou2026, Table 1, p. 4]. Energies are calibrated so that $\Delta_\sigma$ equals its bootstrap value [@zhou2026, p. 19]; the error is the r.m.s. difference between three finite-size extrapolation choices [@zhou2026, p. 21], not a statistical error.'
   - name: "\\epsilon'"
     Delta: '3.82968(23)'
     spin: 0
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 2, p. 72]. Error: standard deviation over 60 extremal spectra at $\Lambda=43$, not rigorous [@simmonsduffin2016, App. A.3]. Leading irrelevant scalar: $\omega = \Delta_{\epsilon''}-3$.'
   - name: "\\epsilon'"
     Delta: '3.82951(61)'
     spin: 0
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: CB, rigorous
     refs: [reehorst2021]
     note: '[@reehorst2021, Table 1, p. 4; @reehorst2021, Eq. (4.1)], $\Lambda=31$. Rigorous, assuming $\Delta_{\sigma''}>3$ and no third $\mathbb{Z}_2$-even scalar below 6 [@reehorst2021, Sec. 4.1].'
   - name: "\\epsilon'"
     Delta: '3.86(3)'
     spin: 0
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: FS
     refs: [zhou2026]
     note: '[@zhou2026, Table 1, p. 4]; calibrated to bootstrap $\Delta_\sigma$; extrapolation error.'
   - name: "\\epsilon''"
     Delta: '6.8956(43)'
     spin: 0
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 2, p. 72], third $\mathbb{Z}_2$-even scalar in $\sigma\times\sigma$ and $\epsilon\times\epsilon$ (unnamed there). Error: standard deviation over 60 extremal spectra, not rigorous.'
   - name: "\\epsilon''"
     Delta: '6.96(5)'
     spin: 0
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: FS
     refs: [zhou2026]
     note: '[@zhou2026, Table 1, p. 4]; calibrated to bootstrap $\Delta_\sigma$; extrapolation error.'
   - name: "\\epsilon'''"
     Delta: '7.2535(51)'
     spin: 0
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 2, p. 72], fourth $\mathbb{Z}_2$-even scalar in $\sigma\times\sigma$ and $\epsilon\times\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.'
   - name: "\\epsilon'''"
     Delta: '7.1(2)'
     spin: 0
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: FS
     refs: [zhou2026]
     note: '[@zhou2026, Table 1, p. 4]; extrapolation error.'
   - name: "\\sigma'"
     Delta: '5.2906(11)'
     spin: 0
-    rep: '$\mathbb{Z}_2$-odd'
+    parity: even
+    global: {Z2: odd}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 2, p. 72]. Error: standard deviation over 60 extremal spectra, not rigorous.'
   - name: "\\sigma'"
     Delta: '5.262(89)'
     spin: 0
-    rep: '$\mathbb{Z}_2$-odd'
+    parity: even
+    global: {Z2: odd}
     method: CB, rigorous
     refs: [reehorst2021]
     note: '[@reehorst2021, Table 1, p. 4; @reehorst2021, Eq. (4.2)], $\Lambda=19$. Rigorous, assuming only two $\mathbb{Z}_2$-odd scalars below 6 and $\Delta_{\epsilon''}>3$.'
   - name: "\\sigma'"
     Delta: '5.34(4)'
     spin: 0
-    rep: '$\mathbb{Z}_2$-odd'
+    parity: even
+    global: {Z2: odd}
     method: FS
     refs: [zhou2026]
     note: '[@zhou2026, Table 1, p. 4]; extrapolation error.'
   - name: "T'_{\\mu\\nu}"
     Delta: '5.50915(44)'
     spin: 2
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 2, p. 72]. Error: standard deviation over 60 extremal spectra, not rigorous.'
   - name: "T'_{\\mu\\nu}"
     Delta: '5.499(17)'
     spin: 2
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: CB, rigorous
     refs: [reehorst2021]
     note: '[@reehorst2021, Table 1, p. 4; @reehorst2021, Eq. (4.4)], $\Lambda=19$. Rigorous, assuming only two $\mathbb{Z}_2$-even spin-2 operators below 6.'
   - name: "T'_{\\mu\\nu}"
     Delta: '5.549(13)'
     spin: 2
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: FS
     refs: [zhou2026]
     note: '[@zhou2026, Table 1, p. 4]; extrapolation error. **Disagrees** with the rigorous interval $5.499(17)$ (upper end 5.516) and with the estimate $5.50915(44)$ (by about $3\times$ its stated error).'
   - name: "T''_{\\mu\\nu}"
     Delta: '7.0758(58)'
     spin: 2
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 2, p. 72], third $\mathbb{Z}_2$-even spin-2 operator in these OPEs. Error: standard deviation over 60 extremal spectra, not rigorous.'
   - name: "T''_{\\mu\\nu}"
     Delta: '7.03(17)'
     spin: 2
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: FS
     refs: [zhou2026]
     note: '[@zhou2026, Table 1, p. 4]; extrapolation error.'
   - name: 'C_{\mu\nu\rho\sigma}'
     Delta: '5.022665(28)'
     spin: 4
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 2, p. 72]. Lightest $\mathbb{Z}_2$-even spin-4 operator; on a cubic lattice it gives the leading correction from broken rotation symmetry, $\omega_{\rm NR} = \Delta_C - 3$ (Hasenbusch [@hasenbusch2021, p. 6]). Error: standard deviation over 60 extremal spectra, not rigorous.'
   - name: "C'_{\\mu\\nu\\rho\\sigma}"
     Delta: '6.42065(64)'
     spin: 4
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 2, p. 72], second $\mathbb{Z}_2$-even spin-4 operator in these OPEs. Error: standard deviation over 60 extremal spectra, not rigorous.'
   - name: "C''_{\\mu\\nu\\rho\\sigma}"
     Delta: '7.38568(28)'
     spin: 4
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 2, p. 72], third $\mathbb{Z}_2$-even spin-4 operator in these OPEs. Error: standard deviation over 60 extremal spectra, not rigorous.'
   - name: '[\sigma\sigma]_{0,6}'
     Delta: '7.028488(16)'
     spin: 6
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 3, p. 73], also in [@simmonsduffin2016, Table 2]. Leading-twist $[\sigma\sigma]_0$ family; the last subscript is the spin. Error: standard deviation over 60 extremal spectra, not rigorous.'
   - name: '[\sigma\sigma]_{0,8}'
     Delta: '9.031023(30)'
     spin: 8
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 3, p. 73]; $[\sigma\sigma]_0$ family. Not rigorous.'
   - name: '[\sigma\sigma]_{0,10}'
     Delta: '11.0324141(99)'
     spin: 10
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 3, p. 73]; $[\sigma\sigma]_0$ family. Not rigorous.'
   - name: '[\sigma\sigma]_{0,12}'
     Delta: '13.033286(12)'
     spin: 12
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 3, p. 73]; $[\sigma\sigma]_0$ family. Not rigorous.'
   - name: '\sigma_{\mu\nu}'
     Delta: '4.180305(18)'
     spin: 2
-    rep: '$\mathbb{Z}_2$-odd'
+    parity: even
+    global: {Z2: odd}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 2, p. 72], lightest $\mathbb{Z}_2$-odd spin-2 operator in $\sigma\times\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.'
   - name: '\sigma_{\mu\nu}'
     Delta: '4.197(10)'
     spin: 2
-    rep: '$\mathbb{Z}_2$-odd'
+    parity: even
+    global: {Z2: odd}
     method: FS
     refs: [zhou2026]
     note: '[@zhou2026, Table 1, p. 4]; extrapolation error. About $1.7\times$ its error above the bootstrap estimate.'
   - name: "\\sigma'_{\\mu\\nu}"
     Delta: '6.9873(53)'
     spin: 2
-    rep: '$\mathbb{Z}_2$-odd'
+    parity: even
+    global: {Z2: odd}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 2, p. 72], second $\mathbb{Z}_2$-odd spin-2 operator in $\sigma\times\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.'
   - name: "\\sigma'_{\\mu\\nu}"
     Delta: '7.058(15)'
     spin: 2
-    rep: '$\mathbb{Z}_2$-odd'
+    parity: even
+    global: {Z2: odd}
     method: FS
     refs: [zhou2026]
     note: '[@zhou2026, Table 1, p. 4]; extrapolation error. **Disagrees** with the bootstrap estimate $6.9873(53)$ by about $4.4\times$ the combined stated errors.'
   - name: '\sigma_{\mu\nu\rho}'
     Delta: '4.63804(88)'
     spin: 3
-    rep: '$\mathbb{Z}_2$-odd'
+    parity: even
+    global: {Z2: odd}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 2, p. 72], lightest $\mathbb{Z}_2$-odd spin-3 operator in $\sigma\times\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.'
   - name: '\sigma_{\mu\nu\rho\sigma}'
     Delta: '6.112674(19)'
     spin: 4
-    rep: '$\mathbb{Z}_2$-odd'
+    parity: even
+    global: {Z2: odd}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 2, p. 72], lightest $\mathbb{Z}_2$-odd spin-4 operator in $\sigma\times\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.'
   - name: '\sigma_{\mu_1\cdots\mu_5}'
     Delta: '6.709778(27)'
     spin: 5
-    rep: '$\mathbb{Z}_2$-odd'
+    parity: even
+    global: {Z2: odd}
     method: CB-EFM
     refs: [simmonsduffin2016]
     note: '[@simmonsduffin2016, Table 2, p. 72], lightest $\mathbb{Z}_2$-odd spin-5 operator in $\sigma\times\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.'
   - name: '\sigma_{\mu}'
     Delta: '9.1(4)'
     spin: 1
-    rep: '$\mathbb{Z}_2$-odd, parity-even'
+    parity: even
+    global: {Z2: odd}
     method: FS
     refs: [zhou2026]
     note: '[@zhou2026, Table 1, p. 4; @zhou2026, p. 23]; lightest $\mathbb{Z}_2$-odd vector primary. Extrapolation error.'
   - name: 'V_{\mu}'
     Delta: '10.8(5)'
     spin: 1
-    rep: '$\mathbb{Z}_2$-even, parity-even'
+    parity: even
+    global: {Z2: even}
     method: FS
     refs: [zhou2026]
     note: '[@zhou2026, Table 1, p. 4; @zhou2026, p. 23]; lightest $\mathbb{Z}_2$-even vector primary seen; the paper relates it to the explanation of why the Ising fixed point is conformal and not only scale invariant. Extrapolation error.'
   - name: 'T^{-}_{\mu\nu}'
     Delta: '7.4(2)'
     spin: 2
-    rep: '$\mathbb{Z}_2$-even, parity-odd'
+    parity: odd
+    global: {Z2: even}
     method: FS
     refs: [zhou2026]
     note: '[@zhou2026, Table 1, p. 4; @zhou2026, p. 23]; lightest parity-odd spin-2 primary. Extrapolation error.'
   - name: '\epsilon^{-}'
     Delta: '\leq 10.9293'
     spin: 0
-    rep: '$\mathbb{Z}_2$-even, parity-odd'
+    parity: odd
+    global: {Z2: even}
     method: CB, rigorous
     refs: [chang2024]
     note: '[@chang2024, Eq. (5.5), p. 32]: rigorous upper bound at $\Lambda=27$ under the gap assumptions of [@chang2024, Table 6], from an OPE scan at each gap value, computed at a few representative points of the $\Lambda=43$ $(\Delta_\sigma,\Delta_\epsilon)$ island, which all give the same bound within the binary-search tolerance $10^{-4}$. With the extra assumption $\Delta_{\epsilon^{-\prime}} \geq 11.5$ (resp. $\geq 11$) they find $\Delta_{\epsilon^-} \geq 10.8790$ (resp. $\geq 10.5432$). The text calls this the $\mathbb{Z}_2$-even parity-odd scalar; the caption of [@chang2024, Fig. 9] says "parity-even, $\mathbb{Z}_2$-odd", apparently a typo.'
   - name: '\epsilon^{-}'
     Delta: '11.0(4)'
     spin: 0
-    rep: '$\mathbb{Z}_2$-even, parity-odd'
+    parity: odd
+    global: {Z2: even}
     method: FS
     refs: [zhou2026]
     note: '[@zhou2026, Table 1, p. 4; @zhou2026, pp. 22–23]. Consistent with the bootstrap bound; the next such primary is at $13.3(6)$, supporting the bootstrap''s assumption $\Delta_{\epsilon^{-\prime}} > 11.5$. The earlier fuzzy-sphere value $\approx 10.01$ [@zhu2022, Table I] was a descendant, not a primary.'
   - name: '\sigma^{-}'
     Delta: '12.8(7)'
     spin: 0
-    rep: '$\mathbb{Z}_2$-odd, parity-odd'
+    parity: odd
+    global: {Z2: odd}
     method: FS
     refs: [zhou2026]
     note: '[@zhou2026, Table 1, p. 4]; lightest $\mathbb{Z}_2$-odd parity-odd scalar primary. The earlier value $\approx 11.19$ [@zhu2022, Table I] was a descendant. Extrapolation error.'

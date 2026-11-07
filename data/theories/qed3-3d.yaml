@@ -78,6 +78,10 @@ symmetry:
   lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$SU(N_f)$ flavor, $U(1)_{\rm top}$ with current $j^{\rm top} = \star f/2\pi$ (charged operators are monopoles), charge conjugation, parity and time reversal'
+  parity: true
+  global_group:
+    - {id: SU(Nf), group: SU(N_f)}
+    - {id: U(1)_top, group: U(1), tex: 'U(1)_{\rm top}'}
   gauge: '$U(1)$'
   notes: 'At $N_f = 2$ the continuous symmetry acting faithfully is $(SU(2)\times U(1)_{\rm top})/\mathbb{Z}_2$, conjectured to enhance to $O(4)$.'
 
@@ -111,33 +115,38 @@ operators:
   - name: 'M_{1/2}'
     Delta: '0.265\,N_f - 0.0383 + O(1/N_f)'
     spin: 0
-    rep: 'unit topological charge; $SU(N_f)$ rank-$N_f/2$ antisymmetric tensor'
+    parity: pair
+    global: {SU(Nf): anti(N_f/2), U(1)_top: 1}
     method: 1/Nf
     refs: [pufu2013, dyer2013, borokhov2002, karthik2019]
     note: 'Minimal monopole; the $O(N_f)$ term is from Borokhov–Kapustin–Wu [@borokhov2002]. Lattice (noncompact QED [@karthik2019]): $3.24(24)$ at $N_f = 12$, and $\Delta/N_f$ larger at $N_f = 2, 4$ than at $12$, opposite to the sign of the $O(N_f^0)$ term.'
   - name: 'M_{1}'
     Delta: '0.673\,N_f - 0.194 + O(1/N_f)'
     spin: 0
-    rep: 'topological charge 2'
+    parity: pair
+    global: {SU(Nf): unknown, U(1)_top: 2}
     method: 1/Nf
     refs: [dyer2013]
   - name: '\bar\psi_i\psi^j - \tfrac{1}{N_f}\delta_i^j\bar\psi_k\psi^k'
     Delta: '2 - \frac{64}{3\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
-    rep: '$SU(N_f)$ adjoint'
+    parity: unknown
+    global: {SU(Nf): adjoint, U(1)_top: 0}
     method: 1/Nf
     refs: [hermele2005, chester2016b]
     note: 'In the staggered-flux spin liquid ($N_f = 4$) this multiplet contains the Néel vector and the VBS order parameters.'
   - name: '\bar\psi_k\psi^k'
     Delta: '2 + \frac{128}{3\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
-    rep: 'singlet, parity odd'
+    parity: odd
+    global: {SU(Nf): singlet, U(1)_top: 0}
     method: 1/Nf
     refs: [chester2016b]
   - name: '(\bar\psi\psi)^2,\ f_{\mu\nu}f^{\mu\nu}\ \text{mixtures}'
     Delta: '4 + \frac{64(2 \pm \sqrt7)}{3\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
-    rep: 'singlet, parity even'
+    parity: even
+    global: {SU(Nf): singlet, U(1)_top: 0}
     method: 1/Nf
     refs: [chester2016b]
     degeneracy: 2
@@ -145,20 +154,23 @@ operators:
   - name: 'M_{1/2}\ (N_f = 4)'
     Delta: '1.00\text{–}1.10'
     spin: 0
-    rep: 'unit topological charge, $SU(4)$ $\mathbf{6}$'
+    parity: pair
+    global: {SU(Nf): anti(N_f/2), U(1)_top: 1}
     method: CB, with gap assumptions
     refs: [albayrak2022]
     note: 'Island with $\Delta_{M_1} \le 2.50$ at $\Lambda = 39$; same island gives $1.03 \le \Delta \le 1.61$ for the adjoint bilinear. Large $N_f$: $1.022$.'
   - name: 'J_\mu^{\rm top},\ J_\mu^{SU(N_f)}'
     Delta: 2
     spin: 1
-    rep: 'singlet; $SU(N_f)$ adjoint'
+    parity: unknown
+    global: {SU(Nf): [singlet, adjoint], U(1)_top: 0}
     method: exact
     note: Conserved currents.
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: singlet
+    parity: even
+    global: {SU(Nf): singlet, U(1)_top: 0}
     method: exact
     note: Stress tensor (conserved).
 

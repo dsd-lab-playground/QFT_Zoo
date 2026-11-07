@@ -39,6 +39,9 @@ symmetry:
   lorentzian: '$PSU(2,2|4)$'
   supercharges: 16
   global: '$SU(4)_R$ R-symmetry'
+  parity: conditional
+  global_group:
+    - {id: SU(4)_R, group: SU(4), tex: 'SU(4)_R'}
   gauge: '$SU(N)$'
 
 quantities:
@@ -52,13 +55,17 @@ operators:
   - name: '\mathcal{O}_{\mathbf{20}^\prime} = \mathrm{Tr}\,\phi^{\{I}\phi^{J\}}'
     Delta: 2
     spin: 0
-    rep: '$\mathbf{20}^\prime$ of $SU(4)_R$'
+    parity: even
+    global: {SU(4)_R: 'Dynkin(0,2,0)'}
+    multiplet: {name: stress tensor, component: primary, type: half-BPS}
     method: exact
     note: 'Half-BPS superconformal primary of the stress-tensor multiplet; protected.'
   - name: '\mathcal{K} = \mathrm{Tr}\,\phi^I\phi^I'
     Delta: '2 + \frac{3\lambda}{4\pi^2} + O(\lambda^2)'
     spin: 0
-    rep: 'singlet'
+    parity: even
+    global: {SU(4)_R: singlet}
+    multiplet: {name: Konishi, component: primary, type: long}
     method: PT
     note: 'Konishi operator, the lightest unprotected operator; $\lambda = g^2_{\rm YM}N$, planar.'
     refs: [beisert2010]

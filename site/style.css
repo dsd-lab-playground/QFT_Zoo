@@ -164,6 +164,9 @@ table.ops .num { padding-left: 4px; padding-right: 4px; }
 .op-role.nowrap { white-space: nowrap; }
 .op-rep { color: var(--muted); font-size: 0.88em; }
 .op-rep:not(:last-child) { margin-bottom: 2px; }
+/* Structured entries: each group heading folds its group; the count of operators follows the heading. */
+table.ops .op-fold { color: var(--muted); font-size: 0.85em; margin-right: 3px; text-decoration: none; }
+table.ops .op-count { color: var(--muted); font-weight: 400; font-size: 0.82em; margin-left: 3px; }
 .op-group-none { color: var(--muted); font-weight: 400; font-style: italic; }
 .sub { color: var(--muted); font-size: 0.88rem; margin-top: 2px; }
 

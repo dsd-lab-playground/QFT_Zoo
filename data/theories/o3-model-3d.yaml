@@ -39,6 +39,9 @@ symmetry:
   lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$O(3)$'
+  parity: true
+  global_group:
+    - {id: O(3), group: O(3)}
 
 quantities:
   - symbol: '\nu'
@@ -116,70 +119,85 @@ operators:
   - name: '\phi_i'
     Delta: '0.51892(3)'
     spin: 0
-    rep: vector (order parameter)
+    parity: even
+    global: {O(3): vector}
+    role: order parameter
     method: MC
     refs: [hasenbusch2020]
   - name: '\phi_i'
     Delta: '0.518936(67)'
     spin: 0
-    rep: vector (order parameter)
+    parity: even
+    global: {O(3): vector}
+    role: order parameter
     method: CB, rigorous
     refs: [chester2020]
   - name: 't_{ij}'
     Delta: '1.20954(32)'
     spin: 0
-    rep: rank-2 symmetric traceless
+    parity: even
+    global: {O(3): sym(2)}
     method: CB
     refs: [chester2020]
     note: 'Uniaxial anisotropy; relevant.'
   - name: 't_{ij}'
     Delta: '1.2094(3)'
     spin: 0
-    rep: rank-2 symmetric traceless
+    parity: even
+    global: {O(3): sym(2)}
     method: MC
     refs: [hasenbusch2011]
   - name: 's'
     Delta: '1.5948(2)'
     spin: 0
-    rep: singlet (thermal)
+    parity: even
+    global: {O(3): singlet}
+    role: thermal
     method: MC
     refs: [hasenbusch2020]
   - name: 's'
     Delta: '1.59488(81)'
     spin: 0
-    rep: singlet (thermal)
+    parity: even
+    global: {O(3): singlet}
+    role: thermal
     method: CB, rigorous
     refs: [chester2020]
   - name: 'J_\mu^{[ij]}'
     Delta: 2
     spin: 1
-    rep: antisymmetric (adjoint)
+    parity: even
+    global: {O(3): adjoint}
     method: exact
     note: Conserved $O(3)$ currents.
   - name: 't_4'
     Delta: '2.9858(6)'
     spin: 0
-    rep: rank-4 symmetric traceless
+    parity: even
+    global: {O(3): sym(4)}
     method: MC
     refs: [hasenbusch2023]
     note: 'Relevant, so cubic anisotropy destabilizes the fixed point.'
   - name: 't_4'
     Delta: '< 2.99056'
     spin: 0
-    rep: rank-4 symmetric traceless
+    parity: even
+    global: {O(3): sym(4)}
     method: CB, rigorous
     refs: [chester2020]
     note: 'Upper bound.'
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: singlet
+    parity: even
+    global: {O(3): singlet}
     method: exact
     note: Stress tensor (conserved).
   - name: "s'"
     Delta: '3.759(2)'
     spin: 0
-    rep: singlet
+    parity: even
+    global: {O(3): singlet}
     method: MC, 3 + ω
     refs: [hasenbusch2020]
     note: Leading irrelevant singlet; controls corrections to scaling.

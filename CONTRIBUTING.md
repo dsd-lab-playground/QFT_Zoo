@@ -39,10 +39,10 @@ match the filename. See the existing entries for worked examples, e.g.
 | `lagrangian` | | LaTeX, shown in display mode |
 | `parameters` | | `symbol`, `description`, `range` |
 | `family` | | marks the entry as a family of theories (see *Families* below) |
-| `symmetry` | | `spacetime`, `euclidean`, `lorentzian` (the spacetime symmetry in both signatures, see *Spacetime symmetry* below), `supercharges` (number of real Poincaré supercharges $Q$; used for sorting, not shown on the page), `global`, `gauge`, `notes` |
+| `symmetry` | | `spacetime`, `euclidean`, `lorentzian` (the spacetime symmetry in both signatures, see *Spacetime symmetry* below), `supercharges` (number of real Poincaré supercharges $Q$; used for sorting, not shown on the page), `global` (in words), `parity` and `global_group` (structured; see *Operator representations*), `gauge`, `notes` |
 | `quantities` | | central charges, anomalies, OPE coefficients, exponents, …: `key`, `symbol`, `description`, `value`, `method`, `refs`, `note`, optional `category` and `relation` (see *How quantities are shown*) |
 | `conventions` | | normalizations shared by one category of quantities, e.g. `ope: 'Unit-normalized operators; blocks as in [@kos2016]'` |
-| `operators` | | `name`, `Delta`, `spin`, `weights` (2d: `(h, \bar h)`), `degeneracy`, `rep`, `method`, `refs`, `note` |
+| `operators` | | `name`, `Delta`, `spin`, `weights` (2d: `(h, \bar h)`), `lorentz`, `parity`, `global`, `role`, `multiplet`, `degeneracy`, `method`, `refs`, `note` (see *Operator representations*; older entries still use a free-text `rep`) |
 | `relations` | | `type`, `target`, `at`, `variant`, `note`; for flows also `id`, `flow`, `target_expr` (see below) |
 | `references` | yes | `key`, `title`, `authors`, `year`, `journal`, `note`, and at least one of `arxiv` / `doi` / `url` |
 | `contributors` | | GitHub usernames |
@@ -145,6 +145,52 @@ The colloquial names (conformal group, conformal symmetry, Poincaré group, supe
 group, Virasoro, parity, …) link to Wikipedia on the page automatically; don't add links
 yourself.
 
+### Operator representations
+
+Each operator records a **representation of the full symmetry group**: its spacetime part
+($\Delta$, spin or another Lorentz representation, parity) and an irrep of each factor of the
+global symmetry. How the page groups the operators is a fixed policy applied to that data.
+The full specification, with the label vocabulary, is
+[`docs/REPRESENTATIONS.md`](docs/REPRESENTATIONS.md); in short:
+
+```yaml
+symmetry:
+  global: '$SU(N_f)$ flavor, $U(1)_{\rm top}$ ...'   # in words, as before
+  parity: true                                       # true | false | conditional
+  global_group:                                      # the factors labels refer to; [] if none
+    - {id: SU(Nf), group: SU(N_f)}
+    - {id: U(1)_top, group: U(1), tex: 'U(1)_{\rm top}'}
+
+operators:
+  - name: '\bar\psi_k\psi^k'
+    Delta: '2 + \frac{128}{3\pi^2 N_f} + O(N_f^{-2})'
+    spin: 0
+    parity: odd                                      # even | odd | pair | unknown
+    global: {SU(Nf): singlet, U(1)_top: 0}           # a label for every factor, or unknown
+```
+
+- **Groups**: `Z2`, `Z_n`, `U(1)`, `O(N)`, `SO(N)`, `SU(N)`, `Sp(N)`, `S_n`, `D_n`, or `finite`
+  with its irreps listed; `N` may be a parameter. **Labels**: `even`/`odd` ($\mathbb{Z}_2$);
+  charges ($\mathbb{Z}_n$, $U(1)$); `singlet`, `vector`, `adjoint`, `sym(k)`, `anti(k)`,
+  `Y(rows)` ($O(N)$); `fundamental`, `antifundamental`, `adjoint`, `sym(k)`, `anti(k)`,
+  `'Dynkin(a,b,c)'` ($SU(N)$); `trivial`, `sign`, `standard` ($S_n$); `unknown` anywhere. The
+  build rejects a label that is not an irrep of the group.
+- **Parity** is stated for every operator when the theory has parity: `pair` when parity maps
+  the operator to a partner in another representation (2d spin $s \neq 0$, 4d $j \neq \bar\jmath$,
+  a charge reversed by parity), `unknown` rather than a guess. Time reversal (`T`) is recorded
+  only where it is not fixed by parity and the other labels through CRT (rare).
+- **Lorentz representations** other than symmetric traceless spin: `lorentz: '(1/2, 0)'` in 4d,
+  an $SO(d)$ highest weight `'[1, 1]'` in $d \ge 5$.
+- **Remarks** such as "order parameter", "thermal", "superpartner of $\sigma$" are never part of
+  the representation: use `role`, or `multiplet: {name: '$\sigma$', component: Q}` in
+  supersymmetric theories.
+- **Tables** group by global irrep (trivial first, then each group type's natural order, factors
+  in their declared order), then by parity (even first), and order each group by spin, then
+  $\Delta$. A label shared by every operator is said once above the table; a table where no group
+  would hold two operators is flat, with the labels as columns.
+- **Older entries** still give a free-text `rep`; it is accepted and counted by the build
+  (`! N operator rep(s) ... still free text`) until they are migrated.
+
 ### Writing LaTeX in YAML
 
 - **Wrap LaTeX in single quotes**: `global: '$\mathbb{Z}_2$'`. In single-quoted
@@ -152,7 +198,7 @@ yourself.
   a literal `'` inside single quotes, write `''`.
 - For multi-line text use a block scalar (`description: |`), which also keeps
   backslashes literal.
-- **Prose fields** (`name`, `summary`, `description`, `note`, `rep`, `global`, …)
+- **Prose fields** (`name`, `summary`, `description`, `note`, `role`, `global`, …)
   are Markdown: write math as `$...$` or `$$...$$`.
 - **Math-only fields** (`lagrangian`, `symbol`, operator `name`, `value`,
   `Delta`, `spin`) are typeset as math automatically: **no `$` signs**.

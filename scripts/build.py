@@ -30,6 +30,7 @@ from jsonschema import Draft202012Validator
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from zoo_spectrum import SPECTRA, SPECTRUM_SCHEMA, check as check_spectrum, expected_path  # noqa: E402
+from reps import check_entry_reps, direct_sums, legacy_reps  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 THEORIES = ROOT / "data" / "theories"
@@ -362,6 +363,7 @@ def check_entry(data: dict, rel: str) -> list[str]:
     errs += check_flows(data, rel, keys)
     errs += check_citations(data, rel, keys)
     errs += check_methods(data, rel)
+    errs += check_entry_reps(data, rel)
     return errs
 
 
@@ -601,6 +603,7 @@ def load_all() -> tuple[list[dict], list[str]]:
     if tmpl is not None:
         errors += schema_errors(validator, tmpl, show_path(TEMPLATE))
         errors += check_methods(tmpl, show_path(TEMPLATE))
+        errors += check_entry_reps(tmpl, show_path(TEMPLATE))
 
     entries = []
     for path in sorted(THEORIES.glob("*.yaml")):
@@ -830,6 +833,14 @@ def main() -> int:
     print(f"✓ {len(methods)} methods listed; {sum(m['rows'] for m in methods)} rows name one by abbreviation")
     if n_legacy:
         print(f"! {n_legacy} method(s) still free text instead of an abbreviation from data/methods.yaml (CONTRIBUTING.md, Methods)")
+    n_struct = sum("global_group" in (e.get("symmetry") or {}) for e in entries)
+    n_rep, n_rep_entries = legacy_reps(entries)
+    print(f"✓ {n_struct} entries give structured operator representations (docs/REPRESENTATIONS.md)")
+    if n_rep:
+        print(f"! {n_rep} operator rep(s) in {n_rep_entries} entries still free text instead of structured "
+              f"`global` / `parity` (docs/REPRESENTATIONS.md)")
+    if (n := direct_sums(entries)):
+        print(f"! {n} operator row(s) list several irreps at once (a direct sum); one row per irrep is clearer")
 
     if args.check:
         return 0

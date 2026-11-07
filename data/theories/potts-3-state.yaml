@@ -11,6 +11,9 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac45$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$S_3$'
+  parity: true
+  global_group:
+    - {id: S3, group: S_3}
 
 quantities:
 - key: c
@@ -32,27 +35,33 @@ operators:
   spin: 0
   weights: '(\tfrac{1}{15}, \tfrac{1}{15})'
   degeneracy: 2
-  rep: '$\mathbb{Z}_3$ charge $\pm1$'
+  parity: even
+  global: {S3: standard}
 - name: '\epsilon'
   Delta: '4/5'
   spin: 0
   weights: '(\tfrac{2}{5}, \tfrac{2}{5})'
-  rep: singlet
+  parity: even
+  global: {S3: trivial}
 - name: 'Z,\ Z^\dagger'
   Delta: '4/3'
   spin: 0
   weights: '(\tfrac{2}{3}, \tfrac{2}{3})'
   degeneracy: 2
-  rep: '$\mathbb{Z}_3$ charge $\pm1$'
+  parity: even
+  global: {S3: standard}
 - name: X
   Delta: '14/5'
   spin: 0
   weights: '(\tfrac{7}{5}, \tfrac{7}{5})'
-  rep: singlet
+  parity: even
+  global: {S3: trivial}
 - name: 'W,\ \bar W'
   Delta: 3
   spin: 3
   weights: '(3,0),\ (0,3)'
+  parity: pair
+  global: {S3: unknown}
   note: Spin-3 currents of the extended chiral algebra.
 
 relations:
