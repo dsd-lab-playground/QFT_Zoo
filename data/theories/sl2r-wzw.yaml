@@ -27,7 +27,7 @@ description: |
   except for the trivial one, and the model cannot be continued to a Euclidean worldsheet because its Hamiltonian is
   not positive definite (Maldacena and Ooguri). In string theory this is acceptable: the requirement is that physical
   states have non-negative norm after the Virasoro constraints are imposed. For bosonic strings on $AdS_3\times M$
-  with NS–NS flux, with a CFT for $M$ of central charge $26-\frac{3k}{k-2}$, the no-ghost theorem states that the
+  with NS–NS flux, with a **unitary** CFT for $M$ of central charge $26-\frac{3k}{k-2}$ (which requires $c_M \geq 0$, i.e. $k \geq \frac{52}{23}$, a stronger condition than $k > 2$; derived), the no-ghost theorem states that the
   constraints $(L_n+L^M_n-\delta_{n,0})|\text{phys}\rangle=0$, $n\geq0$, remove all negative-norm states from the
   continuous representations and from the discrete ones with $0<j<\frac{k}{2}$, including all their spectral flows.
 
