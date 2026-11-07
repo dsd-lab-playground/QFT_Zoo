@@ -18,10 +18,10 @@ description: |
 
   In five-dimensional Minkowski space there are no Majorana spinors, and the
   minimal spinor has 8 real components, the content of one Dirac spinor
-  (Van Proeyen, Table 2). Where the Majorana condition is not available one can
+  [@vanproeyen1999, Table 2]. Where the Majorana condition is not available one can
   instead impose a symplectic Majorana condition
   $(\lambda^i)^* = B\,\Omega_{ij}\lambda^j$ on a pair of spinors $\lambda^{1,2}$,
-  with $\Omega$ antisymmetric (Van Proeyen, eq. (3.27)). A symplectic-Majorana pair
+  with $\Omega$ antisymmetric [@vanproeyen1999, Eq. (3.27)]. A symplectic-Majorana pair
   has the same 8 real components as one Dirac spinor, so it describes the same free
   field. The data below are for one Dirac fermion.
 
@@ -29,10 +29,10 @@ description: |
   dimensions, it is odd under a reflection of one coordinate.
 
   ### Sphere free energy
-  Giombi and Klebanov define $\tilde F = \sin(\pi d/2)\log Z_{S^d} = -\sin(\pi d/2)\,F$,
+  Giombi and Klebanov [@giombi2014] define $\tilde F = \sin(\pi d/2)\log Z_{S^d} = -\sin(\pi d/2)\,F$,
   with $F = -\log Z_{S^d}$, so that $\tilde F = \log Z_{S^5} = -F$ in $d=5$. Their
-  fermion integral, eq. (2.6), is normalized per spinor component, with
-  ${\rm Tr}\,\mathbb{1} = 2^{[d/2]}$; Klebanov, Pufu and Safdi tabulate $F$ of a Dirac
+  fermion integral [@giombi2014, Eq. (2.6)] is normalized per spinor component, with
+  ${\rm Tr}\,\mathbb{1} = 2^{[d/2]}$; Klebanov, Pufu and Safdi [@klebanov2011, Table 2] tabulate $F$ of a Dirac
   fermion divided by $\dim\gamma = 2^{(d-1)/2}$. Both factors equal 4 in $d=5$.
 
 lagrangian: '\mathcal{L} = \bar\psi\,\gamma^\mu\partial_\mu\psi'
@@ -45,17 +45,17 @@ symmetry:
 
 quantities:
   - symbol: '\tilde F'
-    description: 'Sphere free energy of one Dirac fermion in the convention of Giombi and Klebanov, $\tilde F = \sin(\pi d/2)\log Z_{S^d}$; at $d=5$, $\tilde F = \log Z_{S^5} = -F$'
+    description: 'Sphere free energy of one Dirac fermion in the convention of Giombi and Klebanov [@giombi2014], $\tilde F = \sin(\pi d/2)\log Z_{S^d}$; at $d=5$, $\tilde F = \log Z_{S^5} = -F$'
     value: '\frac{1}{2^6}\left(6\log 2 + \frac{10\zeta(3)}{\pi^2} + \frac{15\zeta(5)}{\pi^4}\right) \approx 8.65\times 10^{-2}'
     method: derived
     refs: [klebanov2011, giombi2014]
-    note: 'Klebanov, Pufu and Safdi, Table 2, give $F_D/\dim\gamma = \frac{-1}{2^8}\left(6\log 2 + \frac{10\zeta(3)}{\pi^2} + \frac{15\zeta(5)}{\pi^4}\right) \approx -2.16\times10^{-2}$, with $\dim\gamma = 4$ in $d=5$. Multiplying by 4 and flipping the sign (Giombi–Klebanov eq. (1.5)) gives this value. Four times a numerical evaluation of Giombi–Klebanov eq. (2.6) at $d=5$ gives the same number.'
+    note: 'Klebanov, Pufu and Safdi [@klebanov2011, Table 2] give $F_D/\dim\gamma = \frac{-1}{2^8}\left(6\log 2 + \frac{10\zeta(3)}{\pi^2} + \frac{15\zeta(5)}{\pi^4}\right) \approx -2.16\times10^{-2}$, with $\dim\gamma = 4$ in $d=5$. Multiplying by 4 and flipping the sign [@giombi2014, Eq. (1.5)] gives this value. Four times a numerical evaluation of [@giombi2014, Eq. (2.6)] at $d=5$ gives the same number.'
   - symbol: 'C_T'
     description: 'Stress-tensor two-point coefficient of one Dirac fermion, in the absolute Osborn–Petkou normalization $\langle T_{\mu\nu}(x)T_{\sigma\rho}(0)\rangle = C_T\,\mathcal{I}_{\mu\nu,\sigma\rho}(x)/x^{2d}$'
     value: '\frac{45}{32\pi^4}'
     method: derived
     refs: [osborn1994, diab2016, giombi2014]
-    note: 'From $C_T = {\rm Tr}\,\mathbb{1}\,\frac{d}{2S_d^2}$ per Dirac fermion (Osborn–Petkou eq. (5.6), in the form quoted by Diab et al.), with $S_d = 2\pi^{d/2}/\Gamma(d/2)$, at $d=5$: $S_5 = 8\pi^2/3$ and ${\rm Tr}\,\mathbb{1} = 4$. Osborn–Petkou write the factor ${\rm Tr}\,\mathbb{1}$ as $2^{d/2}$, its value in even $d$; for odd $d$ the trace is $2^{[d/2]}$ (Giombi–Klebanov, below eq. (2.2)).'
+    note: 'From $C_T = {\rm Tr}\,\mathbb{1}\,\frac{d}{2S_d^2}$ per Dirac fermion [@osborn1994, Eq. (5.6)], in the form quoted by Diab et al. [@diab2016, fn. 2], with $S_d = 2\pi^{d/2}/\Gamma(d/2)$, at $d=5$: $S_5 = 8\pi^2/3$ and ${\rm Tr}\,\mathbb{1} = 4$. Osborn–Petkou write the factor ${\rm Tr}\,\mathbb{1}$ as $2^{d/2}$, its value in even $d$; for odd $d$ the trace is $2^{[d/2]}$ [@giombi2014, Eq. (2.2)].'
   - symbol: 'C_T/C_T^{\rm scalar}'
     description: 'The same, relative to one free real scalar in $d=5$ ($C_T^{\rm scalar} = \frac{45}{256\pi^4}$)'
     value: '8'
@@ -70,7 +70,7 @@ operators:
     rep: 'charge $1$'
     method: exact
     refs: [osborn1994, giombi2014]
-    note: 'From $\langle\psi(x)\bar\psi(0)\rangle = \frac{1}{S_d}\frac{\gamma\cdot x}{x^d}$ (Osborn–Petkou eq. (5.3)); $\Delta = (d-1)/2$.'
+    note: 'From $\langle\psi(x)\bar\psi(0)\rangle = \frac{1}{S_d}\frac{\gamma\cdot x}{x^d}$ [@osborn1994, Eq. (5.3)]; $\Delta = (d-1)/2$.'
   - name: '\bar\psi\psi'
     Delta: 4
     spin: 0

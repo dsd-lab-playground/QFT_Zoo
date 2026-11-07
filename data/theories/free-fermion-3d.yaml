@@ -15,8 +15,7 @@ description: |
   A two-component Majorana fermion $\psi$ has $\Delta_\psi = 1$. Its mass operator
   $\bar\psi\psi$ ($\Delta = 2$) is odd under parity and time reversal, so these
   symmetries forbid a mass. A gapless Majorana fermion protected by time reversal
-  appears on the surface of a $3+1$d topological superconductor (Grover, Sheng and
-  Vishwanath). Coupling $N$ Majorana fermions to a real pseudoscalar through
+  appears on the surface of a $3+1$d topological superconductor [@grover2014]. Coupling $N$ Majorana fermions to a real pseudoscalar through
   $\phi\,\bar\psi_i\psi_i$, with the scalar mass tuned, gives the $O(N)$
   Gross–Neveu–Yukawa fixed points.
 
@@ -25,20 +24,20 @@ description: |
   unless stated; for a Dirac fermion $F$ and $C_T$ are twice as large. A single Dirac
   fermion has the parity anomaly: with its $U(1)$ coupled to a background gauge field it
   is time-reversal invariant only as the boundary of a $3+1$d topological insulator
-  (Seiberg, Senthil, Wang and Witten).
+  [@seiberg2016].
 
   ### Duality web
-  Seiberg, Senthil, Wang and Witten take as a seed the duality between a free Dirac
+  Seiberg, Senthil, Wang and Witten [@seiberg2016] take as a seed the duality between a free Dirac
   fermion coupled to a background spin$^c$ connection $A$ and the $O(2)$ Wilson–Fisher
   scalar whose $U(1)$ is gauged by a dynamical $b$ with a level-1 Chern–Simons term,
   $$i\bar\Psi\gamma^\mu D^{A}_\mu\Psi \;\longleftrightarrow\; |D_b\phi|^2 - |\phi|^4 + \tfrac{1}{4\pi}\,b\,db + \tfrac{1}{2\pi}\,b\,dA .$$
   Gauging background fields and adding Chern–Simons counterterms then gives a web of
-  dualities (Seiberg, Senthil, Wang and Witten; Karch and Tong), including bosonic
+  dualities [@seiberg2016; @karch2016], including bosonic
   particle–vortex duality (the $O(2)$ model and scalar QED$_3$) and its fermionic
   counterpart, which relates the free Dirac fermion to a Dirac fermion coupled to a
-  dynamical $U(1)$ gauge field. The fermionic version was proposed by Son for the
+  dynamical $U(1)$ gauge field. The fermionic version was proposed by Son [@son2015] for the
   half-filled Landau level, and by Wang and Senthil and by Metlitski and Vishwanath for
-  topological-insulator surfaces (references in Seiberg et al.); Seiberg et al. give it
+  topological-insulator surfaces (references in [@seiberg2016]); Seiberg et al. [@seiberg2016] give it
   with properly quantized Chern–Simons terms. These are infrared dualities, conjectured
   rather than proven.
 
@@ -68,7 +67,7 @@ quantities:
     value: '1'
     method: derived
     refs: [osborn1993, diab2016, fei2016]
-    note: 'From $C_T^{\rm sc} = \frac{d}{(d-1)S_d^2}$ and $C_T^{\rm fer} = {\rm Tr}\,\mathbb{1}\,\frac{d}{2S_d^2}$ with ${\rm Tr}\,\mathbb{1} = 2$, a two-component Dirac fermion has twice the $C_T$ of a real scalar (as also used by Fei et al.); a Majorana fermion has half of that.'
+    note: 'From $C_T^{\rm sc} = \frac{d}{(d-1)S_d^2}$ and $C_T^{\rm fer} = {\rm Tr}\,\mathbb{1}\,\frac{d}{2S_d^2}$ with ${\rm Tr}\,\mathbb{1} = 2$, a two-component Dirac fermion has twice the $C_T$ of a real scalar (as also used by Fei et al. [@fei2016]); a Majorana fermion has half of that.'
 
 operators:
   - name: '\psi'
@@ -103,7 +102,7 @@ relations:
     note: '$N$ free Majorana fermions plus a real scalar with a Yukawa coupling flow to the GNY fixed point; the Gross–Neveu UV fixed point flows back to $N$ free Majorana fermions.'
   - type: related_to
     target: o2-model-3d
-    note: 'A free Dirac fermion is dual to the $O(2)$ Wilson–Fisher fixed point with its $U(1)$ gauged at Chern–Simons level 1 (Seiberg, Senthil, Wang and Witten).'
+    note: 'A free Dirac fermion is dual to the $O(2)$ Wilson–Fisher fixed point with its $U(1)$ gauged at Chern–Simons level 1 [@seiberg2016].'
 
 references:
   - key: klebanov2011
