@@ -42,64 +42,64 @@ quantities:
   - symbol: '\nu'
     description: 'Correlation-length exponent, $\nu = 1/(3-\Delta_s)$'
     value: '0.71164(10)'
-    method: Monte Carlo (improved icosahedral model)
+    method: MC, improved icosahedral model
     refs: [hasenbusch2020]
     note: 'Conformal bootstrap: $0.71168(41)$ (rigorous) [@chester2020].'
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 1$'
     value: '0.03784(5)'
-    method: Monte Carlo (improved icosahedral model)
+    method: MC, improved icosahedral model
     refs: [hasenbusch2020]
     note: 'Conformal bootstrap: $0.03787(13)$ (rigorous) [@chester2020].'
   - symbol: '\alpha'
     description: 'Specific-heat exponent, $\alpha = 2 - 3\nu$'
     value: '-0.1349(3)'
-    method: derived from ν
+    method: derived, from ν
     refs: [hasenbusch2020]
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent, $\omega = \Delta_{s^\prime} - 3$'
     value: '0.759(2)'
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2020]
   - symbol: 'Y_4'
     description: 'RG eigenvalue of the cubic perturbation, $Y_4 = 3 - \Delta_{t_4}$'
     value: '0.0142(6)'
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2023]
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to three free real scalars'
     value: '0.944524(28)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2020]
   - symbol: 'C_J/C_J^{\rm free}'
     description: 'Current two-point coefficient, relative to three free real scalars'
     value: '0.90632(16)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2020]
   - symbol: '\lambda_{\phi\phi s}'
     description: OPE coefficient
     value: '0.524261(59)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2020]
   - symbol: '\lambda_{sss}'
     description: OPE coefficient
     value: '0.5055(11)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2020]
   - symbol: '\lambda_{tts}'
     description: OPE coefficient
     value: '0.98348(39)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2020]
   - symbol: '\lambda_{\phi\phi t}'
     description: OPE coefficient
     value: '0.87451(22)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2020]
   - symbol: '\lambda_{ttt}'
     description: OPE coefficient
     value: '1.49957(49)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2020]
 
 operators:
@@ -107,21 +107,21 @@ operators:
     Delta: '0.51892(3)'
     spin: 0
     rep: vector (order parameter)
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2020]
     note: 'Bootstrap: $0.518936(67)$ (rigorous).'
   - name: 't_{ij}'
     Delta: '1.20954(32)'
     spin: 0
     rep: rank-2 symmetric traceless
-    method: conformal bootstrap
+    method: CB
     refs: [chester2020, hasenbusch2011]
     note: 'Monte Carlo: $1.2094(3)$ [@hasenbusch2011]. Uniaxial anisotropy; relevant.'
   - name: 's'
     Delta: '1.5948(2)'
     spin: 0
     rep: singlet (thermal)
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2020]
     note: 'Bootstrap: $1.59488(81)$ (rigorous).'
   - name: 'J_\mu^{[ij]}'
@@ -134,7 +134,7 @@ operators:
     Delta: '2.9858(6)'
     spin: 0
     rep: rank-4 symmetric traceless
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2023]
     note: 'Bootstrap bound $\Delta_{t_4} < 2.99056$ (rigorous) [@chester2020]. Relevant, so cubic anisotropy destabilizes the fixed point.'
   - name: 'T_{\mu\nu}'
@@ -147,7 +147,7 @@ operators:
     Delta: '3.759(2)'
     spin: 0
     rep: singlet
-    method: Monte Carlo (3 + ω)
+    method: MC, 3 + ω
     refs: [hasenbusch2020]
     note: Leading irrelevant singlet; controls corrections to scaling.
 

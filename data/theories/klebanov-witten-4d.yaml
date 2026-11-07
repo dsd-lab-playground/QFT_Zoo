@@ -68,19 +68,19 @@ quantities:
   - symbol: 'a'
     description: 'Euler conformal anomaly (a free chiral multiplet has $a = \tfrac{1}{48}$)'
     value: '\frac{27N^2}{64} - \frac{3}{8}'
-    method: derived (anomaly matching)
+    method: derived, anomaly matching
     refs: [kw1998, iw2003]
     note: 'From $a = \tfrac{3}{32}(3\mathrm{Tr}R^3 - \mathrm{Tr}R)$ with $2(N^2-1)$ gauginos ($R=1$) and $4N^2$ chiral fermions ($R=-\tfrac12$): $\mathrm{Tr}R = -2$, $\mathrm{Tr}R^3 = \tfrac32 N^2 - 2$.'
   - symbol: 'c'
     description: 'Weyl conformal anomaly (a free chiral multiplet has $c = \tfrac{1}{24}$)'
     value: '\frac{27N^2}{64} - \frac{1}{4}'
-    method: derived (anomaly matching)
+    method: derived, anomaly matching
     refs: [kw1998, iw2003]
     note: 'From $c = \tfrac{1}{32}(9\mathrm{Tr}R^3 - 5\mathrm{Tr}R)$ with the same traces, so $c - a = \tfrac18$.'
   - symbol: 'a = c'
     description: 'Leading large-$N$ value'
     value: '\frac{27N^2}{64}'
-    method: holography (supergravity) and anomaly matching
+    method: AdS/CFT, supergravity, with anomaly matching
     refs: [gubser1998]
     note: 'Gubser [@gubser1998] finds $c/c_0 = 27/16$ relative to $\mathcal{N}=4$ $U(N)$ SYM with $c_0 = N^2/4$, equal to $\mathrm{Vol}(S^5)/\mathrm{Vol}(T^{1,1})$, and $a_{\rm IR}/a_{\rm UV} = c_{\rm IR}/c_{\rm UV} = 27/32$ relative to the $\mathbb{Z}_2$ orbifold theory ($a = c = N^2/2$). The ratio $27/32$ is to the orbifold, not to $\mathcal{N}=4$ SYM.'
 

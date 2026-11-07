@@ -87,29 +87,29 @@ quantities:
   - symbol: '\eta'
     description: 'Anomalous dimension of the order parameter, $\eta = 2\Delta_\phi - 1$'
     value: '\frac{8}{3\pi^2 N} - \frac{512}{27\pi^4 N^2} + O(N^{-3})'
-    method: large N
+    method: 1/N
     refs: [henriksson2022, hasenbusch2022]
   - symbol: '\nu'
     description: 'Correlation-length exponent, $\nu = 1/(3-\Delta_s)$'
     value: '1 - \frac{32}{3\pi^2 N} - \left(\frac{9\pi^2}{2} - \frac{56}{3}\right)\left(\frac{8}{3\pi^2}\right)^2\frac{1}{N^2} + O(N^{-3})'
-    method: large N
+    method: 1/N
     refs: [hasenbusch2022]
     note: 'Series as collected in [@hasenbusch2022, App. B]; it agrees with $1/(3-\Delta_s)$ for $\Delta_s$ below.'
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N$ free real scalars'
     value: '1 - \frac{40}{9\pi^2 N} + O(N^{-2})'
-    method: large N
+    method: 1/N
     refs: [petkou1995, henriksson2022]
   - symbol: 'C_J/C_J^{\rm free}'
     description: 'Current two-point coefficient, relative to $N$ free real scalars'
     value: '1 - \frac{64}{9\pi^2 N} + O(N^{-2})'
-    method: large N
+    method: 1/N
     refs: [henriksson2022]
     note: 'At $N=20$ this gives $0.964$, against the bootstrap value $0.9674(8)$ [@kos2015].'
   - symbol: 'F'
     description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$, with $F_s = \frac{\log 2}{8} - \frac{3\zeta(3)}{16\pi^2}$ the value for one free real scalar'
     value: 'N F_s - \frac{\zeta(3)}{8\pi^2} + O(1/N)'
-    method: large N
+    method: 1/N
     refs: [klebanov2011]
     note: 'A conjectured formula for the next term, checked against the $\epsilon$-expansion, gives $+\frac{4}{9\pi^2 N}$ [@tarnopolsky2016].'
 
@@ -118,19 +118,19 @@ operators:
     Delta: '\frac{1}{2} + \frac{4}{3\pi^2 N} - \frac{256}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: vector (order parameter)
-    method: large N
+    method: 1/N
     refs: [henriksson2022]
   - name: 't_{ij}'
     Delta: '1 + \frac{32}{3\pi^2 N} - \frac{512}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: rank-2 symmetric traceless
-    method: large N
+    method: 1/N
     refs: [henriksson2022]
   - name: 's'
     Delta: '2 - \frac{32}{3\pi^2 N} - \left(\frac{32}{\pi^2} - \frac{512}{27\pi^4}\right)\frac{1}{N^2} + O(N^{-3})'
     spin: 0
     rep: singlet (thermal; $\sigma$ at large $N$)
-    method: large N
+    method: 1/N
     refs: [henriksson2022]
   - name: 'J_\mu^{[ij]}'
     Delta: 2
@@ -142,7 +142,7 @@ operators:
     Delta: '2 + \frac{160}{3\pi^2 N} - \left(\frac{42496}{27\pi^4} - \frac{128}{\pi^2}\right)\frac{1}{N^2} + O(N^{-3})'
     spin: 0
     rep: rank-4 symmetric traceless
-    method: large N
+    method: 1/N
     refs: [henriksson2022]
     note: 'Relevant at large $N$, so cubic anisotropy destabilizes the fixed point.'
   - name: 'T_{\mu\nu}'
@@ -155,7 +155,7 @@ operators:
     Delta: '4 - \frac{64}{3\pi^2 N} - \left(\frac{64}{\pi^2} - \frac{13312}{27\pi^4}\right)\frac{1}{N^2} + O(N^{-3})'
     spin: 0
     rep: singlet ($\sigma^2$ at large $N$)
-    method: large N
+    method: 1/N
     refs: [henriksson2022]
     note: 'Leading irrelevant singlet; $\omega = \Delta_{s^\prime} - 3$ agrees with the large-$N$ series for $\omega$ in [@hasenbusch2022].'
 

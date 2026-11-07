@@ -39,7 +39,7 @@ quantities:
   - symbol: '\theta'
     description: 'Animal-number exponent, $P(N) \sim N^{-\theta}\lambda^N$'
     value: '2.40(2)'
-    method: Monte Carlo (site animals, unrestricted fit)
+    method: MC, site animals, unrestricted fit
     refs: [hsu2005]
     note: 'Table I. Imposing $\theta = (d-2)\nu + 1$ gives $2.390(9)$.'
   - symbol: '\theta'
@@ -51,7 +51,7 @@ quantities:
   - symbol: '\nu'
     description: 'Size exponent, $R \sim N^{\nu}$'
     value: '0.282(5)'
-    method: Monte Carlo (site animals, unrestricted fit)
+    method: MC, site animals, unrestricted fit
     refs: [hsu2005]
     note: 'Table I. Imposing $\theta = (d-2)\nu + 1$ gives $0.278(2)$.'
   - symbol: '\nu'

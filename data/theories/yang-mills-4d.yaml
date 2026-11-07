@@ -40,7 +40,7 @@ quantities:
   - symbol: 'b_0'
     description: 'One-loop beta function coefficient, $\beta(g) = -\frac{b_0}{16\pi^2}g^3 + O(g^5)$'
     value: '\frac{11N}{3}'
-    method: perturbation theory
+    method: PT
     refs: [grosswilczek1973, politzer1973]
 
 references:

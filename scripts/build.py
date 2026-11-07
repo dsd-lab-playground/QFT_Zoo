@@ -36,6 +36,8 @@ THEORIES = ROOT / "data" / "theories"
 OPERATIONS = ROOT / "data" / "operations"
 TEMPLATE = ROOT / "data" / "TEMPLATE.yaml"
 SCHEMA = ROOT / "schema" / "theory.schema.json"
+METHODS = ROOT / "data" / "methods.yaml"
+METHODS_SCHEMA = ROOT / "schema" / "methods.schema.json"
 SITE_SRC = ROOT / "site"
 OUT = ROOT / "_site"
 
@@ -254,6 +256,93 @@ def legacy_citations(entries: list[dict]) -> int:
     return sum(len(_LEGACY.findall(s)) for e in entries for _, s in prose_strings(e))
 
 
+# ---------------------------------------------------------------- methods
+# A row's `method` is an abbreviation from data/methods.yaml, optionally followed by ", qualifier"
+# ('CB', 'MC-BC, isotropic'). Text with a space before the first comma is legacy free text
+# ('Monte Carlo (pivot algorithm)'): accepted and counted until it is migrated. See CONTRIBUTING.md, "Methods".
+METHOD_INDEX: dict[str, dict] = {}
+METHOD_LIST: list[dict] = []
+
+
+def load_methods(errors: list[str]) -> list[dict]:
+    """The methods list, validated; fills METHOD_LIST and METHOD_INDEX (abbr -> method)."""
+    METHOD_LIST.clear()
+    METHOD_INDEX.clear()
+    rel = show_path(METHODS)
+    data = load_yaml(METHODS, errors)
+    if data is None:
+        return []
+    validator = Draft202012Validator(json.loads(METHODS_SCHEMA.read_text(encoding="utf-8")))
+    errs = schema_errors(validator, data, rel)
+    if errs:
+        errors += errs
+        return []
+    methods = data["methods"]
+    METHOD_LIST.extend(methods)
+    for i, m in enumerate(methods):
+        if m["abbr"] in METHOD_INDEX:
+            errs.append(f"{rel}: methods/{i}: duplicate abbr '{m['abbr']}'")
+        METHOD_INDEX[m["abbr"]] = m
+    for i, m in enumerate(methods):
+        seen, p = {m["abbr"]}, m.get("parent")
+        while p is not None:
+            if p not in METHOD_INDEX:
+                errs.append(f"{rel}: methods/{i}: parent '{p}' of '{m['abbr']}' is not in the list")
+                break
+            if p in seen:
+                errs.append(f"{rel}: methods/{i}: parents of '{m['abbr']}' form a cycle")
+                break
+            seen.add(p)
+            p = METHOD_INDEX[p].get("parent")
+    errors += errs
+    return methods
+
+
+def method_abbr(value: str) -> str | None:
+    """'MC-BC, isotropic' -> 'MC-BC'; None for legacy free text (a space before the first comma)."""
+    label = str(value).split(",", 1)[0].strip()
+    return None if re.search(r"\s", label) else label
+
+
+def method_rows(data: dict):
+    """(location, method) of every quantity and operator row that has a method."""
+    for section in ("quantities", "operators"):
+        for i, item in enumerate(data.get(section, []) or []):
+            if "method" in item:
+                yield f"{section}/{i}", item["method"]
+
+
+def check_methods(data: dict, rel: str) -> list[str]:
+    errs = []
+    for where, value in method_rows(data):
+        abbr = method_abbr(value)
+        if abbr is None:
+            continue
+        if abbr not in METHOD_INDEX:
+            errs.append(f"{rel}: {where}: unknown method '{abbr}' (use an abbreviation from data/methods.yaml, "
+                        f"e.g. 'CB' or 'MC, pivot algorithm', or add the method there)")
+        elif "," in value and not value.split(",", 1)[1].strip():
+            errs.append(f"{rel}: {where}: empty qualifier after '{abbr},'")
+    return errs
+
+
+def method_usage(entries: list[dict], methods: list[dict]) -> tuple[list[dict], int]:
+    """The methods list for the site, each with the rows and entries that use it; and the number of legacy rows."""
+    out = {m["abbr"]: {**m, "rows": 0, "entries": []} for m in methods}
+    legacy = 0
+    for e in entries:
+        for _, value in method_rows(e):
+            abbr = method_abbr(value)
+            if abbr is None:
+                legacy += 1
+                continue
+            m = out[abbr]
+            m["rows"] += 1
+            if e["id"] not in m["entries"]:
+                m["entries"].append(e["id"])
+    return list(out.values()), legacy
+
+
 def check_entry(data: dict, rel: str) -> list[str]:
     """Consistency checks that JSON Schema cannot express (within one entry)."""
     errs = []
@@ -272,6 +361,7 @@ def check_entry(data: dict, rel: str) -> list[str]:
         errs.append(f"{rel}: quantities: each `key` may appear only once")
     errs += check_flows(data, rel, keys)
     errs += check_citations(data, rel, keys)
+    errs += check_methods(data, rel)
     return errs
 
 
@@ -500,6 +590,7 @@ def load_operations(errors: list[str]) -> list[dict]:
 
 def load_all() -> tuple[list[dict], list[str]]:
     errors: list[str] = []
+    load_methods(errors)  # before any entry: check_entry resolves method abbreviations
     validator = Draft202012Validator(json.loads(SCHEMA.read_text(encoding="utf-8")))
 
     for stray in sorted(THEORIES.glob("*.yml")):
@@ -509,6 +600,7 @@ def load_all() -> tuple[list[dict], list[str]]:
     tmpl = load_yaml(TEMPLATE, errors)
     if tmpl is not None:
         errors += schema_errors(validator, tmpl, show_path(TEMPLATE))
+        errors += check_methods(tmpl, show_path(TEMPLATE))
 
     entries = []
     for path in sorted(THEORIES.glob("*.yaml")):
@@ -665,7 +757,7 @@ def load_spectra(entries: list[dict], errors: list[str]) -> dict[str, dict]:
     return out
 
 
-def build(entries: list[dict], spectra: dict[str, dict], operations: list[dict]) -> None:
+def build(entries: list[dict], spectra: dict[str, dict], operations: list[dict], methods: list[dict]) -> None:
     if OUT.exists():
         shutil.rmtree(OUT)
     shutil.copytree(SITE_SRC, OUT)
@@ -677,10 +769,12 @@ def build(entries: list[dict], spectra: dict[str, dict], operations: list[dict])
         "template": TEMPLATE.read_text(encoding="utf-8"),
         "theories": entries,
         "operations": operations,
+        "methods": methods,
     }
     (OUT / "data" / "theories.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
     shutil.copy(SCHEMA, OUT / "data" / "theory.schema.json")
+    shutil.copy(METHODS_SCHEMA, OUT / "data" / "methods.schema.json")
     shutil.copy(SPECTRUM_SCHEMA, OUT / "data" / "spectrum.schema.json")
     for rel, summary in spectra.items():
         dest = OUT / rel
@@ -706,12 +800,14 @@ def main() -> int:
     ap.add_argument("--data", type=Path, help="data folder with theories/ (and operations/, spectra/); default data/")
     ap.add_argument("--out", type=Path, help="where to build the site; default _site/")
     args = ap.parse_args()
-    global THEORIES, OPERATIONS, TEMPLATE, SPECTRA, OUT
+    global THEORIES, OPERATIONS, TEMPLATE, SPECTRA, OUT, METHODS
     if args.data:
         data = args.data.resolve()
         THEORIES, OPERATIONS, SPECTRA = data / "theories", data / "operations", data / "spectra"
         if (data / "TEMPLATE.yaml").exists():
             TEMPLATE = data / "TEMPLATE.yaml"
+        if (data / "methods.yaml").exists():
+            METHODS = data / "methods.yaml"
     if args.out:
         OUT = args.out.resolve()
 
@@ -730,10 +826,14 @@ def main() -> int:
     print(f"✓ {len(spectra)} spectra checked (modular invariance, integrality, gaps)")
     if (n := legacy_citations(entries)):
         print(f"! {n} prose citation(s) still link to a paper directly instead of [@key] (CONTRIBUTING.md, Citations)")
+    methods, n_legacy = method_usage(entries, METHOD_LIST)
+    print(f"✓ {len(methods)} methods listed; {sum(m['rows'] for m in methods)} rows name one by abbreviation")
+    if n_legacy:
+        print(f"! {n_legacy} method(s) still free text instead of an abbreviation from data/methods.yaml (CONTRIBUTING.md, Methods)")
 
     if args.check:
         return 0
-    build(entries, spectra, operations)
+    build(entries, spectra, operations, methods)
     print(f"✓ site built in {show_path(OUT)}/")
     if args.serve:
         serve(args.port)

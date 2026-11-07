@@ -52,24 +52,24 @@ quantities:
   - symbol: '\nu'
     description: 'Correlation-length exponent, $\nu = 1/(3-\Delta_s)$'
     value: '0.7111(3)'
-    method: Monte Carlo (improved two-parameter φ⁴ model)
+    method: MC, improved two-parameter φ⁴ model
     refs: [hasenbusch2023]
   - symbol: '\nu - \nu_{O(3)}'
     description: 'Difference from the $O(3)$ fixed point'
     value: '-0.00061(10)'
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2023]
     note: 'From ratios of observables in which subleading corrections largely cancel.'
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 1$'
     value: '0.03782(13)'
-    method: Monte Carlo (improved two-parameter φ⁴ model)
+    method: MC, improved two-parameter φ⁴ model
     refs: [hasenbusch2023]
     note: 'Difference from $O(3)$: $-0.00001 \lesssim \eta - \eta_{O(3)} \lesssim 0.00007$.'
   - symbol: '\omega_2'
     description: 'Small correction-to-scaling exponent of the slow cubic direction, $\omega_2 = \Delta_X - 3$'
     value: '0.0133(8)'
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2023]
     note: 'Conformal perturbation theory: $\omega_2 \approx 3 - \Delta_{t_4}^{O(3)}$ [@chester2020].'
 

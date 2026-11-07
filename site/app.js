@@ -10,7 +10,9 @@
      #/theory/<id>      a theory (with its spectrum, if data/spectra has one)
      #/operation/<id>   how composite theories are built (direct sum, ...)
      #/landscape        2d CFTs in the (c, gap) plane
-     #/contribute       how to contribute                                   */
+     #/contribute       how to contribute
+     #/methods          the methods behind the data, with their abbreviations;
+                        #/methods/<abbr> highlights one                     */
 
 // Display order and labels of relation types (incl. reverse links from build.py).
 const REL_LABEL = {
@@ -27,8 +29,9 @@ const REL_LABEL = {
   related_to: "Related to",
 };
 
-let DB = null; // { generated, repo, branch, template, theories: [...] }
+let DB = null; // { generated, repo, branch, template, theories: [...], methods: [...] }
 const BY_ID = new Map();
+const METHODS = new Map(); // abbr -> method (data/methods.yaml, with usage counts from build.py)
 const filters = { q: "", d: new Set(), tags: new Set(), spectrum: false };
 const app = document.getElementById("app");
 
@@ -151,6 +154,19 @@ const gh = {
     `&theory=${encodeURIComponent(t.id)}`,
 };
 
+/** A row's `method`: 'MC-BC, isotropic' -> the abbreviation linked to the Methods page (full name on hover),
+    then the qualifier. Legacy free text (not starting with a listed abbreviation) is shown as it is. */
+function methodHtml(value) {
+  const s = String(value ?? "");
+  const i = s.indexOf(",");
+  const abbr = (i < 0 ? s : s.slice(0, i)).trim();
+  const m = METHODS.get(abbr);
+  if (!m) return esc(s);
+  const q = i < 0 ? "" : s.slice(i + 1).trim();
+  return `<a class="method" href="#/methods/${encodeURIComponent(abbr)}" title="${esc(plain(m.name))}">${esc(abbr)}</a>${
+    q ? `<span class="method-q">, ${esc(q)}</span>` : ""}`;
+}
+
 const tagPill = (tag, active = false) =>
   `<button type="button" class="pill${active ? " on" : ""}" data-tag="${esc(tag)}" title="Filter by “${esc(tag)}”">${esc(tag)}</button>`;
 
@@ -224,6 +240,7 @@ function viewHome() {
           ${group("Other Resources", "", [
             item(gh.repo(), "Source &amp; data on GitHub", null, ext),
             item(gh.blob("CONTRIBUTING.md"), "Contributing guide", null, ext),
+            item("#/methods", "Methods and their abbreviations", DB.methods?.length),
             item(gh.suggest(), "Suggest a theory", null, ext),
             item(`${gh.repo()}/issues/new?template=correction.yml`, "Report a problem", null, ext),
             item("https://arxiv.org/list/hep-th/recent", "arXiv hep-th", null, ext),
@@ -646,7 +663,7 @@ function viewTheory(id) {
   citeStart(refs.map((r) => [t.id, r.key])); // the entry's own references keep their order; others cited on the page follow
   CITE_OWNER = t.id;
   const cite = (keys) => citeRefs(t.id, keys);
-  const source = (x) => [x.method ? esc(x.method) : "", cite(x.refs)].filter(Boolean).join(" ");
+  const source = (x) => [x.method ? methodHtml(x.method) : "", cite(x.refs)].filter(Boolean).join(" ");
 
   const out = [];
 
@@ -1879,8 +1896,51 @@ python scripts/build.py --serve</code></pre>
       ${tex("Z(\\tau) = Z(-1/\\tau)")}, non-negative integer degeneracies, a unique vacuum, and that the lightest
       Virasoro primary matches the theory's ${tex("\\Delta_{\\rm gap}")}. See the
       <a href="${gh.blob("CONTRIBUTING.md")}#spectra-of-2d-cfts" target="_blank" rel="noopener">contributing guide</a>.</p>
+      <p>How each number was obtained is given by a method abbreviation (${methodHtml("CB")}, ${methodHtml("MC-BC, isotropic")}, …),
+      listed with explanations on the <a href="#/methods">Methods</a> page.</p>
       <p>The complete dataset is available as <a href="data/theories.json">one JSON file</a> for use in your own code.</p></div>`
     )}`;
+}
+
+/* ----------------------------------------------------------- methods view */
+
+function viewMethods(focus = null) {
+  document.title = "Methods — QFT Zoo";
+  const list = DB.methods || [];
+  // Each method followed by its sub-methods (parent: in data/methods.yaml), in file order.
+  const kids = (abbr) => list.filter((m) => (m.parent ?? null) === abbr);
+  const ordered = [];
+  const walk = (m, depth) => { ordered.push([m, depth]); kids(m.abbr).forEach((k) => walk(k, depth + 1)); };
+  kids(null).forEach((m) => walk(m, 0));
+  const n = (k, one, many) => `${k} ${k === 1 ? one : many}`;
+  const rows = ordered.map(([m, depth]) => {
+    const used = m.entries.map((id) => `<a href="#/theory/${encodeURIComponent(id)}">${md(BY_ID.get(id)?.name ?? id, true)}</a>`);
+    const usage = m.rows
+      ? `<details class="method-uses"><summary>${n(m.rows, "row", "rows")}, ${n(m.entries.length, "entry", "entries")}</summary>${used.join(", ")}</details>`
+      : `<span class="muted">none yet</span>`;
+    const links = (m.links || []).map((l) => `<div class="method-link"><a href="${esc(safeUrl(l.url))}" target="_blank" rel="noopener">${esc(l.label)}</a></div>`).join("");
+    return `<tr id="method-${esc(m.abbr)}" class="${m.abbr === focus ? "flash" : ""}">
+      <td class="method-abbr" style="padding-left:${10 + 18 * depth}px">${depth ? '<span class="muted" aria-hidden="true">└ </span>' : ""}<b>${esc(m.abbr)}</b></td>
+      <td><b>${md(m.name, true)}</b>${m.parent ? `<div class="sub">A kind of <a href="#/methods/${encodeURIComponent(m.parent)}">${esc(m.parent)}</a></div>` : ""}</td>
+      <td>${md(m.description, true)}</td>
+      <td class="small">${links}</td>
+      <td class="small">${usage}</td></tr>`;
+  });
+  const legacy = DB.theories.reduce((k, t) =>
+    k + [...(t.quantities || []), ...(t.operators || [])].filter((x) => x.method && !METHODS.has(String(x.method).split(",")[0].trim())).length, 0);
+  app.innerHTML = `
+    <header class="theory-head"><h1>Methods</h1>
+      <p class="lede">How the numbers in the zoo were obtained. Data rows name a method by its abbreviation,
+      sometimes followed by a short qualifier: ${methodHtml("CB, rigorous")} is the numerical conformal bootstrap with
+      rigorous errors, ${methodHtml("MC-BC, isotropic")} Monte Carlo of an improved Blume–Capel model also tuned for isotropy.</p>
+    </header>
+    <div class="table-wrap"><table class="data methods">
+      <thead><tr><th>Abbr.</th><th>Method</th><th>Description</th><th>Explained in</th><th>Used in</th></tr></thead>
+      <tbody>${rows.join("")}</tbody></table></div>
+    <p class="muted small">The list is <a href="${gh.blob("data/methods.yaml")}" target="_blank" rel="noopener"><code>data/methods.yaml</code></a>;
+      to add a method, see the <a href="${gh.blob("CONTRIBUTING.md")}#methods" target="_blank" rel="noopener">contributing guide</a>.
+      ${legacy ? `${n(legacy, "row still describes its", "rows still describe their")} method in free text.` : ""}</p>`;
+  if (focus) requestAnimationFrame(() => document.getElementById(`method-${focus}`)?.scrollIntoView({ block: "center" }));
 }
 
 /* ---------------------------------------------------------- feedback view */
@@ -1984,6 +2044,7 @@ function route() {
   else if (page === "operation" && arg) viewOperation(decodeURIComponent(arg));
   else if (page === "contribute") viewContribute();
   else if (page === "landscape") viewLandscape();
+  else if (page === "methods") viewMethods(arg ? decodeURIComponent(arg) : null);
   else viewNotFound();
   document.querySelectorAll("[data-nav]").forEach((a) =>
     a.classList.toggle("active", a.dataset.nav === (page === "theory" ? "catalogue" : page === "operation" ? "flows" : page))
@@ -2100,10 +2161,12 @@ fetch("data/theories.json", { cache: "no-cache" })
       t._search = searchText(t);
       BY_ID.set(t.id, t);
     }
+    for (const m of DB.methods || []) METHODS.set(m.abbr, m);
     document.getElementById("repo-link").href = gh.repo();
     document.getElementById("footer").innerHTML =
       `QFT Zoo — an open catalogue of quantum field theories. ` +
       `<a href="${gh.repo()}" target="_blank" rel="noopener">Source &amp; data on GitHub</a> · ` +
+      `<a href="#/methods">Methods</a> · ` +
       `${DB.theories.length} theories · built ${esc(DB.generated)}`;
     window.addEventListener("hashchange", route);
     route();

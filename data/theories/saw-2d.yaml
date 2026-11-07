@@ -58,13 +58,13 @@ quantities:
   - symbol: '\nu'
     description: 'Flory exponent, $\langle |\omega(n)|^2 \rangle = n^{2\nu + o(1)}$'
     value: '\frac{3}{4}'
-    method: exact (Coulomb gas; not proved)
+    method: exact, Coulomb gas; not proved
     refs: [lsw2004, dcs2012]
     note: 'Conjectured by Flory and supported by Nienhuis [@nienhuis1982]; rederived from SLE$_{8/3}$, assuming conformal invariance [@lsw2004].'
   - symbol: '\gamma'
     description: 'Entropic exponent, $c_n \sim A\, n^{\gamma - 1} \mu^n$'
     value: '\frac{43}{32}'
-    method: exact (Coulomb gas; not proved)
+    method: exact, Coulomb gas; not proved
     refs: [lsw2004, dcs2012]
     note: 'Prediction of Nienhuis [@nienhuis1982], as quoted by Lawler, Schramm and Werner [@lsw2004] and by Duminil-Copin and Smirnov [@dcs2012].'
   - symbol: '\eta'
@@ -76,13 +76,13 @@ quantities:
   - symbol: 'd_F'
     description: 'Fractal dimension of the walk, $d_F = 1/\nu$'
     value: '\frac{4}{3}'
-    method: exact (assuming the SLE scaling limit)
+    method: exact, assuming the SLE scaling limit
     refs: [lsw2004]
     note: 'Hausdorff dimension of SLE$_{8/3}$.'
   - symbol: '\mu'
     description: 'Connective constant of the honeycomb lattice, $\lim_n c_n^{1/n}$ (not universal)'
     value: '\sqrt{2 + \sqrt{2}}'
-    method: exact (proved)
+    method: exact, proved
     refs: [dcs2012]
     note: 'Predicted by Nienhuis [@nienhuis1982]. On the square lattice the connective constant is different and not known exactly.'
 

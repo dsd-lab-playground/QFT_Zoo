@@ -78,18 +78,18 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N$ free Dirac fermions ($2N$ free real scalars)'
     value: '\frac{\sin(\pi\lambda)}{\pi\lambda} + O(1/N)'
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [gurari2012, aharony2012, maldacena2012]
     note: 'This is $\tilde N/2N$. Gur-Ari and Yacoby [@gurari2012] read $\tilde N$ off the current two-point function; Aharony, Gur-Ari and Yacoby [@aharony2012] computed $\langle TT\rangle$ directly in the dual critical-boson theory.'
   - symbol: 'C_J/C_J^{\rm free}'
     description: '$U(1)$ current two-point coefficient, relative to $N$ free Dirac fermions'
     value: '\frac{\sin(\pi\lambda)}{\pi\lambda} + O(1/N)'
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [gurari2012]
   - symbol: '\tilde\lambda'
     description: 'Maldacena–Zhiboedov parity-violation parameter, which fixes the planar three-point functions together with $\tilde N$'
     value: '\tan\frac{\pi\lambda}{2}'
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [gurari2012]
 
 operators:
@@ -97,7 +97,7 @@ operators:
     Delta: '2 + O(1/N)'
     spin: 0
     rep: singlet
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [giombi2011, maldacena2012]
   - name: 'J_\mu'
     Delta: 2
@@ -115,7 +115,7 @@ operators:
     Delta: 's + 1 + O(1/N)'
     spin: s
     rep: singlet
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [giombi2011, maldacena2012]
     note: 'Higher-spin currents, conserved at $N=\infty$.'
 

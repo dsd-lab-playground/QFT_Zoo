@@ -64,19 +64,19 @@ quantities:
   - symbol: 'F'
     description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$ at $m = \zeta = 0$'
     value: '\frac{N(N-1)}{2}\log 2\pi + \log G(N+1)'
-    method: exact (supersymmetric localization)
+    method: LOC
     refs: [assel2012]
     note: '$G$ is the Barnes $G$-function, $G(N+1) = 1!\,2!\cdots(N-1)!$. From $Z = (2\pi)^{-N(N-1)/2}/G(N+1)$; Chang et al. [@chang2019] give $Z = 1/(16\pi^3)$ at $N=3$, in agreement.'
   - symbol: 'F'
     description: 'Large-$N$ expansion of the free energy'
     value: '\frac{N^2}{2}\log N + \left(-\frac34 - \frac12\log\frac{1}{2\pi}\right)N^2 + O(N\log N)'
-    method: large-N expansion of the exact result
+    method: 1/N, expansion of the exact result
     refs: [assel2012]
     note: 'The leading term is reproduced by the supergravity action.'
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient of $T[SU(3)]$, relative to the 8 free hypermultiplets of its quiver'
     value: '0.786801'
-    method: derived (supersymmetric localization)
+    method: derived, supersymmetric localization
     refs: [chang2019]
     note: 'Chang et al. [@chang2019] give $C_T = 75.5329$ in units where a free hypermultiplet has $C_T = 12$; divided here by 96.'
 

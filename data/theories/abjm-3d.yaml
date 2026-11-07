@@ -91,31 +91,31 @@ quantities:
   - symbol: 'F'
     description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$, at leading order in large $N$ (fixed $k$)'
     value: '\frac{\pi\sqrt{2k}}{3}\,N^{3/2}'
-    method: supersymmetric localization (large N)
+    method: LOC, large N
     refs: [drukker2011, chester2014]
     note: 'Planar strong-coupling free energy $\log Z \simeq -\frac{\pi\sqrt2}{3}k^2\hat\lambda^{3/2}$, $\hat\lambda = N/k - \frac{1}{24}$ [@drukker2011, Eq. (5.37)], which matches the supergravity action on $AdS_4\times\mathbb{CP}^3$.'
   - symbol: 'Z_{S^3}'
     description: 'All orders in $1/N$ at fixed $k$, up to corrections exponentially small in $N$'
     value: 'C^{-1/3} e^{A(k)}\,\mathrm{Ai}\!\left[C^{-1/3}\Big(N - \frac{1}{3k} - \frac{k}{24}\Big)\right], \quad C = \frac{2}{\pi^2 k}'
-    method: supersymmetric localization (Fermi gas)
+    method: LOC, Fermi gas
     refs: [fuji2011, marino2012]
     note: '$A(k)$ is independent of $N$; for small $k$, $A(k) = \frac{2\zeta(3)}{\pi^2 k} - \frac{k}{12} - \frac{\pi^2 k^3}{4320} + O(k^5)$ [@marino2012, Eqs. (5.67)–(5.68)].'
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor coefficient $c_T$, relative to one free real scalar (equivalently one free Majorana fermion); leading order at large $N$'
     value: '\frac{64}{3\pi}\sqrt{2k}\,N^{3/2}'
-    method: supersymmetric localization (large N)
+    method: LOC, large N
     refs: [chester2014]
     note: 'At this order $c_T = \frac{64}{\pi^2}F$, as for any theory with an Einstein-gravity dual on $AdS_4$ [@chester2014, Eq. (5.9)]. In this normalization the free $\mathcal{N}=8$ theory, and $U(1)_k\times U(1)_{-k}$, have $c_T = 16$.'
   - symbol: 'C_T/C_T^{\rm free}'
     description: '$U(2)_1 \times U(2)_{-1}$, relative to one free real scalar'
     value: '\frac{112}{3}'
-    method: supersymmetric localization
+    method: LOC
     refs: [chester2014, agmon2018]
     note: 'Includes the free sector ($c_T = 16$). The interacting sector has $16/c_T = \frac{3}{4}$, i.e. $c_T = \frac{64}{3}$, the same as $U(2)_2\times U(1)_{-2}$ ABJ [@agmon2018, Table 4].'
   - symbol: 'C_T/C_T^{\rm free}'
     description: '$U(2)_2 \times U(2)_{-2}$, relative to one free real scalar'
     value: '\frac{128}{3}'
-    method: supersymmetric localization
+    method: LOC
     refs: [chester2014]
 
 operators:

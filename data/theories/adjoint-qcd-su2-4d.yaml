@@ -48,29 +48,29 @@ quantities:
   - symbol: '\gamma_*'
     description: 'Mass anomalous dimension at the fixed point, $\Delta_{\bar\psi\psi} = 3 - \gamma_*$'
     value: '0.371(20)'
-    method: lattice Monte Carlo (Dirac mode number)
+    method: LGT, Dirac mode number
     refs: [patella2012]
   - symbol: '\gamma_*'
     description: 'Same, from the scaling of the mode number at two lattice couplings'
     value: '0.376(3)'
-    method: lattice Monte Carlo (Dirac mode number)
+    method: LGT, Dirac mode number
     refs: [bergner2017]
     note: 'At $\beta = 1.5$; at $\beta = 1.7$ the same analysis gives $0.274(10)$.'
   - symbol: '\gamma_*'
     description: 'Same, at the Schrödinger-functional fixed point'
     value: '0.31(6)'
-    method: lattice Monte Carlo (Schrödinger functional)
+    method: LGT, Schrödinger functional
     refs: [degrand2011]
   - symbol: '\gamma_*'
     description: 'Same, at the Schrödinger-functional fixed point (larger couplings)'
     value: '0.20(3)'
-    method: lattice Monte Carlo (Schrödinger functional)
+    method: LGT, Schrödinger functional
     refs: [rantaharju2016]
     note: 'Quoted as $\gamma^* \simeq 0.2 \pm 0.03$.'
   - symbol: '\gamma_*'
     description: 'Same, from the scheme-independent expansion in $\Delta_f = 11/4 - N_f = 3/4$'
     value: '0.556'
-    method: scheme-independent Banks–Zaks expansion (fourth order)
+    method: BZ, scheme-independent, fourth order
     refs: [ryttov2017]
     note: 'Table III; the lower orders give 0.333, 0.465 and 0.511.'
 
@@ -79,7 +79,7 @@ operators:
     Delta: '2.62\text{–}2.80'
     spin: 0
     rep: 'gauge singlet; the fermion mass operator'
-    method: derived (lattice Monte Carlo)
+    method: derived, lattice Monte Carlo
     refs: [patella2012, bergner2017, degrand2011, rantaharju2016]
     note: 'Range $3 - \gamma_*$ spanned by the lattice values above, without their scaling corrections.'
   - name: 'J_\mu'

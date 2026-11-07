@@ -57,7 +57,7 @@ operators:
     Delta: '2 + \frac{3\lambda}{4\pi^2} + O(\lambda^2)'
     spin: 0
     rep: 'singlet'
-    method: perturbation theory
+    method: PT
     note: 'Konishi operator, the lightest unprotected operator; $\lambda = g^2_{\rm YM}N$, planar.'
     refs: [beisert2010]
 

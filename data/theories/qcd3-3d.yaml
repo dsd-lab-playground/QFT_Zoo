@@ -67,13 +67,13 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N_c N_f$ free two-component Dirac fermions (no gluons)'
     value: '1 + \frac{N_c^2-1}{N_c}\,\frac{1}{N_f}\Big(\frac{2096}{45\pi^2} - 4\Big) + O(N_f^{-2})'
-    method: derived (large-N_f expansion)
+    method: derived, large-N_f expansion
     refs: [giombi2016]
     note: '[@giombi2016, Eq. (7.5)] with $C_{T1} = \frac{4192}{45\pi^2} - 8$ and $N = 2N_f$. The Abelian (QED$_3$) result is not the $N_c = 1$ case of this $SU(N_c)$ formula; it follows from the $U(1)$ group factors instead (see the QED$_3$ entry).'
   - symbol: 'C_J/C_J^{\rm free}'
     description: 'Flavor-current two-point coefficient, relative to $N_c N_f$ free two-component Dirac fermions'
     value: '1 + \frac{N_c^2-1}{N_c}\,\frac{1}{N_f}\Big(\frac{368}{9\pi^2} - 4\Big) + O(N_f^{-2})'
-    method: derived (large-N_f expansion)
+    method: derived, large-N_f expansion
     refs: [giombi2016]
     note: '[@giombi2016, Eq. (7.9)] with $C_{J1} = \frac{736}{9\pi^2} - 8$ and $N = 2N_f$.'
 
@@ -82,21 +82,21 @@ operators:
     Delta: '2 - \frac{32}{3\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
     rep: '$Sp(N_f)$ traceless antisymmetric rank-2 fermion bilinear'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [huffman2026]
     note: '[@huffman2026, Eq. (11)], from Xu (2008) converted to this $N_f$. For $N_f = 2$ this is the $SO(5)$ vector of deconfined criticality.'
   - name: '\phi^{[ij]}\ (N_c = 2,\ N_f = 4)'
     Delta: '1.10(1)'
     spin: 0
     rep: '$Sp(4)$ traceless antisymmetric rank-2'
-    method: quantum Monte Carlo (fuzzy sphere)
+    method: QMC, fuzzy sphere
     refs: [huffman2026]
     note: 'Same study: $1.32(3)$, $1.57(1)$, $1.75(2)$, $1.85(2)$, $1.90(2)$, $1.95(5)$ for $N_f = 6, 8, \dots, 16$, approaching the large-$N_f$ formula.'
   - name: 'S^- \ (N_c = 2)'
     Delta: '2 + \frac{64}{3\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
     rep: '$Sp(N_f)$ singlet fermion mass, parity odd'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [huffman2026]
   - name: 'J_\mu'
     Delta: 2

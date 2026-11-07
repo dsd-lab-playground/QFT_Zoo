@@ -67,19 +67,19 @@ quantities:
   - symbol: 'a'
     description: 'Euler conformal anomaly of the $E_6$, $E_7$, $E_8$ theories (a free real scalar has $a = \tfrac{1}{360}$)'
     value: '\tfrac{41}{24},\ \tfrac{59}{24},\ \tfrac{95}{24}'
-    method: exact (holography; S-duality for E6, E7)
+    method: exact, holography; S-duality for E6, E7
     refs: [aharony2007, shapere2008, beem2014]
     note: 'Aharony–Tachikawa [@aharony2007, Table 2], which agrees with the Argyres–Seiberg dualities for $E_6$ and $E_7$; Shapere–Tachikawa [@shapere2008, Eq. (4.44)] reproduces them. For $E_6$: $a = \tfrac{29}{12} - \tfrac{17}{24}$ [@aharony2007, Eq. (5.3)].'
   - symbol: 'c'
     description: 'Weyl conformal anomaly of the $E_6$, $E_7$, $E_8$ theories (a free real scalar has $c = \tfrac{1}{120}$)'
     value: '\tfrac{13}{6},\ \tfrac{19}{6},\ \tfrac{31}{6}'
-    method: exact (holography; S-duality for E6, E7)
+    method: exact, holography; S-duality for E6, E7
     refs: [aharony2007, beem2013, beem2014]
     note: 'Same sources as $a$; also predicted from the Higgs-branch relations by Beem et al. [@beem2013, Table 4].'
   - symbol: 'k'
     description: 'Flavor central charge $k_{E_6}$, $k_{E_7}$, $k_{E_8}$'
     value: '6,\ 8,\ 12'
-    method: exact (S-duality; holography)
+    method: exact, S-duality; holography
     refs: [argyres2007, aharony2007]
     note: '$k_{E_6}$ and $k_{E_7}$ from [@argyres2007, Eqs. (3.6), (4.6)]; all three in [@aharony2007, Table 2].'
   - symbol: '\dim_{\mathbb{H}}\mathcal{M}_H'

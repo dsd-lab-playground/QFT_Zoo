@@ -37,7 +37,7 @@ quantities:
   - symbol: 'C_T/C_T^{\text{free}}'
     description: Stress-tensor central charge
     value: '0.9(1)'                # parenthesis notation for uncertainties
-    method: conformal bootstrap
+    method: 'CB, rigorous'         # an abbreviation from data/methods.yaml, then an optional qualifier (CONTRIBUTING.md, Methods)
     refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)
 
 operators:
@@ -45,7 +45,7 @@ operators:
     Delta: '0.5(1)'
     spin: 0
     rep: 'vector'
-    method: conformal bootstrap
+    method: CB
     refs: [author2025]
 
 relations:

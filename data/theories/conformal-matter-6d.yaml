@@ -76,7 +76,7 @@ quantities:
   - symbol: '(\alpha,\beta,\gamma,x,y)'
     description: 'Coefficients of the anomaly polynomial in the form of [@ohmori2014b, Eq. (3.19)], for $G = E_8$'
     value: '(12489,\ 831,\ 249,\ 90,\ 30)'
-    method: anomaly matching on the tensor branch
+    method: anomaly, tensor branch
     refs: [ohmori2014b]
     note: '[@ohmori2014b, Table 1], which also gives the other members listed above. For $G=D_4$, $(\alpha,\beta,\gamma) = (13, 11, 29)$ give the same $c_2(R)$ and gravitational anomalies as the rank-1 E-string without its free hypermultiplet, which Ohmori et al. [@ohmori2014b] identify with $(D_4,D_4)$ conformal matter.'
 

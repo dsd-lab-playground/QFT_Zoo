@@ -94,30 +94,30 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor coefficient $c_T$ for all $k$, relative to one free real scalar (equivalently one free Majorana fermion)'
     value: '32\left(2 - \frac{I_{4,k}}{I_{2,k}}\right), \quad I_{n,k} = \int_{-\infty}^{\infty} dx\, \frac{x\,\tanh^n(\pi x)}{\sinh(\pi k x)}'
-    method: supersymmetric localization
+    method: LOC
     refs: [agmon2018]
     note: '[@agmon2018, Eqs. (34)–(35)]. In this normalization the free $\mathcal{N}=8$ theory of eight real scalars and eight Majorana fermions has $c_T = 16$.'
   - symbol: 'C_T/C_T^{\rm free}'
     description: '$k = 1$, relative to one free real scalar'
     value: '\frac{112}{3}'
-    method: supersymmetric localization
+    method: LOC
     refs: [agmon2018, chester2014]
     note: 'Agmon et al. [@agmon2018, Table 4] give $16/c_T = \frac{3}{7}$; equal to $c_T$ of $U(2)_1\times U(2)_{-1}$ ABJM [@chester2014].'
   - symbol: 'C_T/C_T^{\rm free}'
     description: '$k = 2$, relative to one free real scalar'
     value: '\frac{128}{3}'
-    method: supersymmetric localization
+    method: LOC
     refs: [agmon2018, chester2014]
     note: 'Agmon et al. [@agmon2018, Table 4] give $16/c_T = \frac{3}{8}$; equal to $c_T$ of $U(2)_2\times U(2)_{-2}$ ABJM [@chester2014].'
   - symbol: 'C_T/C_T^{\rm free}'
     description: '$k = 3$, relative to one free real scalar'
     value: '16\,\frac{31 - 10\pi}{3 - \pi} \approx 46.9998'
-    method: supersymmetric localization
+    method: LOC
     refs: [chester2014]
   - symbol: 'C_T/C_T^{\rm free}'
     description: '$k = 4$, relative to one free real scalar'
     value: '50.3575'
-    method: supersymmetric localization
+    method: LOC
     refs: [chester2014]
     note: '[@chester2014, Table 9]; $k = 5$: $52.9354$.'
 

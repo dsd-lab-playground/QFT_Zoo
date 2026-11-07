@@ -36,23 +36,23 @@ quantities:
   - symbol: '\eta_\psi'
     description: 'Fermion anomalous dimension, $\Delta_\psi = 1 + \eta_\psi/2$'
     value: '0.04238(11)'
-    method: conformal bootstrap
+    method: CB
     refs: [erramilli2022]
   - symbol: '\eta_\phi'
     description: 'Order-parameter anomalous dimension, $\eta_\phi = 2\Delta_\sigma - 1$'
     value: '0.7329(27)'
-    method: conformal bootstrap
+    method: CB
     refs: [erramilli2022]
   - symbol: '\nu^{-1}'
     description: 'Inverse correlation-length exponent, $3 - \Delta_\epsilon$'
     value: '0.998(12)'
-    method: conformal bootstrap
+    method: CB
     refs: [erramilli2022]
     note: 'So $\nu = 1.002(12)$.'
   - symbol: '\nu^{-1}'
     description: 'Quantum Monte Carlo, $\pi$-flux lattice model (chiral class)'
     value: '1.07(12)'
-    method: quantum Monte Carlo
+    method: QMC
     refs: [wangmeng2023]
     note: 'Also $\eta_\phi = 0.72(6)$, $\eta_\psi = 0.04(2)$, consistent with the bootstrap.'
 
@@ -61,19 +61,19 @@ operators:
     Delta: '0.8665(13)'
     spin: 0
     rep: singlet, parity odd (order parameter)
-    method: conformal bootstrap
+    method: CB
     refs: [erramilli2022]
   - name: '\psi_i'
     Delta: '1.02119(5)'
     spin: '1/2'
     rep: vector of $O(8)$
-    method: conformal bootstrap
+    method: CB
     refs: [erramilli2022]
   - name: '\epsilon'
     Delta: '2.002(12)'
     spin: 0
     rep: singlet, parity even
-    method: conformal bootstrap
+    method: CB
     refs: [erramilli2022]
     note: The only relevant parity-even singlet (the tuning parameter).
   - name: 'J_\mu^{[ij]}'
@@ -92,14 +92,14 @@ operators:
     Delta: '3.24739(15)'
     spin: 0
     rep: singlet, parity odd
-    method: Padé estimate (large N and N = 1)
+    method: Padé, large N and N = 1
     refs: [mitchell2024]
     note: 'Bootstrap bounds: $3.189 \le \Delta \le 3.650$ (with mild gap assumptions).'
   - name: '\epsilon'''
     Delta: '3.77711(1)'
     spin: 0
     rep: singlet, parity even
-    method: Padé estimate (large N and N = 1)
+    method: Padé, large N and N = 1
     refs: [mitchell2024]
     note: 'Bootstrap bounds: $3.167 \le \Delta \le 3.842$ (with mild gap assumptions).'
 

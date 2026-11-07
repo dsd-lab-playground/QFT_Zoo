@@ -57,31 +57,31 @@ quantities:
   - symbol: 'I_8'
     description: 'Anomaly polynomial, including the free hypermultiplet'
     value: 'Q^3\frac{p_2(N)}{6} + Q^2\frac{\chi_4(N)\,I_4}{2} + Q\left(\frac{I_4^2}{2} - J_8\right)'
-    method: anomaly inflow
+    method: anomaly, inflow
     refs: [ohmori2014a]
     note: 'Ohmori–Shimizu–Tachikawa [@ohmori2014a, Eq. (1.1)], where their $I_8$ is called $J_8$ here: $I_4 = \tfrac14\left(p_1(N)+p_1(T)+\mathrm{Tr}F^2\right)$, $J_8 = \tfrac{1}{48}\left(p_2(N)+p_2(T)-\tfrac14(p_1(N)-p_1(T))^2\right)$. $N$ is the $SO(4)$ normal bundle with $p_1(N) = -2(c_2(R)+c_2(L))$, $\chi_4(N) = c_2(L)-c_2(R)$, $p_2(N) = \chi_4(N)^2$; $F$ is the $E_8$ background and Tr is the adjoint trace divided by 30. A Weyl fermion in the representation $\rho$ contributes $\hat A(T)\,\mathrm{tr}_\rho e^{iF}$. The free hypermultiplet contributes $\frac{7p_1(T)^2-4p_2(T)}{5760}+\frac{c_2(L)p_1(T)}{48}+\frac{c_2(L)^2}{24}$ [@ohmori2014a, Eq. (1.5)].'
   - symbol: '(\alpha,\beta,\gamma,\delta)'
     description: '''t Hooft anomalies in $I_8 = \frac{1}{4!}\left(\alpha c_2(R)^2 + \beta c_2(R)p_1(T) + \gamma p_1(T)^2 + \delta p_2(T)\right)$, including the free hypermultiplet'
     value: '\left(Q(4Q^2+6Q+3),\ -\tfrac{Q}{2}(6Q+5),\ \tfrac{7Q}{8},\ -\tfrac{Q}{2}\right)'
-    method: anomaly inflow
+    method: anomaly, inflow
     refs: [cordova2015, ohmori2014a]
     note: 'Córdova–Dumitrescu–Intriligator [@cordova2015, Eq. (5.1)]; the same as the formula above with the flavor backgrounds set to zero. In this normalization a free hypermultiplet has $(0,0,\tfrac{7}{240},-\tfrac{1}{60})$ and a free tensor multiplet $(1,\tfrac12,\tfrac{23}{240},-\tfrac{29}{60})$.'
   - symbol: 'a'
     description: '$a$-type Weyl anomaly, normalized so that a free $(2,0)$ tensor multiplet has $a = 1$; including the free hypermultiplet'
     value: '\frac{64}{7}Q^3 + \frac{144}{7}Q^2 + \frac{99}{7}Q'
-    method: from 't Hooft anomalies
+    method: anomaly
     refs: [cordova2015]
     note: 'Córdova–Dumitrescu–Intriligator [@cordova2015, Eq. (5.2)], from their formula $a = \tfrac{16}{7}(\alpha-\beta+\gamma)+\tfrac67\delta$, which assumes a universal linear relation between $a$ and the ''t Hooft anomalies. A free hypermultiplet has $a = \tfrac{11}{210}$. Moving one M5-brane off the wall gives $\Delta a = \tfrac{12}{7}(4Q+1)^2 > 0$ [@cordova2015, Eq. (5.5)].'
   - symbol: 'C_T'
     description: 'Stress-tensor two-point coefficient, normalized so that a free real scalar has $C_T = 6/5$ and a free hypermultiplet $84/5$; including the free hypermultiplet'
     value: '84\,Q\,(16Q^2+42Q+33)'
-    method: from 't Hooft anomalies (conjectured c3 relation)
+    method: anomaly, conjectured c3 relation
     refs: [chang2017b]
     note: 'Chang–Lin [@chang2017b, Eqs. (6.5)–(6.17)]: $C_T = 3024\,c_3$, with $c_3$ given by the linear relation of Beccaria and Tseytlin between $c_3$ and $(\alpha,\beta,\gamma,\delta)$. Rank 1 without the free hypermultiplet: $C_T = \tfrac{38136}{5}$ [@chang2017b, Eq. (6.18)].'
   - symbol: 'C_J^{E_8}'
     description: '$E_8$ flavor central charge, in the normalization of Chang–Lin [@chang2017b, Sec. 6.2] (a free hypermultiplet has $C_J = 5/2$)'
     value: '60Q^2 + 90Q'
-    method: from 't Hooft anomalies
+    method: anomaly
     refs: [chang2017b]
     note: 'Chang–Lin [@chang2017b, Eq. (6.25)]; $C_J = 150$ at rank 1. Their bootstrap bounds support the conjecture that this is the minimum among interacting SCFTs with $E_8$ flavor symmetry.'
 

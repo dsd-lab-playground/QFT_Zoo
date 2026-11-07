@@ -79,13 +79,13 @@ quantities:
   - symbol: 'F'
     description: '$S^5$ free energy, $F = -\log|Z_{S^5}|$ (so $-F > 0$), leading order at large $N$'
     value: '-\frac{9\sqrt{2}\,\pi N^{5/2}}{5\sqrt{8-N_f}}'
-    method: large-N localization (matrix model)
+    method: LOC, large N, matrix model
     refs: [jafferis2012]
     note: 'Jafferis–Pufu [@jafferis2012, Eq. (3.6)]; [@jafferis2012, Eq. (1.1)] at $n=1$ states the correction as $o(N^{5/2})$, and Chang et al. [@chang2018, Eq. (3.18)] as $O(N^{3/2})$. In the convention $\tilde F = \log|Z_{S^5}|$, $\tilde F = -F$.'
   - symbol: 'C_T'
     description: 'Stress-tensor two-point coefficient, leading order at large $N$, normalized so that a free hypermultiplet has $C_T = 15$'
     value: '\frac{1152\sqrt{2}\,N^{5/2}}{\pi\sqrt{8-N_f}}'
-    method: large-N localization (squashed sphere)
+    method: LOC, large N, squashed sphere
     refs: [chang2018, chang2017]
     note: 'Chang et al. [@chang2018, Eq. (3.19)], with corrections $O(N^{3/2})$. It uses the relation between $C_T$ and the squashed-sphere free energy of Chang et al. [@chang2017], in which a free real scalar has $C_T = 5/4$.'
 

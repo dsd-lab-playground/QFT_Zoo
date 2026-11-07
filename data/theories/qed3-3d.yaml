@@ -83,25 +83,25 @@ quantities:
   - symbol: 'F'
     description: 'Sphere free energy $-\log Z_{S^3}$'
     value: 'N_f\Big(\frac{\log 2}{4} + \frac{3\zeta(3)}{8\pi^2}\Big) + \frac12\log\frac{\pi N_f}{8} + O(1/N_f)'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [klebanov2012]
     note: 'The first term is $N_f$ free two-component Dirac fermions. [@klebanov2012, Eq. (1.4)] at $N_b = k = 0$.'
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N_f$ free two-component Dirac fermions (no photon)'
     value: '1 + \frac{1}{N_f}\Big(\frac{2096}{45\pi^2} - 4\Big) + O(N_f^{-2})'
-    method: derived (large-N_f expansion)
+    method: derived, large-N_f expansion
     refs: [giombi2016, chester2016a]
     note: 'From $C_{T1} = \frac{4192}{45\pi^2} - 8$ with $N = 2N_f$. Numerically $1 + 0.7193/N_f$.'
   - symbol: 'C_J/C_J^{\rm free}'
     description: '$SU(N_f)$ current two-point coefficient, relative to $N_f$ free two-component Dirac fermions'
     value: '1 + \frac{1}{N_f}\Big(\frac{368}{9\pi^2} - 4\Big) + O(N_f^{-2})'
-    method: derived (large-N_f expansion)
+    method: derived, large-N_f expansion
     refs: [giombi2016, chester2016a]
     note: 'From $C_{J1} = \frac{736}{9\pi^2} - 8$ with $N = 2N_f$. Numerically $1 + 0.1429/N_f$.'
   - symbol: 'C_J^{\rm top}/C_J^{\rm free}'
     description: 'Topological-current two-point coefficient ($j^{\rm top} = \star f/2\pi$), relative to the $U(1)$ current of one free two-component Dirac fermion of unit charge'
     value: '\frac{64}{\pi^2 N_f}\Big[1 + \frac{1}{N_f}\Big(4 - \frac{368}{9\pi^2}\Big)\Big] + O(N_f^{-3})'
-    method: derived (large-N_f expansion)
+    method: derived, large-N_f expansion
     refs: [giombi2016, chester2016a]
     note: '[@giombi2016, Eq. (1.11)] with $N = 2N_f$, times $8\pi^2$. Numerically $6.4846/N_f - 0.9267/N_f^2$.'
 
@@ -110,33 +110,33 @@ operators:
     Delta: '0.265\,N_f - 0.0383 + O(1/N_f)'
     spin: 0
     rep: 'unit topological charge; $SU(N_f)$ rank-$N_f/2$ antisymmetric tensor'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [pufu2013, dyer2013, borokhov2002, karthik2019]
     note: 'Minimal monopole; the $O(N_f)$ term is from Borokhov–Kapustin–Wu [@borokhov2002]. Lattice (noncompact QED [@karthik2019]): $3.24(24)$ at $N_f = 12$, and $\Delta/N_f$ larger at $N_f = 2, 4$ than at $12$, opposite to the sign of the $O(N_f^0)$ term.'
   - name: 'M_{1}'
     Delta: '0.673\,N_f - 0.194 + O(1/N_f)'
     spin: 0
     rep: 'topological charge 2'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [dyer2013]
   - name: '\bar\psi_i\psi^j - \tfrac{1}{N_f}\delta_i^j\bar\psi_k\psi^k'
     Delta: '2 - \frac{64}{3\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
     rep: '$SU(N_f)$ adjoint'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [hermele2005, chester2016b]
     note: 'In the staggered-flux spin liquid ($N_f = 4$) this multiplet contains the Néel vector and the VBS order parameters.'
   - name: '\bar\psi_k\psi^k'
     Delta: '2 + \frac{128}{3\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
     rep: 'singlet, parity odd'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [chester2016b]
   - name: '(\bar\psi\psi)^2,\ f_{\mu\nu}f^{\mu\nu}\ \text{mixtures}'
     Delta: '4 + \frac{64(2 \pm \sqrt7)}{3\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
     rep: 'singlet, parity even'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [chester2016b]
     degeneracy: 2
     note: 'Lowest parity-even singlets. At this order the lower one stays irrelevant for all $N_f > 1$; in the merger-and-annihilation scenario it reaches marginality at $N_f^*$.'
@@ -144,7 +144,7 @@ operators:
     Delta: '1.00\text{–}1.10'
     spin: 0
     rep: 'unit topological charge, $SU(4)$ $\mathbf{6}$'
-    method: conformal bootstrap (with gap assumptions)
+    method: CB, with gap assumptions
     refs: [albayrak2022]
     note: 'Island with $\Delta_{M_1} \le 2.50$ at $\Lambda = 39$; same island gives $1.03 \le \Delta \le 1.61$ for the adjoint bilinear. Large $N_f$: $1.022$.'
   - name: 'J_\mu^{\rm top},\ J_\mu^{SU(N_f)}'

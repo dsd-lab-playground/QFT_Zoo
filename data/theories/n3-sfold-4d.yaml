@@ -82,13 +82,13 @@ quantities:
   - symbol: 'a = c'
     description: 'Conformal anomalies (normalized so a free $\mathcal{N}=4$ vector multiplet has $a = c = \tfrac14$)'
     value: '\frac{1}{4}\Big(kN^2 + (2\ell - k - 1)N\Big)'
-    method: exact (from the Coulomb-branch spectrum)
+    method: exact, from the Coulomb-branch spectrum
     refs: [at2016, ae2016]
     note: '[@at2016, Eq. (2.12)], from $a = c$ and $2a - c = \sum_i (2\Delta_i - 1)/4$, which is assumed to hold for these non-Lagrangian theories. The member notes substitute $(k, \ell)$.'
   - symbol: 'a = c'
     description: 'Minimal $\mathcal{N}=3$ SCFT ($k = \ell = 3$, $N = 1$)'
     value: '\frac{5}{4}'
-    method: exact (from the Coulomb-branch spectrum)
+    method: exact, from the Coulomb-branch spectrum
     refs: [at2016]
     note: '[@at2016, Sec. 5]: the same as five free vector multiplets.'
   - symbol: '\epsilon_{k,\ell}'
@@ -103,14 +103,14 @@ operators:
     Delta: 'jk'
     spin: 0
     rep: 'Coulomb-branch chiral primary'
-    method: exact (moduli space)
+    method: exact, moduli space
     refs: [at2016]
     note: 'Generators of the Coulomb-branch chiral ring: symmetric polynomials of $z_i^k$, where $z_i$ are the D3-brane positions.'
   - name: 'u_N'
     Delta: 'N\ell'
     spin: 0
     rep: 'Coulomb-branch chiral primary'
-    method: exact (moduli space)
+    method: exact, moduli space
     refs: [at2016]
     note: 'The generator $(z_1\cdots z_N)^\ell$ of the parent theory (replaced by $\sum_i z_i^{Nk}$, of dimension $Nk$, after the discrete gauging). A Coulomb-branch operator of dimension 1 or 2 signals $\mathcal{N}=4$ enhancement.'
   - name: 'T_{\mu\nu}'

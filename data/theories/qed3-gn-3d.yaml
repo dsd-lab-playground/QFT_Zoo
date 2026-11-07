@@ -64,13 +64,13 @@ quantities:
   - symbol: '\nu^{-1}'
     description: 'Inverse correlation-length exponent, $3 - \Delta_{\phi^2}$'
     value: '1 + \frac{80}{\pi^2 N_f} + O(N_f^{-2})'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [boyack2019, benvenuti2018]
     note: 'At $N_f = 2$ this exceeds the unitarity bound, and the Padé and Borel–Padé approximants either do not exist or are negative.'
   - symbol: '\eta_\phi'
     description: 'Scalar anomalous dimension, $\Delta_\phi = (1+\eta_\phi)/2$, extrapolated to $N_f = 2$'
     value: '0.17\text{–}0.30'
-    method: large-N_f expansion with Padé and Borel–Padé resummation
+    method: 1/Nf, Padé and Borel–Padé resummation
     refs: [boyack2019]
     note: 'For comparison, numerics on the Néel–VBS transition give $\eta_{\rm N\acute eel}, \eta_{\rm VBS} \approx 0.25$–$0.35$.'
 
@@ -79,14 +79,14 @@ operators:
     Delta: '1 - \frac{48}{\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
     rep: 'singlet, parity and time-reversal odd'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [boyack2019, benvenuti2018]
     note: '$\eta_\phi = 1 - 96/(\pi^2 N_f)$.'
   - name: '\bar\psi_i\psi^j - \tfrac{1}{N_f}\delta_i^j\bar\psi_k\psi^k'
     Delta: '2 - \frac{16}{\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
     rep: '$SU(N_f)$ adjoint'
-    method: large-N_f expansion
+    method: 1/Nf
     refs: [boyack2019, benvenuti2018]
     note: 'Resummed at $N_f = 2$: $3 - \Delta \approx 1.49$–$1.58$, to be compared with $1/\nu$ of the dual NCCP$^1$.'
   - name: 'J_\mu^{\rm top},\ J_\mu^{SU(N_f)}'
