@@ -4,6 +4,10 @@ d: 2
 summary: 'Orbifold of the $SU(5)_1/SU(2)_{20}$ coset by its non-anomalous $\mathbb{Z}_5$ simple-current symmetry.'
 tags: [CFT, interacting, unitary, rational, coset, orbifold]
 
+symmetry:
+  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{14}{11}$ — 2d conformal group with parity'
+  global: 'Contains the dual $\mathbb{Z}_5$ of the orbifold, acting with phases on the twisted sectors'
+
 quantities:
 - key: c
   symbol: c

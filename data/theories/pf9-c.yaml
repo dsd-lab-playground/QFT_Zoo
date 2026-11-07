@@ -4,6 +4,10 @@ d: 2
 summary: 'Orbifold of the $\mathbb{Z}_9$ parafermions by charge conjugation $C$.'
 tags: [CFT, interacting, unitary, rational, orbifold]
 
+symmetry:
+  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{16}{11}$ — 2d conformal group with parity'
+  global: 'Contains the dual $\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sectors'
+
 quantities:
 - key: c
   symbol: c

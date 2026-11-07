@@ -6,6 +6,9 @@ tags: [CFT, interacting, unitary, rational, coset]
 
 description: 'The exceptional automorphism invariant of $(E_8)_4$ exchanges the modules $\mathbf{248}$ and $\mathbf{6696000}$ (Gannon–Ruelle–Walton: the only automorphism invariant of an affine algebra not explained by simple currents, conjugations or Galois symmetries). Equivalently, the asymmetric coset $E_{8,3}/Spin(16)_3$ with the two spinor classes exchanged. The diagonal light scalars of the $\mathcal{W}(E_8)$ model are paired with spin-2 and spin-4 partners instead, and the gap comes from $(\mathbf{3875};\mathbf{3875})$.'
 
+symmetry:
+  spacetime: '$SO(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{256}{187}$ — 2d conformal group; parity not recorded'
+
 quantities:
 - key: c
   symbol: c

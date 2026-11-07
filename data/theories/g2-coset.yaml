@@ -4,6 +4,9 @@ d: 2
 summary: 'The diagonal coset $(G_2)_1\times(G_2)_2/(G_2)_3$.'
 tags: [CFT, interacting, unitary, rational, coset]
 
+symmetry:
+  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{22}{15}$ — 2d conformal group with parity'
+
 quantities:
 - key: c
   symbol: c
