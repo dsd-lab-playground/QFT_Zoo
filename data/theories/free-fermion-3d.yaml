@@ -33,7 +33,7 @@ description: |
   $$i\bar\Psi\gamma^\mu D^{A}_\mu\Psi \;\longleftrightarrow\; |D_b\phi|^2 - |\phi|^4 + \tfrac{1}{4\pi}\,b\,db + \tfrac{1}{2\pi}\,b\,dA .$$
   Gauging background fields and adding Chern–Simons counterterms then gives a web of
   dualities (Seiberg, Senthil, Wang and Witten; Karch and Tong), including bosonic
-  particle–vortex duality (the $O(2)$ model and the Abelian Higgs model) and its fermionic
+  particle–vortex duality (the $O(2)$ model and scalar QED$_3$) and its fermionic
   counterpart, which relates the free Dirac fermion to a Dirac fermion coupled to a
   dynamical $U(1)$ gauge field. The fermionic version was proposed by Son for the
   half-filled Landau level, and by Wang and Senthil and by Metlitski and Vishwanath for

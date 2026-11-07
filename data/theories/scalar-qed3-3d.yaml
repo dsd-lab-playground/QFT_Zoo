@@ -1,8 +1,8 @@
-id: abelian-higgs-3d
-name: '3d Abelian Higgs model ($\mathbb{CP}^{N-1}$ model) with $N$ complex scalars'
+id: scalar-qed3-3d
+name: 'Scalar QED$_3$ with $N$ complex scalars'
 aliases:
+  - 'Abelian Higgs model'
   - 'Noncompact $\mathbb{CP}^{N-1}$ model'
-  - 'Scalar QED$_3$'
   - 'Bosonic QED$_3$'
   - 'Inverted XY ($N=1$)'
 d: 3
@@ -14,6 +14,9 @@ summary: >-
 tags: [CFT, interacting, unitary, Lagrangian, gauge theory, large N, critical phenomena, family]
 
 description: |
+  Scalar QED$_3$ is also called the Abelian Higgs model or the noncompact
+  $\mathbb{CP}^{N-1}$ model.
+
   **Counting.** $N$ counts complex scalars $z_\alpha$ (so $2N$ real components). The model is
   "noncompact": monopole operators are not added to the action, so the critical point has a
   $U(1)_{\rm top}$ symmetry whose charged operators are monopoles $M_q$ of flux $4\pi q$,
