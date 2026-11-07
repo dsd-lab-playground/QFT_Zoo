@@ -69,13 +69,13 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N_c N_f$ free two-component Dirac fermions (no gluons)'
     value: '1 + \frac{N_c^2-1}{N_c}\,\frac{1}{N_f}\Big(\frac{2096}{45\pi^2} - 4\Big) + O(N_f^{-2})'
-    method: derived, large-N_f expansion
+    method: 1/Nf
     refs: [giombi2016]
     note: '[@giombi2016, Eq. (7.5)] with $C_{T1} = \frac{4192}{45\pi^2} - 8$ and $N = 2N_f$. The Abelian (QED$_3$) result is not the $N_c = 1$ case of this $SU(N_c)$ formula; it follows from the $U(1)$ group factors instead (see the QED$_3$ entry).'
   - symbol: 'C_J/C_J^{\rm free}'
     description: 'Flavor-current two-point coefficient, relative to $N_c N_f$ free two-component Dirac fermions'
     value: '1 + \frac{N_c^2-1}{N_c}\,\frac{1}{N_f}\Big(\frac{368}{9\pi^2} - 4\Big) + O(N_f^{-2})'
-    method: derived, large-N_f expansion
+    method: 1/Nf
     refs: [giombi2016]
     note: '[@giombi2016, Eq. (7.9)] with $C_{J1} = \frac{736}{9\pi^2} - 8$ and $N = 2N_f$.'
 

@@ -57,7 +57,7 @@ quantities:
   symbol: '\Delta_{\rm gap}'
   description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
   value: '\min(1,\, 2h_{\min})'
-  method: derived
+  method: exact
   refs: [walton1999]
   note: 'The currents at $(1,0)$ give $\Delta = 1$; a primary $\lambda$ gives $\Delta = 2h_\lambda$. Checked against the spectrum file of every member.'
 - symbol: 'h_\lambda'

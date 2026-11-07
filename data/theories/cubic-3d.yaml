@@ -80,14 +80,14 @@ operators:
     Delta: '0.51891(7)'
     spin: 0
     rep: three-dimensional (order parameter)
-    method: derived
+    method: MC, from η
     refs: [hasenbusch2023]
     note: 'From $\Delta_\phi = (1+\eta)/2$.'
   - name: 's'
     Delta: '1.5937(6)'
     spin: 0
     rep: singlet (thermal)
-    method: derived
+    method: MC, from ν
     refs: [hasenbusch2023]
     note: 'From $\Delta_s = 3 - 1/\nu$.'
   - name: 'T_{\mu\nu}'
@@ -100,7 +100,7 @@ operators:
     Delta: '3.0133(8)'
     spin: 0
     rep: singlet (descends from $t_4$ of $O(3)$)
-    method: derived
+    method: MC, from ω₂
     refs: [hasenbusch2023, chester2020]
     note: 'From $3 + \omega_2$. Leading irrelevant singlet; conformal perturbation theory gives $\Delta_X \approx 3.01$ [@chester2020].'
 

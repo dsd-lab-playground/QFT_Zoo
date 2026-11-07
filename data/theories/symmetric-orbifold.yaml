@@ -68,7 +68,7 @@ operators:
   Delta: '\frac{c_X}{12}\left(n-\frac{1}{n}\right)'
   spin: 0
   weights: '\left(\tfrac{c_X}{24}(n-\tfrac1n),\ \tfrac{c_X}{24}(n-\tfrac1n)\right)'
-  method: derived
+  method: exact
   refs: [hks2014]
   note: 'Twist field: the lightest state of the sector of an $n$-cycle, for a bosonic seed with a unique vacuum. From the $n$-th factor of the generating function above with $h = \bar h = 0$.'
 

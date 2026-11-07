@@ -82,7 +82,7 @@ quantities:
   - symbol: 'C_T'
     description: 'Stress-tensor two-point coefficient in the absolute Osborn–Petkou normalization, $\langle T_{\mu\nu}(x)T_{\sigma\rho}(0)\rangle = C_T\,\mathcal{I}_{\mu\nu,\sigma\rho}(x)/x^{2d}$'
     value: '\frac{6}{5\pi^6}'
-    method: derived
+    method: exact
     refs: [osborn1994, bastianelli1999]
     note: 'Osborn–Petkou [@osborn1994, Eq. (5.5)], $C_T = \frac{d}{d-1}\frac{1}{S_d^2}$ with $S_d = 2\pi^{d/2}/\Gamma(d/2)$, evaluated at $d=6$, where $S_6 = \pi^3$. The same follows from [@bastianelli1999, Eq. (3.22)] with one scalar.'
 

@@ -106,7 +106,7 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N$ free real scalars'
     value: '1 - \frac{1408}{1575\pi^2 N} + O(N^{-2})'
-    method: derived
+    method: 1/N
     refs: [fei2014]
     note: 'From the large-$N$ result $C_T = \frac{5}{4S_5^2}\left(N - \frac{1408}{1575\pi^2}\right)$ [@fei2014, Eq. (6.6)], divided by the free value $\frac{5N}{4S_5^2}$ given there.'
   - symbol: '\tilde F'

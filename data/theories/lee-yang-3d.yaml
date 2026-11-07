@@ -78,7 +78,12 @@ quantities:
     value: '-0.57(2)'
     method: 'ε-exp, 6 − ε, five loops, resummed'
     refs: [borinsky2021]
-    note: '[@borinsky2021, Table 1]. Functional renormalization group: $-0.586(29)$ [@an2016].'
+    note: '[@borinsky2021, Table 1].'
+  - symbol: '\eta'
+    description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 1$'
+    value: '-0.586(29)'
+    method: FRG
+    refs: [an2016]
   - symbol: '|C_{\phi\phi\phi}|'
     description: OPE coefficient (absolute value)
     value: '1.9696(31)'
@@ -93,7 +98,28 @@ operators:
     rep: the only relevant primary
     method: FS
     refs: [arguellocruz2025]
-    note: 'Below the unitarity bound. The same paper lists $0.215(10)$ from the five-loop $\eta$ and $0.214(6)$ from the series $\sigma$. The fuzzy-sphere study of Fan et al. [@fan2025] gives $0.29$ (no error quoted).'
+    note: 'Below the unitarity bound.'
+  - name: '\phi'
+    Delta: '0.215(10)'
+    spin: 0
+    rep: the only relevant primary
+    method: 'ε-exp, 6 − ε, five loops, resummed, from η'
+    refs: [arguellocruz2025, borinsky2021]
+    note: 'Listed by Arguello Cruz et al. [@arguellocruz2025], from the five-loop $\eta$ [@borinsky2021].'
+  - name: '\phi'
+    Delta: '0.214(6)'
+    spin: 0
+    rep: the only relevant primary
+    method: series, from σ
+    refs: [arguellocruz2025, butera2012]
+    note: 'Listed by Arguello Cruz et al. [@arguellocruz2025], from the series value of $\sigma$ [@butera2012].'
+  - name: '\phi'
+    Delta: '0.29'
+    spin: 0
+    rep: the only relevant primary
+    method: FS
+    refs: [fan2025]
+    note: 'No error quoted.'
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
@@ -104,13 +130,41 @@ operators:
     spin: 0
     method: FS
     refs: [arguellocruz2025]
-    note: 'Leading irrelevant scalar. Five-loop $\omega = 1.5(2)$ gives $3 + \omega = 4.5(2)$ [@borinsky2021]; truncated bootstrap: $5.0(1)$ [@gliozzi2014]; Fan et al. [@fan2025]: $4.71$.'
+    note: 'Leading irrelevant scalar.'
+  - name: '\phi^3'
+    Delta: '4.5(2)'
+    spin: 0
+    method: 'ε-exp, 6 − ε, five loops, resummed, from ω'
+    refs: [borinsky2021]
+    note: '$3 + \omega$ with the five-loop $\omega = 1.5(2)$.'
+  - name: '\phi^3'
+    Delta: '5.0(1)'
+    spin: 0
+    method: CB-trunc
+    refs: [gliozzi2014]
+  - name: '\phi^3'
+    Delta: '4.71'
+    spin: 0
+    method: FS
+    refs: [fan2025]
+    note: 'No error quoted.'
   - name: 'Q_{\mu\nu\rho\sigma}'
     Delta: '4.9(1)'
     spin: 4
     method: FS
     refs: [arguellocruz2025]
-    note: 'Lightest spin-4 primary. Truncated bootstrap: $4.75(1)$ [@gliozzi2014]; Fan et al. [@fan2025]: $4.90$.'
+    note: 'Lightest spin-4 primary.'
+  - name: 'Q_{\mu\nu\rho\sigma}'
+    Delta: '4.75(1)'
+    spin: 4
+    method: CB-trunc
+    refs: [gliozzi2014]
+  - name: 'Q_{\mu\nu\rho\sigma}'
+    Delta: '4.90'
+    spin: 4
+    method: FS
+    refs: [fan2025]
+    note: 'No error quoted.'
 
 relations:
   - type: related_to

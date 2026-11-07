@@ -64,7 +64,7 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to three free chiral multiplets'
     value: '\frac{16(16\pi - 9\sqrt{3})}{243\pi} \approx 0.7268'
-    method: derived, supersymmetric localization
+    method: LOC
     refs: [baggio2017]
     note: 'Baggio et al. [@baggio2017] give $C_T = \tfrac{32}{27}\big(16 - \tfrac{9\sqrt3}{\pi}\big) \approx 13.0821$ in units where a free chiral multiplet has $C_T = 6$; divided here by 18. Independent of $\tau$ on the conformal manifold.'
   - symbol: 'C_J/C_J^{\rm free}'

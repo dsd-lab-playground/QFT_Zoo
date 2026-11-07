@@ -60,31 +60,31 @@ quantities:
   - symbol: 'a'
     description: 'Euler (type A) Weyl-anomaly coefficient, normalization of Bastianelli, Frolov and Tseytlin [@bastianelli2000] (defined on the free 6d scalar page)'
     value: '-\frac{221}{8}\cdot\frac{1}{(4\pi)^3\,7!}'
-    method: derived
+    method: exact
     refs: [bastianelli2000]
     note: 'Half of the non-chiral 2-form value $-\frac{221}{4}$ in eq. (2.27).'
   - symbol: 'c_1'
     description: 'Coefficient of the Weyl invariant $I_1$, same normalization'
     value: '-\frac{4004}{3}\cdot\frac{1}{(4\pi)^3\,7!}'
-    method: derived
+    method: exact
     refs: [bastianelli2000]
     note: 'Half of $-\frac{8008}{3}$ in eq. (2.27).'
   - symbol: 'c_2'
     description: 'Coefficient of the Weyl invariant $I_2$, same normalization'
     value: '-\frac{1189}{3}\cdot\frac{1}{(4\pi)^3\,7!}'
-    method: derived
+    method: exact
     refs: [bastianelli2000]
     note: 'Half of $-\frac{2378}{3}$ in eq. (2.27).'
   - symbol: 'c_3'
     description: 'Coefficient of the Weyl invariant $I_3$, same normalization'
     value: '90\cdot\frac{1}{(4\pi)^3\,7!}'
-    method: derived
+    method: exact
     refs: [bastianelli2000]
     note: 'Half of $180$ in eq. (2.27).'
   - symbol: 'C_T'
     description: 'Stress-tensor two-point coefficient in the absolute Osborn–Petkou normalization, $\langle T_{\mu\nu}(x)T_{\sigma\rho}(0)\rangle = C_T\,\mathcal{I}_{\mu\nu,\sigma\rho}(x)/x^{2d}$'
     value: '\frac{54}{\pi^6}'
-    method: derived
+    method: exact
     refs: [bastianelli1999]
     note: 'Eq. (3.22), $C_T = \frac{1}{\omega_{d-1}^2}\frac{d^2}{2}\tilde n_B$ with $\tilde n_B = \frac{(2k)!}{(k!)^2}n_B$, at $d=6$, $k=2$, $\omega_5 = \pi^3$ and $n_B = \tfrac12$ for a chiral 2-form. It is 45 times the value $\frac{6}{5\pi^6}$ of one real scalar.'
 

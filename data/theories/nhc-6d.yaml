@@ -95,7 +95,7 @@ quantities:
   - symbol: '(\alpha,\beta,\gamma,\delta)'
     description: '''t Hooft anomalies of the pure-gauge members ($n\neq7$), normalization of Córdova et al. [@cordova2015]'
     value: '\left(\tfrac{12(h^\vee)^2}{n}-(d_G-1),\ \tfrac{6h^\vee(n-2)}{n}-\tfrac{d_G-1}{2},\ \tfrac{3(n-2)^2}{4n}+\tfrac{23-7d_G}{240},\ \tfrac{d_G-29}{60}\right)'
-    method: derived
+    method: anomaly, tensor branch
     refs: [ohmori2014b, cordova2015]
     note: 'Computed here from the one-loop anomalies of Ohmori et al. [@ohmori2014b, App. A] and the Green–Schwarz term above. Anomaly cancellation for $p_1(T)\,\mathrm{Tr}F^2$ requires $h^\vee = 3(n-2)$, which holds for every pure-gauge member. $\delta = (n_V - n_H - 29n_T)/60$ counts multiplets.'
 

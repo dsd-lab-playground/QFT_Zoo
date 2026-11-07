@@ -83,7 +83,7 @@ operators:
     spin: 2
     weights: '(2, 0)'
     degeneracy: 196560
-    method: derived
+    method: exact
     refs: [witten2007]
     note: 'Lightest vertex operators, one for each norm-4 vector of $\Lambda$. The count is the $q^2$ coefficient of $\Theta_\Lambda = E_4^3 - 720\Delta$ (derived).'
   - name: 'e^{ip\cdot X},\ p \in \Lambda'

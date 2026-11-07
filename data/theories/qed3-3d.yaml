@@ -91,19 +91,19 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N_f$ free two-component Dirac fermions (no photon)'
     value: '1 + \frac{1}{N_f}\Big(\frac{2096}{45\pi^2} - 4\Big) + O(N_f^{-2})'
-    method: derived, large-N_f expansion
+    method: 1/Nf
     refs: [giombi2016, chester2016a]
     note: 'From $C_{T1} = \frac{4192}{45\pi^2} - 8$ with $N = 2N_f$. Numerically $1 + 0.7193/N_f$.'
   - symbol: 'C_J/C_J^{\rm free}'
     description: '$SU(N_f)$ current two-point coefficient, relative to $N_f$ free two-component Dirac fermions'
     value: '1 + \frac{1}{N_f}\Big(\frac{368}{9\pi^2} - 4\Big) + O(N_f^{-2})'
-    method: derived, large-N_f expansion
+    method: 1/Nf
     refs: [giombi2016, chester2016a]
     note: 'From $C_{J1} = \frac{736}{9\pi^2} - 8$ with $N = 2N_f$. Numerically $1 + 0.1429/N_f$.'
   - symbol: 'C_J^{\rm top}/C_J^{\rm free}'
     description: 'Topological-current two-point coefficient ($j^{\rm top} = \star f/2\pi$), relative to the $U(1)$ current of one free two-component Dirac fermion of unit charge'
     value: '\frac{64}{\pi^2 N_f}\Big[1 + \frac{1}{N_f}\Big(4 - \frac{368}{9\pi^2}\Big)\Big] + O(N_f^{-3})'
-    method: derived, large-N_f expansion
+    method: 1/Nf
     refs: [giombi2016, chester2016a]
     note: '[@giombi2016, Eq. (1.11)] with $N = 2N_f$, times $8\pi^2$. Numerically $6.4846/N_f - 0.9267/N_f^2$.'
 

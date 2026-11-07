@@ -163,7 +163,7 @@ yourself.
   `Delta: '0.518148806(24)'` (the digits in parentheses are the uncertainty in the
   last digits).
 - Exact values are LaTeX: `value: '\frac{1}{2}'`.
-- Give a `method` (an abbreviation such as `exact`, `CB`, `MC`, `ε-exp`, `derived`; see
+- Give a `method` (an abbreviation such as `exact`, `CB`, `MC`, `ε-exp`; see
   *Methods* below) and `refs: [key]` pointing to an entry in the theory's `references` list.
 
 ### Methods
@@ -179,11 +179,28 @@ method: 'CB, rigorous'
 method: 'MC-BC, isotropic'                   # Monte Carlo, improved Blume–Capel model
 method: 'ε-exp, 6 − ε, five loops, resummed'
 method: 'exact, planar limit'
+method: 'CB, rigorous, from Δε′'              # ω = Δε′ − 3, from a rigorous bootstrap interval
 ```
 
 - The abbreviation is the text before the first comma. The build rejects one that is not in
   `data/methods.yaml`; write the qualifier in words, and put anything longer (assumptions,
   lattice sizes, where in the paper) in the row's `note`.
+- **Values computed from another determination** by a relation (an exponent from a scaling
+  dimension, $\eta = 2\Delta_\sigma - 1$; a dimension from an RG eigenvalue, $3 - y_t$; a
+  normalization change) get the method of their input, with a qualifier `from X` naming the input:
+  `method: 'CB, from Δσ'`, `'MC, from ν'`, `'ε-exp, 6 − ε, five loops, resummed, from ω'`. Keep
+  `rigorous` only when the input is a rigorous interval and the relation is monotone, so that the
+  result is a rigorous interval too. `refs` cite the paper of the input, with a locator where the
+  input (or the computed value, if the paper states it) appears; if the paper does not state the
+  value itself, say in the `note` that it is computed by the relation. There is no separate
+  "derived" method: a bootstrap value converted to an exponent is still a bootstrap determination,
+  on the same footing as the Monte Carlo one, and each goes in its own row (see *How quantities are
+  shown*). Values fixed by symmetry or an exact argument use `exact` with a short qualifier, e.g.
+  `'exact, free field'`; a value whose only uncertainty comes from a numerical input keeps the
+  input's method even when the relation is exact (`'CB, from Δσ'` for $\Delta_\psi = \Delta_\sigma + \tfrac12$
+  by supersymmetry).
+- **Never put another determination in a note** ("Bootstrap: 0.5189(1)", "compare Monte Carlo
+  ..."): give it its own row with the same `symbol` and `description`, its method and `refs`.
 - If no method fits, add one to `data/methods.yaml`: `abbr` (short, no spaces; an established
   abbreviation if there is one), `name`, a one-to-three-sentence `description`, optionally a
   `parent` (`MC-BC` is a kind of `MC`) and `links` to its Wikipedia article (or, where Wikipedia

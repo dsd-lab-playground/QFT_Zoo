@@ -58,14 +58,23 @@ quantities:
     description: 'Thermal exponent $y_t = 1/\nu = 5 - \Delta_\epsilon$'
     value: '1.737(2)'
     method: MC, bond, hypercubic
-    refs: [tan2020, zhang2021, koza2016]
-    note: 'Other Monte Carlo values: $1.743(10)$ (bond) [@zhang2021]; site percolation $\nu = 0.5723(18)$ [@koza2016].'
+    refs: [tan2020]
+  - symbol: '1/\nu'
+    description: 'Thermal exponent $y_t = 1/\nu = 5 - \Delta_\epsilon$'
+    value: '1.743(10)'
+    method: MC, bond
+    refs: [zhang2021]
   - symbol: '\nu'
     description: Correlation-length exponent
     value: '0.5741(6)'
     method: 'ε-exp, 6 − ε, five loops, resummed'
     refs: [borinsky2021]
     note: 'Resummation of the series for $1/\nu$, all methods combined [@borinsky2021, Table 15].'
+  - symbol: '\nu'
+    description: Correlation-length exponent
+    value: '0.5723(18)'
+    method: MC, site
+    refs: [koza2016]
   - symbol: 'd_f'
     description: 'Fractal dimension of critical clusters, $d_f = y_h = 5 - \Delta_\sigma$'
     value: '3.5260(14)'
@@ -75,9 +84,14 @@ quantities:
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 7 - 2d_f = 2\Delta_\sigma - 3$'
     value: '-0.0520(28)'
-    method: derived
-    refs: [zhang2021, borinsky2021]
-    note: 'From $d_f = 3.5260(14)$. Five-loop $6-\epsilon$: $-0.056(3)$ [@borinsky2021, Table 13].'
+    method: MC, from d_f
+    refs: [zhang2021]
+    note: 'Computed by this relation from $d_f = 3.5260(14)$.'
+  - symbol: '\eta'
+    description: 'Anomalous dimension, $\eta = 7 - 2d_f = 2\Delta_\sigma - 3$'
+    value: '-0.056(3)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
+    refs: ['borinsky2021, Table 13']
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent'
     value: '0.746(11)'
@@ -90,7 +104,7 @@ operators:
     Delta: '1.4740(14)'
     spin: 0
     rep: '$(q-1)$-dimensional representation of $S_q$ (order parameter)'
-    method: derived
+    method: MC, from d_f
     refs: [zhang2021, tan2020]
     note: '$5 - d_f$ with $d_f = 3.5260(14)$, listed as the magnetic dimension $X_1$ in [@tan2020, Table IV]. Below the unitarity bound $\tfrac32$.'
   - name: '\epsilon'

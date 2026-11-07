@@ -49,19 +49,19 @@ quantities:
   - symbol: '\tilde F'
     description: 'Sphere free energy of one Dirac fermion in the convention of Giombi and Klebanov [@giombi2014], $\tilde F = \sin(\pi d/2)\log Z_{S^d}$; at $d=5$, $\tilde F = \log Z_{S^5} = -F$'
     value: '\frac{1}{2^6}\left(6\log 2 + \frac{10\zeta(3)}{\pi^2} + \frac{15\zeta(5)}{\pi^4}\right) \approx 8.65\times 10^{-2}'
-    method: derived
+    method: exact
     refs: [klebanov2011, giombi2014]
     note: 'Klebanov, Pufu and Safdi [@klebanov2011, Table 2] give $F_D/\dim\gamma = \frac{-1}{2^8}\left(6\log 2 + \frac{10\zeta(3)}{\pi^2} + \frac{15\zeta(5)}{\pi^4}\right) \approx -2.16\times10^{-2}$, with $\dim\gamma = 4$ in $d=5$. Multiplying by 4 and flipping the sign [@giombi2014, Eq. (1.5)] gives this value. Four times a numerical evaluation of [@giombi2014, Eq. (2.6)] at $d=5$ gives the same number.'
   - symbol: 'C_T'
     description: 'Stress-tensor two-point coefficient of one Dirac fermion, in the absolute Osborn–Petkou normalization $\langle T_{\mu\nu}(x)T_{\sigma\rho}(0)\rangle = C_T\,\mathcal{I}_{\mu\nu,\sigma\rho}(x)/x^{2d}$'
     value: '\frac{45}{32\pi^4}'
-    method: derived
+    method: exact
     refs: [osborn1994, diab2016, giombi2014]
     note: 'From $C_T = {\rm Tr}\,\mathbb{1}\,\frac{d}{2S_d^2}$ per Dirac fermion [@osborn1994, Eq. (5.6)], in the form quoted by Diab et al. [@diab2016, fn. 2], with $S_d = 2\pi^{d/2}/\Gamma(d/2)$, at $d=5$: $S_5 = 8\pi^2/3$ and ${\rm Tr}\,\mathbb{1} = 4$. Osborn–Petkou write the factor ${\rm Tr}\,\mathbb{1}$ as $2^{d/2}$, its value in even $d$; for odd $d$ the trace is $2^{[d/2]}$ [@giombi2014, Eq. (2.2)].'
   - symbol: 'C_T/C_T^{\rm scalar}'
     description: 'The same, relative to one free real scalar in $d=5$ ($C_T^{\rm scalar} = \frac{45}{256\pi^4}$)'
     value: '8'
-    method: derived
+    method: exact
     refs: [osborn1994, diab2016]
     note: 'Ratio ${\rm Tr}\,\mathbb{1}\,\frac{d-1}{2} = 4\cdot 2$ of the two formulas above.'
 

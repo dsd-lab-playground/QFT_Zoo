@@ -59,7 +59,12 @@ quantities:
     value: '\frac{16(16\pi - 9\sqrt{3})}{243\pi} \approx 0.7268'
     method: LOC
     refs: [fei2016, bobev2015b]
-    note: 'The bootstrap solution at the kink gives $0.7265(3)$ (Bobev et al. 2015).'
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor two-point coefficient, relative to one free chiral multiplet (two real scalars and one two-component Dirac fermion)'
+    value: '0.7265(3)'
+    method: CB-EFM
+    refs: ['bobev2015, p. 4']
+    note: 'From the unique solution of crossing at the kink.'
   - symbol: '\eta_\phi = \eta_\psi'
     description: 'Anomalous dimensions, $\eta_\phi = 2\Delta_\Phi - 1$, $\Delta_\psi = 1 + \eta_\psi/2$'
     value: '\frac{1}{3}'
@@ -68,13 +73,13 @@ quantities:
   - symbol: '\nu^{-1}'
     description: 'Inverse correlation-length exponent, $3 - \Delta_{[\bar\Phi\Phi]}$'
     value: '1.0902(20)'
-    method: derived
+    method: CB, from Δ[Φ̄Φ]
     refs: [bobev2015]
     note: 'From the bootstrap value $\Delta_{[\bar\Phi\Phi]} = 1.9098(20)$.'
   - symbol: '\omega'
     description: 'Correction-to-scaling exponent, $\Delta_{[Q^4\bar\Phi\Phi]} - 3$'
     value: '0.9098(20)'
-    method: derived
+    method: CB, from Δ[Q⁴Φ̄Φ]
     refs: [bobev2015, bobev2015b]
     note: 'From the bootstrap value $\Delta_{[Q^4\bar\Phi\Phi]} = 3.9098(20)$. Supersymmetry implies $\omega = 2 - \nu^{-1}$.'
 
@@ -105,8 +110,15 @@ operators:
     spin: 0
     rep: '$R = 0$; lowest unprotected superconformal primary'
     method: CB
-    refs: [bobev2015, fei2016]
-    note: 'Its coupling is the tuning parameter of the non-supersymmetric description. $4-\epsilon$: $2 - \tfrac13\epsilon^2 + \tfrac{1+12\zeta(3)}{18}\epsilon^3 + O(\epsilon^4)$, whose Padé estimate in $d=3$ is $\approx 1.909$ (Fei et al.).'
+    refs: [bobev2015]
+    note: 'Its coupling is the tuning parameter of the non-supersymmetric description.'
+  - name: '[\bar\Phi\Phi]'
+    Delta: '\approx 1.909'
+    spin: 0
+    rep: '$R = 0$; lowest unprotected superconformal primary'
+    method: 'ε-exp, 4 − ε, Padé'
+    refs: [fei2016]
+    note: 'Padé estimate at $d=3$ of $2 - \tfrac13\epsilon^2 + \tfrac{1+12\zeta(3)}{18}\epsilon^3 + O(\epsilon^4)$ [@fei2016].'
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2

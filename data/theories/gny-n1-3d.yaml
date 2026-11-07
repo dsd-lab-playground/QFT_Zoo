@@ -70,16 +70,16 @@ operators:
     Delta: '1.0844435(83)'
     spin: '1/2'
     rep: superpartner of $\sigma$
-    method: derived, supersymmetry
+    method: CB, from Δσ
     refs: [atanasov2022]
-    note: '$\Delta_\psi = \Delta_\sigma + \tfrac12$.'
+    note: '$\Delta_\psi = \Delta_\sigma + \tfrac12$ by supersymmetry.'
   - name: '\epsilon'
     Delta: '1.5844435(83)'
     spin: 0
     rep: parity even; top of the $\sigma$ multiplet
-    method: derived, supersymmetry
+    method: CB, from Δσ
     refs: [atanasov2022]
-    note: '$\Delta_\epsilon = \Delta_\sigma + 1$. The only relevant parity-even scalar (the tuning parameter).'
+    note: '$\Delta_\epsilon = \Delta_\sigma + 1$ by supersymmetry. The only relevant parity-even scalar (the tuning parameter).'
   - name: '\sigma'''
     Delta: '2.8869(25)'
     spin: 0
@@ -90,8 +90,9 @@ operators:
     Delta: '3.8869(25)'
     spin: 0
     rep: parity even; partner of $\sigma'$
-    method: derived, supersymmetry
+    method: CB, from Δσ′
     refs: [atanasov2022]
+    note: '$\Delta_{\epsilon''} = \Delta_{\sigma''} + 1$ by supersymmetry.'
   - name: 'S_{\mu\alpha}'
     Delta: '5/2'
     spin: '3/2'

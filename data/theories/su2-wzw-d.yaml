@@ -55,7 +55,7 @@ quantities:
   symbol: '\Delta_{\rm gap}'
   description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
   value: '\frac{4}{k+2}'
-  method: derived
+  method: exact
   refs: [zuber2000, ginsparg-lectures]
   note: '$\Delta = 2h_2$ for $\Phi_1$ ($l = 2$), the lightest primary kept by the invariant; matches the spectrum checks for $k = 4, \dots, 18$.'
 
@@ -65,7 +65,7 @@ operators:
   spin: 0
   weights: '(\tfrac{2}{k+2}, \tfrac{2}{k+2})'
   rep: '$(\mathbf{3}, \mathbf{3})$ of $SU(2) \times SU(2)$'
-  method: derived
+  method: exact
   refs: [zuber2000, ginsparg-lectures]
   note: 'Lightest non-vacuum primary ($l = 2$).'
 - name: '\Phi_{k/2} \otimes \bar{1}'
@@ -73,7 +73,7 @@ operators:
   spin: '\frac{k}{4}'
   weights: '(\tfrac{k}{4}, 0)'
   rep: '$(\mathbf{k+1}, \mathbf{1})$'
-  method: derived
+  method: exact
   refs: [zuber2000, ginsparg-lectures]
   note: 'For $k \equiv 0 \pmod 4$: the simple current extending the chiral algebra (with its partner at $(0, \frac k4)$). At $k = 4$ these are the five extra currents of $SU(3)_1$.'
 

@@ -96,7 +96,7 @@ quantities:
   - symbol: '\epsilon_{k,\ell}'
     description: 'D3-brane charge of the S-fold, defined by $a \simeq k(N+\epsilon_{k,\ell})^2/4$ at large $N$'
     value: '\frac{2\ell - k - 1}{2k}'
-    method: derived
+    method: exact
     refs: [at2016]
     note: 'From [@at2016, Eqs. (2.2), (2.12)]; it reproduces their table (2.13): $-\tfrac13, \tfrac13$ ($k=3$), $-\tfrac38, \tfrac38$ ($k=4$), $-\tfrac{5}{12}$ ($k=6$).'
 

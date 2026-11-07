@@ -74,8 +74,14 @@ quantities:
     description: 'Squared OPE coefficient of $u^2$ in $u\times u$ (unit-normalized two-point functions)'
     value: '[2.142596,\ 2.16509]'
     method: CB, rigorous bounds
-    refs: [gimenezgrau2020, cornagliotto2017]
-    note: 'Bounds at derivative order $\Lambda = 50$ [@gimenezgrau2020, Table 7]. Earlier: $2.1418 \le \lambda^2 \le 2.1672$ at $\Lambda = 40$, with conservative extrapolation $2.146 \lesssim \lambda^2 \lesssim 2.159$ [@cornagliotto2017, Eqs. (3.1), (3.2)].'
+    refs: [gimenezgrau2020]
+    note: 'Bounds at derivative order $\Lambda = 50$ [@gimenezgrau2020, Table 7].'
+  - symbol: '\lambda^2_{u^2}'
+    description: 'Squared OPE coefficient of $u^2$ in $u\times u$ (unit-normalized two-point functions)'
+    value: '[2.1418,\ 2.1672]'
+    method: CB, rigorous bounds
+    refs: ['cornagliotto2017, Eq. (3.1)']
+    note: 'Bounds at $\Lambda = 40$ (earlier study). Conservative extrapolation: $2.146 \lesssim \lambda^2 \lesssim 2.159$ [@cornagliotto2017, Eq. (3.2)].'
 
 operators:
   - name: 'u'
@@ -97,8 +103,15 @@ operators:
     spin: 0
     rep: '$SU(2)_R$ singlet, $U(1)_r$ neutral'
     method: CB-EFM
-    refs: [cornagliotto2017, gimenezgrau2020]
-    note: 'Superconformal primary of the lightest long multiplet in $u\times\bar u$; relevant. Range from extrapolations to $\Lambda\to\infty$ [@cornagliotto2017, Eq. (3.5)], not a rigorous bound. Gimenez-Grau and Liendo [@gimenezgrau2020, Eq. (4.1)] find $\approx 2.7$.'
+    refs: [cornagliotto2017]
+    note: 'Superconformal primary of the lightest long multiplet in $u\times\bar u$; relevant. Range from extrapolations to $\Lambda\to\infty$ [@cornagliotto2017, Eq. (3.5)], not a rigorous bound.'
+  - name: '[u\bar u]_{\rm long}'
+    Delta: '\approx 2.7'
+    spin: 0
+    rep: '$SU(2)_R$ singlet, $U(1)_r$ neutral'
+    method: CB
+    refs: ['gimenezgrau2020, Eq. (4.1)']
+    note: 'Estimate, not a rigorous bound.'
   - name: 'T_{\mu\nu}'
     Delta: 4
     spin: 2

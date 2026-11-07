@@ -46,8 +46,8 @@ quantities:
   - symbol: '\theta'
     description: 'From the Parisi–Sourlas relation $\theta(7) = \sigma_{\rm LY}(5) + 2$'
     value: '2.3983(6)'
-    method: derived
-    refs: [brydges2003, borinsky2021]
+    method: 'ε-exp, 6 − ε, five loops, resummed, from σ of 5d Lee–Yang'
+    refs: ['borinsky2021, Table 4', brydges2003]
     note: 'With the 5d Lee–Yang exponent $\sigma = 0.3983(6)$ from the five-loop $6-\epsilon$ expansion [@borinsky2021, Table 4].'
   - symbol: '\nu'
     description: 'Size exponent, $R \sim N^{\nu}$'
@@ -58,7 +58,7 @@ quantities:
   - symbol: '\nu'
     description: 'From $\theta = (d-2)\nu + 1$ with the Parisi–Sourlas value of $\theta$'
     value: '0.27966(12)'
-    method: derived
+    method: 'ε-exp, 6 − ε, five loops, resummed, from θ'
     refs: [hsu2005, brydges2003, borinsky2021]
     note: '$\nu = (\theta - 1)/5$ with $\theta = 2.3983(6)$.'
 

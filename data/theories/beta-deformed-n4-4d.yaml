@@ -84,7 +84,7 @@ quantities:
   - symbol: 'a = c'
     description: 'Conformal anomalies (normalized so a free real scalar has $a = \tfrac{1}{360}$, $c = \tfrac{1}{120}$)'
     value: '\frac{N^2-1}{4}'
-    method: derived, anomaly matching
+    method: anomaly
     refs: [mpsz2005, iw2003, fg2005]
     note: 'The superconformal $R$-symmetry gives the same charge to all three $\Phi_i$ [@mpsz2005], hence $\tfrac23$ since $W$ has $R = 2$, as in $\mathcal{N}=4$ SYM. So $\mathrm{Tr}R = 0$, $\mathrm{Tr}R^3 = \tfrac89(N^2-1)$ and $a = c = (N^2-1)/4$ for every $\beta$. The holographic $c$ is $\beta$-independent [@fg2005].'
 
