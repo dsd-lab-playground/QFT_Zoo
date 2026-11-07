@@ -1,0 +1,257 @@
+id: qcd-conformal-window-4d
+name: QCD in the conformal window
+aliases:
+  - Banks–Zaks fixed points
+  - Caswell–Banks–Zaks fixed points
+  - 'Many-flavor QCD (infrared fixed point)'
+d: 4
+summary: >-
+  The infrared fixed points of $SU(3)$ gauge theory with $N_f$ massless Dirac quarks in the
+  fundamental representation. They are weakly coupled (Banks–Zaks) just below $N_f = 33/2$,
+  where asymptotic freedom is lost; where the window ends at smaller $N_f$ is not settled.
+tags: [CFT, interacting, unitary, Lagrangian, gauge theory, family]
+
+description: |
+  $SU(N_c)$ Yang–Mills theory coupled to $N_f$ massless Dirac fermions in the fundamental
+  representation. With $\alpha = g^2/4\pi$ the beta function is
+  $\beta(\alpha) = -2\alpha\,[\,b_1\,\alpha/4\pi + b_2\,(\alpha/4\pi)^2 + \dots]$, with the
+  scheme-independent coefficients $b_1$ and $b_2$ below. Asymptotic freedom requires
+  $N_f < 11N_c/2$, and $b_2 < 0$ for $N_f > 34N_c^3/(13N_c^2-3)$. In between, the two-loop beta
+  function has an infrared zero $\alpha_* = -4\pi b_1/b_2$ (Caswell; Banks and Zaks), and the
+  massless theory flows from the free UV fixed point to an interacting CFT. Near the upper edge
+  $\alpha_*$ is proportional to $\Delta_f = 11N_c/2 - N_f$, so the fixed point is perturbative,
+  and its data can be expanded in powers of $\Delta_f$ with scheme-independent coefficients
+  (Ryttov and Shrock). For $SU(3)$ the two-loop zero exists for $9 \le N_f \le 16$, with
+  $\alpha_* = 2\pi/151 \approx 0.042$ at $N_f = 16$.
+
+  In the conformal phase the flavor symmetry $SU(N_f)_L\times SU(N_f)_R\times U(1)_V$ is
+  unbroken and there is no confinement. The members below are the integer $N_f$ at which the
+  two-loop zero exists for $SU(3)$; conformality is controlled near $N_f = 16$ and is
+  increasingly uncertain toward $N_f = 9$. The order-$\Delta_f^4$ values of $\gamma_{\bar\psi\psi}$
+  quoted for the members are truncations of the $\Delta_f$ series and carry no error
+  estimate. Below the lower edge $N_f^*$ the theory confines and breaks chiral symmetry to
+  $SU(N_f)_V\times U(1)_V$.
+
+  ### Status of the lower edge
+  The conformal window is $N_f^* < N_f < 11N_c/2$, and the value of $N_f^*$ is not known. The
+  estimates for $SU(3)$ disagree. The ladder Schwinger–Dyson criterion applied to the two-loop
+  fixed point gives $N_f^* = N_c(100N_c^2-66)/(25N_c^2-15)$, just below 12 for $N_c = 3$
+  (Appelquist, Terning and Wijewardhana), but this approximation is uncontrolled. The
+  order-$\Delta_f^4$ values of $\gamma_{\bar\psi\psi}$ stay below the conformal bound
+  $\gamma \le 2$ down to $N_f = 9$; assuming the bound is saturated at the lower edge,
+  Ryttov and Shrock estimate $8 \lesssim N_f^* \lesssim 9$, while Lee, using the criterion
+  $\gamma = 1$, finds $N_f = 10$ likely to lie on the lower edge. Borel resummation of the
+  five-loop beta function and of the $\Delta_f$ expansion (Di Pietro and Serone) gives
+  substantial evidence that $N_f = 12$ is conformal and weaker indications for $N_f = 11$;
+  the method fails below 11.
+
+  On the lattice, $N_f = 12$ has been debated for years. Finite-size scaling analyses find
+  conformal behavior with $\gamma_m = 0.235(15)$ (Cheng et al.) and $0.235(46)$ (Lombardo et al.),
+  and LatKMI find their data consistent with conformality for $\gamma_m \sim 0.4$–$0.5$.
+  Gradient-flow step-scaling studies find an infrared fixed point, at
+  $g_\star^2 = 7.3\,({}^{+8}_{-2})$ in the $c = 0.25$ scheme (Hasenfratz and Schaich) and in the
+  range $5.2 \le g_c^2 \le 6.4$ (Hasenfratz, Rebbi and Witzel), whereas Fodor et al., in the same
+  scheme as an earlier study, find no zero of the beta function in the interval
+  $6.0 < g^2 < 6.4$ where that study had placed it. For $N_f = 10$, which is "the subject of
+  continuing debate", a recent gradient-flow study finds a fixed point at $g^2 = 15.0(5)$ with
+  $\gamma_m \simeq 0.6$ (Hasenfratz et al. 2023). For $N_f = 8$ the spectrum indirectly
+  indicates chiral symmetry breaking, with a flavor-singlet scalar degenerate with the
+  pseudo-Goldstone states at the lightest masses simulated (LSD collaboration).
+
+lagrangian: '\mathcal{L} = -\frac{1}{2g^2}\,\mathrm{Tr}\,F_{\mu\nu}F^{\mu\nu} + \sum_{i=1}^{N_f} \bar\psi_i\, i\gamma^\mu D_\mu \psi_i'
+
+parameters:
+  - symbol: N_c
+    description: Number of colors; the members listed below have $N_c = 3$.
+    range: '$N_c \geq 2$'
+  - symbol: N_f
+    description: Number of massless Dirac fermions in the fundamental representation.
+    range: '$N_f^* < N_f < 11N_c/2$; for $SU(3)$ the two-loop zero exists for $9 \le N_f \le 16$'
+
+family:
+  parameter: N_f
+  members:
+    - at: 16
+      label: 'Weakest coupling, $\alpha_* \approx 0.042$'
+      note: '$\gamma_{\bar\psi\psi} = 0.0259$ at order $\Delta_f^4$.'
+    - at: 15
+      note: '$\gamma_{\bar\psi\psi} = 0.0843$ at order $\Delta_f^4$.'
+    - at: 14
+      note: '$\gamma_{\bar\psi\psi} = 0.153$ at order $\Delta_f^4$.'
+    - at: 13
+      note: '$\gamma_{\bar\psi\psi} = 0.237$ at order $\Delta_f^4$.'
+    - at: 12
+      label: 'Most studied on the lattice'
+      note: '$\gamma_{\bar\psi\psi} = 0.338$ at order $\Delta_f^4$. Conformality favored by most lattice groups and by resummed perturbation theory, but disputed (see Status).'
+    - at: 11
+      note: '$\gamma_{\bar\psi\psi} = 0.462$ at order $\Delta_f^4$. Resummed perturbation theory weakly favors conformality.'
+    - at: 10
+      note: '$\gamma_{\bar\psi\psi} = 0.615$ at order $\Delta_f^4$. Lattice fixed point with $\gamma_m \simeq 0.6$ reported in 2023; debated.'
+    - at: 9
+      note: '$\gamma_{\bar\psi\psi} = 0.804$ at order $\Delta_f^4$. Two-loop coupling $\alpha_* \approx 5.2$; conformality unknown.'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$SU(N_f)_L\times SU(N_f)_R\times U(1)_V$ (the axial $U(1)$ is anomalous), charge conjugation, parity and time reversal'
+  gauge: '$SU(N_c)$'
+
+quantities:
+  - symbol: 'b_1'
+    description: 'One-loop beta-function coefficient, $\beta = -2\alpha\sum_\ell b_\ell(\alpha/4\pi)^\ell$'
+    value: '\frac{11N_c - 2N_f}{3}'
+    method: derived (one-loop perturbation theory)
+    refs: [ryttov2016, appelquist1996]
+    note: 'Equal to $2\pi b$ with $b$ of Appelquist et al., eq. (3). For $SU(3)$ it is $11 - 2N_f/3$ (Ryttov–Shrock).'
+  - symbol: 'b_2'
+    description: 'Two-loop beta-function coefficient, same normalization'
+    value: '\frac{34}{3}N_c^2 - \frac{13}{3}N_cN_f + \frac{N_f}{N_c}'
+    method: derived (two-loop perturbation theory)
+    refs: [ryttov2016, appelquist1996]
+    note: 'Equal to $8\pi^2 c$ with $c$ of Appelquist et al., eq. (4). For $SU(3)$ it is $102 - 38N_f/3$ (Ryttov–Shrock), which vanishes at $N_f = 153/19 \approx 8.05$.'
+  - symbol: '\alpha_*'
+    description: 'Fixed-point coupling of the two-loop beta function, $-4\pi b_1/b_2$'
+    value: '\frac{4\pi N_c(11N_c - 2N_f)}{(13N_c^2-3)N_f - 34N_c^3}'
+    method: derived (two-loop perturbation theory)
+    refs: [ryttov2017, ryttov2016]
+    note: 'Scheme dependent beyond leading order in $\Delta_f$. For $SU(3)$: $2\pi/151 \approx 0.0416$ at $N_f = 16$ and $0.754$ at $N_f = 12$, as in Table II of Ryttov–Shrock.'
+  - symbol: '\gamma_{\bar\psi\psi}'
+    description: 'Mass anomalous dimension at the fixed point, $\Delta_{\bar\psi\psi} = 3 - \gamma_{\bar\psi\psi}$, in powers of $\Delta_f = 11N_c/2 - N_f$'
+    value: '\frac{4(N_c^2-1)}{N_c(25N_c^2-11)}\,\Delta_f + \frac{4(N_c^2-1)(9N_c^2-2)(49N_c^2-44)}{3N_c^2(25N_c^2-11)^3}\,\Delta_f^2 + O(\Delta_f^3)'
+    method: scheme-independent Banks–Zaks expansion
+    refs: [ryttov2017]
+    note: 'Eqs. (3.8)–(3.9). For $SU(3)$ through fourth order: $\Delta_f\,[0.049844 + 0.0037928\,\Delta_f + 0.00023747\,\Delta_f^2 + 0.000036789\,\Delta_f^3]$ (eq. 3.13), with $\Delta_f = 33/2 - N_f$.'
+
+operators:
+  - name: '\bar\psi\psi\ (N_f = 12)'
+    Delta: '2.662'
+    spin: 0
+    rep: '$SU(N_f)$ adjoint and singlet (same anomalous dimension)'
+    method: derived (scheme-independent expansion, fourth order)
+    refs: [ryttov2017, dipietro2020]
+    note: '$3 - \gamma$ with $\gamma = 0.338$ from Table I. Resummed perturbation theory gives $|\gamma| = 0.345(47)$ (Di Pietro–Serone).'
+  - name: '\bar\psi\psi\ (N_f = 12)'
+    Delta: '2.765(15)'
+    spin: 0
+    rep: '$SU(N_f)$ adjoint and singlet'
+    method: derived (lattice finite-size scaling)
+    refs: [cheng2014, lombardo2014, aoki2012]
+    note: '$3 - \gamma_m$ with $\gamma_m = 0.235(15)$ (Cheng et al.). Also $\gamma_m = 0.235(46)$ (Lombardo et al.) and $\gamma_m \sim 0.4$–$0.5$ (LatKMI).'
+  - name: '\mathrm{Tr}\,F_{\mu\nu}F^{\mu\nu}\ (N_f = 12)'
+    Delta: '4.228'
+    spin: 0
+    rep: singlet
+    method: derived (scheme-independent expansion, fifth order)
+    refs: [ryttov2017, hasenfratz2018, dipietro2020]
+    note: '$4 + \beta^\prime(\alpha_*)$ (eq. 4.2) with $\beta^\prime = 0.228$ from Table VIII. Lattice: leading irrelevant exponent $0.26(2)$ (Hasenfratz–Schaich); resummed perturbation theory $0.23(6)$.'
+  - name: 'J_\mu^{L},\ J_\mu^{R},\ J_\mu^{V}'
+    Delta: 3
+    spin: 1
+    rep: '$SU(N_f)_L$ and $SU(N_f)_R$ adjoints, $U(1)_V$'
+    method: exact
+    note: Conserved flavor currents.
+  - name: 'T_{\mu\nu}'
+    Delta: 4
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: yang-mills-4d
+    note: 'The same gauge theory with $N_f = 0$, which confines instead of flowing to a CFT.'
+
+references:
+  - key: caswell1974
+    title: Asymptotic Behavior of Nonabelian Gauge Theories to Two Loop Order
+    authors: Caswell
+    year: 1974
+    journal: Phys. Rev. Lett. 33, 244
+    doi: 10.1103/PhysRevLett.33.244
+  - key: banks1982
+    title: On the Phase Structure of Vector-Like Gauge Theories with Massless Fermions
+    authors: Banks, Zaks
+    year: 1982
+    journal: Nucl. Phys. B 196, 189
+    doi: 10.1016/0550-3213(82)90035-9
+  - key: appelquist1996
+    title: The Zero Temperature Chiral Phase Transition in SU(N) Gauge Theories
+    authors: Appelquist, Terning, Wijewardhana
+    year: 1996
+    journal: Phys. Rev. Lett. 77, 1214
+    arxiv: hep-ph/9602385
+  - key: ryttov2016
+    title: 'Infrared Zero of $\beta$ and Value of $\gamma_m$ for an SU(3) Gauge Theory at the Five-Loop Level'
+    authors: Ryttov, Shrock
+    year: 2016
+    journal: Phys. Rev. D 94, 105015
+    arxiv: '1607.06866'
+  - key: ryttov2017
+    title: 'Higher-Order Scheme-Independent Series Expansions of $\gamma_{\bar\psi\psi,IR}$ and $\beta''_{IR}$ in Conformal Field Theories'
+    authors: Ryttov, Shrock
+    year: 2017
+    journal: Phys. Rev. D 95, 105004
+    arxiv: '1703.08558'
+  - key: dipietro2020
+    title: Looking through the QCD Conformal Window with Perturbation Theory
+    authors: Di Pietro, Serone
+    year: 2020
+    journal: JHEP 07 (2020) 049
+    arxiv: '2003.01742'
+  - key: lee2021
+    title: Conformal window from conformal expansion
+    authors: Lee
+    year: 2021
+    journal: Phys. Rev. D 103, 076006
+    arxiv: '2008.12223'
+  - key: cheng2014
+    title: Finite size scaling of conformal theories in the presence of a near-marginal operator
+    authors: Cheng, Hasenfratz, Liu, Petropoulos, Schaich
+    year: 2014
+    journal: Phys. Rev. D 90, 014509
+    arxiv: '1401.0195'
+  - key: lombardo2014
+    title: On the particle spectrum and the conformal window
+    authors: Lombardo, Miura, Nunes da Silva, Pallante
+    year: 2014
+    journal: JHEP 12 (2014) 183
+    arxiv: '1410.0298'
+  - key: aoki2012
+    title: Lattice study of conformality in twelve-flavor QCD
+    authors: Aoki et al. (LatKMI)
+    year: 2012
+    journal: Phys. Rev. D 86, 054506
+    arxiv: '1207.3060'
+  - key: fodor2016
+    title: Fate of the conformal fixed point with twelve massless fermions and SU(3) gauge group
+    authors: Fodor, Holland, Kuti, Mondal, Nogradi, Wong
+    year: 2016
+    journal: Phys. Rev. D 94, 091501
+    arxiv: '1607.06121'
+  - key: hasenfratz2018
+    title: Nonperturbative beta function of twelve-flavor SU(3) gauge theory
+    authors: Hasenfratz, Schaich
+    year: 2018
+    journal: JHEP 02 (2018) 132
+    arxiv: '1610.10004'
+  - key: hasenfratz2019
+    title: Gradient flow step-scaling function for SU(3) with twelve flavors
+    authors: Hasenfratz, Rebbi, Witzel
+    year: 2019
+    journal: Phys. Rev. D 100, 114508
+    arxiv: '1909.05842'
+  - key: hasenfratz2023
+    title: 'Infrared fixed point of the SU(3) gauge theory with $N_f = 10$ flavors'
+    authors: Hasenfratz, Neil, Shamir, Svetitsky, Witzel
+    year: 2023
+    journal: Phys. Rev. D 108, L071503
+    arxiv: '2306.07236'
+  - key: lsd2019
+    title: Nonperturbative investigations of SU(3) gauge theory with eight dynamical flavors
+    authors: Appelquist et al. (Lattice Strong Dynamics)
+    year: 2019
+    journal: Phys. Rev. D 99, 014509
+    arxiv: '1807.08411'
+
+contributors: [Canonical111]

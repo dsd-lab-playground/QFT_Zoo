@@ -1,0 +1,174 @@
+id: litim-sannino-4d
+name: Asymptotically safe gauge–Yukawa theory
+aliases:
+  - Litim–Sannino model
+  - Litim–Sannino fixed point
+d: 4
+summary: >-
+  An interacting ultraviolet fixed point of $SU(N_c)$ gauge theory with $N_f$ Dirac fermions and an
+  $N_f\times N_f$ complex scalar with a Yukawa coupling, in the Veneziano limit. It is perturbative
+  for small $\epsilon = N_f/N_c - 11/2 > 0$, where asymptotic freedom is lost.
+tags: [CFT, interacting, unitary, Lagrangian, gauge theory, large N]
+
+description: |
+  The fields are $SU(N_c)$ gauge fields, $N_f$ Dirac fermions $Q$ in the fundamental
+  representation, and an $N_f\times N_f$ complex scalar matrix $H$ that is neutral under the gauge
+  group and couples to the fermions through a Yukawa term. The four classically marginal couplings
+  are normalized for the Veneziano limit $N_c, N_f\to\infty$ at fixed $N_f/N_c$:
+  $\alpha_g = g^2N_c/(4\pi)^2$, $\alpha_y = y^2N_c/(4\pi)^2$, $\alpha_h = uN_f/(4\pi)^2$ and
+  $\alpha_v = vN_f^2/(4\pi)^2$. The control parameter is $\epsilon = N_f/N_c - 11/2$; for
+  $\epsilon > 0$ the one-loop gauge coefficient has the wrong sign for asymptotic freedom.
+
+  To the order needed for the leading fixed point (two loops in the gauge coupling, one in the
+  Yukawa coupling),
+  $\beta_g = \alpha_g^2\,[\tfrac43\epsilon + (25 + \tfrac{26}{3}\epsilon)\alpha_g - 2(\tfrac{11}{2}+\epsilon)^2\alpha_y]$
+  and $\beta_y = \alpha_y\,[(13+2\epsilon)\alpha_y - 6\alpha_g]$. Without the Yukawa coupling the
+  two-loop gauge term has the same sign as the one-loop term and no fixed point with $\alpha_g > 0$
+  exists. The Yukawa coupling enters $\beta_g$ with the opposite sign and produces a zero at
+  couplings of order $\epsilon$, so gauge fields, fermions and scalars are all required (Litim
+  and Sannino). Only one fixed-point value of the single-trace quartic admits a fixed point of
+  the double-trace quartic, which then has two; the values below are for the one where the
+  potential is bounded from below (FP$_1$).
+
+  With the scalar mass tuned to zero, the fixed point has a single relevant direction among the four
+  classically marginal couplings, with exponent of order $\epsilon^2$, so the critical surface of the
+  massless theory is one dimensional. The scalar mass term $\mathrm{Tr}\,H^\dagger H$ ($\Delta = 2 + O(\epsilon)$)
+  is a further relevant deformation. The two trajectories that leave it along that
+  direction run either to the free theory in the infrared or to strong coupling, where the theory
+  confines and breaks chiral symmetry or flows to an infrared CFT. The scaling exponents
+  $\vartheta$ are eigenvalues of $\partial\beta_i/\partial\alpha_j$ at the fixed point; the
+  corresponding scaling operators have $\Delta = 4 + \vartheta$. At this weakly coupled fixed
+  point scale invariance entails conformal invariance, and the unitarity bounds are satisfied in
+  perturbation theory (Litim et al. 2023).
+
+  The fixed point exists only for $0 < \epsilon < \epsilon_{\max}$. Three-loop analyses put
+  $\epsilon_{\max} \approx 0.09$–$0.13$, limited mainly by vacuum stability (Bond et al.). At four
+  loops, vacuum stability is lost for $\epsilon_{\max} \approx 0.087$–$0.146$ and the relevant
+  exponent indicates a fixed-point merger for $\epsilon_{\max} \approx 0.091$–$0.249$ (Litim et al.
+  2023). Extrapolated to finite multiplicities, the smallest compatible $(N_c, N_f)$ moves from
+  $(3, 17)$ at the previous order to $(5, 28)$ at four loops. All statements here are for the Veneziano
+  limit.
+
+  The fermion mass operator $\bar Q Q$ mixes with other dimension-three operators, so the mass
+  anomalous dimension computed without this mixing is not a scaling dimension beyond leading order;
+  Bednyakov and Mukhaeva compute the eigenvalues of the mixing matrix at four loops. Its dimension is
+  therefore not listed here.
+
+lagrangian: '\mathcal{L} = -\tfrac12\,\mathrm{Tr}\,F_{\mu\nu}F^{\mu\nu} + \mathrm{Tr}\,\bar Q\, i\gamma^\mu D_\mu Q + \mathrm{Tr}\,\partial_\mu H^\dagger\partial^\mu H + y\,\mathrm{Tr}\,(\bar Q_L H Q_R + \bar Q_R H^\dagger Q_L) - u\,\mathrm{Tr}\,(H^\dagger H)^2 - v\,(\mathrm{Tr}\,H^\dagger H)^2'
+
+parameters:
+  - symbol: N_c
+    description: Number of colors.
+    range: '$N_c \to \infty$ (Veneziano limit)'
+  - symbol: N_f
+    description: Number of Dirac fermions in the fundamental representation; $H$ is an $N_f\times N_f$ matrix.
+    range: '$N_f \to \infty$ with $N_f/N_c$ fixed'
+  - symbol: '\epsilon'
+    description: 'Veneziano parameter $N_f/N_c - 11/2$.'
+    range: '$0 < \epsilon < \epsilon_{\max}$, with $\epsilon_{\max}$ of order $0.1$'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$SU(N_f)_L\times SU(N_f)_R$ flavor symmetry, under which $H$ is a bifundamental, and the $U(1)_V$ fermion number'
+  gauge: '$SU(N_c)$; $H$ is a gauge singlet'
+
+quantities:
+  - symbol: '\alpha_g^*'
+    description: 'Gauge coupling at the fixed point'
+    value: '\frac{26}{57}\,\epsilon + \frac{23(75245 - 13068\sqrt{23})}{370386}\,\epsilon^2 + O(\epsilon^3)'
+    method: perturbation theory (Veneziano limit)
+    refs: [litim2014, litim2023]
+    note: 'Numerically $0.4561\,\epsilon + 0.7808\,\epsilon^2$. The four-loop analysis confirms both terms and gives $0.456\,\epsilon + 0.781\,\epsilon^2 + 6.610\,\epsilon^3$.'
+  - symbol: '\alpha_y^*'
+    description: 'Yukawa coupling at the fixed point'
+    value: '\frac{4}{19}\,\epsilon + \Big(\frac{43549}{20577} - \frac{2300\sqrt{23}}{6859}\Big)\epsilon^2 + O(\epsilon^3)'
+    method: perturbation theory (Veneziano limit)
+    refs: [litim2014, litim2023]
+    note: 'Numerically $0.2105\,\epsilon + 0.5082\,\epsilon^2$; four loops add $3.322\,\epsilon^3$.'
+  - symbol: '\alpha_h^*'
+    description: 'Single-trace quartic coupling at the fixed point'
+    value: '\frac{\sqrt{23}-1}{19}\,\epsilon + O(\epsilon^2)'
+    method: perturbation theory (Veneziano limit)
+    refs: [litim2014, litim2023]
+    note: 'Numerically $0.1998\,\epsilon$. Four loops: $0.200\,\epsilon + 0.440\,\epsilon^2 + 2.693\,\epsilon^3$ (called $\alpha_u$ there).'
+  - symbol: '\alpha_v^*'
+    description: 'Double-trace quartic coupling at the fixed point (stable potential)'
+    value: '-\frac{2\sqrt{23} - \sqrt{20+6\sqrt{23}}}{19}\,\epsilon + O(\epsilon^2)'
+    method: perturbation theory (Veneziano limit)
+    refs: [litim2014, litim2023]
+    note: 'Numerically $-0.1373\,\epsilon$, with $\alpha_h^* + \alpha_v^* > 0$. The other root, $-0.8723\,\epsilon$, gives a potential unbounded from below.'
+  - symbol: '\vartheta_1'
+    description: 'Relevant scaling exponent (mostly the gauge coupling)'
+    value: '-\frac{104}{171}\,\epsilon^2 + \frac{2296}{3249}\,\epsilon^3 + O(\epsilon^4)'
+    method: perturbation theory (Veneziano limit)
+    refs: [litim2014, litim2023]
+    note: 'Numerically $-0.608\,\epsilon^2 + 0.707\,\epsilon^3$; the four-loop analysis adds $6.947\,\epsilon^4$.'
+  - symbol: '\vartheta_2'
+    description: 'Leading irrelevant exponent of the gauge–Yukawa system'
+    value: '\frac{52}{19}\,\epsilon + \frac{136601719 - 22783308\sqrt{23}}{4094823}\,\epsilon^2 + O(\epsilon^3)'
+    method: perturbation theory (Veneziano limit)
+    refs: [litim2014, litim2023]
+    note: 'Numerically $2.737\,\epsilon + 6.676\,\epsilon^2$.'
+  - symbol: '\vartheta_h'
+    description: 'Irrelevant exponent of the single-trace quartic'
+    value: '\frac{16\sqrt{23}}{19}\,\epsilon + O(\epsilon^2)'
+    method: perturbation theory (Veneziano limit)
+    refs: [litim2014, litim2023]
+    note: 'Numerically $4.039\,\epsilon$. Called $\vartheta_3$ by Litim and Sannino and $\vartheta_4$ by Litim et al. (2023), who give $4.039\,\epsilon + 9.107\,\epsilon^2 + 38.646\,\epsilon^3$.'
+  - symbol: '\vartheta_v'
+    description: 'Irrelevant exponent of the double-trace quartic'
+    value: '\frac{8}{19}\sqrt{20+6\sqrt{23}}\;\epsilon + O(\epsilon^2)'
+    method: perturbation theory (Veneziano limit)
+    refs: [litim2014, litim2023]
+    note: 'Numerically $2.941\,\epsilon$. Called $\vartheta_4$ by Litim and Sannino and $\vartheta_3$ by Litim et al. (2023), who give $2.941\,\epsilon + 1.041\,\epsilon^2 + 5.137\,\epsilon^3$.'
+
+operators:
+  - name: 'H'
+    Delta: '1 + \frac{4}{19}\,\epsilon + \frac{14567 - 2376\sqrt{23}}{6859}\,\epsilon^2 + O(\epsilon^3)'
+    spin: 0
+    rep: 'gauge singlet; $(N_f, \bar N_f)$ bifundamental of the flavor group'
+    method: perturbation theory (Veneziano limit)
+    refs: [litim2014, litim2023]
+    note: 'Numerically $1 + 0.2105\,\epsilon + 0.4625\,\epsilon^2$; four loops add $2.471\,\epsilon^3$.'
+  - name: 'T_{\mu\nu}'
+    Delta: 4
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: qcd-conformal-window-4d
+    note: 'The same gauge–fermion system without the scalar. For $\epsilon < 0$ and $\alpha_y = 0$ the two-loop gauge beta function has the Banks–Zaks infrared zero $\alpha_g^* = -4\epsilon/(75+26\epsilon)$; for $\epsilon > 0$ that zero is at negative coupling, and the Yukawa coupling is needed for a fixed point.'
+
+references:
+  - key: litim2014
+    title: Asymptotic safety guaranteed
+    authors: Litim, Sannino
+    year: 2014
+    journal: JHEP 12 (2014) 178
+    arxiv: '1406.2337'
+  - key: bond2018
+    title: UV conformal window for asymptotic safety
+    authors: Bond, Litim, Medina Vazquez, Steudtner
+    year: 2018
+    journal: Phys. Rev. D 97, 036019
+    arxiv: '1710.07615'
+  - key: litim2023
+    title: Asymptotic safety guaranteed at four loop order
+    authors: Litim, Riyaz, Stamou, Steudtner
+    year: 2023
+    journal: Phys. Rev. D 108, 076006
+    arxiv: '2307.08747'
+  - key: bednyakov2024
+    title: Asymptotic safety in the Litim-Sannino model at four loops
+    authors: Bednyakov, Mukhaeva
+    year: 2024
+    journal: Phys. Rev. D 109, 065030
+    arxiv: '2312.12128'
+    doi: '10.1103/PhysRevD.109.065030'
+    note: 'Mixing of the dimension-three operators, including the fermion mass operator.'
+
+contributors: [Canonical111]
