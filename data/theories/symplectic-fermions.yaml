@@ -6,7 +6,7 @@ aliases:
   - 'Triplet model at $c = -2$'
 d: 2
 summary: >-
-  The $c = -2$ logarithmic CFT of a pair of free anticommuting scalars (Kausch). It is non-unitary,
+  The $c = -2$ logarithmic CFT of a pair of free anticommuting scalars [@kausch1995; @kausch2000]. It is non-unitary,
   and $L_0$ has a Jordan block on the vacuum module. Its bosonic $\mathbb{Z}_2$ orbifold is the local
   CFT of the triplet $\mathcal{W}$-algebra at $c = -2$ [@gk1999].
 tags: [CFT, free, non-unitary, Lagrangian, exactly solvable]

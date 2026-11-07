@@ -38,7 +38,7 @@ description: |
   ### Related problems
   The same universality class describes the singularity of lattice gases with purely repulsive
   interactions at negative activity; its pressure exponent $\sigma + 1 = \tfrac56$ in two dimensions
-  agrees with Baxter's solution of the hard-hexagon model (see [@cardy2023]). Parisi and Sourlas [@parisi1981]
+  agrees with Baxter's solution of the hard-hexagon model [@baxter1980] (see [@cardy2023]). Parisi and Sourlas [@parisi1981]
   related the Yang–Lee edge in $d$ dimensions to branched polymers in $d + 2$ dimensions, so this
   theory is expected to describe branched polymers in four dimensions. Perturbing the CFT by $\phi$
   gives an integrable massive field theory with a single particle, whose factorized S-matrix was
@@ -169,5 +169,12 @@ references:
     year: 2026
     journal: Phys. Rev. X 16, 011022
     arxiv: '2505.06369'
+  - key: baxter1980
+    title: 'Hard hexagons: exact solution'
+    authors: Baxter
+    year: 1980
+    journal: 'J. Phys. A 13, L61'
+    doi: '10.1088/0305-4470/13/3/007'
+    note: 'Exact hard-hexagon exponent $5/6$, as cited by [@cardy2023].'
 
 contributors: [Canonical111]

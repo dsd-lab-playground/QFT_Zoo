@@ -39,7 +39,7 @@ description: |
   [@appelquist1996], but this approximation is uncontrolled. The
   order-$\Delta_f^4$ values of $\gamma_{\bar\psi\psi}$ stay below the conformal bound
   $\gamma \le 2$ down to $N_f = 9$; assuming the bound is saturated at the lower edge,
-  Ryttov and Shrock estimate $8 \lesssim N_f^* \lesssim 9$, while Lee [@lee2021], using the criterion
+  Ryttov and Shrock [@ryttov2016gamma] estimate $8 \lesssim N_f^* \lesssim 9$, while Lee [@lee2021], using the criterion
   $\gamma = 1$, finds $N_f = 10$ likely to lie on the lower edge. Borel resummation of the
   five-loop beta function and of the $\Delta_f$ expansion [@dipietro2020] gives
   substantial evidence that $N_f = 12$ is conformal and weaker indications for $N_f = 11$;
@@ -114,7 +114,7 @@ quantities:
     value: '\frac{4\pi N_c(11N_c - 2N_f)}{(13N_c^2-3)N_f - 34N_c^3}'
     method: derived, two-loop perturbation theory
     refs: [ryttov2017, ryttov2016]
-    note: 'Scheme dependent beyond leading order in $\Delta_f$. For $SU(3)$: $2\pi/151 \approx 0.0416$ at $N_f = 16$ and $0.754$ at $N_f = 12$, as in Table II of Ryttov–Shrock.'
+    note: 'Scheme dependent beyond leading order in $\Delta_f$. For $SU(3)$: $2\pi/151 \approx 0.0416$ at $N_f = 16$ and $0.754$ at $N_f = 12$, as in [@ryttov2016, Table II].'
   - symbol: '\gamma_{\bar\psi\psi}'
     description: 'Mass anomalous dimension at the fixed point, $\Delta_{\bar\psi\psi} = 3 - \gamma_{\bar\psi\psi}$, in powers of $\Delta_f = 11N_c/2 - N_f$'
     value: '\frac{4(N_c^2-1)}{N_c(25N_c^2-11)}\,\Delta_f + \frac{4(N_c^2-1)(9N_c^2-2)(49N_c^2-44)}{3N_c^2(25N_c^2-11)^3}\,\Delta_f^2 + O(\Delta_f^3)'
@@ -253,5 +253,13 @@ references:
     year: 2019
     journal: Phys. Rev. D 99, 014509
     arxiv: '1807.08411'
+  - key: ryttov2016gamma
+    title: 'Scheme-independent calculation of $\gamma_{\bar\psi\psi,IR}$ for an SU(3) gauge theory'
+    authors: Ryttov, Shrock
+    year: 2016
+    journal: 'Phys. Rev. D 94, 105014'
+    arxiv: '1608.00068'
+    doi: '10.1103/PhysRevD.94.105014'
+    note: 'Estimate $8 < N_{f,cr} < 9$ for $SU(3)$ from saturating $\gamma \le 2$ (quoted in [@ryttov2017]).'
 
 contributors: [Canonical111]

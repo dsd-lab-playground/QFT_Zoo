@@ -47,7 +47,7 @@ description: |
 
   **Moonshine and K3.** For every $g \in \mathrm{Co}_0$ the graded supertrace $T^s_g$ on $V^{s\natural}$ is
   the normalized principal modulus of a genus-zero group, the analogue of monstrous moonshine
-  [@dmc2015]. It is related to the principal moduli $t_g$ that Conway, Norton and Queen attached to
+  [@dmc2015]. It is related to the principal moduli $t_g$ that Conway and Norton [@conwaynorton1979] and Queen [@queen1981] attached to
   $\mathrm{Co}_0$ by $T^s_g(2\tau) = t_g(\tau) + \chi_g$, with $\chi_g$ the trace of $g$ on $\Lambda\otimes\mathbb{C}$.
   The canonically twisted module attaches a weak Jacobi form of weight 0 and index 1 to each symplectic derived autoequivalence of a K3 surface fixing a
   stability condition. These recover the twined elliptic genera of K3 sigma models in all available
@@ -151,5 +151,12 @@ references:
     year: 1979
     journal: Bull. London Math. Soc. 11, 308
     doi: '10.1112/blms/11.3.308'
+  - key: queen1981
+    title: 'Modular functions arising from some finite groups'
+    authors: Queen
+    year: 1981
+    journal: 'Math. Comp. 37, 547'
+    doi: '10.1090/S0025-5718-1981-0628715-7'
+    note: 'With [@conwaynorton1979], the principal moduli $t_g$ for $g \in \mathrm{Co}_0$ ([@dmc2015, Thm. 4.7] cites both).'
 
 contributors: [Canonical111]

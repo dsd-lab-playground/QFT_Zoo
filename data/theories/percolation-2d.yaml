@@ -38,7 +38,7 @@ description: |
   follow from it. Smirnov [@smirnov2001] proved that the scaling limit exists and is conformally invariant, proving Cardy's
   formula and convergence of interfaces to SLE$_6$. Lawler, Schramm and Werner [@lsw2002] computed the one-arm exponent:
   the probability that the cluster of the origin reaches distance $R$ is $R^{-5/48 + o(1)}$. Smirnov and Werner [@smirnovwerner2001]
-  combined these results with Kesten's scaling relations to prove the values of $\nu$, $\beta$, $\gamma$ and
+  combined these results with Kesten's scaling relations [@kesten1987] to prove the values of $\nu$, $\beta$, $\gamma$ and
   $\eta$. They listed the extension to other lattices, such as bond percolation on the square lattice, as open.
 
   ### Status
@@ -123,7 +123,7 @@ relations:
   - type: related_to
     target: on-loop-model-2d
     at: '2/3'
-    note: 'Hulls of percolation clusters are the loops of the dense $O(n)$ loop model at $n = 1$ (Grans-Samuelsson et al.).'
+    note: 'Hulls of percolation clusters are the loops of the dense $O(n)$ loop model at $n = 1$ [@granssamuelsson2022, Sec. 1].'
   - type: related_to
     target: percolation-3d
     note: 'Critical percolation in $d = 2$ and $d = 3$, the $Q \to 1$ limit of the Potts critical point in each dimension. In $d = 2$ the exponents are exact; in $d = 3$ they are known numerically.'
@@ -195,5 +195,20 @@ references:
     year: 2021
     journal: SciPost Phys. 10, 021
     arxiv: '2007.04190'
+  - key: kesten1987
+    title: 'Scaling relations for 2D-percolation'
+    authors: Kesten
+    year: 1987
+    journal: 'Commun. Math. Phys. 109, 109'
+    doi: '10.1007/BF01205674'
+    note: 'Scaling relations used by [@smirnovwerner2001].'
+  - key: granssamuelsson2022
+    title: 'Global symmetry and conformal bootstrap in the two-dimensional $O(n)$ model'
+    authors: Grans-Samuelsson, Nivesvivat, Jacobsen, Ribault, Saleur
+    year: 2022
+    journal: 'SciPost Phys. 12, 147'
+    arxiv: '2111.01106'
+    doi: '10.21468/SciPostPhys.12.5.147'
+    note: 'Sec. 1, Eq. (1.6) and comments: dense $n = 1$ loops are hulls of site-percolation clusters.'
 
 contributors: [Canonical111]

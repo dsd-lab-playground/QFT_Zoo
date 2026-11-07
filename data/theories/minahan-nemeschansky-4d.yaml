@@ -37,7 +37,7 @@ description: |
 
   The central charges saturate the unitarity bounds that follow from the chiral algebra, and
   the chiral algebra is conjectured to be the $E_n$ affine algebra at level $k_{2d} = -k/2$,
-  that is $-3$, $-4$ and $-6$ (Beem et al.). In the numerical bootstrap of the moment-map
+  that is $-3$, $-4$ and $-6$ [@beem2013, Sec. 4.3; @beem2014, Sec. 2.4]. In the numerical bootstrap of the moment-map
   four-point function, every $\mathcal{N}=2$ SCFT with at least $E_6$ flavor symmetry has
   $c \geq 0.83$. The $E_6$ theory lies where two analytic chiral-algebra bounds meet, but at
   $k = 6$ the numerical lower bound on $c$ appears to converge to between 1.1 and 1.2, below its

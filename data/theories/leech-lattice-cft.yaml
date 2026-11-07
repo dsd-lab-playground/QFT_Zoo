@@ -17,7 +17,7 @@ description: |
   $\Theta_L(\tau)/\eta(\tau)^n$; it is modular invariant up to phases, and exactly invariant when
   $n$ is a multiple of 24 [@schellekens1993, Sec. 1]. In rank 24 there are exactly 24 such lattices,
   the Niemeier lattices, each fixed by its root system; the Leech lattice $\Lambda$ is the unique one
-  without roots, i.e. with no vectors of norm 2 (Conway). Its shortest vectors have norm 4.
+  without roots, i.e. with no vectors of norm 2 [@conway1969]. Its shortest vectors have norm 4.
 
   The vertex operators $e^{ip\cdot X}$, $p \in \Lambda$, have weight $h = p^2/2 \geq 2$, so the only
   weight-1 states are the currents $\partial X^i$, generating $U(1)^{24}$. Modular invariance then
@@ -149,5 +149,12 @@ references:
     arxiv: '1308.2361'
     doi: '10.1016/j.jalgebra.2013.09.007'
     note: 'Lattice vertex operator algebras of positive-definite even lattices are unitary.'
+  - key: conway1969
+    title: 'A characterisation of Leech''s lattice'
+    authors: Conway
+    year: 1969
+    journal: 'Invent. Math. 7, 137'
+    doi: '10.1007/BF01389796'
+    note: 'Uniqueness of the Leech lattice as the even unimodular lattice of rank 24 without roots.'
 
 contributors: [Canonical111]

@@ -72,7 +72,7 @@ quantities:
     value: '0.95331513(42)'
     method: CB, non-rigorous error
     refs: [chang2024]
-    note: '[@chang2024, Table 1, p. 2]; defined in [@chang2024, Eq. (2.2), p. 5], with $\hat T = T/\sqrt{c_T}$ [@chang2024, Eq. (2.9)], chosen to match the five-point-bootstrap convention of Poland, Prilepina and Tadić. Other normalizations of this structure differ. Error not bold, so not rigorous.'
+    note: '[@chang2024, Table 1, p. 2]; defined in [@chang2024, Eq. (2.2), p. 5], with $\hat T = T/\sqrt{c_T}$ [@chang2024, Eq. (2.9)], chosen to match the five-point-bootstrap convention of Poland, Prilepina and Tadić [@poland2023]. Other normalizations of this structure differ. Error not bold, so not rigorous.'
   - symbol: 'n_B'
     description: 'Free-boson coefficient of $\langle TTT\rangle = n_B\langle TTT\rangle_B + n_F\langle TTT\rangle_F$ (free real scalar and free Majorana fermion structures); $n_B + n_F = C_T/C_T^{\rm free}$'
     value: '0.933444559(75)'
@@ -520,14 +520,14 @@ operators:
     rep: '$\mathbb{Z}_2$-even, parity-odd'
     method: FS
     refs: [zhou2026]
-    note: '[@zhou2026, Table 1, p. 4; @zhou2026, pp. 22–23]. Consistent with the bootstrap bound; the next such primary is at $13.3(6)$, supporting the bootstrap''s assumption $\Delta_{\epsilon^{-\prime}} > 11.5$. The earlier fuzzy-sphere value $\approx 10.01$ (2210.13482) was a descendant, not a primary.'
+    note: '[@zhou2026, Table 1, p. 4; @zhou2026, pp. 22–23]. Consistent with the bootstrap bound; the next such primary is at $13.3(6)$, supporting the bootstrap''s assumption $\Delta_{\epsilon^{-\prime}} > 11.5$. The earlier fuzzy-sphere value $\approx 10.01$ [@zhu2022, Table I] was a descendant, not a primary.'
   - name: '\sigma^{-}'
     Delta: '12.8(7)'
     spin: 0
     rep: '$\mathbb{Z}_2$-odd, parity-odd'
     method: FS
     refs: [zhou2026]
-    note: '[@zhou2026, Table 1, p. 4]; lightest $\mathbb{Z}_2$-odd parity-odd scalar primary. The earlier value $\approx 11.19$ (2210.13482) was a descendant. Extrapolation error.'
+    note: '[@zhou2026, Table 1, p. 4]; lightest $\mathbb{Z}_2$-odd parity-odd scalar primary. The earlier value $\approx 11.19$ [@zhu2022, Table I] was a descendant. Extrapolation error.'
 
 relations:
   - type: member_of
@@ -642,5 +642,21 @@ references:
     doi: '10.21468/SciPostPhys.19.2.056'
     journal: 'SciPost Physics 19, 056'
     note: 'Section 4.1.1, Eqs. (4.5)-(4.13), arXiv v2 pp. 27-29, distinguishes SSB, trivial and SPT phases.'
+  - key: poland2023
+    title: 'The five-point bootstrap'
+    authors: Poland, Prilepina, Tadić
+    year: 2023
+    journal: 'JHEP 10 (2023) 153'
+    arxiv: '2305.08914'
+    doi: '10.1007/JHEP10(2023)153'
+    note: 'Convention for $\lambda_{TT\epsilon}$ that [@chang2024, Eq. (2.2)] adopts (its Ref. [42]).'
+  - key: zhu2022
+    title: 'Uncovering conformal symmetry in the 3D Ising transition: State-operator correspondence from a fuzzy sphere regularization'
+    authors: Zhu, Han, Huffman, Hofmann, He
+    year: 2023
+    journal: 'Phys. Rev. X 13, 021009'
+    arxiv: '2210.13482'
+    doi: '10.1103/PhysRevX.13.021009'
+    note: 'Table I: the earlier fuzzy-sphere parity-odd scalars $\epsilon^{P-} \approx 10.01$ and $\sigma^{P-} \approx 11.19$ (N = 16), later found to be descendants [@zhou2026].'
 
 contributors: [nathansbenjamin, davidsd]

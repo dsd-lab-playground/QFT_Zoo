@@ -13,7 +13,7 @@ tags: [CFT, interacting, non-unitary, critical phenomena, family]
 
 description: |
   The $Q$-state Potts model has spins $\sigma_i \in \{1, \dots, Q\}$ with interaction
-  $-K\delta_{\sigma_i,\sigma_j}$ and $S_Q$ symmetry. Fortuin and Kasteleyn rewrote its partition function as a
+  $-K\delta_{\sigma_i,\sigma_j}$ and $S_Q$ symmetry. Fortuin and Kasteleyn [@fk1972] rewrote its partition function as a
   sum over subsets $A$ of edges, $Z = \sum_A v^{|A|} Q^{k(A)}$ with $v = e^K - 1$ and $k(A)$ the number of
   clusters, which makes sense for any real $Q$. On the square lattice the critical point is $v_c = \sqrt{Q}$,
   and the boundaries of the clusters form completely packed loops on the medial lattice with weight $\sqrt{Q}$
@@ -32,7 +32,7 @@ description: |
   is real but non-unitary [@grz2018]. Even at integer $Q$, the CFT of cluster observables is
   larger than the minimal model: at $Q = 2$ the Potts CFT describes Fortuin–Kasteleyn clusters and is not the
   Ising minimal model [@nivesvivat2023]. The Potts CFT is defined by continuation in $c$ to a double cover of the
-  half-plane $\mathrm{Re}\, c < 13$ (Picco, Ribault and Santachiara; Nivesvivat).
+  half-plane $\mathrm{Re}\, c < 13$ (Picco, Ribault and Santachiara [@prs2019]; Nivesvivat [@nivesvivat2023, Sec. 1, Eq. (1.2)]).
 
   ### Spectrum
   The torus partition function goes back to Di Francesco, Saleur and Zuber [@dfsz1987], and Jacobsen, Ribault and Saleur [@jrs2023]
@@ -212,5 +212,12 @@ references:
     year: 2024
     journal: SciPost Phys. 17, 029
     arxiv: '2311.17558'
+  - key: fk1972
+    title: 'On the random-cluster model I. Introduction and relation to other models'
+    authors: Fortuin, Kasteleyn
+    year: 1972
+    journal: 'Physica 57, 536'
+    doi: '10.1016/0031-8914(72)90045-6'
+    note: 'The random-cluster (FK) representation of the Potts partition function.'
 
 contributors: [Canonical111]

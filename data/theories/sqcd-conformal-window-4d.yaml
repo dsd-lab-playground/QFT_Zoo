@@ -95,7 +95,7 @@ quantities:
     value: '\frac{1}{16}\Big(7N_c^2 - 2 - \frac{9N_c^4}{N_f^2}\Big)'
     method: exact, anomaly matching
     refs: [afgj1998, psd2010]
-    note: 'Anselmi et al. [@afgj1998, Eq. (4.23)] and Poland–Simmons-Duffin [@psd2010, Eq. (5.3)]. Their eq. (4.22) gives $c - a = (N_c^2+1)/16$.'
+    note: 'Anselmi et al. [@afgj1998, Eq. (4.23)] and Poland–Simmons-Duffin [@psd2010, Eq. (5.3)]. Anselmi et al. [@afgj1998, Eq. (4.22)] also give $c - a = (N_c^2+1)/16$.'
   - symbol: '\tau_{SU(N_f)}'
     description: 'Two-point coefficient of the $SU(N_f)_L$ (or $SU(N_f)_R$) currents, $\tau^{IJ} = -3\,\mathrm{Tr}(R\,T^IT^J) = \tau\,\delta^{IJ}$ with $\mathrm{Tr}(T^IT^J) = \tfrac12\delta^{IJ}$ in the fundamental'
     value: '\frac{3N_c^2}{2N_f}'

@@ -28,7 +28,7 @@ description: |
   There are two global forms, $SU(2)_k\times SU(2)_{-k}$ and
   $(SU(2)_k\times SU(2)_{-k})/\mathbb{Z}_2$. Both have manifest $\mathcal{N}=8$
   supersymmetry for every integer $k$, and they have the same stress-tensor four-point
-  function, so the $c_T$ values below apply to both (Agmon, Chester and Pufu). As
+  function, so the $c_T$ values below apply to both [@agmon2018, fn. 4]. As
   $k \to \infty$ the theory becomes weakly coupled and $c_T \to 64$, the value for its
   free field content.
 
@@ -42,7 +42,7 @@ description: |
   ### Dualities with ABJ(M) theories
   In the notation $\mathrm{BLG}_k = (SU(2)_k\times SU(2)_{-k})/\mathbb{Z}_2$ and
   $\mathrm{BLG}'_k = SU(2)_k\times SU(2)_{-k}$, the dualities listed by Agmon, Chester and
-  Pufu are:
+  Pufu [@agmon2018b, Eqs. (2)–(3)] are:
   - $\mathrm{BLG}_1$ $\cong$ $U(2)_1\times U(2)_{-1}$ ABJM, two M2-branes in flat space;
   - $\mathrm{BLG}'_2$ $\cong$ $U(2)_2\times U(2)_{-2}$ ABJM;
   - $\mathrm{BLG}_3$ $\otimes$ (free $\mathcal{N}=8$ theory) $\cong$ $U(3)_1\times U(3)_{-1}$ ABJM, so
@@ -53,7 +53,7 @@ description: |
   ABJM, and conjectured the second. Bashkirov and Kapustin [@bashkirov2011b] tested such dualities by
   comparing superconformal indices. Agmon, Chester and Pufu [@agmon2018b] proposed the third and
   supported it by matching moduli spaces, superconformal indices, $S^3$ partition functions
-  and BPS OPE coefficients. They also computed the BPS OPE coefficients of $\mathrm{BLG}_k$ for all
+  and BPS OPE coefficients. They also computed [@agmon2018, Secs. 3.3.1, 4] the BPS OPE coefficients of $\mathrm{BLG}_k$ for all
   $k$ and found that, unlike some ABJ(M) theories, these generically do not saturate the
   numerical bootstrap bounds.
 
