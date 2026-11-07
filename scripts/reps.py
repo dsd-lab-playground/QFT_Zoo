@@ -524,7 +524,9 @@ def _label(g, t, s, params, G):  # noqa: F811 (extends the definition above)
             try:
                 e = _num(body, params)
             except RepError:
-                raise RepError(f"charge '{s}' is not an integer, a fraction a/b, ±q, or an expression in the entry's parameters")
+                # Not an expression in the entry's parameters: leave it to the symbolic-charge rule of the 2d batch
+                # (a row standing for a family labelled by its charge, e.g. 'n'), which rejects anything else.
+                return _label_core(g, t, s, params, G)
             if isinstance(e, int):
                 return _label_core(g, t, s, params, G)
             pre = {"±": "\\pm ", "-": "-", "+": ""}.get(sign, "")

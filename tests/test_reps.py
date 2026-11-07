@@ -173,7 +173,8 @@ expect(lab("U(1)", "2(N_f-N_c)/N_f", params=U)["text"] == "$U(1)$ charge $2(N_f-
 expect(lab("U(1)", "±N_c", params=U)["canon"] == "±N_c" and "\\pm" in lab("U(1)", "±N_c", params=U)["text"], "U(1) ±N_c")
 expect([v for v in sorted([-1, "N_c", 0, "-N_c", 1], key=lambda v: lab("U(1)", v, params=U)["sort"])] == [0, 1, -1, "N_c", "-N_c"], "U(1) parametric order")
 expect(lab("U(1)", "3/2", params=U)["canon"] == "3/2", "numeric U(1) charges unchanged")
-rejects("U(1)", "q", "expression in the entry's parameters")
+# A charge that is not an entry parameter is a symbolic family charge (2d batch rule), shown as such.
+expect(lab("U(1)", "q")["canon"] == "q(q)", "non-parameter symbol is a symbolic family charge")
 
 if FAILS:
     print(f"✗ {len(FAILS)} failure(s):")
