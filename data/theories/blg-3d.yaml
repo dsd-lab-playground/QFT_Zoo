@@ -1,6 +1,7 @@
 id: blg-3d
-name: 'BLG theory, $SU(2)_k \times SU(2)_{-k}$'
+name: '3d BLG theory, $SU(2)_k \times SU(2)_{-k}$'
 aliases:
+  - 'BLG theory, $SU(2)_k \times SU(2)_{-k}$'
   - Bagger–Lambert–Gustavsson theory
   - 'Bagger–Lambert $\mathcal{A}_4$ theory'
   - '$\mathcal{N}=8$ $SO(4)$ Chern–Simons-matter theory'

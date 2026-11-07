@@ -1,6 +1,7 @@
 id: qcd3-3d
-name: 'QCD$_3$: $SU(N_c)$ gauge theory with $N_f$ fundamental fermions'
+name: '3d QCD (QCD$_3$): $SU(N_c)$ gauge theory with $N_f$ fundamental fermions'
 aliases:
+  - 'QCD$_3$: $SU(N_c)$ gauge theory with $N_f$ fundamental fermions'
   - 'QCD$_3$'
   - '$SU(N_c)_0$ with $N_f$ fundamental fermions'
 d: 3

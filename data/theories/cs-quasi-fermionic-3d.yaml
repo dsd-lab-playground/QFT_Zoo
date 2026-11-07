@@ -1,6 +1,7 @@
 id: cs-quasi-fermionic-3d
-name: 'Chern–Simons theory with fundamental fermions (quasi-fermionic family)'
+name: '3d Chern–Simons theory with fundamental fermions (quasi-fermionic family)'
 aliases:
+  - 'Chern–Simons theory with fundamental fermions (quasi-fermionic family)'
   - 'Quasi-fermionic theories'
   - '$U(N)_k$ Chern–Simons theory coupled to a fundamental fermion'
   - 'Chern–Simons theory coupled to a critical boson'

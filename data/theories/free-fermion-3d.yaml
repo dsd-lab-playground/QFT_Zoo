@@ -1,6 +1,7 @@
 id: free-fermion-3d
-name: Free massless Majorana fermion (3d)
+name: '3d free Majorana fermion'
 aliases:
+  - 'Free massless Majorana fermion (3d)'
   - Free Dirac fermion (3d)
   - Free two-component fermion
 d: 3

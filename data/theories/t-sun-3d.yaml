@@ -1,6 +1,7 @@
 id: t-sun-3d
-name: '$T[SU(N)]$'
+name: '3d $T[SU(N)]$ theory'
 aliases:
+  - '$T[SU(N)]$'
   - '$T(SU(N))$ theory'
   - 'Gaiotto–Witten $T[SU(N)]$'
   - 'S-duality wall theory of $SU(N)$ $\mathcal{N}=4$ super Yang–Mills'

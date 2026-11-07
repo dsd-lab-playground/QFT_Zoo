@@ -1,12 +1,12 @@
 id: trivial-tqft-3d
-name: 'Trivial 3d topological field theory'
+name: '3d trivial theory'
 aliases: ['Trivial gapped infrared fixed point']
 d: 3
 summary: >-
   The normalized trivial bosonic theory: one state on every closed spatial
   surface and partition function one. Symmetry actions and background
   responses must be specified when it is used as an RG-flow endpoint.
-tags: [TQFT, gapped, unitary, exactly solvable]
+tags: [CFT, TQFT, gapped, unitary, exactly solvable]
 description: |
   This is the tensor unit of three-dimensional bosonic topological field theories,
   normalized to $Z(M)=1$ and $\mathcal H(\Sigma)=\mathbb C$: Moore and Saxena,
@@ -32,8 +32,8 @@ description: |
   ### Meaning of the infrared limit
   A microscopic massive theory has finite correlation length. This entry retains
   only its normalized topological infrared limit, not its massive particles.
-  Local metric rescalings act trivially; this is a conformal fixed point in a
-  broader sense than an interacting CFT with a nonzero stress tensor.
+  It is also the trivial CFT: its only local operator is the identity, its
+  stress tensor vanishes, and local metric rescalings act trivially.
 symmetry:
   spacetime: 'Topological; local metric rescalings act trivially.'
   notes: >-

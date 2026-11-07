@@ -1,6 +1,7 @@
 id: scalar-qed3-3d
-name: 'Scalar QED$_3$ with $N$ complex scalars'
+name: '3d scalar QED with $N$ complex scalars'
 aliases:
+  - 'Scalar QED$_3$ with $N$ complex scalars'
   - 'Abelian Higgs model'
   - 'Noncompact $\mathbb{CP}^{N-1}$ model'
   - 'Bosonic QED$_3$'

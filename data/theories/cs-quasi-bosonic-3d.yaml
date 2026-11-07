@@ -1,6 +1,7 @@
 id: cs-quasi-bosonic-3d
-name: 'Chern–Simons theory with fundamental scalars (quasi-bosonic family)'
+name: '3d Chern–Simons theory with fundamental scalars (quasi-bosonic family)'
 aliases:
+  - 'Chern–Simons theory with fundamental scalars (quasi-bosonic family)'
   - 'Quasi-bosonic theories'
   - '$U(N)_k$ Chern–Simons theory coupled to a fundamental scalar'
   - 'Chern–Simons theory coupled to a critical fermion (Chern–Simons–Gross–Neveu)'

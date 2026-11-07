@@ -1,6 +1,7 @@
 id: abjm-3d
-name: 'ABJM theory, $U(N)_k \times U(N)_{-k}$'
+name: '3d ABJM theory, $U(N)_k \times U(N)_{-k}$'
 aliases:
+  - 'ABJM theory, $U(N)_k \times U(N)_{-k}$'
   - Aharony–Bergman–Jafferis–Maldacena theory
   - '$\mathcal{N}=6$ superconformal Chern–Simons-matter theory'
   - M2-brane SCFT

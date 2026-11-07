@@ -1,6 +1,7 @@
 id: qed3-gn-3d
-name: 'QED$_3$–Gross–Neveu–Yukawa model with $N_f$ fermion flavors'
+name: '3d QED–Gross–Neveu–Yukawa model with $N_f$ fermion flavors'
 aliases:
+  - 'QED$_3$–Gross–Neveu–Yukawa model with $N_f$ fermion flavors'
   - 'QED$_3$–GN'
   - 'QED-GN$_+$'
 d: 3

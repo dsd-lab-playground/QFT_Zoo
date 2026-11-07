@@ -1,6 +1,7 @@
 id: dqcp-3d
-name: 'Deconfined quantum critical point (NCCP$^1$, $SO(5)$)'
+name: '3d deconfined quantum critical point (NCCP$^1$, $SO(5)$)'
 aliases:
+  - 'Deconfined quantum critical point (NCCP$^1$, $SO(5)$)'
   - 'Néel–VBS deconfined criticality'
   - 'NCCP$^1$ model'
   - '$SO(5)$ deconfined criticality'

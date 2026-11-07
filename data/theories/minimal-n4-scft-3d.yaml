@@ -1,6 +1,7 @@
 id: minimal-n4-scft-3d
-name: 'Minimal 3d $\mathcal{N}=4$ SCFT $\mathcal{T}_{\rm min}$'
+name: '3d minimal $\mathcal{N}=4$ SCFT $\mathcal{T}_{\rm min}$'
 aliases:
+  - 'Minimal 3d $\mathcal{N}=4$ SCFT $\mathcal{T}_{\rm min}$'
   - '$\mathcal{N}=2$ $U(1)_{-3/2}$ Chern–Simons theory with one chiral of charge 1'
   - 'Gang–Yamazaki minimal $\mathcal{N}=4$ SCFT'
   - 'Rank-0 minimal $\mathcal{N}=4$ SCFT'

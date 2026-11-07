@@ -1,6 +1,7 @@
 id: free-scalar-3d
-name: Free massless scalar (3d)
+name: '3d free scalar'
 aliases:
+  - 'Free massless scalar (3d)'
   - Gaussian fixed point
 d: 3
 summary: >-
