@@ -42,7 +42,7 @@ match the filename. See the existing entries for worked examples, e.g.
 | `symmetry` | | `spacetime`, `supercharges` (number of real Poincaré supercharges), `global`, `gauge`, `notes` |
 | `quantities` | | central charges, exponents, OPE coefficients, …: `key`, `symbol`, `description`, `value`, `method`, `refs`, `note` |
 | `operators` | | `name`, `Delta`, `spin`, `weights` (2d: `(h, \bar h)`), `degeneracy`, `rep`, `method`, `refs`, `note` |
-| `relations` | | `type`, `target`, `at`, `variant`, `note` (see below) |
+| `relations` | | `type`, `target`, `at`, `variant`, `note`; for flows also `id`, `flow`, `target_expr` (see below) |
 | `references` | yes | `key`, `title`, `authors`, `year`, `journal`, `note`, and at least one of `arxiv` / `doi` / `url` |
 | `contributors` | | GitHub usernames |
 
@@ -132,6 +132,78 @@ the target is a family.
 | `flows_to` | this theory (UV) flows to `target` (IR) | *Flows from (UV)* |
 | `dual_to` | the two theories are dual | *Dual to* |
 | `related_to` | any other connection; explain in `note` | *Related to* |
+
+### RG flows in detail
+
+A `flows_to` relation with only a `note` is fine. To say more, give the flow an `id`
+(a slug, unique among the entry's flows) and a `flow` block. Each arrow in the RG-flow
+diagrams then opens a panel with these details, and two flows between the same two
+theories (say, the two signs of a coupling) stay two separate arrows.
+
+```yaml
+relations:
+  - type: flows_to
+    id: thermal-positive              # names this flow; required with `flow`
+    target: some-ir-theory
+    note: 'The free-text description, as before.'
+    flow:
+      identification:                 # required: who showed that UV flows to this IR, and how
+        status: established           # established | conjectured | disputed
+        method: 'lattice Monte Carlo'
+        refs: [author2020]
+        # competing_refs: [other2021]  # required for disputed
+      deformations:                   # relevant operators added to the action
+        - operator: '\epsilon'        # as named in this entry
+          coupling: 't'
+          Delta: '1.41(1)'            # optional
+          sign: positive              # positive | negative | zero | either
+          sign_convention: '$S = S_{\rm CFT} + t\int\epsilon$, ...'   # required with sign
+          refs: [author2020]
+      # vevs:                         # instead of, or as well as, deformations
+      #   - {operator: '\phi', direction: 'a generic point of the Coulomb branch', branch: 'Coulomb branch', refs: [...]}
+      tuned:                          # couplings tuned to reach this IR
+        - {operator: '\phi^2', coupling: 'm^2', condition: 'tuned to criticality', standard: true}
+      symmetry_changes:               # in order; kind: explicit | spontaneous | emergent
+        - {from: '$\mathbb{Z}_2$', to: 'nothing', kind: spontaneous, vacua: 2, refs: [author2020]}
+      spectrum:                       # if the IR is gapped
+        summary: 'One sentence for the panel.'
+        vacua: 2
+        particles:
+          - {label: 'm_1', mass: '1', stable: true, method: exact, refs: [author2020]}
+        refs: [author2020]
+      integrability: {status: integrable, note: 'Exact S-matrix.', refs: [author2020]}   # or not_integrable, open
+      page: some-flow-page            # an entry tagged 'RG flow' that covers this flow
+      note: 'Assumptions, ranges of validity, the symmetry the deformed action keeps, ...'
+```
+
+- **Every statement needs its own source.** Each deformation, vev, tuning, symmetry change,
+  spectrum and integrability record has `refs` (keys of *this*, the UV, entry's references),
+  unless it is a textbook statement marked `standard: true`. Spectrum rows always need
+  `method` and `refs`. The flow as a whole is cited in `identification`, which says who
+  established the flow and by what argument (anomaly matching, numerics, lattice,
+  supersymmetry, a duality, ...); if it is disputed, give the competing papers.
+- **Absent means "not recorded".** Leaving out `symmetry_changes`, `tuned`, `sign`,
+  `spectrum` or `integrability` never claims there is none; the panel shows *Not recorded*.
+  Use `either` only when the source says both signs give this flow, and say why in `note`.
+- **Operator names are labels**, written as in the UV entry; they are not links to rows of
+  `operators`, so give `Delta` only with a source for it.
+- **Composite IR theories.** When the IR is built from entries, e.g. a direct sum of two copies
+  of a gapped theory, give `target_expr` instead of `target` (plus `id` and `flow`):
+  ```yaml
+  target_expr:
+    operation: direct_sum             # direct_sum | tensor_product
+    terms:
+      - expr: {entry: trivial-tqft-3d}
+        multiplicity: 2
+    decoration: 'The $\mathbb{Z}_2$ symmetry exchanges the two summands.'
+  ```
+  Terms can nest, and `entry` leaves take `at`/`variant` for family members. Nothing is
+  simplified or inferred: say how the symmetry acts in `decoration`. The pieces' pages show
+  the flow under *Part of a composite IR*, not as a flow ending at them. Pages explaining the
+  operations live in `data/operations/<id>.yaml` (`direct-sum`, `tensor-product`).
+- **Flow pages.** A famous flow (e.g. the Ising field theory) can have an entry of its own,
+  tagged `RG flow`, holding its data (spectrum, S-matrix, phase diagram). Point each relation
+  it covers at it with `flow.page`; say in your pull request why the flow deserves a page.
 
 ### References
 

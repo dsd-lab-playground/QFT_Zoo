@@ -1,0 +1,10 @@
+# Synthetic test fixture. Not physics.
+id: fixture-neither
+name: 'Fixture gapped theory'
+d: 3
+summary: 'Synthetic entry tagged neither CFT nor TQFT.'
+tags: [gapped]
+references:
+  - key: src
+    title: 'Synthetic fixture source'
+    url: 'https://example.org/fixture-neither'

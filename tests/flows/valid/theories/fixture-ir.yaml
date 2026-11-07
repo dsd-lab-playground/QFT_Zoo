@@ -1,0 +1,45 @@
+# Synthetic test fixture: invented theories, couplings and sources. Not physics.
+id: fixture-ir
+name: 'Fixture IR CFT'
+d: 3
+summary: 'Synthetic IR theory. Its reference key `review` deliberately collides with the UV entry''s.'
+tags: [CFT]
+relations:
+  - type: flows_to
+    id: mixed
+    target: fixture-neither
+    flow:
+      identification:
+        status: established
+        method: 'fixture TCSA'
+        refs: [review]
+      deformations:
+        - operator: '\mathcal{O}'''
+          coupling: 'h'
+          sign: either
+          sign_convention: '$S = S_{\rm IR} + h\int\mathcal{O}''$.'
+          note: 'Synthetic: the fixture symmetry maps $h \to -h$.'
+          refs: [review]
+      vevs:
+        - operator: '\chi'
+          direction: 'the fixture direction'
+          standard: true
+      spectrum:
+        summary: 'Three fixture particles.'
+        refs: [review]
+        particles:
+          - {label: 'm_1', mass: '1', stable: true, method: exact, refs: [review]}
+          - {label: 'm_2', mass: '2\cos\tfrac{\pi}{5}\, m_1', stable: true, method: exact, refs: [review]}
+          - {label: 'm_2', mass: '1.618(1)\, m_1', method: TCSA, refs: [review], note: 'Second method for the same particle.'}
+          - {label: 'm_3', mass: '2.1\, m_1', stable: false, method: lattice, refs: [review]}
+      integrability:
+        status: not_integrable
+        note: 'Synthetic: fixture level statistics.'
+        refs: [review]
+      page: fixture-flow-page
+  - type: flows_to
+    target: fixture-tqft
+references:
+  - key: review
+    title: 'Synthetic fixture source: the IR review (must never be cited by the UV flows)'
+    url: 'https://example.org/fixture-ir-review'

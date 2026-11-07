@@ -4,6 +4,7 @@
     python scripts/build.py            # validate + build
     python scripts/build.py --check    # validate only (what CI runs on pull requests)
     python scripts/build.py --serve    # build, then preview at http://localhost:8000
+    python scripts/build.py --data tests/flows/valid --out /tmp/site   # another data folder (test fixtures)
 
 Requires: pyyaml, jsonschema  (pip install -r requirements.txt)
 """
@@ -32,6 +33,7 @@ from zoo_spectrum import SPECTRA, SPECTRUM_SCHEMA, check as check_spectrum, expe
 
 ROOT = Path(__file__).resolve().parent.parent
 THEORIES = ROOT / "data" / "theories"
+OPERATIONS = ROOT / "data" / "operations"
 TEMPLATE = ROOT / "data" / "TEMPLATE.yaml"
 SCHEMA = ROOT / "schema" / "theory.schema.json"
 SITE_SRC = ROOT / "site"
@@ -53,6 +55,23 @@ INVERSE = {
 
 # Family members computed per family for plots (the page lists `show` of them).
 FAMILY_MEMBERS = 40
+
+# Fields a flows_to relation may carry beyond those of other relations.
+FLOW_ONLY = ("id", "flow", "target_expr")
+
+
+def show_path(p: Path) -> str:
+    """A path for messages: relative to the repository when it is inside it."""
+    try:
+        return str(p.relative_to(ROOT))
+    except ValueError:
+        return str(p)
+
+
+def flow_key(uv: str, rel: dict, index: int) -> str:
+    """Identity of a flow: its UV entry plus the relation's `id`, or else its position
+    among the UV entry's relations (stable within one build only)."""
+    return f"{uv}#{rel['id']}" if "id" in rel else f"{uv}@{index}"
 
 
 # --------------------------------------------------------------- numbers
@@ -155,7 +174,7 @@ def fmt(x: Fraction) -> str:
 
 def load_yaml(path: Path, errors: list[str]):
     """Return the parsed mapping, or None (after recording an error)."""
-    rel = path.relative_to(ROOT)
+    rel = show_path(path)
     try:
         data = yaml.safe_load(path.read_text(encoding="utf-8"))
     except yaml.YAMLError as exc:
@@ -170,6 +189,9 @@ def load_yaml(path: Path, errors: list[str]):
 def schema_errors(validator, data, rel) -> list[str]:
     out = []
     for err in sorted(validator.iter_errors(data), key=lambda e: list(e.absolute_path)):
+        while err.validator == "oneOf" and err.context:
+            # A target_expr matching neither form: report the alternative it got furthest into.
+            err = max(err.context, key=lambda e: len(e.absolute_path))
         where = "/".join(str(p) for p in err.absolute_path) or "(top level)"
         out.append(f"{rel}: {where}: {err.message}")
     return out
@@ -191,6 +213,109 @@ def check_entry(data: dict, rel: str) -> list[str]:
     qkeys = [q["key"] for q in data.get("quantities", []) if "key" in q]
     if len(qkeys) != len(set(qkeys)):
         errs.append(f"{rel}: quantities: each `key` may appear only once")
+    errs += check_flows(data, rel, keys)
+    return errs
+
+
+def flow_ref_keys(flow: dict) -> list[tuple[str, str]]:
+    """Every (location, reference key) used inside a relation's `flow` block."""
+    ident = flow.get("identification", {})
+    out = [("flow/identification/refs", k) for k in ident.get("refs", [])]
+    out += [("flow/identification/competing_refs", k) for k in ident.get("competing_refs", [])]
+    for sec in ("deformations", "vevs", "tuned", "symmetry_changes"):
+        for j, item in enumerate(flow.get(sec, [])):
+            out += [(f"flow/{sec}/{j}/refs", k) for k in item.get("refs", [])]
+    spec = flow.get("spectrum", {})
+    out += [("flow/spectrum/refs", k) for k in spec.get("refs", [])]
+    for j, p in enumerate(spec.get("particles", [])):
+        out += [(f"flow/spectrum/particles/{j}/refs", k) for k in p.get("refs", [])]
+    out += [("flow/integrability/refs", k) for k in flow.get("integrability", {}).get("refs", [])]
+    return out
+
+
+def expr_leaves(expr: dict, where: str):
+    """(location, leaf) for every entry leaf of a target_expr, in order."""
+    if "entry" in expr:
+        yield where, expr
+        return
+    for j, term in enumerate(expr["terms"]):
+        yield from expr_leaves(term["expr"], f"{where}/terms/{j}/expr")
+
+
+def check_expr(expr: dict, where: str) -> list[str]:
+    if "entry" in expr:
+        return []
+    errs = []
+    if sum(t.get("multiplicity", 1) for t in expr["terms"]) < 2:
+        errs.append(f"{where}: {expr['operation']} needs at least two terms (counting multiplicity)")
+    for j, term in enumerate(expr["terms"]):
+        errs += check_expr(term["expr"], f"{where}/terms/{j}/expr")
+    return errs
+
+
+def check_flows(data: dict, rel: str, keys: list[str]) -> list[str]:
+    """Relation checks within one entry, mostly for structured flows_to relations."""
+    errs, ids = [], []
+    for i, r in enumerate(data.get("relations", [])):
+        where = f"{rel}: relations/{i}"
+        is_flow = r["type"] == "flows_to"
+        for k in FLOW_ONLY:
+            if k in r and not is_flow:
+                errs.append(f"{where}: `{k}` is only allowed on flows_to relations")
+        if not is_flow:
+            if "target" not in r:
+                errs.append(f"{where}: `target` is required")
+            continue
+        if ("target" in r) == ("target_expr" in r):
+            errs.append(f"{where}: give exactly one of `target` and `target_expr`")
+        if "id" in r:
+            ids.append(r["id"])
+        elif "flow" in r or "target_expr" in r:
+            errs.append(f"{where}: a flow with `flow` or `target_expr` needs an `id` (a slug, unique in this entry)")
+        if "target_expr" in r:
+            if "flow" not in r:
+                errs.append(f"{where}: a `target_expr` flow needs a `flow` block with its sources")
+            for k in ("at", "variant"):
+                if k in r:
+                    errs.append(f"{where}: `{k}` selects a member of a plain `target`; "
+                                f"put it on the entry inside `target_expr`")
+            errs += check_expr(r["target_expr"], f"{where}/target_expr")
+        f = r.get("flow")
+        if f is None:
+            continue
+        if not f.get("deformations") and not f.get("vevs"):
+            errs.append(f"{where}/flow: give `deformations`, `vevs` or both")
+        if f["identification"]["status"] == "disputed" and not f["identification"].get("competing_refs"):
+            errs.append(f"{where}/flow/identification: a disputed identification needs `competing_refs`")
+        # Every statement has its own sources, unless it is standard.
+        items = [(f"{sec}/{j}", x) for sec in ("deformations", "vevs", "tuned", "symmetry_changes")
+                 for j, x in enumerate(f.get(sec, []))]
+        items += [(k, f[k]) for k in ("spectrum", "integrability") if k in f]
+        for loc, x in items:
+            if not x.get("refs") and not x.get("standard"):
+                errs.append(f"{where}/flow/{loc}: needs `refs` (or `standard: true` for a textbook statement)")
+        for j, dfm in enumerate(f.get("deformations", [])):
+            if "sign" in dfm and not str(dfm.get("sign_convention", "")).strip():
+                errs.append(f"{where}/flow/deformations/{j}: `sign` needs a `sign_convention` "
+                            f"(the action and normalization that fix it)")
+            if dfm.get("sign") == "either" and not str(dfm.get("note", "")).strip():
+                errs.append(f"{where}/flow/deformations/{j}: sign `either` needs a `note` "
+                            f"saying why both signs give this flow")
+        spec = f.get("spectrum")
+        if spec is not None:
+            if not any(k in spec for k in ("summary", "particles", "vacua", "kinks")):
+                errs.append(f"{where}/flow/spectrum: give at least one of summary, particles, vacua, kinks")
+        integ = f.get("integrability")
+        if integ and integ["status"] != "open" and not integ.get("standard") and not str(integ.get("note", "")).strip():
+            errs.append(f"{where}/flow/integrability: status `{integ['status']}` needs a `note` "
+                        f"naming the evidence")
+        for loc, k in flow_ref_keys(f):
+            if k not in keys:
+                errs.append(f"{where}/{loc}: unknown reference key '{k}' "
+                            f"(flow references are those of this, the UV, entry)")
+    dupes = sorted({x for x in ids if ids.count(x) > 1})
+    if dupes:
+        errs.append(f"{rel}: relations: flows_to ids must be unique in an entry: {dupes}")
     return errs
 
 
@@ -265,21 +390,71 @@ def expand_family(e: dict) -> list[str]:
 
 # --------------------------------------------------------------- main load
 
+def check_flow_links(rel: dict, where: str, by_id: dict[str, dict]) -> list[str]:
+    """Cross-entry checks of a flows_to relation: composite pieces and the flow page exist."""
+    errs = []
+    for loc, leaf in expr_leaves(rel["target_expr"], f"{where}/target_expr") if "target_expr" in rel else ():
+        ent = by_id.get(leaf["entry"])
+        if ent is None:
+            errs.append(f"{loc}: unknown entry '{leaf['entry']}' (no file data/theories/{leaf['entry']}.yaml)")
+            continue
+        if "at" in leaf or "variant" in leaf:
+            if "family" not in ent:
+                errs.append(f"{loc}: '{leaf['entry']}' is not a family, so `at`/`variant` cannot select a member")
+            elif ent["members"] and not any(
+                    str(m["at"]) == str(leaf.get("at")) and ("variant" not in leaf or m.get("variant") == leaf["variant"])
+                    for m in ent["members"]):
+                errs.append(f"{loc}: '{leaf['entry']}' has no member at {leaf.get('at')!r}"
+                            f"{' variant ' + leaf['variant'] if 'variant' in leaf else ''}")
+    page = rel.get("flow", {}).get("page")
+    if page is not None:
+        if page not in by_id:
+            errs.append(f"{where}/flow/page: unknown entry '{page}' (no file data/theories/{page}.yaml)")
+        elif "RG flow" not in by_id[page]["tags"]:
+            errs.append(f"{where}/flow/page: '{page}' is not tagged 'RG flow'")
+    return errs
+
+
+def load_operations(errors: list[str]) -> list[dict]:
+    """Pages explaining how composite theories are built (direct sum, tensor product, ...)."""
+    schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
+    validator = Draft202012Validator({"$ref": "#/$defs/operationPage", "$defs": schema["$defs"]})
+    out = []
+    for path in sorted(OPERATIONS.glob("*.yaml")) if OPERATIONS.is_dir() else []:
+        rel = show_path(path)
+        data = load_yaml(path, errors)
+        if data is None:
+            continue
+        errs = schema_errors(validator, data, rel)
+        if data.get("id") != path.stem:
+            errs.append(f"{rel}: id '{data.get('id')}' must match the filename ('{path.stem}')")
+        if not errs:
+            keys = [r["key"] for r in data["references"]]
+            if len(keys) != len(set(keys)):
+                errs.append(f"{rel}: duplicate reference keys")
+        if errs:
+            errors += errs
+            continue
+        data["source"] = rel
+        out.append(data)
+    return out
+
+
 def load_all() -> tuple[list[dict], list[str]]:
     errors: list[str] = []
     validator = Draft202012Validator(json.loads(SCHEMA.read_text(encoding="utf-8")))
 
     for stray in sorted(THEORIES.glob("*.yml")):
-        errors.append(f"{stray.relative_to(ROOT)}: use the .yaml extension, not .yml")
+        errors.append(f"{show_path(stray)}: use the .yaml extension, not .yml")
 
     # The template must stay valid so that copying it gives a working entry.
     tmpl = load_yaml(TEMPLATE, errors)
     if tmpl is not None:
-        errors += schema_errors(validator, tmpl, str(TEMPLATE.relative_to(ROOT)))
+        errors += schema_errors(validator, tmpl, show_path(TEMPLATE))
 
     entries = []
     for path in sorted(THEORIES.glob("*.yaml")):
-        rel = str(path.relative_to(ROOT))
+        rel = show_path(path)
         data = load_yaml(path, errors)
         if data is None:
             continue
@@ -310,6 +485,11 @@ def load_all() -> tuple[list[dict], list[str]]:
     for e in entries:
         for i, rel in enumerate(e.get("relations", [])):
             where = f"{e['source']}: relations/{i}"
+            if rel["type"] == "flows_to":
+                rel["flow_key"] = flow_key(e["id"], rel, i)
+                errors += check_flow_links(rel, where, by_id)
+            if "target_expr" in rel:
+                continue  # a composite IR: no reverse link (the flow does not end at any one piece)
             tgt = rel["target"]
             if tgt == e["id"]:
                 errors.append(f"{where}: a theory cannot relate to itself")
@@ -332,13 +512,19 @@ def load_all() -> tuple[list[dict], list[str]]:
                     for m in hits:
                         m.setdefault("entries", []).append(e["id"])
             inv = INVERSE[rel["type"]]
-            already = any(r["type"] == inv and r["target"] == e["id"]
+            already = any(r["type"] == inv and r.get("target") == e["id"]
                           for r in target.get("relations", []))
             if not already:
                 back = {"type": inv, "target": e["id"]}
                 for k in ("note", "at", "variant"):
                     if k in rel:
                         back[k] = rel[k]
+                if rel["type"] == "flows_to":
+                    # The flow's identity and data, with the UV entry whose references its keys name.
+                    back.update({"flow_key": rel["flow_key"], "source_entry": e["id"]})
+                    for k in ("id", "flow"):
+                        if k in rel:
+                            back[k] = rel[k]
                 target["backlinks"].append(back)
 
     def sort_key(e):
@@ -360,10 +546,10 @@ def load_spectra(entries: list[dict], errors: list[str]) -> dict[str, dict]:
     validator = Draft202012Validator(json.loads(SPECTRUM_SCHEMA.read_text(encoding="utf-8")))
     by_id = {e["id"]: e for e in entries}
     out: dict[str, dict] = {}
-    for path in sorted(SPECTRA.rglob("*")):
+    for path in sorted(SPECTRA.rglob("*")) if SPECTRA.is_dir() else []:
         if path.is_dir():
             continue
-        rel = str(path.relative_to(ROOT))
+        rel = show_path(path)
         if path.suffix != ".json":
             errors.append(f"{rel}: spectrum files must be .json")
             continue
@@ -420,7 +606,7 @@ def load_spectra(entries: list[dict], errors: list[str]) -> dict[str, dict]:
     return out
 
 
-def build(entries: list[dict], spectra: dict[str, dict]) -> None:
+def build(entries: list[dict], spectra: dict[str, dict], operations: list[dict]) -> None:
     if OUT.exists():
         shutil.rmtree(OUT)
     shutil.copytree(SITE_SRC, OUT)
@@ -431,6 +617,7 @@ def build(entries: list[dict], spectra: dict[str, dict]) -> None:
         "branch": BRANCH,
         "template": TEMPLATE.read_text(encoding="utf-8"),
         "theories": entries,
+        "operations": operations,
     }
     (OUT / "data" / "theories.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -445,7 +632,7 @@ def build(entries: list[dict], spectra: dict[str, dict]) -> None:
 def serve(port: int) -> None:
     handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=str(OUT))
     with http.server.ThreadingHTTPServer(("127.0.0.1", port), handler) as httpd:
-        print(f"Serving {OUT.relative_to(ROOT)}/ at http://localhost:{port}  (Ctrl-C to stop)")
+        print(f"Serving {show_path(OUT)}/ at http://localhost:{port}  (Ctrl-C to stop)")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
@@ -457,9 +644,20 @@ def main() -> int:
     ap.add_argument("--check", action="store_true", help="validate only; do not write _site/")
     ap.add_argument("--serve", action="store_true", help="build, then serve _site/ locally")
     ap.add_argument("--port", type=int, default=8000)
+    ap.add_argument("--data", type=Path, help="data folder with theories/ (and operations/, spectra/); default data/")
+    ap.add_argument("--out", type=Path, help="where to build the site; default _site/")
     args = ap.parse_args()
+    global THEORIES, OPERATIONS, TEMPLATE, SPECTRA, OUT
+    if args.data:
+        data = args.data.resolve()
+        THEORIES, OPERATIONS, SPECTRA = data / "theories", data / "operations", data / "spectra"
+        if (data / "TEMPLATE.yaml").exists():
+            TEMPLATE = data / "TEMPLATE.yaml"
+    if args.out:
+        OUT = args.out.resolve()
 
     entries, errors = load_all()
+    operations = load_operations(errors)
     spectra = load_spectra(entries, errors) if not errors else {}
     if errors:
         print(f"✗ {len(errors)} problem(s) found:\n", file=sys.stderr)
@@ -468,12 +666,14 @@ def main() -> int:
         return 1
     n_fam = sum("family" in e for e in entries)
     print(f"✓ {len(entries)} entries valid ({n_fam} families)")
+    if operations:
+        print(f"✓ {len(operations)} operation pages valid")
     print(f"✓ {len(spectra)} spectra checked (modular invariance, integrality, gaps)")
 
     if args.check:
         return 0
-    build(entries, spectra)
-    print(f"✓ site built in {OUT.relative_to(ROOT)}/")
+    build(entries, spectra, operations)
+    print(f"✓ site built in {show_path(OUT)}/")
     if args.serve:
         serve(args.port)
     return 0

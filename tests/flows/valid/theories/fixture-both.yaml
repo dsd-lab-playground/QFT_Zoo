@@ -1,0 +1,13 @@
+# Synthetic test fixture. Not physics.
+id: fixture-both
+name: 'Fixture CFT and TQFT'
+d: 3
+summary: 'Synthetic entry tagged both CFT and TQFT.'
+tags: [CFT, TQFT]
+relations:
+  - type: flows_to
+    target: fixture-tqft
+references:
+  - key: src
+    title: 'Synthetic fixture source'
+    url: 'https://example.org/fixture-both'
