@@ -68,6 +68,13 @@ quantities:
     method: derived
     refs: [osborn1993, diab2016, fei2016]
     note: 'From $C_T^{\rm sc} = \frac{d}{(d-1)S_d^2}$ and $C_T^{\rm fer} = {\rm Tr}\,\mathbb{1}\,\frac{d}{2S_d^2}$ with ${\rm Tr}\,\mathbb{1} = 2$, a two-component Dirac fermion has twice the $C_T$ of a real scalar (as also used by Fei et al.); a Majorana fermion has half of that.'
+  - key: c_tilde
+    symbol: '\tilde c'
+    description: 'Thermal free energy density on $S^1_\beta\times\mathbb{R}^{2}$, $f = -\tilde c\,\frac{\zeta(3)}{2\pi}\,T^{3}$ ($\tilde c = 1$ for one free real scalar)'
+    value: '\frac{3}{4}'
+    method: exact
+    refs: [sachdev1993, diatlyk2023]
+    note: 'Normalization of Sachdev eq. (1): $f = -\tilde c\,\Gamma(d/2)\zeta(d)\pi^{-d/2}T^d$. A fermion with antiperiodic thermal boundary conditions contributes $1-2^{1-d} = 3/4$ of a real scalar per on-shell degree of freedom, and a two-component Majorana fermion has one. Diatlyk, Popov and Wang eq. (3.16): $N$ free two-component Dirac fermions (the $\phi=0$ saddle of the Gross–Neveu model) have $f = -\frac{3N\zeta(3)}{4\pi}T^3$, i.e. $\tilde c = 3/2$ per Dirac fermion.'
 
 operators:
   - name: '\psi'
@@ -166,5 +173,18 @@ references:
     year: 2014
     journal: Science 344, 280
     arxiv: '1301.7449'
+  - key: sachdev1993
+    title: Polylogarithm identities in a conformal field theory in three dimensions
+    authors: Sachdev
+    year: 1993
+    journal: Phys. Lett. B 309, 285
+    arxiv: hep-th/9305131
+    note: 'Defines the thermal coefficient $\tilde c$ (eq. 1) and proves $\tilde c/N = 4/5$ for the $O(N)$ model at $N=\infty$.'
+  - key: diatlyk2023
+    title: Beyond $N=\infty$ in Large $N$ Conformal Vector Models at Finite Temperature
+    authors: Diatlyk, Popov, Wang
+    year: 2024
+    journal: JHEP 08 (2024) 219
+    arxiv: '2309.02347'
 
-contributors: [Canonical111]
+contributors: [Canonical111, davidsd]

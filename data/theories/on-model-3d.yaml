@@ -112,6 +112,12 @@ quantities:
     method: large N
     refs: [klebanov2011]
     note: 'A conjectured formula for the next term, checked against the $\epsilon$-expansion, gives $+\frac{4}{9\pi^2 N}$ (Tarnopolsky).'
+  - symbol: '\tilde c'
+    description: 'Thermal free energy density on $S^1_\beta\times\mathbb{R}^{2}$, $f = -\tilde c\,\frac{\zeta(3)}{2\pi}\,T^{3}$ ($\tilde c = 1$ for one free real scalar)'
+    value: '\frac{4}{5}N - 0.334506 + O(1/N)'
+    method: large N
+    refs: [sachdev1993, diatlyk2023, bulgarelli2025]
+    note: 'Leading term: Sachdev, $\tilde c/N = 4/5$ (abstract and final result). Next term: Diatlyk, Popov and Wang eq. (1.11), $f = -\frac{2\zeta(3)}{5\pi}N + 0.06399553$ (in units of $T^3$), divided by $-\zeta(3)/(2\pi)$. The series is asymptotic: at $N=2,3$ the two terms give $1.27$, $2.07$, against the Monte Carlo $1.589(8)$, $2.360(11)$ (Bulgarelli et al.), which stay close to $\tfrac45N$ ($\tilde c/N = 0.78$–$0.80$ for $N=1,\dots,6$).'
 
 operators:
   - name: '\phi_i'
@@ -227,5 +233,24 @@ references:
     year: 1972
     journal: Phys. Lett. A 38, 339
     doi: '10.1016/0375-9601(72)90149-1'
+  - key: sachdev1993
+    title: Polylogarithm identities in a conformal field theory in three dimensions
+    authors: Sachdev
+    year: 1993
+    journal: Phys. Lett. B 309, 285
+    arxiv: hep-th/9305131
+    note: 'Defines the thermal coefficient $\tilde c$ (eq. 1) and proves $\tilde c/N = 4/5$ for the $O(N)$ model at $N=\infty$.'
+  - key: diatlyk2023
+    title: Beyond $N=\infty$ in Large $N$ Conformal Vector Models at Finite Temperature
+    authors: Diatlyk, Popov, Wang
+    year: 2024
+    journal: JHEP 08 (2024) 219
+    arxiv: '2309.02347'
+  - key: bulgarelli2025
+    title: Casimir effect in critical $O(N)$ models from non-equilibrium Monte Carlo simulations
+    authors: Bulgarelli, Caselle, Nada, Panero
+    year: 2025
+    journal: Phys. Rev. E 112, 064126
+    arxiv: '2505.20403'
 
-contributors: [Canonical111]
+contributors: [Canonical111, davidsd]
