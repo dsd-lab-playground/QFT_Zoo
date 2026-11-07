@@ -127,6 +127,22 @@ broken(two_d, "write `pair`")
 legacy = {"d": 3, "symmetry": {}, "operators": [{"name": "a", "Delta": 1, "parity": "even"}]}
 expect(any("structured symmetry declaration" in e for e in check_entry_reps(legacy, "x")), "parity on a legacy entry")
 
+# --- extension (2d batch a): symbolic U(1) charges and `listed` groups.
+expect(lab("U(1)", "n")["text"] == "$U(1)$ charge $n$" and not lab("U(1)", "n")["trivial"], "symbolic U(1) charge")
+expect(lab("U(1)", "l/(k+2)")["canon"] == "q(l/(k+2))", "symbolic U(1) charge expression")
+expect(order("U(1)", ["n", 1, 0]) == [0, 1, "n"], "symbolic charges after numeric ones")
+rejects("U(1)", "1.5", "charge")
+LISTED = {"tex": "SL(2,\\mathbb{C})", "irreps": [{"label": "trivial"}, {"label": "principal", "tex": "\\text{principal series}"}]}
+expect(lab("listed", "trivial", **LISTED)["trivial"], "listed: first irrep trivial")
+expect(lab("listed", "principal", **LISTED)["text"] == "$SL(2,\\mathbb{C})$ $\\text{principal series}$", "listed: display")
+rejects("listed", "adjoint", "not among the declared irreps", **LISTED)
+for bad, needle in [({"irreps": LISTED["irreps"]}, "needs `tex`"), ({"tex": "G"}, "needs `irreps`")]:
+    try:
+        parse_factor({"id": "G", "group": "listed", **bad}, set())
+        FAILS.append(f"listed group without {needle} accepted")
+    except RepError as exc:
+        expect(needle in str(exc), f"listed: message {exc} lacks {needle!r}")
+
 if FAILS:
     print(f"✗ {len(FAILS)} failure(s):")
     for f in FAILS:

@@ -152,6 +152,8 @@ quoted in YAML flow style: `{SU(4)_R: 'Dynkin(0,2,0)'}`.
 | `S_n` | `trivial`, `sign`, `standard`, `Y(partition)` | $S_3$ standard (2-dimensional) | dimension, then longer first row first |
 | `D_n` | `A1`, `A2`, `B1`, `B2` ($n$ even), `E1` ... `E_{⌊(n−1)/2⌋}` | $D_4$ $E_1$ | as listed |
 | `finite` | the declared `irreps` labels | their `tex` | as declared |
+| `listed` | the declared `irreps` labels (the factor also gives `tex`) | their `tex` | as declared |
+| `U(1)` (symbolic) | a symbol or expression for a row that stands for a family labelled by its charge: `n`, `l/(k+2)` | $U(1)$ charge $n$ | after every numeric charge |
 | any | `unknown` | "$G$ representation not recorded" | last |
 | any | a list, e.g. `[singlet, adjoint]` | $SU(N_f)$ singlet $\oplus$ adjoint | after its lowest summand |
 
@@ -160,6 +162,11 @@ $O(N)$ irrep (first two columns longer than $N$), Dynkin labels of the wrong len
 of the wrong size, a parameter that the entry does not define. A **list** is a direct sum: a row
 that lists several operators in different irreps at once (QED$_3$'s "$J^{\rm top}_\mu$,
 $J^{SU(N_f)}_\mu$"). It is accepted but counted by the build: one row per irrep is better.
+
+`listed` is for a group outside the vocabulary that is not finite or has no fixed size: a non-compact group with
+continuous series ($SL(2,\mathbb{C})$ of $H_3^+$), the shift group $\mathbb{R}$ of a non-compact boson, $U(1)^d$ with
+vector charges, $S_Q$ or $O(n)$ at non-integer $Q$ or $n$. Like `finite`, it lists the irreps the entry uses, the
+trivial one first.
 
 Products of groups are lists of factors; each operator labels each factor. Groups not in the
 table (exceptional groups, $Spin(N)$ with spinor-tensor irreps, $\mathfrak{osp}$ R-symmetries)

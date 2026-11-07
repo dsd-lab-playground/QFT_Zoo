@@ -88,6 +88,24 @@ def parse_factor(f: dict, params: set[str]) -> dict:
     g["tex"] = f.get("tex") or default_tex(group, g)
     return g
 
+# --- extension (2d batch a): `listed` groups -------------------------------------------------------------------------
+# `group: listed` is any group outside the vocabulary that is not finite, or not a group of fixed size: a non-compact
+# group with continuous series (SL(2,C) of H3+), the shift group R of a non-compact boson, U(1)^d with vector charges,
+# S_Q or O(n) at non-integer Q or n. The entry gives `tex` (the group's name) and lists the irreps it uses, the trivial
+# one first, exactly as for `finite`; labels are checked against that list.
+
+_parse_factor_base = parse_factor
+
+
+def parse_factor(f: dict, params: set[str]) -> dict:  # noqa: F811 (extends the definition above)
+    if str(f.get("group", "")).strip() == "listed":
+        if not f.get("tex"):
+            raise RepError("a `listed` group needs `tex`, its display name")
+        g = _parse_factor_base({**f, "group": "finite"}, params)
+        g["type"] = "listed"
+        return g
+    return _parse_factor_base(f, params)
+
 
 # ------------------------------------------------------------------ labels
 
@@ -373,6 +391,22 @@ def _label(g, t, s, params, G):
         short = f"${irr['tex']}$" if irr.get("tex") else s
         return {"canon": s, "short": short, "trivial": i == 0, "sort": [i]}
     raise RepError(f"unsupported group type {t}")
+
+# --- extension (2d batch a): symbolic U(1) charges; labels of `listed` groups ----------------------------------------
+# A U(1) charge may be a symbol or expression, for a row that stands for a family of operators labelled by their charge
+# (momentum n of a compact boson, l/(k+2) for N=2 chiral primaries): 'n', '-n', 'l/(k+2)'. It is shown as
+# "U(1) charge $n$" and sorted after every numeric charge. A `listed` group's labels are those it declares.
+
+SYMBOLIC_CHARGE = re.compile(r"^[±-]?\(?[A-Za-z\\][A-Za-z0-9_{}\\+\-*/() ]*$")
+_label_base = _label
+
+
+def _label(g, t, s, params, G):  # noqa: F811 (extends the definition above)
+    if t == "U1" and SYMBOLIC_CHARGE.fullmatch(s) and re.search(r"[A-Za-z]", s):
+        return {"canon": f"q({s})", "short": f"charge ${s}$", "trivial": False, "sort": [BIG, 0]}
+    if t == "listed":
+        return _label_base(g, "finite", s, params, G)
+    return _label_base(g, t, s, params, G)
 
 
 # ------------------------------------------------------------------ spacetime
