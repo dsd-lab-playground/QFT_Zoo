@@ -9,17 +9,17 @@ summary: 'The $SU(2)_k$ WZW model with the D-type modular invariant, even $k \ge
 tags: [CFT, interacting, unitary, Lagrangian, rational, exactly solvable, orbifold, family]
 
 description: |
-  For even $k$ the $SU(2)_k$ characters $\chi_l$ ($l = 2j = 0, \dots, k$, $h_l = \frac{l(l+2)}{4(k+2)}$) admit the Cappelli–Itzykson–Zuber invariant $D_{k/2+2}$. For $k \equiv 0 \pmod 4$ it is block-diagonal,
+  For even $k$ the $SU(2)_k$ characters $\chi_l$ ($l = 2j = 0, \dots, k$, $h_l = \frac{l(l+2)}{4(k+2)}$) admit the Cappelli–Itzykson–Zuber invariant $D_{k/2+2}$ [@ciz1987]. For $k \equiv 0 \pmod 4$ it is block-diagonal,
   $$Z = \sum_{l\ \mathrm{even}=0}^{k/2-2} |\chi_l + \chi_{k-l}|^2 + 2|\chi_{k/2}|^2 ,$$
   that is, diagonal in the characters of the chiral algebra extended by the simple current $\Phi_{k/2}$ ($l = k$, $h = \frac k4$). For $k \equiv 2 \pmod 4$ it is a permutation invariant,
   $$Z = \sum_{l\ \mathrm{even}} |\chi_l|^2 + \sum_{l\ \mathrm{odd}} \chi_l\,\overline{\chi_{k-l}} .$$
   At $k = 2$ the D invariant coincides with the diagonal one, so the family starts at $k = 4$.
 
-  Both cases are the orbifold of the diagonal theory by its centre $\mathbb{Z}_2$, which acts as $(-1)^{l}$ on the primaries: the untwisted sector keeps even $l$, and the twisted sector adds the integer-spin states $\chi_l\overline{\chi_{k-l}}$ ($l$ even for $k \equiv 0$, odd for $k \equiv 2 \pmod 4$). The $\mathbb{Z}_2$ has a mixed anomaly for odd $k$, so the orbifold exists only for even $k$ (Numasawa and Yamaguchi). Equivalently, these are the WZW models on the group $SO(3) = SU(2)/\mathbb{Z}_2$, which exist only for even $k$ and have exactly these spectra (Gaberdiel and Gannon, summarizing Gepner and Witten and Felder, Gawędzki and Kupiainen).
+  Both cases are the orbifold of the diagonal theory by its centre $\mathbb{Z}_2$, which acts as $(-1)^{l}$ on the primaries: the untwisted sector keeps even $l$, and the twisted sector adds the integer-spin states $\chi_l\overline{\chi_{k-l}}$ ($l$ even for $k \equiv 0$, odd for $k \equiv 2 \pmod 4$). The $\mathbb{Z}_2$ has a mixed anomaly for odd $k$, so the orbifold exists only for even $k$ [@numasawa2018]. Equivalently, these are the WZW models on the group $SO(3) = SU(2)/\mathbb{Z}_2$, which exist only for even $k$ and have exactly these spectra (Gaberdiel and Gannon [@gaberdielgannon2004, Sec. 2.3], summarizing Gepner and Witten [@gepnerwitten1986] and Felder, Gawędzki and Kupiainen [@fgk1988]).
 
   The orbifold removes $\Phi_{1/2}$, so the lightest primary is $\Phi_1$ ($l = 2$) with $\Delta = 2h_2 = \frac{4}{k+2}$, below the currents for every $k \geq 4$.
 
-  At $k = 4$ the extension field has $h = 1$: its five states join the three $SU(2)$ currents to give the eight currents of $SU(3)$. This is the conformal embedding $SU(2)_4 \subset SU(3)_1$, and $Z = |\chi_0 + \chi_4|^2 + 2|\chi_2|^2$ is the partition function of the diagonal $SU(3)_1$ WZW model (Böckenhauer and Evans). At $k = 16$ the exceptional $E_7$ invariant is obtained from $D_{10}$ by exchanging $\chi_8$ and $\chi_2 + \chi_{14}$ in one chiral half.
+  At $k = 4$ the extension field has $h = 1$: its five states join the three $SU(2)$ currents to give the eight currents of $SU(3)$. This is the conformal embedding $SU(2)_4 \subset SU(3)_1$, and $Z = |\chi_0 + \chi_4|^2 + 2|\chi_2|^2$ is the partition function of the diagonal $SU(3)_1$ WZW model [@bockenhauerevans1999, Sec. 2.3]. At $k = 16$ the exceptional $E_7$ invariant is obtained from $D_{10}$ by exchanging $\chi_8$ and $\chi_2 + \chi_{14}$ in one chiral half.
 
 parameters:
 - symbol: k

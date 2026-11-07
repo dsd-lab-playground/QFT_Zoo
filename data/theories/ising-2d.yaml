@@ -15,8 +15,8 @@ description: |
   $\sigma\times\sigma = 1 + \epsilon$, $\sigma\times\epsilon = \sigma$,
   $\epsilon\times\epsilon = 1$.
 
-  Onsager solved the lattice model exactly; Belavin, Polyakov and Zamolodchikov
-  identified the critical point with this minimal model. The theory is closely
+  Onsager [@onsager1944] solved the lattice model exactly; Belavin, Polyakov and
+  Zamolodchikov [@bpz1984] identified the critical point with this minimal model. The theory is closely
   related to a free Majorana fermion (they differ by a sum over spin structures).
 
 symmetry:

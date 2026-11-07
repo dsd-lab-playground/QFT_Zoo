@@ -14,14 +14,14 @@ tags: [CFT, interacting, non-unitary, Lagrangian, critical phenomena]
 description: |
   Above the critical temperature the zeros of the Ising partition function in a complex
   magnetic field end at the Lee–Yang edge, where their density vanishes with a universal
-  exponent $\sigma$. Fisher described the edge by a scalar with an imaginary cubic
+  exponent $\sigma$. Fisher [@fisher1978] described the edge by a scalar with an imaginary cubic
   coupling, whose upper critical dimension is 6, so $d=4$ is $\epsilon = 2$ of the
   $6-\epsilon$ expansion. The same exponents describe lattice animals (branched polymers)
-  in $d+2 = 6$ dimensions (Parisi and Sourlas). Unlike the 4d Ising critical point,
+  in $d+2 = 6$ dimensions [@parisi1981]. Unlike the 4d Ising critical point,
   which is Gaussian, the 4d Lee–Yang fixed point is interacting.
 
   The only relevant primary is $\phi$. At the fixed point $\phi^2$ is proportional to
-  $\partial^2\phi$ by the equation of motion, so it is a descendant (Gliozzi and Rago),
+  $\partial^2\phi$ by the equation of motion, so it is a descendant [@gliozzi2014],
   and the next scalar primary, "$\phi^3$", is irrelevant. The exponents follow from
   $\Delta_\phi$:
   $$\sigma = \frac{\Delta_\phi}{4 - \Delta_\phi}, \qquad \eta = 2\Delta_\phi - 2 .$$
@@ -29,15 +29,15 @@ description: |
   scalar ($\eta < 0$).
 
   The estimates below come from methods whose error estimates are not directly
-  comparable: the $6-\epsilon$ expansion to five loops with resummation (Borinsky,
-  Gracey, Kompaniets and Schnetz); series expansions of the dimer density on the
-  hypersimple-cubic and hyper-body-centred-cubic lattices in $d=4$ (Butera and Pernici);
-  the functional renormalization group (An, Mesterházy and Stephanov); and a truncated,
-  non-rigorous bootstrap that keeps a few operators in the $\phi\times\phi$ OPE (Gliozzi
-  and Rago), since the positivity-based numerical bootstrap does not apply to a
+  comparable: the $6-\epsilon$ expansion to five loops with resummation
+  [@borinsky2021]; series expansions of the dimer density on the
+  hypersimple-cubic and hyper-body-centred-cubic lattices in $d=4$ [@butera2012];
+  the functional renormalization group [@an2016]; and a truncated,
+  non-rigorous bootstrap that keeps a few operators in the $\phi\times\phi$ OPE
+  [@gliozzi2014], since the positivity-based numerical bootstrap does not apply to a
   non-unitary theory. For $\sigma$ they agree to about $0.01$. For $\eta$ the functional
   RG and the five-loop values do not overlap. Arguello Cruz, Klebanov, Tarnopolsky and
-  Xin also studied the quantum Ising model in an imaginary longitudinal field on the
+  Xin [@arguellocruz2025] also studied the quantum Ising model in an imaginary longitudinal field on the
   24 vertices of the 24-cell, a regular polytope that approximates $S^3$. They find
   $\Delta_\phi \approx 0.89$, within 8% of their two-sided Padé extrapolation of the
   $6-\epsilon$ series, and describe these as first results, less precise than their
@@ -79,7 +79,7 @@ quantities:
     value: '-0.347(12)'
     method: 'epsilon-expansion (6 − ε, five loops, resummed)'
     refs: [borinsky2021, an2016]
-    note: 'Table 1. Functional renormalization group: $-0.316(16)$ (An et al.).'
+    note: 'Table 1. Functional renormalization group: $-0.316(16)$ [@an2016].'
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent, $\omega = \Delta_{\phi^3} - 4$'
     value: '1.15(7)'
@@ -94,7 +94,7 @@ operators:
     rep: the only relevant primary
     method: derived
     refs: [borinsky2021, arguellocruz2025]
-    note: '$(2+\eta)/2$ with the five-loop $\eta = -0.347(12)$. Below the unitarity bound 1. Two-sided Padé of the $6-\epsilon$ series: $0.827$ (Arguello Cruz et al., Table 2). 24-cell: $0.891$ at $h_x = 50$ (Table 13).'
+    note: '$(2+\eta)/2$ with the five-loop $\eta = -0.347(12)$. Below the unitarity bound 1. Two-sided Padé of the $6-\epsilon$ series: $0.827$ [@arguellocruz2025, Table 2]. 24-cell: $0.891$ at $h_x = 50$ [@arguellocruz2025, Table 13].'
   - name: 'T_{\mu\nu}'
     Delta: 4
     spin: 2
@@ -105,12 +105,12 @@ operators:
     spin: 0
     method: derived
     refs: [borinsky2021, arguellocruz2025, gliozzi2014]
-    note: 'Leading irrelevant scalar, $4 + \omega$ with the five-loop $\omega$. Two-sided Padé: $5.206$ and $5.212$ (Arguello Cruz et al., Table 2); 24-cell: $5.467$ at $h_x = 50$. The truncated bootstrap gives $6.8(1)$ (Gliozzi and Rago), far from the other estimates.'
+    note: 'Leading irrelevant scalar, $4 + \omega$ with the five-loop $\omega$. Two-sided Padé: $5.206$ and $5.212$ [@arguellocruz2025, Table 2]; 24-cell: $5.467$ at $h_x = 50$. The truncated bootstrap gives $6.8(1)$ [@gliozzi2014], far from the other estimates.'
 
 relations:
   - type: related_to
     target: lee-yang-3d
-    note: 'The same universality class in three dimensions. Both are continuations of the $i\phi^3$ fixed point from $d = 6-\epsilon$, and the five-loop analysis of Borinsky et al. covers $d = 3, 4, 5$.'
+    note: 'The same universality class in three dimensions. Both are continuations of the $i\phi^3$ fixed point from $d = 6-\epsilon$, and the five-loop analysis of Borinsky et al. [@borinsky2021] covers $d = 3, 4, 5$.'
 
 references:
   - key: fisher1978

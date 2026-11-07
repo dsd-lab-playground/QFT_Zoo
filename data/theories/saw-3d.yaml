@@ -12,7 +12,7 @@ summary: >-
 tags: [CFT, interacting, non-unitary, Lagrangian, critical phenomena]
 
 description: |
-  De Gennes showed that self-avoiding walks are described by the $O(N)$ model at
+  De Gennes [@degennes1972] showed that self-avoiding walks are described by the $O(N)$ model at
   $N \to 0$: the two-point function $\langle \phi_a(x)\phi_a(0)\rangle$ counts walks
   from $0$ to $x$, with the fugacity per step playing the role of temperature, and the
   rank-2 operator $\phi_a\phi_b$ ($a \neq b$) creates two mutually avoiding walks. A walk
@@ -21,16 +21,16 @@ description: |
   fractal dimension $d_F = 1/\nu$.
 
   The theory is not unitary. A CFT with $O(N)$ symmetry at non-integer $N$ cannot be
-  unitary (Binder and Rychkov), and $C_T \propto N$ vanishes in the limit. At $N=0$ the
+  unitary [@binder2019], and $C_T \propto N$ vanishes in the limit. At $N=0$ the
   lightest singlet (the energy operator) and the lightest rank-2 traceless symmetric
   scalar (the 2-leg operator) become degenerate and form a logarithmic pair, so
   correlators acquire logarithms; the stress tensor likewise becomes degenerate with a
-  traceless symmetric spin-2 partner, which resolves the "$c \to 0$ paradox" (Cardy).
+  traceless symmetric spin-2 partner, which resolves the "$c \to 0$ paradox" [@cardy2013].
 
   The most precise data come from Monte Carlo simulations of walks on the cubic lattice
   with the pivot algorithm, for walks of up to $2^{25} \approx 3.4\times 10^7$ steps. The numerical
   bootstrap is hampered by the non-unitarity: some squared OPE coefficients have poles at
-  $N=0$. Shimada and Hikami used the bound on the rank-2 dimension at $N = 0.1$, where
+  $N=0$. Shimada and Hikami [@shimada2016] used the bound on the rank-2 dimension at $N = 0.1$, where
   unitarity is only weakly violated, and extrapolated to $N = 0$.
 
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\vec\phi)^2 + \tfrac{1}{2} m^2 \vec\phi^{\,2} + \tfrac{\lambda}{4!}(\vec\phi^{\,2})^2, \quad \vec\phi\in\mathbb{R}^N, \quad N \to 0 \quad (m^2 \text{ tuned to criticality})'
@@ -46,7 +46,7 @@ quantities:
     value: '0.58759700(40)'
     method: Monte Carlo (pivot algorithm)
     refs: [clisby2016]
-    note: 'Earlier: $0.587597(7)$ (Clisby 2010).'
+    note: 'Earlier: $0.587597(7)$ [@clisby2010].'
   - symbol: '\gamma'
     description: 'Entropic exponent: the number of $L$-step walks grows as $\mu^L L^{\gamma - 1}$'
     value: '1.15695300(95)'
@@ -63,7 +63,7 @@ quantities:
     value: '1.7018467(12)'
     method: derived
     refs: [clisby2016]
-    note: 'From $\nu$. Bootstrap (extrapolated from $N = 0.1$): $1.7016(36)$ (Shimada and Hikami).'
+    note: 'From $\nu$. Bootstrap (extrapolated from $N = 0.1$): $1.7016(36)$ [@shimada2016].'
   - symbol: '\Delta_1'
     description: 'Leading correction-to-scaling exponent in the walk length, $\langle R_G^2\rangle \propto L^{2\nu}(1 + a L^{-\Delta_1} + \dots)$'
     value: '0.528(8)'
@@ -84,7 +84,7 @@ operators:
     rep: 'singlet (energy) and rank-2 traceless symmetric (2-leg), degenerate at $N=0$'
     method: derived
     refs: [clisby2016]
-    note: 'From $3 - 1/\nu$. Logarithmic pair. Bootstrap: $\Delta_t = 1.2984(36)$ (Shimada and Hikami).'
+    note: 'From $3 - 1/\nu$. Logarithmic pair. Bootstrap: $\Delta_t = 1.2984(36)$ [@shimada2016].'
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2

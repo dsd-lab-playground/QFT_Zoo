@@ -6,7 +6,7 @@ summary: 'The $\mathcal{N}=1$ supersymmetric extension of Liouville CFT, with $c
 tags: [CFT, SCFT, interacting, supersymmetric, Lagrangian]
 
 description: |
-  $\mathcal{N}=1$ super-Liouville theory is the supersymmetric extension of Liouville CFT, first considered by Polyakov. Its superfield $\Phi=\phi+i\theta\psi+i\bar\theta\bar\psi+i\theta\bar\theta F$ contains a real boson $\phi$ with a linear dilaton and its fermionic superpartner $(\psi,\bar\psi)$. It arises from the quantisation of two-dimensional supergravity, and describes 2d supergravity induced by supersymmetric matter, as Liouville CFT does for gravity. Like Liouville it is non-compact, with continuous spectra. This page follows Fukuda and Hosomichi.
+  $\mathcal{N}=1$ super-Liouville theory is the supersymmetric extension of Liouville CFT, first considered by Polyakov [@polyakov1981]. Its superfield $\Phi=\phi+i\theta\psi+i\bar\theta\bar\psi+i\theta\bar\theta F$ contains a real boson $\phi$ with a linear dilaton and its fermionic superpartner $(\psi,\bar\psi)$. It arises from the quantisation of two-dimensional supergravity, and describes 2d supergravity induced by supersymmetric matter, as Liouville CFT does for gravity. Like Liouville it is non-compact, with continuous spectra. This page follows Fukuda and Hosomichi [@fh2002].
 
   $$c=\tfrac32\hat c=\tfrac32+3Q^2,\qquad\hat c=1+2Q^2,\qquad Q=b+b^{-1}.$$
 
@@ -16,7 +16,7 @@ description: |
 
   $$h_\alpha=\bar h_\alpha=\frac{\alpha(Q-\alpha)}{2}=\frac{Q^2}{8}+\frac{p^2}{2},\qquad\alpha=\frac{Q}{2}+ip,\quad p\in\mathbb{R}.$$
 
-  The R primaries are $\Theta^{\epsilon\bar\epsilon}_\alpha=\sigma^\epsilon\bar\sigma^{\bar\epsilon}e^{\alpha\phi}$ ($\epsilon,\bar\epsilon=\pm$), with spin fields $\sigma^\pm$ of weight $\frac{1}{16}$, so $h=h_\alpha+\frac{1}{16}=\frac{c}{24}+\frac{p^2}{2}$. In the fermionic theory the R-sector superprimaries come in a pair, $R^{(+)}_P \sim \mu\,e^{\alpha\phi}$ and $R^{(-)}_P \sim \sigma\,e^{\alpha\phi}$ with $\mu$, $\sigma$ the disorder and spin fields, of equal weights (Du, Liu and Yu, eqs. (2.15)–(2.16)); for $p \neq 0$, $G_0^2 = L_0 - \frac{c}{24} = \frac{p^2}{2}$ is invertible and $G_0$ reverses fermion parity, so the Ramond ground states form a doublet of opposite parity (derived). Keeping a single combination of the four fields $\Theta^{\epsilon\bar\epsilon}_\alpha$ at each $\alpha$, as Fredenhagen and Wellig do by analogy with the free fermion, describes a projected (bosonized) theory rather than the fermionic one. The continua start at $p=0$, with $h=\frac{Q^2}{8}=\frac{2c-3}{48}$ in the NS sector and $h=\frac{c}{24}$ in the R sector.
+  The R primaries are $\Theta^{\epsilon\bar\epsilon}_\alpha=\sigma^\epsilon\bar\sigma^{\bar\epsilon}e^{\alpha\phi}$ ($\epsilon,\bar\epsilon=\pm$), with spin fields $\sigma^\pm$ of weight $\frac{1}{16}$, so $h=h_\alpha+\frac{1}{16}=\frac{c}{24}+\frac{p^2}{2}$. In the fermionic theory the R-sector superprimaries come in a pair, $R^{(+)}_P \sim \mu\,e^{\alpha\phi}$ and $R^{(-)}_P \sim \sigma\,e^{\alpha\phi}$ with $\mu$, $\sigma$ the disorder and spin fields, of equal weights [@dly2025, Eqs. (2.15)–(2.16)]; for $p \neq 0$, $G_0^2 = L_0 - \frac{c}{24} = \frac{p^2}{2}$ is invertible and $G_0$ reverses fermion parity, so the Ramond ground states form a doublet of opposite parity (derived). Keeping a single combination of the four fields $\Theta^{\epsilon\bar\epsilon}_\alpha$ at each $\alpha$, as Fredenhagen and Wellig [@fw2007] do by analogy with the free fermion, describes a projected (bosonized) theory rather than the fermionic one. The continua start at $p=0$, with $h=\frac{Q^2}{8}=\frac{2c-3}{48}$ in the NS sector and $h=\frac{c}{24}$ in the R sector.
 
   Degenerate representations sit at $\alpha_{r,s}=\frac12(Q-rb-sb^{-1})$, $r,s\geq1$, with a null vector at level $\frac{rs}{2}$; they are NS for $r+s$ even and R for $r+s$ odd. The simplest non-trivial one is the R field $\Theta_{-b/2}$.
 
@@ -34,13 +34,13 @@ description: |
 
   $$\langle V_{\alpha_1}V_{\alpha_2}V_{\alpha_3}\rangle=\lambda^{\frac{Q-\sum_i\alpha_i}{b}}\,\frac{\Upsilon_{\rm NS}'(0)\,\Upsilon_{\rm NS}(2\alpha_1)\Upsilon_{\rm NS}(2\alpha_2)\Upsilon_{\rm NS}(2\alpha_3)}{\Upsilon_{\rm NS}(\alpha_1+\alpha_2+\alpha_3-Q)\,\Upsilon_{\rm NS}(\alpha_1+\alpha_2-\alpha_3)\,\Upsilon_{\rm NS}(\alpha_2+\alpha_3-\alpha_1)\,\Upsilon_{\rm NS}(\alpha_3+\alpha_1-\alpha_2)}.$$
 
-  Superconformal symmetry gives all other NS three-point functions from this one and from $\langle\psi\bar\psi V_{\alpha_1}V_{\alpha_2}V_{\alpha_3}\rangle$, whose denominator is built from $\Upsilon_{\rm R}$ (Fukuda–Hosomichi, eq. (2.58)). Three-point functions with two R fields are given in their eq. (2.64). The NS function has poles where $\sum_i(\alpha_i\ \text{or}\ Q-\alpha_i)=Q-mb-nb^{-1}$ with $m,n\geq0$ and $m+n$ even, reflecting the fermionic screening operator $\psi\bar\psi e^{b\phi}$.
+  Superconformal symmetry gives all other NS three-point functions from this one and from $\langle\psi\bar\psi V_{\alpha_1}V_{\alpha_2}V_{\alpha_3}\rangle$, whose denominator is built from $\Upsilon_{\rm R}$ [@fh2002, Eq. (2.58)]. Three-point functions with two R fields are given in [@fh2002, Eq. (2.64)]. The NS function has poles where $\sum_i(\alpha_i\ \text{or}\ Q-\alpha_i)=Q-mb-nb^{-1}$ with $m,n\geq0$ and $m+n$ even, reflecting the fermionic screening operator $\psi\bar\psi e^{b\phi}$.
 
-  The structure constants were proposed by Rashkov and Stanishkov from their pole structure, and derived by Poghossian, in both sectors, from four-point functions with the degenerate R field $\Theta_{-b/2}$ (the method Teschner used for Liouville). Fukuda and Hosomichi rederived them in the form above.
+  The structure constants were proposed by Rashkov and Stanishkov [@rs1996] from their pole structure, and derived by Poghossian [@poghossian1997], in both sectors, from four-point functions with the degenerate R field $\Theta_{-b/2}$ (the method Teschner used for Liouville). Fukuda and Hosomichi [@fh2002] rederived them in the form above.
 
   ### Related theories
 
-  At $b=1$ ($\hat c=9$, $c=\frac{27}{2}$), super-Liouville theory together with a free $\hat c=1$ superfield $(X,\chi)$ is the worldsheet theory of the two-dimensional type 0A and 0B strings (Nakayama, section 7.3). As $c\to\frac32$ ($b\to i$) its NS three-point functions have a limit, which coincides with the limit of the $\mathcal{N}=1$ superconformal minimal models (Fredenhagen and Wellig): a non-rational theory at $c=\frac32$, the supersymmetric analogue of the Runkel–Watts theory.
+  At $b=1$ ($\hat c=9$, $c=\frac{27}{2}$), super-Liouville theory together with a free $\hat c=1$ superfield $(X,\chi)$ is the worldsheet theory of the two-dimensional type 0A and 0B strings [@nakayama2004, Sec. 7.3]. As $c\to\frac32$ ($b\to i$) its NS three-point functions have a limit, which coincides with the limit of the $\mathcal{N}=1$ superconformal minimal models [@fw2007]: a non-rational theory at $c=\frac32$, the supersymmetric analogue of the Runkel–Watts theory.
 
 lagrangian: 'S=\frac{1}{2\pi}\int\mathrm{d}^2z\,\Big(\partial\phi\bar\partial\phi+\frac{QR\phi}{4}+\psi\bar\partial\psi+\bar\psi\partial\bar\psi-F^2\Big)+2i\mu\int\mathrm{d}^2z\,\big(ibF+b^2\psi\bar\psi\big)e^{b\phi}'
 
@@ -81,7 +81,7 @@ quantities:
     description: 'NS reflection amplitude'
     value: '\lambda^{\frac{Q-2\alpha}{b}}\frac{\Upsilon_{\rm NS}(2\alpha)}{\Upsilon_{\rm NS}(2Q-2\alpha)}'
     method: exact
-    note: 'With $\lambda=\mu\pi\gamma(\frac{bQ}{2})b^{1-b^2}$. Agrees with the gamma-function form, eq. (2.35) of Fukuda–Hosomichi, by the shift relations of $\Upsilon$.'
+    note: 'With $\lambda=\mu\pi\gamma(\frac{bQ}{2})b^{1-b^2}$. Agrees with the gamma-function form [@fh2002, Eq. (2.35)] by the shift relations of $\Upsilon$.'
     refs: [fh2002, poghossian1997]
   - symbol: 'C^{\rm NS}(\alpha_1,\alpha_2,\alpha_3)'
     description: 'Three-point function of NS primaries'
@@ -105,7 +105,7 @@ operators:
     rep: 'R sector, $\alpha=\frac{Q}{2}+ip$, $p\geq0$'
     method: exact
     refs: [fh2002, fw2007, dly2025]
-    note: 'R spectrum. In the fermionic theory the superprimaries form a fermion-parity doublet $\mu e^{\alpha\phi}$, $\sigma e^{\alpha\phi}$ (Du, Liu and Yu); a single combination of the four $\epsilon,\bar\epsilon$ (Fredenhagen and Wellig) belongs to a projected theory.'
+    note: 'R spectrum. In the fermionic theory the superprimaries form a fermion-parity doublet $\mu e^{\alpha\phi}$, $\sigma e^{\alpha\phi}$ [@dly2025]; a single combination of the four $\epsilon,\bar\epsilon$ [@fw2007] belongs to a projected theory.'
 
 relations:
   - type: related_to

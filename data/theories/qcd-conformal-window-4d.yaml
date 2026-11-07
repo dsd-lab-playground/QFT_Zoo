@@ -17,11 +17,11 @@ description: |
   $\beta(\alpha) = -2\alpha\,[\,b_1\,\alpha/4\pi + b_2\,(\alpha/4\pi)^2 + \dots]$, with the
   scheme-independent coefficients $b_1$ and $b_2$ below. Asymptotic freedom requires
   $N_f < 11N_c/2$, and $b_2 < 0$ for $N_f > 34N_c^3/(13N_c^2-3)$. In between, the two-loop beta
-  function has an infrared zero $\alpha_* = -4\pi b_1/b_2$ (Caswell; Banks and Zaks), and the
+  function has an infrared zero $\alpha_* = -4\pi b_1/b_2$ [@caswell1974; @banks1982], and the
   massless theory flows from the free UV fixed point to an interacting CFT. Near the upper edge
   $\alpha_*$ is proportional to $\Delta_f = 11N_c/2 - N_f$, so the fixed point is perturbative,
   and its data can be expanded in powers of $\Delta_f$ with scheme-independent coefficients
-  (Ryttov and Shrock). For $SU(3)$ the two-loop zero exists for $9 \le N_f \le 16$, with
+  [@ryttov2017]. For $SU(3)$ the two-loop zero exists for $9 \le N_f \le 16$, with
   $\alpha_* = 2\pi/151 \approx 0.042$ at $N_f = 16$.
 
   In the conformal phase the flavor symmetry $SU(N_f)_L\times SU(N_f)_R\times U(1)_V$ is
@@ -36,27 +36,27 @@ description: |
   The conformal window is $N_f^* < N_f < 11N_c/2$, and the value of $N_f^*$ is not known. The
   estimates for $SU(3)$ disagree. The ladder Schwinger–Dyson criterion applied to the two-loop
   fixed point gives $N_f^* = N_c(100N_c^2-66)/(25N_c^2-15)$, just below 12 for $N_c = 3$
-  (Appelquist, Terning and Wijewardhana), but this approximation is uncontrolled. The
+  [@appelquist1996], but this approximation is uncontrolled. The
   order-$\Delta_f^4$ values of $\gamma_{\bar\psi\psi}$ stay below the conformal bound
   $\gamma \le 2$ down to $N_f = 9$; assuming the bound is saturated at the lower edge,
-  Ryttov and Shrock estimate $8 \lesssim N_f^* \lesssim 9$, while Lee, using the criterion
+  Ryttov and Shrock estimate $8 \lesssim N_f^* \lesssim 9$, while Lee [@lee2021], using the criterion
   $\gamma = 1$, finds $N_f = 10$ likely to lie on the lower edge. Borel resummation of the
-  five-loop beta function and of the $\Delta_f$ expansion (Di Pietro and Serone) gives
+  five-loop beta function and of the $\Delta_f$ expansion [@dipietro2020] gives
   substantial evidence that $N_f = 12$ is conformal and weaker indications for $N_f = 11$;
   the method fails below 11.
 
   On the lattice, $N_f = 12$ has been debated for years. Finite-size scaling analyses find
-  conformal behavior with $\gamma_m = 0.235(15)$ (Cheng et al.) and $0.235(46)$ (Lombardo et al.),
-  and LatKMI find their data consistent with conformality for $\gamma_m \sim 0.4$–$0.5$.
+  conformal behavior with $\gamma_m = 0.235(15)$ [@cheng2014] and $0.235(46)$ [@lombardo2014],
+  and LatKMI [@aoki2012] find their data consistent with conformality for $\gamma_m \sim 0.4$–$0.5$.
   Gradient-flow step-scaling studies find an infrared fixed point, at
-  $g_\star^2 = 7.3\,({}^{+8}_{-2})$ in the $c = 0.25$ scheme (Hasenfratz and Schaich) and in the
-  range $5.2 \le g_c^2 \le 6.4$ (Hasenfratz, Rebbi and Witzel), whereas Fodor et al., in the same
+  $g_\star^2 = 7.3\,({}^{+8}_{-2})$ in the $c = 0.25$ scheme [@hasenfratz2018] and in the
+  range $5.2 \le g_c^2 \le 6.4$ [@hasenfratz2019], whereas Fodor et al. [@fodor2016], in the same
   scheme as an earlier study, find no zero of the beta function in the interval
   $6.0 < g^2 < 6.4$ where that study had placed it. For $N_f = 10$, which is "the subject of
   continuing debate", a recent gradient-flow study finds a fixed point at $g^2 = 15.0(5)$ with
-  $\gamma_m \simeq 0.6$ (Hasenfratz et al. 2023). For $N_f = 8$ the spectrum indirectly
+  $\gamma_m \simeq 0.6$ [@hasenfratz2023]. For $N_f = 8$ the spectrum indirectly
   indicates chiral symmetry breaking, with a flavor-singlet scalar degenerate with the
-  pseudo-Goldstone states at the lightest masses simulated (LSD collaboration).
+  pseudo-Goldstone states at the lightest masses simulated [@lsd2019].
 
 lagrangian: '\mathcal{L} = -\frac{1}{2g^2}\,\mathrm{Tr}\,F_{\mu\nu}F^{\mu\nu} + \sum_{i=1}^{N_f} \bar\psi_i\, i\gamma^\mu D_\mu \psi_i'
 
@@ -102,13 +102,13 @@ quantities:
     value: '\frac{11N_c - 2N_f}{3}'
     method: derived (one-loop perturbation theory)
     refs: [ryttov2016, appelquist1996]
-    note: 'Equal to $2\pi b$ with $b$ of Appelquist et al., eq. (3). For $SU(3)$ it is $11 - 2N_f/3$ (Ryttov–Shrock).'
+    note: 'Equal to $2\pi b$ with $b$ of Appelquist et al. [@appelquist1996, Eq. (3)]. For $SU(3)$ it is $11 - 2N_f/3$ [@ryttov2016].'
   - symbol: 'b_2'
     description: 'Two-loop beta-function coefficient, same normalization'
     value: '\frac{34}{3}N_c^2 - \frac{13}{3}N_cN_f + \frac{N_f}{N_c}'
     method: derived (two-loop perturbation theory)
     refs: [ryttov2016, appelquist1996]
-    note: 'Equal to $8\pi^2 c$ with $c$ of Appelquist et al., eq. (4). For $SU(3)$ it is $102 - 38N_f/3$ (Ryttov–Shrock), which vanishes at $N_f = 153/19 \approx 8.05$.'
+    note: 'Equal to $8\pi^2 c$ with $c$ of Appelquist et al. [@appelquist1996, Eq. (4)]. For $SU(3)$ it is $102 - 38N_f/3$ [@ryttov2016], which vanishes at $N_f = 153/19 \approx 8.05$.'
   - symbol: '\alpha_*'
     description: 'Fixed-point coupling of the two-loop beta function, $-4\pi b_1/b_2$'
     value: '\frac{4\pi N_c(11N_c - 2N_f)}{(13N_c^2-3)N_f - 34N_c^3}'
@@ -129,21 +129,21 @@ operators:
     rep: '$SU(N_f)$ adjoint and singlet (same anomalous dimension)'
     method: derived (scheme-independent expansion, fourth order)
     refs: [ryttov2017, dipietro2020]
-    note: '$3 - \gamma$ with $\gamma = 0.338$ from Table I. Resummed perturbation theory gives $|\gamma| = 0.345(47)$ (Di Pietro–Serone).'
+    note: '$3 - \gamma$ with $\gamma = 0.338$ from Table I. Resummed perturbation theory gives $|\gamma| = 0.345(47)$ [@dipietro2020].'
   - name: '\bar\psi\psi\ (N_f = 12)'
     Delta: '2.765(15)'
     spin: 0
     rep: '$SU(N_f)$ adjoint and singlet'
     method: derived (lattice finite-size scaling)
     refs: [cheng2014, lombardo2014, aoki2012]
-    note: '$3 - \gamma_m$ with $\gamma_m = 0.235(15)$ (Cheng et al.). Also $\gamma_m = 0.235(46)$ (Lombardo et al.) and $\gamma_m \sim 0.4$–$0.5$ (LatKMI).'
+    note: '$3 - \gamma_m$ with $\gamma_m = 0.235(15)$ [@cheng2014]. Also $\gamma_m = 0.235(46)$ [@lombardo2014] and $\gamma_m \sim 0.4$–$0.5$ [@aoki2012].'
   - name: '\mathrm{Tr}\,F_{\mu\nu}F^{\mu\nu}\ (N_f = 12)'
     Delta: '4.228'
     spin: 0
     rep: singlet
     method: derived (scheme-independent expansion, fifth order)
     refs: [ryttov2017, hasenfratz2018, dipietro2020]
-    note: '$4 + \beta^\prime(\alpha_*)$ (eq. 4.2) with $\beta^\prime = 0.228$ from Table VIII. Lattice: leading irrelevant exponent $0.26(2)$ (Hasenfratz–Schaich); resummed perturbation theory $0.23(6)$.'
+    note: '$4 + \beta^\prime(\alpha_*)$ (eq. 4.2) with $\beta^\prime = 0.228$ from Table VIII. Lattice: leading irrelevant exponent $0.26(2)$ [@hasenfratz2018]; resummed perturbation theory $0.23(6)$.'
   - name: 'J_\mu^{L},\ J_\mu^{R},\ J_\mu^{V}'
     Delta: 3
     spin: 1
