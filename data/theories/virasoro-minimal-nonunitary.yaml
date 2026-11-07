@@ -89,6 +89,8 @@ family:
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = 1 - \tfrac{6(p-q)^2}{pq}$ — 2d conformal symmetry, with parity; Euclidean only (non-unitary)'
   supercharges: 0
+  parity: true
+  global_group: []
 
 quantities:
   - key: c
@@ -113,7 +115,8 @@ operators:
     Delta: '\frac{1 - (q-p)^2}{2pq}'
     spin: 0
     weights: '(h_{\min}, h_{\min})'
-    rep: 'lowest-weight primary, $|qr_0 - ps_0| = 1$'
+    parity: even
+    role: 'lowest-weight primary, $|qr_0 - ps_0| = 1$'
     method: exact
     refs: [isz1986]
     note: 'Negative for all $q - p \ge 2$, so it, not the vacuum, dominates the torus partition function at low temperature.'

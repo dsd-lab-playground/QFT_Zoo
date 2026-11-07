@@ -33,6 +33,9 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = 1 - \tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$\mathbb{Z}_2$ (for $m \geq 3$)'
+  parity: true
+  global_group:
+    - {id: Z2, group: Z2}
 
 quantities:
 - key: c
@@ -53,6 +56,8 @@ operators:
   Delta: '\frac{3}{2m(m+1)}'
   spin: 0
   weights: '(h_{2,2}, h_{2,2})'
+  parity: even
+  global: {Z2: odd}
   note: Lightest non-vacuum primary.
 
 references:

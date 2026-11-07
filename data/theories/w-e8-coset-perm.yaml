@@ -8,6 +8,8 @@ description: 'The exceptional automorphism invariant of $(E_8)_4$ exchanges the 
 
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{256}{187}$ — 2d conformal symmetry; parity not recorded'
+  parity: unknown
+  global_group: []
 
 quantities:
 - key: c

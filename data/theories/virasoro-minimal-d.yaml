@@ -32,6 +32,9 @@ family:
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = 1 - \tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity'
   global: '$\mathbb{Z}_2$, dual to the spin flip of the A-series model of which the D-series model is the orbifold; $S_3$ for the two $D_4$ invariants, $m = 5$ (3-state Potts) and $m = 6$ (tricritical 3-state Potts)'
+  parity: true
+  global_group:
+    - {id: Z2, group: Z2, note: 'Dual to the spin flip of the A-series model; part of $S_3$ for $m = 5, 6$.'}
 
 quantities:
 - key: c
@@ -51,6 +54,8 @@ operators:
   Delta: '\frac{4}{m(m+1)}'
   spin: 0
   weights: '(h_{3,3}, h_{3,3})'
+  parity: even
+  global: {Z2: unknown}
   note: Lightest non-vacuum primary.
 
 references:

@@ -53,6 +53,9 @@ family:
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = 1 - \tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity for the $E_6$ and $E_8$ invariants (diagonal invariants of the extended chiral algebra); parity not recorded for the $E_7$ permutation invariant'
   global: '$\mathbb{Z}_2$ for the $E_6$ models ($m = 11, 12$), $-1$ on the fields whose $E_6$ label is 4 or 8; not recorded for $E_7$ and $E_8$'
+  parity: conditional
+  global_group:
+    - {id: Z2, group: Z2, note: 'For the $E_6$ models ($m = 11, 12$); not recorded for $E_7$ and $E_8$.'}
 
 quantities:
 - key: c
@@ -72,6 +75,8 @@ operators:
 - name: '\phi_{k,k}'
   Delta: '\frac{k^2-1}{2m(m+1)}'
   spin: 0
+  parity: even
+  global: {Z2: odd}
   note: 'Lightest non-vacuum primary; $k$ is the smallest exponent of the E diagram above 1.'
 
 references:
