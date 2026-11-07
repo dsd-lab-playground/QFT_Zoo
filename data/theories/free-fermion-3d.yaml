@@ -49,6 +49,8 @@ symmetry:
   lorentzian: '$O(3,2)$'
   supercharges: 0
   global: 'fermion parity $(-1)^F$, parity and time reversal; $O(2)$ for a Dirac fermion'
+  parity: true
+  global_group: []
   notes: 'Time reversal forbids the mass $\bar\psi\psi$. The Dirac fermion has a parity anomaly between $U(1)$ and time reversal.'
 
 quantities:
@@ -75,26 +77,27 @@ operators:
   - name: '\psi'
     Delta: 1
     spin: '1/2'
-    rep: 'fermion, $(-1)^F$ odd'
+    parity: unknown
     method: exact
     refs: [iliesiu2017]
   - name: '\bar\psi\psi'
     Delta: 2
     spin: 0
-    rep: odd under parity and time reversal
+    parity: odd
     method: exact
     refs: [diab2016, erramilli2022]
     note: 'The mass term; for $N$ Majorana fermions the $O(N)$ singlet $\bar\psi_i\psi_i$.'
   - name: 'J_\mu'
     Delta: 2
     spin: 1
-    rep: Dirac fermion only
+    parity: unknown
+    role: Dirac fermion only
     method: exact
     note: 'Conserved $U(1)$ current, $\bar\Psi\gamma_\mu\Psi$.'
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: singlet
+    parity: even
     method: exact
     note: Stress tensor (conserved).
 

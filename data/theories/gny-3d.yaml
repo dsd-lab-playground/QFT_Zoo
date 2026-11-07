@@ -76,6 +76,9 @@ symmetry:
   lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$O(N)$ and parity / time reversal ($\sigma$ odd)'
+  parity: true
+  global_group:
+    - {id: O(N), group: O(N)}
   notes: '$\mathcal{N}=1$ supersymmetry emerges at $N=1$.'
 
 quantities:
@@ -100,57 +103,72 @@ operators:
   - name: '\psi_i'
     Delta: '1 + \frac{4}{3\pi^2 N} + \frac{896}{27\pi^4 N^2} + O(N^{-3})'
     spin: '1/2'
-    rep: vector of $O(N)$
+    parity: unknown
+    global: {O(N): vector}
     method: 1/N
     refs: [erramilli2022, fei2016]
   - name: '\sigma'
     Delta: '1 - \frac{32}{3\pi^2 N} + \frac{32(304 - 27\pi^2)}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
-    rep: singlet, parity odd ($\sim\phi\sim\bar\psi_i\psi_i$)
+    parity: odd
+    global: {O(N): singlet}
+    role: '$\sim\phi\sim\bar\psi_i\psi_i$'
     method: 1/N
     refs: [erramilli2022, fei2016]
   - name: '\epsilon'
     Delta: '2 + \frac{32}{3\pi^2 N} - \frac{64(632 + 27\pi^2)}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
-    rep: singlet, parity even ($\sim\phi^2$)
+    parity: even
+    global: {O(N): singlet}
+    role: '$\sim\phi^2$'
     method: 1/N
     refs: [erramilli2022, fei2016]
     note: 'The tuning parameter: $\nu^{-1} = 3 - \Delta_\epsilon$.'
   - name: '\sigma_T'
     Delta: '2 + \frac{32}{3\pi^2 N} + \frac{4096}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
-    rep: 'rank-2 symmetric traceless, parity odd ($\sim\psi_{(i}\psi_{j)}$)'
+    parity: odd
+    global: {O(N): sym(2)}
+    role: '$\sim\psi_{(i}\psi_{j)}$'
     method: 1/N
     refs: [erramilli2022]
   - name: 'J_\mu^{[ij]}'
     Delta: 2
     spin: 1
-    rep: adjoint of $O(N)$
+    parity: even
+    global: {O(N): adjoint}
     method: exact
     note: Conserved $O(N)$ currents.
   - name: "\\sigma'"
     Delta: '3 + \frac{64}{\pi^2 N} - \frac{128(770 - 9\pi^2)}{9\pi^4 N^2} + O(N^{-3})'
     spin: 0
-    rep: singlet, parity odd ($\sim\phi^3$)
+    parity: odd
+    global: {O(N): singlet}
+    role: '$\sim\phi^3$'
     method: 1/N
     refs: [erramilli2022, iliesiu2017]
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: singlet
+    parity: even
+    global: {O(N): singlet}
     method: exact
     note: Stress tensor (conserved).
   - name: "\\epsilon'"
     Delta: '4 - \frac{64}{3\pi^2 N} + \frac{64(400 - 27\pi^2)}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
-    rep: singlet, parity even (predominantly $\phi\,\partial^2\phi$)
+    parity: even
+    global: {O(N): singlet}
+    role: 'predominantly $\phi\,\partial^2\phi$'
     method: 1/N
     refs: [mitchell2024]
     note: 'Leading irrelevant singlet, $\omega = \Delta_{\epsilon^\prime} - 3$. At large $N$, $\phi\,\partial^2\phi$ and $\phi^4$ mix; $\epsilon^\prime$ is the lower eigenvalue (Mitchell and Poland [@mitchell2024, Table 1], who note that this differs from the labelling in Erramilli et al. [@erramilli2022]).'
   - name: "\\epsilon''"
     Delta: '4 + \frac{448}{3\pi^2 N} - \frac{256(3520 - 81\pi^2)}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
-    rep: singlet, parity even (predominantly $\phi^4$)
+    parity: even
+    global: {O(N): singlet}
+    role: 'predominantly $\phi^4$'
     method: 1/N
     refs: [mitchell2024, erramilli2022]
     note: 'The upper eigenvalue of the $\phi\,\partial^2\phi$–$\phi^4$ mixing.'

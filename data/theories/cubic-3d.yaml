@@ -48,6 +48,10 @@ symmetry:
   lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$\mathbb{Z}_2^3 \rtimes S_3$ (cubic group, order 48)'
+  parity: true
+  global_group:
+    - {id: Z2, group: Z2, note: '$\vec\phi \to -\vec\phi$, the centre of the cubic group'}
+    - {id: S4, group: S_4, note: 'Permutations of the three components with an even number of sign flips; the cubic group $\mathbb{Z}_2^3 \rtimes S_3$ is $S_4 \times \mathbb{Z}_2$, and $\phi_i$ is the standard representation of this $S_4$ times $\mathbb{Z}_2$-odd'}
   notes: 'The $O(3)$ of the Heisenberg point is broken to this discrete group, so there are no conserved spin-1 currents.'
 
 quantities:
@@ -79,27 +83,34 @@ operators:
   - name: '\phi_i'
     Delta: '0.51891(7)'
     spin: 0
-    rep: three-dimensional (order parameter)
+    parity: even
+    global: {Z2: odd, S4: standard}
+    role: order parameter
     method: MC, from η
     refs: [hasenbusch2023]
     note: 'From $\Delta_\phi = (1+\eta)/2$.'
   - name: 's'
     Delta: '1.5937(6)'
     spin: 0
-    rep: singlet (thermal)
+    parity: even
+    global: {Z2: even, S4: trivial}
+    role: thermal
     method: MC, from ν
     refs: [hasenbusch2023]
     note: 'From $\Delta_s = 3 - 1/\nu$.'
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: singlet
+    parity: even
+    global: {Z2: even, S4: trivial}
     method: exact
     note: Stress tensor (conserved).
   - name: 'X'
     Delta: '3.0133(8)'
     spin: 0
-    rep: singlet (descends from $t_4$ of $O(3)$)
+    parity: even
+    global: {Z2: even, S4: trivial}
+    role: 'descends from $t_4$ of $O(3)$'
     method: MC, from ω₂
     refs: [hasenbusch2023, chester2020]
     note: 'From $3 + \omega_2$. Leading irrelevant singlet; conformal perturbation theory gives $\Delta_X \approx 3.01$ [@chester2020].'
