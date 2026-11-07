@@ -473,6 +473,170 @@ function splitDescription(src) {
   };
 }
 
+/* ------------------------------------------------- operators by representation */
+
+/** Leading numerical value of a Δ or spin: '1.412625(10)', '5/2', '\frac{1}{2}', '2 + \frac{3\lambda}{4\pi^2}' (leading
+ *  term of a series), '\leq 10.9293'. NaN when the value is not a number (e.g. '0.265\,N_f - 0.0383'). */
+function leadingNumber(s) {
+  if (typeof s === "number") return s;
+  const x = String(s ?? "").trim().replace(/^(?:\\leq?|\\geq?|\\approx|\\sim|[≤≥≈~<>])\s*/, "");
+  let m, v;
+  if ((m = /^\\[dt]?frac\s*\{\s*(-?\d+(?:\.\d+)?)\s*\}\s*\{\s*(\d+(?:\.\d+)?)\s*\}/.exec(x))) v = m[1] / m[2];
+  else if ((m = /^(-?\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)/.exec(x))) v = m[1] / m[2];
+  else if ((m = /^-?\d+(?:\.\d+)?(?:\(\d+\))?/.exec(x))) v = parseFloat(m[0]);
+  else return NaN;
+  const rest = x.slice(m[0].length).trim();
+  return !rest || /^(?:[+\-−–]|\\pm|\\mp|\\text\{[–-]\})/.test(rest) ? v : NaN;
+}
+
+/** Split a rep at its first ',', ';' or ' (' outside math and brackets: the head names the representation, the rest
+ *  qualifies it ('singlet (thermal)', '$\mathbb{Z}_2$-even, parity-odd', 'adjoint of $O(N)$; triplet ...'). */
+function repSplit(rep) {
+  let math = false, depth = 0;
+  for (let i = 0; i < rep.length; i++) {
+    const c = rep[i];
+    if (c === "\\") i++;
+    else if (c === "$") math = !math;
+    else if (math) continue;
+    else if (c === "(" && depth === 0 && rep[i - 1] === " ") return [rep.slice(0, i).trim(), rep.slice(i)];
+    else if ("([{".includes(c)) depth++;
+    else if (")]}".includes(c)) depth--;
+    else if ((c === "," || c === ";") && depth === 0) return [rep.slice(0, i).trim(), rep.slice(i)];
+  }
+  return [rep.trim(), ""];
+}
+
+const PARITY = /\bparity(?:[- ]and[- ]time[- ]reversal)?[- ](even|odd)\b/i;
+
+/** Grouping key of a rep head: spelling-insensitive ('$\mathbb{Z}_2$-even' = 'Z2-even', case, spaces), nothing more. */
+const repKey = (s) =>
+  s.toLowerCase()
+    .replace(/\\mathbb\s*\{\s*z\s*\}\s*_\s*\{?\s*(\d+)\s*\}?/g, "z$1")
+    .replace(/\\(?:mathbf|mathrm|rm|text|bf)\s*\{([^{}]*)\}/g, "$1")
+    .replace(/[$\s]+|\\[,;:! ]/g, " ")
+    .replace(/\s*-\s*/g, "-")
+    .replace(/traceless symmetric/g, "symmetric traceless")
+    .trim();
+
+/** The trivial sector (singlet, neutral, even, charge 0) comes first in the table. */
+const trivialRep = (key) => /(?:^|\s)singlets?$|^(?:neutral|trivial|charge 0|r ?= ?0)$|-even$/.test(key);
+
+/** Strip separators around a rep's qualifier, and a single pair of parentheses around all of it. */
+function cleanQualifier(s) {
+  let q = s.replace(/^[\s,;]+|[\s,;]+$/g, "").replace(/\s*([,;])(?:\s*[,;])+/g, "$1").replace(/\s{2,}/g, " ");
+  if (q.startsWith("(") && q.endsWith(")")) {
+    let depth = 0, wraps = true;
+    for (let i = 0; i < q.length - 1 && wraps; i++) {
+      if (q[i] === "(") depth++;
+      else if (q[i] === ")") depth--;
+      if (depth === 0) wraps = false;
+    }
+    if (wraps) q = q.slice(1, -1).trim();
+  }
+  return q;
+}
+
+/** Group operators into representation sectors. Returns null when grouping would add nothing (no reps, or one rep). */
+function operatorGroups(ops) {
+  const rows = ops.map((o, i) => {
+    const rep = o.rep != null && String(o.rep).trim() ? String(o.rep) : null;
+    if (!rep) return { o, i, rep, key: null };
+    let [head, rest] = repSplit(rep), parity = "", parityText = "", m;
+    const full = PARITY.exec(head);
+    if (full && full[0].length === head.length) [head, parity, parityText] = ["", full[1].toLowerCase(), full[0]];
+    else if ((m = PARITY.exec(rest))) [parity, parityText] = [m[1].toLowerCase(), m[0]];
+    // Parity-odd operators form their own sector; an unlabelled parity is the even one (T_{μν}, currents, ...).
+    return { o, i, rep, head, parity, parityText, hk: repKey(head), key: `${repKey(head)}|${parity === "odd" ? "odd" : ""}` };
+  });
+  const groups = new Map();
+  for (const r of rows) {
+    if (!groups.has(r.key)) groups.set(r.key, { key: r.key, rows: [] });
+    groups.get(r.key).rows.push(r);
+  }
+  const named = [...groups.values()].filter((g) => g.key !== null);
+  if (named.length < 2 || named.every((g) => g.rows.length < 2)) return null;
+
+  const headOrder = new Map();
+  rows.forEach((r) => r.key !== null && !headOrder.has(r.hk) && headOrder.set(r.hk, headOrder.size));
+  const trivial = (r) => trivialRep(r.hk) || (!r.hk && r.parity === "even");
+  const rank = (g) => (g.key === null ? [2, 0, 0] : [trivial(g.rows[0]) ? 0 : 1, headOrder.get(g.rows[0].hk), g.key.endsWith("|odd") ? 1 : 0]);
+  const list = [...groups.values()].sort((a, b) => {
+    const [x, y] = [rank(a), rank(b)];
+    return x[0] - y[0] || x[1] - y[1] || x[2] - y[2];
+  });
+
+  const num = (v) => { const x = leadingNumber(v); return Number.isFinite(x) ? x : Infinity; };
+  for (const g of list) {
+    if (g.key !== null) {
+      // The heading is the rep itself when the group shares one; otherwise the common head (plus the parity when all share
+      // it), and each row keeps what is left of its rep (e.g. 'thermal') in the Representation column.
+      const same = g.rows.every((r) => r.rep === g.rows[0].rep);
+      const showParity = g.rows.every((r) => r.parity && r.parity === g.rows[0].parity);
+      const h = g.rows[0];
+      g.heading = same ? h.rep : [h.head, showParity ? h.parityText : ""].filter(Boolean).join(", ");
+      for (const r of g.rows) {
+        let q = same ? "" : r.rep.slice(r.head ? r.rep.indexOf(r.head) + r.head.length : 0);
+        if (!same && showParity) q = q.replace(r.parityText, "");
+        r.qualifier = cleanQualifier(q);
+      }
+    } else {
+      g.heading = null;
+      for (const r of g.rows) r.qualifier = "";
+    }
+    // By spin, then by Δ; several values of one operator (different sources) stay together in their listed order.
+    const first = new Map();
+    for (const r of g.rows) if (!first.has(r.o.name)) first.set(r.o.name, r);
+    const sk = (r) => { const f = first.get(r.o.name); return [num(r.o.spin), num(f.o.Delta), f.i, r.i]; };
+    g.rows.sort((a, b) => {
+      const [x, y] = [sk(a), sk(b)];
+      for (let k = 0; k < 4; k++) if (x[k] !== y[k]) return x[k] < y[k] ? -1 : 1;
+      return 0;
+    });
+  }
+  return list;
+}
+
+/** A group heading links its first common rep word to Wikipedia (one link at most, never inside math). */
+const REP_WIKI = [
+  [/\bsinglets?\b/i, "https://en.wikipedia.org/wiki/Trivial_representation"],
+  [/\badjoint\b/i, "https://en.wikipedia.org/wiki/Adjoint_representation"],
+  [/\bparity\b/i, "https://en.wikipedia.org/wiki/Parity_(physics)"],
+];
+function repWikiLinks(heading) {
+  if (/\]\(/.test(heading)) return heading; // already has a link
+  const parts = heading.split(/(\$[^$]*\$)/); // odd parts are math
+  let best = null;
+  for (let i = 0; i < parts.length; i += 2)
+    for (const [re, url] of REP_WIKI) {
+      const m = re.exec(parts[i]);
+      if (m && (!best || i < best.i || (i === best.i && m.index < best.at))) best = { i, at: m.index, len: m[0].length, url };
+    }
+  if (best) {
+    const p = parts[best.i];
+    parts[best.i] = `${p.slice(0, best.at)}[${p.slice(best.at, best.at + best.len)}](${best.url})${p.slice(best.at + best.len)}`;
+  }
+  return parts.join("");
+}
+
+function operatorsTable(ops, cols) {
+  const groups = operatorGroups(ops);
+  if (!groups) return table(cols.map(([h]) => h), ops.map((o) => cols.map(([, f]) => f(o))), "data");
+  // Grouped: the Representation column keeps only what the group heading leaves out, and goes when that is nothing.
+  const qual = new Map(groups.flatMap((g) => g.rows.map((r) => [r.o, r.qualifier])));
+  const use = cols
+    .filter(([h]) => h !== "Representation" || [...qual.values()].some(Boolean))
+    .map(([h, f]) => (h === "Representation" ? [h, (o) => md(qual.get(o), true)] : [h, f]));
+  const body = groups
+    .map((g) => {
+      const head = g.heading == null ? `<span class="op-group-none">representation not given</span>` : md(repWikiLinks(g.heading), true);
+      return `<tbody><tr class="op-group"><th colspan="${use.length}" scope="rowgroup">${head}</th></tr>${g.rows
+        .map((r) => `<tr>${use.map(([, f]) => `<td>${f(r.o) ?? ""}</td>`).join("")}</tr>`)
+        .join("")}</tbody>`;
+    })
+    .join("");
+  return `<div class="table-wrap"><table class="data grouped"><thead><tr>${use.map(([h]) => `<th>${h}</th>`).join("")}</tr></thead>${body}</table></div>`;
+}
+
 function viewTheory(id) {
   const t = BY_ID.get(id);
   if (!t) return viewNotFound(`No theory with id “${id}”.`);
@@ -539,8 +703,7 @@ function viewTheory(id) {
     ].filter(([, , key]) => key === true || key === null || t.operators.some((o) => o[key] != null));
     const hasSource = t.operators.some((o) => o.method || o.refs?.length);
     const use = cols.filter(([h]) => h !== "Source" || hasSource);
-    out.push(section("operators", "Operators",
-      table(use.map(([h]) => h), t.operators.map((o) => use.map(([, f]) => f(o))), "data")));
+    out.push(section("operators", "Operators", operatorsTable(t.operators, use)));
   }
 
   if (t.quantities?.length)
