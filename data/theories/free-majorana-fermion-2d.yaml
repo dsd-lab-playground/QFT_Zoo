@@ -1,0 +1,130 @@
+id: free-majorana-fermion-2d
+name: 'Free Majorana fermion (2d)'
+aliases:
+  - Free massless Majorana fermion in two dimensions
+  - '$c = \tfrac12$ free fermion'
+  - Critical point of the Kitaev chain
+d: 2
+summary: >-
+  The $c = \tfrac12$ fermionic CFT of a free massless Majorana fermion. It needs a spin structure;
+  summing over spin structures (gauging $(-1)^F$) gives the 2d Ising CFT, and the Ising CFT with an
+  Arf-invariant coupling gives back the fermion.
+tags: [CFT, free, unitary, Lagrangian, exactly solvable]
+
+description: |
+  A real fermion with a holomorphic component $\psi(z)$ of weight $(\tfrac12, 0)$ and an antiholomorphic
+  component $\bar\psi(\bar z)$ of weight $(0, \tfrac12)$, with $c = \bar c = \tfrac12$ (Ginsparg, eq.
+  (3.5)). This is a **fermionic** theory: it is defined only after a choice of spin structure, and its
+  local operators include the spin-$\tfrac12$ field $\psi$. The bilinear $\psi\bar\psi$, of weight
+  $(\tfrac12, \tfrac12)$, is the mass term.
+
+  On a torus a spin structure is a choice of periodic (Ramond, R) or antiperiodic (Neveu–Schwarz, NS)
+  boundary conditions around each cycle; in the Hamiltonian picture, periodicity in time inserts $(-1)^F$
+  in the trace. The four partition functions are (Ginsparg, eqs. (7.13) and (7.21)–(7.22))
+  $$Z_{\rm NS} = \left|\frac{\theta_3}{\eta}\right|,\qquad Z_{\widetilde{\rm NS}} = \operatorname{Tr}_{\rm NS}(-1)^F q^{L_0-\frac{1}{48}}\bar q^{\bar L_0-\frac{1}{48}} = \left|\frac{\theta_4}{\eta}\right|,\qquad Z_{\rm R} = \left|\frac{\theta_2}{\eta}\right|,\qquad Z_{\widetilde{\rm R}} = \left|\frac{\theta_1}{\eta}\right| = 0 .$$
+  $Z_{\widetilde{\rm R}}$ vanishes because of the fermion zero mode. Under $T$, $Z_{\rm NS}$ and
+  $Z_{\widetilde{\rm NS}}$ are exchanged; under $S$, $Z_{\widetilde{\rm NS}}$ and $Z_{\rm R}$ are
+  exchanged (Ginsparg, eqs. (7.12) and (7.14)). The zero modes $\psi_0, \bar\psi_0$ give the Ramond sector
+  two ground states of weight $(\tfrac{1}{16}, \tfrac{1}{16})$ with opposite fermion parity (Ginsparg, eq.
+  (7.17); Karch, Tong and Turner, section 2.3).
+
+  ### Bosonization: the Ising model
+  Summing over the spin structures with weight $\tfrac12$ projects onto $(-1)^F = +1$ in both sectors and
+  gives the Ising partition function (Ginsparg, eq. (7.22)):
+  $$Z_{\rm Ising} = \tfrac12\left(\left|\tfrac{\theta_3}{\eta}\right| + \left|\tfrac{\theta_4}{\eta}\right| + \left|\tfrac{\theta_2}{\eta}\right| \pm \left|\tfrac{\theta_1}{\eta}\right|\right) = |\chi_0|^2 + |\chi_{1/2}|^2 + |\chi_{1/16}|^2 .$$
+  The NS sector supplies $1$ and $\varepsilon \propto \psi\bar\psi$; the Ramond sector supplies one of its
+  two ground states. The sign in the Ramond sector is not fixed by modular invariance: the two choices
+  keep the spin field $\sigma$ or the disorder field $\mu$ and give equivalent theories, related by
+  Kramers–Wannier duality (Ginsparg, after eq. (7.23)).
+
+  Karch, Tong and Turner write this continuum Jordan–Wigner map as dualities between the fermion and the
+  Ising model coupled to $\mathbb{Z}_2$ gauge fields, with the Arf invariant of the spin structure playing
+  the role of a Chern–Simons term. Gauging $(-1)^F$ of the fermion, with an Arf-invariant counterterm for
+  the background field, gives the Ising CFT (their eq. (2.17)); conversely the fermion is the Ising model
+  with its $\mathbb{Z}_2$ gauged and coupled to $\mathrm{Arf}$ (eq. (2.9)), with
+  $\psi \leftrightarrow \mu\sigma$ (eq. (2.16)).
+
+  ### Mass deformation, Kitaev chain and the Arf invariant
+  The mass term gives two gapped phases. One is trivial; the other is the topological phase of the Kitaev
+  chain, whose low-energy effective action is $i\pi\,\mathrm{Arf}$ (Karch, Tong and Turner, eq. (2.10)).
+  On the torus the Arf invariant (the mod 2 index of the Dirac operator) is 1 only for the doubly periodic
+  spin structure. The massless fermion is the transition between the two phases. Its discrete chiral
+  symmetry, chiral fermion parity $\psi \to \psi$, $\bar\psi \to -\bar\psi$, flips the sign of the mass
+  and is anomalous: it shifts the action by $i\pi\,\mathrm{Arf}$ (eq. (2.3)). Stacking the fermion with
+  the Arf theory before gauging $(-1)^F$ gives the Ising CFT again, with the fermion parity of the kept
+  Ramond states reversed (eq. (2.19)); under bosonization the chiral symmetry becomes Kramers–Wannier
+  duality (section 2.5).
+
+lagrangian: '\mathcal{L} = \frac{1}{8\pi}\left(\psi\,\bar\partial\psi + \bar\psi\,\partial\bar\psi\right)'
+
+symmetry:
+  spacetime: 'conformal (Virasoro $\times$ Virasoro, $c = \bar c = \tfrac12$)'
+  supercharges: 0
+  global: 'Fermion parity $(-1)^F$, and chiral fermion parity $\psi \to \psi$, $\bar\psi \to -\bar\psi$ (the discrete chiral symmetry, which flips the sign of the mass)'
+  notes: 'The chiral symmetry has a mod 2 anomaly: it shifts the action by $i\pi\,\mathrm{Arf}$ of the spin structure (Karch, Tong and Turner, eq. (2.3)).'
+
+quantities:
+  - key: c
+    symbol: c
+    description: 'Central charge ($c_L = c_R$)'
+    value: '1/2'
+    method: exact
+    refs: [ginsparg-lectures]
+
+operators:
+  - name: '\psi'
+    Delta: '\frac{1}{2}'
+    spin: '1/2'
+    weights: '(\tfrac12, 0)'
+    rep: '$(-1)^F$-odd'
+    method: exact
+    refs: [ginsparg-lectures]
+    note: 'Holomorphic fermion; $\bar\psi$ has weights $(0, \tfrac12)$.'
+  - name: '\psi\bar\psi'
+    Delta: 1
+    spin: 0
+    weights: '(\tfrac12, \tfrac12)'
+    rep: '$(-1)^F$-even, odd under the chiral symmetry'
+    method: exact
+    refs: [ginsparg-lectures]
+    note: 'Mass term; the Ising energy operator $\varepsilon$ after bosonization (Ginsparg, section 5.1).'
+  - name: 'T'
+    Delta: 2
+    spin: 2
+    method: exact
+    note: 'Stress tensor, $T = \tfrac12{:}\psi\partial\psi{:}$ in the normalization of the Lagrangian above (Ginsparg, section 3.2).'
+  - name: '\sigma,\ \mu'
+    Delta: '\frac{1}{8}'
+    spin: 0
+    weights: '(\tfrac{1}{16}, \tfrac{1}{16})'
+    degeneracy: 2
+    method: exact
+    refs: [ginsparg-lectures, ktt2019]
+    note: 'Ramond-sector ground states, with opposite $(-1)^F$. They are not local operators of the fermionic theory (they end a $(-1)^F$ line); in the Ising model one of them becomes the spin field $\sigma$.'
+
+relations:
+  - type: related_to
+    target: ising-2d
+    note: 'Summing over spin structures (gauging $(-1)^F$) gives the Ising CFT; gauging the Ising $\mathbb{Z}_2$ with an Arf-invariant coupling gives back the fermion (Ginsparg; Karch, Tong and Turner).'
+  - type: related_to
+    target: free-fermion-3d
+    note: 'The free massless Majorana fermion in three dimensions.'
+
+references:
+  - key: ginsparg-lectures
+    title: Applied Conformal Field Theory
+    authors: Ginsparg
+    year: 1988
+    journal: 'Les Houches Summer School 1988, Fields, Strings and Critical Phenomena, pp. 1–168'
+    arxiv: hep-th/9108028
+    note: 'Free fermion action (3.5); spin structures and partition functions (7.12)–(7.14); Ising model on the torus (7.17)–(7.23).'
+  - key: ktt2019
+    title: 'A Web of 2d Dualities: Z2 Gauge Fields and Arf Invariants'
+    authors: Karch, Tong, Turner
+    year: 2019
+    journal: SciPost Phys. 7, 007
+    arxiv: '1902.05550'
+    doi: '10.21468/SciPostPhys.7.1.007'
+    note: 'Majorana–Ising dualities with $\mathbb{Z}_2$ gauge fields and Arf invariants (section 2).'
+
+contributors: [Canonical111]

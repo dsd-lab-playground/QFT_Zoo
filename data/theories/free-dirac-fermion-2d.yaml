@@ -1,0 +1,129 @@
+id: free-dirac-fermion-2d
+name: 'Free Dirac fermion (2d)'
+aliases:
+  - Free massless Dirac fermion in two dimensions
+  - Free complex fermion (2d)
+  - Massless Thirring model at zero coupling
+d: 2
+summary: >-
+  A free massless Dirac fermion (two Majorana fermions with a common spin structure): a $c = 1$
+  fermionic CFT with $U(1)_V\times U(1)_A$ symmetry and a mixed anomaly between them. Summed over spin
+  structures it is the compact boson at $R = 2$ (equivalently $R = 1$).
+tags: [CFT, free, unitary, Lagrangian, exactly solvable]
+
+description: |
+  A complex fermion built from two Majorana fermions ($\psi_i$, $\bar\psi_i$ with $i = 1, 2$) that share
+  one spin structure (Ginsparg, section 8.2; Karch, Tong and Turner, section 3.1). Its holomorphic
+  component $\psi_L \propto \psi_1 + i\psi_2$ has weight $(\tfrac12, 0)$ and its antiholomorphic component
+  $\psi_R \propto \bar\psi_1 + i\bar\psi_2$ has weight $(0, \tfrac12)$; $c = \bar c = 1$. This is a
+  **fermionic** theory: it needs a spin structure.
+
+  The continuous symmetry is $U(1)_L\times U(1)_R = (U(1)_V\times U(1)_A)/\mathbb{Z}_2$, where the common
+  $\mathbb{Z}_2$ is $(-1)^F$, with a mixed 't Hooft anomaly between $U(1)_V$ and $U(1)_A$ (the 2d chiral
+  anomaly): the two cannot be coupled to background gauge fields consistently at the same time (Karch,
+  Tong and Turner, eq. (3.2)). There is also charge conjugation. The discrete chiral transformation of one
+  Majorana component exchanges $U(1)_V$ and $U(1)_A$; in the bosonic description it is $T$-duality
+  (section 3.1).
+
+  The four spin-structure partition functions are the squares of the Majorana ones (Ginsparg, eq. (8.12)):
+  $$Z_{\rm NS} = \left|\frac{\theta_3}{\eta}\right|^2,\qquad Z_{\widetilde{\rm NS}} = \left|\frac{\theta_4}{\eta}\right|^2,\qquad Z_{\rm R} = \left|\frac{\theta_2}{\eta}\right|^2,\qquad Z_{\widetilde{\rm R}} = \left|\frac{\theta_1}{\eta}\right|^2 = 0 .$$
+  Summing instead over the spin structures of the two Majoranas independently gives $Z_{\rm Ising}^2$
+  (Ginsparg, eq. (8.14)), a different bosonic theory on the orbifold branch of $c = 1$ (Karch, Tong and
+  Turner, figure 1).
+
+  ### Bosonization
+  Summing over the common spin structure (gauging $(-1)^F$) gives
+  $$\tfrac12\left(\left|\tfrac{\theta_3}{\eta}\right|^2 + \left|\tfrac{\theta_4}{\eta}\right|^2 + \left|\tfrac{\theta_2}{\eta}\right|^2 + \left|\tfrac{\theta_1}{\eta}\right|^2\right) = Z_{\rm circ}\ \text{at Ginsparg's radius } r = 1$$
+  (Ginsparg, eq. (8.13)). Ginsparg's $r$ is $R/2$ in the convention of the compact-boson entry, so this is
+  the member $R = 2$, equivalently $R = 1$ by $T$-duality. Karch, Tong and Turner find $R = 2$ in the same
+  convention ($S = \frac{R^2}{8\pi}\int(d\theta)^2$, $\theta \sim \theta + 2\pi$, $T$-duality $R \to 2/R$,
+  self-dual radius $\sqrt2$) from dualities alone: gauging $\mathbb{Z}_2 \subset U(1)_V$ must reproduce
+  the $T$-dual description (section 3.3). The compact boson is therefore not equivalent to the Dirac
+  fermion itself, but to the Dirac fermion coupled to a dynamical $\mathbb{Z}_2$ gauge field. At $R = 2$
+  the chiral fermions are $\psi_L \propto e^{-i\theta_L}$, $\psi_R \propto e^{i\theta_R}$, which are not
+  local operators of the boson, while the boson's $e^{i\theta}$ comes from the twisted sector (Karch, Tong
+  and Turner, eq. (3.15) and the paragraph after it). The mass term $\bar\psi\psi$ maps to
+  $-\cos\tilde\theta$ of the dual boson.
+
+  The Thirring coupling $\frac{g}{2}(\bar\psi\gamma^\mu\psi)^2$ is exactly marginal and moves along the
+  compact-boson line, with $(2/R)^2 = 1 + g/\pi$ (Karch, Tong and Turner, eq. (3.16), following Coleman).
+
+lagrangian: '\mathcal{L} = \frac{1}{8\pi}\sum_{i=1,2}\left(\psi_i\,\bar\partial\psi_i + \bar\psi_i\,\partial\bar\psi_i\right)'
+
+symmetry:
+  spacetime: 'conformal (Virasoro $\times$ Virasoro, $c = \bar c = 1$)'
+  supercharges: 0
+  global: '$U(1)_L \times U(1)_R = (U(1)_V \times U(1)_A)/\mathbb{Z}_2$, with $\mathbb{Z}_2 = (-1)^F$; charge conjugation'
+  notes: 'Mixed $U(1)_V$–$U(1)_A$ anomaly (the chiral anomaly). The discrete chiral transformation of one Majorana component exchanges $U(1)_V$ and $U(1)_A$ and becomes $T$-duality after bosonization (Karch, Tong and Turner).'
+
+quantities:
+  - key: c
+    symbol: c
+    description: 'Central charge ($c_L = c_R$)'
+    value: '1'
+    method: exact
+    refs: [ginsparg-lectures]
+
+operators:
+  - name: '\psi_L,\ \psi_L^\dagger'
+    Delta: '\frac{1}{2}'
+    spin: '1/2'
+    weights: '(\tfrac12, 0)'
+    rep: 'charge $\pm1$ under $U(1)_L$'
+    method: exact
+    refs: [ginsparg-lectures, ktt2019]
+    note: 'Left-moving fermion; $\psi_R$, $\psi_R^\dagger$ have weights $(0, \tfrac12)$ and charge $\pm1$ under $U(1)_R$.'
+  - name: 'J,\ \bar J'
+    Delta: 1
+    spin: 1
+    method: exact
+    note: '$U(1)_L$ and $U(1)_R$ currents; $J \pm \bar J$ are the vector and axial currents.'
+  - name: '\psi_L^\dagger\psi_R,\ \psi_R^\dagger\psi_L'
+    Delta: 1
+    spin: 0
+    weights: '(\tfrac12, \tfrac12)'
+    degeneracy: 2
+    rep: 'neutral under $U(1)_V$, charged under $U(1)_A$'
+    method: exact
+    refs: [ktt2019]
+    note: 'Mass terms; $\bar\psi\psi \leftrightarrow -\cos\tilde\theta$ in the dual boson.'
+  - name: 'J\bar J'
+    Delta: 2
+    spin: 0
+    weights: '(1, 1)'
+    method: exact
+    refs: [ktt2019]
+    note: 'Thirring operator, proportional to $(\bar\psi\gamma^\mu\psi)^2$; exactly marginal.'
+  - name: 'T'
+    Delta: 2
+    spin: 2
+    method: exact
+    note: Stress tensor.
+
+relations:
+  - type: related_to
+    target: compact-boson
+    at: '2'
+    note: 'Gauging $(-1)^F$ (summing over spin structures) gives the compact boson at $R = 2$, equivalently $R = 1$ (Ginsparg; Karch, Tong and Turner). Adding the Thirring coupling moves along the circle line, $(2/R)^2 = 1 + g/\pi$.'
+  - type: related_to
+    target: free-majorana-fermion-2d
+    note: 'Two Majorana fermions with a common spin structure; with independent spin structures they bosonize to Ising $\times$ Ising instead.'
+
+references:
+  - key: ginsparg-lectures
+    title: Applied Conformal Field Theory
+    authors: Ginsparg
+    year: 1988
+    journal: 'Les Houches Summer School 1988, Fields, Strings and Critical Phenomena, pp. 1–168'
+    arxiv: hep-th/9108028
+    note: 'Fermionization of the compact boson, eqs. (8.12)–(8.14); radius $r = R/2$.'
+  - key: ktt2019
+    title: 'A Web of 2d Dualities: Z2 Gauge Fields and Arf Invariants'
+    authors: Karch, Tong, Turner
+    year: 2019
+    journal: SciPost Phys. 7, 007
+    arxiv: '1902.05550'
+    doi: '10.21468/SciPostPhys.7.1.007'
+    note: 'Dirac fermion symmetries and anomaly (section 3.1), compact boson at $R = 2$ (section 3.3), Thirring coupling (eq. (3.16)).'
+
+contributors: [Canonical111]

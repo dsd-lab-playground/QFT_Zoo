@@ -1,0 +1,169 @@
+id: saw-2d
+name: '2d self-avoiding walk CFT ($O(n\to0)$ model)'
+aliases:
+  - 2d self-avoiding walk universality class
+  - '2d $O(n \to 0)$ model (dilute branch)'
+  - Dilute polymers in two dimensions
+d: 2
+summary: >-
+  The $n \to 0$ limit of the dilute critical point of the 2d $O(n)$ loop model, which describes
+  self-avoiding walks and dilute polymers in the plane. A non-unitary, logarithmic CFT with $c = 0$ and
+  Coulomb-gas exponents $\nu = \tfrac34$, $\gamma = \tfrac{43}{32}$.
+tags: [CFT, interacting, non-unitary, critical phenomena]
+
+description: |
+  A self-avoiding walk (SAW) is a nearest-neighbour lattice path that visits no site twice. The number $c_n$ of
+  $n$-step walks grows as $\mu^n n^{\gamma - 1}$, and the mean squared end-to-end distance as $n^{2\nu}$. Walks
+  are the $n \to 0$ limit of the loop expansion of the $O(n)$ model: on the honeycomb lattice the loop gas with
+  weight $K$ per occupied edge and $n$ per loop is critical at $K_c(n) = 1/\sqrt{2 + \sqrt{2 - n}}$ (Nienhuis),
+  which at $n = 0$ gives the connective constant $\mu = 1/K_c = \sqrt{2 + \sqrt2}$, proved by Duminil-Copin and
+  Smirnov. The continuum limit is the dilute branch of the 2d $O(n)$ loop model at $n = 0$, i.e. Coulomb-gas
+  coupling $g = \tfrac32$, with $c = 0$.
+
+  Nienhuis's Coulomb-gas analysis gives $\nu = \tfrac34$, Flory's value, and $\gamma = \tfrac{43}{32}$; then
+  $\eta = 2 - \gamma/\nu = \tfrac{5}{24}$ and the walk has fractal dimension $1/\nu = \tfrac43$. In CFT language
+  the $L$-leg operator, which inserts $L$ mutually avoiding walks at a point, has weight
+  $$h_L = \frac{9L^2 - 4}{96},$$
+  so $h_1 = \tfrac{5}{96}$ (end point of a walk, $\eta = 4h_1$) and $h_2 = \tfrac13$ ($1/\nu = 2 - 2h_2$). These
+  weights are Kac weights with integer labels only for even $L$ (Saleur). Saleur proposed that dilute polymers
+  are described by a twisted $\mathcal{N}=2$ theory at $c = 0$, which also explains why their exponents coincide
+  with those of percolation (both have $\eta = \tfrac{5}{24}$).
+
+  Lawler, Schramm and Werner showed that if the scaling limit of SAWs exists and is conformally invariant, it
+  must be SLE$_{8/3}$, and that the exponents of SLE$_{8/3}$ reproduce $\nu = \tfrac34$ and
+  $\gamma = \tfrac{43}{32}$; SLE$_{8/3}$ has Hausdorff dimension $\tfrac43$. At the time of these papers neither
+  the existence of the limit nor the values of the exponents were proved. Duminil-Copin and Smirnov note that
+  the other half of the discrete Cauchy–Riemann relations for their parafermionic observable would imply
+  convergence to SLE$_{8/3}$.
+
+  ### Logarithms at $c = 0$
+  As for percolation, $c = 0$ leads to representations of the Virasoro algebra that are not fully reducible.
+  Operators that are distinct at generic $n$ can become degenerate as $n \to 0$ and mix, so that correlation
+  functions acquire logarithms, and a logarithmic partner of the stress tensor avoids the "$c = 0$ catastrophe"
+  (Vasseur, Jacobsen and Saleur). Here, for instance, the energy operator and the 2-leg operator both have
+  dimension $\tfrac23$.
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$O(n)$ at $n \to 0$ (formal, defined through the loop model)'
+
+quantities:
+  - key: c
+    symbol: 'c'
+    description: 'Virasoro central charge ($c_L = c_R$)'
+    value: '0'
+    method: exact
+    refs: [granssamuelsson2022, saleur1992]
+  - symbol: '\nu'
+    description: 'Flory exponent, $\langle |\omega(n)|^2 \rangle = n^{2\nu + o(1)}$'
+    value: '\frac{3}{4}'
+    method: exact (Coulomb gas; not proved)
+    refs: [lsw2004, dcs2012]
+    note: 'Conjectured by Flory and supported by Nienhuis; rederived from SLE$_{8/3}$, assuming conformal invariance (Lawler, Schramm and Werner).'
+  - symbol: '\gamma'
+    description: 'Entropic exponent, $c_n \sim A\, n^{\gamma - 1} \mu^n$'
+    value: '\frac{43}{32}'
+    method: exact (Coulomb gas; not proved)
+    refs: [lsw2004, dcs2012]
+    note: 'Prediction of Nienhuis, as quoted by Lawler, Schramm and Werner and by Duminil-Copin and Smirnov.'
+  - symbol: '\eta'
+    description: 'Anomalous dimension, $\eta = 2\Delta_\phi$'
+    value: '\frac{5}{24}'
+    method: derived
+    refs: [lsw2004, saleur1992]
+    note: 'From $\gamma = \nu(2 - \eta)$; equivalently $4h_1$ with $h_1 = \tfrac{5}{96}$.'
+  - symbol: 'd_F'
+    description: 'Fractal dimension of the walk, $d_F = 1/\nu$'
+    value: '\frac{4}{3}'
+    method: exact (assuming the SLE scaling limit)
+    refs: [lsw2004]
+    note: 'Hausdorff dimension of SLE$_{8/3}$.'
+  - symbol: '\mu'
+    description: 'Connective constant of the honeycomb lattice, $\lim_n c_n^{1/n}$ (not universal)'
+    value: '\sqrt{2 + \sqrt{2}}'
+    method: exact (proved)
+    refs: [dcs2012]
+    note: 'Predicted by Nienhuis. On the square lattice the connective constant is different and not known exactly.'
+
+operators:
+  - name: '\phi'
+    Delta: '\frac{5}{48}'
+    spin: 0
+    weights: '(\tfrac{5}{96}, \tfrac{5}{96})'
+    rep: 'vector (1-leg operator, end point of a walk)'
+    method: exact
+    refs: [saleur1992]
+    note: '$h_L$ at $L = 1$; the same dimension as the percolation spin field.'
+  - name: '\epsilon,\ \Phi_2'
+    Delta: '\frac{2}{3}'
+    spin: 0
+    weights: '(\tfrac13, \tfrac13)'
+    rep: 'singlet (energy) and 2-leg operator, degenerate at $n = 0$'
+    method: exact
+    refs: [saleur1992, lsw2004]
+    note: '$h_L$ at $L = 2$, equal to $2 - 1/\nu$.'
+  - name: '\Phi_L'
+    Delta: '\frac{9L^2 - 4}{48}'
+    spin: 0
+    weights: '(h_L, h_L)'
+    rep: '$L$-leg (watermelon) operator'
+    method: exact
+    refs: [saleur1992]
+  - name: 'T'
+    Delta: 2
+    spin: 2
+    method: exact
+    refs: [vasseur2012]
+    note: 'Stress tensor. At $c = 0$ it is expected to have a logarithmic partner.'
+
+relations:
+  - type: member_of
+    target: on-loop-model-2d
+    at: '3/2'
+  - type: related_to
+    target: saw-3d
+    note: 'Self-avoiding walks in $d = 2$ and $d = 3$: the $n \to 0$ limit of the critical $O(n)$ model in each dimension. In $d = 2$ the exponents are exact rationals; in $d = 3$ they are known numerically.'
+
+references:
+  - key: nienhuis1982
+    title: Exact critical point and critical exponents of $O(n)$ models in two dimensions
+    authors: Nienhuis
+    year: 1982
+    journal: Phys. Rev. Lett. 49, 1062
+    doi: '10.1103/PhysRevLett.49.1062'
+    note: 'Original Coulomb-gas prediction of $K_c$, $\nu$ and $\gamma$; the values here are as quoted in the later references.'
+  - key: lsw2004
+    title: On the scaling limit of planar self-avoiding walk
+    authors: Lawler, Schramm, Werner
+    year: 2004
+    journal: 'Fractal geometry and applications, Proc. Sympos. Pure Math. 72, Part 2, 339'
+    arxiv: math/0204277
+  - key: dcs2012
+    title: The connective constant of the honeycomb lattice equals $\sqrt{2+\sqrt2}$
+    authors: Duminil-Copin, Smirnov
+    year: 2012
+    journal: Ann. of Math. 175, 1653
+    arxiv: '1007.0575'
+  - key: saleur1992
+    title: Polymers and percolation in two dimensions and twisted N=2 supersymmetry
+    authors: Saleur
+    year: 1992
+    journal: Nucl. Phys. B 382, 486
+    arxiv: hep-th/9111007
+    note: 'Eq. (1): $h_L = (9L^2 - 4)/96$ for dilute polymers.'
+  - key: granssamuelsson2022
+    title: Global symmetry and conformal bootstrap in the two-dimensional $O(n)$ model
+    authors: Grans-Samuelsson, Nivesvivat, Jacobsen, Ribault, Saleur
+    year: 2022
+    journal: SciPost Phys. 12, 147
+    arxiv: '2111.01106'
+    note: 'Eq. (1.1) for $K_c(n)$ and Table (1.6) of special points.'
+  - key: vasseur2012
+    title: Logarithmic observables in critical percolation
+    authors: Vasseur, Jacobsen, Saleur
+    year: 2012
+    journal: J. Stat. Mech. (2012) L07001
+    arxiv: '1206.2312'
+
+contributors: [Canonical111]

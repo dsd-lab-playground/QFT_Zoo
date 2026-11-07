@@ -1,0 +1,198 @@
+id: on-loop-model-2d
+name: '2d $O(n)$ loop model'
+aliases:
+  - '2d $O(n)$ CFT'
+  - 'Critical $O(n)$ loop gas'
+  - 'Dilute and dense $O(n)$ models'
+d: 2
+summary: >-
+  The critical points of the 2d $O(n)$ loop gas, $-2 \le n \le 2$: two branches (dilute and dense) of
+  non-unitary, logarithmic CFTs with $n = -2\cos(\pi g)$ and $c = 1 - 6(1-g)^2/g$. They contain
+  self-avoiding walks, the Ising model, dense polymers and percolation hulls.
+tags: [CFT, interacting, non-unitary, critical phenomena, family]
+
+description: |
+  On the honeycomb lattice, the $O(n)$ model with weight $\prod_{\langle xy\rangle}(1 + K\phi(x)\cdot\phi(y))$
+  for unit $n$-vectors $\phi$ expands into a gas of non-intersecting loops, with weight $K$ per occupied edge
+  and $n$ per loop, so that $n$ becomes a continuous parameter. For $-2 \le n \le 2$ the loop gas is critical at
+  $K_c(n) = 1/\sqrt{2 + \sqrt{2 - n}}$ (Nienhuis); its continuum limit is the dilute $O(n)$ CFT. For $K > K_c$
+  (and $-2 < n < 2$) the whole phase flows to a second CFT, the dense $O(n)$ model. At $n = 2$ the two coincide,
+  at the Kosterlitz–Thouless point, described by the free boson. Gorbenko and Zan study the
+  renormalization-group flow from the dilute to the dense fixed point, and their merger at $n = 2$.
+
+  Through a Coulomb-gas (solid-on-solid) mapping, both branches are parametrized by a coupling $g$ with
+  $$n = -2\cos(\pi g), \qquad c = 1 - \frac{6(1-g)^2}{g},$$
+  dilute for $1 \le g \le 2$ and dense for $0 < g \le 1$. This is the $g$ of Saleur and the $\beta^2$ of
+  Grans-Samuelsson et al. and of Jacobsen, Ribault and Saleur, who write $c = 13 - 6\beta^2 - 6\beta^{-2}$ (the
+  same function). As CFTs, both branches are one family, analytic in $g$, which makes sense for
+  $\mathrm{Re}\, g > 0$.
+
+  The continuum limit is expected to be non-unitary, since the non-locality of loops can be traded for local
+  complex weights. This holds even for integer $n$: the local observables of the $O(1)$ model form the unitary
+  Ising minimal model, but non-local (loop) observables need a larger, non-unitary CFT (Grans-Samuelsson et
+  al.). Gorbenko and Zan find that the CFT is logarithmic for every $n$ in the window, with the $O(n)$ currents
+  in a staggered logarithmic multiplet; the negative-norm states decouple at $n = 2$.
+
+  ### Spectrum
+  The torus partition function is known (Di Francesco, Saleur and Zuber), and Jacobsen, Ribault and Saleur
+  determine the space of states, including the action of $O(n)$. With
+  $P_{(r,s)} = \frac12(\beta r - \beta^{-1}s)$ and $\Delta_{(r,s)} = P_{(r,s)}^2 - P_{(1,1)}^2$, it contains
+  diagonal degenerate fields $V^D_{\langle 1,s\rangle}$ with $s$ odd, which are $O(n)$ singlets, and
+  non-diagonal fields $V_{(r,s)}$ with weights $(\Delta_{(r,s)}, \Delta_{(r,-s)})$,
+  $r \in \tfrac12\mathbb{N}^*$, $s \in \tfrac1r\mathbb{Z}$, in representations $\Lambda_{(r,s)}$ of $O(n)$
+  (logarithmic when $r, s$ are positive integers). The spin field is $V_{(\frac12,0)}$, $V_{(r,0)}$ is the
+  $2r$-leg (watermelon) operator, and the energy operator is $V^D_{\langle 1,3\rangle}$; their dimensions are
+  listed below. The formulas for $\Lambda_{(r,s)}$ rest on simple but unproven assumptions about the lattice
+  model.
+
+  ### Status
+  Four-point functions are studied by numerical bootstrap. Grans-Samuelsson et al. counted the solutions of
+  crossing symmetry for the 30 simplest four-point functions (from 2 to 6), which saturate the bound from $O(n)$
+  representation theory in 21 cases. Nivesvivat, Ribault and Jacobsen found analytic expressions for 235
+  four-point structure constants, each a universal function built from Barnes' double Gamma function times a
+  polynomial in the loop weights, and conjecture that all structure constants take this form.
+
+parameters:
+  - symbol: 'g'
+    description: 'Coulomb-gas coupling, $n = -2\cos(\pi g)$.'
+    range: '$0 < g \le 2$: dense branch $0 < g \le 1$, dilute branch $1 \le g \le 2$'
+
+family:
+  parameter: g
+  members:
+    - at: '1/2'
+      label: 'Dense $n = 0$ (dense polymers)'
+      c: '-2'
+    - at: '2/3'
+      label: 'Dense $n = 1$ (percolation hulls)'
+      c: '0'
+      note: 'Infinite-temperature Ising model on the triangular lattice; the loops are hulls of site-percolation clusters.'
+    - at: 1
+      label: '$n = 2$ (Kosterlitz–Thouless point, where the branches meet)'
+      c: '1'
+      note: 'Free boson.'
+    - at: '4/3'
+      label: 'Dilute $n = 1$ (Ising)'
+      c: '1/2'
+      note: 'Low-temperature expansion of the triangular-lattice Ising model: the loops are domain walls on the dual honeycomb lattice.'
+    - at: '3/2'
+      label: 'Dilute $n = 0$ (self-avoiding walk)'
+      c: '0'
+    - at: 2
+      label: 'Dilute $n = -2$'
+      c: '-2'
+      note: 'Related to symplectic fermions and loop-erased random walks (Grans-Samuelsson et al.).'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$O(n)$ for continuous $n$ (a categorical symmetry of the loop model)'
+
+quantities:
+  - key: c
+    symbol: 'c'
+    description: 'Virasoro central charge ($c_L = c_R$)'
+    value: '1 - \frac{6(1-g)^2}{g}'
+    method: exact
+    refs: [granssamuelsson2022, jrs2023]
+    note: 'Written there as $13 - 6\beta^2 - 6\beta^{-2}$ with $\beta^2 = g$.'
+  - symbol: 'n'
+    description: 'Loop weight'
+    value: '-2\cos(\pi g)'
+    method: exact
+    refs: [saleur1992, granssamuelsson2022]
+  - symbol: 'K_c'
+    description: 'Critical edge weight of the dilute loop gas on the honeycomb lattice (not universal)'
+    value: '\frac{1}{\sqrt{2 + \sqrt{2 - n}}}'
+    method: exact
+    refs: [granssamuelsson2022, dcs2012]
+    note: 'Nienhuis; proved at $n = 0$ by Duminil-Copin and Smirnov.'
+
+operators:
+  - name: 'V_{(\frac12,0)}'
+    Delta: '\frac{g}{8} - \frac{(1-g)^2}{2g}'
+    spin: 0
+    rep: 'vector (spin field, 1-leg operator)'
+    method: derived
+    refs: [jrs2023, granssamuelsson2022]
+    note: '$2\Delta_{(\frac12,0)}$. Gives $\tfrac18$ at $g = \tfrac43$ (Ising $\sigma$) and $\tfrac{5}{48}$ at $g = \tfrac32$.'
+  - name: 'V_{(\frac{L}{2},0)}'
+    Delta: '\frac{gL^2}{8} - \frac{(1-g)^2}{2g}'
+    spin: 0
+    rep: '$L$-leg (watermelon) operator, in the traceless symmetric tensor $[L]$ of $O(n)$'
+    method: derived
+    refs: [jrs2023, granssamuelsson2022, saleur1992]
+    note: '$2\Delta_{(\frac{L}{2},0)}$. Agrees with Saleur''s $2h_L = (9L^2-4)/48$ for dilute polymers ($g = \tfrac32$) and with his dense-polymer ($g = \tfrac12$) and percolation-hull ($g = \tfrac23$) weights.'
+  - name: '\varepsilon = V^D_{\langle 1,3\rangle}'
+    Delta: '\frac{4}{g} - 2'
+    spin: 0
+    rep: 'singlet (energy operator)'
+    method: derived
+    refs: [jrs2023, gorbenkozan2020]
+    note: '$2\Delta_{(1,3)}$. Relevant on the dilute branch, marginal at $n = 2$, irrelevant on the dense branch; $\Delta = 1$ at $g = \tfrac43$ (Ising $\epsilon$).'
+
+relations:
+  - type: related_to
+    target: on-model-3d
+    note: 'The dilute branch is the critical $O(n)$ model in two dimensions; the 3d critical $O(n)$ model can also be defined as a loop model for continuous $n$ (Gorbenko and Zan).'
+  - type: related_to
+    target: ising-2d
+    note: 'The dilute member $g = \tfrac43$ ($n = 1$): its local observables form the Ising minimal model, while loop observables need the larger non-unitary CFT.'
+  - type: related_to
+    target: potts-2d
+    note: 'Boundaries of the Fortuin–Kasteleyn clusters of the critical $Q$-state Potts model form a completely packed loop model with loop weight $\sqrt{Q}$ and Coulomb-gas coupling $g = m/(m+1)$ (Jacobsen and Saleur), the coupling of the dense branch at $n = \sqrt{Q}$: the dense members $g = \tfrac12, \tfrac23$ correspond to $Q = 0, 1$. The two CFTs share $c$ but have different spectra and global symmetries ($O(n)$ versus $S_Q$; Jacobsen, Ribault and Saleur).'
+
+references:
+  - key: nienhuis1982
+    title: Exact critical point and critical exponents of $O(n)$ models in two dimensions
+    authors: Nienhuis
+    year: 1982
+    journal: Phys. Rev. Lett. 49, 1062
+    doi: '10.1103/PhysRevLett.49.1062'
+    note: 'Original Coulomb-gas solution; formulas here are as quoted in the later references.'
+  - key: dfsz1987
+    title: Relations between the Coulomb gas picture and conformal invariance of two-dimensional critical models
+    authors: Di Francesco, Saleur, Zuber
+    year: 1987
+    journal: J. Stat. Phys. 49, 57
+    doi: '10.1007/BF01009954'
+    note: 'Torus partition functions (as cited by Jacobsen, Ribault and Saleur).'
+  - key: saleur1992
+    title: Polymers and percolation in two dimensions and twisted N=2 supersymmetry
+    authors: Saleur
+    year: 1992
+    journal: Nucl. Phys. B 382, 486
+    arxiv: hep-th/9111007
+    note: 'Eq. (30): $n = -2\cos\pi g$, $g \in [0,1]$ dense, $g \in [1,2]$ dilute.'
+  - key: granssamuelsson2022
+    title: Global symmetry and conformal bootstrap in the two-dimensional $O(n)$ model
+    authors: Grans-Samuelsson, Nivesvivat, Jacobsen, Ribault, Saleur
+    year: 2022
+    journal: SciPost Phys. 12, 147
+    arxiv: '2111.01106'
+  - key: jrs2023
+    title: Spaces of states of the two-dimensional $O(n)$ and Potts models
+    authors: Jacobsen, Ribault, Saleur
+    year: 2023
+    journal: SciPost Phys. 14, 092
+    arxiv: '2208.14298'
+  - key: gorbenkozan2020
+    title: Two-dimensional $O(n)$ models and logarithmic CFTs
+    authors: Gorbenko, Zan
+    year: 2020
+    journal: JHEP 10 (2020) 099
+    arxiv: '2005.07708'
+  - key: nrj2024
+    title: Critical loop models are exactly solvable
+    authors: Nivesvivat, Ribault, Jacobsen
+    year: 2024
+    journal: SciPost Phys. 17, 029
+    arxiv: '2311.17558'
+  - key: dcs2012
+    title: The connective constant of the honeycomb lattice equals $\sqrt{2+\sqrt2}$
+    authors: Duminil-Copin, Smirnov
+    year: 2012
+    journal: Ann. of Math. 175, 1653
+    arxiv: '1007.0575'
+
+contributors: [Canonical111]

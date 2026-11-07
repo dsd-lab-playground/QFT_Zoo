@@ -1,0 +1,181 @@
+id: sl2r-wzw
+name: '$SL(2,\mathbb{R})$ WZW model'
+aliases:
+  - '$AdS_3$ WZW model'
+  - '$SU(1,1)$ WZW model'
+  - 'Worldsheet theory of strings on $AdS_3$ with NS–NS flux'
+  - 'WZW model on the universal cover of $SL(2,\mathbb{R})$'
+d: 2
+summary: >-
+  The WZW model on the universal cover of $SL(2,\mathbb{R})$, Lorentzian $AdS_3$, at real level $k>2$:
+  $c=\frac{3k}{k-2}$. Its spectrum (Maldacena–Ooguri) has continuous and discrete representations and
+  all their spectral flows. The worldsheet theory of strings on $AdS_3$ with NS–NS flux.
+tags: [CFT, interacting, non-unitary, Lagrangian]
+
+description: |
+  The target of this WZW model is the group manifold $SL(2,\mathbb{R})$, the hyperboloid that is Lorentzian $AdS_3$,
+  with metric $-\cosh^2\rho\,dt^2+d\rho^2+\sinh^2\rho\,d\phi^2$ in global coordinates. Maldacena and Ooguri take its
+  universal cover, so that global time $t$ is not compact. The level $k$ is real, since $H^3$ of $SL(2,\mathbb{R})$
+  vanishes; large $k$ is the semiclassical limit, and $k>2$ is assumed. The currents generate two copies of
+  $\widehat{sl}(2,\mathbb{R})_k$,
+  $$[J^3_n,J^3_m]=-\tfrac{k}{2}n\,\delta_{n+m,0},\qquad[J^3_n,J^\pm_m]=\pm J^\pm_{n+m},\qquad[J^+_n,J^-_m]=-2J^3_{n+m}+kn\,\delta_{n+m,0},$$
+  and the Sugawara stress tensor has $c=\frac{3k}{k-2}$. In global $AdS_3$ the spacetime energy is $E=J^3_0+\bar
+  J^3_0$ and the angular momentum is $\ell=J^3_0-\bar J^3_0$.
+
+  The kinetic term has indefinite signature, because of the timelike direction, so the space of states contains states
+  with negative $L_0$ and states with negative norm. Representations of $\widehat{sl}(2,\mathbb{R})_k$ are not unitary
+  except for the trivial one, and the model cannot be continued to a Euclidean worldsheet because its Hamiltonian is
+  not positive definite (Maldacena and Ooguri). In string theory this is acceptable: the requirement is that physical
+  states have non-negative norm after the Virasoro constraints are imposed. For bosonic strings on $AdS_3\times M$
+  with NS–NS flux, with a CFT for $M$ of central charge $26-\frac{3k}{k-2}$, the no-ghost theorem states that the
+  constraints $(L_n+L^M_n-\delta_{n,0})|\text{phys}\rangle=0$, $n\geq0$, remove all negative-norm states from the
+  continuous representations and from the discrete ones with $0<j<\frac{k}{2}$, including all their spectral flows.
+
+  ### Spectrum
+  The unitary representations of the zero modes that appear have Casimir $-j(j-1)$: the discrete series
+  $\mathcal{D}^\pm_j$, with $J^3_0=\pm j,\pm(j+1),\dots$, and the continuous series $\mathcal{C}^\alpha_j$ with
+  $j=\frac12+is$ and $J^3_0\in\alpha+\mathbb{Z}$, $0\leq\alpha<1$. As $k\to\infty$ the model becomes quantum mechanics
+  on $AdS_3$, and $L^2(AdS_3)$ is spanned by $\mathcal{C}\otimes\mathcal{C}$ and by
+  $\mathcal{D}^\pm_j\otimes\mathcal{D}^\pm_j$ with $j>\frac12$. The current-algebra modules $\hat{\mathcal{D}}^\pm_j$,
+  $\hat{\mathcal{C}}^\alpha_j$ built on them have primaries with $L_0=-\frac{j(j-1)}{k-2}$. Spectral flow by
+  $w\in\mathbb{Z}$,
+  $$\tilde J^3_n=J^3_n-\tfrac{k}{2}w\,\delta_{n,0},\qquad\tilde J^\pm_n=J^\pm_{n\pm w},\qquad\tilde L_n=L_n+wJ^3_n-\tfrac{k}{4}w^2\delta_{n,0},$$
+  maps these to inequivalent modules whose $L_0$ is not bounded below, unlike for $SU(2)$. The proposal of Maldacena
+  and Ooguri is
+  $$\mathcal{H}=\bigoplus_{w\in\mathbb{Z}}\Big[\int_{1/2}^{(k-1)/2}dj\,\hat{\mathcal{D}}^w_j\otimes\hat{\mathcal{D}}^w_j\;\oplus\;\int_{\frac12+i\mathbb{R}}dj\int_0^1d\alpha\,\hat{\mathcal{C}}^w_{j,\alpha}\otimes\hat{\mathcal{C}}^w_{j,\alpha}\Big],$$
+  with equal flow on the left and right, as required on the universal cover. Flow by one unit maps
+  $\hat{\mathcal{D}}^+_{\tilde j}$ to $\hat{\mathcal{D}}^-_{k/2-\tilde j}$, so $j>\frac12$ from harmonic analysis
+  forces $j<\frac{k-1}{2}$, stricter than the no-ghost bound $j<\frac{k}{2}$. On the universal cover the discrete $j$
+  takes continuous values; on the single cover it would be discrete.
+
+  In string theory the discrete modules and their flows give short strings with discrete energies. The flowed
+  continuous modules give long strings, of winding $w$ near the boundary, with energy $J^3_0$ given below; the
+  unflowed continuous modules give only the tachyon. With spectral flow, the masses of short strings are no longer
+  bounded above. Three checks support the proposal. Summing the discrete characters over $\frac12<j<\frac{k-1}{2}$ and
+  over $w$ reproduces, after continuation and up to contact terms, the partition function of the $H_3^+$ model
+  computed by Gawedzki. The one-loop partition function on thermal $AdS_3$ reproduces the spectrum (Maldacena, Ooguri
+  and Son). Four-point functions, obtained from the $H_3^+$ model by analytic continuation, factorize on these states
+  exactly when the dual boundary CFT says they should, and in an $N$-point function of $x$-basis operators with
+  $w_i\geq0$ the windings obey $w_i-\sum_{j\neq i}w_j\leq N-2$ (Maldacena and Ooguri).
+
+  ### Superstrings and the $k=1$ point
+  For superstrings on $AdS_3\times S^3\times T^4$ with pure NS–NS flux, the RNS worldsheet contains the supersymmetric
+  $\widehat{sl}(2,\mathbb{R})^{(1)}_k$, a bosonic $\widehat{sl}(2,\mathbb{R})_{k+2}$ plus three free fermions, where
+  $k$ is the NS–NS flux; this description needs $k\geq2$. For one unit of flux, $k=1$, Eberhardt, Gaberdiel and
+  Gopakumar use instead the hybrid formalism with a $\mathfrak{psu}(1,1|2)_1$ WZW model. Its string spectrum has no
+  long-string continuum except the bottom of it and no discrete representations, and it matches the large-$N$ limit of
+  the symmetric orbifold $\mathrm{Sym}^N(T^4)$; they interpret this point as the tensionless limit. The $k=1$ point is
+  therefore not an instance of the bosonic model on this page.
+
+  ### Status
+  The space of states above is a proposal, supported by the no-ghost theorem, the partition functions and the
+  factorization of four-point functions. In 2005 Ribault and Teschner described the definition and analytic properties
+  of correlators with more than three insertions as not yet under control.
+
+parameters:
+  - symbol: k
+    description: 'Level of the $\widehat{sl}(2,\mathbb{R})_k$ current algebras, a real number. Large $k$ is the semiclassical limit; in superstring backgrounds the level is the NS–NS flux.'
+    range: '$k>2$ (assumed by Maldacena and Ooguri)'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$SL(2,\mathbb{R})_L\times SL(2,\mathbb{R})_R$ (universal cover), the isometries of $AdS_3$, generated by the zero modes of the currents'
+
+quantities:
+  - key: c
+    symbol: c
+    description: 'Central charge ($c_L = c_R$)'
+    value: '\frac{3k}{k-2}'
+    method: exact
+    refs: [mo2001a]
+    note: 'Bosonic strings on $AdS_3\times M$ need $c+c_M=26$; as $k\to\infty$, $c\to3$ and $c_M\to23$.'
+  - symbol: 'j'
+    description: 'Spin of the discrete representations $\hat{\mathcal{D}}^{\pm,w}_j$ in the spectrum'
+    value: '\frac12<j<\frac{k-1}{2}'
+    method: spectral-flow consistency
+    refs: [mo2001a, mos2001]
+    note: 'The no-ghost theorem alone requires $0<j<\frac{k}{2}$. The thermal partition function of Maldacena, Ooguri and Son is consistent with this spectrum.'
+  - symbol: 'J^3_0'
+    description: 'Spacetime energy $J^3_0$ of a long string with winding $w$ and radial momentum $s$'
+    value: '\frac{k}{4}w+\frac{1}{w}\Big(\frac{s^2+\frac14}{k-2}+N+h-1\Big)'
+    method: exact
+    refs: [mo2002, mo2001a]
+    note: '$N$ is the current-algebra level before spectral flow and $h$ the weight of the state of the CFT on $M$; $s\in\mathbb{R}$.'
+
+operators:
+  - name: '\Phi_j\ (\hat{\mathcal{D}}^\pm_j)'
+    Delta: '-\frac{2j(j-1)}{k-2}'
+    spin: 0
+    rep: 'Discrete, $\frac12<j<\frac{k-1}{2}$'
+    method: exact
+    refs: [mo2001a]
+    note: 'Unflowed ($w=0$) primaries; their weight is negative for $j>1$.'
+  - name: '\Phi_{j,\alpha}\ (\hat{\mathcal{C}}^\alpha_j)'
+    Delta: '\frac{2(s^2+\frac14)}{k-2}'
+    spin: 0
+    rep: 'Continuous, $j=\frac12+is$'
+    method: exact
+    refs: [mo2001a, mo2002]
+    note: 'Unflowed ($w=0$) primaries.'
+  - name: 'J^a,\ \bar J^a'
+    Delta: 1
+    spin: 1
+    weights: '(1,0),\ (0,1)'
+    method: exact
+    note: '$\widehat{sl}(2,\mathbb{R})_k$ currents, $a=\pm,3$.'
+  - name: 'T'
+    Delta: 2
+    spin: 2
+    method: exact
+    note: 'Sugawara stress tensor.'
+
+relations:
+  - type: related_to
+    target: h3-wzw
+    note: 'Euclidean continuation of the target. The two models are distinct: apart from the unflowed continuous states, every state of the $SL(2,\mathbb{R})$ model is non-normalizable in the $H_3^+$ model. $AdS_3$ string amplitudes are computed from $H_3^+$ correlators by analytic continuation, and the $SL(2,\mathbb{R})$ partition function continues to that of $H_3^+$.'
+
+references:
+  - key: mo2001a
+    title: 'Strings in AdS$_3$ and the $SL(2,\mathbb{R})$ WZW model. Part 1: The spectrum'
+    authors: Maldacena, Ooguri
+    year: 2001
+    journal: J. Math. Phys. 42, 2929
+    arxiv: hep-th/0001053
+    doi: '10.1063/1.1377273'
+  - key: mos2001
+    title: 'Strings in AdS$_3$ and the $SL(2,\mathbb{R})$ WZW model. Part 2: Euclidean black hole'
+    authors: Maldacena, Ooguri, Son
+    year: 2001
+    journal: J. Math. Phys. 42, 2961
+    arxiv: hep-th/0005183
+    doi: '10.1063/1.1377039'
+  - key: mo2002
+    title: 'Strings in AdS$_3$ and the $SL(2,\mathbb{R})$ WZW model. Part 3: Correlation functions'
+    authors: Maldacena, Ooguri
+    year: 2002
+    journal: Phys. Rev. D65, 106006
+    arxiv: hep-th/0111180
+    doi: '10.1103/PhysRevD.65.106006'
+  - key: gawedzki1991
+    title: Non-compact WZW conformal field theories
+    authors: Gawedzki
+    year: 1991
+    journal: 'NATO ASI, Cargèse 1991, New symmetry principles in quantum field theory, 247'
+    arxiv: hep-th/9110076
+  - key: egg2019
+    title: The worldsheet dual of the symmetric product CFT
+    authors: Eberhardt, Gaberdiel, Gopakumar
+    year: 2019
+    journal: JHEP 04, 103
+    arxiv: '1812.01007'
+    doi: '10.1007/JHEP04(2019)103'
+  - key: rt2005
+    title: $H_3^+$-WZNW correlators from Liouville theory
+    authors: Ribault, Teschner
+    year: 2005
+    journal: JHEP 06, 014
+    arxiv: hep-th/0502048
+    doi: '10.1088/1126-6708/2005/06/014'
+
+contributors: [Canonical111]

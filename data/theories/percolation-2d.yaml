@@ -1,0 +1,199 @@
+id: percolation-2d
+name: 2d percolation CFT
+aliases:
+  - Critical percolation in two dimensions
+  - '$Q \to 1$ Potts model (2d)'
+  - 2d bond and site percolation
+d: 2
+summary: >-
+  The critical point of percolation in two dimensions, the $Q = 1$ member of the 2d Potts CFT: a
+  non-unitary, logarithmic CFT with $c = 0$, whose exponents are exact and, for site percolation on the
+  triangular lattice, proved.
+tags: [CFT, interacting, non-unitary, critical phenomena]
+
+description: |
+  In site percolation each site is occupied independently with probability $p$; on the triangular lattice the
+  threshold is $p_c = \tfrac12$. Written in Fortuin–Kasteleyn clusters, the $Q$-state Potts model makes sense
+  for real $Q$, and percolation is its limit $Q \to 1$. The partition function becomes trivial and $c = 0$
+  (Cardy), but correlation functions describe the geometry of critical clusters: the two-point function of the
+  spin field is the probability that two points lie in the same cluster.
+
+  In the Kac parametrization of the Potts CFT at $Q = 1$ ($m = 2$), the order parameter has weight
+  $h_{1/2,0} = \tfrac{5}{96}$ and the energy field $h_{2,1} = \tfrac58$. The exponents follow:
+  $\nu = 1/(2 - \Delta_\epsilon) = \tfrac43$, $\eta = 2\Delta_\sigma = \tfrac{5}{24}$,
+  $\beta = \nu\Delta_\sigma = \tfrac{5}{36}$, $\gamma = \nu(2 - \eta) = \tfrac{43}{18}$, and clusters have
+  fractal dimension $2 - \Delta_\sigma = \tfrac{91}{48}$. Cluster boundaries (hulls) have dimension $\tfrac74$
+  (Saleur and Duplantier); they are the loops of the dense $O(n)$ loop model at $n = 1$. These values were
+  predicted with Coulomb-gas and conformal field theory methods (see the references in Smirnov and Werner).
+
+  Cardy found the probability that a cluster connects the boundary arcs $(x_1, x_2)$ and $(x_3, x_4)$ of a
+  simply connected domain mapped to the upper half plane,
+  $$\pi_h = \frac{3\,\Gamma(\tfrac23)}{\Gamma(\tfrac13)^2}\,\lambda^{1/3}\,{}_2F_1\!\left(\tfrac13, \tfrac23; \tfrac43; \lambda\right), \qquad \lambda = \frac{(x_4 - x_3)(x_2 - x_1)}{(x_3 - x_1)(x_4 - x_2)}$$
+  (Cardy writes $\eta$ for the cross-ratio $\lambda$), from the second-order differential equation of the
+  boundary-condition-changing operator $\phi_{1,2}$, whose weight vanishes at $c = 0$.
+
+  ### Proofs
+  For site percolation on the triangular lattice, the main predictions are theorems. Schramm showed that SLE$_6$
+  is the only possible conformally invariant scaling limit of cluster interfaces, and that Cardy's formula would
+  follow from it. Smirnov proved that the scaling limit exists and is conformally invariant, proving Cardy's
+  formula and convergence of interfaces to SLE$_6$. Lawler, Schramm and Werner computed the one-arm exponent:
+  the probability that the cluster of the origin reaches distance $R$ is $R^{-5/48 + o(1)}$. Smirnov and Werner
+  combined these results with Kesten's scaling relations to prove the values of $\nu$, $\beta$, $\gamma$ and
+  $\eta$. They listed the extension to other lattices, such as bond percolation on the square lattice, as open.
+
+  ### Status
+  The bulk CFT is not fully understood. Jacobsen and Saleur describe it as non-unitary, probably logarithmic,
+  and containing non-degenerate operators that preclude the BPZ differential equations. Vasseur, Jacobsen and
+  Saleur found observables whose two-point functions are logarithmic at $Q \to 1$: the energy operator mixes
+  with a logarithmic partner, the field that creates two propagating clusters. Delfino and Viti conjectured
+  the three-point connectivity ratio $P_3/\sqrt{P_2P_2P_2} \approx 1.0220$ from the $c \le 1$ Liouville
+  structure constant; Nivesvivat and Ribault confirmed it numerically to about 26 significant digits, and
+  computed four-point connectivities to arbitrary precision. Saleur proposed a twisted $\mathcal{N}=2$
+  description at $c = 0$ that explains why percolation and self-avoiding walks share exponents. Four-point
+  functions at generic $Q$ are discussed in the 2d Potts CFT entry.
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$S_Q$ permutation symmetry of the Potts model, at $Q \to 1$ (formal)'
+
+quantities:
+  - key: c
+    symbol: 'c'
+    description: 'Virasoro central charge ($c_L = c_R$)'
+    value: '0'
+    method: exact
+    refs: [cardy1992]
+    note: '$c = 1 - 6/(m(m+1))$ with $Q = 4\cos^2(\pi/(m+1))$ at $Q = 1$; the free energy vanishes identically at $Q = 1$.'
+  - symbol: '\nu'
+    description: 'Correlation-length exponent, $\xi \sim |p - p_c|^{-\nu}$'
+    value: '\frac{4}{3}'
+    method: exact (proved on the triangular lattice)
+    refs: [smirnovwerner2001]
+  - symbol: '\beta'
+    description: 'Order parameter, $\theta(p) = (p - p_c)^{\beta + o(1)}$'
+    value: '\frac{5}{36}'
+    method: exact (proved on the triangular lattice)
+    refs: [smirnovwerner2001]
+  - symbol: '\gamma'
+    description: 'Mean finite cluster size, $\chi(p) = |p - p_c|^{-\gamma + o(1)}$'
+    value: '\frac{43}{18}'
+    method: exact (proved on the triangular lattice)
+    refs: [smirnovwerner2001]
+  - symbol: '\eta'
+    description: 'Two-point connectivity at $p_c$, $\mathbb{P}(0 \leftrightarrow x) = |x|^{-\eta + o(1)}$'
+    value: '\frac{5}{24}'
+    method: exact (proved on the triangular lattice)
+    refs: [smirnovwerner2001, lsw2002]
+  - symbol: 'd_f'
+    description: 'Fractal dimension of critical clusters, $2 - \Delta_\sigma$'
+    value: '\frac{91}{48}'
+    method: derived
+    refs: [lsw2002, smirnovwerner2001]
+    note: '$2 - \tfrac{5}{48}$ from the one-arm exponent $\tfrac{5}{48}$; equal to $2 - \beta/\nu = (d + 2 - \eta)/2$.'
+  - symbol: 'd_H'
+    description: 'Fractal dimension of cluster hulls'
+    value: '\frac{7}{4}'
+    method: exact
+    refs: [saleurduplantier1987, smirnovwerner2001]
+    note: 'Coulomb-gas prediction of Saleur and Duplantier; equal to the Hausdorff dimension $2 - \tfrac14$ of SLE$_6$.'
+
+operators:
+  - name: '\sigma'
+    Delta: '\frac{5}{48}'
+    spin: 0
+    weights: '(\tfrac{5}{96}, \tfrac{5}{96})'
+    rep: 'order parameter; $(Q-1)$-dimensional representation of $S_Q$'
+    method: exact
+    refs: [saleur1992, jacobsensaleur2019, smirnovwerner2001]
+    note: 'Kac weight $h_{1/2,0}$; its two-point function is the connectivity $\propto |x|^{-5/24}$.'
+  - name: '\epsilon'
+    Delta: '\frac{5}{4}'
+    spin: 0
+    weights: '(\tfrac58, \tfrac58)'
+    rep: '$S_Q$ singlet (thermal)'
+    method: exact
+    refs: [saleur1992, delfinoviti2011]
+    note: 'Kac weight $h_{2,1}$, degenerate; $\Delta_\epsilon = 2 - 1/\nu$.'
+
+relations:
+  - type: member_of
+    target: potts-2d
+    at: 1
+  - type: related_to
+    target: on-loop-model-2d
+    at: '2/3'
+    note: 'Hulls of percolation clusters are the loops of the dense $O(n)$ loop model at $n = 1$ (Grans-Samuelsson et al.).'
+  - type: related_to
+    target: percolation-3d
+    note: 'Critical percolation in $d = 2$ and $d = 3$, the $Q \to 1$ limit of the Potts critical point in each dimension. In $d = 2$ the exponents are exact; in $d = 3$ they are known numerically.'
+
+references:
+  - key: cardy1992
+    title: Critical percolation in finite geometries
+    authors: Cardy
+    year: 1992
+    journal: J. Phys. A 25, L201
+    arxiv: hep-th/9111026
+  - key: schramm2000
+    title: Scaling limits of loop-erased random walks and uniform spanning trees
+    authors: Schramm
+    year: 2000
+    journal: Israel J. Math. 118, 221
+    arxiv: math/9904022
+  - key: smirnov2001
+    title: 'Critical percolation in the plane: conformal invariance, Cardy''s formula, scaling limits'
+    authors: Smirnov
+    year: 2001
+    journal: C. R. Acad. Sci. Paris Sér. I Math. 333, 239
+    doi: '10.1016/S0764-4442(01)01991-7'
+  - key: lsw2002
+    title: One-arm exponent for critical 2D percolation
+    authors: Lawler, Schramm, Werner
+    year: 2002
+    journal: Electron. J. Probab. 7, paper 2
+    arxiv: math/0108211
+  - key: smirnovwerner2001
+    title: Critical exponents for two-dimensional percolation
+    authors: Smirnov, Werner
+    year: 2001
+    journal: Math. Res. Lett. 8, 729
+    arxiv: math/0109120
+  - key: saleurduplantier1987
+    title: Exact determination of the percolation hull exponent in two dimensions
+    authors: Saleur, Duplantier
+    year: 1987
+    journal: Phys. Rev. Lett. 58, 2325
+    doi: '10.1103/PhysRevLett.58.2325'
+  - key: saleur1992
+    title: Polymers and percolation in two dimensions and twisted N=2 supersymmetry
+    authors: Saleur
+    year: 1992
+    journal: Nucl. Phys. B 382, 486
+    arxiv: hep-th/9111007
+  - key: delfinoviti2011
+    title: On three-point connectivity in two-dimensional percolation
+    authors: Delfino, Viti
+    year: 2011
+    journal: J. Phys. A 44, 032001
+    arxiv: '1009.1314'
+  - key: vasseur2012
+    title: Logarithmic observables in critical percolation
+    authors: Vasseur, Jacobsen, Saleur
+    year: 2012
+    journal: J. Stat. Mech. (2012) L07001
+    arxiv: '1206.2312'
+  - key: jacobsensaleur2019
+    title: 'Bootstrap approach to geometrical four-point functions in the two-dimensional critical $Q$-state Potts model: A study of the $s$-channel spectra'
+    authors: Jacobsen, Saleur
+    year: 2019
+    journal: JHEP 01 (2019) 084
+    arxiv: '1809.02191'
+  - key: nivesvivatribault2021
+    title: 'Logarithmic CFT at generic central charge: from Liouville theory to the $Q$-state Potts model'
+    authors: Nivesvivat, Ribault
+    year: 2021
+    journal: SciPost Phys. 10, 021
+    arxiv: '2007.04190'
+
+contributors: [Canonical111]
