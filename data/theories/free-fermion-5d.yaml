@@ -1,0 +1,134 @@
+id: free-fermion-5d
+name: Free massless Dirac fermion (5d)
+aliases:
+  - 5d free fermion
+  - Free symplectic-Majorana fermion pair (5d)
+d: 5
+summary: >-
+  A single free massless Dirac fermion in five dimensions, with four complex
+  components. Majorana spinors do not exist in 5d, so this is the smallest free
+  spin-1/2 field; it can equivalently be written as a symplectic-Majorana pair.
+tags: [CFT, free, unitary, Lagrangian, exactly solvable]
+
+description: |
+  A Dirac spinor $\psi$ in $d=5$ has ${\rm Tr}\,\mathbb{1} = 2^{(d-1)/2} = 4$ complex
+  components. Its propagator is
+  $\langle\psi(x)\bar\psi(0)\rangle \propto \gamma\cdot x/|x|^{5}$, so $\Delta_\psi = 2$,
+  and all correlators follow from Wick contractions.
+
+  In five-dimensional Minkowski space there are no Majorana spinors, and the
+  minimal spinor has 8 real components, the content of one Dirac spinor
+  (Van Proeyen, Table 2). Where the Majorana condition is not available one can
+  instead impose a symplectic Majorana condition
+  $(\lambda^i)^* = B\,\Omega_{ij}\lambda^j$ on a pair of spinors $\lambda^{1,2}$,
+  with $\Omega$ antisymmetric (Van Proeyen, eq. (3.27)). A symplectic-Majorana pair
+  has the same 8 real components as one Dirac spinor, so it describes the same free
+  field. The data below are for one Dirac fermion.
+
+  The Dirac mass $\bar\psi\psi$ ($\Delta = 4$) is relevant. As in other odd
+  dimensions, it is odd under a reflection of one coordinate.
+
+  ### Sphere free energy
+  Giombi and Klebanov define $\tilde F = \sin(\pi d/2)\log Z_{S^d} = -\sin(\pi d/2)\,F$,
+  with $F = -\log Z_{S^d}$, so that $\tilde F = \log Z_{S^5} = -F$ in $d=5$. Their
+  fermion integral, eq. (2.6), is normalized per spinor component, with
+  ${\rm Tr}\,\mathbb{1} = 2^{[d/2]}$; Klebanov, Pufu and Safdi tabulate $F$ of a Dirac
+  fermion divided by $\dim\gamma = 2^{(d-1)/2}$. Both factors equal 4 in $d=5$.
+
+lagrangian: '\mathcal{L} = \bar\psi\,\gamma^\mu\partial_\mu\psi'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$U(1)$ fermion number, $\psi\to e^{i\alpha}\psi$ (the manifest symmetry of the Dirac Lagrangian)'
+  notes: 'Reflections of one coordinate flip the sign of the Dirac mass term.'
+
+quantities:
+  - symbol: '\tilde F'
+    description: 'Sphere free energy of one Dirac fermion in the convention of Giombi and Klebanov, $\tilde F = \sin(\pi d/2)\log Z_{S^d}$; at $d=5$, $\tilde F = \log Z_{S^5} = -F$'
+    value: '\frac{1}{2^6}\left(6\log 2 + \frac{10\zeta(3)}{\pi^2} + \frac{15\zeta(5)}{\pi^4}\right) \approx 8.65\times 10^{-2}'
+    method: derived
+    refs: [klebanov2011, giombi2014]
+    note: 'Klebanov, Pufu and Safdi, Table 2, give $F_D/\dim\gamma = \frac{-1}{2^8}\left(6\log 2 + \frac{10\zeta(3)}{\pi^2} + \frac{15\zeta(5)}{\pi^4}\right) \approx -2.16\times10^{-2}$, with $\dim\gamma = 4$ in $d=5$. Multiplying by 4 and flipping the sign (Giombi–Klebanov eq. (1.5)) gives this value. Four times a numerical evaluation of Giombi–Klebanov eq. (2.6) at $d=5$ gives the same number.'
+  - symbol: 'C_T'
+    description: 'Stress-tensor two-point coefficient of one Dirac fermion, in the absolute Osborn–Petkou normalization $\langle T_{\mu\nu}(x)T_{\sigma\rho}(0)\rangle = C_T\,\mathcal{I}_{\mu\nu,\sigma\rho}(x)/x^{2d}$'
+    value: '\frac{45}{32\pi^4}'
+    method: derived
+    refs: [osborn1994, diab2016, giombi2014]
+    note: 'From $C_T = {\rm Tr}\,\mathbb{1}\,\frac{d}{2S_d^2}$ per Dirac fermion (Osborn–Petkou eq. (5.6), in the form quoted by Diab et al.), with $S_d = 2\pi^{d/2}/\Gamma(d/2)$, at $d=5$: $S_5 = 8\pi^2/3$ and ${\rm Tr}\,\mathbb{1} = 4$. Osborn–Petkou write the factor ${\rm Tr}\,\mathbb{1}$ as $2^{d/2}$, its value in even $d$; for odd $d$ the trace is $2^{[d/2]}$ (Giombi–Klebanov, below eq. (2.2)).'
+  - symbol: 'C_T/C_T^{\rm scalar}'
+    description: 'The same, relative to one free real scalar in $d=5$ ($C_T^{\rm scalar} = \frac{45}{256\pi^4}$)'
+    value: '8'
+    method: derived
+    refs: [osborn1994, diab2016]
+    note: 'Ratio ${\rm Tr}\,\mathbb{1}\,\frac{d-1}{2} = 4\cdot 2$ of the two formulas above.'
+
+operators:
+  - name: '\psi'
+    Delta: 2
+    spin: '1/2'
+    rep: 'charge $1$'
+    method: exact
+    refs: [osborn1994, giombi2014]
+    note: 'From $\langle\psi(x)\bar\psi(0)\rangle = \frac{1}{S_d}\frac{\gamma\cdot x}{x^d}$ (Osborn–Petkou eq. (5.3)); $\Delta = (d-1)/2$.'
+  - name: '\bar\psi\psi'
+    Delta: 4
+    spin: 0
+    rep: 'neutral; odd under reflections'
+    method: exact
+    refs: [osborn1994]
+    note: 'Dirac mass term. Relevant.'
+  - name: 'J_\mu = \bar\psi\gamma_\mu\psi'
+    Delta: 4
+    spin: 1
+    rep: neutral
+    method: exact
+    note: 'Conserved $U(1)$ current.'
+  - name: 'T_{\mu\nu}'
+    Delta: 5
+    spin: 2
+    rep: neutral
+    method: exact
+    note: Stress tensor (conserved).
+
+references:
+  - key: osborn1994
+    title: Implications of conformal invariance in field theories for general dimensions
+    authors: Osborn, Petkou
+    year: 1994
+    journal: Annals Phys. 231, 311
+    arxiv: hep-th/9307010
+    doi: 10.1006/aphy.1994.1045
+  - key: diab2016
+    title: On $C_J$ and $C_T$ in the Gross-Neveu and $O(N)$ Models
+    authors: Diab, Fei, Giombi, Klebanov, Tarnopolsky
+    year: 2016
+    journal: J. Phys. A 49, 405402
+    arxiv: '1601.07198'
+    doi: 10.1088/1751-8113/49/40/405402
+    note: 'Footnote 2: $C_T$ of free scalars and fermions in general $d$, with ${\rm Tr}\,\mathbb{1}$ explicit.'
+  - key: klebanov2011
+    title: F-Theorem without Supersymmetry
+    authors: Klebanov, Pufu, Safdi
+    year: 2011
+    journal: JHEP 10 (2011) 038
+    arxiv: '1105.4598'
+    doi: 10.1007/JHEP10(2011)038
+    note: 'Table 2: $F$ of a free Dirac fermion on $S^d$ for odd $d$.'
+  - key: giombi2014
+    title: Interpolating between $a$ and $F$
+    authors: Giombi, Klebanov
+    year: 2015
+    journal: JHEP 03 (2015) 117
+    arxiv: '1409.1937'
+    doi: 10.1007/JHEP03(2015)117
+    note: 'Definition of $\tilde F$ (eq. (1.5)) and its integral representation for free fields (eqs. (2.5), (2.6)).'
+  - key: vanproeyen1999
+    title: Tools for supersymmetry
+    authors: Van Proeyen
+    year: 1999
+    journal: Ann. U. Craiova Phys. 9, 1
+    arxiv: hep-th/9910030
+    note: 'Table 2 (minimal spinors in each dimension) and eq. (3.27) (symplectic Majorana condition).'
+
+contributors: [Canonical111]

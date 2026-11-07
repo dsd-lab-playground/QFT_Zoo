@@ -1,0 +1,159 @@
+id: nhc-6d
+name: 'Minimal 6d $(1,0)$ SCFTs (non-Higgsable clusters)'
+aliases:
+  - 'Single-curve non-Higgsable clusters'
+  - '6d SCFTs on a single $-n$ curve'
+  - 'Pure $\mathfrak{su}(3)$, $\mathfrak{so}(8)$, $\mathfrak{f}_4$, $\mathfrak{e}_6$, $\mathfrak{e}_7$, $\mathfrak{e}_8$ 6d SCFTs'
+d: 6
+summary: >-
+  The 6d $(1,0)$ SCFTs of F-theory on one curve of self-intersection $-n$, $n=3,\dots,8,12$.
+  On the tensor branch they are $\mathfrak{su}(3)$, $\mathfrak{so}(8)$, $\mathfrak{f}_4$,
+  $\mathfrak{e}_6$, $\mathfrak{e}_7$ or $\mathfrak{e}_8$ gauge theories, with a
+  half-hypermultiplet at $n=7$.
+tags: [CFT, SCFT, interacting, unitary, supersymmetric, non-Lagrangian, family]
+
+description: |
+  In F-theory on an elliptically fibered Calabi–Yau threefold, a rational curve of
+  self-intersection $-n$ with $n\ge3$ in the base forces a singular elliptic fiber over it, and
+  hence a gauge algebra that cannot be Higgsed (Morrison and Taylor). For an isolated curve the
+  algebra and matter are fixed by $n$: $\mathfrak{su}(3)$, $\mathfrak{so}(8)$, $\mathfrak{f}_4$,
+  $\mathfrak{e}_6$ for $n=3,4,5,6$, $\mathfrak{e}_7$ with a half-hypermultiplet in the
+  $\mathbf{56}$ for $n=7$, $\mathfrak{e}_7$ for $n=8$, and $\mathfrak{e}_8$ for $n=12$. Curves
+  with $n=9,10,11$ require further blow-ups of the base, a $-1$ curve gives the rank-1 E-string
+  and a $-2$ curve the $A_1$ $(2,0)$ theory. Shrinking the curve to zero size gives a 6d SCFT.
+  On its tensor branch there is one tensor multiplet, whose scalar sets the inverse gauge
+  coupling, the vector multiplet, and at $n=7$ the half-hypermultiplet. The SCFTs have no Higgs
+  branch. "Minimal" here means these single-curve clusters; the two- and three-curve
+  non-Higgsable clusters ($\mathfrak{g}_2\oplus\mathfrak{su}(2)$ and
+  $\mathfrak{su}(2)\oplus\mathfrak{so}(7)\oplus\mathfrak{su}(2)$) are not included.
+
+  The non-Higgsable clusters and chains of $-2$ curves are the building blocks of the F-theory
+  classification of 6d SCFTs: they are glued by $-1$ curves, and the algebras
+  $\mathfrak{g}_L$, $\mathfrak{g}_R$ on the two curves meeting a $-1$ curve must satisfy
+  $\mathfrak{g}_L\times\mathfrak{g}_R\subset\mathfrak{e}_8$ (Heckman, Morrison, Rudelius and Vafa).
+
+  ### Anomalies
+  Ohmori, Shimizu, Tachikawa and Yonekura obtain the anomaly polynomial of the SCFT on its tensor
+  branch: the one-loop anomaly of the tensor, vector and hypermultiplets plus a Green–Schwarz
+  term $\tfrac{n}{2}I^2$, fixed by the cancellation of gauge anomalies. In their conventions
+  $I = \tfrac14\mathrm{Tr}F^2 + \tfrac{n-2}{4n}p_1(T) + \tfrac{h^\vee}{n}c_2(R)$, where Tr is the
+  adjoint trace divided by the dual Coxeter number $h^\vee$ (their eqs. (3.29)–(3.32) for one
+  curve). They give the $c_2(R)^2$ coefficient in closed form. The full coefficients and $a$ in
+  the members table were computed here with the same procedure and are marked as derived. As
+  checks, the $c_2(R)^2$ coefficients agree with their eq. (1.11), and the same computation
+  reproduces their $(E_6,E_6)$ conformal-matter anomaly, eq. (3.12). The normalization is that
+  of Córdova, Dumitrescu and Intriligator,
+  $I_8 = \tfrac{1}{4!}\left(\alpha c_2(R)^2 + \beta c_2(R)p_1(T) + \gamma p_1(T)^2 + \delta p_2(T)\right)$,
+  and $a = \tfrac{16}{7}(\alpha-\beta+\gamma)+\tfrac67\delta$, with $a=1$ for a free $(2,0)$
+  tensor multiplet.
+
+parameters:
+  - symbol: 'n'
+    description: Minus the self-intersection of the curve.
+    range: '$n \in \{3,4,5,6,7,8,12\}$'
+
+family:
+  parameter: n
+  members:
+    - at: 3
+      label: 'Pure $\mathfrak{su}(3)$'
+      note: '$(\alpha,\beta,\gamma,\delta) = (29, \tfrac52, \tfrac{9}{80}, -\tfrac{7}{20})$, $a = \tfrac{4237}{70} \approx 60.53$ (derived).'
+    - at: 4
+      label: 'Pure $\mathfrak{so}(8)$'
+      note: '$(\alpha,\beta,\gamma,\delta) = (81, \tfrac92, \tfrac{7}{240}, -\tfrac{1}{60})$, $a = \tfrac{36731}{210} \approx 174.91$ (derived).'
+    - at: 5
+      label: 'Pure $\mathfrak{f}_4$'
+      note: '$(\alpha,\beta,\gamma,\delta) = (\tfrac{717}{5}, \tfrac{69}{10}, -\tfrac{17}{240}, \tfrac{23}{60})$, $a = \tfrac{1873}{6} \approx 312.17$ (derived).'
+    - at: 6
+      label: 'Pure $\mathfrak{e}_6$'
+      note: '$(\alpha,\beta,\gamma,\delta) = (211, \tfrac{19}{2}, -\tfrac{43}{240}, \tfrac{49}{60})$, $a = \tfrac{96781}{210} \approx 460.86$ (derived).'
+    - at: 7
+      label: '$\mathfrak{e}_7$ with $\tfrac12\mathbf{56}$'
+      note: '$(\alpha,\beta,\gamma,\delta) = (\tfrac{2964}{7}, \tfrac{78}{7}, -\tfrac{121}{420}, \tfrac{19}{15})$, $a = \tfrac{692954}{735} \approx 942.79$ (derived).'
+    - at: 8
+      label: 'Pure $\mathfrak{e}_7$'
+      note: '$(\alpha,\beta,\gamma,\delta) = (354, 15, -\tfrac{49}{120}, \tfrac{26}{15})$, $a = \tfrac{81418}{105} \approx 775.41$ (derived).'
+    - at: 12
+      label: 'Pure $\mathfrak{e}_8$'
+      note: '$(\alpha,\beta,\gamma,\delta) = (653, \tfrac{53}{2}, -\tfrac{71}{80}, \tfrac{73}{20})$, $a = \tfrac{14331}{10}$ (derived).'
+
+symmetry:
+  spacetime: '6d $\mathcal{N}=(1,0)$ superconformal'
+  supercharges: 8
+  global: 'R-symmetry $SU(2)_R$; no continuous flavor symmetry acts on the tensor-branch fields'
+  gauge: '$\mathfrak{su}(3)$, $\mathfrak{so}(8)$, $\mathfrak{f}_4$, $\mathfrak{e}_6$, $\mathfrak{e}_7$, $\mathfrak{e}_7$, $\mathfrak{e}_8$ on the tensor branch (not at the conformal point)'
+
+quantities:
+  - symbol: '[I_8]_{c_2(R)^2}'
+    description: 'Coefficient of $c_2(R)^2$ in the anomaly polynomial, pure-gauge members ($n\neq7$)'
+    value: '\frac{(h^\vee_G)^2}{2w_G} - \frac{d_G-1}{24}'
+    method: anomaly matching on the tensor branch
+    refs: [ohmori2014b]
+    note: 'Ohmori et al. eq. (1.11). $d_G$ is the dimension of $G$ and $\mathrm{tr}_{\rm adj}F^4 = \tfrac34 w_G(\mathrm{Tr}F^2)^2$; their Table 3 gives $w_G = 3, 5, 6, 8, 12$ for $\mathfrak{su}(3)$, $\mathfrak{f}_4$, $\mathfrak{e}_6$, $\mathfrak{e}_7$, $\mathfrak{e}_8$, and Table 2 gives $w = 4$ for $\mathfrak{so}(8)$ (where $t_G = 0$, $u_G = 4$); in each case $w_G = n$. This coefficient is $\alpha/24$.'
+  - symbol: '(\alpha,\beta,\gamma,\delta)'
+    description: '''t Hooft anomalies of the pure-gauge members ($n\neq7$), normalization of Córdova et al.'
+    value: '\left(\tfrac{12(h^\vee)^2}{n}-(d_G-1),\ \tfrac{6h^\vee(n-2)}{n}-\tfrac{d_G-1}{2},\ \tfrac{3(n-2)^2}{4n}+\tfrac{23-7d_G}{240},\ \tfrac{d_G-29}{60}\right)'
+    method: derived
+    refs: [ohmori2014b, cordova2015]
+    note: 'Computed here from the one-loop anomalies of Ohmori et al. App. A and the Green–Schwarz term above. Anomaly cancellation for $p_1(T)\,\mathrm{Tr}F^2$ requires $h^\vee = 3(n-2)$, which holds for every pure-gauge member. $\delta = (n_V - n_H - 29n_T)/60$ counts multiplets.'
+
+operators:
+  - name: 'T_{\mu\nu}'
+    Delta: 6
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: e-string-6d
+    note: 'Both are building blocks of the F-theory classification: general 6d SCFTs join these clusters (and chains of $-2$ curves) through $-1$ curves, each carrying a rank-1 E-string whose $E_8$ symmetry is partly gauged by the neighboring algebras.'
+
+references:
+  - key: morrison2012
+    title: Classifying bases for 6D F-theory models
+    authors: Morrison, Taylor
+    year: 2012
+    journal: Central Eur. J. Phys. 10, 1072
+    arxiv: '1201.1943'
+    doi: 10.2478/s11534-012-0065-4
+    note: 'Table 2: the non-Higgsable clusters with their gauge algebras and matter.'
+  - key: heckman2014
+    title: On the classification of 6D SCFTs and generalized ADE orbifolds
+    authors: Heckman, Morrison, Vafa
+    year: 2014
+    journal: JHEP 05 (2014) 028
+    arxiv: '1312.5746'
+    doi: 10.1007/JHEP05(2014)028
+  - key: heckman2015
+    title: Atomic classification of 6D SCFTs
+    authors: Heckman, Morrison, Rudelius, Vafa
+    year: 2015
+    journal: Fortsch. Phys. 63, 468
+    arxiv: '1502.05405'
+    doi: 10.1002/prop.201500024
+  - key: ohmori2014b
+    title: Anomaly polynomial of general 6d SCFTs
+    authors: Ohmori, Shimizu, Tachikawa, Yonekura
+    year: 2014
+    journal: PTEP 2014, 103B07
+    arxiv: '1408.5572'
+    doi: 10.1093/ptep/ptu140
+  - key: cordova2015
+    title: Anomalies, renormalization group flows, and the a-theorem in six-dimensional (1,0) theories
+    authors: Córdova, Dumitrescu, Intriligator
+    year: 2016
+    journal: JHEP 10 (2016) 080
+    arxiv: '1506.03807'
+    doi: 10.1007/JHEP10(2016)080
+  - key: heckman2018
+    title: Top down approach to 6D SCFTs
+    authors: Heckman, Rudelius
+    year: 2019
+    journal: J. Phys. A52, 093001
+    arxiv: '1805.06467'
+    doi: 10.1088/1751-8121/aafc81
+    note: 'Review: trivial Higgs branch of the clusters; $n=9,10,11$; Green–Schwarz term (eq. (9.6)).'
+
+contributors: [Canonical111]

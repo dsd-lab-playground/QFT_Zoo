@@ -1,0 +1,154 @@
+id: n3-sfold-4d
+name: '$\mathcal{N}=3$ S-fold theories'
+aliases:
+  - '$\mathcal{N}=3$ SCFTs from S-folds'
+  - 'Theories of D3-branes on $\mathbb{Z}_k$ S-folds'
+  - 'García-Etxebarria–Regalado theories'
+d: 4
+summary: >-
+  Four-dimensional SCFTs with $\mathcal{N}=3$ but not $\mathcal{N}=4$ supersymmetry, living on $N$ D3-branes
+  at $\mathbb{Z}_k$ S-folds ($k = 3, 4, 6$) of F-theory. They are strongly coupled and non-Lagrangian, with
+  $a = c$.
+tags: [CFT, SCFT, interacting, unitary, supersymmetric, non-Lagrangian, holographic, large N, family]
+
+description: |
+  An S-fold generalizes the O3-plane: the identification of type IIB string theory by a
+  $2\pi/k$ rotation of the transverse $\mathbb{C}^3$ is combined with an $SL(2,\mathbb{Z})$ duality
+  transformation of order $k$. This requires $k = 2, 3, 4, 6$ and, for $k > 2$, the coupling
+  $\tau = e^{2\pi i/k}$; equivalently it is F-theory on $(\mathbb{C}^3\times T^2)/\mathbb{Z}_k$. For
+  $k = 3, 4, 6$ it preserves 12 supercharges, and $N$ D3-branes probing it give a 4d $\mathcal{N}=3$
+  SCFT (García-Etxebarria and Regalado). The quotient acts on the string background, not on the
+  worldvolume field theory: these theories are not discrete gaugings of $\mathcal{N}=4$ SYM. Discrete
+  gauging leaves $a$ and $c$ unchanged, whereas the S-fold theories have different central charges
+  (for example $a = c = 5/4$ for $N = 1$, $k = \ell = 3$, against $1/4$ for $U(1)$ $\mathcal{N}=4$ SYM).
+
+  General results for $\mathcal{N}=3$ SCFTs that are not $\mathcal{N}=4$ (Aharony and Evtikhiev):
+  $a = c$; there are no exactly marginal deformations preserving $\mathcal{N}=3$ and no global
+  symmetries beyond the $SU(3)_R\times U(1)_R$ $R$-symmetry; and there are no free or weakly coupled
+  examples (the only free $\mathcal{N}=3$ multiplet is the $\mathcal{N}=4$ vector multiplet), so all such
+  theories are strongly coupled.
+
+  **Variants.** S-folds carry a discrete torsion, labelled by a divisor $\ell$ of $k$. Aharony and
+  Tachikawa find that the variants that exist are $(k,\ell) = (3,1), (3,3), (4,1), (4,4), (6,1)$. The
+  Coulomb-branch chiral ring is freely generated, with dimensions $k, 2k, \dots, (N-1)k$ and $N\ell$.
+  For $\ell < k$ these are the dimensions of a parent theory with a $\mathbb{Z}_{k/\ell}$ global symmetry;
+  gauging it gives a theory with generators $k, 2k, \dots, Nk$ and the same central charges, and which
+  of the two lives on the D3-branes depends on boundary conditions. Combining $a = c$ with the
+  relation $2a - c = \sum_i(2\Delta_i-1)/4$ over the Coulomb-branch generators (assumed to hold for
+  these theories) gives the central charges below.
+
+  **Special cases.** Supersymmetry is enhanced to $\mathcal{N}=4$ exactly when a Coulomb-branch operator
+  has dimension 1 or 2, which happens for $\ell = 1$ and $N = 1, 2$. At $N = 1$ this is $U(1)$
+  $\mathcal{N}=4$ SYM; at $N = 2$ the parent theories have the spectra of $\mathcal{N}=4$ SYM with gauge
+  group $SU(3)$, $SO(5)$ and $G_2$ for $k = 3, 4, 6$, and Aharony and Tachikawa give evidence that they
+  are these theories. The lowest $a$ without enhancement is at $N = 1$, $k = \ell = 3$: one Coulomb-branch
+  operator of dimension 3 and $a = c = \tfrac54$, the value of five free $\mathcal{N}=4$ vector
+  multiplets. Assuming the relation above, it is the minimal $\mathcal{N}=3$ SCFT.
+
+  At large $N$ the dual is F-theory on $AdS_5\times(S^5\times T^2)/\mathbb{Z}_k$. Compactified on a
+  circle, the theories flow at certain loci of their moduli space to 3d $\mathcal{N}=6$ ABJM theories.
+
+parameters:
+  - symbol: 'k'
+    description: Order of the S-fold, $k \in \{3, 4, 6\}$.
+    range: '$k = 3, 4, 6$'
+  - symbol: '\ell'
+    description: Discrete-torsion variant, a divisor of $k$.
+    range: '$\ell = 1, 3$ ($k=3$); $\ell = 1, 4$ ($k=4$); $\ell = 1$ ($k=6$)'
+  - symbol: 'N'
+    description: Number of D3-branes (rank).
+    range: '$N \geq 1$'
+
+family:
+  parameter: k
+  members:
+    - at: 3
+      label: '$\mathbb{Z}_3$ S-folds, $\ell = 1, 3$'
+      note: '$4a = 3N^2 - 2N$ ($\ell=1$) or $3N^2 + 2N$ ($\ell=3$). $N = 1$, $\ell = 3$: the minimal $\mathcal{N}=3$ SCFT, $a = c = \tfrac54$. $N = 2$, $\ell = 1$: $\mathcal{N}=4$ $SU(3)$ SYM.'
+    - at: 4
+      label: '$\mathbb{Z}_4$ S-folds, $\ell = 1, 4$'
+      note: '$4a = 4N^2 - 3N$ ($\ell=1$) or $4N^2 + 3N$ ($\ell=4$). $N = 2$, $\ell = 1$: $\mathcal{N}=4$ $SO(5)$ SYM.'
+    - at: 6
+      label: '$\mathbb{Z}_6$ S-fold, $\ell = 1$'
+      note: '$4a = 6N^2 - 5N$. $N = 2$: $\mathcal{N}=4$ $G_2$ SYM.'
+
+symmetry:
+  spacetime: '$\mathcal{N}=3$ superconformal'
+  supercharges: 12
+  global: '$R$-symmetry $SU(3)_R\times U(1)_R$; no continuous flavour symmetry'
+  notes: 'For $\ell < k$ the parent theory has a discrete $\mathbb{Z}_{k/\ell}$ global symmetry, and its gauging has a $\mathbb{Z}_{k/\ell}$ 2-form symmetry.'
+
+quantities:
+  - symbol: 'a = c'
+    description: 'Conformal anomalies (normalized so a free $\mathcal{N}=4$ vector multiplet has $a = c = \tfrac14$)'
+    value: '\frac{1}{4}\Big(kN^2 + (2\ell - k - 1)N\Big)'
+    method: exact (from the Coulomb-branch spectrum)
+    refs: [at2016, ae2016]
+    note: 'Aharony–Tachikawa eq. (2.12), from $a = c$ and $2a - c = \sum_i (2\Delta_i - 1)/4$, which is assumed to hold for these non-Lagrangian theories. The member notes substitute $(k, \ell)$.'
+  - symbol: 'a = c'
+    description: 'Minimal $\mathcal{N}=3$ SCFT ($k = \ell = 3$, $N = 1$)'
+    value: '\frac{5}{4}'
+    method: exact (from the Coulomb-branch spectrum)
+    refs: [at2016]
+    note: 'Section 5 of Aharony–Tachikawa: the same as five free vector multiplets.'
+  - symbol: '\epsilon_{k,\ell}'
+    description: 'D3-brane charge of the S-fold, defined by $a \simeq k(N+\epsilon_{k,\ell})^2/4$ at large $N$'
+    value: '\frac{2\ell - k - 1}{2k}'
+    method: derived
+    refs: [at2016]
+    note: 'From eqs. (2.2) and (2.12) of Aharony–Tachikawa; it reproduces their table (2.13): $-\tfrac13, \tfrac13$ ($k=3$), $-\tfrac38, \tfrac38$ ($k=4$), $-\tfrac{5}{12}$ ($k=6$).'
+
+operators:
+  - name: 'u_j,\ j = 1, \dots, N-1'
+    Delta: 'jk'
+    spin: 0
+    rep: 'Coulomb-branch chiral primary'
+    method: exact (moduli space)
+    refs: [at2016]
+    note: 'Generators of the Coulomb-branch chiral ring: symmetric polynomials of $z_i^k$, where $z_i$ are the D3-brane positions.'
+  - name: 'u_N'
+    Delta: 'N\ell'
+    spin: 0
+    rep: 'Coulomb-branch chiral primary'
+    method: exact (moduli space)
+    refs: [at2016]
+    note: 'The generator $(z_1\cdots z_N)^\ell$ of the parent theory (replaced by $\sum_i z_i^{Nk}$, of dimension $Nk$, after the discrete gauging). A Coulomb-branch operator of dimension 1 or 2 signals $\mathcal{N}=4$ enhancement.'
+  - name: 'T_{\mu\nu}'
+    Delta: 4
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: n4-sym
+    note: 'Both arise on $N$ D3-branes: $\mathcal{N}=4$ SYM in flat space, the S-fold theories at an S-fold, a quotient of the type IIB background (not a discrete gauging of $\mathcal{N}=4$ SYM); for $\ell = 1$ and $N = 1, 2$ supersymmetry is enhanced to $\mathcal{N}=4$.'
+  - type: related_to
+    target: abjm-3d
+    note: 'On a circle, at certain loci of their moduli space, the theories flow to $\mathcal{N}=6$ ABJM theories (García-Etxebarria–Regalado).'
+
+references:
+  - key: ger2016
+    title: N=3 four dimensional field theories
+    authors: García-Etxebarria, Regalado
+    year: 2016
+    journal: JHEP 03 (2016) 083
+    arxiv: '1512.06434'
+    doi: 10.1007/JHEP03(2016)083
+  - key: ae2016
+    title: On four dimensional N=3 superconformal theories
+    authors: Aharony, Evtikhiev
+    year: 2016
+    journal: JHEP 04 (2016) 040
+    arxiv: '1512.03524'
+    doi: 10.1007/JHEP04(2016)040
+  - key: at2016
+    title: S-folds and 4d N=3 superconformal field theories
+    authors: Aharony, Tachikawa, Gomi
+    year: 2016
+    journal: JHEP 06 (2016) 044
+    arxiv: '1602.08638'
+    doi: 10.1007/JHEP06(2016)044
+
+contributors: [Canonical111]

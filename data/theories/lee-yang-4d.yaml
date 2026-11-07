@@ -1,0 +1,159 @@
+id: lee-yang-4d
+name: '4d Lee–Yang edge singularity CFT'
+aliases:
+  - Yang–Lee edge singularity (4d)
+  - 4d Yang–Lee CFT
+  - '$i\phi^3$ fixed point in $d=4$'
+d: 4
+summary: >-
+  The non-unitary CFT at the Lee–Yang edge singularity in four dimensions: the fixed point
+  of one scalar with an imaginary cubic coupling, below its upper critical dimension 6. Its
+  only relevant primary, $\phi$, lies below the unitarity bound.
+tags: [CFT, interacting, non-unitary, Lagrangian, critical phenomena]
+
+description: |
+  Above the critical temperature the zeros of the Ising partition function in a complex
+  magnetic field end at the Lee–Yang edge, where their density vanishes with a universal
+  exponent $\sigma$. Fisher described the edge by a scalar with an imaginary cubic
+  coupling, whose upper critical dimension is 6, so $d=4$ is $\epsilon = 2$ of the
+  $6-\epsilon$ expansion. The same exponents describe lattice animals (branched polymers)
+  in $d+2 = 6$ dimensions (Parisi and Sourlas). Unlike the 4d Ising critical point,
+  which is Gaussian, the 4d Lee–Yang fixed point is interacting.
+
+  The only relevant primary is $\phi$. At the fixed point $\phi^2$ is proportional to
+  $\partial^2\phi$ by the equation of motion, so it is a descendant (Gliozzi and Rago),
+  and the next scalar primary, "$\phi^3$", is irrelevant. The exponents follow from
+  $\Delta_\phi$:
+  $$\sigma = \frac{\Delta_\phi}{4 - \Delta_\phi}, \qquad \eta = 2\Delta_\phi - 2 .$$
+  $\Delta_\phi \approx 0.83$ lies below the unitarity bound $\Delta \geq 1$ for a 4d
+  scalar ($\eta < 0$).
+
+  The estimates below come from methods whose error estimates are not directly
+  comparable: the $6-\epsilon$ expansion to five loops with resummation (Borinsky,
+  Gracey, Kompaniets and Schnetz); series expansions of the dimer density on the
+  hypersimple-cubic and hyper-body-centred-cubic lattices in $d=4$ (Butera and Pernici);
+  the functional renormalization group (An, Mesterházy and Stephanov); and a truncated,
+  non-rigorous bootstrap that keeps a few operators in the $\phi\times\phi$ OPE (Gliozzi
+  and Rago), since the positivity-based numerical bootstrap does not apply to a
+  non-unitary theory. For $\sigma$ they agree to about $0.01$. For $\eta$ the functional
+  RG and the five-loop values do not overlap. Arguello Cruz, Klebanov, Tarnopolsky and
+  Xin also studied the quantum Ising model in an imaginary longitudinal field on the
+  24 vertices of the 24-cell, a regular polytope that approximates $S^3$. They find
+  $\Delta_\phi \approx 0.89$, within 8% of their two-sided Padé extrapolation of the
+  $6-\epsilon$ series, and describe these as first results, less precise than their
+  $d = 3$ ones.
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2 + \tfrac{i\lambda}{3!}\,\phi^3 \quad (\phi \text{ real; the relevant coupling to } \phi \text{ is tuned to the edge})'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: 'None (the Ising $\mathbb{Z}_2$ is broken by the imaginary field)'
+  notes: 'Not unitary. The action has a $\mathcal{PT}$ symmetry, $\phi \to -\phi$ combined with $i \to -i$.'
+
+quantities:
+  - symbol: '\sigma'
+    description: 'Edge exponent, $\sigma = \Delta_\phi/(4-\Delta_\phi)$'
+    value: '0.259(5)'
+    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    refs: [borinsky2021]
+    note: 'Combination of all resummations (Table 4); constrained resummations alone give $0.259(3)$.'
+  - symbol: '\sigma'
+    description: 'Edge exponent, from the dimer density on the hypersimple-cubic lattice'
+    value: '0.258(5)'
+    method: series expansion
+    refs: [butera2012]
+    note: 'Hyper-body-centred-cubic lattice: $0.261(4)$ (Table VI).'
+  - symbol: '\sigma'
+    description: Edge exponent
+    value: '0.2667(32)'
+    method: functional renormalization group
+    refs: [an2016]
+  - symbol: '\sigma'
+    description: Edge exponent
+    value: '0.2685(1)'
+    method: truncated conformal bootstrap (non-rigorous)
+    refs: [gliozzi2014]
+  - symbol: '\eta'
+    description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 2$'
+    value: '-0.347(12)'
+    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    refs: [borinsky2021, an2016]
+    note: 'Table 1. Functional renormalization group: $-0.316(16)$ (An et al.).'
+  - symbol: '\omega'
+    description: 'Leading correction-to-scaling exponent, $\omega = \Delta_{\phi^3} - 4$'
+    value: '1.15(7)'
+    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    refs: [borinsky2021]
+    note: 'Table 6. Only unconstrained resummations are available, and the authors caution that no definite conclusions should be drawn for $\omega$.'
+
+operators:
+  - name: '\phi'
+    Delta: '0.8265(60)'
+    spin: 0
+    rep: the only relevant primary
+    method: derived
+    refs: [borinsky2021, arguellocruz2025]
+    note: '$(2+\eta)/2$ with the five-loop $\eta = -0.347(12)$. Below the unitarity bound 1. Two-sided Padé of the $6-\epsilon$ series: $0.827$ (Arguello Cruz et al., Table 2). 24-cell: $0.891$ at $h_x = 50$ (Table 13).'
+  - name: 'T_{\mu\nu}'
+    Delta: 4
+    spin: 2
+    method: exact
+    note: Stress tensor (conserved).
+  - name: '\phi^3'
+    Delta: '5.15(7)'
+    spin: 0
+    method: derived
+    refs: [borinsky2021, arguellocruz2025, gliozzi2014]
+    note: 'Leading irrelevant scalar, $4 + \omega$ with the five-loop $\omega$. Two-sided Padé: $5.206$ and $5.212$ (Arguello Cruz et al., Table 2); 24-cell: $5.467$ at $h_x = 50$. The truncated bootstrap gives $6.8(1)$ (Gliozzi and Rago), far from the other estimates.'
+
+relations:
+  - type: related_to
+    target: lee-yang-3d
+    note: 'The same universality class in three dimensions. Both are continuations of the $i\phi^3$ fixed point from $d = 6-\epsilon$, and the five-loop analysis of Borinsky et al. covers $d = 3, 4, 5$.'
+
+references:
+  - key: fisher1978
+    title: Yang-Lee Edge Singularity and $\phi^3$ Field Theory
+    authors: Fisher
+    year: 1978
+    journal: Phys. Rev. Lett. 40, 1610
+    doi: '10.1103/PhysRevLett.40.1610'
+  - key: parisi1981
+    title: Critical Behavior of Branched Polymers and the Lee-Yang Edge Singularity
+    authors: Parisi, Sourlas
+    year: 1981
+    journal: Phys. Rev. Lett. 46, 871
+    doi: '10.1103/PhysRevLett.46.871'
+  - key: borinsky2021
+    title: Five loop renormalization of $\phi^3$ theory with applications to the Lee-Yang edge singularity and percolation theory
+    authors: Borinsky, Gracey, Kompaniets, Schnetz
+    year: 2021
+    journal: Phys. Rev. D 103, 116024
+    arxiv: '2103.16224'
+  - key: butera2012
+    title: Yang-Lee edge singularities from extended activity expansions of the dimer density for bipartite lattices of dimensionality 2 <= d <= 7
+    authors: Butera, Pernici
+    year: 2012
+    journal: Phys. Rev. E 86, 011104
+    arxiv: '1206.0872'
+  - key: an2016
+    title: Functional renormalization group approach to the Yang-Lee edge singularity
+    authors: An, Mesterházy, Stephanov
+    year: 2016
+    journal: JHEP 07 (2016) 041
+    arxiv: '1605.06039'
+  - key: gliozzi2014
+    title: Critical exponents of the 3d Ising and related models from Conformal Bootstrap
+    authors: Gliozzi, Rago
+    year: 2014
+    journal: JHEP 10 (2014) 042
+    arxiv: '1403.6003'
+  - key: arguellocruz2025
+    title: Yang-Lee Quantum Criticality in Various Dimensions
+    authors: Arguello Cruz, Klebanov, Tarnopolsky, Xin
+    year: 2026
+    journal: Phys. Rev. X 16, 011022
+    arxiv: '2505.06369'
+
+contributors: [Canonical111]

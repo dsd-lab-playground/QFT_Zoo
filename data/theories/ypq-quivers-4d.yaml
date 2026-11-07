@@ -1,0 +1,117 @@
+id: ypq-quivers-4d
+name: '$Y^{p,q}$ quiver gauge theories'
+aliases:
+  - '$Y^{p,q}$ theories'
+  - 'Quiver gauge theories dual to $AdS_5\times Y^{p,q}$'
+d: 4
+summary: >-
+  An infinite family of $\mathcal{N}=1$ quiver gauge theories with $2p$ $SU(N)$ nodes, living on $N$
+  D3-branes at the cones over the Sasaki–Einstein manifolds $Y^{p,q}$. Their exact $R$-charges are
+  generically quadratic irrationals, and $a$ agrees with the volume of $Y^{p,q}$.
+tags: [CFT, SCFT, interacting, unitary, gauge theory, supersymmetric, Lagrangian, holographic, large N, family]
+
+description: |
+  The $Y^{p,q}$ ($0 < q < p$) are explicit Sasaki–Einstein five-manifolds, of topology $S^2\times S^3$
+  for coprime $p$, $q$, found by Gauntlett, Martelli, Sparks and Waldram; their Calabi–Yau cones are
+  toric. Benvenuti, Franco, Hanany, Martelli and Sparks (BFHMS) constructed the dual gauge theories:
+  $2p$ gauge groups $SU(N)$ and
+  $4p+2q$ bifundamental chiral multiplets, namely $p$ $SU(2)$ doublets $U$, $q$ doublets $V$, $p-q$
+  singlets $Z$ and $p+q$ singlets $Y$. The superpotential has $2q$ cubic and $p-q$ quartic terms,
+  each $SU(2)$-invariant. The quivers are obtained from the $\mathbb{C}^3/\mathbb{Z}_{2p}$ orbifold quiver
+  ($q = p$) by $p-q$ successive modifications.
+
+  The non-$R$ abelian symmetries are a flavour $U(1)_F$ and a baryonic $U(1)_B$, so a-maximization runs
+  over two parameters, $x = R_Z$ and $y = R_Y$, with $R_U = 1 - \tfrac12(x+y)$ and $R_V = 1 + \tfrac12(x-y)$.
+  The maximum gives $R$-charges that are generically quadratic irrationals; they are rational when
+  $4p^2 - 3q^2$ is a perfect square. They equal the $R$-charges of baryons computed from volumes of
+  supersymmetric 3-cycles, and $a = \pi^3N^2/(4\,\mathrm{Vol}(Y^{p,q}))$ reproduces the volume
+  $$\mathrm{Vol}(Y^{p,q}) = \frac{q^2\big[2p + \sqrt{4p^2-3q^2}\big]}{3p^2\big[3q^2 - 2p^2 + p\sqrt{4p^2-3q^2}\big]}\,\pi^3 .$$
+  At leading order $\mathrm{Tr}\,R = 0$, so $a = c$. The volume lies between those of
+  $T^{1,1}/\mathbb{Z}_p$ and $S^5/(\mathbb{Z}_2\times\mathbb{Z}_p)$, which BFHMS take as the definitions of
+  $Y^{p,0}$ and $Y^{p,p}$.
+
+parameters:
+  - symbol: '(p, q)'
+    description: Integers labelling the Sasaki–Einstein manifold $Y^{p,q}$.
+    range: '$0 \le q \le p$'
+  - symbol: 'N'
+    description: Rank of each of the $2p$ gauge factors (number of D3-branes).
+    range: '$N$ large for the holographic statements'
+
+family:
+  parameter: pq
+  members:
+    - at: '(1,0)'
+      label: 'Conifold ($Y^{1,0} = T^{1,1}$)'
+      note: 'The Klebanov–Witten theory; the $q\to0$ limit of the formula gives $a = 27N^2/64$.'
+    - at: '(1,1)'
+      label: '$\mathbb{C}\times\mathbb{C}^2/\mathbb{Z}_2$'
+      note: 'Two nodes and $\mathcal{N}=2$ supersymmetry; the formula gives $a = N^2/2$.'
+    - at: '(2,1)'
+      label: 'Cone over the first del Pezzo surface'
+      note: 'Four nodes; the formula gives $a = (13\sqrt{13} - 46)N^2 \approx 0.872\,N^2$.'
+    - at: '(3,2)'
+      label: '$Y^{3,2}$'
+      note: 'Six nodes; $R_Z = \tfrac13(4\sqrt6 - 9)$, $R_Y = \tfrac23\sqrt6 - 1$, $a = \tfrac{27}{16}(4\sqrt6 - 9)N^2$ (BFHMS section 4.1).'
+
+symmetry:
+  spacetime: '$\mathcal{N}=1$ superconformal'
+  supercharges: 4
+  global: '$SU(2)\times U(1)_F$ and $U(1)_R$ (together the isometries of $Y^{p,q}$), and the baryonic $U(1)_B$'
+  gauge: '$SU(N)^{2p}$'
+
+quantities:
+  - symbol: 'a = c'
+    description: 'Conformal anomalies at leading order in $N$ (a free chiral multiplet has $a = \tfrac{1}{48}$)'
+    value: '\frac{3p^2\big[3q^2 - 2p^2 + p\sqrt{4p^2-3q^2}\big]}{4q^2\big[2p + \sqrt{4p^2-3q^2}\big]}\,N^2'
+    method: a-maximization
+    refs: [bfhms2005]
+    note: 'Eq. (4.13) of BFHMS, $a = \pi^3/(4\,\mathrm{Vol}(Y^{p,q}))$ per $N^2$, with the volume (2.5) substituted (derived). BFHMS suppress factors of $N$.'
+  - symbol: 'R_Y'
+    description: '$R$-charge of the $p+q$ singlets $Y$'
+    value: '\frac{1}{3q^2}\Big[-4p^2 + 2pq + 3q^2 + (2p-q)\sqrt{4p^2-3q^2}\Big]'
+    method: a-maximization
+    refs: [bfhms2005]
+    note: 'Eq. (4.12); equal to the geometric baryon charge $R[B_1]$ of eq. (2.8).'
+  - symbol: 'R_Z'
+    description: '$R$-charge of the $p-q$ singlets $Z$'
+    value: '\frac{1}{3q^2}\Big[-4p^2 - 2pq + 3q^2 + (2p+q)\sqrt{4p^2-3q^2}\Big]'
+    method: a-maximization
+    refs: [bfhms2005]
+    note: 'Eq. (4.12); equal to $R[B_2]$ of eq. (2.8). The doublets have $R_U = 1 - \tfrac12(R_Y+R_Z)$ and $R_V = 1 + \tfrac12(R_Z-R_Y)$.'
+
+operators:
+  - name: 'J_\mu^{SU(2)},\ J_\mu^{F},\ J_\mu^{B},\ J_\mu^{R}'
+    Delta: 3
+    spin: 1
+    rep: 'adjoint of $SU(2)$; singlets'
+    method: exact
+    note: Conserved currents.
+  - name: 'T_{\mu\nu}'
+    Delta: 4
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: klebanov-witten-4d
+    note: '$Y^{1,0} = T^{1,1}$: the $(p,q) = (1,0)$ member is the Klebanov–Witten theory.'
+
+references:
+  - key: bfhms2005
+    title: An infinite family of superconformal quiver gauge theories with Sasaki-Einstein duals
+    authors: Benvenuti, Franco, Hanany, Martelli, Sparks
+    year: 2005
+    journal: JHEP 06 (2005) 064
+    arxiv: hep-th/0411264
+    doi: 10.1088/1126-6708/2005/06/064
+  - key: gmsw2004
+    title: Sasaki-Einstein metrics on S^2 x S^3
+    authors: Gauntlett, Martelli, Sparks, Waldram
+    year: 2004
+    journal: Adv. Theor. Math. Phys. 8, 711
+    arxiv: hep-th/0403002
+
+contributors: [Canonical111]

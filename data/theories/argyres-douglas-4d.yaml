@@ -1,0 +1,182 @@
+id: argyres-douglas-4d
+name: Argyres–Douglas theories
+aliases:
+  - 'Rank-one Argyres–Douglas theories $H_0$, $H_1$, $H_2$'
+  - '$(A_1, A_2)$, $(A_1, A_3)$ and $(A_1, D_4)$ theories'
+  - 'Argyres–Plesser–Seiberg–Witten fixed points of $SU(2)$ with $N_f = 1, 2, 3$'
+d: 4
+summary: >-
+  Isolated, non-Lagrangian $\mathcal{N}=2$ SCFTs at points of the Coulomb branch where mutually
+  non-local BPS particles become massless. The rank-one members $H_0$, $H_1$, $H_2$ arise in
+  $SU(2)$ with $N_f = 1, 2, 3$ flavors and have Coulomb-branch operators of dimension $6/5$,
+  $4/3$, $3/2$.
+tags: [CFT, SCFT, interacting, unitary, supersymmetric, non-Lagrangian, family]
+
+description: |
+  Argyres and Douglas showed that pure $\mathcal{N}=2$ $SU(N)$ gauge theory with $N > 2$ has
+  vacua in which mutually non-local dyons become massless, such as the $\mathbb{Z}_3$ point of
+  $SU(3)$, and proposed that the low-energy theory there is an interacting $\mathcal{N}=2$ SCFT.
+  Argyres, Plesser, Seiberg and Witten found fixed points of the same kind in $SU(2)$ with
+  $N_f = 1, 2, 3$ fundamental flavors, at points where a monopole and $N_f$ quarks become
+  massless together; the $N_f = 1$ point is the same SCFT as the $SU(3)$ one. These are the
+  rank-one theories $H_0$, $H_1$, $H_2$. The dimension $\Delta_u$ of the Coulomb-branch
+  operator $u$ follows from the scale-invariant form of the Seiberg–Witten curve, and the
+  relevant coupling paired with $u$ has dimension $2 - \Delta_u$. Because $\Delta_u$ is
+  fractional, the $U(1)_r$ symmetry of the fixed point is not a symmetry of the classical
+  Lagrangian.
+
+  Together with $D_4$ ($SU(2)$ with four flavors) and $E_6$, $E_7$, $E_8$ (the
+  Minahan–Nemeschansky theories), they are the theories on a single D3-brane probing an
+  F-theory singularity with constant dilaton. Their flavor symmetry is trivial, $SU(2)$ and
+  $SU(3)$, and the Higgs branches of $H_1$ and $H_2$ are the one-instanton moduli spaces of the
+  flavor group. Shapere and Tachikawa computed $a$ and $c$ from the Seiberg–Witten geometry
+  through the topological twist, and Aharony and Tachikawa obtained the same values, for any
+  rank, from holography. At rank one their formulas reduce to
+  $a = \tfrac34\Delta_u - \tfrac{13}{24}$, $c = \Delta_u - \tfrac56$ and $k = 2\Delta_u$.
+
+  The rank-one theories are the first members of larger families labelled by the BPS quiver
+  $(A_1, G)$: $H_0 = (A_1, A_2)$, $H_1 = (A_1, A_3) = (A_1, D_3)$, $H_2 = (A_1, D_4)$. The
+  $(A_1, A_{N-1})$ theory arises at the maximal Argyres–Douglas point of pure $SU(N)$, with
+  closed-form $a$ and $c$ (Shapere–Tachikawa), and $(A_1, D_N)$ at the maximal conformal point
+  of $SU(N-1)$ with two flavors. The flavor symmetry of $(A_1, D_N)$ is $SU(2)$ for odd $N$ and
+  $SU(2)\times U(1)$ for even $N$, enhanced to $SU(3)$ at $N = 4$ (Maruyoshi–Song).
+  From a conjectured relation between the Schur index and the BPS spectrum, Córdova and Shao
+  found that the Schur index of $(A_1, A_{2n})$ is the vacuum character of the $(2, 2n+3)$
+  Virasoro minimal model, that of $(A_1, D_{2n+1})$ is the vacuum character of
+  $\widehat{\mathfrak{su}}(2)$ at level $-\tfrac{4n}{2n+1}$, and that of $(A_1, D_4)$ is the
+  vacuum character of $\widehat{\mathfrak{su}}(3)$ at level $-\tfrac32$.
+
+  Maruyoshi and Song found $\mathcal{N}=1$ gauge theories that flow to these SCFTs with
+  supersymmetry enhanced to $\mathcal{N}=2$. One couples an adjoint chiral multiplet $M$ of the
+  flavor symmetry of an $\mathcal{N}=2$ SCFT through $W = \mathrm{Tr}\,M\mu$ and gives $M$ a
+  principal nilpotent expectation value. $SU(2)$ with four flavors then flows to $H_0$, $SU(N)$
+  with $2N$ flavors to $(A_1, A_{2N-1})$, $Sp(N)$ with $2N+2$ flavors to $(A_1, A_{2N})$, and
+  the deformed $H_1$ and $H_2$ flow to $H_0$, in each case up to decoupled free chiral
+  multiplets. These Lagrangians give the full superconformal index.
+
+  The numerical bootstrap of the four-point function of $u$, with $\Delta_u$ and $c$ fixed to
+  the values below, gives narrow two-sided bounds on the OPE coefficient of $u^2$
+  (Gimenez-Grau and Liendo).
+
+family:
+  parameter: G
+  members:
+    - at: 'H_0'
+      label: '$(A_1, A_2)$'
+      note: 'No flavor symmetry; $\Delta_u = \tfrac65$, $a = \tfrac{43}{120}$, $c = \tfrac{11}{30}$. The original $SU(3)$ Argyres–Douglas point, and the $N_f = 1$ point of $SU(2)$.'
+    - at: 'H_1'
+      label: '$(A_1, A_3) = (A_1, D_3)$'
+      note: '$SU(2)$ flavor symmetry, $k = \tfrac83$; $\Delta_u = \tfrac43$, $a = \tfrac{11}{24}$, $c = \tfrac12$. The $N_f = 2$ point of $SU(2)$.'
+    - at: 'H_2'
+      label: '$(A_1, D_4)$'
+      note: '$SU(3)$ flavor symmetry, $k = 3$; $\Delta_u = \tfrac32$, $a = \tfrac{7}{12}$, $c = \tfrac23$. The $N_f = 3$ point of $SU(2)$.'
+
+symmetry:
+  spacetime: '$\mathcal{N}=2$ superconformal, $SU(2,2|2)$'
+  supercharges: 8
+  global: 'Flavor symmetry: none ($H_0$), $SU(2)$ ($H_1$), $SU(3)$ ($H_2$); R-symmetry $SU(2)_R\times U(1)_r$'
+  notes: 'Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$.'
+
+quantities:
+  - symbol: 'a'
+    description: 'Euler conformal anomaly of $H_0$, $H_1$, $H_2$ (a free real scalar has $a = \tfrac{1}{360}$)'
+    value: '\tfrac{43}{120},\ \tfrac{11}{24},\ \tfrac{7}{12}'
+    method: exact (Seiberg–Witten geometry; holography)
+    refs: [shapere2008, aharony2007, beem2014]
+    note: 'Table 2 of Aharony–Tachikawa and Table 1 of Beem et al. (2014). $H_0$ is also eq. (4.32) of Shapere–Tachikawa.'
+  - symbol: 'c'
+    description: 'Weyl conformal anomaly of $H_0$, $H_1$, $H_2$ (a free real scalar has $c = \tfrac{1}{120}$)'
+    value: '\tfrac{11}{30},\ \tfrac{1}{2},\ \tfrac{2}{3}'
+    method: exact (Seiberg–Witten geometry; holography)
+    refs: [shapere2008, aharony2007, beem2014]
+    note: 'Same sources as $a$.'
+  - symbol: 'k'
+    description: 'Flavor central charge of $H_1$ ($SU(2)$) and $H_2$ ($SU(3)$)'
+    value: '\tfrac{8}{3},\ 3'
+    method: exact (holography; saturates a chiral-algebra unitarity bound)
+    refs: [aharony2007, beem2013, beem2014]
+    note: 'The chiral algebra is conjectured to be the affine flavor algebra at level $k_{2d} = -k/2$ (Beem et al. 2014).'
+  - symbol: '\lambda^2_{u^2}'
+    description: 'Squared OPE coefficient of $u^2$ in $u\times u$ (unit-normalized two-point functions) for $H_1$ and $H_2$'
+    value: '[2.216735,\ 2.35462],\ [2.299679,\ 2.69898]'
+    method: conformal bootstrap (rigorous bounds)
+    refs: [gimenezgrau2020]
+    note: 'Lower and upper bounds at derivative order $\Lambda = 50$ (Table 7), with $\Delta_u$ and $c$ fixed to the values above. For $H_0$ see the minimal Argyres–Douglas entry.'
+
+operators:
+  - name: 'u\ (H_0)'
+    Delta: '\frac{6}{5}'
+    spin: 0
+    rep: '$SU(2)_R$ singlet; Coulomb-branch generator'
+    method: exact
+    refs: [argyres1995b, aharony2007]
+  - name: 'u\ (H_1)'
+    Delta: '\frac{4}{3}'
+    spin: 0
+    rep: '$SU(2)_R$ and flavor singlet; Coulomb-branch generator'
+    method: exact
+    refs: [argyres1995b, aharony2007]
+  - name: 'u\ (H_2)'
+    Delta: '\frac{3}{2}'
+    spin: 0
+    rep: '$SU(2)_R$ and flavor singlet; Coulomb-branch generator'
+    method: exact
+    refs: [argyres1995b, aharony2007]
+
+references:
+  - key: argyres1995
+    title: New Phenomena in SU(3) Supersymmetric Gauge Theory
+    authors: Argyres, Douglas
+    year: 1995
+    journal: Nucl. Phys. B448 (1995) 93
+    arxiv: hep-th/9505062
+  - key: argyres1995b
+    title: New N=2 Superconformal Field Theories in Four Dimensions
+    authors: Argyres, Plesser, Seiberg, Witten
+    year: 1996
+    journal: Nucl. Phys. B461 (1996) 71
+    arxiv: hep-th/9511154
+  - key: aharony2007
+    title: A holographic computation of the central charges of d=4, N=2 SCFTs
+    authors: Aharony, Tachikawa
+    year: 2008
+    journal: JHEP 01 (2008) 037
+    arxiv: '0711.4532'
+  - key: shapere2008
+    title: Central charges of N=2 superconformal field theories in four dimensions
+    authors: Shapere, Tachikawa
+    year: 2008
+    journal: JHEP 09 (2008) 109
+    arxiv: '0804.1957'
+  - key: beem2013
+    title: Infinite Chiral Symmetry in Four Dimensions
+    authors: Beem, Lemos, Liendo, Peelaers, Rastelli, van Rees
+    year: 2015
+    journal: Commun. Math. Phys. 336 (2015) 1359
+    arxiv: '1312.5344'
+  - key: beem2014
+    title: The N=2 superconformal bootstrap
+    authors: Beem, Lemos, Liendo, Rastelli, van Rees
+    year: 2016
+    journal: JHEP 03 (2016) 183
+    arxiv: '1412.7541'
+  - key: cordova2015
+    title: Schur Indices, BPS Particles, and Argyres-Douglas Theories
+    authors: Córdova, Shao
+    year: 2016
+    journal: JHEP 01 (2016) 040
+    arxiv: '1506.00265'
+  - key: maruyoshi2016
+    title: N=1 Deformations and RG Flows of N=2 SCFTs
+    authors: Maruyoshi, Song
+    year: 2017
+    journal: JHEP 02 (2017) 075
+    arxiv: '1607.04281'
+  - key: gimenezgrau2020
+    title: Bootstrapping Coulomb and Higgs branch operators
+    authors: Gimenez-Grau, Liendo
+    year: 2021
+    journal: JHEP 01 (2021) 175
+    arxiv: '2006.01847'
+
+contributors: [Canonical111]

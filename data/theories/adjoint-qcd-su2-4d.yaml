@@ -1,0 +1,147 @@
+id: adjoint-qcd-su2-4d
+name: SU(2) gauge theory with two adjoint Dirac fermions
+aliases:
+  - Minimal walking technicolor
+  - '$SU(2)$ adjoint QCD with $N_f = 2$'
+d: 4
+summary: >-
+  $SU(2)$ Yang–Mills theory with two massless Dirac fermions in the adjoint representation.
+  Lattice simulations indicate that it flows to an infrared CFT with a mass anomalous dimension
+  of roughly 0.2–0.4, but the fixed point is strongly coupled and not established analytically.
+tags: [CFT, interacting, unitary, Lagrangian, gauge theory]
+
+description: |
+  The theory is $SU(2)$ gauge theory with $N_f = 2$ massless Dirac fermions in the adjoint
+  (equivalently, four Majorana fermions). For adjoint Dirac fermions asymptotic freedom requires
+  $N_f < 11/4$, and the two-loop beta function has an infrared zero for $N_f > 17/16$, so
+  $N_f = 2$ is the only integer value in that interval (Ryttov and Shrock). That zero is at
+  strong coupling, and whether the theory is conformal in the infrared is decided by lattice
+  simulations. It was proposed for technicolor as "minimal walking technicolor".
+
+  Because the adjoint representation is real, the flavor symmetry acting on the four Majorana
+  fermions is $SU(4)$. If chiral symmetry were broken by a condensate, the pattern would be
+  $SU(4)\to SO(4)$ (Bergner et al.); in the conformal phase it is unbroken.
+
+  ### Status
+  There is no analytic control, and the infrared phase rests on lattice simulations. These are
+  consistent with an infrared fixed point (Ryttov and Shrock's summary of the lattice work). The
+  running coupling in the Schrödinger-functional scheme gives evidence of a fixed point at
+  $1/g_*^2 = 0.20(4)(3)$ (DeGrand, Shamir and Svetitsky) and is consistent with a fixed point in
+  $2.2 \lesssim g_*^2 \lesssim 3$ (Rantaharju et al.). The mesonic spectrum favors infrared
+  conformality over chiral symmetry breaking (Del Debbio et al. 2010), and a large-volume study
+  of finite-size effects supports conformal behavior (Del Debbio et al. 2016). The mass
+  anomalous dimension is small: published lattice values range from about 0.2 to 0.5, and the
+  more precise ones listed below lie between 0.2 and 0.38. Bergner et al. find that $\gamma_*$ from the Dirac mode number depends on the lattice
+  coupling, $0.376(3)$ at $\beta = 1.5$ and $0.274(10)$ at $\beta = 1.7$, and conclude that
+  scaling corrections must be included before quoting the fixed-point value. The
+  scheme-independent expansion to fourth order gives a larger value, $0.556$.
+
+lagrangian: '\mathcal{L} = -\frac{1}{2g^2}\,\mathrm{Tr}\,F_{\mu\nu}F^{\mu\nu} + \sum_{i=1}^{2}\mathrm{Tr}\,\bar\psi_i\, i\gamma^\mu D_\mu\psi_i, \qquad D_\mu\psi = \partial_\mu\psi + i[A_\mu,\psi]'
+
+symmetry:
+  spacetime: conformal (infrared fixed point, from lattice evidence)
+  supercharges: 0
+  global: '$SU(4)$ acting on the four Majorana fermions (it contains $SU(2)_L\times SU(2)_R\times U(1)_V$ of the Dirac description)'
+  gauge: '$SU(2)$'
+
+quantities:
+  - symbol: '\gamma_*'
+    description: 'Mass anomalous dimension at the fixed point, $\Delta_{\bar\psi\psi} = 3 - \gamma_*$'
+    value: '0.371(20)'
+    method: lattice Monte Carlo (Dirac mode number)
+    refs: [patella2012]
+  - symbol: '\gamma_*'
+    description: 'Same, from the scaling of the mode number at two lattice couplings'
+    value: '0.376(3)'
+    method: lattice Monte Carlo (Dirac mode number)
+    refs: [bergner2017]
+    note: 'At $\beta = 1.5$; at $\beta = 1.7$ the same analysis gives $0.274(10)$.'
+  - symbol: '\gamma_*'
+    description: 'Same, at the Schrödinger-functional fixed point'
+    value: '0.31(6)'
+    method: lattice Monte Carlo (Schrödinger functional)
+    refs: [degrand2011]
+  - symbol: '\gamma_*'
+    description: 'Same, at the Schrödinger-functional fixed point (larger couplings)'
+    value: '0.20(3)'
+    method: lattice Monte Carlo (Schrödinger functional)
+    refs: [rantaharju2016]
+    note: 'Quoted as $\gamma^* \simeq 0.2 \pm 0.03$.'
+  - symbol: '\gamma_*'
+    description: 'Same, from the scheme-independent expansion in $\Delta_f = 11/4 - N_f = 3/4$'
+    value: '0.556'
+    method: scheme-independent Banks–Zaks expansion (fourth order)
+    refs: [ryttov2017]
+    note: 'Table III; the lower orders give 0.333, 0.465 and 0.511.'
+
+operators:
+  - name: '\bar\psi\psi'
+    Delta: '2.62\text{–}2.80'
+    spin: 0
+    rep: 'gauge singlet; the fermion mass operator'
+    method: derived (lattice Monte Carlo)
+    refs: [patella2012, bergner2017, degrand2011, rantaharju2016]
+    note: 'Range $3 - \gamma_*$ spanned by the lattice values above, without their scaling corrections.'
+  - name: 'J_\mu'
+    Delta: 3
+    spin: 1
+    rep: '$SU(4)$ adjoint'
+    method: exact
+    note: Conserved flavor currents.
+  - name: 'T_{\mu\nu}'
+    Delta: 4
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: qcd-conformal-window-4d
+    note: 'Another infrared fixed point of an asymptotically free gauge theory with Dirac fermions, here in the adjoint rather than the fundamental representation.'
+
+references:
+  - key: ryttov2017
+    title: 'Higher-Order Scheme-Independent Series Expansions of $\gamma_{\bar\psi\psi,IR}$ and $\beta''_{IR}$ in Conformal Field Theories'
+    authors: Ryttov, Shrock
+    year: 2017
+    journal: Phys. Rev. D 95, 105004
+    arxiv: '1703.08558'
+  - key: degrand2011
+    title: Infrared fixed point in SU(2) gauge theory with adjoint fermions
+    authors: DeGrand, Shamir, Svetitsky
+    year: 2011
+    journal: Phys. Rev. D 83, 074507
+    arxiv: '1102.2843'
+  - key: delDebbio2010
+    title: Mesonic spectroscopy of Minimal Walking Technicolor
+    authors: Del Debbio, Lucini, Patella, Pica, Rago
+    year: 2010
+    journal: Phys. Rev. D 82, 014509
+    arxiv: '1004.3197'
+  - key: patella2012
+    title: A precise determination of the psibar-psi anomalous dimension in conformal gauge theories
+    authors: Patella
+    year: 2012
+    journal: Phys. Rev. D 86, 025006
+    arxiv: '1204.4432'
+  - key: rantaharju2016
+    title: Running coupling in SU(2) gauge theory with two adjoint fermions
+    authors: Rantaharju, Rantalaiho, Rummukainen, Tuominen
+    year: 2016
+    journal: Phys. Rev. D 93, 094509
+    arxiv: '1510.03335'
+  - key: delDebbio2016
+    title: Large volumes and spectroscopy of walking theories
+    authors: Del Debbio, Lucini, Patella, Pica, Rago
+    year: 2016
+    journal: Phys. Rev. D 93, 054505
+    arxiv: '1512.08242'
+  - key: bergner2017
+    title: The spectrum and mass anomalous dimension of SU(2) adjoint QCD with two Dirac flavours
+    authors: Bergner, Giudice, Montvay, Münster, Piemonte
+    year: 2017
+    journal: Phys. Rev. D 96, 034504
+    arxiv: '1610.01576'
+
+contributors: [Canonical111]

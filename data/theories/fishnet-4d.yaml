@@ -1,0 +1,168 @@
+id: fishnet-4d
+name: Fishnet CFT
+aliases:
+  - Conformal fishnet theory
+  - Bi-scalar fishnet theory
+  - 'Strongly $\gamma$-deformed $\mathcal{N}=4$ SYM (double-scaling limit)'
+  - Gürdoğan–Kazakov model
+d: 4
+summary: >-
+  A planar, non-unitary 4d CFT of two complex $N_c\times N_c$ matrix scalars with a single chiral
+  quartic interaction, obtained as a double-scaling limit of $\gamma$-deformed $\mathcal{N}=4$
+  SYM. It is integrable, and it is conformal only at complex values of induced double-trace
+  couplings.
+tags: [CFT, interacting, non-unitary, Lagrangian, integrable, large N, family]
+
+description: |
+  The $\gamma$-deformation of $\mathcal{N}=4$ SYM twists the theory by three angles $\gamma_j$ and
+  breaks all supersymmetry; for $\gamma_1=\gamma_2=\gamma_3$ it reduces to the $\mathcal{N}=1$
+  $\beta$-deformation. Gürdoğan and Kazakov take $g_{\rm YM}\to 0$ together with a large imaginary
+  twist, keeping $\xi^2 = g_{\rm YM}^2N_c\,e^{-i\gamma_3}/(4\pi)^2$ fixed (normalization of Gromov,
+  Kazakov and Korchemsky) and the other two effective couplings zero. The gauge fields and
+  fermions decouple, leaving two complex scalars $\phi_1, \phi_2$ in the adjoint of a global
+  $SU(N_c)$, with the Lagrangian below. The quartic term is complex (it has no
+  Hermitian-conjugate partner), so the theory is not unitary. With all three effective couplings
+  nonzero one gets a larger integrable theory with three scalars and Yukawa-coupled fermions.
+
+  In the planar limit each correlator receives contributions from very few graphs, whose bulk is
+  a regular square lattice (a "fishnet"). Zamolodchikov showed that such graphs define an
+  integrable lattice model, and the theory is described by a noncompact $SU(2,2)$ spin chain
+  and by a limit of the quantum spectral curve of $\mathcal{N}=4$ SYM (Gromov et al.).
+
+  The single-trace Lagrangian is not complete: double-trace couplings are generated and run even
+  in the planar limit, so the original proposal is not conformal (Sieg and Wilhelm). The
+  completed theory has
+  $$\mathcal{L}_{\rm dt} = (4\pi)^2\alpha_1^2\,[\mathrm{tr}(\phi_1^2)\,\mathrm{tr}(\phi_1^{\dagger 2}) + \mathrm{tr}(\phi_2^2)\,\mathrm{tr}(\phi_2^{\dagger 2})] - (4\pi)^2\alpha_2^2\,[\mathrm{tr}(\phi_1\phi_2)\,\mathrm{tr}(\phi_1^\dagger\phi_2^\dagger) + \mathrm{tr}(\phi_1\phi_2^\dagger)\,\mathrm{tr}(\phi_1^\dagger\phi_2)].$$
+  The beta functions of $\alpha_1^2$ and $\alpha_2^2$ vanish only at $\alpha_2^2 = \xi^2$ and at
+  the two complex values $\alpha_{1,\pm}^2$ below (Grabner, Gromov, Kazakov and Korchemsky,
+  checked to seven loops). Each value of $\xi$ therefore gives two planar,
+  non-unitary CFTs, and the family consists of these two lines of fixed points. At them the
+  dimension of $\mathrm{tr}(\phi_1^2)$ is complex. All data are for $N_c\to\infty$; whether the
+  fixed points persist at finite $N_c$ is not established.
+
+lagrangian: '\mathcal{L} = N_c\,\mathrm{tr}\Big[\partial^\mu\phi_1^\dagger\partial_\mu\phi_1 + \partial^\mu\phi_2^\dagger\partial_\mu\phi_2 + (4\pi)^2\xi^2\,\phi_1^\dagger\phi_2^\dagger\phi_1\phi_2\Big] + \mathcal{L}_{\rm dt}'
+
+parameters:
+  - symbol: '\xi'
+    description: 'Effective coupling, $\xi^2 = g_{\rm YM}^2N_c\,e^{-i\gamma_3}/(4\pi)^2$ in the double-scaling limit.'
+    range: '$\xi \geq 0$ (planar limit $N_c\to\infty$)'
+
+family:
+  parameter: xi
+  members:
+    - at: 0
+      label: Free point
+      note: 'Two free complex adjoint scalars (gauge-singlet sector); $\Delta[\mathrm{tr}(\phi_1^2)] = 2$.'
+    - at: '\infty'
+      label: Strong coupling
+      note: 'The exact relation for $\mathrm{tr}(\phi_1^2)$ below gives $\Delta \approx 2 \mp 2i\xi$ as $\xi\to\infty$ (derived).'
+
+symmetry:
+  spacetime: 'conformal (planar limit, at the fixed points)'
+  supercharges: 0
+  global: '$U(1)\times U(1)$ charges $J_1, J_2$ counting $\phi_1$ and $\phi_2$, and the global $SU(N_c)$ (operators are $SU(N_c)$ singlets)'
+  notes: 'Non-unitary: the action is not real.'
+
+quantities:
+  - symbol: '\alpha_{1,\pm}^2'
+    description: 'Fixed-point values of the double-trace coupling of $\mathrm{tr}(\phi_i^2)\,\mathrm{tr}(\phi_i^{\dagger2})$'
+    value: '\pm\frac{i\xi^2}{2} - \frac{\xi^4}{2} \mp \frac{3i\xi^6}{4} + \xi^8 \pm \frac{65i\xi^{10}}{48} - \frac{19\xi^{12}}{10} + O(\xi^{14})'
+    method: perturbation theory (seven loops, planar)
+    refs: [grabner2018]
+    note: 'Eq. (15). The beta function is quadratic in $\alpha_1^2$, so there are exactly two fixed points.'
+  - symbol: '\alpha_2^2'
+    description: 'Fixed-point value of the other double-trace couplings'
+    value: '\xi^2'
+    method: exact (planar limit)
+    refs: [grabner2018, gromov2019]
+    note: 'The planar beta function is $2(\alpha_2^2 - \xi^2)^2$ (eq. 11), so the fixed point is a double zero.'
+
+operators:
+  - name: '\mathrm{tr}(\phi_1\phi_1)'
+    Delta: '2 \mp i\sqrt{2\sqrt{1+4\xi^4}-2}'
+    spin: 0
+    rep: '$J_1 = 2$ (same for $\mathrm{tr}(\phi_2\phi_2)$)'
+    method: derived (exact relation)
+    refs: [grabner2018]
+    note: 'Root of $(\Delta-4)(\Delta-2)^2\Delta = 16\xi^4$ (eq. 6) that tends to 2 at $\xi = 0$; the sign labels the fixed point $\alpha_{1,\pm}^2$. Its expansion reproduces the seven-loop result $\Delta_\pm = 2 \mp 2i\xi^2 \pm i\xi^6 \mp \tfrac{7i}{4}\xi^{10} + O(\xi^{14})$ (eq. 16).'
+  - name: '\text{twist-4 scalar},\ J_1 = 2'
+    Delta: '2 + \sqrt{2 + 2\sqrt{1+4\xi^4}}'
+    spin: 0
+    rep: '$J_1 = 2$'
+    method: derived (exact relation)
+    refs: [grabner2018]
+    note: 'The root of eq. (6) that tends to 4; Grabner et al. give $4 + \xi^4 + O(\xi^8)$. Its shadow has $\Delta = -\xi^4 + O(\xi^8)$.'
+  - name: '\text{twist-2, spin } S,\ J_1 = 2'
+    Delta: 'S + 2 - \frac{2\xi^4}{S(S+1)} + O(\xi^8)'
+    spin: 'S'
+    rep: '$J_1 = 2$; even $S \geq 2$'
+    method: exact (planar limit), weak-coupling expansion
+    refs: [grabner2018]
+    note: 'Exact dimensions solve $(\Delta+S-2)(\Delta+S)(\Delta-S-2)(\Delta-S-4) = 16\xi^4$ (eqs. 28, 30). The twist-4 partners have $\Delta = S + 4 + \frac{2\xi^4}{(S+1)(S+2)} + O(\xi^8)$.'
+  - name: '\mathrm{tr}(\phi_1\phi_2),\ \mathrm{tr}(\phi_1\phi_2^\dagger)'
+    Delta: 2
+    spin: 0
+    rep: '$(J_1, J_2) = (1, 1)$ and $(1, -1)$'
+    method: exact (planar limit)
+    refs: [grabner2018]
+    note: 'Protected at the fixed point $\alpha_2^2 = \xi^2$.'
+  - name: 'T_{\mu\nu}'
+    Delta: 4
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: n4-sym
+    note: 'Double-scaling limit of the $\gamma$-deformation of $\mathcal{N}=4$ SYM: $g_{\rm YM}\to0$ with a large imaginary twist $\gamma_3$, keeping $\xi^2 = g_{\rm YM}^2N_c\,e^{-i\gamma_3}/(4\pi)^2$ fixed.'
+  - type: related_to
+    target: beta-deformed-n4-4d
+    note: 'The $\gamma$-deformation generalizes the $\beta$-deformation to three independent twists and reduces to it when they are equal; the fishnet CFT is its strong-twist limit.'
+
+references:
+  - key: gurdogan2016
+    title: 'New Integrable 4D Quantum Field Theories from Strongly Deformed Planar $\mathcal{N}=4$ Supersymmetric Yang-Mills Theory'
+    authors: Gürdoğan, Kazakov
+    year: 2016
+    journal: Phys. Rev. Lett. 117, 201602
+    arxiv: '1512.06704'
+  - key: sieg2016
+    title: 'On a CFT limit of planar $\gamma_i$-deformed $\mathcal{N}=4$ SYM theory'
+    authors: Sieg, Wilhelm
+    year: 2016
+    journal: Phys. Lett. B 756, 118
+    arxiv: '1602.05817'
+  - key: grabner2018
+    title: 'Strongly $\gamma$-Deformed $\mathcal{N}=4$ Supersymmetric Yang-Mills Theory as an Integrable Conformal Field Theory'
+    authors: Grabner, Gromov, Kazakov, Korchemsky
+    year: 2018
+    journal: Phys. Rev. Lett. 120, 111601
+    arxiv: '1711.04786'
+  - key: gromov2018
+    title: Integrability of Conformal Fishnet Theory
+    authors: Gromov, Kazakov, Korchemsky, Negro, Sizov
+    year: 2018
+    journal: JHEP 01 (2018) 095
+    arxiv: '1706.04167'
+  - key: gromov2019
+    title: Exact Correlation Functions in Conformal Fishnet Theory
+    authors: Gromov, Kazakov, Korchemsky
+    year: 2019
+    journal: JHEP 08 (2019) 123
+    arxiv: '1808.02688'
+  - key: zamolodchikov1980
+    title: '"Fishnet" diagrams as a completely integrable system'
+    authors: Zamolodchikov
+    year: 1980
+    journal: Phys. Lett. B 97, 63
+    doi: 10.1016/0370-2693(80)90547-X
+  - key: fokken2014
+    title: 'Non-conformality of $\gamma_i$-deformed $\mathcal{N}=4$ SYM theory'
+    authors: Fokken, Sieg, Wilhelm
+    year: 2014
+    journal: J. Phys. A 47, 455401
+    arxiv: '1308.4420'
+
+contributors: [Canonical111]
