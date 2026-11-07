@@ -1,0 +1,164 @@
+id: seiberg-en-5d
+name: 'Seiberg $E_n$ theories'
+aliases:
+  - 'Rank-1 5d $\mathcal{N}=1$ SCFTs'
+  - 'Seiberg exceptional theories'
+  - 'UV completions of 5d $SU(2)$ gauge theory with $N_f \le 7$ flavors'
+  - 'Morrison–Seiberg $\tilde E_1$ and $E_0$ theories'
+d: 5
+summary: >-
+  The interacting 5d $\mathcal{N}=1$ SCFTs with a one-dimensional Coulomb branch. For
+  $1\le n\le 8$ the $E_n$ theory has $E_n$ flavor symmetry and flows to $SU(2)$ gauge theory
+  with $N_f=n-1$ flavors; the family also contains $\tilde E_1$ and $E_0$.
+tags: [CFT, SCFT, interacting, unitary, supersymmetric, non-Lagrangian, family]
+
+description: |
+  Five-dimensional $SU(2)$ gauge theory with $N_f$ fundamental hypermultiplets is
+  non-renormalizable, but on its Coulomb branch $\mathbb{R}^+$ the one-loop effective coupling
+  at zero masses is $1/g_{\rm eff}^2 = 1/g^2 + 2(8-N_f)\phi$. For $N_f\le7$ it stays positive as
+  $g\to\infty$, and Seiberg argued, from the D4–D8–O8 system of type I$'$ string theory, that this
+  limit is an interacting SCFT. Its flavor symmetry is $E_{N_f+1}$, enhanced from the
+  $SO(2N_f)\times U(1)_I$ of the gauge theory, where $U(1)_I$ is the instanton-number symmetry:
+  $E_8$, $E_7$, $E_6$, $E_5=Spin(10)$, $E_4=SU(5)$, $E_3=SU(3)\times SU(2)$,
+  $E_2=SU(2)\times U(1)$ and $E_1=SU(2)$. The inverse coupling $1/g^2$, of mass dimension one,
+  is a relevant deformation of the SCFT; it triggers the flow to the gauge theory. The quark
+  masses are further relevant deformations and induce flows $E_n\to E_m$, $m<n$. The Higgs branch
+  is the moduli space of $E_n$ instantons.
+
+  Morrison and Seiberg found two more rank-1 fixed points. $\tilde E_1$ has $U(1)$ flavor
+  symmetry, one relevant parameter and no Higgs branch. $E_0$ has no flavor symmetry and no
+  relevant deformation that preserves super-Poincaré symmetry, so it is not the UV completion of
+  any gauge theory. Pure $SU(2)$ gauge theory has a discrete theta angle,
+  $\theta\in\{0,\pi\}$, from $\pi_4(SU(2))=\mathbb{Z}_2$; $E_1$ completes the theory at
+  $\theta=0$ and $\tilde E_1$ the theory at $\theta=\pi$. For $N_f>0$ the two values of
+  $\theta$ give equivalent theories. In M-theory on a Calabi–Yau threefold these SCFTs appear
+  when a del Pezzo surface shrinks to a point: $E_{N+1}$ for $\mathbb{P}^1\times\mathbb{P}^1$
+  blown up at $N$ points, $\tilde E_1$ for $\mathbb{P}^2$ blown up at one point, and $E_0$ for
+  $\mathbb{P}^2$. Ganor, Morrison and Seiberg obtain the $E_n$ theories from the circle
+  compactification of the 6d E-string theory.
+
+  ### Localization data
+  Chang, Fluder, Lin and Wang computed the $S^5$ partition function of the $E_1,\dots,E_8$ and
+  $\tilde E_1$ theories from the infrared $SU(2)$ gauge theory, assuming that it factorizes into
+  three Nekrasov partition functions, and summed the instanton series to four instantons. They
+  define $F = -\log Z_{S^5}$ and tabulate $-F$, which is positive. In the convention
+  $\tilde F = \log|Z_{S^5}|$ of Klebanov, Pufu and Safdi, $\tilde F = -F$. Their
+  $C_T$ is normalized so that a free real scalar has $C_T = d/(d-1) = 5/4$, a free Dirac fermion
+  $C_T = 10$, and a free hypermultiplet $C_T = 15$. The members table quotes their four-instanton
+  totals (Tables 2 and 3). No error estimates are given; the summed instanton corrections to
+  $-F$ are at most $1.2\times10^{-2}$ in magnitude. Along the flows $E_n\to E_m$ both $-F$ and $C_T$
+  decrease. $E_0$ has no gauge-theory description, and no such data exist for it.
+
+parameters:
+  - symbol: 'E_n'
+    description: 'Label of the theory. For $n\ge1$ it is also the flavor symmetry; the theory at $n = N_f+1$ is the UV completion of $SU(2)$ with $N_f$ flavors.'
+    range: '$E_0, \tilde E_1, E_1, \dots, E_8$'
+
+family:
+  parameter: E_n
+  show: 10
+  members:
+    - at: 'E_8'
+      label: 'Flavor $E_8$; IR $SU(2)$, $N_f=7$'
+      note: '$-F = 28.474$, $C_T = 2274.9$ (localization).'
+    - at: 'E_7'
+      label: 'Flavor $E_7$; IR $SU(2)$, $N_f=6$'
+      note: '$-F = 18.544$, $C_T = 1461.6$ (localization).'
+    - at: 'E_6'
+      label: 'Flavor $E_6$; IR $SU(2)$, $N_f=5$'
+      note: '$-F = 13.907$, $C_T = 1077.8$ (localization).'
+    - at: 'E_5'
+      label: 'Flavor $Spin(10)$; IR $SU(2)$, $N_f=4$'
+      note: '$-F = 11.019$, $C_T = 836.17$ (localization).'
+    - at: 'E_4'
+      label: 'Flavor $SU(5)$; IR $SU(2)$, $N_f=3$'
+      note: '$-F = 8.9706$, $C_T = 662.78$ (localization).'
+    - at: 'E_3'
+      label: 'Flavor $SU(3)\times SU(2)$; IR $SU(2)$, $N_f=2$'
+      note: '$-F = 7.4046$, $C_T = 528.39$ (localization). Two Higgs branches, breaking $SU(3)$ or $SU(2)$ (Morrison and Seiberg).'
+    - at: 'E_2'
+      label: 'Flavor $SU(2)\times U(1)$; IR $SU(2)$, $N_f=1$'
+      note: '$-F = 6.1478$, $C_T = 419.58$ (localization).'
+    - at: 'E_1'
+      label: 'Flavor $SU(2)$; IR pure $SU(2)$, $\theta=0$'
+      note: '$-F = 5.0978$, $C_T = 326.04$ (localization).'
+    - at: '\tilde E_1'
+      label: 'Flavor $U(1)$; IR pure $SU(2)$, $\theta=\pi$'
+      note: '$-F = 5.0855$, $C_T = 334.35$ (localization). No Higgs branch.'
+    - at: 'E_0'
+      label: 'No flavor symmetry; no gauge-theory deformation'
+      note: 'No supersymmetric relevant deformation (Morrison–Seiberg).'
+
+symmetry:
+  spacetime: '5d $\mathcal{N}=1$ superconformal, $F(4)$'
+  supercharges: 8
+  global: 'Flavor $E_n$ for $n\ge1$, $U(1)$ for $\tilde E_1$, none for $E_0$; R-symmetry $SU(2)_R$'
+  notes: 'In the infrared gauge theory only $SO(2N_f)\times U(1)_I$ is manifest; the current of $U(1)_I$ is proportional to $*\,\mathrm{Tr}\,F\wedge F$.'
+
+operators:
+  - name: '\mu^a_{(ij)}'
+    Delta: 3
+    spin: 0
+    rep: 'adjoint of the flavor group; triplet of $SU(2)_R$'
+    method: exact
+    refs: [chang2017]
+    note: 'Moment map: superconformal primary of the flavor current multiplet (absent for $E_0$). Its expectation values parametrize the Higgs branch.'
+  - name: 'N^a'
+    Delta: 4
+    spin: 0
+    rep: 'adjoint of the flavor group; $SU(2)_R$ singlet'
+    method: exact
+    refs: [chang2017]
+    note: 'In the flavor current multiplet. The mass deformations, including $1/g^2$, couple to it.'
+  - name: 'J_\mu^a'
+    Delta: 4
+    spin: 1
+    rep: 'adjoint of the flavor group'
+    method: exact
+    note: Conserved flavor currents.
+  - name: 'T_{\mu\nu}'
+    Delta: 5
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+references:
+  - key: seiberg1996
+    title: Five-dimensional SUSY field theories, non-trivial fixed points and string dynamics
+    authors: Seiberg
+    year: 1996
+    journal: Phys. Lett. B388, 753
+    arxiv: hep-th/9608111
+    doi: 10.1016/S0370-2693(96)01215-4
+  - key: morrison1996
+    title: Extremal transitions and five-dimensional supersymmetric field theories
+    authors: Morrison, Seiberg
+    year: 1997
+    journal: Nucl. Phys. B483, 229
+    arxiv: hep-th/9609070
+    doi: 10.1016/S0550-3213(96)00592-5
+  - key: ganor1996
+    title: Branes, Calabi–Yau spaces, and toroidal compactification of the N=1 six-dimensional E8 theory
+    authors: Ganor, Morrison, Seiberg
+    year: 1997
+    journal: Nucl. Phys. B487, 93
+    arxiv: hep-th/9610251
+    doi: 10.1016/S0550-3213(96)00690-6
+  - key: intriligator1997
+    title: Five-dimensional supersymmetric gauge theories and degenerations of Calabi–Yau spaces
+    authors: Intriligator, Morrison, Seiberg
+    year: 1997
+    journal: Nucl. Phys. B497, 56
+    arxiv: hep-th/9702198
+    doi: 10.1016/S0550-3213(97)00279-4
+  - key: chang2017
+    title: 'Spheres, charges, instantons, and bootstrap: a five-dimensional odyssey'
+    authors: Chang, Fluder, Lin, Wang
+    year: 2018
+    journal: JHEP 03 (2018) 123
+    arxiv: '1710.08418'
+    doi: 10.1007/JHEP03(2018)123
+    note: 'Tables 2 and 3: $-F$ and $C_T$ to four instantons; footnote 7 and Fig. 1: discrete theta angle.'
+
+contributors: [Canonical111]

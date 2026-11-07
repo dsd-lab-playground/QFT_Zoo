@@ -1,0 +1,150 @@
+id: usp-5d
+name: '5d $USp(2N)$ SCFTs with an antisymmetric hypermultiplet'
+aliases:
+  - 'Rank-$N$ Seiberg $E_{N_f+1}$ theories'
+  - 'Brandhuber–Oz theories'
+  - 'D4–D8–O8 SCFTs'
+  - '5d SCFTs dual to massive IIA on AdS$_6$'
+d: 5
+summary: >-
+  The UV fixed points of 5d $USp(2N)$ gauge theory with one antisymmetric and $N_f\le7$
+  fundamental hypermultiplets, on $N$ D4-branes near an O8-plane with $N_f$ D8-branes. Flavor
+  symmetry $E_{N_f+1}\times SU(2)$; at large $N$ they are dual to massive type IIA on a warped
+  AdS$_6$ background.
+tags: [CFT, SCFT, interacting, unitary, supersymmetric, non-Lagrangian, holographic, large N, family]
+
+description: |
+  The rank-$N$ generalization of the Seiberg $E_n$ theories. $N$ D4-branes probe an O8-plane
+  with $N_f$ coincident D8-branes in type I$'$ string theory. At finite coupling their
+  world-volume theory is 5d $\mathcal{N}=1$ $USp(2N)$ gauge theory with $N_f$ fundamental
+  hypermultiplets and one hypermultiplet in the antisymmetric representation. For $N_f\le7$ the
+  infinite-coupling limit is expected to be an interacting SCFT (Intriligator, Morrison and
+  Seiberg). Its flavor symmetry $E_{N_f+1}\times SU(2)$ is enhanced from the
+  $SO(2N_f)\times U(1)_I\times SU(2)$ of the gauge theory, where $U(1)_I$ counts instantons and
+  $SU(2)$ acts on the antisymmetric hypermultiplet. The Higgs branch is expected to be the moduli
+  space of $N$ $E_{N_f+1}$ instantons. At $N_f=0$ there are two fixed points, analogues of $E_1$
+  and $\tilde E_1$, labeled by the discrete theta angle of $USp(2N)$, and an analogue of $E_0$.
+  At $N=1$ the antisymmetric representation of $USp(2)=SU(2)$ is trivial, the antisymmetric
+  hypermultiplet is free and decoupled, and the extra $SU(2)$ acts only on it.
+
+  Brandhuber and Oz found the dual background as the near-horizon limit of the D4–D8 system in
+  massive type IIA supergravity: a warped product of AdS$_6$ with a hemisphere of $S^4$. Its
+  boundary, at the O8-plane, has the form AdS$_6\times S^3$; there the dilaton diverges and the
+  $E_{N_f+1}$ gauge fields live. The $SO(4) = SU(2)\times SU(2)$ isometry is the $SU(2)_R$
+  R-symmetry times the $SU(2)$ flavor symmetry, and the superalgebra is $F(4)$. Supergravity is
+  reliable at large $N$ away from the boundary, and its action scales as $N^{5/2}$.
+
+  Jafferis and Pufu evaluated the $S^5$ partition function of the gauge theory at large $N$ by
+  supersymmetric localization. They argue that instanton contributions are exponentially
+  suppressed there, and they reproduce the $N^{5/2}$ scaling. The free energy agrees with a
+  holographic computation of the entanglement entropy in the dual. Chang, Fluder, Lin and Wang
+  extracted $C_T$ from the squashed-sphere partition function and matched it to Romans $F(4)$
+  gauged supergravity.
+
+parameters:
+  - symbol: 'N'
+    description: 'Rank: gauge group $USp(2N)$, number of D4-branes.'
+    range: '$N \geq 1$'
+  - symbol: 'N_f'
+    description: Number of fundamental hypermultiplets (D8-branes at the O8-plane).
+    range: '$0 \le N_f \le 7$'
+
+family:
+  parameter: N_f
+  members:
+    - at: 7
+      label: 'Flavor $E_8\times SU(2)$'
+    - at: 6
+      label: 'Flavor $E_7\times SU(2)$'
+    - at: 5
+      label: 'Flavor $E_6\times SU(2)$'
+    - at: 4
+      label: 'Flavor $Spin(10)\times SU(2)$'
+    - at: 3
+      label: 'Flavor $SU(5)\times SU(2)$'
+    - at: 2
+      label: 'Flavor $SU(3)\times SU(2)\times SU(2)$'
+    - at: 1
+      label: 'Flavor $SU(2)\times U(1)\times SU(2)$'
+    - at: 0
+      label: 'Flavor $SU(2)\times SU(2)$ or $U(1)\times SU(2)$'
+      note: 'Two fixed points, analogues of $E_1$ and $\tilde E_1$ (theta angle $0$ or $\pi$).'
+
+symmetry:
+  spacetime: '5d $\mathcal{N}=1$ superconformal, $F(4)$'
+  supercharges: 8
+  global: 'Flavor $E_{N_f+1}\times SU(2)$ (the $SU(2)$ acts on the antisymmetric hypermultiplet and is absent at $N=1$); R-symmetry $SU(2)_R$'
+  gauge: '$USp(2N)$ (infrared gauge theory description)'
+
+quantities:
+  - symbol: 'F'
+    description: '$S^5$ free energy, $F = -\log|Z_{S^5}|$ (so $-F > 0$), leading order at large $N$'
+    value: '-\frac{9\sqrt{2}\,\pi N^{5/2}}{5\sqrt{8-N_f}}'
+    method: large-N localization (matrix model)
+    refs: [jafferis2012]
+    note: 'Jafferis–Pufu eq. (3.6); eq. (1.1) at $n=1$ states the correction as $o(N^{5/2})$, and Chang et al. (2018) eq. (3.18) as $O(N^{3/2})$. In the convention $\tilde F = \log|Z_{S^5}|$, $\tilde F = -F$.'
+  - symbol: 'C_T'
+    description: 'Stress-tensor two-point coefficient, leading order at large $N$, normalized so that a free hypermultiplet has $C_T = 15$'
+    value: '\frac{1152\sqrt{2}\,N^{5/2}}{\pi\sqrt{8-N_f}}'
+    method: large-N localization (squashed sphere)
+    refs: [chang2018, chang2017]
+    note: 'Chang et al. (2018) eq. (3.19), with corrections $O(N^{3/2})$. It uses the relation between $C_T$ and the squashed-sphere free energy of Chang et al. (2017), in which a free real scalar has $C_T = 5/4$.'
+
+operators:
+  - name: 'J_\mu'
+    Delta: 4
+    spin: 1
+    rep: 'adjoint of $E_{N_f+1}\times SU(2)$'
+    method: exact
+    note: Conserved flavor currents.
+  - name: 'T_{\mu\nu}'
+    Delta: 5
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: seiberg-en-5d
+    note: 'At $N=1$ the antisymmetric hypermultiplet decouples, and the interacting part is the rank-1 Seiberg theory: $E_{N_f+1}$ for $N_f\ge1$; $E_1$ or $\tilde E_1$ for $N_f=0$.'
+
+references:
+  - key: intriligator1997
+    title: Five-dimensional supersymmetric gauge theories and degenerations of Calabi–Yau spaces
+    authors: Intriligator, Morrison, Seiberg
+    year: 1997
+    journal: Nucl. Phys. B497, 56
+    arxiv: hep-th/9702198
+    doi: 10.1016/S0550-3213(97)00279-4
+  - key: brandhuber1999
+    title: The D4-D8 brane system and five dimensional fixed points
+    authors: Brandhuber, Oz
+    year: 1999
+    journal: Phys. Lett. B460, 307
+    arxiv: hep-th/9905148
+    doi: 10.1016/S0370-2693(99)00763-7
+  - key: jafferis2012
+    title: Exact results for five-dimensional superconformal field theories with gravity duals
+    authors: Jafferis, Pufu
+    year: 2014
+    journal: JHEP 05 (2014) 032
+    arxiv: '1207.4359'
+    doi: 10.1007/JHEP05(2014)032
+  - key: chang2017
+    title: 'Spheres, charges, instantons, and bootstrap: a five-dimensional odyssey'
+    authors: Chang, Fluder, Lin, Wang
+    year: 2018
+    journal: JHEP 03 (2018) 123
+    arxiv: '1710.08418'
+    doi: 10.1007/JHEP03(2018)123
+    note: 'Normalization of $C_T$ (eqs. (1.3), (3.8)–(3.9)); the decoupling of the antisymmetric hypermultiplet at rank one (Sec. 4, Fig. 1).'
+  - key: chang2018
+    title: Romans supergravity from five-dimensional holograms
+    authors: Chang, Fluder, Lin, Wang
+    year: 2018
+    journal: JHEP 05 (2018) 039
+    arxiv: '1712.10313'
+    doi: 10.1007/JHEP05(2018)039
+
+contributors: [Canonical111]

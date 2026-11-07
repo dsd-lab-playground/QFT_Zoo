@@ -1,0 +1,129 @@
+id: conformal-matter-6d
+name: 6d conformal matter
+aliases:
+  - '$(G,G)$ conformal matter'
+  - 'M5-brane probing an ADE singularity'
+d: 6
+summary: >-
+  The 6d $(1,0)$ theory on one M5-brane probing the ADE singularity $\mathbb{C}^2/\Gamma_G$,
+  with $G\times G$ flavor symmetry. It is a free bifundamental hypermultiplet for $G=SU(k)$ and
+  an interacting SCFT for $G$ of type $D$ or $E$.
+tags: [CFT, SCFT, interacting, unitary, supersymmetric, non-Lagrangian, family]
+
+description: |
+  M-theory on $\mathbb{R}\times\mathbb{C}^2/\Gamma_G$, with $\Gamma_G\subset SU(2)$ the finite
+  subgroup of type $G = A, D, E$, carries 7d super Yang–Mills theory with gauge group $G$. An
+  M5-brane at a point of $\mathbb{R}$ is a domain wall of this theory, and the 7d gauge fields on
+  its two sides give the 6d theory on the brane a $G_L\times G_R$ flavor symmetry. Del Zotto,
+  Heckman, Tomasiello and Vafa call it $(G,G)$ conformal matter, since it plays the role of
+  bifundamental matter. For $G=SU(k)$ it is a free hypermultiplet in the bifundamental. For $D$-
+  and $E$-type $G$ it is an interacting 6d $(1,0)$ SCFT. In F-theory it sits where two
+  non-compact seven-branes with gauge algebra $\mathfrak{g}$ collide; resolving the collision
+  gives its tensor branch, on which the M5-brane splits into fractional M5-branes.
+
+  The tensor branches (curves listed by minus their self-intersection) are:
+  $(D_k,D_k)$, one $-1$ curve with $\mathfrak{usp}(2k-8)$ and half-hypermultiplets in the
+  bifundamentals of $\mathfrak{so}(2k)\times\mathfrak{usp}(2k-8)$ on each side;
+  $(E_6,E_6)$, curves $1,3,1$ with $\mathfrak{su}(3)$ on the $-3$ curve;
+  $(E_7,E_7)$, curves $1,2,3,2,1$ with $\mathfrak{su}(2)\oplus\mathfrak{so}(7)\oplus\mathfrak{su}(2)$;
+  $(E_8,E_8)$, curves $1,2,2,3,1,5,1,3,2,2,1$ with
+  $\mathfrak{sp}(1)$, $\mathfrak{g}_2$, $\mathfrak{f}_4$, $\mathfrak{g}_2$, $\mathfrak{sp}(1)$ on the
+  third, fourth, sixth, eighth and ninth curves. The empty curves carry E-strings: rank 1 on an
+  isolated $-1$ curve, rank 2 on the $1,2$ ends of the $(E_8,E_8)$ chain.
+  $N$ M5-branes on the singularity give a generalized quiver with gauge group $G^{N-1}$ on a chain
+  of $-2$ curves, linked by conformal matter.
+
+  ### Anomalies
+  Ohmori, Shimizu, Tachikawa and Yonekura obtain the anomaly polynomial by anomaly matching on
+  the tensor branch:
+  $I_8 = \frac{\alpha}{24}c_2(R)^2 - \frac{\beta}{48}c_2(R)p_1(T) + \gamma\,\frac{7p_1(T)^2-4p_2(T)}{5760} + \left(-\frac{x}{8}c_2(R)+\frac{y}{96}p_1(T)\right)\left(\mathrm{Tr}F_L^2+\mathrm{Tr}F_R^2\right) + \frac{1}{48}\left(\mathrm{tr}_G F_L^4+\mathrm{tr}_G F_R^4\right) - \frac12\left(\frac14\mathrm{Tr}F_L^2-\frac14\mathrm{Tr}F_R^2\right)^2$
+  (their eq. (3.19)), with $\gamma = \dim G + 1$, $x = |\Gamma_G| - h^\vee_G$ and $y = h^\vee_G$.
+  The members table gives their Table 1. The $a$-anomaly, in the normalization with $a = 1$ for
+  a free $(2,0)$ tensor multiplet, is derived here from the formula of Córdova, Dumitrescu and
+  Intriligator, which in the coefficients above reads
+  $a = \tfrac{16}{7}\alpha + \tfrac{8}{7}\beta + \tfrac{11}{210}\gamma$.
+
+parameters:
+  - symbol: 'G'
+    description: 'ADE type of the singularity $\mathbb{C}^2/\Gamma_G$; the flavor symmetry is $G\times G$.'
+    range: '$A_{k-1}$, $D_k$ ($k\ge4$), $E_6$, $E_7$, $E_8$'
+
+family:
+  parameter: G
+  members:
+    - at: 'A_{k-1}'
+      label: 'Free bifundamental hypermultiplet of $SU(k)\times SU(k)$'
+      note: '$\alpha=\beta=x=0$, $\gamma = k^2$, $y = k$.'
+    - at: 'D_k'
+      label: '$\mathfrak{usp}(2k-8)$ on a $-1$ curve'
+      note: '$\alpha = 10k^2-57k+81$, $\beta = 2k^2-3k-9$, $\gamma = k(2k-1)+1$, $x = 2k-6$, $y = 2k-2$; $a = \tfrac{5302k^2-28091k+36731}{210}$ (derived). $k=4$ is the rank-1 E-string.'
+    - at: 'E_6'
+      label: 'Curves $1,3,1$'
+      note: '$\alpha = 319$, $\beta = 89$, $\gamma = 79$, $x = y = 12$; $a = \tfrac{175349}{210} \approx 835.0$ (derived).'
+    - at: 'E_7'
+      label: 'Curves $1,2,3,2,1$'
+      note: '$\alpha = 1670$, $\beta = 250$, $\gamma = 134$, $x = 30$, $y = 18$; $a = \tfrac{431537}{105} \approx 4109.9$ (derived).'
+    - at: 'E_8'
+      label: 'Curves $1,2,2,3,1,5,1,3,2,2,1$'
+      note: '$\alpha = 12489$, $\beta = 831$, $\gamma = 249$, $x = 90$, $y = 30$; $a = \tfrac{2065633}{70} \approx 29509.0$ (derived).'
+
+symmetry:
+  spacetime: '6d $\mathcal{N}=(1,0)$ superconformal'
+  supercharges: 8
+  global: 'Flavor $G_L\times G_R$; R-symmetry $SU(2)_R$'
+
+quantities:
+  - symbol: '(\alpha,\beta,\gamma,x,y)'
+    description: 'Coefficients of the anomaly polynomial in the form of Ohmori et al. eq. (3.19), for $G = E_8$'
+    value: '(12489,\ 831,\ 249,\ 90,\ 30)'
+    method: anomaly matching on the tensor branch
+    refs: [ohmori2014b]
+    note: 'Their Table 1, which also gives the other members listed above. For $G=D_4$, $(\alpha,\beta,\gamma) = (13, 11, 29)$ give the same $c_2(R)$ and gravitational anomalies as the rank-1 E-string without its free hypermultiplet, which Ohmori et al. identify with $(D_4,D_4)$ conformal matter.'
+
+operators:
+  - name: 'J_\mu'
+    Delta: 5
+    spin: 1
+    rep: 'adjoint of $G_L$ or $G_R$'
+    method: exact
+    note: Conserved flavor currents.
+  - name: 'T_{\mu\nu}'
+    Delta: 6
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: e-string-6d
+    note: '$(D_4,D_4)$ conformal matter is the rank-1 E-string. On the tensor branches of the $E$-type members, the empty $-1$ curves between two algebras carry rank-1 E-strings whose $E_8$ contains both (Ohmori et al. 2014, Sec. 3.2.1).'
+  - type: related_to
+    target: nhc-6d
+    note: 'The tensor branches of $(E_6,E_6)$ and $(E_8,E_8)$ conformal matter contain the $-3$ curve with $\mathfrak{su}(3)$ and the $-5$ curve with $\mathfrak{f}_4$ of the minimal 6d SCFTs, joined to the rest through $-1$ curves.'
+
+references:
+  - key: delzotto2014
+    title: 6d conformal matter
+    authors: Del Zotto, Heckman, Tomasiello, Vafa
+    year: 2015
+    journal: JHEP 02 (2015) 054
+    arxiv: '1407.6359'
+    doi: 10.1007/JHEP02(2015)054
+  - key: ohmori2014b
+    title: Anomaly polynomial of general 6d SCFTs
+    authors: Ohmori, Shimizu, Tachikawa, Yonekura
+    year: 2014
+    journal: PTEP 2014, 103B07
+    arxiv: '1408.5572'
+    doi: 10.1093/ptep/ptu140
+    note: 'Sec. 3.2: tensor branches, eq. (3.19) and Table 1.'
+  - key: cordova2015
+    title: Anomalies, renormalization group flows, and the a-theorem in six-dimensional (1,0) theories
+    authors: Córdova, Dumitrescu, Intriligator
+    year: 2016
+    journal: JHEP 10 (2016) 080
+    arxiv: '1506.03807'
+    doi: 10.1007/JHEP10(2016)080
+
+contributors: [Canonical111]
