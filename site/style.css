@@ -22,6 +22,8 @@
   --band-text: #ffffff;
   --band-muted: #cfe5de;
   --flash: #fff3c4;
+  --warn: #8a4600;
+  --warn-soft: #fbe8cf;
   --display: Jost, "Century Gothic", Futura, ui-sans-serif, system-ui, sans-serif;
   --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -42,6 +44,8 @@
     --row-hover: #1f2226;
     --band: #12332b;
     --flash: #4a4220;
+    --warn: #f0b46a;
+    --warn-soft: #3a2a15;
   }
 }
 
@@ -143,16 +147,23 @@ table.catalogue td.sym { min-width: 150px; }
 table.catalogue td.summary { color: var(--muted); min-width: 260px; }
 
 table.data .value { white-space: nowrap; }
-/* Operators grouped by representation: one tbody per sector, headed by its rep. */
-table.data.grouped tbody tr:nth-child(even) { background: none; }
-table.data.grouped tbody tr:nth-child(odd):not(.op-group) { background: var(--row-hover); }
-table.data.grouped tr.op-group th {
+/* Operators: one tbody per operator (its other determinations folded below it), sectors headed by their rep. */
+table.ops .value { white-space: nowrap; }
+table.ops tbody.alt > tr:not(.det) > td { background: var(--row-hover); }
+table.ops tr.op-group th {
   background: var(--accent-soft); color: var(--text); font: 600 0.92rem var(--sans);
   padding: 5px 10px; border-top: 1px solid var(--border);
 }
-table.data.grouped tr.op-group th .katex { font-size: 1.05em; }
-table.data.grouped tbody tr:last-child td { border-bottom: 1px solid var(--border); }
-table.data.grouped tbody:last-child tr:last-child td { border-bottom: 0; }
+table.ops tr.op-group th .katex { font-size: 1.05em; }
+table.ops tbody tr:last-child td { border-bottom: 1px solid var(--border); }
+table.ops tbody:last-child tr:last-child td { border-bottom: 0; }
+table.ops .num { padding-left: 4px; padding-right: 4px; }
+/* A remark on an operator's role ("thermal", "order parameter"), after its name; a representation that says more than
+   the sector heading, at the top of the note. */
+.op-role { color: var(--muted); font-size: 0.88em; }
+.op-role.nowrap { white-space: nowrap; }
+.op-rep { color: var(--muted); font-size: 0.88em; }
+.op-rep:not(:last-child) { margin-bottom: 2px; }
 .op-group-none { color: var(--muted); font-weight: 400; font-style: italic; }
 .sub { color: var(--muted); font-size: 0.88rem; margin-top: 2px; }
 
@@ -160,13 +171,13 @@ table.data.grouped tbody:last-child tr:last-child td { border-bottom: 0; }
 table.qty .value, table.qty .rel { white-space: nowrap; }
 table.qty tbody tr:last-child td { border-bottom: 1px solid var(--border); }
 table.qty tbody:last-child tr:last-child td { border-bottom: 0; }
-table.qty tr.det td { background: var(--row-hover); font-size: 0.86rem; }
-table.qty tr.det td:first-child { border-left: 3px solid var(--accent-soft); }
+table.qty tr.det td, table.ops tr.det td { background: var(--row-hover); font-size: 0.86rem; }
+table.qty tr.det td:first-child, table.ops tr.det td:first-child { border-left: 3px solid var(--accent-soft); }
 table.qty tbody.group th {
   background: var(--accent-soft); color: var(--text); font: 500 0.9rem var(--sans); padding: 4px 10px;
   border-bottom: 1px solid var(--border);
 }
-table.qty .dets { font-size: 0.82rem; white-space: nowrap; }
+table.qty .dets, table.ops .dets { font-size: 0.82rem; white-space: nowrap; }
 .block > p.intro, .block > p.conv { margin: -4px 0 10px; }
 
 .empty { text-align: center; color: var(--muted); padding: 30px 0; }
@@ -182,6 +193,8 @@ table.qty .dets { font-size: 0.82rem; white-space: nowrap; }
 .pill:hover { border-color: var(--accent); color: var(--text); }
 .pill.on { background: var(--accent-soft); border-color: var(--accent); color: var(--text); }
 .badge { background: var(--accent-soft); border-color: transparent; color: var(--text); font-weight: 600; }
+/* A determination that disagrees with the one shown first, beyond twice the combined stated error. */
+.badge.warn { background: var(--warn-soft); color: var(--warn); font-weight: 500; white-space: nowrap; cursor: help; }
 
 /* ----------------------------------------------------------- theory page */
 
