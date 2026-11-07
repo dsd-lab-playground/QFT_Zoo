@@ -1,5 +1,6 @@
 id: cubic-3d
 name: '3d cubic fixed point ($N=3$)'
+short_name: '3d cubic FP'
 aliases:
   - Cubic universality class
   - 'Cubic fixed point of three scalars'

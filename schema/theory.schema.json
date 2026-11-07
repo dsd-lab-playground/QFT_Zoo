@@ -23,6 +23,10 @@
       "type": "string",
       "description": "[markdown] Display name, e.g. '3d Ising CFT' or '$\\mathcal{N}=4$ super Yang–Mills'."
     },
+    "short_name": {
+      "type": "string",
+      "description": "[markdown] Optional short name for RG-flow diagrams and flow lists, e.g. 'QED$_3$ with $N_f$ fermions' for a long descriptive name. Defaults to name."
+    },
     "aliases": {
       "type": "array",
       "items": {

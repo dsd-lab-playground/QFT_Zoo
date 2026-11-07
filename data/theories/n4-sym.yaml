@@ -1,5 +1,6 @@
 id: n4-sym
 name: '$\mathcal{N}=4$ super Yang–Mills'
+short_name: '4d $\mathcal{N}=4$ SYM'
 aliases:
   - N=4 SYM
   - Maximally supersymmetric Yang–Mills in 4d

@@ -1,5 +1,6 @@
 id: qed3-3d
 name: '3d quantum electrodynamics (QED$_3$) with $N_f$ fermion flavors'
+short_name: 'QED$_3$, $N_f$'
 aliases:
   - 'QED$_3$'
   - 'Dirac spin liquid ($N_f = 4$)'

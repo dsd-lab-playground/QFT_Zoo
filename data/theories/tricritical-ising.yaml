@@ -1,5 +1,6 @@
 id: tricritical-ising
 name: Tricritical Ising CFT
+short_name: '2d tricritical Ising'
 aliases: ['$\mathcal{M}(5,4)$', TIM, '$\mathcal{N}=1$ minimal model $m=3$']
 d: 2
 summary: 'The $c = \tfrac{7}{10}$ unitary minimal model, describing tricritical points with $\mathbb{Z}_2$ symmetry; the simplest $\mathcal{N}=1$ superconformal minimal model.'

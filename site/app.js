@@ -656,8 +656,10 @@ function exprPlain(x, top = true) {
   return top ? body : `(${body})`;
 }
 
-const nodeName = (id) => (isExprNode(id) ? exprHtml(FLOW_BY_KEY.get(id.slice(5)).expr) : `<a href="#/theory/${encodeURIComponent(id)}">${md(BY_ID.get(id).name, true)}</a>`);
-const nodePlain = (id) => (isExprNode(id) ? exprPlain(FLOW_BY_KEY.get(id.slice(5)).expr) : plain(BY_ID.get(id).name));
+/** In flow diagrams, lists and previews a theory goes by its short name when it has one. */
+const shortName = (t) => t.short_name ?? t.name;
+const nodeName = (id) => (isExprNode(id) ? exprHtml(FLOW_BY_KEY.get(id.slice(5)).expr) : `<a href="#/theory/${encodeURIComponent(id)}">${md(shortName(BY_ID.get(id)), true)}</a>`);
+const nodePlain = (id) => (isExprNode(id) ? exprPlain(FLOW_BY_KEY.get(id.slice(5)).expr) : plain(shortName(BY_ID.get(id))));
 
 /** Flows grouped into connected networks. */
 function flowClusters(flows) {
@@ -744,12 +746,14 @@ function flowDiagram(cluster, current = null) {
     const t = BY_ID.get(id);
     const fh = t.flow_height;
     const sym = MONOTONE_SYM[t.d];
-    const title = fh && sym
-      ? ` title="${esc(fh.estimated ? `${sym} not recorded; placed by a rough count of UV degrees of freedom` : `${sym} ≈ ${+fh.value.toPrecision(4)}`)}"`
+    // Tooltip: the full name, and the value that set the theory's height.
+    const height = fh && sym
+      ? (fh.estimated ? `${plain(sym)} not recorded: placed by a rough count of UV degrees of freedom` : `${plain(sym)} ≈ ${+fh.value.toPrecision(4)}`)
       : "";
+    const title = ` title="${esc([plain(t.name), height].filter(Boolean).join("\n"))}"`;
     return id === current
-      ? `<span class="flow-node current" data-flow-node="${esc(id)}" aria-current="page"${title}>${md(t.name, true)}</span>`
-      : `<a class="flow-node" data-flow-node="${esc(id)}" href="#/theory/${encodeURIComponent(id)}"${title}>${md(t.name, true)}</a>`;
+      ? `<span class="flow-node current" data-flow-node="${esc(id)}" aria-current="page"${title}>${md(shortName(t), true)}</span>`
+      : `<a class="flow-node" data-flow-node="${esc(id)}" href="#/theory/${encodeURIComponent(id)}"${title}>${md(shortName(t), true)}</a>`;
   };
   const view = `flowview-${++FLOW_VIEWS}`;
   const rows = flowRows(cluster).map(
@@ -787,7 +791,10 @@ function drawFlowArrows() {
     const cx = (id) => (R.get(id).l + R.get(id).r) / 2;
     const edges = JSON.parse(g.dataset.edges);
     const port = (id, end, other) => {
-      const mine = [...new Set(edges.filter((e) => e[end] === id).map((e) => e[1 - end]))].sort((a, b) => cx(a) - cx(b));
+      // Ordered by the other ends' positions; on a tie the farther one goes left, the side a bent arrow takes.
+      const far = (o) => Math.abs(R.get(o).t - R.get(id).t);
+      const mine = [...new Set(edges.filter((e) => e[end] === id).map((e) => e[1 - end]))]
+        .sort((a, b) => cx(a) - cx(b) || far(b) - far(a));
       const r = R.get(id), w = Math.min(r.r - r.l - 16, 22 * (mine.length - 1));
       return mine.length < 2 ? cx(id) : cx(id) - w / 2 + (w * mine.indexOf(other)) / (mine.length - 1);
     };
