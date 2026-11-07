@@ -8,8 +8,6 @@ description: 'Weights $h = \frac{|p^\prime(\lambda+\rho) - p(\mu+\rho)|^2 - \rho
 
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{13}{10}$ — 2d conformal symmetry, with parity'
-  parity: true
-  global_group: []
 
 quantities:
 - key: c
@@ -28,7 +26,6 @@ operators:
   Delta: '19/280'
   spin: 0
   weights: '(\tfrac{19}{560}, \tfrac{19}{560})'
-  parity: even
   note: Lightest non-vacuum Virasoro primary.
 
 references:

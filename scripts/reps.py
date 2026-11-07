@@ -583,7 +583,7 @@ def check_entry_reps(data: dict, rel: str) -> list[str]:
     if len(set(ids)) != len(ids):
         errs.append(f"{rel}: symmetry/global_group: factor ids must be unique")
     if "parity" not in sym:
-        errs.append(f"{rel}: symmetry: a structured entry states `parity` (true, false, conditional or unknown)")
+        errs.append(f"{rel}: symmetry: a structured entry states `parity` (true, false or conditional)")
     has_p = sym.get("parity") in (True, "conditional")
     has_t = sym.get("time_reversal") == "independent"
     if errs:

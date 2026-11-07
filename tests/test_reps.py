@@ -151,11 +151,6 @@ for group, value, needle, kw in [("SU(2)", "spin(j)", "symbols", {}), ("SU(2)", 
         FAILS.append(f"{group} {value!r} was accepted")
     except RepError as exc:
         expect(needle in str(exc), f"{group} {value!r}: message {exc} lacks {needle!r}")
-unk = copy.deepcopy(VALID)
-unk["symmetry"]["parity"] = "unknown"
-for o in unk["operators"]:
-    o.pop("parity")
-expect(not check_entry_reps(unk, "x"), "symmetry.parity unknown (not recorded) with no operator parity")
 
 if FAILS:
     print(f"✗ {len(FAILS)} failure(s):")

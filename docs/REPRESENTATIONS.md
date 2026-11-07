@@ -56,8 +56,7 @@ symmetry:
   in $\mathcal{N}=4$ SYM; operators then state their parity at those values). "Parity" means
   what CONTRIBUTING.md, *Spacetime symmetry*, says: a reflection, possibly combined with an
   internal symmetry. `spacetime` and `euclidean`/`lorentzian` keep saying it in words and
-  groups; this field is the machine-readable form, and the two must agree. `unknown` is for an
-  entry whose `spacetime` says "parity not recorded": operators then give no `parity`.
+  groups; this field is the machine-readable form, and the two must agree.
 - `time_reversal: independent` (new, rare): see 1.3.
 
 **What the factor list does not yet express.** The full internal group is not always a direct

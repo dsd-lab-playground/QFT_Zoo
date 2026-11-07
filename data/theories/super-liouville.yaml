@@ -56,8 +56,6 @@ symmetry:
   spacetime: 'Two $\mathcal{N}=1$ super-Virasoro algebras at $c = \bar c = \tfrac32 + 3Q^2$ — 2d $\mathcal{N}=(1,1)$ superconformal symmetry (2 $Q$ + 2 $S$ supercharges), with parity'
   supercharges: 2
   notes: 'The chiral algebra is the $\mathcal{N}=1$ super-Virasoro algebra, with NS and R sectors. The theory is fermionic: $\psi$ and $T_F$ are local fields. Reflection $\alpha\to Q-\alpha$ is an identification, not a symmetry.'
-  parity: true
-  global_group: []
 
 quantities:
   - key: c
@@ -96,9 +94,7 @@ operators:
     Delta: '\frac{Q^2}{4}+p^2'
     spin: 0
     weights: '(h_\alpha,h_\alpha)'
-    parity: even
-    multiplet: {name: '$V_\alpha$', component: primary, type: NS sector}
-    role: 'continuous spectrum, $\alpha=\frac{Q}{2}+ip$, $p\geq0$'
+    rep: 'NS sector, $\alpha=\frac{Q}{2}+ip$, $p\geq0$'
     method: exact
     refs: [fh2002, fw2007]
     note: 'NS spectrum; reflection relates $p$ and $-p$.'
@@ -106,9 +102,7 @@ operators:
     Delta: '\frac{c}{12}+p^2'
     spin: 0
     weights: '(h_\alpha+\tfrac{1}{16},h_\alpha+\tfrac{1}{16})'
-    parity: unknown
-    multiplet: {name: '$\Theta^{\epsilon\bar\epsilon}_\alpha$', component: primary, type: R sector}
-    role: 'continuous spectrum, $\alpha=\frac{Q}{2}+ip$, $p\geq0$'
+    rep: 'R sector, $\alpha=\frac{Q}{2}+ip$, $p\geq0$'
     method: exact
     refs: [fh2002, fw2007, dly2025]
     note: 'R spectrum. In the fermionic theory the superprimaries form a fermion-parity doublet $\mu e^{\alpha\phi}$, $\sigma e^{\alpha\phi}$ [@dly2025]; a single combination of the four $\epsilon,\bar\epsilon$ [@fw2007] belongs to a projected theory.'

@@ -6,8 +6,6 @@ tags: [CFT, interacting, unitary, rational, coset]
 
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{14}{11}$ — 2d conformal symmetry, with parity'
-  parity: true
-  global_group: []
 
 quantities:
 - key: c
@@ -26,7 +24,6 @@ operators:
   Delta: '3/44'
   spin: 0
   weights: '(\tfrac{3}{88}, \tfrac{3}{88})'
-  parity: even
   note: Lightest non-vacuum Virasoro primary.
 
 relations:

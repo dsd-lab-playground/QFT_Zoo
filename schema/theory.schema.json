@@ -220,10 +220,10 @@
               "type": "boolean"
             },
             {
-              "enum": ["conditional", "unknown"]
+              "const": "conditional"
             }
           ],
-          "description": "Whether the theory has parity (a reflection symmetry, possibly combined with an internal symmetry; see CONTRIBUTING.md, Spacetime symmetry): true, false, conditional (only at special values of the parameters, said in `spacetime`; operators then give their parity at those values), or unknown (`spacetime` says 'parity not recorded'; operators give no parity). Required with `global_group`; then every operator gives `parity` when it is true or conditional."
+          "description": "Whether the theory has parity (a reflection symmetry, possibly combined with an internal symmetry; see CONTRIBUTING.md, Spacetime symmetry): true, false, or conditional (only at special values of the parameters, said in `spacetime`; operators then give their parity at those values). Required with `global_group`; then every operator gives `parity` when it is true or conditional."
         },
         "time_reversal": {
           "const": "independent",

@@ -9,8 +9,6 @@ description: 'The symmetry of TIM$^2$ is the dihedral group $D_4$ of order 8 gen
 
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac75$ — 2d conformal symmetry; parity not recorded'
-  parity: unknown
-  global_group: []
 
 quantities:
 - key: c

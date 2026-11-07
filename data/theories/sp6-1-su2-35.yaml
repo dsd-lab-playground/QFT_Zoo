@@ -6,8 +6,6 @@ tags: [CFT, interacting, unitary, rational, coset]
 
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{252}{185}$ — 2d conformal symmetry, with parity'
-  parity: true
-  global_group: []
 
 quantities:
 - key: c
@@ -26,7 +24,6 @@ operators:
   Delta: '12/185'
   spin: 0
   weights: '(\tfrac{6}{185}, \tfrac{6}{185})'
-  parity: even
   note: 'From a grade-one branch of $\mathbf{6}$; lighter than all grade-zero branches.'
 
 references:
