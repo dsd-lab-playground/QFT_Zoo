@@ -5,7 +5,7 @@ d: 2
 summary: 'Unitary minimal models of the $\mathcal{W}_3$ algebra (diagonal invariant), $c = 2\big(1 - \frac{12}{p(p+1)}\big)$, $p \geq 4$; $p=4$ is the 3-state Potts model.'
 tags: [CFT, interacting, unitary, rational, exactly solvable, coset, minimal model, family]
 
-description: 'Primaries are labelled by pairs of $SU(3)$ weights $(\Lambda_+; \Lambda_-)$, with $h = \frac{|(p+1)(\Lambda_+ + \rho) - p(\Lambda_- + \rho)|^2 - |\rho|^2}{2p(p+1)}$. The lightest are $(\omega_1;\omega_1)$ and its conjugate, with $h = \frac{4}{3p(p+1)}$. The global symmetry is $S_3$: the $\mathbb{Z}_3$ centre and charge conjugation $W \to -W$. Modular invariants are classified by Beltaos and Gannon.'
+description: 'Primaries are labelled by pairs of $SU(3)$ weights $(\Lambda_+; \Lambda_-)$, with $h = \frac{|(p+1)(\Lambda_+ + \rho) - p(\Lambda_- + \rho)|^2 - |\rho|^2}{2p(p+1)}$. The lightest are $(\omega_1;\omega_1)$ and its conjugate, with $h = \frac{4}{3p(p+1)}$. The global symmetry is $S_3$: the $\mathbb{Z}_3$ centre and charge conjugation $W \to -W$. Modular invariants are classified by Beltaos and Gannon [@bg2010].'
 
 parameters:
 - symbol: p

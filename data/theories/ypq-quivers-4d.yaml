@@ -12,8 +12,8 @@ tags: [CFT, SCFT, interacting, unitary, gauge theory, supersymmetric, Lagrangian
 
 description: |
   The $Y^{p,q}$ ($0 < q < p$) are explicit Sasaki–Einstein five-manifolds, of topology $S^2\times S^3$
-  for coprime $p$, $q$, found by Gauntlett, Martelli, Sparks and Waldram; their Calabi–Yau cones are
-  toric. Benvenuti, Franco, Hanany, Martelli and Sparks (BFHMS) constructed the dual gauge theories:
+  for coprime $p$, $q$, found by Gauntlett, Martelli, Sparks and Waldram [@gmsw2004]; their Calabi–Yau cones are
+  toric. Benvenuti, Franco, Hanany, Martelli and Sparks (BFHMS) [@bfhms2005] constructed the dual gauge theories:
   $2p$ gauge groups $SU(N)$ and
   $4p+2q$ bifundamental chiral multiplets, namely $p$ $SU(2)$ doublets $U$, $q$ doublets $V$, $p-q$
   singlets $Z$ and $p+q$ singlets $Y$. The superpotential has $2q$ cubic and $p-q$ quartic terms,
@@ -27,7 +27,7 @@ description: |
   supersymmetric 3-cycles, and $a = \pi^3N^2/(4\,\mathrm{Vol}(Y^{p,q}))$ reproduces the volume
   $$\mathrm{Vol}(Y^{p,q}) = \frac{q^2\big[2p + \sqrt{4p^2-3q^2}\big]}{3p^2\big[3q^2 - 2p^2 + p\sqrt{4p^2-3q^2}\big]}\,\pi^3 .$$
   At leading order $\mathrm{Tr}\,R = 0$, so $a = c$. The volume lies between those of
-  $T^{1,1}/\mathbb{Z}_p$ and $S^5/(\mathbb{Z}_2\times\mathbb{Z}_p)$, which BFHMS take as the definitions of
+  $T^{1,1}/\mathbb{Z}_p$ and $S^5/(\mathbb{Z}_2\times\mathbb{Z}_p)$, which BFHMS [@bfhms2005] take as the definitions of
   $Y^{p,0}$ and $Y^{p,p}$.
 
 parameters:
@@ -52,7 +52,7 @@ family:
       note: 'Four nodes; the formula gives $a = (13\sqrt{13} - 46)N^2 \approx 0.872\,N^2$.'
     - at: '(3,2)'
       label: '$Y^{3,2}$'
-      note: 'Six nodes; $R_Z = \tfrac13(4\sqrt6 - 9)$, $R_Y = \tfrac23\sqrt6 - 1$, $a = \tfrac{27}{16}(4\sqrt6 - 9)N^2$ (BFHMS section 4.1).'
+      note: 'Six nodes; $R_Z = \tfrac13(4\sqrt6 - 9)$, $R_Y = \tfrac23\sqrt6 - 1$, $a = \tfrac{27}{16}(4\sqrt6 - 9)N^2$ [@bfhms2005, Sec. 4.1].'
 
 symmetry:
   spacetime: '$\mathcal{N}=1$ superconformal'
@@ -66,19 +66,19 @@ quantities:
     value: '\frac{3p^2\big[3q^2 - 2p^2 + p\sqrt{4p^2-3q^2}\big]}{4q^2\big[2p + \sqrt{4p^2-3q^2}\big]}\,N^2'
     method: a-maximization
     refs: [bfhms2005]
-    note: 'Eq. (4.13) of BFHMS, $a = \pi^3/(4\,\mathrm{Vol}(Y^{p,q}))$ per $N^2$, with the volume (2.5) substituted (derived). BFHMS suppress factors of $N$.'
+    note: '[@bfhms2005, Eq. (4.13)], $a = \pi^3/(4\,\mathrm{Vol}(Y^{p,q}))$ per $N^2$, with the volume of [@bfhms2005, Eq. (2.5)] substituted (derived). BFHMS suppress factors of $N$.'
   - symbol: 'R_Y'
     description: '$R$-charge of the $p+q$ singlets $Y$'
     value: '\frac{1}{3q^2}\Big[-4p^2 + 2pq + 3q^2 + (2p-q)\sqrt{4p^2-3q^2}\Big]'
     method: a-maximization
     refs: [bfhms2005]
-    note: 'Eq. (4.12); equal to the geometric baryon charge $R[B_1]$ of eq. (2.8).'
+    note: '[@bfhms2005, Eq. (4.12)]; equal to the geometric baryon charge $R[B_1]$ of [@bfhms2005, Eq. (2.8)].'
   - symbol: 'R_Z'
     description: '$R$-charge of the $p-q$ singlets $Z$'
     value: '\frac{1}{3q^2}\Big[-4p^2 - 2pq + 3q^2 + (2p+q)\sqrt{4p^2-3q^2}\Big]'
     method: a-maximization
     refs: [bfhms2005]
-    note: 'Eq. (4.12); equal to $R[B_2]$ of eq. (2.8). The doublets have $R_U = 1 - \tfrac12(R_Y+R_Z)$ and $R_V = 1 + \tfrac12(R_Z-R_Y)$.'
+    note: '[@bfhms2005, Eq. (4.12)]; equal to $R[B_2]$ of [@bfhms2005, Eq. (2.8)]. The doublets have $R_U = 1 - \tfrac12(R_Y+R_Z)$ and $R_V = 1 + \tfrac12(R_Z-R_Y)$.'
 
 operators:
   - name: 'J_\mu^{SU(2)},\ J_\mu^{F},\ J_\mu^{B},\ J_\mu^{R}'

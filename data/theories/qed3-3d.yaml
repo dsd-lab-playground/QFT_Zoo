@@ -13,7 +13,7 @@ tags: [CFT, interacting, unitary, Lagrangian, gauge theory, large N, critical ph
 
 description: |
   **Counting.** $N_f$ counts two-component complex (Dirac) fermions. Many papers count
-  four-component fermions $N_f^{(4)} = N_f/2$ (Giombi–Tarnopolsky–Klebanov also use
+  four-component fermions $N_f^{(4)} = N_f/2$ (Giombi–Tarnopolsky–Klebanov [@giombi2016] also use
   $N = 4N_f^{(4)} = 2N_f$); values from them are converted below. $N_f$ is even, so that
   parity and time reversal are preserved without a Chern–Simons term (odd $N_f$ has a
   parity anomaly).
@@ -31,24 +31,24 @@ description: |
   stable on the triangular and kagome lattices than on bipartite ones; monopoles allowed
   by the lattice symmetries can drive confinement. $N_f = 2$ is conjectured to be
   self-dual, with $(SU(2)\times U(1)_{\rm top})/\mathbb{Z}_2$ enhanced to $O(4)$, and dual to
-  the easy-plane NCCP$^1$ model (Wang et al.).
+  the easy-plane NCCP$^1$ model [@wang2017].
 
   ### Status at small $N_f$
   Below some $N_f^*$ the IR phase may instead break $SU(N_f) \to SU(N_f/2)\times SU(N_f/2)\times U(1)$,
   and the estimates of $N_f^*$ disagree. Lattice simulations with parity-invariant
-  regularizations (Karthik–Narayanan) find no bilinear condensate for $N_f = 2, 4, 6, 8$ and scale-invariant
+  regularizations [@karthik2016a; @karthik2016b] find no bilinear condensate for $N_f = 2, 4, 6, 8$ and scale-invariant
   behavior at $N_f = 2$, with mass anomalous dimension $\gamma_m = 1.0(2)$ from Dirac
   eigenvalues and $0.8(1)$ from the scalar correlator (so $\Delta = 2-\gamma_m$ for the
   flavor-nonsinglet bilinear); earlier lattice work had found symmetry breaking at small
-  $N_f$. A one-loop $4-2\epsilon$ extrapolation (Di Pietro et al.) finds a singlet
+  $N_f$. A one-loop $4-2\epsilon$ extrapolation [@dipietro2016] finds a singlet
   four-fermion operator relevant at $N_f = 2, 4$ in our counting. Conformal bootstrap kinks
   in $SU(N_f)$-adjoint bounds track the large-$N_f$ spectrum and disappear at small $N_f$,
-  suggesting $N_f^* \in (2,4)$ (Li), and imposing irrelevance assumptions excludes the
-  $N_f = 2$ lattice data, indicating that $N_f = 2$ is not conformal (Li). At $N_f = 4$ the
-  bootstrap gives a closed island compatible with $1/N_f$ (Albayrak et al.), but only under
+  suggesting $N_f^* \in (2,4)$ [@li2022a], and imposing irrelevance assumptions excludes the
+  $N_f = 2$ lattice data, indicating that $N_f = 2$ is not conformal [@li2022b]. At $N_f = 4$ the
+  bootstrap gives a closed island compatible with $1/N_f$ [@albayrak2022], but only under
   gap assumptions taken from the $1/N_f$ spectrum; stability of the Dirac spin liquid on
   the triangular and kagome lattices requires $\Delta_{M_{1/2}} > 1.046$ and $1.105$
-  (He–Rong–Su). The $N_f = 2$ and $N_f = 4$ members should therefore be read as
+  [@he2022]. The $N_f = 2$ and $N_f = 4$ members should therefore be read as
   conjectural CFTs.
 
 lagrangian: '\mathcal{L} = \sum_{i=1}^{N_f} \bar\psi_i\,\gamma^\mu(\partial_\mu - i a_\mu)\psi_i + \frac{1}{4e^2} f_{\mu\nu}f^{\mu\nu}, \quad f = da \quad (\text{two-component } \psi_i;\ e^2 \to \infty \text{ in the IR})'
@@ -68,7 +68,7 @@ family:
       label: '$U(1)$ Dirac spin liquid'
       note: 'Presumed conformal; bootstrap island exists only under large-$N_f$-inspired gap assumptions.'
     - at: 12
-      note: 'Lattice estimate $\Delta_{M_{1/2}} = 3.24(24)$ (Karthik–Narayanan): the minimal monopole is close to marginal here.'
+      note: 'Lattice estimate $\Delta_{M_{1/2}} = 3.24(24)$ [@karthik2019]: the minimal monopole is close to marginal here.'
     - at: '\infty'
       note: 'Strict large-$N_f$ limit, where the $1/N_f$ expansion is controlled.'
 
@@ -85,7 +85,7 @@ quantities:
     value: 'N_f\Big(\frac{\log 2}{4} + \frac{3\zeta(3)}{8\pi^2}\Big) + \frac12\log\frac{\pi N_f}{8} + O(1/N_f)'
     method: large-N_f expansion
     refs: [klebanov2012]
-    note: 'The first term is $N_f$ free two-component Dirac fermions. Eq. (1.4) of the reference at $N_b = k = 0$.'
+    note: 'The first term is $N_f$ free two-component Dirac fermions. [@klebanov2012, Eq. (1.4)] at $N_b = k = 0$.'
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N_f$ free two-component Dirac fermions (no photon)'
     value: '1 + \frac{1}{N_f}\Big(\frac{2096}{45\pi^2} - 4\Big) + O(N_f^{-2})'
@@ -103,7 +103,7 @@ quantities:
     value: '\frac{64}{\pi^2 N_f}\Big[1 + \frac{1}{N_f}\Big(4 - \frac{368}{9\pi^2}\Big)\Big] + O(N_f^{-3})'
     method: derived (large-N_f expansion)
     refs: [giombi2016, chester2016a]
-    note: 'Eq. (1.11) of Giombi et al. with $N = 2N_f$, times $8\pi^2$. Numerically $6.4846/N_f - 0.9267/N_f^2$.'
+    note: '[@giombi2016, Eq. (1.11)] with $N = 2N_f$, times $8\pi^2$. Numerically $6.4846/N_f - 0.9267/N_f^2$.'
 
 operators:
   - name: 'M_{1/2}'
@@ -112,7 +112,7 @@ operators:
     rep: 'unit topological charge; $SU(N_f)$ rank-$N_f/2$ antisymmetric tensor'
     method: large-N_f expansion
     refs: [pufu2013, dyer2013, borokhov2002, karthik2019]
-    note: 'Minimal monopole; the $O(N_f)$ term is from Borokhov–Kapustin–Wu. Lattice (noncompact QED, Karthik–Narayanan): $3.24(24)$ at $N_f = 12$, and $\Delta/N_f$ larger at $N_f = 2, 4$ than at $12$, opposite to the sign of the $O(N_f^0)$ term.'
+    note: 'Minimal monopole; the $O(N_f)$ term is from Borokhov–Kapustin–Wu [@borokhov2002]. Lattice (noncompact QED [@karthik2019]): $3.24(24)$ at $N_f = 12$, and $\Delta/N_f$ larger at $N_f = 2, 4$ than at $12$, opposite to the sign of the $O(N_f^0)$ term.'
   - name: 'M_{1}'
     Delta: '0.673\,N_f - 0.194 + O(1/N_f)'
     spin: 0
