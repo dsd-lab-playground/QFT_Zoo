@@ -74,6 +74,19 @@ relations:
   - type: member_of
     target: on-model-3d
     at: 1
+  - type: flows_to
+    target: trivial-tqft-3d
+    note: >-
+      Thermal deformation $S=S_{\rm Ising}+t\int d^3x\,\epsilon$ with $t>0$
+      the disordered side, $\epsilon$ normalized so that
+      $\lambda_{\sigma\sigma\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$.
+      The global $\mathbb Z_2$ remains unbroken, acting trivially in the infrared,
+      with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary
+      Ising normalization. No stacked invertible sector is included.
+      [Caselle et al.](https://arxiv.org/abs/1605.05133), Eqs. (1), (4), the value of
+      $C^{\epsilon}_{\sigma\sigma}$ after Eq. (5) and the Monte Carlo convention
+      $t_{\rm lat}=\beta_c-\beta>0$ at high temperature;
+      [Bhardwaj et al.](https://arxiv.org/abs/2408.05266), Sec. 4.1.1, Eqs. (4.8)-(4.10).
 
 references:
   - key: chang2024
@@ -91,5 +104,21 @@ references:
     authors: Simmons-Duffin
     year: 2016
     arxiv: '1612.08471'
+  - key: caselle2016thermal
+    title: Conformal perturbation of off-critical correlators in the 3D Ising universality class
+    authors: Caselle, Costagliola, Magnoli
+    year: 2016
+    arxiv: '1605.05133'
+    doi: '10.1103/PhysRevD.94.026005'
+    journal: 'Phys. Rev. D 94, 026005'
+    note: 'Eqs. (1), (4), p. 2, and the Monte Carlo section, p. 3, fix the thermal-coupling sign convention.'
+  - key: bhardwaj2024phases
+    title: 'Gapped Phases in (2+1)d with Non-Invertible Symmetries: Part I'
+    authors: Bhardwaj, Pajer, Schafer-Nameki, Tiwari, Warman, Wu
+    year: 2025
+    arxiv: '2408.05266'
+    doi: '10.21468/SciPostPhys.19.2.056'
+    journal: 'SciPost Physics 19, 056'
+    note: 'Section 4.1.1, Eqs. (4.5)-(4.13), arXiv v2 pp. 27-29, distinguishes SSB, trivial and SPT phases.'
 
-contributors: [nathansbenjamin]
+contributors: [nathansbenjamin, davidsd]
