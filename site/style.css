@@ -341,7 +341,7 @@ table.spectrum td:last-child { white-space: normal; min-width: 14rem; }
 /* ------------------------------------------------------------- RG flows */
 
 .flow-graph {
-  position: relative; display: flex; flex-direction: column; gap: 36px; margin-bottom: 14px; padding: 18px 34px;
+  position: relative; display: flex; flex-direction: column; gap: 52px; margin-bottom: 14px; padding: 18px 34px;
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
 }
 .flow-graph::before, .flow-graph::after { position: absolute; left: 10px; font-size: 0.75rem; color: var(--muted); }
@@ -381,6 +381,8 @@ a.flow-node:hover, a.flow-node:focus-visible { background: var(--accent-soft); t
 .flow-edge[aria-expanded="true"] { background: var(--accent); color: var(--accent-text); }
 .flow-edge-i { font-style: italic; font-family: Georgia, serif; }
 .flow-edge-sign { margin-left: 0.35em; font-size: 0.9em; }
+/* On phones the arrow shows only the operator; the sign is in the preview and the panel. */
+@media (max-width: 640px) { .flow-edge-sign { display: none; } }
 .flow-tip {
   position: absolute; z-index: 3; max-width: 340px; padding: 6px 10px; font-size: 0.85rem; pointer-events: none;
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);

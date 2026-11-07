@@ -781,7 +781,7 @@ function drawFlowArrows() {
       const [x2, y2] = [b.left + b.width / 2 - box.left, b.top - box.top - 2];
       const len = Math.hypot(x2 - x1, y2 - y1) || 1;
       // Control point offset sideways so that the curve's middle is `off` from the straight line.
-      const off = (lane - (n - 1) / 2) * 64;
+      const off = (lane - (n - 1) / 2) * 56;
       const [cx, cy] = [(x1 + x2) / 2 - (2 * off * (y2 - y1)) / len, (y1 + y2) / 2 + (2 * off * (x2 - x1)) / len];
       const tl = Math.hypot(x2 - cx, y2 - cy) || 1;
       const [ux, uy] = [(x2 - cx) / tl, (y2 - cy) / tl];
@@ -791,20 +791,21 @@ function drawFlowArrows() {
       svgEl("path", { d, class: `flow-line${on}`, "data-flow-line": key }, svg);
       svgEl("polygon", { points: `${x2},${y2} ${bx - 4 * uy},${by + 4 * ux} ${bx + 4 * uy},${by - 4 * ux}`, class: `flow-head${on}`, "data-flow-line": key }, svg);
       svgEl("path", { d, class: "flow-hit", "data-flow-open": key }, svg);
-      // The button sits on the curve, at the first point near its middle that is clear of nodes and other buttons.
+      // The button sits on the curve: at the point nearest its middle that is clear of nodes and
+      // other buttons, or else where it covers the least (covering a node counts three times).
       const btn = g.querySelector(`.flow-edge[data-flow-open="${CSS.escape(key)}"]`);
       if (!btn) continue;
       const [w, h] = [btn.offsetWidth, btn.offsetHeight];
       const at = (s) => [(1 - s) ** 2 * x1 + 2 * (1 - s) * s * cx + s * s * bx, (1 - s) ** 2 * y1 + 2 * (1 - s) * s * cy + s * s * by];
+      const area = (a, b) => Math.max(0, Math.min(a.r, b.r) - Math.max(a.l, b.l)) * Math.max(0, Math.min(a.b, b.b) - Math.max(a.t, b.t));
       let best = null;
-      for (const s of [0.5, 0.42, 0.58, 0.34, 0.66, 0.26, 0.74, 0.2, 0.8]) {
+      for (let k = 0; k <= 20; k++) {
+        const s = 0.5 + (k % 2 ? 1 : -1) * Math.ceil(k / 2) * 0.04;
         const [px, py] = at(s);
         const r = { l: px - w / 2 - 3, t: py - h / 2 - 3, r: px + w / 2 + 3, b: py + h / 2 + 3 };
-        best ??= r;
-        if (!nodes.some((x) => hit(x, r)) && !placed.some((x) => hit(x, r))) {
-          best = r;
-          break;
-        }
+        r.cost = 3 * nodes.reduce((c, x) => c + area(x, r), 0) + placed.reduce((c, x) => c + area(x, r), 0);
+        if (!best || r.cost < best.cost) best = r;
+        if (!r.cost) break;
       }
       placed.push(best);
       btn.style.left = `${best.l + 3}px`;
