@@ -1,0 +1,91 @@
+id: free-form-d8plus
+name: Free $(d/2-1)$-form gauge field ($d = 8, 10$)
+aliases:
+  - Free 3-form gauge field (8d)
+  - Free 4-form gauge field (10d)
+  - Free middle-dimensional form field
+d: 8
+summary: >-
+  The free gauge field whose field strength has rank $d/2$: a 3-form potential in $d=8$ and a
+  4-form potential in $d=10$ (optionally with self-dual field strength). Filed under $d=8$. It is
+  the even-$d$ analogue of Maxwell theory in 4d and of the self-dual 2-form in 6d.
+tags: [CFT, free, unitary, Lagrangian, exactly solvable, gauge theory, family]
+
+description: |
+  In $d = 2n$ the standard free kinetic term of an $(n-1)$-form potential $A$ is conformally
+  invariant (Buchel et al.). The gauge-invariant local operator is the field strength
+  $F = dA$, an $n$-form of dimension $\Delta = n = d/2$. Maxwell theory is the case $n = 2$; in
+  $d \ne 4$ the free Maxwell field is scale but not conformally invariant (El-Showk, Nakayama
+  and Rychkov), which is why only the middle-dimensional form appears here.
+
+  For odd $n$ one may impose that $F$ be (anti-)self-dual, which halves the number of degrees of
+  freedom and $C_T$ (Buchel et al.). In this range that happens in $d = 10$ (a chiral 4-form, as
+  in type IIB supergravity); the 6d case is the separate self-dual tensor page.
+
+parameters:
+  - symbol: 'd'
+    description: 'Spacetime dimension $d = 2n$; the potential is an $(n-1)$-form.'
+    range: '$d = 8, 10$'
+
+family:
+  parameter: d
+  members:
+    - at: 8
+      label: '3-form potential'
+      note: '$\Delta_F = 4$; $\tilde n_t = 20$; $C_T = \frac{5760}{\pi^8}$ (560 times the free scalar).'
+    - at: 10
+      label: '4-form potential'
+      note: '$\Delta_F = 5$; $\tilde n_t = 70$; $C_T = \frac{504000}{\pi^{10}}$ (3150 times the free scalar). With self-dual $F$: $\tilde n_t = 35$, $C_T = \frac{252000}{\pi^{10}}$.'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  gauge: '$U(1)$ $(n-1)$-form gauge symmetry $A \to A + d\lambda$'
+
+quantities:
+  - symbol: 'C_T'
+    description: 'Stress-tensor two-point coefficient in the absolute Osborn–Petkou normalization, with $S_d = 2\pi^{d/2}/\Gamma(d/2)$ and $\tilde n_t$ the number of degrees of freedom'
+    value: '\frac{d^2}{2}\,\frac{\tilde n_t}{S_d^2},\quad \tilde n_t = \frac{\Gamma(2n-1)}{\Gamma(n)^2}\ (d = 2n)'
+    method: exact
+    refs: [buchel2010]
+    note: 'Tensor term of Buchel et al. eq. (7.6), with $\tilde n_t$ from the text after their eq. (3.39). At $d = 4$ it gives $\tilde n_t = 2$ and $C_T = 4/\pi^4$, the free Maxwell value. The member values are this formula at each $d$ (derived).'
+
+operators:
+  - name: 'F_{\mu_1\cdots\mu_n}'
+    Delta: '\frac{d}{2}'
+    spin: '(d/2)\text{-form}'
+    rep: gauge invariant
+    method: exact
+    refs: [buchel2010]
+    note: 'Field strength $F = dA$; conserved, with $dF = 0$ and $d{\star}F = 0$.'
+  - name: 'T_{\mu\nu}'
+    Delta: 'd'
+    spin: 2
+    rep: gauge invariant
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: free-maxwell-4d
+    note: 'The same construction in $d = 4$ ($n = 2$).'
+  - type: related_to
+    target: free-self-dual-tensor-6d
+    note: 'The same construction in $d = 6$ ($n = 3$), with self-dual field strength.'
+
+references:
+  - key: buchel2010
+    title: Holographic GB gravity in arbitrary dimensions
+    authors: Buchel, Escobedo, Myers, Paulos, Sinha, Smolkin
+    year: 2010
+    arxiv: '0911.4257'
+    note: 'Text after eq. (3.39): conformal invariance of the $(n-1)$-form in $d = 2n$, $\tilde n_t = \Gamma(2n-1)/\Gamma(n)^2$, halved for self-dual field strength when $n$ is odd; eq. (7.6): $C_T$.'
+  - key: elshowk2011
+    title: What Maxwell theory in $d \neq 4$ teaches us about scale and conformal invariance
+    authors: El-Showk, Nakayama, Rychkov
+    year: 2011
+    journal: Nucl. Phys. B 848, 578
+    arxiv: '1101.5385'
+    doi: 10.1016/j.nuclphysb.2011.03.008
+
+contributors: [Canonical111]

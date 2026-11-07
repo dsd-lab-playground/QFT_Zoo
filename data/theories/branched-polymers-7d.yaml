@@ -1,0 +1,112 @@
+id: branched-polymers-7d
+name: Branched polymers (7d)
+aliases:
+  - Lattice animals in 7d
+  - Branched-polymer critical point (7d)
+d: 7
+summary: >-
+  The critical point of randomly branched polymers (lattice animals) in seven dimensions: an
+  interacting, non-unitary fixed point above six dimensions, described by a Parisi–Sourlas
+  supersymmetric theory that reduces to the 5d Lee–Yang CFT.
+tags: [CFT, interacting, non-unitary, critical phenomena]
+
+description: |
+  A branched polymer is a connected cluster (a "lattice animal", or a tree) on a lattice. The
+  number of $N$-site animals grows as $P(N) \sim N^{-\theta}\lambda^N$ and their size as
+  $R \sim N^\nu$. Their field theory is a cubic theory in a replica limit; Parisi and Sourlas
+  interpreted it as a random-field model with cubic potential and showed that its supersymmetry relates branched polymers in $d$ dimensions to the Lee–Yang edge
+  singularity in $d-2$ dimensions. The upper critical dimension is therefore 8 (Kaviraj,
+  Rychkov and Trevisani), so the fixed point is interacting in $d = 7$, the only integer
+  dimension above six where it is.
+
+  Brydges and Imbrie proved the dimensional reduction exactly for a continuum model of
+  branched polymers with manifest supersymmetry, mapping it to the hard-core gas at negative
+  activity in $d-2$ dimensions, a microscopic realization of the Lee–Yang class. Kaviraj,
+  Rychkov and Trevisani showed in general how a $d$-dimensional Parisi–Sourlas supersymmetric
+  CFT reduces to an ordinary CFT in $d-2$ dimensions. The predicted relations are
+  $\theta(d) = \sigma_{\rm LY}(d-2) + 2$ and $\theta = (d-2)\nu + 1$. Monte Carlo simulations of
+  lattice animals confirm them below the upper critical dimension. At $d = 8$ the exponents take
+  the values $\theta = 5/2$, $\nu = 1/4$ with logarithmic corrections, and above $d = 8$ they stay
+  at these mean-field values, where the second relation no longer holds (Hsu, Nadler and
+  Grassberger, Table I).
+
+symmetry:
+  spacetime: 'conformal (Parisi–Sourlas superconformal symmetry of the supersymmetric description)'
+  supercharges: 0
+  notes: 'The Parisi–Sourlas supersymmetry acts on a superspace with two Grassmann coordinates; it is not a Poincaré supersymmetry.'
+
+quantities:
+  - symbol: '\theta'
+    description: 'Animal-number exponent, $P(N) \sim N^{-\theta}\lambda^N$'
+    value: '2.40(2)'
+    method: Monte Carlo (site animals, unrestricted fit)
+    refs: [hsu2005]
+    note: 'Table I. Imposing $\theta = (d-2)\nu + 1$ gives $2.390(9)$.'
+  - symbol: '\theta'
+    description: 'From the Parisi–Sourlas relation $\theta(7) = \sigma_{\rm LY}(5) + 2$'
+    value: '2.3983(6)'
+    method: derived
+    refs: [brydges2003, borinsky2021]
+    note: 'With the 5d Lee–Yang exponent $\sigma = 0.3983(6)$ from the five-loop $6-\epsilon$ expansion (Borinsky et al., Table 4).'
+  - symbol: '\nu'
+    description: 'Size exponent, $R \sim N^{\nu}$'
+    value: '0.282(5)'
+    method: Monte Carlo (site animals, unrestricted fit)
+    refs: [hsu2005]
+    note: 'Table I. Imposing $\theta = (d-2)\nu + 1$ gives $0.278(2)$.'
+  - symbol: '\nu'
+    description: 'From $\theta = (d-2)\nu + 1$ with the Parisi–Sourlas value of $\theta$'
+    value: '0.27966(12)'
+    method: derived
+    refs: [hsu2005, brydges2003, borinsky2021]
+    note: '$\nu = (\theta - 1)/5$ with $\theta = 2.3983(6)$.'
+
+relations:
+  - type: related_to
+    target: lee-yang-5d
+    note: 'Parisi–Sourlas dimensional reduction: branched polymers in $d$ dimensions correspond to the Lee–Yang edge singularity in $d-2$.'
+
+references:
+  - key: parisi1981
+    title: Critical Behavior of Branched Polymers and the Lee-Yang Edge Singularity
+    authors: Parisi, Sourlas
+    year: 1981
+    journal: Phys. Rev. Lett. 46, 871
+    doi: '10.1103/PhysRevLett.46.871'
+  - key: brydges2003
+    title: Branched polymers and dimensional reduction
+    authors: Brydges, Imbrie
+    year: 2003
+    journal: Ann. of Math. 158, 1019
+    arxiv: math-ph/0107005
+    doi: 10.4007/annals.2003.158.1019
+    note: 'Exact dimensional reduction for a supersymmetric continuum model; eq. (1.6), $\theta(d) = \sigma(d-2) + 2$.'
+  - key: kaviraj2020
+    title: Random Field Ising Model and Parisi-Sourlas Supersymmetry I. Supersymmetric CFT
+    authors: Kaviraj, Rychkov, Trevisani
+    year: 2020
+    arxiv: '1912.01617'
+    doi: 10.1007/JHEP04(2020)090
+    note: 'Dimensional reduction of Parisi–Sourlas superconformal theories from $d$ to $d-2$.'
+  - key: kaviraj2020b
+    title: Random Field Ising Model and Parisi-Sourlas Supersymmetry. Part II. Renormalization Group
+    authors: Kaviraj, Rychkov, Trevisani
+    year: 2020
+    arxiv: '2009.10087'
+    note: 'App. A.4: branched polymers and the Lee–Yang class; upper critical dimension 8 for the cubic potential.'
+  - key: hsu2005
+    title: Simulations of lattice animals and trees
+    authors: Hsu, Nadler, Grassberger
+    year: 2005
+    journal: J. Phys. A 38, 775
+    arxiv: cond-mat/0408061
+    doi: 10.1088/0305-4470/38/4/001
+    note: 'Table I: $\theta$ and $\nu$ of site animals in $d = 2, \dots, 9$; eq. (3), $\theta = (d-2)\nu + 1$.'
+  - key: borinsky2021
+    title: Five loop renormalization of $\phi^3$ theory with applications to the Lee-Yang edge singularity and percolation theory
+    authors: Borinsky, Gracey, Kompaniets, Schnetz
+    year: 2021
+    journal: Phys. Rev. D 103, 116024
+    arxiv: '2103.16224'
+
+contributors: [Canonical111]
