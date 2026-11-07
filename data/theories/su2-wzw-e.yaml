@@ -45,6 +45,10 @@ family:
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{3k}{k+2}$ — 2d conformal symmetry; parity not recorded'
   supercharges: 0
+  parity: unknown
+  global_group:
+    - {id: SU2_L, group: SU(2), tex: 'SU(2)_L', note: 'Zero modes of the $\widehat{su}(2)_k \times \widehat{su}(2)_k$ currents (not stated in `global`); enhanced for $E_6$ and $E_8$ by the conformal embeddings.'}
+    - {id: SU2_R, group: SU(2), tex: 'SU(2)_R'}
 
 quantities:
 - key: c
@@ -66,6 +70,7 @@ operators:
   Delta: '5/8'
   spin: 0
   weights: '(\tfrac{5}{16}, \tfrac{5}{16})'
+  global: {SU2_L: spin(3/2), SU2_R: spin(3/2)}
   method: exact
   refs: [zuber2000, ginsparg-lectures]
   note: '$E_6$ ($k = 10$): lightest primary ($l = 3$), the spinor of $SO(5)_1$.'
@@ -73,6 +78,7 @@ operators:
   Delta: '2/3'
   spin: 0
   weights: '(\tfrac13, \tfrac13)'
+  global: {SU2_L: spin(2), SU2_R: spin(2)}
   method: exact
   refs: [zuber2000, ginsparg-lectures]
   note: '$E_7$ ($k = 16$): lightest primary ($l = 4$).'
@@ -80,6 +86,7 @@ operators:
   Delta: '4/5'
   spin: 0
   weights: '(\tfrac25, \tfrac25)'
+  global: {SU2_L: spin(3), SU2_R: spin(3)}
   method: exact
   refs: [zuber2000, ginsparg-lectures]
   note: '$E_8$ ($k = 28$): lightest primary ($l = 6$), the primary of $(G_2)_1$.'

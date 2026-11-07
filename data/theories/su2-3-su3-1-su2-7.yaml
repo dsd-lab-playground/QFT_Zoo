@@ -8,6 +8,8 @@ description: 'The conformal embedding $SU(2)_4 \subset SU(3)_1$ extends the nume
 
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{22}{15}$ — 2d conformal symmetry, with parity'
+  parity: true
+  global_group: []
 
 quantities:
 - key: c
@@ -27,6 +29,7 @@ operators:
   spin: 0
   weights: '(\tfrac{1}{15}, \tfrac{1}{15})'
   degeneracy: 3
+  parity: unknown
   note: Lightest non-vacuum Virasoro primary.
 
 relations:

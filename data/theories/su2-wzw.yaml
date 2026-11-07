@@ -42,6 +42,10 @@ symmetry:
   supercharges: 0
   global: '$SU(2) \times SU(2)$ acting as $g \to h_L\, g\, h_R^{-1}$, part of the affine $\widehat{su}(2)_k \times \widehat{su}(2)_k$ symmetry'
   notes: 'The centre $\mathbb{Z}_2$ acts as $(-1)^{2j}$ on $\Phi_j$. It has a mixed anomaly for odd $k$; for even $k$ it can be gauged, and the orbifold is the D-series theory.'
+  parity: true
+  global_group:
+    - {id: SU2_L, group: SU(2), tex: 'SU(2)_L', symbols: [j]}
+    - {id: SU2_R, group: SU(2), tex: 'SU(2)_R', symbols: [j]}
 
 quantities:
 - key: c
@@ -63,7 +67,8 @@ operators:
   Delta: '\frac{3}{2(k+2)}'
   spin: 0
   weights: '(\tfrac{3}{4(k+2)}, \tfrac{3}{4(k+2)})'
-  rep: '$(\mathbf{2}, \mathbf{2})$ of $SU(2) \times SU(2)$'
+  parity: unknown
+  global: {SU2_L: spin(1/2), SU2_R: spin(1/2)}
   method: exact
   refs: [ginsparg-lectures]
   note: 'Lightest non-vacuum primary.'
@@ -71,7 +76,8 @@ operators:
   Delta: '\frac{2j(j+1)}{k+2}'
   spin: 0
   weights: '(h_j, h_j)'
-  rep: '$(\mathbf{2j+1}, \mathbf{2j+1})$'
+  parity: unknown
+  global: {SU2_L: spin(j), SU2_R: spin(j)}
   method: exact
   refs: [ginsparg-lectures]
   note: '$h_j = \frac{j(j+1)}{k+2}$ for $j = 0, \frac12, \dots, \frac k2$.'
@@ -79,11 +85,15 @@ operators:
   Delta: 1
   spin: 1
   weights: '(1, 0),\ (0, 1)'
+  parity: pair
+  global: {SU2_L: [singlet, adjoint], SU2_R: [singlet, adjoint]}
   method: exact
   note: 'Affine $\widehat{su}(2)_k$ currents, in the adjoint.'
 - name: 'T'
   Delta: 2
   spin: 2
+  parity: pair
+  global: {SU2_L: singlet, SU2_R: singlet}
   method: exact
   note: 'Sugawara stress tensor.'
 

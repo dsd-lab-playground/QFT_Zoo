@@ -43,6 +43,10 @@ family:
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{3k}{k+2}$ — 2d conformal symmetry; parity not recorded'
   supercharges: 0
+  parity: unknown
+  global_group:
+    - {id: SU2_L, group: SU(2), tex: 'SU(2)_L', note: 'As in the operators'' representations, $(\mathbf{3}, \mathbf{3})$ of $SU(2) \times SU(2)$; the centre acts trivially after the orbifold (the WZW model on $SO(3)$).'}
+    - {id: SU2_R, group: SU(2), tex: 'SU(2)_R'}
 
 quantities:
 - key: c
@@ -64,7 +68,7 @@ operators:
   Delta: '\frac{4}{k+2}'
   spin: 0
   weights: '(\tfrac{2}{k+2}, \tfrac{2}{k+2})'
-  rep: '$(\mathbf{3}, \mathbf{3})$ of $SU(2) \times SU(2)$'
+  global: {SU2_L: spin(1), SU2_R: spin(1)}
   method: exact
   refs: [zuber2000, ginsparg-lectures]
   note: 'Lightest non-vacuum primary ($l = 2$).'
@@ -72,7 +76,7 @@ operators:
   Delta: '\frac{k}{4}'
   spin: '\frac{k}{4}'
   weights: '(\tfrac{k}{4}, 0)'
-  rep: '$(\mathbf{k+1}, \mathbf{1})$'
+  global: {SU2_L: spin(k/2), SU2_R: singlet}
   method: exact
   refs: [zuber2000, ginsparg-lectures]
   note: 'For $k \equiv 0 \pmod 4$: the simple current extending the chiral algebra (with its partner at $(0, \frac k4)$). At $k = 4$ these are the five extra currents of $SU(3)_1$.'

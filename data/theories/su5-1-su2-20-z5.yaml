@@ -7,6 +7,9 @@ tags: [CFT, interacting, unitary, rational, coset, orbifold]
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{14}{11}$ — 2d conformal symmetry, with parity'
   global: 'Contains the dual $\mathbb{Z}_5$ of the orbifold, acting with phases on the twisted sectors'
+  parity: true
+  global_group:
+    - {id: Z5, group: Z5, tex: '\widehat{\mathbb{Z}}_5', note: 'The dual symmetry of the orbifold; the rest of the symmetry is not recorded.'}
 
 quantities:
 - key: c
@@ -26,6 +29,8 @@ operators:
   spin: 0
   weights: '(\tfrac{3}{55}, \tfrac{3}{55})'
   degeneracy: 2
+  parity: unknown
+  global: {Z5: unknown}
   note: Lightest non-vacuum Virasoro primary.
 
 relations:
