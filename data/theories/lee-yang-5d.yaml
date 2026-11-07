@@ -14,27 +14,27 @@ tags: [CFT, interacting, non-unitary, Lagrangian, critical phenomena]
 description: |
   The Lee–Yang edge singularity is the end point of the line of zeros of the Ising
   partition function in an imaginary magnetic field above the critical temperature.
-  Fisher described it by a scalar with an imaginary cubic coupling, whose upper critical
+  Fisher [@fisher1978] described it by a scalar with an imaginary cubic coupling, whose upper critical
   dimension is 6; at and above $d = 6$ the edge exponent takes its mean-field value
   $\sigma = \tfrac12$. In $d = 5$ the fixed point is $\epsilon = 1$ of the $6-\epsilon$
   expansion, and the five-loop resummed exponents have errors in the third decimal or
   below. The same exponents describe lattice animals (branched polymers) in
-  $d + 2 = 7$ dimensions (Parisi and Sourlas).
+  $d + 2 = 7$ dimensions [@parisi1981].
 
   The only relevant primary is $\phi$; $\phi^2$ is a descendant of $\phi$ by the equation
-  of motion (Gliozzi and Rago), and the next scalar primary, "$\phi^3$", is irrelevant but
+  of motion [@gliozzi2014], and the next scalar primary, "$\phi^3$", is irrelevant but
   only by $\omega \approx 0.7$. The exponents follow from $\Delta_\phi$:
   $$\sigma = \frac{\Delta_\phi}{5 - \Delta_\phi}, \qquad \eta = 2\Delta_\phi - 3 .$$
   $\Delta_\phi \approx 1.42$ lies below the unitarity bound $\Delta \geq \tfrac32$ for a
   5d scalar ($\eta < 0$).
 
   The estimates below come from methods whose error estimates are not directly
-  comparable: the $6-\epsilon$ expansion to five loops with resummation (Borinsky,
-  Gracey, Kompaniets and Schnetz); series expansions of the dimer density on the
-  hypersimple-cubic and hyper-body-centred-cubic lattices in $d = 5$ (Butera and
-  Pernici); the functional renormalization group (An, Mesterházy and Stephanov); and a
+  comparable: the $6-\epsilon$ expansion to five loops with resummation 
+  [@borinsky2021]; series expansions of the dimer density on the
+  hypersimple-cubic and hyper-body-centred-cubic lattices in $d = 5$ 
+  [@butera2012]; the functional renormalization group [@an2016]; and a
   truncated, non-rigorous bootstrap that keeps a few operators in the $\phi\times\phi$
-  OPE (Gliozzi and Rago), since the positivity-based numerical bootstrap does not apply to
+  OPE [@gliozzi2014], since the positivity-based numerical bootstrap does not apply to
   a non-unitary theory. For $\sigma$ the five-loop and series values agree within about
   two standard deviations, while the functional RG and the truncated bootstrap are higher
   by about $0.005$ and $0.012$. For $\eta$ the functional RG value differs from the
@@ -76,7 +76,7 @@ quantities:
     value: '-0.151(2)'
     method: 'epsilon-expansion (6 − ε, five loops, resummed)'
     refs: [borinsky2021, an2016]
-    note: 'Table 1. Functional renormalization group: $-0.126(6)$ (An et al.).'
+    note: 'Table 1. Functional renormalization group: $-0.126(6)$ [@an2016].'
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent, $\omega = \Delta_{\phi^3} - 5$'
     value: '0.691(8)'
@@ -91,7 +91,7 @@ operators:
     rep: the only relevant primary
     method: derived
     refs: [borinsky2021, arguellocruz2025]
-    note: '$(3+\eta)/2$ with the five-loop $\eta = -0.151(2)$. Below the unitarity bound $\tfrac32$. Two-sided Padé of the $6-\epsilon$ series: $1.425$ (Arguello Cruz et al., Table 2).'
+    note: '$(3+\eta)/2$ with the five-loop $\eta = -0.151(2)$. Below the unitarity bound $\tfrac32$. Two-sided Padé of the $6-\epsilon$ series: $1.425$ [@arguellocruz2025, Table 2].'
   - name: 'T_{\mu\nu}'
     Delta: 5
     spin: 2
@@ -102,7 +102,7 @@ operators:
     spin: 0
     method: derived
     refs: [borinsky2021, arguellocruz2025, gliozzi2014]
-    note: 'Leading irrelevant scalar, $5 + \omega$ with the five-loop $\omega$. Two-sided Padé: $5.701$ and $5.702$ (Arguello Cruz et al., Table 2). The truncated bootstrap gives $6.4(1)$ (Gliozzi and Rago).'
+    note: 'Leading irrelevant scalar, $5 + \omega$ with the five-loop $\omega$. Two-sided Padé: $5.701$ and $5.702$ [@arguellocruz2025, Table 2]. The truncated bootstrap gives $6.4(1)$ [@gliozzi2014].'
 
 relations:
   - type: related_to

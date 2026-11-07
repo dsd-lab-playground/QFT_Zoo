@@ -50,13 +50,13 @@ quantities:
     value: '0.67172(2)'
     method: Monte Carlo (improved clock model)
     refs: [hasenbusch2025]
-    note: 'From $1/\nu = 1.48872(5)$. Conformal bootstrap: $0.67175(10)$ (rigorous; Chester et al.).'
+    note: 'From $1/\nu = 1.48872(5)$. Conformal bootstrap: $0.67175(10)$ (rigorous; [@chester2019]).'
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 1$'
     value: '0.03816(2)'
     method: Monte Carlo (improved clock model)
     refs: [hasenbusch2025]
-    note: 'Conformal bootstrap: $0.038176(44)$ (rigorous; Chester et al.).'
+    note: 'Conformal bootstrap: $0.038176(44)$ (rigorous; [@chester2019]).'
   - symbol: '\alpha'
     description: 'Specific-heat exponent, $\alpha = 2 - 3\nu$ (theory)'
     value: '-0.01515(7)'
@@ -118,7 +118,7 @@ operators:
     rep: charge 2
     method: conformal bootstrap
     refs: [chester2019]
-    note: 'Monte Carlo: $1.23630(12)$ (Hasenbusch, large charge). Relevant: a charge-2 anisotropy drives the flow to 3d Ising.'
+    note: 'Monte Carlo: $1.23630(12)$ [@hasenbusch2025b]. Relevant: a charge-2 anisotropy drives the flow to 3d Ising.'
   - name: 's'
     Delta: '1.51128(5)'
     spin: 0
@@ -138,7 +138,7 @@ operators:
     rep: charge 3
     method: Monte Carlo
     refs: [hasenbusch2025b]
-    note: 'Relevant, so a $\mathbb{Z}_3$ clock anisotropy destabilizes the fixed point. Bootstrap estimate: $2.1086(3)$ (non-rigorous; Chester et al.).'
+    note: 'Relevant, so a $\mathbb{Z}_3$ clock anisotropy destabilizes the fixed point. Bootstrap estimate: $2.1086(3)$ (non-rigorous; [@chester2019]).'
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
