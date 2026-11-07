@@ -49,6 +49,228 @@ quantities:
     value: '0.62997097(12)'
     method: derived
     refs: [chang2024]
+  - symbol: '\lambda_{\sigma\sigma\epsilon}'
+    description: OPE coefficient
+    value: '1.05185373(11)'
+    method: conformal bootstrap (non-rigorous error)
+    refs: [chang2024]
+    note: 'arXiv:2411.15300v2, Table 1, p. 2 (PDF p. 4), derivative order $\Lambda=43$. The error is not bold in the table, so it is not rigorous. Agrees with the $\sigma\epsilon$ island value $1.0518537(41)$ above.'
+  - symbol: '\lambda_{\epsilon\epsilon\epsilon}'
+    description: OPE coefficient
+    value: '1.53244304(58)'
+    method: conformal bootstrap (non-rigorous error)
+    refs: [chang2024]
+    note: 'arXiv:2411.15300v2, Table 1, p. 2 (PDF p. 4), $\Lambda=43$; error not bold, so not rigorous. Agrees with $1.532435(19)$ above.'
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor two-point coefficient, relative to one free real scalar'
+    value: '0.946538675(42)'
+    method: conformal bootstrap (non-rigorous error)
+    refs: [chang2024]
+    note: 'arXiv:2411.15300v2, Table 1, p. 2 (PDF p. 4), where it is written $c_T/c_B$ with $c_B = 3/(2(4\pi)^2)$ the free real scalar value in their normalization (Eq. (2.8)); the ratio is normalization independent. Error not bold, so not rigorous.'
+  - symbol: '\lambda_{TT\epsilon}'
+    description: 'OPE coefficient of $\epsilon$ in $T\times T$, unit-normalized $T$, in the convention of Eq. (2.2) of Chang et al.'
+    value: '0.95331513(42)'
+    method: conformal bootstrap (non-rigorous error)
+    refs: [chang2024]
+    note: 'arXiv:2411.15300v2, Table 1, p. 2 (PDF p. 4); defined in Eq. (2.2), p. 5 (PDF p. 7), with $\hat T = T/\sqrt{c_T}$ (Eq. (2.9)), chosen to match the five-point-bootstrap convention of Poland, Prilepina and Tadić. Other normalizations of this structure differ. Error not bold, so not rigorous.'
+  - symbol: 'n_B'
+    description: 'Free-boson coefficient of $\langle TTT\rangle = n_B\langle TTT\rangle_B + n_F\langle TTT\rangle_F$ (free real scalar and free Majorana fermion structures); $n_B + n_F = C_T/C_T^{\rm free}$'
+    value: '0.933444559(75)'
+    method: conformal bootstrap (non-rigorous error)
+    refs: [chang2024]
+    note: 'arXiv:2411.15300v2, Table 1, p. 2 (PDF p. 4); definition Eq. (2.7)–(2.8), p. 6 (PDF p. 8). Error not bold, so not rigorous.'
+  - symbol: 'n_F'
+    description: 'Free-Majorana-fermion coefficient of $\langle TTT\rangle$; see $n_B$'
+    value: '0.013094116(33)'
+    method: conformal bootstrap (non-rigorous error)
+    refs: [chang2024]
+    note: 'arXiv:2411.15300v2, Table 1, p. 2 (PDF p. 4). The paper''s conclusion states $n_F/(n_F+n_B) = 1.3833683(35)\%$ (p. 33, PDF p. 35). Error not bold, so not rigorous.'
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor two-point coefficient, relative to one free real scalar'
+    value: '0.946543(42)'
+    method: conformal bootstrap (rigorous)
+    refs: [reehorst2021]
+    note: 'arXiv:2111.12093v1, Table 1, p. 4 and Eq. (4.4), $\Lambda=19$. Rigorous interval assuming only two $\mathbb{Z}_2$-even spin-2 operators ($T$, $T''$) below $\Delta=6$, together with $\Delta_{\epsilon''}\geq 3$ and $\Delta_{\sigma''}>3$ (Sec. 4.3, App. A.7). Consistent with $0.946538675(42)$.'
+  - symbol: '\lambda_{\sigma\sigma\epsilon''}'
+    description: OPE coefficient
+    value: '0.05304(16)'
+    method: conformal bootstrap (rigorous)
+    refs: [reehorst2021]
+    note: 'arXiv:2111.12093v1, Table 1, p. 4; Table 4, $\Lambda=19$. Rigorous, assuming $\Delta_{\sigma''}>3$, $\Delta_{\epsilon''''}>6$ and no degeneracy at $\Delta_{\epsilon''}$.'
+  - symbol: '\lambda_{\epsilon\epsilon\epsilon''}'
+    description: OPE coefficient
+    value: '1.5362(12)'
+    method: conformal bootstrap (rigorous)
+    refs: [reehorst2021]
+    note: 'arXiv:2111.12093v1, Table 1, p. 4; Table 4, $\Lambda=19$. Same assumptions as $\lambda_{\sigma\sigma\epsilon''}$.'
+  - symbol: '\lambda_{\sigma\epsilon\sigma''}'
+    description: OPE coefficient
+    value: '0.0565(15)'
+    method: conformal bootstrap (rigorous)
+    refs: [reehorst2021]
+    note: 'arXiv:2111.12093v1, Table 1, p. 4; Eq. (4.3), $\Lambda=19$. Rigorous, assuming only two $\mathbb{Z}_2$-odd scalars below $\Delta=6$ and $\Delta_{\epsilon''}>3$ (Sec. 4.2).'
+  - symbol: '\lambda_{\sigma\sigma\epsilon''}'
+    description: OPE coefficient
+    value: '0.053012(55)'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), where it is written $f_{\sigma\sigma\epsilon''}$; for scalars this is the same normalization as $\lambda$ here (the same table gives $f_{\sigma\sigma\epsilon} = 1.0518537(41)$). Error: standard deviation over 60 extremal spectra at $\Lambda=43$, not rigorous (App. A.3, p. 71).'
+  - symbol: '\lambda_{\epsilon\epsilon\epsilon''}'
+    description: OPE coefficient
+    value: '1.5360(16)'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), written $f_{\epsilon\epsilon\epsilon''}$. Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - symbol: '\lambda_{\sigma\epsilon\sigma''}'
+    description: OPE coefficient
+    value: '0.057235(20)'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), $\sigma''$ row, $f_{\sigma O}$ column (the $\sigma\times\epsilon$ OPE). Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - symbol: '\lambda_{\sigma\sigma\epsilon}'
+    description: OPE coefficient
+    value: '1.051(1)'
+    method: Monte Carlo (improved Blume–Capel model)
+    refs: [hasenbusch2017]
+    note: 'arXiv:1711.10946v1, Eq. (37), p. 18, written $f_{\sigma\sigma\epsilon}$ in the bootstrap normalization (his Eq. (2)–(3)). Lattices up to $L=1600$. The analysis uses the bootstrap $\Delta_\sigma$, $\Delta_\epsilon$ as input, and the value is read off at distances $x\approx 30$; the author notes that it is hard to quote a value not biased by knowledge of the bootstrap result (p. 18).'
+  - symbol: '\lambda_{\epsilon\epsilon\epsilon}'
+    description: OPE coefficient
+    value: '1.533(5)'
+    method: Monte Carlo (improved Blume–Capel model)
+    refs: [hasenbusch2017]
+    note: 'arXiv:1711.10946v1, Eq. (38), p. 19, written $f_{\epsilon\epsilon\epsilon}$; read off at distances $x\approx 25$, with the bootstrap $\Delta_\epsilon$ as input (same caveat as $\lambda_{\sigma\sigma\epsilon}$).'
+  - symbol: '\nu'
+    description: 'Critical exponent, $\nu = 1/(3-\Delta_\epsilon)$'
+    value: '0.62998(5)'
+    method: Monte Carlo (improved, isotropic Blume–Capel model)
+    refs: [hasenbusch2021]
+    note: 'arXiv:2105.09781v2, Eq. (40), p. 34 and abstract. Model tuned so that both the leading correction to scaling and the leading rotational-symmetry breaking vanish.'
+  - symbol: '\eta'
+    description: 'Critical exponent, $\eta = 2\Delta_\sigma - 1$'
+    value: '0.036284(40)'
+    method: Monte Carlo (improved, isotropic Blume–Capel model)
+    refs: [hasenbusch2021]
+    note: 'arXiv:2105.09781v2, Eq. (35), p. 28 and abstract.'
+  - symbol: '\nu'
+    description: 'Critical exponent, $\nu = 1/(3-\Delta_\epsilon)$'
+    value: '0.63002(10)'
+    method: Monte Carlo (improved Blume–Capel model)
+    refs: [hasenbusch2010]
+    note: 'arXiv:1004.4486v3, Eq. (63), p. 21 and abstract. Lattices up to $L=360$.'
+  - symbol: '\eta'
+    description: 'Critical exponent, $\eta = 2\Delta_\sigma - 1$'
+    value: '0.03627(10)'
+    method: Monte Carlo (improved Blume–Capel model)
+    refs: [hasenbusch2010]
+    note: 'arXiv:1004.4486v3, Eq. (60), p. 19 and abstract.'
+  - symbol: '\omega'
+    description: 'Leading correction-to-scaling exponent, $\omega = \Delta_{\epsilon''} - 3$'
+    value: '0.832(6)'
+    method: Monte Carlo (Blume–Capel and Ising models)
+    refs: [hasenbusch2010]
+    note: 'arXiv:1004.4486v3, Eq. (34), p. 14 and abstract. Compare the rigorous bootstrap interval $\Delta_{\epsilon''} = 3.82951(61)$ in the operator table, i.e. $\omega = 0.82951(61)$ by the stated relation.'
+  - symbol: '\nu'
+    description: 'Critical exponent, $\nu = 1/(3-\Delta_\epsilon)$'
+    value: '0.629912(86)'
+    method: Monte Carlo (spin-1/2 Ising model)
+    refs: [ferrenberg2018]
+    note: 'arXiv:1806.03558v1, Eq. (39), p. 7 and abstract. Lattices up to $1024^3$. The fits fix the correction exponents ($\omega_1 = 0.83$, $\omega_2 = 4$, and $\omega_\nu=1.6$ in some fits) rather than fitting them.'
+  - symbol: '\lambda_{\sigma\sigma\epsilon}'
+    description: OPE coefficient
+    value: '1.0539(18)'
+    method: fuzzy sphere
+    refs: [hu2023]
+    note: 'arXiv:2303.08844v1, Table I, p. 4, written $f_{\sigma\sigma\epsilon}\approx 1.0539(18)$, from a linear extrapolation in $1/N$ of the six largest sizes (exact diagonalization and DMRG, Fig. 2). The error is the difference between the leading-order and next-to-leading-order finite-size fits (Supplemental Material, Sec. IV, PDF p. 12), a systematic estimate, not a statistical error. About $1\sigma$ above the bootstrap value.'
+  - symbol: '\lambda_{\epsilon\epsilon\epsilon}'
+    description: OPE coefficient
+    value: '1.5441(23)'
+    method: fuzzy sphere
+    refs: [hu2023]
+    note: 'arXiv:2303.08844v1, Table I, p. 4, written $f_{\epsilon\epsilon\epsilon}\approx 1.5441(23)$, finite-size extrapolation; error = difference between leading- and next-to-leading-order fits (Supplemental Material, Sec. IV). **Disagrees** with the bootstrap value $1.53244304(58)$ by about $5\times$ its stated error, so the stated error does not cover the extrapolation systematics.'
+  - symbol: 'F'
+    description: 'Sphere free energy ($F = -\log Z_{S^3}$), from the entanglement entropy of a disk'
+    value: '0.0612(5)'
+    method: fuzzy sphere
+    refs: [hu2024]
+    note: 'arXiv:2401.17362v1, abstract and p. 4, written $F_{\rm Ising}\approx 0.0612(5)$; the error is the standard deviation over fitting ranges $[N_{\min},16]$, $N_{\min}=8,\dots,14$ (p. 3); the fit uses the bootstrap $\Delta_{\epsilon''}$ for the correction exponent. Free real scalar: $F = \frac{\log 2}{8} - \frac{3\zeta(3)}{16\pi^2} \approx 0.0638$, so $F$ decreases along the flow, as the F-theorem requires. The paper quotes $4-\epsilon$ estimates $0.0610$–$0.0623$.'
+  - symbol: '\nu'
+    description: 'Critical exponent, $\nu = 1/(3-\Delta_\epsilon)$'
+    value: '0.6292(5)'
+    method: epsilon-expansion (6 loops, resummed)
+    refs: [kompaniets2017]
+    note: 'arXiv:1705.06483v2, Eq. (42), p. 25, and Table XI ($n=1$). About $1.5\times$ its error below the bootstrap value.'
+  - symbol: '\eta'
+    description: 'Critical exponent, $\eta = 2\Delta_\sigma - 1$'
+    value: '0.0362(6)'
+    method: epsilon-expansion (6 loops, resummed)
+    refs: [kompaniets2017]
+    note: 'arXiv:1705.06483v2, Eq. (42), p. 25, and Table XI ($n=1$).'
+  - symbol: '\omega'
+    description: 'Leading correction-to-scaling exponent, $\omega = \Delta_{\epsilon''} - 3$'
+    value: '0.820(7)'
+    method: epsilon-expansion (6 loops, resummed)
+    refs: [kompaniets2017]
+    note: 'arXiv:1705.06483v2, Eq. (42), p. 25, and Table XI ($n=1$).'
+  - symbol: 'f_{\sigma\sigma T}'
+    description: 'OPE coefficient of the stress tensor, in the block normalization of 1612.08471 (blocks start as $z^{(\Delta-\ell)/2}\bar z^{(\Delta+\ell)/2}$, its Eq. (A.16))'
+    value: '0.32613776(45)'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), $T_{\mu\nu}$ row. Fixed by the Ward identity in terms of $\Delta_\sigma$ and $C_T$, so it calibrates this normalization: $f_{\sigma\sigma T}/f_{\epsilon\epsilon T} = \Delta_\sigma/\Delta_\epsilon$, and in this normalization $f_{\phi\phi T}^2 = \frac{3}{8}\Delta_\phi^2\, C_T^{\rm free}/C_T$ (free scalar: $3/32$), which the tabulated values satisfy with $C_T/C_T^{\rm free} = 0.946538675$. Other papers normalize spinning blocks differently, by spin-dependent factors (Eq. (A.17)). Error not rigorous.'
+  - symbol: 'f_{\epsilon\epsilon T}'
+    description: 'OPE coefficient of the stress tensor, normalization as for $f_{\sigma\sigma T}$'
+    value: '0.8891471(40)'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), $T_{\mu\nu}$ row. Error not rigorous.'
+  - symbol: "f_{\\sigma\\sigma T'}"
+    description: 'Spinning OPE coefficient, normalization as for $f_{\sigma\sigma T}$'
+    value: '0.0105745(42)'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), $T''_{\mu\nu}$ row. Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - symbol: "f_{\\epsilon\\epsilon T'}"
+    description: 'Spinning OPE coefficient, normalization as for $f_{\sigma\sigma T}$'
+    value: '0.69023(49)'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), $T''_{\mu\nu}$ row. Not rigorous.'
+  - symbol: 'f_{\sigma\sigma C}'
+    description: 'Spinning OPE coefficient of $C_{\mu\nu\rho\sigma}$ (spin 4), normalization as for $f_{\sigma\sigma T}$'
+    value: '0.069076(43)'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), $C_{\mu\nu\rho\sigma}$ row. Not rigorous.'
+  - symbol: 'f_{\epsilon\epsilon C}'
+    description: 'Spinning OPE coefficient of $C_{\mu\nu\rho\sigma}$, normalization as for $f_{\sigma\sigma T}$'
+    value: '0.24792(20)'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), $C_{\mu\nu\rho\sigma}$ row. Not rigorous.'
+  - symbol: 'f_{\sigma\epsilon\sigma_{\mu\nu}}'
+    description: 'Spinning OPE coefficient of the lightest $\mathbb{Z}_2$-odd spin-2 operator in $\sigma\times\epsilon$, normalization as for $f_{\sigma\sigma T}$'
+    value: '0.38915941(81)'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), $\ell=2$, $\Delta = 4.180305(18)$ row, $f_{\sigma\epsilon O}$ column. Sign depends on the order of $\sigma,\epsilon$ ($f_{43O} = (-1)^\ell f_{34O}$, p. 71). Not rigorous.'
+  - symbol: 'f_{\sigma\epsilon\sigma_{\mu\nu\rho}}'
+    description: 'Spinning OPE coefficient of the lightest $\mathbb{Z}_2$-odd spin-3 operator in $\sigma\times\epsilon$, normalization as for $f_{\sigma\sigma T}$'
+    value: '0.1385(34)'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), $\ell=3$ row. Odd spin, so the sign flips with the order of $\sigma,\epsilon$. Not rigorous.'
+  - symbol: "\\lambda_{\\sigma\\sigma T'}"
+    description: 'Spinning OPE coefficient in the block normalization of Reehorst (2111.12093, footnote 3 on p. 6), in which $\lambda^2 = 2^\ell f^2$ relative to the $f$ rows, so $\lambda = 2f$ at spin 2'
+    value: '0.02107(20)'
+    method: conformal bootstrap (rigorous)
+    refs: [reehorst2021]
+    note: 'arXiv:2111.12093v1, Table 1, p. 4 and Eq. (4.5), p. 16, $\Lambda=19$. Rigorous, assuming only two $\mathbb{Z}_2$-even spin-2 operators below 6. The paper notes a factor of 2 relative to the 1612.08471 value from a different block normalization (p. 16); his generalized-free-field coefficients (Eq. (2.4)) are $2^\ell$ times those in the normalization of 1612.08471. Compare $2 f_{\sigma\sigma T''} = 0.021149(8)$.'
+  - symbol: "\\lambda_{\\epsilon\\epsilon T'}"
+    description: 'Spinning OPE coefficient, normalization as for $\lambda_{\sigma\sigma T''}$'
+    value: '1.355(30)'
+    method: conformal bootstrap (rigorous)
+    refs: [reehorst2021]
+    note: 'arXiv:2111.12093v1, Table 1, p. 4 and Eq. (4.5), p. 16, $\Lambda=19$. Same assumptions. Compare $2 f_{\epsilon\epsilon T''} = 1.3805(10)$, which lies inside this interval.'
 
 operators:
   - name: '\sigma'
@@ -69,6 +291,272 @@ operators:
     rep: '$\mathbb{Z}_2$-even'
     method: exact
     note: Stress tensor (conserved).
+  - name: '\sigma'
+    Delta: '0.5181489(10)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-odd'
+    method: conformal bootstrap (rigorous)
+    refs: [kos2016]
+    note: 'arXiv:1603.04436v1, Eq. (3.1), p. 9: $\sigma\epsilon$ mixed-correlator island at $\Lambda=43$, assuming $\sigma,\epsilon$ are the only relevant scalars. Chang et al. (2411.15300, Table 1 and footnote 1) note that these errors were slightly underestimated.'
+  - name: '\epsilon'
+    Delta: '1.412625(10)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap (rigorous)
+    refs: [kos2016]
+    note: 'arXiv:1603.04436v1, Eq. (3.2), p. 9; same island and caveat as $\Delta_\sigma$ above.'
+  - name: '\epsilon'
+    Delta: '1.416(8)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even'
+    method: fuzzy sphere
+    refs: [zhou2026]
+    note: 'arXiv:2609.35960v1, Table 1, p. 4 (PDF p. 6). Energies are calibrated so that $\Delta_\sigma$ equals its bootstrap value (p. 19); the error is the r.m.s. difference between three finite-size extrapolation choices (p. 21), not a statistical error.'
+  - name: "\\epsilon'"
+    Delta: '3.82968(23)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75). Error: standard deviation over 60 extremal spectra at $\Lambda=43$, not rigorous (App. A.3). Leading irrelevant scalar: $\omega = \Delta_{\epsilon''}-3$.'
+  - name: "\\epsilon'"
+    Delta: '3.82951(61)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap (rigorous)
+    refs: [reehorst2021]
+    note: 'arXiv:2111.12093v1, Table 1, p. 4 and Eq. (4.1), $\Lambda=31$. Rigorous, assuming $\Delta_{\sigma''}>3$ and no third $\mathbb{Z}_2$-even scalar below 6 (Sec. 4.1).'
+  - name: "\\epsilon'"
+    Delta: '3.86(3)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even'
+    method: fuzzy sphere
+    refs: [zhou2026]
+    note: 'arXiv:2609.35960v1, Table 1, p. 4 (PDF p. 6); calibrated to bootstrap $\Delta_\sigma$; extrapolation error.'
+  - name: "\\epsilon''"
+    Delta: '6.8956(43)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), third $\mathbb{Z}_2$-even scalar in $\sigma\times\sigma$ and $\epsilon\times\epsilon$ (unnamed there). Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - name: "\\epsilon''"
+    Delta: '6.96(5)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even'
+    method: fuzzy sphere
+    refs: [zhou2026]
+    note: 'arXiv:2609.35960v1, Table 1, p. 4 (PDF p. 6); calibrated to bootstrap $\Delta_\sigma$; extrapolation error.'
+  - name: "\\epsilon'''"
+    Delta: '7.2535(51)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), fourth $\mathbb{Z}_2$-even scalar in $\sigma\times\sigma$ and $\epsilon\times\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - name: "\\epsilon'''"
+    Delta: '7.1(2)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even'
+    method: fuzzy sphere
+    refs: [zhou2026]
+    note: 'arXiv:2609.35960v1, Table 1, p. 4 (PDF p. 6); extrapolation error.'
+  - name: "\\sigma'"
+    Delta: '5.2906(11)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-odd'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75). Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - name: "\\sigma'"
+    Delta: '5.262(89)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-odd'
+    method: conformal bootstrap (rigorous)
+    refs: [reehorst2021]
+    note: 'arXiv:2111.12093v1, Table 1, p. 4 and Eq. (4.2), $\Lambda=19$. Rigorous, assuming only two $\mathbb{Z}_2$-odd scalars below 6 and $\Delta_{\epsilon''}>3$.'
+  - name: "\\sigma'"
+    Delta: '5.34(4)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-odd'
+    method: fuzzy sphere
+    refs: [zhou2026]
+    note: 'arXiv:2609.35960v1, Table 1, p. 4 (PDF p. 6); extrapolation error.'
+  - name: "T'_{\\mu\\nu}"
+    Delta: '5.50915(44)'
+    spin: 2
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75). Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - name: "T'_{\\mu\\nu}"
+    Delta: '5.499(17)'
+    spin: 2
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap (rigorous)
+    refs: [reehorst2021]
+    note: 'arXiv:2111.12093v1, Table 1, p. 4 and Eq. (4.4), $\Lambda=19$. Rigorous, assuming only two $\mathbb{Z}_2$-even spin-2 operators below 6.'
+  - name: "T'_{\\mu\\nu}"
+    Delta: '5.549(13)'
+    spin: 2
+    rep: '$\mathbb{Z}_2$-even'
+    method: fuzzy sphere
+    refs: [zhou2026]
+    note: 'arXiv:2609.35960v1, Table 1, p. 4 (PDF p. 6); extrapolation error. **Disagrees** with the rigorous interval $5.499(17)$ (upper end 5.516) and with the estimate $5.50915(44)$ (by about $3\times$ its stated error).'
+  - name: "T''_{\\mu\\nu}"
+    Delta: '7.0758(58)'
+    spin: 2
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), third $\mathbb{Z}_2$-even spin-2 operator in these OPEs. Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - name: "T''_{\\mu\\nu}"
+    Delta: '7.03(17)'
+    spin: 2
+    rep: '$\mathbb{Z}_2$-even'
+    method: fuzzy sphere
+    refs: [zhou2026]
+    note: 'arXiv:2609.35960v1, Table 1, p. 4 (PDF p. 6); extrapolation error.'
+  - name: 'C_{\mu\nu\rho\sigma}'
+    Delta: '5.022665(28)'
+    spin: 4
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75). Lightest $\mathbb{Z}_2$-even spin-4 operator; on a cubic lattice it gives the leading correction from broken rotation symmetry, $\omega_{\rm NR} = \Delta_C - 3$ (Hasenbusch, arXiv:2105.09781v2, p. 6). Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - name: "C'_{\\mu\\nu\\rho\\sigma}"
+    Delta: '6.42065(64)'
+    spin: 4
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), second $\mathbb{Z}_2$-even spin-4 operator in these OPEs. Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - name: "C''_{\\mu\\nu\\rho\\sigma}"
+    Delta: '7.38568(28)'
+    spin: 4
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), third $\mathbb{Z}_2$-even spin-4 operator in these OPEs. Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - name: '[\sigma\sigma]_{0,6}'
+    Delta: '7.028488(16)'
+    spin: 6
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 3, p. 73 (PDF p. 76) (also Table 2). Leading-twist $[\sigma\sigma]_0$ family; the last subscript is the spin. Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - name: '[\sigma\sigma]_{0,8}'
+    Delta: '9.031023(30)'
+    spin: 8
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 3, p. 73 (PDF p. 76); $[\sigma\sigma]_0$ family. Not rigorous.'
+  - name: '[\sigma\sigma]_{0,10}'
+    Delta: '11.0324141(99)'
+    spin: 10
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 3, p. 73 (PDF p. 76); $[\sigma\sigma]_0$ family. Not rigorous.'
+  - name: '[\sigma\sigma]_{0,12}'
+    Delta: '13.033286(12)'
+    spin: 12
+    rep: '$\mathbb{Z}_2$-even'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 3, p. 73 (PDF p. 76); $[\sigma\sigma]_0$ family. Not rigorous.'
+  - name: '\sigma_{\mu\nu}'
+    Delta: '4.180305(18)'
+    spin: 2
+    rep: '$\mathbb{Z}_2$-odd'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), lightest $\mathbb{Z}_2$-odd spin-2 operator in $\sigma\times\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - name: '\sigma_{\mu\nu}'
+    Delta: '4.197(10)'
+    spin: 2
+    rep: '$\mathbb{Z}_2$-odd'
+    method: fuzzy sphere
+    refs: [zhou2026]
+    note: 'arXiv:2609.35960v1, Table 1, p. 4 (PDF p. 6); extrapolation error. About $1.7\times$ its error above the bootstrap estimate.'
+  - name: "\\sigma'_{\\mu\\nu}"
+    Delta: '6.9873(53)'
+    spin: 2
+    rep: '$\mathbb{Z}_2$-odd'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), second $\mathbb{Z}_2$-odd spin-2 operator in $\sigma\times\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - name: "\\sigma'_{\\mu\\nu}"
+    Delta: '7.058(15)'
+    spin: 2
+    rep: '$\mathbb{Z}_2$-odd'
+    method: fuzzy sphere
+    refs: [zhou2026]
+    note: 'arXiv:2609.35960v1, Table 1, p. 4 (PDF p. 6); extrapolation error. **Disagrees** with the bootstrap estimate $6.9873(53)$ by about $4.4\times$ the combined stated errors.'
+  - name: '\sigma_{\mu\nu\rho}'
+    Delta: '4.63804(88)'
+    spin: 3
+    rep: '$\mathbb{Z}_2$-odd'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), lightest $\mathbb{Z}_2$-odd spin-3 operator in $\sigma\times\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - name: '\sigma_{\mu\nu\rho\sigma}'
+    Delta: '6.112674(19)'
+    spin: 4
+    rep: '$\mathbb{Z}_2$-odd'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), lightest $\mathbb{Z}_2$-odd spin-4 operator in $\sigma\times\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - name: '\sigma_{\mu_1\cdots\mu_5}'
+    Delta: '6.709778(27)'
+    spin: 5
+    rep: '$\mathbb{Z}_2$-odd'
+    method: conformal bootstrap (extremal-functional estimate)
+    refs: [simmonsduffin2016]
+    note: 'arXiv:1612.08471v1, Table 2, p. 72 (PDF p. 75), lightest $\mathbb{Z}_2$-odd spin-5 operator in $\sigma\times\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - name: '\sigma_{\mu}'
+    Delta: '9.1(4)'
+    spin: 1
+    rep: '$\mathbb{Z}_2$-odd, parity-even'
+    method: fuzzy sphere
+    refs: [zhou2026]
+    note: 'arXiv:2609.35960v1, Table 1, p. 4 (PDF p. 6), and p. 23; lightest $\mathbb{Z}_2$-odd vector primary. Extrapolation error.'
+  - name: 'V_{\mu}'
+    Delta: '10.8(5)'
+    spin: 1
+    rep: '$\mathbb{Z}_2$-even, parity-even'
+    method: fuzzy sphere
+    refs: [zhou2026]
+    note: 'arXiv:2609.35960v1, Table 1, p. 4 (PDF p. 6), and p. 23; lightest $\mathbb{Z}_2$-even vector primary seen; the paper relates it to the explanation of why the Ising fixed point is conformal and not only scale invariant. Extrapolation error.'
+  - name: 'T^{-}_{\mu\nu}'
+    Delta: '7.4(2)'
+    spin: 2
+    rep: '$\mathbb{Z}_2$-even, parity-odd'
+    method: fuzzy sphere
+    refs: [zhou2026]
+    note: 'arXiv:2609.35960v1, Table 1, p. 4 (PDF p. 6), and p. 23; lightest parity-odd spin-2 primary. Extrapolation error.'
+  - name: '\epsilon^{-}'
+    Delta: '\leq 10.9293'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even, parity-odd'
+    method: conformal bootstrap (rigorous)
+    refs: [chang2024]
+    note: 'arXiv:2411.15300v2, Eq. (5.5), p. 32 (PDF p. 34): rigorous upper bound at $\Lambda=27$ under the gap assumptions of their Table 6, from an OPE scan at each gap value, computed at a few representative points of the $\Lambda=43$ $(\Delta_\sigma,\Delta_\epsilon)$ island, which all give the same bound within the binary-search tolerance $10^{-4}$. With the extra assumption $\Delta_{\epsilon^{-\prime}} \geq 11.5$ (resp. $\geq 11$) they find $\Delta_{\epsilon^-} \geq 10.8790$ (resp. $\geq 10.5432$). The text calls this the $\mathbb{Z}_2$-even parity-odd scalar; the caption of their Fig. 9 says "parity-even, $\mathbb{Z}_2$-odd", apparently a typo.'
+  - name: '\epsilon^{-}'
+    Delta: '11.0(4)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even, parity-odd'
+    method: fuzzy sphere
+    refs: [zhou2026]
+    note: 'arXiv:2609.35960v1, Table 1, p. 4 (PDF p. 6), and pp. 22–23. Consistent with the bootstrap bound; the next such primary is at $13.3(6)$, supporting the bootstrap''s assumption $\Delta_{\epsilon^{-\prime}} > 11.5$. The earlier fuzzy-sphere value $\approx 10.01$ (2210.13482) was a descendant, not a primary.'
+  - name: '\sigma^{-}'
+    Delta: '12.8(7)'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-odd, parity-odd'
+    method: fuzzy sphere
+    refs: [zhou2026]
+    note: 'arXiv:2609.35960v1, Table 1, p. 4 (PDF p. 6); lightest $\mathbb{Z}_2$-odd parity-odd scalar primary. The earlier value $\approx 11.19$ (2210.13482) was a descendant. Extrapolation error.'
 
 relations:
   - type: member_of
@@ -91,5 +579,58 @@ references:
     authors: Simmons-Duffin
     year: 2016
     arxiv: '1612.08471'
+  - key: reehorst2021
+    title: Rigorous bounds on irrelevant operators in the 3d Ising model CFT
+    authors: Reehorst
+    year: 2022
+    journal: JHEP 09 (2022) 177
+    arxiv: '2111.12093'
+  - key: hasenbusch2010
+    title: A finite size scaling study of lattice models in the three-dimensional Ising universality class
+    authors: Hasenbusch
+    year: 2010
+    journal: Phys. Rev. B 82, 174433
+    arxiv: '1004.4486'
+  - key: hasenbusch2017
+    title: 'Two- and three-point functions at criticality: Monte Carlo simulations of the improved three-dimensional Blume–Capel model'
+    authors: Hasenbusch
+    year: 2018
+    journal: Phys. Rev. E 97, 012119
+    arxiv: '1711.10946'
+  - key: hasenbusch2021
+    title: 'Restoring isotropy in a three-dimensional lattice model: The Ising universality class'
+    authors: Hasenbusch
+    year: 2021
+    journal: Phys. Rev. B 104, 014426
+    arxiv: '2105.09781'
+  - key: ferrenberg2018
+    title: Pushing the limits of Monte Carlo simulations for the three-dimensional Ising model
+    authors: Ferrenberg, Xu, Landau
+    year: 2018
+    journal: Phys. Rev. E 97, 043301
+    arxiv: '1806.03558'
+  - key: hu2023
+    title: Operator product expansion coefficients of the 3D Ising criticality via quantum fuzzy sphere
+    authors: Hu, He, Zhu
+    year: 2023
+    journal: Phys. Rev. Lett. 131, 031601
+    arxiv: '2303.08844'
+  - key: hu2024
+    title: Entropic $F$-function of 3D Ising conformal field theory via the fuzzy sphere regularization
+    authors: Hu, Zhu, He
+    year: 2025
+    journal: Phys. Rev. B 111, 155151
+    arxiv: '2401.17362'
+  - key: zhou2026
+    title: 'Advancing fuzzy-sphere CFTs: SO(3)-rotation-resolving exact diagonalization, 3D Ising heavy primaries, and quasi-hole-space projection'
+    authors: Zhou, He
+    year: 2026
+    arxiv: '2609.35960'
+  - key: kompaniets2017
+    title: Minimally subtracted six-loop renormalization of $O(n)$-symmetric $\phi^4$ theory and critical exponents
+    authors: Kompaniets, Panzer
+    year: 2017
+    journal: Phys. Rev. D 96, 036016
+    arxiv: '1705.06483'
 
-contributors: [nathansbenjamin]
+contributors: [nathansbenjamin, davidsd]
