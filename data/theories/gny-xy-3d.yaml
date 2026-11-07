@@ -99,7 +99,7 @@ quantities:
     note: 'Same work: $\eta = 0.71(3)$ for the order parameter. Zerf et al. (Table II) list this value under $1/\nu$; Li et al. (Table I) give it as $\nu$.'
   - symbol: '\tilde c'
     description: 'Thermal free energy density on $S^1_\beta\times\mathbb{R}^{2}$, $f = -\tilde c\,\frac{\zeta(3)}{2\pi}\,T^{3}$ ($\tilde c = 1$ for one free real scalar)'
-    value: '\frac{3}{4}N - 0.140094 + O(1/N)'
+    value: '\frac{3}{4}N - 0.140095 + O(1/N)'
     method: large N
     refs: [diatlyk2023, sachdev1993]
     note: 'Diatlyk, Popov and Wang eq. (1.12): $f_{\rm NJL} = -\frac{3\zeta(3)}{4\pi}N_D - 0.02680198 + O(N_D^{-1})$ (units of $T^3$) for $N_D$ two-component Dirac fermions, $N_D = N/2$ in this entry''s Majorana count; divided by $-\zeta(3)/(2\pi)$. The leading term is that of $N$ free Majorana fermions ($\tfrac34$ each). Their NJL model (Sec. 3.7) is the four-fermion completion of the chiral XY GNY model, with $N_f$ four-component Dirac fermions and $N_D = 2N_f$.'
