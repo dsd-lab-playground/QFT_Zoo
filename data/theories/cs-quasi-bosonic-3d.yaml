@@ -19,20 +19,19 @@ description: |
   ($k$ in the dimensional-reduction convention, $-1<\lambda<1$). The scalar mass and the
   quartic coupling $(\bar\phi\phi)^2$ are tuned to zero. The sextic coupling
   $\tfrac{\lambda_6}{3!\,N^2}(\bar\phi\phi)^3$ is classically marginal (conventions of
-  Aharony, Gur-Ari and Yacoby 2012; their 2011 paper used real scalars and $\lambda = 4\pi N/k$).
+  [@aharony2012]; their earlier paper [@aharony2011] used real scalars and $\lambda = 4\pi N/k$).
 
   ### Planar conformal manifold and finite $N$
   At $N=\infty$ the beta function of $\lambda_6$ vanishes to all orders in perturbation
   theory, so there is a
-  two-parameter family of CFTs labelled by $\lambda$ and $\lambda_6$ (Aharony, Gur-Ari and
-  Yacoby 2011, Sec. 3). At finite $N$ a beta function for $\lambda_6$ of order $1/N$ is
-  generated. Their two-loop result for the $O(N)$ theory has, for $N\ge10$, two lines of
+  two-parameter family of CFTs labelled by $\lambda$ and $\lambda_6$ [@aharony2011, Sec. 3]. At finite $N$ a beta function for $\lambda_6$ of order $1/N$ is
+  generated. Their two-loop result [@aharony2011, Eqs. (9), (11)] for the $O(N)$ theory has, for $N\ge10$, two lines of
   zeros $\lambda_6^\pm(\lambda)\propto\lambda^2$, of which $\lambda_6^+$ is IR-stable, so at
   large finite $N$ and small $\lambda$ there is a one-parameter family of CFTs labelled by
   $\lambda$ alone; without Chern–Simons coupling, $\lambda_6 > 0$ is IR-free. So $\lambda_6$
   is a free parameter only of the planar theory.
 
-  The conformal vacuum must also be stable, which restricts $\lambda_6$. Dey et al.
+  The conformal vacuum must also be stable, which restricts $\lambda_6$. Dey et al. [@dey2018]
   computed the exact large-$N$ Landau–Ginzburg potential for $\bar\phi\phi$ on both the
   unHiggsed and the Higgsed branch. Writing $\lambda_6 = 24\pi^2\lambda^2(1+x_6)$, it is
   bounded below only for $\tfrac43\big(\tfrac{1}{(2-|\lambda|)^2}-1\big) \le x_6 \le
@@ -40,8 +39,8 @@ description: |
   $8\pi^2\lambda^2\big(\tfrac{4}{(2-|\lambda|)^2}-1\big) \le \lambda_6 \le 8\pi^2(4-\lambda^2)$.
   As $\lambda\to0$ this becomes $0 \le \lambda_6 \le 32\pi^2$: below the free theory the
   potential is unbounded along $\bar\phi\phi\to+\infty$, and at the upper end conformal
-  symmetry can be broken spontaneously (the Bardeen–Moshe–Bander phenomenon; Aharony,
-  Gur-Ari and Yacoby 2011, Sec. 3.3). At $|\lambda|=1$ the range shrinks to the single
+  symmetry can be broken spontaneously (the Bardeen–Moshe–Bander phenomenon)
+  [@aharony2011, Sec. 3.3]. At $|\lambda|=1$ the range shrinks to the single
   point $\lambda_6 = 24\pi^2$ ($x_6 = 0$).
 
   The planar data below do not depend on
@@ -60,7 +59,7 @@ description: |
   $N_f = |k_b| - N_b$, and with the sextic couplings related by
   $\lambda^b_6 = 8\pi^2(1-|\lambda_f|)^2(3 - 8\pi\lambda_f\lambda^f_6)$, where
   $\tfrac{N}{3!}\lambda_6^f\sigma^3$ is the cubic term of the Hubbard–Stratonovich field
-  $\sigma\sim\bar\psi\psi$ on the fermionic side (Gur-Ari and Yacoby; Aharony et al. 2012).
+  $\sigma\sim\bar\psi\psi$ on the fermionic side [@gurari2012; @aharony2012b].
   The critical fermion with $\lambda^f_6 = 0$ corresponds to $\lambda_6 = 24\pi^2\lambda^2$.
   As $|\lambda|\to1$ the fermionic description becomes weakly coupled: the large-$N$
   Gross–Neveu model. A double-trace $(\bar\phi\phi)^2$ deformation, with the mass tuned,
@@ -77,7 +76,7 @@ parameters:
     range: '$-1 < \lambda < 1$'
   - symbol: '\lambda_6'
     description: 'Sextic coupling; exactly marginal at $N=\infty$, runs at order $1/N$.'
-    range: '$8\pi^2\lambda^2\big(\frac{4}{(2-|\lambda|)^2}-1\big) \le \lambda_6 \le 8\pi^2(4-\lambda^2)$ for a stable vacuum (Dey et al.); $0 \le \lambda_6 \le 32\pi^2$ as $\lambda \to 0$'
+    range: '$8\pi^2\lambda^2\big(\frac{4}{(2-|\lambda|)^2}-1\big) \le \lambda_6 \le 8\pi^2(4-\lambda^2)$ for a stable vacuum [@dey2018]; $0 \le \lambda_6 \le 32\pi^2$ as $\lambda \to 0$'
 
 family:
   parameter: lambda

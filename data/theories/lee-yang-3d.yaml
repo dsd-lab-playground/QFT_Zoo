@@ -15,31 +15,30 @@ tags: [CFT, interacting, non-unitary, Lagrangian, critical phenomena]
 description: |
   Above the critical temperature, the zeros of the Ising partition function in the
   complex magnetic field $h$ lie on the imaginary axis beyond a critical value $h_c(T)$
-  (Lee and Yang). Near this edge their density vanishes as $(h - h_c)^\sigma$, with a
-  universal edge exponent $\sigma$. Fisher described the edge by a scalar field theory with
+  [@lee1952]. Near this edge their density vanishes as $(h - h_c)^\sigma$, with a
+  universal edge exponent $\sigma$. Fisher [@fisher1978] described the edge by a scalar field theory with
   an imaginary cubic coupling, whose upper critical dimension is 6. The same universality
   class describes the repulsive-core singularity of fluids, and, in $d + 2$ dimensions,
-  branched polymers (Parisi and Sourlas).
+  branched polymers [@parisi1981].
 
   The only relevant primary is $\phi$. By the equation of motion $\phi^2$ is a descendant
-  of $\phi$, and the next scalar primary, "$\phi^3$", is irrelevant (Gliozzi and Rago). The
+  of $\phi$, and the next scalar primary, "$\phi^3$", is irrelevant [@gliozzi2014]. The
   exponents follow from $\Delta_\phi$:
   $$\sigma = \frac{\Delta_\phi}{3 - \Delta_\phi}, \qquad \eta = 2\Delta_\phi - 1 .$$
   $\Delta_\phi \approx 0.21$ lies below the unitarity bound $\tfrac12$. In $d=2$ the
   same universality class is the minimal model $\mathcal{M}(2,5)$.
 
   The estimates below come from methods with different, not directly comparable, error
-  estimates: the $6-\epsilon$ expansion to five loops with resummation (Borinsky, Gracey,
-  Kompaniets and Schnetz); series expansions of the dimer density on bipartite lattices
-  (Butera and Pernici); the functional renormalization group (An, Mesterházy and
-  Stephanov); a truncated, non-rigorous bootstrap that keeps a few operators in the
-  $\phi\times\phi$ OPE (Gliozzi and Rago), since the positivity-based numerical bootstrap
+  estimates: the $6-\epsilon$ expansion to five loops with resummation [@borinsky2021];
+  series expansions of the dimer density on bipartite lattices [@butera2012]; the
+  functional renormalization group [@an2016]; a truncated, non-rigorous bootstrap that
+  keeps a few operators in the $\phi\times\phi$ OPE [@gliozzi2014], since the positivity-based numerical bootstrap
   does not apply to a non-unitary theory; and the fuzzy-sphere regularization of the
   Ising model with an imaginary longitudinal field. Two fuzzy-sphere studies disagree.
-  Arguello Cruz, Klebanov, Tarnopolsky and Xin find $\Delta_\phi = 0.214(2)$, consistent
-  with the series and five-loop values. Fan, Dong and Vishwanath find
+  Arguello Cruz, Klebanov, Tarnopolsky and Xin [@arguellocruz2025] find $\Delta_\phi = 0.214(2)$, consistent
+  with the series and five-loop values. Fan, Dong and Vishwanath [@fan2025] find
   $\Delta_\phi \approx 0.29$, and note that assuming a heavier next irrelevant operator in
-  their finite-size fit moves it towards the other estimates. Elias Miró and Delouche find
+  their finite-size fit moves it towards the other estimates. Elias Miró and Delouche [@eliasmiro2025] find
   the low-lying fuzzy-sphere spectrum compatible with the five-loop estimates.
 
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2 + \tfrac{i\lambda}{3!}\,\phi^3 \quad (\phi \text{ real; the relevant coupling to } \phi \text{ is tuned to the edge})'
@@ -56,7 +55,7 @@ quantities:
     value: '0.075(11)'
     method: 'epsilon-expansion (6 − ε, five loops, resummed)'
     refs: [borinsky2021]
-    note: 'Combination of all resummations (Table 4); constrained resummations alone give $0.075(7)$.'
+    note: 'Combination of all resummations [@borinsky2021, Table 4]; constrained resummations alone give $0.075(7)$.'
   - symbol: '\sigma'
     description: 'Edge exponent, from the dimer density on the simple cubic lattice'
     value: '0.077(2)'
@@ -78,13 +77,13 @@ quantities:
     value: '-0.57(2)'
     method: 'epsilon-expansion (6 − ε, five loops, resummed)'
     refs: [borinsky2021]
-    note: 'Table 1. Functional renormalization group: $-0.586(29)$ (An et al.).'
+    note: '[@borinsky2021, Table 1]. Functional renormalization group: $-0.586(29)$ [@an2016].'
   - symbol: '|C_{\phi\phi\phi}|'
     description: OPE coefficient (absolute value)
     value: '1.9696(31)'
     method: fuzzy sphere
     refs: [arguellocruz2025]
-    note: 'From matrix elements of the fuzzy-sphere observable $Z_\ell$; from $X_\ell$, $1.969(5)$. The truncated bootstrap gives $C_{\phi\phi\phi}^2 = -3.88(1)$ (Gliozzi and Rago): the coefficient is imaginary.'
+    note: 'From matrix elements of the fuzzy-sphere observable $Z_\ell$; from $X_\ell$, $1.969(5)$. The truncated bootstrap gives $C_{\phi\phi\phi}^2 = -3.88(1)$ [@gliozzi2014]: the coefficient is imaginary.'
 
 operators:
   - name: '\phi'
@@ -93,7 +92,7 @@ operators:
     rep: the only relevant primary
     method: fuzzy sphere
     refs: [arguellocruz2025]
-    note: 'Below the unitarity bound. The same paper lists $0.215(10)$ from the five-loop $\eta$ and $0.214(6)$ from the series $\sigma$. The fuzzy-sphere study of Fan et al. gives $0.29$ (no error quoted).'
+    note: 'Below the unitarity bound. The same paper lists $0.215(10)$ from the five-loop $\eta$ and $0.214(6)$ from the series $\sigma$. The fuzzy-sphere study of Fan et al. [@fan2025] gives $0.29$ (no error quoted).'
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
@@ -104,13 +103,13 @@ operators:
     spin: 0
     method: fuzzy sphere
     refs: [arguellocruz2025]
-    note: 'Leading irrelevant scalar. Five-loop $\omega = 1.5(2)$ gives $3 + \omega = 4.5(2)$ (Borinsky et al.); truncated bootstrap: $5.0(1)$ (Gliozzi and Rago); Fan et al.: $4.71$.'
+    note: 'Leading irrelevant scalar. Five-loop $\omega = 1.5(2)$ gives $3 + \omega = 4.5(2)$ [@borinsky2021]; truncated bootstrap: $5.0(1)$ [@gliozzi2014]; Fan et al. [@fan2025]: $4.71$.'
   - name: 'Q_{\mu\nu\rho\sigma}'
     Delta: '4.9(1)'
     spin: 4
     method: fuzzy sphere
     refs: [arguellocruz2025]
-    note: 'Lightest spin-4 primary. Truncated bootstrap: $4.75(1)$ (Gliozzi and Rago); Fan et al.: $4.90$.'
+    note: 'Lightest spin-4 primary. Truncated bootstrap: $4.75(1)$ [@gliozzi2014]; Fan et al. [@fan2025]: $4.90$.'
 
 relations:
   - type: related_to

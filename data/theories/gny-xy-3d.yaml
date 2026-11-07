@@ -14,28 +14,28 @@ tags: [CFT, interacting, unitary, Lagrangian, critical phenomena, large N, famil
 description: |
   $N$ counts two-component Majorana fermions and is even ($N/2$ two-component Dirac
   fermions). The Lagrangian is usually written with $N_f$ four-component Dirac fermions,
-  $N = 4N_f$ (Fei et al.); Zerf et al. and Li et al. call $N_f$ "$N$", and their values are
+  $N = 4N_f$ [@fei2016]; Zerf et al. [@zerf2017] and Li et al. [@li2017] call $N_f$ "$N$", and their values are
   converted here. The complex scalar $\phi = \phi_1 + i\phi_2$ couples through
   $\bar\psi(\phi_1 + i\gamma_5\phi_2)\psi$, so the theory is invariant under
   $\psi\to e^{i\alpha\gamma_5}\psi$, $\phi\to e^{-2i\alpha}\phi$. When $\phi$ orders, this
   $U(1)$ is broken and the fermions are gapped; the mass $m^2|\phi|^2$ is tuned to
   criticality. The Yukawa theory is the UV completion of the Nambu–Jona-Lasinio model
   $\tfrac{g}{2}[(\bar\psi\psi)^2 - (\bar\psi\gamma_5\psi)^2]$, as in the Gross–Neveu case
-  (Fei et al.).
+  [@fei2016].
 
   For $N=2$ (one two-component Dirac fermion, $N_f = 1/2$) the fixed point is expected to
   be the $\mathcal{N}=2$ Wess–Zumino model with $W = \Phi^3$, with emergent supersymmetry; the
-  chiral $U(1)$ becomes the $R$-symmetry (Fei et al., Sec. 4.1; four-loop check by Zerf et al.).
+  chiral $U(1)$ becomes the $R$-symmetry ([@fei2016, Sec. 4.1]; four-loop check by Zerf et al. [@zerf2017]).
 
   For $N=8$ ($N_f = 2$: the spin-1/2 electrons of graphene) the class describes
   superconducting transitions of the Dirac semimetal and the transition to a Kekulé
-  valence-bond solid (Zerf et al.). The Kekulé order parameter has a $\mathbb{Z}_3$ cubic
-  anisotropy; Li, Jiang, Jian and Yao argue that the Dirac fermions make it irrelevant at
+  valence-bond solid [@zerf2017]. The Kekulé order parameter has a $\mathbb{Z}_3$ cubic
+  anisotropy; Li, Jiang, Jian and Yao [@li2017] argue that the Dirac fermions make it irrelevant at
   this fixed point, and they find continuous transitions in sign-free quantum Monte Carlo
   for $N_f = 2,\dots,6$.
 
   ### Large $N$
-  The expansions below are from Fei et al., eq. (3.33), in $d=3$ with the same $N$. The
+  The expansions below are from [@fei2016, Eq. (3.33)], in $d=3$ with the same $N$. The
   leading fermion anomalous dimension is twice that of the $O(N)$ Gross–Neveu model.
   At $N=\infty$, $\Delta_\psi = \Delta_\phi = 1$ and $\Delta_{|\phi|^2} = 2$.
 
@@ -72,13 +72,13 @@ quantities:
     value: '1 + \frac{16}{9\pi^2 N} + O(N^{-2})'
     method: derived
     refs: [fei2016, diab2016]
-    note: 'Fei et al. show that the $1/N$ coefficient is twice the Gross–Neveu one, which is $8/(9\pi^2)$ in $d=3$ (Diab et al.).'
+    note: 'Fei et al. [@fei2016] show that the $1/N$ coefficient is twice the Gross–Neveu one, which is $8/(9\pi^2)$ in $d=3$ [@diab2016].'
   - symbol: 'F'
     description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$, with $F_f = \frac{\log 2}{8} + \frac{3\zeta(3)}{16\pi^2}$ the value for one free Majorana fermion'
     value: 'N F_f + \frac{\zeta(3)}{4\pi^2} + \frac{4}{9\pi^2 N} + O(N^{-2})'
     method: large N
     refs: [fei2016, tarnopolsky2016]
-    note: 'The $O(N^0)$ term is twice the Gross–Neveu one (Fei et al.). The $1/N$ term is a conjecture of Tarnopolsky, checked against the $\epsilon$-expansions.'
+    note: 'The $O(N^0)$ term is twice the Gross–Neveu one [@fei2016]. The $1/N$ term is a conjecture of Tarnopolsky [@tarnopolsky2016], checked against the $\epsilon$-expansions.'
   - symbol: '\Delta_\phi\ (N=4)'
     description: 'Order-parameter dimension at $N=4$: two-sided Padé of the $4-\epsilon$ and $2+\epsilon$ expansions'
     value: '0.807'
@@ -96,7 +96,7 @@ quantities:
     value: '1.06(5)'
     method: quantum Monte Carlo
     refs: [li2017]
-    note: 'Same work: $\eta = 0.71(3)$ for the order parameter. Zerf et al. (Table II) list this value under $1/\nu$; Li et al. (Table I) give it as $\nu$.'
+    note: 'Same work: $\eta = 0.71(3)$ for the order parameter. Zerf et al. [@zerf2017, Table II] list this value under $1/\nu$; Li et al. [@li2017, Table I] give it as $\nu$.'
 
 operators:
   - name: '\psi_j'

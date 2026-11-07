@@ -18,7 +18,7 @@ description: |
   no polynomial interaction of a single scalar is renormalizable there.
 
   ### CFTs above six dimensions
-  Superconformal algebras exist only for $d \le 6$ (Nahm), so there are no SCFTs in
+  Superconformal algebras exist only for $d \le 6$ [@nahm1978], so there are no SCFTs in
   $d > 6$. The familiar interacting fixed points of statistical mechanics become Gaussian
   above their upper critical dimension: 4 for the Ising and $O(N)$ classes, 6 for
   $\phi^3$-type theories (Lee–Yang, percolation). No interacting unitary CFT is known in
@@ -59,13 +59,13 @@ quantities:
     value: '\frac{d}{d-1}\,\frac{1}{S_d^2}'
     method: exact
     refs: [osborn1994, buchel2010]
-    note: 'Osborn–Petkou eq. (5.5); also the scalar term of Buchel et al. eq. (7.6). The member values are this formula at each $d$ (derived).'
+    note: '[@osborn1994, Eq. (5.5)]; also the scalar term of [@buchel2010, Eq. (7.6)]. The member values are this formula at each $d$ (derived).'
   - symbol: '\tilde F'
-    description: 'Sphere free energy (odd $d$) in the convention of Giombi and Klebanov, $\tilde F = \sin(\pi d/2)\log Z_{S^d} = (-1)^{(d+1)/2}F$ with $F = -\log Z_{S^d}$'
+    description: 'Sphere free energy (odd $d$) in the convention of Giombi and Klebanov [@giombi2014, Eq. (1.5)], $\tilde F = \sin(\pi d/2)\log Z_{S^d} = (-1)^{(d+1)/2}F$ with $F = -\log Z_{S^d}$'
     value: '7.97\times10^{-4}\ (d=7),\ 1.31\times10^{-4}\ (d=9),\ 2.37\times10^{-5}\ (d=11)'
     method: exact (evaluated numerically)
     refs: [klebanov2011, giombi2014]
-    note: 'Klebanov, Pufu and Safdi, Table 1, give $F \approx 7.97\times10^{-4}$, $-1.31\times10^{-4}$ and $2.37\times10^{-5}$ for $d = 7, 9, 11$ (exact in terms of $\log 2$ and odd zeta values). A numerical evaluation of the integral in Giombi–Klebanov eq. (2.5) reproduces all three; $\tilde F$ is positive in every $d$.'
+    note: 'Klebanov, Pufu and Safdi [@klebanov2011, Table 1] give $F \approx 7.97\times10^{-4}$, $-1.31\times10^{-4}$ and $2.37\times10^{-5}$ for $d = 7, 9, 11$ (exact in terms of $\log 2$ and odd zeta values). A numerical evaluation of the integral [@giombi2014, Eq. (2.5)] reproduces all three; $\tilde F$ is positive in every $d$.'
 
 operators:
   - name: '\phi'
@@ -74,7 +74,7 @@ operators:
     rep: '$\mathbb{Z}_2$-odd'
     method: exact
     refs: [osborn1994]
-    note: 'From the propagator $\langle\phi(x)\phi(0)\rangle = \frac{1}{(d-2)S_d\,x^{d-2}}$ (Osborn–Petkou eq. (5.3)); saturates the scalar unitarity bound.'
+    note: 'From the propagator $\langle\phi(x)\phi(0)\rangle = \frac{1}{(d-2)S_d\,x^{d-2}}$ [@osborn1994, Eq. (5.3)]; saturates the scalar unitarity bound.'
   - name: '\phi^2'
     Delta: 'd-2'
     spin: 0
