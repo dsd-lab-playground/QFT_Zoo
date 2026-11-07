@@ -1,0 +1,43 @@
+{
+  "theory": "n2-minimal-models",
+  "member": {"at": 2},
+  "c": "3/2",
+  "chiral_algebra": "\\big(SU(2)_{2}\\times U(1)_2\\big)/U(1)_{4}",
+  "irreducible": true,
+  "Z_tex": "Z = \\sum_{(l,m,s)/\\sim} |\\chi^l_{m,s}|^2",
+  "character_tex": "Branching functions $\\chi^{SU(2)_k}_l(\\tau,z)\\,\\Theta_{s,2}(\\tau,z) = \\sum_{m\\in\\mathbb{Z}_{2(k+2)}} \\chi^l_{m,s}(\\tau)\\,\\Theta_{m,k+2}(\\tau,z)$, $\\Theta_{m,K}(\\tau,z) = \\sum_{n\\in\\mathbb{Z}+m/2K} q^{Kn^2}z^{Kn}$ (Sugawara, arXiv:2004.05742, eq. (A.16) at zero $U(1)$ fugacity), computed from the Weyl-Kac character $\\chi_l$ as $\\chi^l_{m,s} = q^{-u^2/(k+2)}\\,[z^u]\\big(\\chi_l\\,\\Theta_{s,2}\\big)$ for any $u \\in \\frac m2 + (k+2)\\mathbb{Z}$. Labels: $l+m+s$ even, $(l,m,s)\\sim(k-l,\\,m+k+2,\\,s+2)$; each orbit is labelled by its representative with $s\\in\\{0,1\\}$ ($s=0$ NS, $s=1$ R) and $-(k+2)<m\\le k+2$. For $|m-s|\\le l$ the weight is $h = \\frac{l(l+2)-m^2}{4(k+2)} + \\frac{s}{8}$. The NS and R characters of the $\\mathcal{N}=2$ algebra are $\\chi^l_{m,0}+\\chi^l_{m,2}$ and $\\chi^l_{m,1}+\\chi^l_{m,3}$.",
+  "description": "Bosonic diagonal coset theory at $k=2$: one term $|\\chi^l_{m,s}|^2$ for each of the 24 field-identification orbits, so the NS$\\otimes$NS and R$\\otimes$R sectors appear with $s_L = s_R$ and there is no NS$\\otimes$R sector. The supercurrents $G^\\pm$ appear only paired with antiholomorphic fermionic states; the lowest are the four states $G^a\\bar G^b$ at $(h,\\bar h) = (\\frac32,\\frac32)$, in the block of the orbit of $(0,0,2)$, labelled $\\chi^{2}_{4,0}$. This is the diagonal invariant $Z = \\sum_{(a,c)\\in Q_k}|\\chi_{a,c}|^2$ of Cordova-Rizi (arXiv:2312.17308, eq. (2.31)) and Gray (arXiv:0812.1318, eq. (4) with $M$ the identity), the bosonization of the fermionic $\\mathcal{N}=2$ minimal model (Chen-Duan-Jia-Lee, arXiv:2511.22129, supplement A). At $k=2$ the partition function equals that of the Ising model times the compact boson at $R = 2\\sqrt2$ in the convention of the compact-boson entry; Gray writes it as $Z_{\\rm Ising}Z_{R=2}$ with self-dual radius 1.",
+  "generator": "scripts/spectra/gen_n2.py",
+  "blocks": [
+    {"label": "\\chi^{0}_{0,0}", "h": "0", "coeffs": [1, 1, 3, 5, 12, 18, 34, 53, 90, 137]},
+    {"label": "\\chi^{0}_{1,1}", "h": "1/16", "coeffs": [1, 1, 3, 6, 11, 20, 34, 56, 91]},
+    {"label": "\\chi^{1}_{2,1}", "h": "1/16", "coeffs": [1, 2, 4, 8, 16, 28, 48, 80, 128]},
+    {"label": "\\chi^{2}_{3,1}", "h": "1/16", "coeffs": [1, 1, 3, 6, 11, 20, 34, 56, 91]},
+    {"label": "\\chi^{1}_{-1,0}", "h": "1/8", "coeffs": [1, 2, 4, 9, 16, 29, 50, 82, 132]},
+    {"label": "\\chi^{1}_{1,0}", "h": "1/8", "coeffs": [1, 2, 4, 9, 16, 29, 50, 82, 132]},
+    {"label": "\\chi^{2}_{-2,0}", "h": "1/4", "coeffs": [1, 1, 4, 6, 13, 21, 39, 60, 101]},
+    {"label": "\\chi^{2}_{2,0}", "h": "1/4", "coeffs": [1, 1, 4, 6, 13, 21, 39, 60, 101]},
+    {"label": "\\chi^{1}_{0,1}", "h": "5/16", "coeffs": [1, 2, 5, 10, 18, 32, 55, 90, 144]},
+    {"label": "\\chi^{1}_{4,1}", "h": "5/16", "coeffs": [1, 2, 5, 10, 18, 32, 55, 90, 144]},
+    {"label": "\\chi^{2}_{0,0}", "h": "1/2", "coeffs": [1, 2, 4, 7, 15, 25, 43, 69, 112]},
+    {"label": "\\chi^{0}_{-3,1}", "h": "9/16", "coeffs": [1, 2, 4, 8, 15, 26, 44, 72, 114]},
+    {"label": "\\chi^{0}_{3,1}", "h": "9/16", "coeffs": [1, 2, 4, 8, 15, 26, 44, 72, 114]},
+    {"label": "\\chi^{2}_{-1,1}", "h": "9/16", "coeffs": [1, 2, 4, 8, 15, 26, 44, 72, 114]},
+    {"label": "\\chi^{2}_{1,1}", "h": "9/16", "coeffs": [1, 2, 4, 8, 15, 26, 44, 72, 114]},
+    {"label": "\\chi^{1}_{-3,0}", "h": "5/8", "coeffs": [1, 3, 6, 12, 22, 38, 64, 105, 166]},
+    {"label": "\\chi^{1}_{3,0}", "h": "5/8", "coeffs": [1, 3, 6, 12, 22, 38, 64, 105, 166]},
+    {"label": "\\chi^{0}_{-2,0}", "h": "3/4", "coeffs": [1, 2, 5, 9, 17, 28, 49, 78, 125]},
+    {"label": "\\chi^{0}_{2,0}", "h": "3/4", "coeffs": [1, 2, 5, 9, 17, 28, 49, 78, 125]},
+    {"label": "\\chi^{0}_{4,0}", "h": "1", "coeffs": [2, 2, 6, 10, 20, 32, 56, 86, 142]},
+    {"label": "\\chi^{0}_{-1,1}", "h": "17/16", "coeffs": [1, 3, 6, 11, 20, 34, 56, 91]},
+    {"label": "\\chi^{1}_{-2,1}", "h": "17/16", "coeffs": [2, 4, 8, 16, 28, 48, 80, 128]},
+    {"label": "\\chi^{2}_{-3,1}", "h": "17/16", "coeffs": [1, 3, 6, 11, 20, 34, 56, 91]},
+    {"label": "\\chi^{2}_{4,0}", "h": "3/2", "coeffs": [2, 4, 8, 14, 26, 42, 70, 110]}
+  ],
+  "Z": [
+    [0, 0, 1], [1, 1, 1], [2, 2, 1], [3, 3, 1], [4, 4, 1], [5, 5, 1],
+    [6, 6, 1], [7, 7, 1], [8, 8, 1], [9, 9, 1], [10, 10, 1], [11, 11, 1],
+    [12, 12, 1], [13, 13, 1], [14, 14, 1], [15, 15, 1], [16, 16, 1], [17, 17, 1],
+    [18, 18, 1], [19, 19, 1], [20, 20, 1], [21, 21, 1], [22, 22, 1], [23, 23, 1]
+  ]
+}

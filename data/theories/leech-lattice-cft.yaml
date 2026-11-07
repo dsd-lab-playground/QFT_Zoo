@@ -1,0 +1,153 @@
+id: leech-lattice-cft
+name: Leech lattice CFT
+aliases:
+  - 'Leech lattice vertex operator algebra $V_\Lambda$'
+  - Leech lattice theory
+  - 24 chiral bosons on the Leech lattice
+d: 2
+summary: >-
+  The holomorphic $c = 24$ theory of 24 chiral bosons compactified on the Leech lattice $\Lambda$,
+  with $Z = \Theta_\Lambda/\eta^{24} = J(\tau) + 24$. Since $\Lambda$ has no roots, its only weight-1
+  states are the 24 abelian currents $\partial X^i$.
+tags: [CFT, free, unitary, rational, exactly solvable]
+
+description: |
+  For an even self-dual (unimodular) Euclidean lattice $L$ of rank $n$, the $n$ chiral bosons $X^i$
+  with momenta in $L$ form a holomorphic CFT with $c_L = n$, $c_R = 0$, whose character is
+  $\Theta_L(\tau)/\eta(\tau)^n$; it is modular invariant up to phases, and exactly invariant when
+  $n$ is a multiple of 24 (Schellekens, section 1). In rank 24 there are exactly 24 such lattices,
+  the Niemeier lattices, each fixed by its root system; the Leech lattice $\Lambda$ is the unique one
+  without roots, i.e. with no vectors of norm 2 (Conway). Its shortest vectors have norm 4.
+
+  The vertex operators $e^{ip\cdot X}$, $p \in \Lambda$, have weight $h = p^2/2 \geq 2$, so the only
+  weight-1 states are the currents $\partial X^i$, generating $U(1)^{24}$. Modular invariance then
+  fixes the partition function to $J(\tau) + 24$:
+  $$Z(\tau) = \frac{\Theta_\Lambda(\tau)}{\eta(\tau)^{24}} = q^{-1} + 24 + 196884\,q + 21493760\,q^2 + \dots,
+  \qquad \Theta_\Lambda = E_4^3 - 720\,\Delta .$$
+  The theta series follows because $\Theta_\Lambda$ is a weight-12 modular form with no $q^1$ term
+  (derived; it gives 196560 vectors of norm 4). At weight 2 the $196884$ states are
+  $T$, the 24 descendants $\partial^2X^i$, and $196883 - 24 = 196859$ Virasoro primaries: the 196560
+  vertex operators of norm-4 momenta and the 299 traceless products $\partial X^i\partial X^j$ (derived).
+
+  Schellekens showed that a holomorphic $c = 24$ theory whose weight-1 currents include an abelian
+  factor has exactly 24 currents, all abelian, and is the Leech lattice theory; it is No. 1 on his
+  list. Every holomorphic $c = 24$ theory with $V_1 \neq 0$ is a cyclic orbifold of this one
+  (van Ekeren, Lam, Möller and Shimakura), and orbifolding by a lift of $X \to -X$ gives the
+  Monster CFT (Frenkel, Lepowsky and Meurman). Conversely, the Leech lattice theory can itself be
+  obtained as an orbifold of another Niemeier lattice theory (Witten, section 3.1).
+
+  Its automorphism group contains the inner automorphisms $\exp(a_{(0)})$, $a \in V_1$, generated
+  by the zero modes of the currents, and the outer automorphism group is
+  $\mathrm{Aut}(V_\Lambda)/\mathrm{Inn}(V_\Lambda) \cong O(\Lambda) = \mathrm{Co}_0$, Conway's group
+  (Betsumiya, Lam and Shimakura, Remark 3.1 and Table 1).
+
+symmetry:
+  spacetime: 'conformal (holomorphic: Virasoro at $c = 24$ on one side only)'
+  supercharges: 0
+  global: '$U(1)^{24}$ (the currents $\partial X^i$), with outer automorphisms $O(\Lambda) = \mathrm{Co}_0$'
+
+quantities:
+  - symbol: '(c_L,\ c_R)'
+    description: 'Left and right central charges (holomorphic theory, so no `c` key)'
+    value: '(24,\ 0)'
+    method: exact
+    refs: [schellekens1993]
+  - symbol: 'Z(\tau)'
+    description: 'Torus partition function'
+    value: '\frac{\Theta_\Lambda(\tau)}{\eta(\tau)^{24}} = J(\tau) + 24 = q^{-1} + 24 + 196884\,q + 21493760\,q^2 + \dots'
+    method: exact
+    refs: [witten2007, schellekens1993]
+    note: 'Witten section 3.1: a holomorphic $c = 24$ theory with $s$ weight-1 primaries has $Z = J + s$; here $s = 24$. Checked independently by expanding $(E_4^3 - 720\Delta)/\eta^{24}$ (derived).'
+  - symbol: '\dim V_1'
+    description: 'Number of weight-1 states (currents)'
+    value: '24'
+    method: exact
+    refs: [schellekens1993]
+
+operators:
+  - name: '\partial X^i'
+    Delta: 1
+    spin: 1
+    weights: '(1, 0)'
+    degeneracy: 24
+    method: exact
+    note: '$U(1)^{24}$ currents.'
+  - name: 'T'
+    Delta: 2
+    spin: 2
+    weights: '(2, 0)'
+    method: exact
+    note: Stress tensor.
+  - name: 'e^{ip\cdot X},\ p^2 = 4'
+    Delta: 2
+    spin: 2
+    weights: '(2, 0)'
+    degeneracy: 196560
+    method: derived
+    refs: [witten2007]
+    note: 'Lightest vertex operators, one for each norm-4 vector of $\Lambda$. The count is the $q^2$ coefficient of $\Theta_\Lambda = E_4^3 - 720\Delta$ (derived).'
+  - name: 'e^{ip\cdot X},\ p \in \Lambda'
+    Delta: '\tfrac{p^2}{2}'
+    spin: '\tfrac{p^2}{2}'
+    weights: '(\tfrac{p^2}{2}, 0)'
+    method: exact
+    refs: [witten2007]
+
+relations:
+  - type: member_of
+    target: holomorphic-c24
+    at: 24
+    note: 'The case $V_1 = U(1)^{24}$ (Schellekens No. 1).'
+
+references:
+  - key: schellekens1993
+    title: Meromorphic c = 24 conformal field theories
+    authors: Schellekens
+    year: 1993
+    journal: Commun. Math. Phys. 153, 159
+    arxiv: hep-th/9205072
+    doi: '10.1007/BF02099044'
+  - key: witten2007
+    title: Three-dimensional gravity revisited
+    authors: Witten
+    year: 2007
+    arxiv: '0706.3359'
+  - key: flm1988
+    title: Vertex Operator Algebras and the Monster
+    authors: Frenkel, Lepowsky, Meurman
+    year: 1988
+    journal: Pure and Applied Mathematics 134, Academic Press (Boston)
+    doi: '10.1016/S0079-8169(08)X6136-7'
+  - key: elms2021
+    title: "Schellekens' list and the very strange formula"
+    authors: van Ekeren, Lam, Möller, Shimakura
+    year: 2021
+    journal: Adv. Math. 380, 107567
+    arxiv: '2005.12248'
+    doi: '10.1016/j.aim.2021.107567'
+    note: 'Section 1: Niemeier classification; the Leech lattice is the unique rank-24 Niemeier lattice without roots.'
+  - key: bls2023
+    title: Automorphism groups and uniqueness of holomorphic vertex operator algebras of central charge 24
+    authors: Betsumiya, Lam, Shimakura
+    year: 2023
+    journal: Commun. Math. Phys. 399, 1773
+    arxiv: '2203.15992'
+    doi: '10.1007/s00220-022-04585-6'
+  - key: dmc2015
+    title: "The moonshine module for Conway's group"
+    authors: Duncan, Mack-Crane
+    year: 2015
+    journal: Forum Math. Sigma 3, e10
+    arxiv: '1409.3829'
+    doi: '10.1017/fms.2015.7'
+    note: 'Section 1.1: Conway''s characterization of $\Lambda$ and $\mathrm{Co}_0 := \mathrm{Aut}(\Lambda)$.'
+  - key: dl2014
+    title: Unitary vertex operator algebras
+    authors: Dong, Lin
+    year: 2014
+    journal: J. Algebra 397, 252
+    arxiv: '1308.2361'
+    doi: '10.1016/j.jalgebra.2013.09.007'
+    note: 'Lattice vertex operator algebras of positive-definite even lattices are unitary.'
+
+contributors: [Canonical111]

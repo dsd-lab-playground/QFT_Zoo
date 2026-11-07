@@ -1,0 +1,176 @@
+id: wzw-models
+name: 'WZW models $G_k$'
+aliases: [Wess–Zumino–Witten models, WZNW models, Wess–Zumino–Novikov–Witten models, 'Current-algebra CFTs', '$\hat{\mathfrak{g}}_k$ WZW models']
+d: 2
+summary: 'Sigma models on a compact simple Lie group $G$ with a Wess–Zumino term at integer level $k$: rational CFTs with $\hat{\mathfrak{g}}_k\times\hat{\mathfrak{g}}_k$ current algebra and $c = k\dim G/(k+h^\vee)$. Diagonal theories for selected $G \neq SU(2)$, including $(E_8)_1$.'
+tags: [CFT, unitary, rational, exactly solvable, Lagrangian, family]
+
+description: |
+  The WZW model of a compact, simply connected simple Lie group $G$ at level $k \in \mathbb{Z}_{>0}$ is the sigma model on the group manifold with a Wess–Zumino term (Witten). Its chiral algebra is the affine Lie algebra $\hat{\mathfrak g}_k$ on each side, and the Sugawara stress tensor, a bilinear in the currents, gives
+  $$c = \frac{k\dim G}{k+h^\vee}, \qquad h_\lambda = \frac{(\lambda,\lambda+2\rho)}{2(k+h^\vee)},$$
+  with long roots of length$^2$ 2, $\rho$ the Weyl vector and $h^\vee$ the dual Coxeter number. The primary fields carry the integrable highest weights, $(\lambda,\theta) \le k$ for the highest root $\theta$; other fields decouple (Gepner–Witten). Correlation functions of primaries obey the Knizhnik–Zamolodchikov equations, and the characters, given by the Weyl–Kac formula, transform linearly under $SL(2,\mathbb{Z})$ (Kac–Peterson).
+
+  This entry lists the diagonal theories $Z = \sum_\lambda |\chi_\lambda|^2$ for a selection of groups other than $SU(2)$ at low level; $SU(2)_k$ and its non-diagonal invariants have their own pages. As is customary, members are labelled by the current algebra: $SO(N)_k$ means $\mathfrak{so}(N)_k$, whose diagonal theory is the WZW model on the simply connected group $\mathrm{Spin}(N)$. The currents $J^a$ at $(h, \bar h) = (1, 0)$ are Virasoro primaries, so the gap is $\min(1, 2h_{\min})$, where $h_{\min}$ is the lightest non-trivial $h_\lambda$. Several level-one members are free-field theories (lattice bosons or free fermions, see below).
+
+  ### Level one
+  For simply-laced $G$ ($SU(N)$, $SO(2N)$, $E_{6,7,8}$) at level 1, $c$ equals the rank $r$ and the theory is the lattice CFT of the root lattice $Q$ (the Frenkel–Kac–Segal vertex-operator construction), with characters $\Theta_{\lambda+Q}/\eta^r$. The current algebra $SO(N)_1$ is realised by $N$ free Majorana fermions, and the diagonal theory is their sum over spin structures, $Z = \tfrac12\big(|\theta_3/\eta|^N + |\theta_4/\eta|^N + |\theta_2/\eta|^N\big)$; this covers $SO(5)_1$, $SU(4)_1 = SO(6)_1$ and $SO(8)_1$. The three 8-dimensional primaries of $SO(8)_1$ have identical characters and are permuted by triality.
+
+  $(E_8)_1$ has the vacuum as its only primary, and its character is $j(\tau)^{1/3}$, so $Z = |j(\tau)|^{2/3}$. Its chiral half is the holomorphic CFT of the self-dual $E_8$ lattice ($c = 8$), whose character is modular invariant only up to a phase. Pairs of level-one theories embed conformally in $(E_8)_1$: for $(SU(3)_1, (E_6)_1)$, $((G_2)_1, (F_4)_1)$ and $(SO(8)_1, SO(8)_1)$ the central charges add up to 8, the weights of the non-trivial primaries add up to 1, and $\sum_i \chi_i\tilde\chi_i = j(\tau)^{1/3}$.
+
+lagrangian: 'S_k[g] = -\frac{k}{8\pi}\int d^2x\, \mathcal{K}\big(g^{-1}\partial^\mu g,\, g^{-1}\partial_\mu g\big) + \frac{ik}{24\pi}\int_B d^3y\, \epsilon^{ijk}\,\mathcal{K}\big(\tilde g^{-1}\partial_i\tilde g,\, [\tilde g^{-1}\partial_j\tilde g,\, \tilde g^{-1}\partial_k\tilde g]\big)'
+
+parameters:
+- symbol: G
+  description: 'Compact, simply connected simple Lie group; $\mathcal{K}(x,y) = \mathrm{Tr}(\mathrm{ad}_x\mathrm{ad}_y)/2h^\vee$ in the action. Euclidean signature with path-integral weight $e^{-S_k}$: the Wess–Zumino term is imaginary, so it contributes the phase $\exp 2\pi i k\tilde S$ of Walton eq. (2.7), which is independent of the extension $\tilde g$ of $g$ to a ball $B$ bounded by spacetime for integer $k$; its sign depends on the orientation of $B$.'
+- symbol: k
+  description: 'Level.'
+  range: 'integer $k \geq 1$'
+
+family:
+  parameter: G_k
+  show: 10
+  members:
+  - {at: 'SU(3)_1', label: '$SU(3)_1$', c: '2', gap: '2/3', note: 'Lattice CFT of the $A_2$ root lattice; primaries $\mathbf{3}$, $\bar{\mathbf{3}}$ with $h = 1/3$. Same torus partition function as the $SU(2)_4$ D-series model (conformal embedding $SU(2)_4 \subset SU(3)_1$).'}
+  - {at: 'SU(3)_2', label: '$SU(3)_2$', c: '16/5', gap: '8/15', note: 'Primaries $\mathbf{3}$, $\bar{\mathbf{3}}$ ($h = 4/15$), $\mathbf{8}$ ($h = 3/5$), $\mathbf{6}$, $\bar{\mathbf{6}}$ ($h = 2/3$).'}
+  - {at: 'SU(4)_1', label: '$SU(4)_1 = SO(6)_1$', c: '3', gap: '3/4', note: 'Lattice CFT of the $A_3$ root lattice; chiral algebra also realised by six Majorana fermions. Primaries $\mathbf{4}$, $\bar{\mathbf{4}}$ ($h = 3/8$), $\mathbf{6}$ ($h = 1/2$).'}
+  - {at: 'SO(5)_1', label: '$SO(5)_1 = Sp(4)_1$', c: '5/2', gap: '5/8', note: 'Chiral algebra realised by five Majorana fermions; primaries $\mathbf{4}$ ($h = 5/16$) and $\mathbf{5}$ ($h = 1/2$). Same torus partition function as the $E_6$ invariant of $SU(2)_{10}$ (conformal embedding $SU(2)_{10} \subset SO(5)_1$).'}
+  - {at: '(G_2)_1', label: '$(G_2)_1$', c: '14/5', gap: '4/5', note: 'One non-trivial primary $\mathbf{7}$, $h = 2/5$, with Fibonacci fusion $\mathbf{7}\times\mathbf{7} = \mathbf{1}+\mathbf{7}$. Same torus partition function as the $E_8$ invariant of $SU(2)_{28}$ (conformal embedding $SU(2)_{28} \subset (G_2)_1$).'}
+  - {at: 'SO(8)_1', label: '$SO(8)_1$', c: '4', gap: '1', note: 'Lattice CFT of the $D_4$ root lattice; chiral algebra also realised by eight Majorana fermions. Primaries $\mathbf{8}_v$, $\mathbf{8}_s$, $\mathbf{8}_c$, all with $h = 1/2$, permuted by triality.'}
+  - {at: '(F_4)_1', label: '$(F_4)_1$', c: '26/5', gap: '1', note: 'One non-trivial primary $\mathbf{26}$, $h = 3/5$; $(G_2)_1 \times (F_4)_1 \subset (E_8)_1$, with $\chi_{\mathbf{1}}\chi_{\mathbf{1}} + \chi_{\mathbf{7}}\chi_{\mathbf{26}} = j^{1/3}$.'}
+  - {at: '(E_6)_1', label: '$(E_6)_1$', c: '6', gap: '1', note: 'Lattice CFT of the $E_6$ root lattice; primaries $\mathbf{27}$, $\bar{\mathbf{27}}$ with $h = 2/3$.'}
+  - {at: '(E_7)_1', label: '$(E_7)_1$', c: '7', gap: '1', note: 'Lattice CFT of the $E_7$ root lattice; primary $\mathbf{56}$ with $h = 3/4$.'}
+  - {at: '(E_8)_1', label: '$(E_8)_1$', c: '8', gap: '1', note: 'Lattice CFT of the $E_8$ lattice; the vacuum is the only primary and $Z = |j(\tau)|^{2/3}$. The gap comes from the 248 currents.'}
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: 'Left and right multiplication of $g$ ($G_L \times G_R$), part of the chiral current algebras $\hat{\mathfrak g}_k \times \hat{\mathfrak g}_k$'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$), Sugawara construction'
+  value: '\frac{k\,\dim G}{k+h^\vee}'
+  method: exact
+  refs: [walton1999]
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '\min(1,\, 2h_{\min})'
+  method: derived
+  refs: [walton1999]
+  note: 'The currents at $(1,0)$ give $\Delta = 1$; a primary $\lambda$ gives $\Delta = 2h_\lambda$. Checked against the spectrum file of every member.'
+- symbol: 'h_\lambda'
+  description: 'Conformal weight of the primary with integrable highest weight $\lambda$'
+  value: '\frac{(\lambda,\lambda+2\rho)}{2(k+h^\vee)}'
+  method: exact
+  refs: [walton1999]
+- symbol: '\chi^{(E_8)_1}(\tau)'
+  description: 'Character of $(E_8)_1$'
+  value: 'j(\tau)^{1/3} = q^{-1/3}\left(1 + 248q + 4124q^2 + 34752q^3 + 213126q^4 + \dots\right)'
+  method: exact
+  refs: [mukhipoddar2021]
+  note: 'Coefficients computed by the spectrum generator and checked against $E_4/\eta^8$.'
+
+operators:
+- name: 'J^a,\ \bar J^a'
+  Delta: 1
+  spin: 1
+  weights: '(1, 0),\ (0, 1)'
+  rep: 'adjoint of $G_L$, $G_R$'
+  method: exact
+  note: 'Chiral currents, $\dim G$ of each; Virasoro primaries.'
+- name: '\Phi_\lambda'
+  Delta: '\frac{(\lambda,\lambda+2\rho)}{k+h^\vee}'
+  spin: 0
+  weights: '(h_\lambda, h_\lambda)'
+  method: exact
+  refs: [walton1999, gepnerwitten1986]
+  note: 'One affine primary for each integrable highest weight $\lambda$, $(\lambda,\theta)\le k$.'
+
+relations:
+- type: related_to
+  target: su2-wzw
+  note: 'The same construction for $G = SU(2)$, with its own pages for the diagonal and the non-diagonal invariants.'
+- type: related_to
+  target: g2-coset
+  note: 'Member $(G_2)_1$ is the first numerator factor of the coset $(G_2)_1\times(G_2)_2/(G_2)_3$.'
+- type: related_to
+  target: w-e7-coset
+  note: 'Member $(E_7)_1$ is the first numerator factor of the coset $(E_7)_1\times(E_7)_2/(E_7)_3$.'
+- type: related_to
+  target: w-e8-coset
+  note: 'Member $(E_8)_1$ is the first numerator factor of the coset $(E_8)_1\times(E_8)_3/(E_8)_4$.'
+
+references:
+- key: witten1984
+  title: Non-abelian bosonization in two dimensions
+  authors: Witten
+  year: 1984
+  journal: Commun. Math. Phys. 92, 455
+  doi: '10.1007/BF01215276'
+- key: kz1984
+  title: Current algebra and Wess-Zumino model in two dimensions
+  authors: Knizhnik, Zamolodchikov
+  year: 1984
+  journal: Nucl. Phys. B247, 83
+  doi: '10.1016/0550-3213(84)90374-2'
+- key: gepnerwitten1986
+  title: String theory on group manifolds
+  authors: Gepner, Witten
+  year: 1986
+  journal: Nucl. Phys. B278, 493
+  doi: '10.1016/0550-3213(86)90051-9'
+- key: kacpeterson1984
+  title: Infinite-dimensional Lie algebras, theta functions and modular forms
+  authors: Kac, Peterson
+  year: 1984
+  journal: Adv. Math. 53, 125
+  doi: '10.1016/0001-8708(84)90032-X'
+- key: frenkelkac1980
+  title: Basic representations of affine Lie algebras and dual resonance models
+  authors: Frenkel, Kac
+  year: 1980
+  journal: Invent. Math. 62, 23
+  doi: '10.1007/BF01391662'
+- key: segal1981
+  title: Unitary representations of some infinite dimensional groups
+  authors: Segal
+  year: 1981
+  journal: Commun. Math. Phys. 80, 301
+  doi: '10.1007/BF01208274'
+- key: walton1999
+  title: Affine Kac-Moody algebras and the Wess-Zumino-Witten model
+  authors: Walton
+  year: 1999
+  arxiv: hep-th/9911187
+  note: 'Action (2.1), (2.3), with the Wess–Zumino phase (2.7); Sugawara $c$ (2.62); $h_\lambda$ (2.76); integrable weights (3.41); Weyl–Kac characters as theta functions (4.69).'
+- key: ginsparg-lectures
+  title: Applied Conformal Field Theory
+  authors: Ginsparg
+  year: 1988
+  arxiv: hep-th/9108028
+  note: '$SO(N)_1$ from $N$ free fermions (Sec. 9.4); the KZ equations (Sec. 9.3); $SO(8)$ triality (Sec. 7.6).'
+- key: gaberdiel2000
+  title: An introduction to conformal field theory
+  authors: Gaberdiel
+  year: 2000
+  journal: Rept. Prog. Phys. 63, 607
+  arxiv: hep-th/9910156
+  note: 'Root-lattice theories are the level-one affine theories (Frenkel–Kac–Segal); $(E_8)_1$ is the $E_8$ lattice theory and has no other representation.'
+- key: mukhipoddar2021
+  title: Universal correlators and novel cosets in 2d RCFT
+  authors: Mukhi, Poddar
+  year: 2021
+  journal: JHEP 02, 158
+  arxiv: '2011.09487'
+  note: 'Level-one pairs with $c + \tilde c = 8$, $h + \tilde h = 1$ and $\sum_i\chi_i\tilde\chi_i = j^{1/3} = \chi^{(E_8)_1}$ (eqs. (1.1), (1.2), (2.16)).'
+- key: be1999
+  title: 'Modular invariants, graphs and $\alpha$-induction for nets of subfactors II'
+  authors: Böckenhauer, Evans
+  year: 1999
+  journal: Commun. Math. Phys. 200, 57
+  arxiv: hep-th/9805023
+  note: 'Conformal embeddings $SU(2)_4 \subset SU(3)_1$, $SU(2)_{10} \subset SO(5)_1$, $SU(2)_{28} \subset (G_2)_1$ and their $D_4$, $E_6$, $E_8$ invariants; Fibonacci (Lee–Yang) fusion of $(G_2)_1$.'
+
+contributors: [Canonical111]

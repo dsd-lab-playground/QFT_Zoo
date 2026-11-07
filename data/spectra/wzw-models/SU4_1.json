@@ -1,0 +1,20 @@
+{
+  "theory": "wzw-models",
+  "member": {"at": "SU(4)_1"},
+  "c": "3",
+  "chiral_algebra": "\\widehat{\\mathfrak{su}}(4)_1",
+  "irreducible": true,
+  "Z_tex": "Z = |\\chi_{\\mathbf{1}}|^2 + |\\chi_{\\mathbf{4}}|^2 + |\\chi_{\\bar{\\mathbf{4}}}|^2 + |\\chi_{\\mathbf{6}}|^2",
+  "character_tex": "Weyl-Kac characters at $z = 0$: $\\chi_\\lambda(q) = \\eta(q)^{-\\dim G}\\sum_{\\beta\\in Q^\\vee}\\prod_{\\alpha>0}\\frac{(\\alpha,\\lambda+\\rho+K\\beta)}{(\\alpha,\\rho)}\\,q^{|\\lambda+\\rho+K\\beta|^2/2K}$, $K = k + h^\\vee$, long roots of length$^2$ 2 (here $\\dim G = 15$, $h^\\vee = 4$, $K = 5$). One block per integrable highest weight, labelled by the $SU(4)$ irrep; $h_{\\mathbf{1}} = 0$, $h_{\\mathbf{4}} = \\tfrac{3}{8}$, $h_{\\bar{\\mathbf{4}}} = \\tfrac{3}{8}$, $h_{\\mathbf{6}} = \\tfrac{1}{2}$.",
+  "description": "Diagonal modular invariant of the $SU(4)$ WZW model at level 1, $c = k\\dim G/(k+h^\\vee) = 3$. Characters from the Weyl-Kac formula specialised to $z=0$ (the finite Weyl sum becomes the Weyl dimension factor and the denominator becomes $\\eta^{\\dim G}$ by the Macdonald identity), summed exactly over the coroot lattice. The generator checks the Macdonald identity, the leading terms $\\dim\\lambda\\, q^{h_\\lambda-c/24}$ and that the weight-1 space of the vacuum module has dimension $\\dim G = 15$, and compares with independent formulas: $A_3$ root-lattice theta functions $\\Theta_{\\lambda+Q}/\\eta^3$, and the $SO(6)_1$ characters of six Majorana fermions, $(\\theta_3^3\\pm\\theta_4^3)/2\\eta^3$ and $\\theta_2^3/2\\eta^3$.",
+  "generator": "scripts/spectra/gen_wzw.py",
+  "blocks": [
+    {"label": "\\chi_{\\mathbf{1}}", "h": "0", "coeffs": [1, 15, 51, 172, 453, 1128, 2539, 5505, 11238, 22259, 42438, 78909, 142770]},
+    {"label": "\\chi_{\\mathbf{4}}", "h": "3/8", "coeffs": [4, 24, 84, 248, 648, 1536, 3420, 7224, 14592, 28440, 53736, 98808]},
+    {"label": "\\chi_{\\bar{\\mathbf{4}}}", "h": "3/8", "coeffs": [4, 24, 84, 248, 648, 1536, 3420, 7224, 14592, 28440, 53736, 98808]},
+    {"label": "\\chi_{\\mathbf{6}}", "h": "1/2", "coeffs": [6, 26, 102, 276, 728, 1698, 3780, 7882, 15918, 30810, 58110, 106392]}
+  ],
+  "Z": [
+    [0, 0, 1], [1, 1, 1], [2, 2, 1], [3, 3, 1]
+  ]
+}

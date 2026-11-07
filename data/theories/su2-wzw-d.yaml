@@ -1,0 +1,145 @@
+id: su2-wzw-d
+name: 'SU(2)$_k$ WZW model, D-series'
+aliases:
+  - 'SO(3) WZW model'
+  - '$SU(2)_k/\mathbb{Z}_2$ WZW model'
+  - '$D_{k/2+2}$ modular invariant of $SU(2)_k$'
+d: 2
+summary: 'The $SU(2)_k$ WZW model with the D-type modular invariant, even $k \geq 4$: the orbifold of the diagonal theory by the centre $\mathbb{Z}_2$, equivalently the WZW model on $SO(3)$, with $c = \frac{3k}{k+2}$.'
+tags: [CFT, interacting, unitary, Lagrangian, rational, exactly solvable, orbifold, family]
+
+description: |
+  For even $k$ the $SU(2)_k$ characters $\chi_l$ ($l = 2j = 0, \dots, k$, $h_l = \frac{l(l+2)}{4(k+2)}$) admit the Cappelli–Itzykson–Zuber invariant $D_{k/2+2}$. For $k \equiv 0 \pmod 4$ it is block-diagonal,
+  $$Z = \sum_{l\ \mathrm{even}=0}^{k/2-2} |\chi_l + \chi_{k-l}|^2 + 2|\chi_{k/2}|^2 ,$$
+  that is, diagonal in the characters of the chiral algebra extended by the simple current $\Phi_{k/2}$ ($l = k$, $h = \frac k4$). For $k \equiv 2 \pmod 4$ it is a permutation invariant,
+  $$Z = \sum_{l\ \mathrm{even}} |\chi_l|^2 + \sum_{l\ \mathrm{odd}} \chi_l\,\overline{\chi_{k-l}} .$$
+  At $k = 2$ the D invariant coincides with the diagonal one, so the family starts at $k = 4$.
+
+  Both cases are the orbifold of the diagonal theory by its centre $\mathbb{Z}_2$, which acts as $(-1)^{l}$ on the primaries: the untwisted sector keeps even $l$, and the twisted sector adds the integer-spin states $\chi_l\overline{\chi_{k-l}}$ ($l$ even for $k \equiv 0$, odd for $k \equiv 2 \pmod 4$). The $\mathbb{Z}_2$ has a mixed anomaly for odd $k$, so the orbifold exists only for even $k$ (Numasawa and Yamaguchi). Equivalently, these are the WZW models on the group $SO(3) = SU(2)/\mathbb{Z}_2$, which exist only for even $k$ and have exactly these spectra (Gaberdiel and Gannon, summarizing Gepner and Witten and Felder, Gawędzki and Kupiainen).
+
+  The orbifold removes $\Phi_{1/2}$, so the lightest primary is $\Phi_1$ ($l = 2$) with $\Delta = 2h_2 = \frac{4}{k+2}$, below the currents for every $k \geq 4$.
+
+  At $k = 4$ the extension field has $h = 1$: its five states join the three $SU(2)$ currents to give the eight currents of $SU(3)$. This is the conformal embedding $SU(2)_4 \subset SU(3)_1$, and $Z = |\chi_0 + \chi_4|^2 + 2|\chi_2|^2$ is the partition function of the diagonal $SU(3)_1$ WZW model (Böckenhauer and Evans). At $k = 16$ the exceptional $E_7$ invariant is obtained from $D_{10}$ by exchanging $\chi_8$ and $\chi_2 + \chi_{14}$ in one chiral half.
+
+parameters:
+- symbol: k
+  description: 'Level of the $SU(2)_k$ current algebra.'
+  range: 'even $k \geq 4$'
+
+family:
+  parameter: k
+  start: 4
+  step: 2
+  formulas:
+    c: '3*k/(k+2)'
+    gap: '4/(k+2)'
+  show: 8
+  overrides:
+  - at: 4
+    note: 'Same partition function as the diagonal $SU(3)_1$ WZW model (conformal embedding $SU(2)_4 \subset SU(3)_1$).'
+  - at: 16
+    note: 'The exceptional $E_7$ invariant at this level is a twist of this $D_{10}$ invariant.'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '\frac{3k}{k+2}'
+  method: exact
+  refs: [ginsparg-lectures]
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '\frac{4}{k+2}'
+  method: derived
+  refs: [zuber2000, ginsparg-lectures]
+  note: '$\Delta = 2h_2$ for $\Phi_1$ ($l = 2$), the lightest primary kept by the invariant; matches the spectrum checks for $k = 4, \dots, 18$.'
+
+operators:
+- name: '\Phi_1'
+  Delta: '\frac{4}{k+2}'
+  spin: 0
+  weights: '(\tfrac{2}{k+2}, \tfrac{2}{k+2})'
+  rep: '$(\mathbf{3}, \mathbf{3})$ of $SU(2) \times SU(2)$'
+  method: derived
+  refs: [zuber2000, ginsparg-lectures]
+  note: 'Lightest non-vacuum primary ($l = 2$).'
+- name: '\Phi_{k/2} \otimes \bar{1}'
+  Delta: '\frac{k}{4}'
+  spin: '\frac{k}{4}'
+  weights: '(\tfrac{k}{4}, 0)'
+  rep: '$(\mathbf{k+1}, \mathbf{1})$'
+  method: derived
+  refs: [zuber2000, ginsparg-lectures]
+  note: 'For $k \equiv 0 \pmod 4$: the simple current extending the chiral algebra (with its partner at $(0, \frac k4)$). At $k = 4$ these are the five extra currents of $SU(3)_1$.'
+
+relations:
+- type: orbifold_of
+  target: su2-wzw
+  note: 'Member $k$ is the orbifold of member $k$ of the diagonal family by the centre $\mathbb{Z}_2$.'
+- type: same_partition_function
+  target: wzw-models
+  note: 'Member $k = 4$ ↔ member $SU(3)_1$ (conformal embedding $SU(2)_4 \subset SU(3)_1$).'
+
+references:
+- key: ciz1987
+  title: 'The A-D-E classification of minimal and $A_1^{(1)}$ conformal invariant theories'
+  authors: Cappelli, Itzykson, Zuber
+  year: 1987
+  journal: Commun. Math. Phys. 113, 1
+  doi: '10.1007/BF01221394'
+- key: zuber2000
+  title: 'CFT, BCFT, ADE and all that'
+  authors: Zuber
+  year: 2000
+  arxiv: hep-th/0006151
+  note: 'Table 1: the $D_{2\rho+2}$ ($k = 4\rho$) and $D_{2\rho+1}$ ($k = 4\rho - 2$) invariants.'
+- key: numasawa2018
+  title: Mixed global anomalies and boundary conformal field theories
+  authors: Numasawa, Yamaguchi
+  year: 2018
+  journal: JHEP 11, 202
+  arxiv: '1712.09361'
+  doi: '10.1007/JHEP11(2018)202'
+  note: 'Section 2: the centre $\mathbb{Z}_2$ orbifold of $SU(2)_k$ gives the D-type invariants, eqs. (2.8)–(2.9).'
+- key: gaberdielgannon2004
+  title: D-brane charges on non-simply connected groups
+  authors: Gaberdiel, Gannon
+  year: 2004
+  journal: JHEP 04, 030
+  arxiv: hep-th/0403011
+  doi: '10.1088/1126-6708/2004/04/030'
+  note: 'Section 2.3: the $SO(3)$ WZW model exists only for even $k$; spectrum (2.21)–(2.22).'
+- key: gepnerwitten1986
+  title: String theory on group manifolds
+  authors: Gepner, Witten
+  year: 1986
+  journal: Nucl. Phys. B278, 493
+  doi: '10.1016/0550-3213(86)90051-9'
+- key: fgk1988
+  title: Spectra of Wess-Zumino-Witten models with arbitrary simple groups
+  authors: Felder, Gawędzki, Kupiainen
+  year: 1988
+  journal: Commun. Math. Phys. 117, 127
+  doi: '10.1007/BF01228414'
+- key: bockenhauerevans1999
+  title: 'Modular invariants, graphs and $\alpha$-induction for nets of subfactors II'
+  authors: Böckenhauer, Evans
+  year: 1999
+  journal: Commun. Math. Phys. 200, 57
+  arxiv: hep-th/9805023
+  doi: '10.1007/s002200050523'
+  note: 'Section 2.3: $SU(2)_4 \subset SU(3)_1$ gives the $D_4$ invariant.'
+- key: ginsparg-lectures
+  title: Applied Conformal Field Theory
+  authors: Ginsparg
+  year: 1988
+  journal: Les Houches Summer School 1988
+  arxiv: hep-th/9108028
+  note: '$c$ (9.38) and $h_j$ (9.25).'
+
+contributors: [Canonical111]

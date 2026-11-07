@@ -1,0 +1,17 @@
+{
+  "theory": "wzw-models",
+  "member": {"at": "(E_8)_1"},
+  "c": "8",
+  "chiral_algebra": "(\\widehat{\\mathfrak{e}}_8)_1",
+  "irreducible": true,
+  "Z_tex": "Z = |\\chi_{\\mathbf{1}}|^2",
+  "character_tex": "Weyl-Kac characters at $z = 0$: $\\chi_\\lambda(q) = \\eta(q)^{-\\dim G}\\sum_{\\beta\\in Q^\\vee}\\prod_{\\alpha>0}\\frac{(\\alpha,\\lambda+\\rho+K\\beta)}{(\\alpha,\\rho)}\\,q^{|\\lambda+\\rho+K\\beta|^2/2K}$, $K = k + h^\\vee$, long roots of length$^2$ 2 (here $\\dim G = 248$, $h^\\vee = 30$, $K = 31$). One block per integrable highest weight, labelled by the $E_8$ irrep; $h_{\\mathbf{1}} = 0$.",
+  "description": "Diagonal modular invariant of the $E_8$ WZW model at level 1, $c = k\\dim G/(k+h^\\vee) = 8$. Characters from the Weyl-Kac formula specialised to $z=0$ (the finite Weyl sum becomes the Weyl dimension factor and the denominator becomes $\\eta^{\\dim G}$ by the Macdonald identity), summed exactly over the coroot lattice. The generator checks the Macdonald identity, the leading terms $\\dim\\lambda\\, q^{h_\\lambda-c/24}$ and that the weight-1 space of the vacuum module has dimension $\\dim G = 248$, and compares with independent formulas: the $E_8$ lattice theta function over $\\eta^8$, and $E_4/\\eta^8$ with $E_4 = 1 + 240\\sum_n\\sigma_3(n)q^n$; the cube of the character is $j(\\tau) = q^{-1} + 744 + 196884q + \\dots$.",
+  "generator": "scripts/spectra/gen_wzw.py",
+  "blocks": [
+    {"label": "\\chi_{\\mathbf{1}}", "h": "0", "coeffs": [1, 248, 4124, 34752, 213126, 1057504, 4530744, 17333248, 60655377, 197230000, 603096260, 1749556736, 4848776870]}
+  ],
+  "Z": [
+    [0, 0, 1]
+  ]
+}

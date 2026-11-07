@@ -1,0 +1,173 @@
+id: holomorphic-c24
+name: 'Holomorphic CFTs with $c = 24$'
+aliases:
+  - "Schellekens' list"
+  - Meromorphic c = 24 CFTs
+  - Holomorphic vertex operator algebras of central charge 24
+  - 'Self-dual $c = 24$ chiral CFTs'
+d: 2
+summary: >-
+  Chiral CFTs with $c = 24$ and a single module, with $Z = J(\tau) + N$, $N = \dim V_1$.
+  Schellekens found 71 possible weight-1 Lie algebras $V_1$; all 71 occur, and $V_1 \neq 0$ fixes the
+  theory. Uniqueness for $V_1 = 0$ (the Monster CFT) is open.
+tags: [CFT, rational, family]
+
+description: |
+  A holomorphic (meromorphic, self-dual) CFT has only one irreducible module, the vacuum module.
+  Its character is invariant under $S$ and changes by a phase under $T$, so $c \in 8\mathbb{Z}$, and it is
+  a modular invariant partition function by itself when $c \in 24\mathbb{Z}$ (Schellekens, section 1).
+  For $c = 8$ and $16$ the only examples are the lattice theories of $E_8$, of $E_8\times E_8$, and of
+  $D_{16}$ with a spinor weight added. At $c = 24$, with $c_L = 24$ and $c_R = 0$, modular invariance fixes
+  $$Z(\tau) = J(\tau) + N = q^{-1} + N + 196884\,q + 21493760\,q^2 + \dots,\qquad N = \dim V_1,$$
+  so the theories differ already in their weight-1 currents (Witten, section 3.1).
+
+  **Schellekens' list.** The weight-1 currents form a Lie algebra $V_1$. Schellekens showed, by
+  trace identities for the character twisted by the zero modes of the currents, that either $N = 0$,
+  or $N = 24$ and the theory is the Leech lattice CFT, or $N > 24$ and $V_1$ generates an affine
+  (current) algebra $\bigoplus_i (\mathfrak{g}_i)_{k_i}$ of total central charge 24 with
+  $$\frac{h^\vee_i}{k_i} = \frac{N - 24}{24}\quad\text{for every simple factor}.$$
+  This has 221 solutions; higher trace identities and modular invariance leave 69, each with exactly
+  one modular invariant combination of affine characters (up to outer automorphisms). With the Leech
+  lattice ($N = 24$) and $N = 0$ this gives 71 possible $V_1$. He assumed $N \neq 0$ for his methods, a finitely generated
+  chiral algebra, and one theory per character combination, and conjectured that all 71 exist. At
+  the time 41 were known: the 24 Niemeier lattice theories, 15 further theories from $\mathbb{Z}_2$
+  orbifolds $X \to -X$ of Niemeier theories (including the Monster CFT, from the Leech lattice), and
+  two more ($B_{8,1}E_{8,2}$ and $F_{4,6}A_{2,2}$). The list also classifies ten-dimensional heterotic
+  strings, through the embeddings of $D_{8,1}$.
+
+  **Status.** For strongly rational holomorphic vertex operator algebras of central charge 24:
+  (a) $V_1$ is $0$, 24-dimensional abelian, or one of the 69 semisimple Lie algebras of Schellekens
+  (van Ekeren, Möller and Scheithauer made Schellekens' argument a theorem; van Ekeren, Lam, Möller
+  and Shimakura gave a simpler proof); (b) every Lie algebra on the list is realized; (c) for
+  $V_1 \neq 0$, $V_1$ determines the theory up to isomorphism. Items (b) and (c) were proved case by
+  case by many authors, and Lam and Shimakura completed the uniqueness proof. Uniform proofs followed:
+  every theory with $V_1 \neq 0$ is a cyclic orbifold of the Leech lattice theory by a "generalised
+  deep hole" (Möller and Scheithauer), or of a Niemeier lattice theory (Höhn and Möller, who also
+  prove uniqueness systematically); Betsumiya, Lam and Shimakura give another uniqueness proof. The
+  theories with $\mathrm{rank}\,V_1 = 24$ are exactly the Niemeier lattice theories. The remaining
+  open case is $V_1 = 0$: Frenkel, Lepowsky and Meurman conjectured that the Monster CFT is the only
+  such theory.
+
+  In Witten's proposal for three-dimensional gravity, the 70 theories with currents would be dual to
+  gravity coupled to Chern–Simons gauge fields, and the $V_1 = 0$ theory to pure gravity.
+
+parameters:
+  - symbol: 'N'
+    description: 'Number of weight-1 states, $N = \dim V_1$ (the constant term of $Z$). Several theories can share a value of $N$.'
+    range: '$N = 0$, $24$, or one of the values $36, \dots, 1128$ in Schellekens'' table'
+
+family:
+  parameter: N
+  members:
+    - at: 0
+      label: 'Monster CFT ($V_1 = 0$)'
+      note: 'Schellekens No. 0. Uniqueness is the open FLM conjecture.'
+    - at: 24
+      label: 'Leech lattice CFT ($V_1 = U(1)^{24}$)'
+      note: 'Schellekens No. 1; the only case with abelian currents.'
+    - at: 384
+      label: '$V_1 = B_{8,1}E_{8,2}$'
+      note: 'Schellekens No. 62. Not a lattice theory; inferred from the ten-dimensional non-supersymmetric heterotic string with $E_{8,2}$, and buildable from real fermions.'
+    - at: 744
+      label: 'Niemeier lattice $E_8^3$ ($V_1 = E_{8,1}^3$)'
+      note: 'Schellekens No. 68; $Z = J + 744 = j(\tau)$.'
+    - at: 744
+      label: 'Niemeier lattice $D_{16}E_8$ ($V_1 = D_{16,1}E_{8,1}$)'
+      note: 'Schellekens No. 69; same $Z$ as No. 68.'
+    - at: 1128
+      label: 'Niemeier lattice $D_{24}$ ($V_1 = D_{24,1}$)'
+      note: 'Schellekens No. 70; the largest $N$ on the list ($\dim\mathfrak{so}(48) = 1128$).'
+
+symmetry:
+  spacetime: 'conformal (holomorphic: Virasoro at $c = 24$ on one side only)'
+  supercharges: 0
+  global: 'For $V_1 \neq 0$: the group generated by the zero modes of $V_1$, extended by a finite group $\mathrm{Out}(V)$ (tabulated by Betsumiya, Lam and Shimakura). For $V_1 = 0$: the Monster'
+
+quantities:
+  - symbol: '(c_L,\ c_R)'
+    description: 'Left and right central charges (holomorphic theories, so no `c` key)'
+    value: '(24,\ 0)'
+    method: exact
+    refs: [schellekens1993]
+  - symbol: 'Z(\tau)'
+    description: 'Torus partition function'
+    value: 'J(\tau) + N'
+    method: exact
+    refs: [witten2007]
+    note: 'Fixed by modular invariance and the absence of other modules; the $q^1$ coefficient 196884 is common to all members.'
+  - symbol: '\#\{V_1\}'
+    description: 'Number of possible weight-1 Lie algebras (Schellekens'' list), each realized by exactly one theory when $V_1 \neq 0$'
+    value: '71'
+    method: classification (trace identities and modular invariance; proved for strongly rational VOAs)
+    refs: [schellekens1993, ems2020, elms2021, bls2023]
+
+relations:
+  - type: related_to
+    target: wzw-models
+    note: 'For $N > 24$ the currents generate a WZW (affine) chiral algebra $\bigoplus_i(\mathfrak{g}_i)_{k_i}$ with total central charge 24, and each member is an extension of it; the Niemeier members are chiral lattice theories at level 1.'
+
+references:
+  - key: schellekens1993
+    title: Meromorphic c = 24 conformal field theories
+    authors: Schellekens
+    year: 1993
+    journal: Commun. Math. Phys. 153, 159
+    arxiv: hep-th/9205072
+    doi: '10.1007/BF02099044'
+    note: 'Theorem in section 2, the 221 solutions, and Table 1 (Nos. 0 to 70).'
+  - key: ems2020
+    title: Construction and classification of holomorphic vertex operator algebras
+    authors: van Ekeren, Möller, Scheithauer
+    year: 2020
+    journal: J. Reine Angew. Math. 759, 61
+    arxiv: '1507.08142'
+    doi: '10.1515/crelle-2017-0046'
+  - key: elms2021
+    title: "Schellekens' list and the very strange formula"
+    authors: van Ekeren, Lam, Möller, Shimakura
+    year: 2021
+    journal: Adv. Math. 380, 107567
+    arxiv: '2005.12248'
+    doi: '10.1016/j.aim.2021.107567'
+  - key: ls2020
+    title: Inertia groups and uniqueness of holomorphic vertex operator algebras
+    authors: Lam, Shimakura
+    year: 2020
+    journal: Transform. Groups 25, 1223
+    arxiv: '1804.02521'
+    doi: '10.1007/s00031-020-09570-8'
+  - key: ms2023
+    title: Dimension formulae and generalised deep holes of the Leech lattice vertex operator algebra
+    authors: Möller, Scheithauer
+    year: 2023
+    journal: Ann. of Math. 197, 221
+    arxiv: '1910.04947'
+    doi: '10.4007/annals.2023.197.1.4'
+  - key: hm2022
+    title: "Systematic orbifold constructions of Schellekens' vertex operator algebras from Niemeier lattices"
+    authors: Höhn, Möller
+    year: 2022
+    journal: J. London Math. Soc. 106, 3162
+    arxiv: '2010.00849'
+    doi: '10.1112/jlms.12659'
+  - key: bls2023
+    title: Automorphism groups and uniqueness of holomorphic vertex operator algebras of central charge 24
+    authors: Betsumiya, Lam, Shimakura
+    year: 2023
+    journal: Commun. Math. Phys. 399, 1773
+    arxiv: '2203.15992'
+    doi: '10.1007/s00220-022-04585-6'
+    note: 'Section 1, items (a)–(c), states the status of the classification.'
+  - key: flm1988
+    title: Vertex Operator Algebras and the Monster
+    authors: Frenkel, Lepowsky, Meurman
+    year: 1988
+    journal: Pure and Applied Mathematics 134, Academic Press (Boston)
+    doi: '10.1016/S0079-8169(08)X6136-7'
+  - key: witten2007
+    title: Three-dimensional gravity revisited
+    authors: Witten
+    year: 2007
+    arxiv: '0706.3359'
+
+contributors: [Canonical111]

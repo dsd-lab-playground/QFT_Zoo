@@ -1,0 +1,138 @@
+id: su2-wzw-e
+name: 'SU(2)$_k$ WZW model, exceptional invariants'
+aliases:
+  - '$E_6$, $E_7$, $E_8$ modular invariants of $SU(2)_k$'
+  - 'Exceptional $SU(2)$ WZW models'
+d: 2
+summary: 'The three $SU(2)_k$ WZW models with an exceptional Cappelli–Itzykson–Zuber invariant: $E_6$ at $k = 10$, $E_7$ at $k = 16$, $E_8$ at $k = 28$. $E_6$ and $E_8$ have the partition functions of $SO(5)_1$ and $(G_2)_1$.'
+tags: [CFT, interacting, unitary, rational, exactly solvable, family]
+
+description: |
+  Besides the A- and D-series, the Cappelli–Itzykson–Zuber classification of modular invariants of $SU(2)_k$ contains three exceptional invariants. With $l = 2j$ and $h_l = \frac{l(l+2)}{4(k+2)}$:
+  $$\begin{aligned} E_6\ (k=10):&\quad |\chi_0+\chi_6|^2 + |\chi_3+\chi_7|^2 + |\chi_4+\chi_{10}|^2,\\ E_7\ (k=16):&\quad |\chi_0+\chi_{16}|^2 + |\chi_4+\chi_{12}|^2 + |\chi_6+\chi_{10}|^2 + |\chi_8|^2 + \big[(\chi_2+\chi_{14})\,\overline{\chi_8} + \mathrm{c.c.}\big],\\ E_8\ (k=28):&\quad |\chi_0+\chi_{10}+\chi_{18}+\chi_{28}|^2 + |\chi_6+\chi_{12}+\chi_{16}+\chi_{22}|^2. \end{aligned}$$
+  The diagonal labels $l + 1$ are the exponents of the Dynkin diagram, and $k + 2$ is its Coxeter number (12, 18, 30).
+
+  $E_6$ and $E_8$ are block-diagonal and come from conformal embeddings: $SU(2)_{10} \subset SO(5)_1 \cong Sp(4)_1$, through the four-dimensional (spin-$\frac32$) representation of $SU(2)$, which is symplectic, and $SU(2)_{28} \subset (G_2)_1$. The blocks are the characters of the larger algebra: $\chi_0+\chi_6$, $\chi_3+\chi_7$ and $\chi_4+\chi_{10}$ are the basic, spinor and vector characters of $SO(5)_1$, and the two $E_8$ blocks are the two characters of $(G_2)_1$. These theories therefore have the torus partition functions of the diagonal $SO(5)_1$ and $(G_2)_1$ WZW models. The weight-one states of $\chi_6$ (7 of them) and of $\chi_{10}$ (11) join the three $SU(2)$ currents into the 10 currents of $SO(5)$ and the 14 of $G_2$.
+
+  $E_7$ is not block-diagonal and does not come from an extension of the chiral algebra. It is the $D_{10}$ invariant of $SU(2)_{16}$ (the D-series theory at $k = 16$) with an automorphism of the extended fusion rules applied to one chiral half, which exchanges $\chi_8$ with $\chi_2 + \chi_{14}$.
+
+  The gap is set by the lightest primary kept by each invariant: $l = 3$ ($\Delta = \frac58$) for $E_6$, $l = 4$ ($\Delta = \frac23$) for $E_7$ and $l = 6$ ($\Delta = \frac45$) for $E_8$.
+
+parameters:
+- symbol: k
+  description: 'Level of the $SU(2)_k$ current algebra.'
+  range: '$k \in \{10, 16, 28\}$'
+
+family:
+  parameter: k
+  members:
+  - at: 10
+    label: '$E_6$'
+    c: '5/2'
+    gap: '5/8'
+    note: 'Same partition function as $SO(5)_1$.'
+  - at: 16
+    label: '$E_7$'
+    c: '8/3'
+    gap: '2/3'
+  - at: 28
+    label: '$E_8$'
+    c: '14/5'
+    gap: '4/5'
+    note: 'Same partition function as $(G_2)_1$.'
+  show: 3
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '\frac{3k}{k+2}'
+  method: exact
+  refs: [ginsparg-lectures]
+- key: gap
+  symbol: '\Delta_{\rm gap}'
+  description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
+  value: '\frac{l(l+2)}{2(k+2)}'
+  method: derived
+  refs: [zuber2000, ginsparg-lectures]
+  note: '$\Delta = 2h_l$ with $l = 3, 4, 6$ for $E_6, E_7, E_8$, giving $\frac58, \frac23, \frac45$; matches the spectrum checks.'
+
+operators:
+- name: '\Phi_{3/2}'
+  Delta: '5/8'
+  spin: 0
+  weights: '(\tfrac{5}{16}, \tfrac{5}{16})'
+  method: derived
+  refs: [zuber2000, ginsparg-lectures]
+  note: '$E_6$ ($k = 10$): lightest primary ($l = 3$), the spinor of $SO(5)_1$.'
+- name: '\Phi_{2}'
+  Delta: '2/3'
+  spin: 0
+  weights: '(\tfrac13, \tfrac13)'
+  method: derived
+  refs: [zuber2000, ginsparg-lectures]
+  note: '$E_7$ ($k = 16$): lightest primary ($l = 4$).'
+- name: '\Phi_{3}'
+  Delta: '4/5'
+  spin: 0
+  weights: '(\tfrac25, \tfrac25)'
+  method: derived
+  refs: [zuber2000, ginsparg-lectures]
+  note: '$E_8$ ($k = 28$): lightest primary ($l = 6$), the primary of $(G_2)_1$.'
+
+relations:
+- type: same_partition_function
+  target: wzw-models
+  note: 'Member $k = 10$ ($E_6$) ↔ member $SO(5)_1$; member $k = 28$ ($E_8$) ↔ member $(G_2)_1$.'
+- type: related_to
+  target: su2-wzw-d
+  note: 'The $E_7$ invariant (member $k = 16$) is the $D_{10}$ invariant (member $k = 16$) twisted by an automorphism of the extended fusion rules.'
+- type: related_to
+  target: su2-wzw
+  note: 'Members $k = 10, 16, 28$ have the same $SU(2)_k$ chiral algebra as the diagonal theories at these levels, with an exceptional modular invariant.'
+- type: related_to
+  target: virasoro-minimal-e
+  note: 'The E-type minimal models use the same invariants on one of their two $SU(2)$ labels (levels $m - 2$, $m - 1$).'
+
+references:
+- key: ciz1987
+  title: 'The A-D-E classification of minimal and $A_1^{(1)}$ conformal invariant theories'
+  authors: Cappelli, Itzykson, Zuber
+  year: 1987
+  journal: Commun. Math. Phys. 113, 1
+  doi: '10.1007/BF01221394'
+- key: zuber2000
+  title: 'CFT, BCFT, ADE and all that'
+  authors: Zuber
+  year: 2000
+  arxiv: hep-th/0006151
+  note: 'Table 1 (invariants), Table 2 (Coxeter numbers and exponents), Sections 2.2 and 3.6 (the $E_7$ twist).'
+- key: bockenhauerevans1999
+  title: 'Modular invariants, graphs and $\alpha$-induction for nets of subfactors II'
+  authors: Böckenhauer, Evans
+  year: 1999
+  journal: Commun. Math. Phys. 200, 57
+  arxiv: hep-th/9805023
+  doi: '10.1007/s002200050523'
+  note: 'Conformal inclusions $SU(2)_{10} \subset SO(5)_1$ and $SU(2)_{28} \subset (G_2)_1$; $E_7$ from $D_{10}$ by exchanging blocks.'
+- key: kirillovostrik2002
+  title: 'On a q-analogue of the McKay correspondence and the ADE classification of $\widehat{sl}_2$ conformal field theories'
+  authors: Kirillov, Ostrik
+  year: 2002
+  journal: Adv. Math. 171, 183
+  arxiv: math/0101219
+  doi: '10.1006/aima.2002.2072'
+  note: 'Example 5.3: $(\widehat{sl}_2)_{10} \subset \widehat{sp}(4)_1$ and $(\widehat{sl}_2)_{28} \subset (\widehat{G}_2)_1$; no extension realizes $E_7$.'
+- key: ginsparg-lectures
+  title: Applied Conformal Field Theory
+  authors: Ginsparg
+  year: 1988
+  journal: Les Houches Summer School 1988
+  arxiv: hep-th/9108028
+  note: '$c$ (9.38) and $h_j$ (9.25).'
+
+contributors: [Canonical111]
