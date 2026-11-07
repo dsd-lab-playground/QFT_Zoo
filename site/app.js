@@ -1398,6 +1398,8 @@ function drawFlowArrows() {
     const outs = (id) => arrows.filter((A) => A.uv === id).length;
     const hue = new Map(dots.map(([, , id]) => id).filter((id) => outs(id) > 1)
       .sort((a, b) => outs(b) - outs(a) || R.get(a).t - R.get(b).t || cx(a) - cx(b)).slice(0, 4).map((id, i) => [id, ` c${i + 1}`]));
+    // The box takes the colour of its arrows.
+    els.forEach((n, id) => { n.classList.remove("c1", "c2", "c3", "c4"); if (hue.has(id)) n.classList.add(hue.get(id).trim()); });
     const confusable = (A, p) => [...dots, ...arrows.map((B) => [B.x2, B.y2, B.ir])].some(([x, y, id]) =>
       id !== A.uv && id !== A.ir && p.some(([px, py]) => Math.hypot(px - x, py - y) < 14));
     const runsAlong = (p, q) => { // p stays within 6px of q for 20px or more
