@@ -458,6 +458,8 @@ def load_all() -> tuple[list[dict], list[str]]:
                 rel["flow_key"] = flow_key(e["id"], rel, i)
                 errors += check_flow_links(rel, where, by_id)
             if "target_expr" in rel:
+                if any(leaf["entry"] == e["id"] for _, leaf in expr_leaves(rel["target_expr"], where)):
+                    errors.append(f"{where}: a theory cannot flow to a composite that contains itself")
                 continue  # a composite IR: no reverse link (the flow does not end at any one piece)
             tgt = rel["target"]
             if tgt == e["id"]:
@@ -576,6 +578,9 @@ def load_spectra(entries: list[dict], errors: list[str]) -> dict[str, dict]:
 
 def build(entries: list[dict], spectra: dict[str, dict], operations: list[dict]) -> None:
     if OUT.exists():
+        # OUT is replaced wholesale, so only ever delete a folder that holds a previous build.
+        if OUT == ROOT or OUT in ROOT.parents or not (OUT / "data" / "theories.json").exists():
+            sys.exit(f"refusing to replace {OUT}: not an earlier build of the site (no data/theories.json)")
         shutil.rmtree(OUT)
     shutil.copytree(SITE_SRC, OUT)
     (OUT / "data").mkdir(exist_ok=True)
