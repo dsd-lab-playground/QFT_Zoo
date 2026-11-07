@@ -8,7 +8,7 @@ tags: [CFT, interacting, unitary, rational, orbifold]
 description: 'For even $k$ the reflections of the dihedral group form two classes, $C$ and $Cr$ ($r$ the $\mathbb{Z}_k$ generator). $\mathrm{PF}_8/C$ is $\mathrm{Sym}^2(\mathrm{TIM})$; this is the orbifold by the other class.'
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac75$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac75$ — 2d conformal symmetry, with parity'
   global: 'Contains the dual $\mathbb{Z}_2$ of the orbifold, odd on the $Cr$-twisted sectors, and the rotation $r^4$, which commutes with $Cr$'
 
 quantities:

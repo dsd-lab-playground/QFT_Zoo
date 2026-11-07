@@ -91,7 +91,9 @@ family:
       note: '$\gamma_{\bar\psi\psi} = 0.804$ at order $\Delta_f^4$. Two-loop coupling $\alpha_* \approx 5.2$; conformality unknown.'
 
 symmetry:
-  spacetime: '$O(5,1)$ — 4d conformal group with parity'
+  spacetime: '4d conformal group with parity'
+  euclidean: '$O(5,1)$'
+  lorentzian: '$O(4,2)$'
   supercharges: 0
   global: '$SU(N_f)_L\times SU(N_f)_R\times U(1)_V$ (the axial $U(1)$ is anomalous), charge conjugation, parity and time reversal'
   gauge: '$SU(N_c)$'

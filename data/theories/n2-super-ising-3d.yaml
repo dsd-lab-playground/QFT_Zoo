@@ -40,7 +40,9 @@ description: |
 lagrangian: '\mathcal{L} = \partial_\mu\bar\phi\,\partial^\mu\phi + i\bar\psi\gamma^\mu\partial_\mu\psi + |\lambda|^2|\phi|^4 + \left(\lambda\,\phi\,\psi^\alpha\epsilon_{\alpha\beta}\psi^\beta + \text{c.c.}\right), \qquad W = \tfrac{\lambda}{3}\Phi^3'
 
 symmetry:
-  spacetime: '$OSp(2|4)$ — 3d $\mathcal{N}=2$ superconformal group (4 $Q$ + 4 $S$ supercharges), with parity (supersymmetry emergent in the $N=2$ chiral XY GNY model)'
+  spacetime: '3d $\mathcal{N}=2$ superconformal group (4 $Q$ + 4 $S$ supercharges), with parity (supersymmetry emergent in the $N=2$ chiral XY GNY model)'
+  euclidean: '$O(4,1)$ (bosonic conformal part)'
+  lorentzian: '$OSp(2|4)$'
   supercharges: 4
   global: '$U(1)_R$ (R-symmetry, $R_\Phi = 2/3$); no continuous flavor symmetry'
 

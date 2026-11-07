@@ -8,7 +8,7 @@ tags: [CFT, interacting, unitary, rational, coset]
 description: 'Same torus partition function as the orbifold of TIM$^2$ by $V_4 = \langle f_1 f_2, s\rangle$.'
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac75$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac75$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: 'Dihedral $D_{8}$: $\mathbb{Z}_{8}$ rotations $r$ and charge conjugation $C$'
 

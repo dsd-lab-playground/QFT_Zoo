@@ -18,7 +18,9 @@ description: |
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2'
 
 symmetry:
-  spacetime: '$O(4,1)$ — 3d conformal group with parity'
+  spacetime: '3d conformal group with parity'
+  euclidean: '$O(4,1)$'
+  lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$\mathbb{Z}_2$ ($\phi\to-\phi$), plus shift symmetry $\phi \to \phi + c$'
 

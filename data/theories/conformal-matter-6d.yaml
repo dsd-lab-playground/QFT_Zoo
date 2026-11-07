@@ -68,7 +68,9 @@ family:
       note: '$\alpha = 12489$, $\beta = 831$, $\gamma = 249$, $x = 90$, $y = 30$; $a = \tfrac{2065633}{70} \approx 29509.0$ (derived).'
 
 symmetry:
-  spacetime: '$OSp(8^*|2)$ — 6d $\mathcal{N}=(1,0)$ superconformal group (8 $Q$ + 8 $S$ supercharges); no parity (chiral)'
+  spacetime: '6d $\mathcal{N}=(1,0)$ superconformal group (8 $Q$ + 8 $S$ supercharges); no parity (chiral)'
+  euclidean: '$SO(7,1)$ (bosonic conformal part)'
+  lorentzian: '$OSp(8^*|2)$'
   supercharges: 8
   global: 'Flavor $G_L\times G_R$; R-symmetry $SU(2)_R$'
 

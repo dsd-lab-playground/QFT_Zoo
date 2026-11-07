@@ -35,7 +35,9 @@ description: |
   It is also the trivial CFT: its only local operator is the identity, its
   stress tensor vanishes, and local metric rescalings act trivially.
 symmetry:
-  spacetime: '$O(4,1)$, acting trivially — the trivial theory: topological (diffeomorphisms and local metric rescalings act trivially), so also the trivial CFT'
+  spacetime: 'the trivial theory, on which both act trivially: topological (diffeomorphisms and local metric rescalings act trivially), so also the trivial CFT'
+  euclidean: '$O(4,1)$'
+  lorentzian: '$O(3,2)$'
   notes: >-
     No global symmetry is fixed by this underlying entry. A flow may specify a
     retained symmetry, how it is realized, and its background response.

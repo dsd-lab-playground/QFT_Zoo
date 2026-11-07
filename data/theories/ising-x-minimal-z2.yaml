@@ -23,7 +23,7 @@ family:
     note: '(Ising $\times$ TIM)$/\mathbb{Z}_2$, $\Delta_{\rm gap} = \frac15$. Same torus partition function as the D-type invariant $\mathcal{W}_3(5,6)^D$.'
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac32 - \tfrac{6}{m(m+1)}$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac32 - \tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity'
   global: 'Contains $\mathbb{Z}_2 \times \mathbb{Z}_2$: the spin flip of one factor (equivalent to that of the other once their product is gauged) and the dual $\mathbb{Z}_2$ of the orbifold, odd on the twisted sector'
 
 quantities:

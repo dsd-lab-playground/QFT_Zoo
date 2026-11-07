@@ -11,7 +11,7 @@ description: |
   $X_E$ and $X_O$ have the same chiral algebra and the same torus partition function, but glue left- and right-moving modules differently, so they are not isomorphic as full CFTs.
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac75$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac75$ — 2d conformal symmetry, with parity'
   global: 'Contains the dual $\mathbb{Z}_4$ of the orbifold and the image of $f_1$ ($\simeq s$), since $\mathbb{Z}_4$ is normal in $D_4$'
 
 quantities:

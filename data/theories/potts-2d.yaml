@@ -90,7 +90,7 @@ family:
       note: 'An orbifold of the compact boson [@grz2018, App. C].'
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = 1 - \tfrac{6}{m(m+1)}$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = 1 - \tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity; Euclidean only (non-unitary statistical model)'
   supercharges: 0
   global: '$S_Q$, for non-integer $Q$ in the sense of tensor categories'
 

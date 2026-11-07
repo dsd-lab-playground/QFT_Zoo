@@ -21,7 +21,7 @@ family:
   show: 8
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = 2\big(1 - \tfrac{12}{p(p+1)}\big)$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = 2\big(1 - \tfrac{12}{p(p+1)}\big)$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$S_3$'
 

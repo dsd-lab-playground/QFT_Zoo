@@ -5,7 +5,7 @@ summary: 'Coset of $SO(5)_2$ by its principal $SU(2)$ subalgebra (embedding inde
 tags: [CFT, interacting, unitary, rational, coset]
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{14}{11}$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{14}{11}$ — 2d conformal symmetry, with parity'
 
 quantities:
 - key: c

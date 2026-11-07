@@ -49,7 +49,9 @@ family:
       note: '$a = \tfrac{1286}{7}$ with the free hypermultiplet (from the formula for $a$). Curves $1,2$.'
 
 symmetry:
-  spacetime: '$OSp(8^*|2)$ — 6d $\mathcal{N}=(1,0)$ superconformal group (8 $Q$ + 8 $S$ supercharges); no parity (chiral)'
+  spacetime: '6d $\mathcal{N}=(1,0)$ superconformal group (8 $Q$ + 8 $S$ supercharges); no parity (chiral)'
+  euclidean: '$SO(7,1)$ (bosonic conformal part)'
+  lorentzian: '$OSp(8^*|2)$'
   supercharges: 8
   global: 'Flavor $E_8$ for $Q=1$ and $E_8\times SU(2)_L$ for $Q\ge2$; R-symmetry $SU(2)_R$'
 

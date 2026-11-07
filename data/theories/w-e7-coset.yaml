@@ -7,7 +7,7 @@ tags: [CFT, interacting, unitary, rational, coset]
 description: 'Weights $h = \frac{|p^\prime(\lambda+\rho) - p(\mu+\rho)|^2 - \rho^2}{2pp^\prime}$ at $(p, p^\prime) = (20, 21)$; the gap comes from the $\mathbf{56}$. The $E_7$ simple current has weight $\tfrac92$ and fixes every field it could move, so its orbifold is the same theory.'
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{13}{10}$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{13}{10}$ — 2d conformal symmetry, with parity'
 
 quantities:
 - key: c

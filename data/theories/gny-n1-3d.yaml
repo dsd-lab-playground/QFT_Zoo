@@ -26,7 +26,9 @@ description: |
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2 + \tfrac{1}{2}\bar\psi\gamma^\mu\partial_\mu\psi + \tfrac{g}{2}\,\phi\,\bar\psi\psi + \tfrac{1}{2}m^2\phi^2 + \tfrac{\lambda}{4!}\phi^4, \quad \text{one Majorana fermion } \psi \quad (m^2 \text{ tuned})'
 
 symmetry:
-  spacetime: '$OSp(1|4)$ — 3d $\mathcal{N}=1$ superconformal group (2 $Q$ + 2 $S$ supercharges), with parity (supersymmetry emergent)'
+  spacetime: '3d $\mathcal{N}=1$ superconformal group (2 $Q$ + 2 $S$ supercharges), with parity (supersymmetry emergent)'
+  euclidean: '$O(4,1)$ (bosonic conformal part)'
+  lorentzian: '$OSp(1|4)$'
   supercharges: 2
   global: 'time reversal / parity ($\sigma$ odd)'
 

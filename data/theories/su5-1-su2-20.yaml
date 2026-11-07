@@ -7,7 +7,7 @@ tags: [CFT, interacting, unitary, rational, coset]
 description: 'The fixed points of field identification require resolution; the resolved components differ by Lee–Yang characters.'
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{14}{11}$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{14}{11}$ — 2d conformal symmetry, with parity'
   global: 'Contains $\mathbb{Z}_5$, from the simple currents of $SU(5)_1$ (non-anomalous; gauged in the $\mathbb{Z}_5$ orbifold)'
 
 quantities:

@@ -5,7 +5,7 @@ summary: 'Ising times the exceptional $(E_8, A_{30})$ minimal model.'
 tags: [CFT, interacting, unitary, rational]
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{463}{310}$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{463}{310}$ — 2d conformal symmetry, with parity'
   global: 'Contains the $\mathbb{Z}_2$ spin flip of the Ising factor'
 
 quantities:

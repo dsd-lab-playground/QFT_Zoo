@@ -50,7 +50,7 @@ description: |
 lagrangian: '\mathcal{L} = \frac{1}{8\pi}\sum_{i=1,2}\left(\psi_i\,\bar\partial\psi_i + \bar\psi_i\,\partial\bar\psi_i\right)'
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = 1$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = 1$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$U(1)_L \times U(1)_R = (U(1)_V \times U(1)_A)/\mathbb{Z}_2$, with $\mathbb{Z}_2 = (-1)^F$; charge conjugation'
   notes: 'Mixed $U(1)_V$–$U(1)_A$ anomaly (the chiral anomaly). The discrete chiral transformation of one Majorana component exchanges $U(1)_V$ and $U(1)_A$ and becomes $T$-duality after bosonization [@ktt2019].'

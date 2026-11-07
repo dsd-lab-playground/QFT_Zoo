@@ -71,7 +71,9 @@ family:
       note: 'Strict large-$N$ limit, where the $1/N$ expansion is controlled.'
 
 symmetry:
-  spacetime: '$O(4,1)$ — 3d conformal group with parity'
+  spacetime: '3d conformal group with parity'
+  euclidean: '$O(4,1)$'
+  lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$\big(PSU(N) \times U(1)_{\rm top}\big) \rtimes \mathbb{Z}_2^C$; for $N=1$ only $U(1)_{\rm top} \rtimes \mathbb{Z}_2^C = O(2)$'
   gauge: '$U(1)$'

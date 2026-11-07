@@ -47,7 +47,7 @@ family:
     note: 'The Fermat quintic $z_1^5+\dots+z_5^5 = 0$ in $\mathbb{CP}^4$ [@gepner1987; @greene1997].'
 
 symmetry:
-  spacetime: '$SU(1,1|1)\times SU(1,1|1)$, extended to two $\mathcal{N}=2$ super-Virasoro algebras at $c = \bar c = \sum_i \tfrac{3k_i}{k_i+2}$ — 2d $\mathcal{N}=(2,2)$ superconformal group (4 $Q$ + 4 $S$ supercharges); $\mathcal{N}=(4,4)$, $PSU(1,1|2)\times PSU(1,1|2)$ (8 $Q$ + 8 $S$ supercharges), for the K3 members; parity not recorded'
+  spacetime: 'Two $\mathcal{N}=2$ super-Virasoro algebras at $c = \bar c = \sum_i \tfrac{3k_i}{k_i+2}$ — 2d $\mathcal{N}=(2,2)$ superconformal symmetry (4 $Q$ + 4 $S$ supercharges); for the K3 members two small $\mathcal{N}=4$ super-Virasoro algebras, $\mathcal{N}=(4,4)$ (8 $Q$ + 8 $S$ supercharges); parity not recorded'
   supercharges: 4
   global: '$U(1)$ R-symmetry on each side; discrete phase symmetries of the factors (including the quantum symmetry of the orbifold) and permutations of equal factors'
 

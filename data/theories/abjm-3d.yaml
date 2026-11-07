@@ -81,7 +81,9 @@ family:
       note: 'Generic member; type IIA on $AdS_4\times\mathbb{CP}^3$ in the regime $k \ll N \ll k^5$.'
 
 symmetry:
-  spacetime: '$OSp(6|4)$ — 3d $\mathcal{N}=6$ superconformal group (12 $Q$ + 12 $S$ supercharges), enhanced at $k = 1, 2$ to $OSp(8|4)$, $\mathcal{N}=8$ (16 $Q$ + 16 $S$ supercharges); with parity combined with exchange of the two gauge groups'
+  spacetime: '3d $\mathcal{N}=6$ superconformal group (12 $Q$ + 12 $S$ supercharges), enhanced at $k = 1, 2$ to $OSp(8|4)$, $\mathcal{N}=8$ (16 $Q$ + 16 $S$ supercharges); with parity combined with exchange of the two gauge groups'
+  euclidean: '$O(4,1)$ (bosonic conformal part)'
+  lorentzian: '$OSp(6|4)$'
   supercharges: 12
   global: '$SO(6)_R \simeq SU(4)_R$ and a $U(1)$ (enhanced to $SO(8)_R$ at $k = 1, 2$); parity combined with exchange of the two gauge groups'
   gauge: '$U(N)_k \times U(N)_{-k}$'

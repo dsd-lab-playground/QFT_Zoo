@@ -5,7 +5,7 @@ summary: 'Coset of $Sp(6)_1$ by its principal $SU(2)$ subalgebra (embedding inde
 tags: [CFT, interacting, unitary, rational, coset]
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{252}{185}$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{252}{185}$ — 2d conformal symmetry, with parity'
 
 quantities:
 - key: c

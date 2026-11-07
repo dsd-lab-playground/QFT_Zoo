@@ -42,7 +42,7 @@ description: |
   [@bls2023, Remark 3.1, Table 1].
 
 symmetry:
-  spacetime: '$SO(3,1)$, extended to a Virasoro algebra at $c = 24$ on the holomorphic side only ($\bar c = 0$) — 2d conformal group, no parity (holomorphic)'
+  spacetime: 'One Virasoro algebra at $c = 24$, on the holomorphic side only ($\bar c = 0$) — 2d conformal symmetry, no parity (holomorphic)'
   supercharges: 0
   global: '$U(1)^{24}$ (the currents $\partial X^i$), with outer automorphisms $O(\Lambda) = \mathrm{Co}_0$'
 

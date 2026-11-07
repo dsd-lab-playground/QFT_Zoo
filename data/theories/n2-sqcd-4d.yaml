@@ -69,7 +69,9 @@ family:
       note: 'Flavor symmetry $U(2N)$, $k_{SU(2N)} = 2N$; Coulomb-branch operators $\mathrm{Tr}\,\phi^k$, $k = 2,\dots,N$.'
 
 symmetry:
-  spacetime: '$SU(2,2|2)$ — 4d $\mathcal{N}=2$ superconformal group (8 $Q$ + 8 $S$ supercharges), with parity at $\theta \in \{0, \pi\}$ (parity maps $\theta \to -\theta$)'
+  spacetime: '4d $\mathcal{N}=2$ superconformal group (8 $Q$ + 8 $S$ supercharges), with parity at $\theta \in \{0, \pi\}$ (parity maps $\theta \to -\theta$)'
+  euclidean: '$O(5,1)$ (bosonic conformal part)'
+  lorentzian: '$SU(2,2|2)$'
   supercharges: 8
   global: '$U(2N) = SU(2N)\times U(1)$ flavor symmetry for $N\geq3$, enhanced to $SO(8)$ for $N=2$; R-symmetry $SU(2)_R\times U(1)_r$'
   gauge: '$SU(N)$'

@@ -49,7 +49,7 @@ description: |
 lagrangian: '\mathcal{L} = \frac{1}{8\pi}\,\partial_\mu X\,\partial^\mu X, \qquad X \in \mathbb{R}'
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = 1$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = 1$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: 'Shifts $X \to X + a$, $a \in \mathbb{R}$ (the momentum $p$ is the charge), and the reflection $X \to -X$'
 
