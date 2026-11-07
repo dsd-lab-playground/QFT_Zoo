@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07 18:27 UTC",
+ "generated": "2026-11-07 18:53 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
  "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math.\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: conformal\n  supercharges: 0\n  global: '$O(N)$'\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: conformal bootstrap\n    refs: [author2025]\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    rep: 'vector'\n    method: conformal bootstrap\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
@@ -20719,7 +20719,7 @@
   {
    "id": "cubic-3d",
    "name": "3d cubic fixed point ($N=3$)",
-   "short_name": "3d cubic FP",
+   "short_name": "3d cubic fixed point",
    "aliases": [
     "Cubic universality class",
     "Cubic fixed point of three scalars"
@@ -20829,6 +20829,12 @@
    ],
    "relations": [
     {
+     "type": "flows_to",
+     "target": "trivial-tqft-3d",
+     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with the cubic symmetry unbroken. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.",
+     "flow_key": "cubic-3d@0"
+    },
+    {
      "type": "related_to",
      "target": "ising-3d",
      "note": "Three decoupled 3d Ising CFTs form another, unstable fixed point of the same Lagrangian. The coupling $\\sum_{i \\neq j}\\epsilon_i\\epsilon_j$ is relevant there, and with the mass tuned it drives the flow to the cubic fixed point (Binder)."
@@ -20901,7 +20907,7 @@
      "type": "flows_from",
      "target": "o3-model-3d",
      "note": "Cubic anisotropy (the cubic-invariant component of the rank-4 traceless symmetric operator), which is relevant at the $O(3)$ fixed point, with the mass tuned to criticality.",
-     "flow_key": "o3-model-3d@3",
+     "flow_key": "o3-model-3d@4",
      "source_entry": "o3-model-3d"
     }
    ],
@@ -21435,9 +21441,15 @@
    "relations": [
     {
      "type": "flows_to",
+     "target": "trivial-tqft-3d",
+     "note": "Mass term $\\tfrac12 m^2\\phi^2$ with $m^2>0$: a free massive scalar, with mass gap $m$, a unique vacuum, and $\\phi\\to-\\phi$ unbroken.",
+     "flow_key": "free-scalar-3d@0"
+    },
+    {
+     "type": "flows_to",
      "target": "ising-3d",
      "note": "Relevant $\\phi^4$ deformation, with $m^2$ tuned to the critical point (Wilson–Fisher).",
-     "flow_key": "free-scalar-3d@0"
+     "flow_key": "free-scalar-3d@1"
     }
    ],
    "references": [
@@ -24044,7 +24056,7 @@
      "type": "flows_from",
      "target": "free-scalar-3d",
      "note": "Relevant $\\phi^4$ deformation, with $m^2$ tuned to the critical point (Wilson–Fisher).",
-     "flow_key": "free-scalar-3d@0",
+     "flow_key": "free-scalar-3d@1",
      "source_entry": "free-scalar-3d"
     },
     {
@@ -24066,14 +24078,14 @@
      "type": "flows_from",
      "target": "o2-model-3d",
      "note": "Relevant charge-2 anisotropy $t \\propto \\phi_1^2 - \\phi_2^2$, with the mass tuned so that the lighter component is critical.",
-     "flow_key": "o2-model-3d@0",
+     "flow_key": "o2-model-3d@1",
      "source_entry": "o2-model-3d"
     },
     {
      "type": "flows_from",
      "target": "o3-model-3d",
      "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy axis, with the mass tuned to criticality.",
-     "flow_key": "o3-model-3d@0",
+     "flow_key": "o3-model-3d@1",
      "source_entry": "o3-model-3d"
     }
    ],
@@ -25278,9 +25290,15 @@
    "relations": [
     {
      "type": "flows_to",
+     "target": "trivial-tqft-3d",
+     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with $O(2)$ unbroken. The other sign breaks $O(2)$ and leaves a Goldstone boson, not this theory. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.",
+     "flow_key": "o2-model-3d@0"
+    },
+    {
+     "type": "flows_to",
      "target": "ising-3d",
      "note": "Relevant charge-2 anisotropy $t \\propto \\phi_1^2 - \\phi_2^2$, with the mass tuned so that the lighter component is critical.",
-     "flow_key": "o2-model-3d@0"
+     "flow_key": "o2-model-3d@1"
     },
     {
      "type": "member_of",
@@ -25382,7 +25400,7 @@
      "type": "flows_from",
      "target": "o3-model-3d",
      "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy plane, with the mass tuned to criticality.",
-     "flow_key": "o3-model-3d@1",
+     "flow_key": "o3-model-3d@2",
      "source_entry": "o3-model-3d"
     },
     {
@@ -25610,15 +25628,21 @@
    "relations": [
     {
      "type": "flows_to",
+     "target": "trivial-tqft-3d",
+     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with $O(3)$ unbroken. The other sign breaks $O(3)$ to $O(2)$ and leaves two Goldstone bosons, not this theory. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.",
+     "flow_key": "o3-model-3d@0"
+    },
+    {
+     "type": "flows_to",
      "target": "ising-3d",
      "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy axis, with the mass tuned to criticality.",
-     "flow_key": "o3-model-3d@0"
+     "flow_key": "o3-model-3d@1"
     },
     {
      "type": "flows_to",
      "target": "o2-model-3d",
      "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy plane, with the mass tuned to criticality.",
-     "flow_key": "o3-model-3d@1"
+     "flow_key": "o3-model-3d@2"
     },
     {
      "type": "member_of",
@@ -25629,7 +25653,7 @@
      "type": "flows_to",
      "target": "cubic-3d",
      "note": "Cubic anisotropy (the cubic-invariant component of the rank-4 traceless symmetric operator), which is relevant at the $O(3)$ fixed point, with the mass tuned to criticality.",
-     "flow_key": "o3-model-3d@3"
+     "flow_key": "o3-model-3d@4"
     }
    ],
    "references": [
@@ -26977,7 +27001,7 @@
   {
    "id": "qed3-3d",
    "name": "3d quantum electrodynamics (QED$_3$) with $N_f$ fermion flavors",
-   "short_name": "QED$_3$, $N_f$",
+   "short_name": "QED$_3$, $N_f$ fermions",
    "aliases": [
     "QED$_3$",
     "Dirac spin liquid ($N_f = 4$)"
@@ -27352,7 +27376,7 @@
   {
    "id": "qed3-gn-3d",
    "name": "3d QED–Gross–Neveu–Yukawa model with $N_f$ fermion flavors",
-   "short_name": "QED$_3$–GNY, $N_f$",
+   "short_name": "QED$_3$–GNY, $N_f$ fermions",
    "aliases": [
     "QED$_3$–Gross–Neveu–Yukawa model with $N_f$ fermion flavors",
     "QED$_3$–GN",
@@ -28280,7 +28304,6 @@
     "Trivial gapped infrared fixed point"
    ],
    "d": 3,
-   "uv_dof": 0,
    "summary": "The normalized trivial bosonic theory: one state on every closed spatial surface and partition function one. Symmetry actions and background responses must be specified when it is used as an RG-flow endpoint.",
    "tags": [
     "CFT",
@@ -28294,6 +28317,19 @@
     "spacetime": "Topological; local metric rescalings act trivially.",
     "notes": "No global symmetry is fixed by this underlying entry. A flow may specify a retained symmetry, how it is realized, and its background response."
    },
+   "quantities": [
+    {
+     "symbol": "F",
+     "key": "F",
+     "description": "$S^3$ free energy, $F = -\\log Z_{S^3}$",
+     "value": "0",
+     "method": "exact",
+     "refs": [
+      "moore2025"
+     ],
+     "note": "Immediate from the definition: $Z(M) = 1$ for every closed $M$, so $Z_{S^3} = 1$."
+    }
+   ],
    "references": [
     {
      "key": "moore2025",
@@ -28321,15 +28357,43 @@
    "backlinks": [
     {
      "type": "flows_from",
+     "target": "cubic-3d",
+     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with the cubic symmetry unbroken. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.",
+     "flow_key": "cubic-3d@0",
+     "source_entry": "cubic-3d"
+    },
+    {
+     "type": "flows_from",
+     "target": "free-scalar-3d",
+     "note": "Mass term $\\tfrac12 m^2\\phi^2$ with $m^2>0$: a free massive scalar, with mass gap $m$, a unique vacuum, and $\\phi\\to-\\phi$ unbroken.",
+     "flow_key": "free-scalar-3d@0",
+     "source_entry": "free-scalar-3d"
+    },
+    {
+     "type": "flows_from",
      "target": "ising-3d",
      "note": "Thermal deformation $S=S_{\\rm Ising}+t\\int d^3x\\,\\epsilon$ with $t>0$ the disordered side, $\\epsilon$ normalized so that $\\lambda_{\\sigma\\sigma\\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$. The global $\\mathbb Z_2$ remains unbroken, acting trivially in the infrared, with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary Ising normalization. No stacked invertible sector is included. [Caselle et al.](https://arxiv.org/abs/1605.05133), Eqs. (1), (4), the value of $C^{\\epsilon}_{\\sigma\\sigma}$ after Eq. (5) and the Monte Carlo convention $t_{\\rm lat}=\\beta_c-\\beta>0$ at high temperature; [Bhardwaj et al.](https://arxiv.org/abs/2408.05266), Sec. 4.1.1, Eqs. (4.8)-(4.10).",
      "flow_key": "ising-3d@1",
      "source_entry": "ising-3d"
+    },
+    {
+     "type": "flows_from",
+     "target": "o2-model-3d",
+     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with $O(2)$ unbroken. The other sign breaks $O(2)$ and leaves a Goldstone boson, not this theory. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.",
+     "flow_key": "o2-model-3d@0",
+     "source_entry": "o2-model-3d"
+    },
+    {
+     "type": "flows_from",
+     "target": "o3-model-3d",
+     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with $O(3)$ unbroken. The other sign breaks $O(3)$ to $O(2)$ and leaves two Goldstone bosons, not this theory. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.",
+     "flow_key": "o3-model-3d@0",
+     "source_entry": "o3-model-3d"
     }
    ],
    "flow_height": {
     "value": 0.0,
-    "estimated": true
+    "estimated": false
    }
   },
   {
@@ -29790,7 +29854,6 @@
   {
    "id": "klebanov-witten-4d",
    "name": "Klebanov–Witten theory",
-   "short_name": "KW theory",
    "aliases": [
     "Conifold theory",
     "$T^{1,1}$ theory",
@@ -32523,7 +32586,7 @@
   {
    "id": "yang-mills-4d",
    "name": "4d pure $SU(N)$ Yang–Mills",
-   "short_name": "4d $SU(N)$ YM",
+   "short_name": "4d $SU(N)$ Yang–Mills",
    "aliases": [
     "Pure glue",
     "Yang–Mills theory"
