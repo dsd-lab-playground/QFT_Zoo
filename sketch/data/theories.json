@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07 20:43 UTC",
+ "generated": "2026-11-07 20:45 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
  "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math,\n#     and cite as [@key] or [@key, Sec. 2] (never a direct link; see CONTRIBUTING.md, Citations).\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: '$O(4,1)$ — 3d conformal group with parity'   # group — colloquial name; see CONTRIBUTING.md, Spacetime symmetry\n  supercharges: 0                  # real Poincaré supercharges Q; for SUSY theories also state Q and S in spacetime\n  global: '$O(N)$'\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: 'CB, rigorous'         # an abbreviation from data/methods.yaml, then an optional qualifier (CONTRIBUTING.md, Methods)\n    refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    rep: 'vector'\n    method: CB\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
@@ -601,7 +601,7 @@
      "Delta": "\\frac{g}{8} - \\frac{(1-g)^2}{2g}",
      "spin": 0,
      "rep": "vector (spin field, 1-leg operator)",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "jrs2023",
       "granssamuelsson2022"
@@ -613,7 +613,7 @@
      "Delta": "\\frac{gL^2}{8} - \\frac{(1-g)^2}{2g}",
      "spin": 0,
      "rep": "$L$-leg (watermelon) operator, in the traceless symmetric tensor $[L]$ of $O(n)$",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "jrs2023",
       "granssamuelsson2022",
@@ -626,7 +626,7 @@
      "Delta": "\\frac{4}{g} - 2",
      "spin": 0,
      "rep": "singlet (energy operator)",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "jrs2023",
       "gorbenkozan2020"
@@ -879,7 +879,7 @@
      "symbol": "\\nu",
      "description": "Correlation-length exponent, $1/(2 - \\Delta_\\epsilon)$",
      "value": "\\frac{2m}{3(m-1)}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "jacobsensaleur2019",
       "delfinoviti2011"
@@ -894,7 +894,7 @@
      "spin": 0,
      "weights": "(h_{1/2,0}, h_{1/2,0})",
      "rep": "standard representation of $S_Q$ (order parameter)",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "jacobsensaleur2019",
       "jrs2023"
@@ -907,7 +907,7 @@
      "spin": 0,
      "weights": "(h_{2,1}, h_{2,1})",
      "rep": "$S_Q$ singlet (energy), degenerate",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "jacobsensaleur2019",
       "delfinoviti2011"
@@ -1346,7 +1346,7 @@
      "symbol": "d_f",
      "description": "Fractal dimension of critical clusters, $2 - \\Delta_\\sigma$",
      "value": "\\frac{91}{48}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "lsw2002",
       "smirnovwerner2001"
@@ -1593,7 +1593,7 @@
      "symbol": "\\eta",
      "description": "Anomalous dimension, $\\eta = 2\\Delta_\\phi$",
      "value": "\\frac{5}{24}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "lsw2004",
       "saleur1992"
@@ -5254,7 +5254,7 @@
      "symbol": "\\Delta_{\\rm gap}",
      "description": "Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary",
      "value": "\\min\\!\\left(\\frac{1}{k+2}, \\frac{k}{4(k+2)}\\right)",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "cordovarizi2025",
       "gray2012"
@@ -6104,7 +6104,7 @@
      "symbol": "Z(\\tau)",
      "description": "Torus partition function, $V$ the length of the target",
      "value": "\\frac{V}{2\\pi\\sqrt{2\\tau_2}\\,|\\eta(\\tau)|^2}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "rv2020",
       "ginsparg-lectures"
@@ -6580,7 +6580,7 @@
      "symbol": "\\Delta_{\\rm gap}",
      "description": "Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary",
      "value": "\\frac{3}{2(k+2)}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "ginsparg-lectures"
      ],
@@ -15921,7 +15921,7 @@
      "symbol": "\\Delta_{\\rm gap}",
      "description": "Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary",
      "value": "\\frac{4}{k+2}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "zuber2000",
       "ginsparg-lectures"
@@ -15936,7 +15936,7 @@
      "spin": 0,
      "weights": "(\\tfrac{2}{k+2}, \\tfrac{2}{k+2})",
      "rep": "$(\\mathbf{3}, \\mathbf{3})$ of $SU(2) \\times SU(2)$",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "zuber2000",
       "ginsparg-lectures"
@@ -15949,7 +15949,7 @@
      "spin": "\\frac{k}{4}",
      "weights": "(\\tfrac{k}{4}, 0)",
      "rep": "$(\\mathbf{k+1}, \\mathbf{1})$",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "zuber2000",
       "ginsparg-lectures"
@@ -16518,7 +16518,7 @@
      "symbol": "\\Delta_{\\rm gap}",
      "description": "Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary",
      "value": "\\min(1,\\, 2h_{\\min})",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "walton1999"
      ],
@@ -16934,7 +16934,7 @@
      "symbol": "\\Delta_{\\rm gap}",
      "description": "Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary",
      "value": "\\frac{l(l+2)}{2(k+2)}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "zuber2000",
       "ginsparg-lectures"
@@ -16948,7 +16948,7 @@
      "Delta": "5/8",
      "spin": 0,
      "weights": "(\\tfrac{5}{16}, \\tfrac{5}{16})",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "zuber2000",
       "ginsparg-lectures"
@@ -16960,7 +16960,7 @@
      "Delta": "2/3",
      "spin": 0,
      "weights": "(\\tfrac13, \\tfrac13)",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "zuber2000",
       "ginsparg-lectures"
@@ -16972,7 +16972,7 @@
      "Delta": "4/5",
      "spin": 0,
      "weights": "(\\tfrac25, \\tfrac25)",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "zuber2000",
       "ginsparg-lectures"
@@ -17670,7 +17670,7 @@
      "Delta": "\\frac{c_X}{12}\\left(n-\\frac{1}{n}\\right)",
      "spin": 0,
      "weights": "\\left(\\tfrac{c_X}{24}(n-\\tfrac1n),\\ \\tfrac{c_X}{24}(n-\\tfrac1n)\\right)",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "hks2014"
      ],
@@ -18884,7 +18884,7 @@
      "spin": 2,
      "weights": "(2, 0)",
      "degeneracy": 196560,
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "witten2007"
      ],
@@ -19954,7 +19954,7 @@
      "symbol": "\\Delta_{\\min}",
      "description": "Lower edge of the continuous spectrum, $h+\\bar h$ at $p=0$",
      "value": "(Q,Q)=\\frac{c-N+1}{12}",
-     "method": "derived",
+     "method": "exact",
      "note": "From $h=\\frac12(\\alpha,2Q-\\alpha)=\\frac12\\big((Q,Q)+(p,p)\\big)$ at $\\alpha=Q+ip$. There is no gap above it. Reduces to the Liouville value $\\frac{c-1}{12}$ at $N=2$.",
      "refs": [
       "fredenhagen2011",
@@ -21181,7 +21181,7 @@
      "Delta": "0.51891(7)",
      "spin": 0,
      "rep": "three-dimensional (order parameter)",
-     "method": "derived",
+     "method": "MC, from η",
      "refs": [
       "hasenbusch2023"
      ],
@@ -21192,7 +21192,7 @@
      "Delta": "1.5937(6)",
      "spin": 0,
      "rep": "singlet (thermal)",
-     "method": "derived",
+     "method": "MC, from ν",
      "refs": [
       "hasenbusch2023"
      ],
@@ -21211,7 +21211,7 @@
      "Delta": "3.0133(8)",
      "spin": 0,
      "rep": "singlet (descends from $t_4$ of $O(3)$)",
-     "method": "derived",
+     "method": "MC, from ω₂",
      "refs": [
       "hasenbusch2023",
       "chester2020"
@@ -21379,7 +21379,7 @@
      "symbol": "\\nu",
      "description": "Correlation-length exponent: fuzzy sphere, $\\nu = 1/(3-\\Delta_T)$ at $N_{\\rm orb} = 10$",
      "value": "0.647",
-     "method": "FS, derived from Δ_T",
+     "method": "FS, from Δ_T",
      "refs": [
       "zhou2024"
      ]
@@ -21405,10 +21405,19 @@
      "rep": "$SO(5)$ rank-2 symmetric traceless (contains $|z|^2$ and the charge-2 monopole)",
      "method": "FS, exact diagonalization",
      "refs": [
-      "zhou2024",
+      "zhou2024"
+     ]
+    },
+    {
+     "name": "T",
+     "Delta": "1.52(7)",
+     "spin": 0,
+     "rep": "$SO(5)$ rank-2 symmetric traceless (contains $|z|^2$ and the charge-2 monopole)",
+     "method": "MC, cubic dimer model, from y₂",
+     "refs": [
       "sreejith2015"
      ],
-     "note": "Cubic dimer model, charge-2 monopole: $\\Delta = 3 - y_2 = 1.52(7)$ [@dqcp-3d/sreejith2015]."
+     "note": "Charge-2 monopole, $\\Delta = 3 - y_2$."
     },
     {
      "name": "M_{3/2}",
@@ -21417,10 +21426,20 @@
      "rep": "$SO(5)$ rank-3 symmetric traceless (contains the $6\\pi$-flux monopole)",
      "method": "FS, exact diagonalization",
      "refs": [
-      "zhou2024",
+      "zhou2024"
+     ],
+     "note": "Relevant, so on the honeycomb lattice, where this monopole is allowed by symmetry, it destabilizes the proposed $SO(5)$ fixed point: the Néel–VBS transition there cannot be described by the $SO(5)$ DQCP [@dqcp-3d/zhou2024]."
+    },
+    {
+     "name": "M_{3/2}",
+     "Delta": "2.80(3)",
+     "spin": 0,
+     "rep": "$SO(5)$ rank-3 symmetric traceless (contains the $6\\pi$-flux monopole)",
+     "method": "MC, cubic dimer model, from y₃",
+     "refs": [
       "sreejith2015"
      ],
-     "note": "Cubic dimer model: $\\Delta = 3 - y_3 = 2.80(3)$. Relevant, so on the honeycomb lattice, where this monopole is allowed by symmetry, it destabilizes the proposed $SO(5)$ fixed point: the Néel–VBS transition there cannot be described by the $SO(5)$ DQCP [@dqcp-3d/zhou2024]."
+     "note": "$\\Delta = 3 - y_3$."
     },
     {
      "name": "S",
@@ -21618,7 +21637,7 @@
      "symbol": "C_T/C_T^{\\rm free}",
      "description": "Stress-tensor two-point coefficient of one Majorana fermion, relative to one free real scalar",
      "value": "1",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "osborn1993",
       "diab2016",
@@ -22505,22 +22524,22 @@
      "Delta": "1.0844435(83)",
      "spin": "1/2",
      "rep": "superpartner of $\\sigma$",
-     "method": "derived, supersymmetry",
+     "method": "CB, from Δσ",
      "refs": [
       "atanasov2022"
      ],
-     "note": "$\\Delta_\\psi = \\Delta_\\sigma + \\tfrac12$."
+     "note": "$\\Delta_\\psi = \\Delta_\\sigma + \\tfrac12$ by supersymmetry."
     },
     {
      "name": "\\epsilon",
      "Delta": "1.5844435(83)",
      "spin": 0,
      "rep": "parity even; top of the $\\sigma$ multiplet",
-     "method": "derived, supersymmetry",
+     "method": "CB, from Δσ",
      "refs": [
       "atanasov2022"
      ],
-     "note": "$\\Delta_\\epsilon = \\Delta_\\sigma + 1$. The only relevant parity-even scalar (the tuning parameter)."
+     "note": "$\\Delta_\\epsilon = \\Delta_\\sigma + 1$ by supersymmetry. The only relevant parity-even scalar (the tuning parameter)."
     },
     {
      "name": "\\sigma'",
@@ -22537,10 +22556,11 @@
      "Delta": "3.8869(25)",
      "spin": 0,
      "rep": "parity even; partner of $\\sigma'$",
-     "method": "derived, supersymmetry",
+     "method": "CB, from Δσ′",
      "refs": [
       "atanasov2022"
-     ]
+     ],
+     "note": "$\\Delta_{\\epsilon'} = \\Delta_{\\sigma'} + 1$ by supersymmetry."
     },
     {
      "name": "S_{\\mu\\alpha}",
@@ -22743,8 +22763,18 @@
      "method": "Padé, large N and N = 1",
      "refs": [
       "mitchell2024"
+     ]
+    },
+    {
+     "name": "\\sigma'",
+     "Delta": "[3.071,\\ 3.328]",
+     "spin": 0,
+     "rep": "singlet, parity odd",
+     "method": "CB, rigorous bounds",
+     "refs": [
+      "mitchell2024"
      ],
-     "note": "Bootstrap bounds: $3.071 \\le \\Delta \\le 3.328$ (with mild gap assumptions)."
+     "note": "With mild gap assumptions."
     },
     {
      "name": "\\epsilon'",
@@ -22754,8 +22784,18 @@
      "method": "Padé, large N and N = 1",
      "refs": [
       "mitchell2024"
+     ]
+    },
+    {
+     "name": "\\epsilon'",
+     "Delta": "[3.169,\\ 3.835]",
+     "spin": 0,
+     "rep": "singlet, parity even",
+     "method": "CB, rigorous bounds",
+     "refs": [
+      "mitchell2024"
      ],
-     "note": "Bootstrap bounds: $3.169 \\le \\Delta \\le 3.835$ (with mild gap assumptions)."
+     "note": "With mild gap assumptions."
     }
    ],
    "relations": [
@@ -22943,8 +22983,18 @@
      "method": "Padé, large N and N = 1",
      "refs": [
       "mitchell2024"
+     ]
+    },
+    {
+     "name": "\\sigma'",
+     "Delta": "[3.241,\\ 3.506]",
+     "spin": 0,
+     "rep": "singlet, parity odd",
+     "method": "CB, rigorous bounds",
+     "refs": [
+      "mitchell2024"
      ],
-     "note": "Bootstrap bounds: $3.241 \\le \\Delta \\le 3.506$ (with mild gap assumptions)."
+     "note": "With mild gap assumptions."
     },
     {
      "name": "\\epsilon'",
@@ -22954,8 +23004,18 @@
      "method": "Padé, large N and N = 1",
      "refs": [
       "mitchell2024"
+     ]
+    },
+    {
+     "name": "\\epsilon'",
+     "Delta": "[3.137,\\ 3.783]",
+     "spin": 0,
+     "rep": "singlet, parity even",
+     "method": "CB, rigorous bounds",
+     "refs": [
+      "mitchell2024"
      ],
-     "note": "Bootstrap bounds: $3.137 \\le \\Delta \\le 3.783$ (with mild gap assumptions)."
+     "note": "With mild gap assumptions."
     }
    ],
    "relations": [
@@ -23142,8 +23202,18 @@
      "method": "Padé, large N and N = 1",
      "refs": [
       "mitchell2024"
+     ]
+    },
+    {
+     "name": "\\sigma'",
+     "Delta": "[3.189,\\ 3.650]",
+     "spin": 0,
+     "rep": "singlet, parity odd",
+     "method": "CB, rigorous bounds",
+     "refs": [
+      "mitchell2024"
      ],
-     "note": "Bootstrap bounds: $3.189 \\le \\Delta \\le 3.650$ (with mild gap assumptions)."
+     "note": "With mild gap assumptions."
     },
     {
      "name": "\\epsilon'",
@@ -23153,8 +23223,18 @@
      "method": "Padé, large N and N = 1",
      "refs": [
       "mitchell2024"
+     ]
+    },
+    {
+     "name": "\\epsilon'",
+     "Delta": "[3.167,\\ 3.842]",
+     "spin": 0,
+     "rep": "singlet, parity even",
+     "method": "CB, rigorous bounds",
+     "refs": [
+      "mitchell2024"
      ],
-     "note": "Bootstrap bounds: $3.167 \\le \\Delta \\le 3.842$ (with mild gap assumptions)."
+     "note": "With mild gap assumptions."
     }
    ],
    "relations": [
@@ -23292,7 +23372,7 @@
      "symbol": "C_T/C_T^{\\rm free}",
      "description": "Stress-tensor two-point coefficient, relative to $N$ free Majorana fermions",
      "value": "1 + \\frac{16}{9\\pi^2 N} + O(N^{-2})",
-     "method": "derived",
+     "method": "1/N, from the Gross–Neveu value",
      "refs": [
       "fei2016",
       "diab2016"
@@ -23525,18 +23605,18 @@
      "symbol": "\\eta",
      "description": "Critical exponent, $\\eta = 2\\Delta_\\sigma - 1$",
      "value": "0.036297612(48)",
-     "method": "derived",
+     "method": "CB, from Δσ",
      "refs": [
-      "chang2024"
+      "chang2024, Table 2, p. 2"
      ]
     },
     {
      "symbol": "\\nu",
      "description": "Critical exponent, $\\nu = 1/(3-\\Delta_\\epsilon)$",
      "value": "0.62997097(12)",
-     "method": "derived",
+     "method": "CB, from Δε",
      "refs": [
-      "chang2024"
+      "chang2024, Table 2, p. 2"
      ]
     },
     {
@@ -23716,7 +23796,17 @@
      "refs": [
       "hasenbusch2010"
      ],
-     "note": "[@ising-3d/hasenbusch2010, Eq. (34), p. 14], also in the abstract. Compare the rigorous bootstrap interval $\\Delta_{\\epsilon'} = 3.82951(61)$ in the operator table, i.e. $\\omega = 0.82951(61)$ by the stated relation."
+     "note": "[@ising-3d/hasenbusch2010, Eq. (34), p. 14], also in the abstract."
+    },
+    {
+     "symbol": "\\omega",
+     "description": "Leading correction-to-scaling exponent, $\\omega = \\Delta_{\\epsilon'} - 3$",
+     "value": "0.82951(61)",
+     "method": "CB, rigorous, from Δε′",
+     "refs": [
+      "reehorst2021, Table 1, p. 4"
+     ],
+     "note": "Computed by this relation from the rigorous interval $\\Delta_{\\epsilon'} = 3.82951(61)$ [@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.1)], so it is a rigorous interval under the same assumptions ($\\Delta_{\\sigma'}>3$ and no third $\\mathbb{Z}_2$-even scalar below 6 [@ising-3d/reehorst2021, Sec. 4.1])."
     },
     {
      "symbol": "\\nu",
@@ -24571,9 +24661,9 @@
      "symbol": "\\nu",
      "description": "Correlation-length exponent, $\\nu = 1/(3-\\Delta_\\epsilon)$",
      "value": "0.62997097(12)",
-     "method": "derived",
+     "method": "CB, from Δε",
      "refs": [
-      "chang2024"
+      "chang2024, Table 2"
      ],
      "note": "From $\\Delta_\\epsilon$ [@ising-star-3d/chang2024, Table 2]; identical to the 3d Ising value."
     },
@@ -24769,7 +24859,16 @@
      "refs": [
       "borinsky2021"
      ],
-     "note": "[@lee-yang-3d/borinsky2021, Table 1]. Functional renormalization group: $-0.586(29)$ [@lee-yang-3d/an2016]."
+     "note": "[@lee-yang-3d/borinsky2021, Table 1]."
+    },
+    {
+     "symbol": "\\eta",
+     "description": "Anomalous dimension, $\\eta = 2\\Delta_\\phi - 1$",
+     "value": "-0.586(29)",
+     "method": "FRG",
+     "refs": [
+      "an2016"
+     ]
     },
     {
      "symbol": "|C_{\\phi\\phi\\phi}|",
@@ -24792,7 +24891,42 @@
      "refs": [
       "arguellocruz2025"
      ],
-     "note": "Below the unitarity bound. The same paper lists $0.215(10)$ from the five-loop $\\eta$ and $0.214(6)$ from the series $\\sigma$. The fuzzy-sphere study of Fan et al. [@lee-yang-3d/fan2025] gives $0.29$ (no error quoted)."
+     "note": "Below the unitarity bound."
+    },
+    {
+     "name": "\\phi",
+     "Delta": "0.215(10)",
+     "spin": 0,
+     "rep": "the only relevant primary",
+     "method": "ε-exp, 6 − ε, five loops, resummed, from η",
+     "refs": [
+      "arguellocruz2025",
+      "borinsky2021"
+     ],
+     "note": "Listed by Arguello Cruz et al. [@lee-yang-3d/arguellocruz2025], from the five-loop $\\eta$ [@lee-yang-3d/borinsky2021]."
+    },
+    {
+     "name": "\\phi",
+     "Delta": "0.214(6)",
+     "spin": 0,
+     "rep": "the only relevant primary",
+     "method": "series, from σ",
+     "refs": [
+      "arguellocruz2025",
+      "butera2012"
+     ],
+     "note": "Listed by Arguello Cruz et al. [@lee-yang-3d/arguellocruz2025], from the series value of $\\sigma$ [@lee-yang-3d/butera2012]."
+    },
+    {
+     "name": "\\phi",
+     "Delta": "0.29",
+     "spin": 0,
+     "rep": "the only relevant primary",
+     "method": "FS",
+     "refs": [
+      "fan2025"
+     ],
+     "note": "No error quoted."
     },
     {
      "name": "T_{\\mu\\nu}",
@@ -24809,7 +24943,36 @@
      "refs": [
       "arguellocruz2025"
      ],
-     "note": "Leading irrelevant scalar. Five-loop $\\omega = 1.5(2)$ gives $3 + \\omega = 4.5(2)$ [@lee-yang-3d/borinsky2021]; truncated bootstrap: $5.0(1)$ [@lee-yang-3d/gliozzi2014]; Fan et al. [@lee-yang-3d/fan2025]: $4.71$."
+     "note": "Leading irrelevant scalar."
+    },
+    {
+     "name": "\\phi^3",
+     "Delta": "4.5(2)",
+     "spin": 0,
+     "method": "ε-exp, 6 − ε, five loops, resummed, from ω",
+     "refs": [
+      "borinsky2021"
+     ],
+     "note": "$3 + \\omega$ with the five-loop $\\omega = 1.5(2)$."
+    },
+    {
+     "name": "\\phi^3",
+     "Delta": "5.0(1)",
+     "spin": 0,
+     "method": "CB-trunc",
+     "refs": [
+      "gliozzi2014"
+     ]
+    },
+    {
+     "name": "\\phi^3",
+     "Delta": "4.71",
+     "spin": 0,
+     "method": "FS",
+     "refs": [
+      "fan2025"
+     ],
+     "note": "No error quoted."
     },
     {
      "name": "Q_{\\mu\\nu\\rho\\sigma}",
@@ -24819,7 +24982,26 @@
      "refs": [
       "arguellocruz2025"
      ],
-     "note": "Lightest spin-4 primary. Truncated bootstrap: $4.75(1)$ [@lee-yang-3d/gliozzi2014]; Fan et al. [@lee-yang-3d/fan2025]: $4.90$."
+     "note": "Lightest spin-4 primary."
+    },
+    {
+     "name": "Q_{\\mu\\nu\\rho\\sigma}",
+     "Delta": "4.75(1)",
+     "spin": 4,
+     "method": "CB-trunc",
+     "refs": [
+      "gliozzi2014"
+     ]
+    },
+    {
+     "name": "Q_{\\mu\\nu\\rho\\sigma}",
+     "Delta": "4.90",
+     "spin": 4,
+     "method": "FS",
+     "refs": [
+      "fan2025"
+     ],
+     "note": "No error quoted."
     }
    ],
    "relations": [
@@ -25110,8 +25292,17 @@
      "refs": [
       "fei2016",
       "bobev2015b"
+     ]
+    },
+    {
+     "symbol": "C_T/C_T^{\\rm free}",
+     "description": "Stress-tensor two-point coefficient, relative to one free chiral multiplet (two real scalars and one two-component Dirac fermion)",
+     "value": "0.7265(3)",
+     "method": "CB-EFM",
+     "refs": [
+      "bobev2015, p. 4"
      ],
-     "note": "The bootstrap solution at the kink gives $0.7265(3)$ (Bobev et al. 2015)."
+     "note": "From the unique solution of crossing at the kink."
     },
     {
      "symbol": "\\eta_\\phi = \\eta_\\psi",
@@ -25126,7 +25317,7 @@
      "symbol": "\\nu^{-1}",
      "description": "Inverse correlation-length exponent, $3 - \\Delta_{[\\bar\\Phi\\Phi]}$",
      "value": "1.0902(20)",
-     "method": "derived",
+     "method": "CB, from Δ[Φ̄Φ]",
      "refs": [
       "bobev2015"
      ],
@@ -25136,7 +25327,7 @@
      "symbol": "\\omega",
      "description": "Correction-to-scaling exponent, $\\Delta_{[Q^4\\bar\\Phi\\Phi]} - 3$",
      "value": "0.9098(20)",
-     "method": "derived",
+     "method": "CB, from Δ[Q⁴Φ̄Φ]",
      "refs": [
       "bobev2015",
       "bobev2015b"
@@ -25186,10 +25377,20 @@
      "rep": "$R = 0$; lowest unprotected superconformal primary",
      "method": "CB",
      "refs": [
-      "bobev2015",
+      "bobev2015"
+     ],
+     "note": "Its coupling is the tuning parameter of the non-supersymmetric description."
+    },
+    {
+     "name": "[\\bar\\Phi\\Phi]",
+     "Delta": "\\approx 1.909",
+     "spin": 0,
+     "rep": "$R = 0$; lowest unprotected superconformal primary",
+     "method": "ε-exp, 4 − ε, Padé",
+     "refs": [
       "fei2016"
      ],
-     "note": "Its coupling is the tuning parameter of the non-supersymmetric description. $4-\\epsilon$: $2 - \\tfrac13\\epsilon^2 + \\tfrac{1+12\\zeta(3)}{18}\\epsilon^3 + O(\\epsilon^4)$, whose Padé estimate in $d=3$ is $\\approx 1.909$ (Fei et al.)."
+     "note": "Padé estimate at $d=3$ of $2 - \\tfrac13\\epsilon^2 + \\tfrac{1+12\\zeta(3)}{18}\\epsilon^3 + O(\\epsilon^4)$ [@n2-super-ising-3d/fei2016]."
     },
     {
      "name": "T_{\\mu\\nu}",
@@ -25395,7 +25596,7 @@
      "symbol": "C_T/C_T^{\\rm free}",
      "description": "Stress-tensor two-point coefficient, relative to $N_f$ free hypermultiplets",
      "value": "\\frac{2N_f^2\\,\\psi^{(1)}\\!\\left(\\frac{N_f}{2}+1\\right) + (\\pi^2N_f + 4)N_f + 4}{\\pi^2 N_f(N_f+1)}",
-     "method": "derived, supersymmetric localization",
+     "method": "LOC",
      "refs": [
       "chang2019"
      ],
@@ -25554,7 +25755,16 @@
      "refs": [
       "hasenbusch2025"
      ],
-     "note": "From $1/\\nu = 1.48872(5)$. Conformal bootstrap: $0.67175(10)$ (rigorous; [@o2-model-3d/chester2019])."
+     "note": "From $1/\\nu = 1.48872(5)$."
+    },
+    {
+     "symbol": "\\nu",
+     "description": "Correlation-length exponent, $\\nu = 1/(3-\\Delta_s)$",
+     "value": "0.67175(10)",
+     "method": "CB, rigorous",
+     "refs": [
+      "chester2019"
+     ]
     },
     {
      "symbol": "\\eta",
@@ -25563,14 +25773,22 @@
      "method": "MC, improved clock model",
      "refs": [
       "hasenbusch2025"
-     ],
-     "note": "Conformal bootstrap: $0.038176(44)$ (rigorous; [@o2-model-3d/chester2019])."
+     ]
+    },
+    {
+     "symbol": "\\eta",
+     "description": "Anomalous dimension, $\\eta = 2\\Delta_\\phi - 1$",
+     "value": "0.038176(44)",
+     "method": "CB, rigorous",
+     "refs": [
+      "chester2019"
+     ]
     },
     {
      "symbol": "\\alpha",
      "description": "Specific-heat exponent, $\\alpha = 2 - 3\\nu$ (theory)",
      "value": "-0.01515(7)",
-     "method": "derived, from ν",
+     "method": "MC, from ν",
      "refs": [
       "hasenbusch2025"
      ]
@@ -25658,8 +25876,17 @@
      "method": "MC",
      "refs": [
       "hasenbusch2025"
-     ],
-     "note": "Bootstrap: $0.519088(22)$ (rigorous)."
+     ]
+    },
+    {
+     "name": "\\phi",
+     "Delta": "0.519088(22)",
+     "spin": 0,
+     "rep": "charge 1 (order parameter)",
+     "method": "CB, rigorous",
+     "refs": [
+      "chester2019"
+     ]
     },
     {
      "name": "t",
@@ -25670,7 +25897,17 @@
      "refs": [
       "chester2019"
      ],
-     "note": "Monte Carlo: $1.23630(12)$ [@o2-model-3d/hasenbusch2025b]. Relevant: a charge-2 anisotropy drives the flow to 3d Ising."
+     "note": "Relevant: a charge-2 anisotropy drives the flow to 3d Ising."
+    },
+    {
+     "name": "t",
+     "Delta": "1.23630(12)",
+     "spin": 0,
+     "rep": "charge 2",
+     "method": "MC",
+     "refs": [
+      "hasenbusch2025b"
+     ]
     },
     {
      "name": "s",
@@ -25680,8 +25917,17 @@
      "method": "MC",
      "refs": [
       "hasenbusch2025"
-     ],
-     "note": "Bootstrap: $1.51136(22)$ (rigorous)."
+     ]
+    },
+    {
+     "name": "s",
+     "Delta": "1.51136(22)",
+     "spin": 0,
+     "rep": "charge 0 (thermal)",
+     "method": "CB, rigorous",
+     "refs": [
+      "chester2019"
+     ]
     },
     {
      "name": "J_\\mu",
@@ -25700,7 +25946,17 @@
      "refs": [
       "hasenbusch2025b"
      ],
-     "note": "Relevant, so a $\\mathbb{Z}_3$ clock anisotropy destabilizes the fixed point. Bootstrap estimate: $2.1086(3)$ (non-rigorous; [@o2-model-3d/chester2019])."
+     "note": "Relevant, so a $\\mathbb{Z}_3$ clock anisotropy destabilizes the fixed point."
+    },
+    {
+     "name": "\\mathcal{O}_{q=3}",
+     "Delta": "2.1086(3)",
+     "spin": 0,
+     "rep": "charge 3",
+     "method": "CB, non-rigorous error",
+     "refs": [
+      "chester2019"
+     ]
     },
     {
      "name": "T_{\\mu\\nu}",
@@ -25903,8 +26159,16 @@
      "method": "MC, improved icosahedral model",
      "refs": [
       "hasenbusch2020"
-     ],
-     "note": "Conformal bootstrap: $0.71168(41)$ (rigorous) [@o3-model-3d/chester2020]."
+     ]
+    },
+    {
+     "symbol": "\\nu",
+     "description": "Correlation-length exponent, $\\nu = 1/(3-\\Delta_s)$",
+     "value": "0.71168(41)",
+     "method": "CB, rigorous",
+     "refs": [
+      "chester2020"
+     ]
     },
     {
      "symbol": "\\eta",
@@ -25913,14 +26177,22 @@
      "method": "MC, improved icosahedral model",
      "refs": [
       "hasenbusch2020"
-     ],
-     "note": "Conformal bootstrap: $0.03787(13)$ (rigorous) [@o3-model-3d/chester2020]."
+     ]
+    },
+    {
+     "symbol": "\\eta",
+     "description": "Anomalous dimension, $\\eta = 2\\Delta_\\phi - 1$",
+     "value": "0.03787(13)",
+     "method": "CB, rigorous",
+     "refs": [
+      "chester2020"
+     ]
     },
     {
      "symbol": "\\alpha",
      "description": "Specific-heat exponent, $\\alpha = 2 - 3\\nu$",
      "value": "-0.1349(3)",
-     "method": "derived, from ν",
+     "method": "MC, from ν",
      "refs": [
       "hasenbusch2020"
      ]
@@ -26016,8 +26288,17 @@
      "method": "MC",
      "refs": [
       "hasenbusch2020"
-     ],
-     "note": "Bootstrap: $0.518936(67)$ (rigorous)."
+     ]
+    },
+    {
+     "name": "\\phi_i",
+     "Delta": "0.518936(67)",
+     "spin": 0,
+     "rep": "vector (order parameter)",
+     "method": "CB, rigorous",
+     "refs": [
+      "chester2020"
+     ]
     },
     {
      "name": "t_{ij}",
@@ -26026,10 +26307,19 @@
      "rep": "rank-2 symmetric traceless",
      "method": "CB",
      "refs": [
-      "chester2020",
-      "hasenbusch2011"
+      "chester2020"
      ],
-     "note": "Monte Carlo: $1.2094(3)$ [@o3-model-3d/hasenbusch2011]. Uniaxial anisotropy; relevant."
+     "note": "Uniaxial anisotropy; relevant."
+    },
+    {
+     "name": "t_{ij}",
+     "Delta": "1.2094(3)",
+     "spin": 0,
+     "rep": "rank-2 symmetric traceless",
+     "method": "MC",
+     "refs": [
+      "hasenbusch2011"
+     ]
     },
     {
      "name": "s",
@@ -26039,8 +26329,17 @@
      "method": "MC",
      "refs": [
       "hasenbusch2020"
-     ],
-     "note": "Bootstrap: $1.59488(81)$ (rigorous)."
+     ]
+    },
+    {
+     "name": "s",
+     "Delta": "1.59488(81)",
+     "spin": 0,
+     "rep": "singlet (thermal)",
+     "method": "CB, rigorous",
+     "refs": [
+      "chester2020"
+     ]
     },
     {
      "name": "J_\\mu^{[ij]}",
@@ -26059,7 +26358,18 @@
      "refs": [
       "hasenbusch2023"
      ],
-     "note": "Bootstrap bound $\\Delta_{t_4} < 2.99056$ (rigorous) [@o3-model-3d/chester2020]. Relevant, so cubic anisotropy destabilizes the fixed point."
+     "note": "Relevant, so cubic anisotropy destabilizes the fixed point."
+    },
+    {
+     "name": "t_4",
+     "Delta": "< 2.99056",
+     "spin": 0,
+     "rep": "rank-4 symmetric traceless",
+     "method": "CB, rigorous",
+     "refs": [
+      "chester2020"
+     ],
+     "note": "Upper bound."
     },
     {
      "name": "T_{\\mu\\nu}",
@@ -26275,7 +26585,7 @@
      "Delta": "0.51812(4)",
      "spin": 0,
      "rep": "vector (order parameter)",
-     "method": "derived",
+     "method": "MC, from η",
      "refs": [
       "hasenbusch2022"
      ],
@@ -26286,18 +26596,28 @@
      "Delta": "1.1855(5)",
      "spin": 0,
      "rep": "rank-2 symmetric traceless",
-     "method": "derived",
+     "method": "MC, from Y₂",
      "refs": [
       "hasenbusch2011"
      ],
-     "note": "From $3 - Y_2$. Bootstrap (bound saturation): $1.1864^{+0.0024}_{-0.0034}$ [@o4-model-3d/kos2013]."
+     "note": "From $3 - Y_2$."
+    },
+    {
+     "name": "t_{ij}",
+     "Delta": "1.1864^{+0.0024}_{-0.0034}",
+     "spin": 0,
+     "rep": "rank-2 symmetric traceless",
+     "method": "CB, bound saturation",
+     "refs": [
+      "kos2013"
+     ]
     },
     {
      "name": "s",
      "Delta": "1.6634(4)",
      "spin": 0,
      "rep": "singlet (thermal)",
-     "method": "derived",
+     "method": "MC, from ν",
      "refs": [
       "hasenbusch2022"
      ],
@@ -26308,7 +26628,7 @@
      "Delta": "1.9768(10)",
      "spin": 0,
      "rep": "rank-3 symmetric traceless",
-     "method": "derived",
+     "method": "MC, from Y₃",
      "refs": [
       "hasenbusch2011"
      ],
@@ -26327,7 +26647,7 @@
      "Delta": "2.875(5)",
      "spin": 0,
      "rep": "rank-4 symmetric traceless",
-     "method": "derived",
+     "method": "MC, from Y₄",
      "refs": [
       "hasenbusch2011"
      ],
@@ -26346,7 +26666,7 @@
      "Delta": "3.755(5)",
      "spin": 0,
      "rep": "singlet",
-     "method": "derived",
+     "method": "MC, from ω",
      "refs": [
       "hasenbusch2022"
      ],
@@ -27126,8 +27446,17 @@
      "method": "MC, bond and site, simple cubic",
      "refs": [
       "wang2013"
+     ]
+    },
+    {
+     "symbol": "1/\\nu",
+     "description": "Thermal exponent $y_t = 1/\\nu = 3 - \\Delta_\\epsilon$",
+     "value": "1.1413(15)",
+     "method": "MC, eight lattice models",
+     "refs": [
+      "xu2014"
      ],
-     "note": "Simultaneous fit of eight lattice models: $1.1413(15)$ [@percolation-3d/xu2014]. Site percolation: $\\nu = 0.8765(16)(2)$ [@percolation-3d/ballesteros1999]."
+     "note": "Simultaneous fit of eight lattice models."
     },
     {
      "symbol": "\\nu",
@@ -27140,14 +27469,32 @@
      "note": "Resummation of the series for $1/\\nu$, all methods combined [@percolation-3d/borinsky2021, Table 15]."
     },
     {
+     "symbol": "\\nu",
+     "description": "Correlation-length exponent",
+     "value": "0.8765(16)(2)",
+     "method": "MC, site, simple cubic",
+     "refs": [
+      "ballesteros1999"
+     ]
+    },
+    {
      "symbol": "d_f",
      "description": "Fractal dimension of critical clusters, $d_f = y_h = 3 - \\Delta_\\sigma$",
      "value": "2.52293(10)",
      "method": "MC, eight lattice models",
      "refs": [
       "xu2014"
+     ]
+    },
+    {
+     "symbol": "d_f",
+     "description": "Fractal dimension of critical clusters, $d_f = y_h = 3 - \\Delta_\\sigma$",
+     "value": "2.52295(15)",
+     "method": "MC, bond and site, simple cubic",
+     "refs": [
+      "wang2013"
      ],
-     "note": "Simple cubic lattice alone: $2.52295(15)$ [@percolation-3d/wang2013]."
+     "note": "Simple cubic lattice alone."
     },
     {
      "symbol": "\\eta",
@@ -27157,7 +27504,26 @@
      "refs": [
       "ballesteros1999"
      ],
-     "note": "The second error comes from the uncertainty in $\\omega$. From $d_f$ of Xu et al. [@percolation-3d/xu2014], $\\eta = -0.04586(20)$ (derived). Five-loop $6-\\epsilon$: $-0.06(10)$."
+     "note": "The second error comes from the uncertainty in $\\omega$."
+    },
+    {
+     "symbol": "\\eta",
+     "description": "Anomalous dimension, $\\eta = 2 + d - 2d_f = 2\\Delta_\\sigma - 1$",
+     "value": "-0.04586(20)",
+     "method": "MC, eight lattice models, from d_f",
+     "refs": [
+      "xu2014"
+     ],
+     "note": "Computed from $d_f$ of Xu et al. [@percolation-3d/xu2014] by $\\eta = 2 + d - 2d_f$."
+    },
+    {
+     "symbol": "\\eta",
+     "description": "Anomalous dimension, $\\eta = 2 + d - 2d_f = 2\\Delta_\\sigma - 1$",
+     "value": "-0.06(10)",
+     "method": "ε-exp, 6 − ε, five loops, resummed",
+     "refs": [
+      "borinsky2021"
+     ]
     },
     {
      "symbol": "\\omega",
@@ -27166,8 +27532,26 @@
      "method": "MC, site, simple cubic",
      "refs": [
       "ballesteros1999"
+     ]
+    },
+    {
+     "symbol": "\\omega",
+     "description": "Leading correction-to-scaling exponent",
+     "value": "1.2(2)",
+     "method": "MC, bond and site, simple cubic",
+     "refs": [
+      "wang2013"
      ],
-     "note": "Wang et al. [@percolation-3d/wang2013] find the leading irrelevant exponent $y_i = -1.2(2)$, i.e. $\\omega = 1.2(2)$. Five-loop $6-\\epsilon$: $1.7(3)$ [@percolation-3d/borinsky2021]."
+     "note": "Quoted as the leading irrelevant exponent $y_i = -1.2(2)$."
+    },
+    {
+     "symbol": "\\omega",
+     "description": "Leading correction-to-scaling exponent",
+     "value": "1.7(3)",
+     "method": "ε-exp, 6 − ε, five loops, resummed",
+     "refs": [
+      "borinsky2021"
+     ]
     }
    ],
    "operators": [
@@ -27180,14 +27564,25 @@
      "refs": [
       "wang2013"
      ],
-     "note": "Quoted as $\\beta/\\nu$. Below the unitarity bound $\\tfrac12$. From $d_f$ of Xu et al. [@percolation-3d/xu2014]: $0.47707(10)$ (derived)."
+     "note": "Quoted as $\\beta/\\nu$. Below the unitarity bound $\\tfrac12$."
+    },
+    {
+     "name": "\\sigma",
+     "Delta": "0.47707(10)",
+     "spin": 0,
+     "rep": "$(q-1)$-dimensional representation of $S_q$ (order parameter)",
+     "method": "MC, eight lattice models, from d_f",
+     "refs": [
+      "xu2014"
+     ],
+     "note": "Computed as $3 - d_f$ from $d_f$ of Xu et al. [@percolation-3d/xu2014]."
     },
     {
      "name": "\\epsilon",
      "Delta": "1.8590(15)",
      "spin": 0,
      "rep": "$S_q$ singlet (thermal)",
-     "method": "derived",
+     "method": "MC, from y_t",
      "refs": [
       "wang2013"
      ],
@@ -27334,7 +27729,7 @@
      "symbol": "C_T/C_T^{\\rm free}",
      "description": "Stress-tensor two-point coefficient, relative to $N_c N_f$ free two-component Dirac fermions (no gluons)",
      "value": "1 + \\frac{N_c^2-1}{N_c}\\,\\frac{1}{N_f}\\Big(\\frac{2096}{45\\pi^2} - 4\\Big) + O(N_f^{-2})",
-     "method": "derived, large-N_f expansion",
+     "method": "1/Nf",
      "refs": [
       "giombi2016"
      ],
@@ -27344,7 +27739,7 @@
      "symbol": "C_J/C_J^{\\rm free}",
      "description": "Flavor-current two-point coefficient, relative to $N_c N_f$ free two-component Dirac fermions",
      "value": "1 + \\frac{N_c^2-1}{N_c}\\,\\frac{1}{N_f}\\Big(\\frac{368}{9\\pi^2} - 4\\Big) + O(N_f^{-2})",
-     "method": "derived, large-N_f expansion",
+     "method": "1/Nf",
      "refs": [
       "giombi2016"
      ],
@@ -27557,7 +27952,7 @@
      "symbol": "C_T/C_T^{\\rm free}",
      "description": "Stress-tensor two-point coefficient, relative to $N_f$ free two-component Dirac fermions (no photon)",
      "value": "1 + \\frac{1}{N_f}\\Big(\\frac{2096}{45\\pi^2} - 4\\Big) + O(N_f^{-2})",
-     "method": "derived, large-N_f expansion",
+     "method": "1/Nf",
      "refs": [
       "giombi2016",
       "chester2016a"
@@ -27568,7 +27963,7 @@
      "symbol": "C_J/C_J^{\\rm free}",
      "description": "$SU(N_f)$ current two-point coefficient, relative to $N_f$ free two-component Dirac fermions",
      "value": "1 + \\frac{1}{N_f}\\Big(\\frac{368}{9\\pi^2} - 4\\Big) + O(N_f^{-2})",
-     "method": "derived, large-N_f expansion",
+     "method": "1/Nf",
      "refs": [
       "giombi2016",
       "chester2016a"
@@ -27579,7 +27974,7 @@
      "symbol": "C_J^{\\rm top}/C_J^{\\rm free}",
      "description": "Topological-current two-point coefficient ($j^{\\rm top} = \\star f/2\\pi$), relative to the $U(1)$ current of one free two-component Dirac fermion of unit charge",
      "value": "\\frac{64}{\\pi^2 N_f}\\Big[1 + \\frac{1}{N_f}\\Big(4 - \\frac{368}{9\\pi^2}\\Big)\\Big] + O(N_f^{-3})",
-     "method": "derived, large-N_f expansion",
+     "method": "1/Nf",
      "refs": [
       "giombi2016",
       "chester2016a"
@@ -28082,8 +28477,17 @@
      "method": "MC, pivot algorithm",
      "refs": [
       "clisby2016"
+     ]
+    },
+    {
+     "symbol": "\\nu",
+     "description": "Flory exponent, $\\langle R^2 \\rangle \\propto L^{2\\nu}$; equal to $1/(3 - \\Delta_\\epsilon)$",
+     "value": "0.587597(7)",
+     "method": "MC, pivot algorithm",
+     "refs": [
+      "clisby2010"
      ],
-     "note": "Earlier: $0.587597(7)$ [@saw-3d/clisby2010]."
+     "note": "Earlier study."
     },
     {
      "symbol": "\\gamma",
@@ -28098,7 +28502,7 @@
      "symbol": "\\eta",
      "description": "Anomalous dimension, $\\eta = 2\\Delta_\\phi - 1$",
      "value": "0.031043(2)",
-     "method": "derived",
+     "method": "MC, from ν and γ",
      "refs": [
       "clisby2016",
       "clisby2017"
@@ -28109,11 +28513,20 @@
      "symbol": "d_F",
      "description": "Fractal (Hausdorff) dimension of the walk, $d_F = 1/\\nu$",
      "value": "1.7018467(12)",
-     "method": "derived",
+     "method": "MC, from ν",
      "refs": [
       "clisby2016"
      ],
-     "note": "From $\\nu$. Bootstrap (extrapolated from $N = 0.1$): $1.7016(36)$ [@saw-3d/shimada2016]."
+     "note": "From $\\nu$."
+    },
+    {
+     "symbol": "d_F",
+     "description": "Fractal (Hausdorff) dimension of the walk, $d_F = 1/\\nu$",
+     "value": "1.7016(36)",
+     "method": "CB, extrapolated from N = 0.1",
+     "refs": [
+      "shimada2016"
+     ]
     },
     {
      "symbol": "\\Delta_1",
@@ -28131,7 +28544,7 @@
      "Delta": "0.515522(1)",
      "spin": 0,
      "rep": "vector (1-leg operator, end point of a walk)",
-     "method": "derived",
+     "method": "MC, from η",
      "refs": [
       "clisby2016",
       "clisby2017"
@@ -28143,11 +28556,22 @@
      "Delta": "1.2981533(12)",
      "spin": 0,
      "rep": "singlet (energy) and rank-2 traceless symmetric (2-leg), degenerate at $N=0$",
-     "method": "derived",
+     "method": "MC, from ν",
      "refs": [
       "clisby2016"
      ],
-     "note": "From $3 - 1/\\nu$. Logarithmic pair. Bootstrap: $\\Delta_t = 1.2984(36)$ [@saw-3d/shimada2016]."
+     "note": "From $3 - 1/\\nu$. Logarithmic pair."
+    },
+    {
+     "name": "\\epsilon,\\ t_{ab}",
+     "Delta": "1.2984(36)",
+     "spin": 0,
+     "rep": "singlet (energy) and rank-2 traceless symmetric (2-leg), degenerate at $N=0$",
+     "method": "CB",
+     "refs": [
+      "shimada2016"
+     ],
+     "note": "Value for $\\Delta_t$."
     },
     {
      "name": "T_{\\mu\\nu}",
@@ -28391,7 +28815,7 @@
      "Delta": "1 - \\frac{16}{\\pi^2 N} + O(N^{-2})",
      "spin": 0,
      "rep": "$SU(N)$ adjoint (Néel order parameter)",
-     "method": "derived, large-N expansion",
+     "method": "1/N, from η_q",
      "refs": [
       "kaul2008",
       "benvenuti2018"
@@ -28660,7 +29084,7 @@
      "symbol": "C_T/C_T^{\\rm free}",
      "description": "Stress-tensor two-point coefficient of $T[SU(3)]$, relative to the 8 free hypermultiplets of its quiver",
      "value": "0.786801",
-     "method": "derived, supersymmetric localization",
+     "method": "LOC",
      "refs": [
       "chang2019"
      ],
@@ -28951,7 +29375,7 @@
      "symbol": "C_T/C_T^{\\rm free}",
      "description": "Stress-tensor two-point coefficient, relative to three free chiral multiplets",
      "value": "\\frac{16(16\\pi - 9\\sqrt{3})}{243\\pi} \\approx 0.7268",
-     "method": "derived, supersymmetric localization",
+     "method": "LOC",
      "refs": [
       "baggio2017"
      ],
@@ -29161,7 +29585,7 @@
      "Delta": "2.62\\text{–}2.80",
      "spin": 0,
      "rep": "gauge singlet; the fermion mass operator",
-     "method": "derived, lattice Monte Carlo",
+     "method": "LGT, from γ*",
      "refs": [
       "patella2012",
       "bergner2017",
@@ -29567,7 +29991,7 @@
      "symbol": "a = c",
      "description": "Conformal anomalies (normalized so a free real scalar has $a = \\tfrac{1}{360}$, $c = \\tfrac{1}{120}$)",
      "value": "\\frac{N^2-1}{4}",
-     "method": "derived, anomaly matching",
+     "method": "anomaly",
      "refs": [
       "mpsz2005",
       "iw2003",
@@ -29786,7 +30210,7 @@
      "Delta": "2 \\mp i\\sqrt{2\\sqrt{1+4\\xi^4}-2}",
      "spin": 0,
      "rep": "$J_1 = 2$ (same for $\\mathrm{tr}(\\phi_2\\phi_2)$)",
-     "method": "derived, exact relation",
+     "method": "exact, root of the spectral relation",
      "refs": [
       "grabner2018"
      ],
@@ -29797,7 +30221,7 @@
      "Delta": "2 + \\sqrt{2 + 2\\sqrt{1+4\\xi^4}}",
      "spin": 0,
      "rep": "$J_1 = 2$",
-     "method": "derived, exact relation",
+     "method": "exact, root of the spectral relation",
      "refs": [
       "grabner2018"
      ],
@@ -30442,7 +30866,7 @@
      "symbol": "a",
      "description": "Euler conformal anomaly (a free chiral multiplet has $a = \\tfrac{1}{48}$)",
      "value": "\\frac{27N^2}{64} - \\frac{3}{8}",
-     "method": "derived, anomaly matching",
+     "method": "anomaly",
      "refs": [
       "kw1998",
       "iw2003"
@@ -30453,7 +30877,7 @@
      "symbol": "c",
      "description": "Weyl conformal anomaly (a free chiral multiplet has $c = \\tfrac{1}{24}$)",
      "value": "\\frac{27N^2}{64} - \\frac{1}{4}",
-     "method": "derived, anomaly matching",
+     "method": "anomaly",
      "refs": [
       "kw1998",
       "iw2003"
@@ -30677,10 +31101,18 @@
      "value": "-0.347(12)",
      "method": "ε-exp, 6 − ε, five loops, resummed",
      "refs": [
-      "borinsky2021",
-      "an2016"
+      "borinsky2021"
      ],
-     "note": "Table 1. Functional renormalization group: $-0.316(16)$ [@lee-yang-4d/an2016]."
+     "note": "Table 1."
+    },
+    {
+     "symbol": "\\eta",
+     "description": "Anomalous dimension, $\\eta = 2\\Delta_\\phi - 2$",
+     "value": "-0.316(16)",
+     "method": "FRG",
+     "refs": [
+      "an2016"
+     ]
     },
     {
      "symbol": "\\omega",
@@ -30699,12 +31131,22 @@
      "Delta": "0.8265(60)",
      "spin": 0,
      "rep": "the only relevant primary",
-     "method": "derived",
+     "method": "ε-exp, 6 − ε, five loops, resummed, from η",
      "refs": [
-      "borinsky2021",
-      "arguellocruz2025"
+      "borinsky2021, Table 1"
      ],
-     "note": "$(2+\\eta)/2$ with the five-loop $\\eta = -0.347(12)$. Below the unitarity bound 1. Two-sided Padé of the $6-\\epsilon$ series: $0.827$ [@lee-yang-4d/arguellocruz2025, Table 2]. 24-cell: $0.891$ at $h_x = 50$ [@lee-yang-4d/arguellocruz2025, Table 13]."
+     "note": "$(2+\\eta)/2$ with the five-loop $\\eta = -0.347(12)$, computed by this relation. Below the unitarity bound 1. 24-cell: $0.891$ at $h_x = 50$ [@lee-yang-4d/arguellocruz2025, Table 13]."
+    },
+    {
+     "name": "\\phi",
+     "Delta": "0.827",
+     "spin": 0,
+     "rep": "the only relevant primary",
+     "method": "Padé, two-sided",
+     "refs": [
+      "arguellocruz2025, Table 2"
+     ],
+     "note": "Two-sided Padé of the $6-\\epsilon$ series."
     },
     {
      "name": "T_{\\mu\\nu}",
@@ -30717,13 +31159,31 @@
      "name": "\\phi^3",
      "Delta": "5.15(7)",
      "spin": 0,
-     "method": "derived",
+     "method": "ε-exp, 6 − ε, five loops, resummed, from ω",
      "refs": [
-      "borinsky2021",
-      "arguellocruz2025",
+      "borinsky2021, Table 6"
+     ],
+     "note": "Leading irrelevant scalar, $4 + \\omega$ with the five-loop $\\omega$, computed by this relation. 24-cell: $5.467$ at $h_x = 50$ [@lee-yang-4d/arguellocruz2025]."
+    },
+    {
+     "name": "\\phi^3",
+     "Delta": "5.206\\text{–}5.212",
+     "spin": 0,
+     "method": "Padé, two-sided",
+     "refs": [
+      "arguellocruz2025, Table 2"
+     ],
+     "note": "Two two-sided Padé approximants, giving $5.206$ and $5.212$."
+    },
+    {
+     "name": "\\phi^3",
+     "Delta": "6.8(1)",
+     "spin": 0,
+     "method": "CB-trunc",
+     "refs": [
       "gliozzi2014"
      ],
-     "note": "Leading irrelevant scalar, $4 + \\omega$ with the five-loop $\\omega$. Two-sided Padé: $5.206$ and $5.212$ [@lee-yang-4d/arguellocruz2025, Table 2]; 24-cell: $5.467$ at $h_x = 50$. The truncated bootstrap gives $6.8(1)$ [@lee-yang-4d/gliozzi2014], far from the other estimates."
+     "note": "Far from the other estimates."
     }
    ],
    "relations": [
@@ -31101,7 +31561,7 @@
      "symbol": "\\dim_{\\mathbb{H}}\\mathcal{M}_H",
      "description": "Quaternionic dimension of the Higgs branch",
      "value": "11,\\ 17,\\ 29",
-     "method": "derived",
+     "method": "exact, from a and c",
      "refs": [
       "chacaltana2010",
       "aharony2007"
@@ -31332,10 +31792,19 @@
      "value": "[2.142596,\\ 2.16509]",
      "method": "CB, rigorous bounds",
      "refs": [
-      "gimenezgrau2020",
-      "cornagliotto2017"
+      "gimenezgrau2020"
      ],
-     "note": "Bounds at derivative order $\\Lambda = 50$ [@minimal-ad-4d/gimenezgrau2020, Table 7]. Earlier: $2.1418 \\le \\lambda^2 \\le 2.1672$ at $\\Lambda = 40$, with conservative extrapolation $2.146 \\lesssim \\lambda^2 \\lesssim 2.159$ [@minimal-ad-4d/cornagliotto2017, Eqs. (3.1), (3.2)]."
+     "note": "Bounds at derivative order $\\Lambda = 50$ [@minimal-ad-4d/gimenezgrau2020, Table 7]."
+    },
+    {
+     "symbol": "\\lambda^2_{u^2}",
+     "description": "Squared OPE coefficient of $u^2$ in $u\\times u$ (unit-normalized two-point functions)",
+     "value": "[2.1418,\\ 2.1672]",
+     "method": "CB, rigorous bounds",
+     "refs": [
+      "cornagliotto2017, Eq. (3.1)"
+     ],
+     "note": "Bounds at $\\Lambda = 40$ (earlier study). Conservative extrapolation: $2.146 \\lesssim \\lambda^2 \\lesssim 2.159$ [@minimal-ad-4d/cornagliotto2017, Eq. (3.2)]."
     }
    ],
    "operators": [
@@ -31369,10 +31838,20 @@
      "rep": "$SU(2)_R$ singlet, $U(1)_r$ neutral",
      "method": "CB-EFM",
      "refs": [
-      "cornagliotto2017",
-      "gimenezgrau2020"
+      "cornagliotto2017"
      ],
-     "note": "Superconformal primary of the lightest long multiplet in $u\\times\\bar u$; relevant. Range from extrapolations to $\\Lambda\\to\\infty$ [@minimal-ad-4d/cornagliotto2017, Eq. (3.5)], not a rigorous bound. Gimenez-Grau and Liendo [@minimal-ad-4d/gimenezgrau2020, Eq. (4.1)] find $\\approx 2.7$."
+     "note": "Superconformal primary of the lightest long multiplet in $u\\times\\bar u$; relevant. Range from extrapolations to $\\Lambda\\to\\infty$ [@minimal-ad-4d/cornagliotto2017, Eq. (3.5)], not a rigorous bound."
+    },
+    {
+     "name": "[u\\bar u]_{\\rm long}",
+     "Delta": "\\approx 2.7",
+     "spin": 0,
+     "rep": "$SU(2)_R$ singlet, $U(1)_r$ neutral",
+     "method": "CB",
+     "refs": [
+      "gimenezgrau2020, Eq. (4.1)"
+     ],
+     "note": "Estimate, not a rigorous bound."
     },
     {
      "name": "T_{\\mu\\nu}",
@@ -31841,7 +32320,7 @@
      "symbol": "\\epsilon_{k,\\ell}",
      "description": "D3-brane charge of the S-fold, defined by $a \\simeq k(N+\\epsilon_{k,\\ell})^2/4$ at large $N$",
      "value": "\\frac{2\\ell - k - 1}{2k}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "at2016"
      ],
@@ -32142,12 +32621,17 @@
      "value": "1.4610(12)",
      "method": "MC, bond, hypercubic",
      "refs": [
-      "tan2020",
-      "zhang2021",
-      "koza2016",
-      "ballesteros1997"
-     ],
-     "note": "Other Monte Carlo values: $1.461(5)$ (bond, [@percolation-4d/zhang2021]); site percolation $\\nu = 0.6852(28)$ [@percolation-4d/koza2016] and $\\nu = 0.689(10)$ [@percolation-4d/ballesteros1997]."
+      "tan2020"
+     ]
+    },
+    {
+     "symbol": "1/\\nu",
+     "description": "Thermal exponent $y_t = 1/\\nu = 4 - \\Delta_\\epsilon$",
+     "value": "1.461(5)",
+     "method": "MC, bond",
+     "refs": [
+      "zhang2021"
+     ]
     },
     {
      "symbol": "\\nu",
@@ -32158,6 +32642,24 @@
       "borinsky2021"
      ],
      "note": "Resummation of the series for $1/\\nu$, all methods combined (Table 15)."
+    },
+    {
+     "symbol": "\\nu",
+     "description": "Correlation-length exponent",
+     "value": "0.6852(28)",
+     "method": "MC, site",
+     "refs": [
+      "koza2016"
+     ]
+    },
+    {
+     "symbol": "\\nu",
+     "description": "Correlation-length exponent",
+     "value": "0.689(10)",
+     "method": "MC, site",
+     "refs": [
+      "ballesteros1997"
+     ]
     },
     {
      "symbol": "d_f",
@@ -32174,13 +32676,30 @@
      "symbol": "\\eta",
      "description": "Anomalous dimension, $\\eta = 6 - 2d_f = 2\\Delta_\\sigma - 2$",
      "value": "-0.0892(14)",
-     "method": "derived",
+     "method": "MC, from d_f",
      "refs": [
-      "zhang2021",
-      "ballesteros1997",
-      "borinsky2021"
+      "zhang2021"
      ],
-     "note": "From $d_f = 3.0446(7)$. Direct Monte Carlo (site): $-0.0944(17+11)$, where the second error comes from the uncertainty in $\\omega$ [@percolation-4d/ballesteros1997]. Five-loop $6-\\epsilon$: $-0.10(3)$ [@percolation-4d/borinsky2021, Table 13]."
+     "note": "Computed by this relation from $d_f = 3.0446(7)$."
+    },
+    {
+     "symbol": "\\eta",
+     "description": "Anomalous dimension, $\\eta = 6 - 2d_f = 2\\Delta_\\sigma - 2$",
+     "value": "-0.0944(17)(11)",
+     "method": "MC, site",
+     "refs": [
+      "ballesteros1997"
+     ],
+     "note": "Measured directly. Quoted as $-0.0944(17+11)$; the second error comes from the uncertainty in $\\omega$."
+    },
+    {
+     "symbol": "\\eta",
+     "description": "Anomalous dimension, $\\eta = 6 - 2d_f = 2\\Delta_\\sigma - 2$",
+     "value": "-0.10(3)",
+     "method": "ε-exp, 6 − ε, five loops, resummed",
+     "refs": [
+      "borinsky2021, Table 13"
+     ]
     },
     {
      "symbol": "\\omega",
@@ -32188,11 +32707,27 @@
      "value": "1.22(9)",
      "method": "MC, bond, four 4d lattices",
      "refs": [
-      "xun2020",
-      "ballesteros1997",
-      "borinsky2021"
+      "xun2020"
      ],
-     "note": "Quoted as $\\omega = \\Omega d_f$ with the measured $\\Omega = 0.40(3)$. Site percolation: $1.13(10)$ [@percolation-4d/ballesteros1997]. Five-loop $6-\\epsilon$: $1.31(9)$ [@percolation-4d/borinsky2021, Table 19]."
+     "note": "Quoted as $\\omega = \\Omega d_f$ with the measured $\\Omega = 0.40(3)$."
+    },
+    {
+     "symbol": "\\omega",
+     "description": "Leading correction-to-scaling exponent",
+     "value": "1.13(10)",
+     "method": "MC, site",
+     "refs": [
+      "ballesteros1997"
+     ]
+    },
+    {
+     "symbol": "\\omega",
+     "description": "Leading correction-to-scaling exponent",
+     "value": "1.31(9)",
+     "method": "ε-exp, 6 − ε, five loops, resummed",
+     "refs": [
+      "borinsky2021, Table 19"
+     ]
     }
    ],
    "operators": [
@@ -32201,7 +32736,7 @@
      "Delta": "0.9554(7)",
      "spin": 0,
      "rep": "$(q-1)$-dimensional representation of $S_q$ (order parameter)",
-     "method": "derived",
+     "method": "MC, from d_f",
      "refs": [
       "zhang2021",
       "tan2020"
@@ -32386,7 +32921,7 @@
      "symbol": "b_1",
      "description": "One-loop beta-function coefficient, $\\beta = -2\\alpha\\sum_\\ell b_\\ell(\\alpha/4\\pi)^\\ell$",
      "value": "\\frac{11N_c - 2N_f}{3}",
-     "method": "derived, one-loop perturbation theory",
+     "method": "PT, one loop",
      "refs": [
       "ryttov2016",
       "appelquist1996"
@@ -32397,7 +32932,7 @@
      "symbol": "b_2",
      "description": "Two-loop beta-function coefficient, same normalization",
      "value": "\\frac{34}{3}N_c^2 - \\frac{13}{3}N_cN_f + \\frac{N_f}{N_c}",
-     "method": "derived, two-loop perturbation theory",
+     "method": "PT, two loops",
      "refs": [
       "ryttov2016",
       "appelquist1996"
@@ -32408,7 +32943,7 @@
      "symbol": "\\alpha_*",
      "description": "Fixed-point coupling of the two-loop beta function, $-4\\pi b_1/b_2$",
      "value": "\\frac{4\\pi N_c(11N_c - 2N_f)}{(13N_c^2-3)N_f - 34N_c^3}",
-     "method": "derived, two-loop perturbation theory",
+     "method": "PT, two loops",
      "refs": [
       "ryttov2017",
       "ryttov2016"
@@ -32432,7 +32967,7 @@
      "Delta": "2.662",
      "spin": 0,
      "rep": "$SU(N_f)$ adjoint and singlet (same anomalous dimension)",
-     "method": "derived, scheme-independent expansion, fourth order",
+     "method": "BZ, scheme-independent, fourth order, from γ",
      "refs": [
       "ryttov2017",
       "dipietro2020"
@@ -32444,7 +32979,7 @@
      "Delta": "2.765(15)",
      "spin": 0,
      "rep": "$SU(N_f)$ adjoint and singlet",
-     "method": "derived, lattice finite-size scaling",
+     "method": "LGT, finite-size scaling, from γ_m",
      "refs": [
       "cheng2014",
       "lombardo2014",
@@ -32457,7 +32992,7 @@
      "Delta": "4.228",
      "spin": 0,
      "rep": "singlet",
-     "method": "derived, scheme-independent expansion, fifth order",
+     "method": "BZ, scheme-independent, fifth order, from β′",
      "refs": [
       "ryttov2017",
       "hasenfratz2018",
@@ -33039,7 +33574,7 @@
      "symbol": "\\dim_{\\mathbb{H}}\\mathcal{M}_H",
      "description": "Quaternionic dimension of the Higgs branch",
      "value": "\\frac{3N^2 - N - 2}{2}",
-     "method": "derived",
+     "method": "exact, from n_v and n_h",
      "refs": [
       "chacaltana2010",
       "gaiotto2009b"
@@ -33463,7 +33998,7 @@
      "symbol": "\\tilde F",
      "description": "Sphere free energy of one Dirac fermion in the convention of Giombi and Klebanov [@free-fermion-5d/giombi2014], $\\tilde F = \\sin(\\pi d/2)\\log Z_{S^d}$; at $d=5$, $\\tilde F = \\log Z_{S^5} = -F$",
      "value": "\\frac{1}{2^6}\\left(6\\log 2 + \\frac{10\\zeta(3)}{\\pi^2} + \\frac{15\\zeta(5)}{\\pi^4}\\right) \\approx 8.65\\times 10^{-2}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "klebanov2011",
       "giombi2014"
@@ -33474,7 +34009,7 @@
      "symbol": "C_T",
      "description": "Stress-tensor two-point coefficient of one Dirac fermion, in the absolute Osborn–Petkou normalization $\\langle T_{\\mu\\nu}(x)T_{\\sigma\\rho}(0)\\rangle = C_T\\,\\mathcal{I}_{\\mu\\nu,\\sigma\\rho}(x)/x^{2d}$",
      "value": "\\frac{45}{32\\pi^4}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "osborn1994",
       "diab2016",
@@ -33486,7 +34021,7 @@
      "symbol": "C_T/C_T^{\\rm scalar}",
      "description": "The same, relative to one free real scalar in $d=5$ ($C_T^{\\rm scalar} = \\frac{45}{256\\pi^4}$)",
      "value": "8",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "osborn1994",
       "diab2016"
@@ -33621,7 +34156,7 @@
      "symbol": "\\tilde F",
      "description": "Sphere free energy in the convention of Giombi and Klebanov [@free-scalar-5d/giombi2014], $\\tilde F = \\sin(\\pi d/2)\\log Z_{S^d}$; at $d=5$, $\\tilde F = \\log Z_{S^5} = -F$",
      "value": "\\frac{1}{2^8}\\left(2\\log 2 + \\frac{2\\zeta(3)}{\\pi^2} - \\frac{15\\zeta(5)}{\\pi^4}\\right) \\approx 5.74\\times 10^{-3}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "klebanov2011",
       "giombi2014"
@@ -33632,7 +34167,7 @@
      "symbol": "C_T",
      "description": "Stress-tensor two-point coefficient in the absolute Osborn–Petkou normalization, $\\langle T_{\\mu\\nu}(x)T_{\\sigma\\rho}(0)\\rangle = C_T\\,\\mathcal{I}_{\\mu\\nu,\\sigma\\rho}(x)/x^{2d}$",
      "value": "\\frac{45}{256\\pi^4}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "osborn1994"
      ],
@@ -33815,10 +34350,18 @@
      "value": "-0.151(2)",
      "method": "ε-exp, 6 − ε, five loops, resummed",
      "refs": [
-      "borinsky2021",
-      "an2016"
+      "borinsky2021"
      ],
-     "note": "Table 1. Functional renormalization group: $-0.126(6)$ [@lee-yang-5d/an2016]."
+     "note": "Table 1."
+    },
+    {
+     "symbol": "\\eta",
+     "description": "Anomalous dimension, $\\eta = 2\\Delta_\\phi - 3$",
+     "value": "-0.126(6)",
+     "method": "FRG",
+     "refs": [
+      "an2016"
+     ]
     },
     {
      "symbol": "\\omega",
@@ -33837,12 +34380,22 @@
      "Delta": "1.4245(10)",
      "spin": 0,
      "rep": "the only relevant primary",
-     "method": "derived",
+     "method": "ε-exp, 6 − ε, five loops, resummed, from η",
      "refs": [
-      "borinsky2021",
-      "arguellocruz2025"
+      "borinsky2021, Table 1"
      ],
-     "note": "$(3+\\eta)/2$ with the five-loop $\\eta = -0.151(2)$. Below the unitarity bound $\\tfrac32$. Two-sided Padé of the $6-\\epsilon$ series: $1.425$ [@lee-yang-5d/arguellocruz2025, Table 2]."
+     "note": "$(3+\\eta)/2$ with the five-loop $\\eta = -0.151(2)$, computed by this relation. Below the unitarity bound $\\tfrac32$."
+    },
+    {
+     "name": "\\phi",
+     "Delta": "1.425",
+     "spin": 0,
+     "rep": "the only relevant primary",
+     "method": "Padé, two-sided",
+     "refs": [
+      "arguellocruz2025, Table 2"
+     ],
+     "note": "Two-sided Padé of the $6-\\epsilon$ series."
     },
     {
      "name": "T_{\\mu\\nu}",
@@ -33855,13 +34408,30 @@
      "name": "\\phi^3",
      "Delta": "5.691(8)",
      "spin": 0,
-     "method": "derived",
+     "method": "ε-exp, 6 − ε, five loops, resummed, from ω",
      "refs": [
-      "borinsky2021",
-      "arguellocruz2025",
-      "gliozzi2014"
+      "borinsky2021, Table 6"
      ],
-     "note": "Leading irrelevant scalar, $5 + \\omega$ with the five-loop $\\omega$. Two-sided Padé: $5.701$ and $5.702$ [@lee-yang-5d/arguellocruz2025, Table 2]. The truncated bootstrap gives $6.4(1)$ [@lee-yang-5d/gliozzi2014]."
+     "note": "Leading irrelevant scalar, $5 + \\omega$ with the five-loop $\\omega$, computed by this relation."
+    },
+    {
+     "name": "\\phi^3",
+     "Delta": "5.701\\text{–}5.702",
+     "spin": 0,
+     "method": "Padé, two-sided",
+     "refs": [
+      "arguellocruz2025, Table 2"
+     ],
+     "note": "Two two-sided Padé approximants, giving $5.701$ and $5.702$."
+    },
+    {
+     "name": "\\phi^3",
+     "Delta": "6.4(1)",
+     "spin": 0,
+     "method": "CB-trunc",
+     "refs": [
+      "gliozzi2014"
+     ]
     }
    ],
    "relations": [
@@ -34024,7 +34594,7 @@
      "symbol": "C_T/C_T^{\\rm free}",
      "description": "Stress-tensor two-point coefficient, relative to $N$ free real scalars",
      "value": "1 - \\frac{1408}{1575\\pi^2 N} + O(N^{-2})",
-     "method": "derived",
+     "method": "1/N",
      "refs": [
       "fei2014"
      ],
@@ -34242,11 +34812,17 @@
      "value": "1.737(2)",
      "method": "MC, bond, hypercubic",
      "refs": [
-      "tan2020",
-      "zhang2021",
-      "koza2016"
-     ],
-     "note": "Other Monte Carlo values: $1.743(10)$ (bond) [@percolation-5d/zhang2021]; site percolation $\\nu = 0.5723(18)$ [@percolation-5d/koza2016]."
+      "tan2020"
+     ]
+    },
+    {
+     "symbol": "1/\\nu",
+     "description": "Thermal exponent $y_t = 1/\\nu = 5 - \\Delta_\\epsilon$",
+     "value": "1.743(10)",
+     "method": "MC, bond",
+     "refs": [
+      "zhang2021"
+     ]
     },
     {
      "symbol": "\\nu",
@@ -34257,6 +34833,15 @@
       "borinsky2021"
      ],
      "note": "Resummation of the series for $1/\\nu$, all methods combined [@percolation-5d/borinsky2021, Table 15]."
+    },
+    {
+     "symbol": "\\nu",
+     "description": "Correlation-length exponent",
+     "value": "0.5723(18)",
+     "method": "MC, site",
+     "refs": [
+      "koza2016"
+     ]
     },
     {
      "symbol": "d_f",
@@ -34273,12 +34858,20 @@
      "symbol": "\\eta",
      "description": "Anomalous dimension, $\\eta = 7 - 2d_f = 2\\Delta_\\sigma - 3$",
      "value": "-0.0520(28)",
-     "method": "derived",
+     "method": "MC, from d_f",
      "refs": [
-      "zhang2021",
-      "borinsky2021"
+      "zhang2021"
      ],
-     "note": "From $d_f = 3.5260(14)$. Five-loop $6-\\epsilon$: $-0.056(3)$ [@percolation-5d/borinsky2021, Table 13]."
+     "note": "Computed by this relation from $d_f = 3.5260(14)$."
+    },
+    {
+     "symbol": "\\eta",
+     "description": "Anomalous dimension, $\\eta = 7 - 2d_f = 2\\Delta_\\sigma - 3$",
+     "value": "-0.056(3)",
+     "method": "ε-exp, 6 − ε, five loops, resummed",
+     "refs": [
+      "borinsky2021, Table 13"
+     ]
     },
     {
      "symbol": "\\omega",
@@ -34297,7 +34890,7 @@
      "Delta": "1.4740(14)",
      "spin": 0,
      "rep": "$(q-1)$-dimensional representation of $S_q$ (order parameter)",
-     "method": "derived",
+     "method": "MC, from d_f",
      "refs": [
       "zhang2021",
       "tan2020"
@@ -35397,7 +35990,7 @@
      "symbol": "C_T",
      "description": "Stress-tensor two-point coefficient in the absolute Osborn–Petkou normalization, $\\langle T_{\\mu\\nu}(x)T_{\\sigma\\rho}(0)\\rangle = C_T\\,\\mathcal{I}_{\\mu\\nu,\\sigma\\rho}(x)/x^{2d}$",
      "value": "\\frac{6}{5\\pi^6}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "osborn1994",
       "bastianelli1999"
@@ -35534,7 +36127,7 @@
      "symbol": "a",
      "description": "Euler (type A) Weyl-anomaly coefficient, normalization of Bastianelli, Frolov and Tseytlin [@free-self-dual-tensor-6d/bastianelli2000] (defined on the free 6d scalar page)",
      "value": "-\\frac{221}{8}\\cdot\\frac{1}{(4\\pi)^3\\,7!}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "bastianelli2000"
      ],
@@ -35544,7 +36137,7 @@
      "symbol": "c_1",
      "description": "Coefficient of the Weyl invariant $I_1$, same normalization",
      "value": "-\\frac{4004}{3}\\cdot\\frac{1}{(4\\pi)^3\\,7!}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "bastianelli2000"
      ],
@@ -35554,7 +36147,7 @@
      "symbol": "c_2",
      "description": "Coefficient of the Weyl invariant $I_2$, same normalization",
      "value": "-\\frac{1189}{3}\\cdot\\frac{1}{(4\\pi)^3\\,7!}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "bastianelli2000"
      ],
@@ -35564,7 +36157,7 @@
      "symbol": "c_3",
      "description": "Coefficient of the Weyl invariant $I_3$, same normalization",
      "value": "90\\cdot\\frac{1}{(4\\pi)^3\\,7!}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "bastianelli2000"
      ],
@@ -35574,7 +36167,7 @@
      "symbol": "C_T",
      "description": "Stress-tensor two-point coefficient in the absolute Osborn–Petkou normalization, $\\langle T_{\\mu\\nu}(x)T_{\\sigma\\rho}(0)\\rangle = C_T\\,\\mathcal{I}_{\\mu\\nu,\\sigma\\rho}(x)/x^{2d}$",
      "value": "\\frac{54}{\\pi^6}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "bastianelli1999"
      ],
@@ -35714,7 +36307,7 @@
      "symbol": "a",
      "description": "Euler (type A) Weyl-anomaly coefficient, normalization of Bastianelli, Frolov and Tseytlin [@free-weyl-fermion-6d/bastianelli2000]",
      "value": "-\\frac{191}{144}\\cdot\\frac{1}{(4\\pi)^3\\,7!}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "bastianelli2000"
      ],
@@ -35724,7 +36317,7 @@
      "symbol": "c_1",
      "description": "Coefficient of the Weyl invariant $I_1$, same normalization",
      "value": "-\\frac{448}{3}\\cdot\\frac{1}{(4\\pi)^3\\,7!}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "bastianelli2000"
      ],
@@ -35734,7 +36327,7 @@
      "symbol": "c_2",
      "description": "Coefficient of the Weyl invariant $I_2$, same normalization",
      "value": "-16\\cdot\\frac{1}{(4\\pi)^3\\,7!}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "bastianelli2000"
      ],
@@ -35744,7 +36337,7 @@
      "symbol": "c_3",
      "description": "Coefficient of the Weyl invariant $I_3$, same normalization",
      "value": "20\\cdot\\frac{1}{(4\\pi)^3\\,7!}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "bastianelli2000"
      ],
@@ -35754,7 +36347,7 @@
      "symbol": "\\tilde F",
      "description": "Sphere free energy continued in $d$, in the convention of Giombi and Klebanov [@free-weyl-fermion-6d/giombi2014], $\\tilde F = \\sin(\\pi d/2)\\log Z_{S^d}$",
      "value": "\\frac{191\\pi}{15120}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "giombi2014",
       "bastianelli2000"
@@ -35765,7 +36358,7 @@
      "symbol": "C_T",
      "description": "Stress-tensor two-point coefficient in the absolute Osborn–Petkou normalization, $\\langle T_{\\mu\\nu}(x)T_{\\sigma\\rho}(0)\\rangle = C_T\\,\\mathcal{I}_{\\mu\\nu,\\sigma\\rho}(x)/x^{2d}$",
      "value": "\\frac{12}{\\pi^6}",
-     "method": "derived",
+     "method": "exact",
      "refs": [
       "osborn1994",
       "bastianelli1999"
@@ -35962,7 +36555,7 @@
      "symbol": "(\\alpha,\\beta,\\gamma,\\delta)",
      "description": "'t Hooft anomalies of the pure-gauge members ($n\\neq7$), normalization of Córdova et al. [@nhc-6d/cordova2015]",
      "value": "\\left(\\tfrac{12(h^\\vee)^2}{n}-(d_G-1),\\ \\tfrac{6h^\\vee(n-2)}{n}-\\tfrac{d_G-1}{2},\\ \\tfrac{3(n-2)^2}{4n}+\\tfrac{23-7d_G}{240},\\ \\tfrac{d_G-29}{60}\\right)",
-     "method": "derived",
+     "method": "anomaly, tensor branch",
      "refs": [
       "ohmori2014b",
       "cordova2015"
@@ -36131,10 +36724,10 @@
      "symbol": "\\theta",
      "description": "From the Parisi–Sourlas relation $\\theta(7) = \\sigma_{\\rm LY}(5) + 2$",
      "value": "2.3983(6)",
-     "method": "derived",
+     "method": "ε-exp, 6 − ε, five loops, resummed, from σ of 5d Lee–Yang",
      "refs": [
-      "brydges2003",
-      "borinsky2021"
+      "borinsky2021, Table 4",
+      "brydges2003"
      ],
      "note": "With the 5d Lee–Yang exponent $\\sigma = 0.3983(6)$ from the five-loop $6-\\epsilon$ expansion [@branched-polymers-7d/borinsky2021, Table 4]."
     },
@@ -36152,7 +36745,7 @@
      "symbol": "\\nu",
      "description": "From $\\theta = (d-2)\\nu + 1$ with the Parisi–Sourlas value of $\\theta$",
      "value": "0.27966(12)",
-     "method": "derived",
+     "method": "ε-exp, 6 − ε, five loops, resummed, from θ",
      "refs": [
       "hsu2005",
       "brydges2003",
@@ -36747,7 +37340,7 @@
    "abbr": "exact",
    "name": "Exact result",
    "description": "Known in closed form or to arbitrary precision: a solved model, a symmetry or a proof. The qualifier says how, e.g. `exact, planar limit`.",
-   "rows": 512,
+   "rows": 557,
    "entries": [
     "lee-yang-2d",
     "virasoro-minimal-nonunitary",
@@ -36914,65 +37507,6 @@
    ]
   },
   {
-   "abbr": "derived",
-   "name": "Derived from other values",
-   "description": "Computed from other values on the same page by an exact relation, such as a scaling relation ($\\nu = 1/(d-\\Delta_\\epsilon)$) or a supersymmetry relation; the uncertainty is propagated from the inputs.",
-   "rows": 101,
-   "entries": [
-    "on-loop-model-2d",
-    "potts-2d",
-    "percolation-2d",
-    "saw-2d",
-    "n2-minimal-models",
-    "noncompact-boson-2d",
-    "su2-wzw",
-    "su2-wzw-d",
-    "wzw-models",
-    "su2-wzw-e",
-    "symmetric-orbifold",
-    "leech-lattice-cft",
-    "toda-cft",
-    "cubic-3d",
-    "free-fermion-3d",
-    "gny-n1-3d",
-    "gny-xy-3d",
-    "ising-3d",
-    "ising-star-3d",
-    "n2-super-ising-3d",
-    "n4-sqed-3d",
-    "o2-model-3d",
-    "o3-model-3d",
-    "o4-model-3d",
-    "percolation-3d",
-    "qcd3-3d",
-    "qed3-3d",
-    "saw-3d",
-    "scalar-qed3-3d",
-    "t-sun-3d",
-    "xyz-model-3d",
-    "adjoint-qcd-su2-4d",
-    "beta-deformed-n4-4d",
-    "fishnet-4d",
-    "klebanov-witten-4d",
-    "lee-yang-4d",
-    "minahan-nemeschansky-4d",
-    "n3-sfold-4d",
-    "percolation-4d",
-    "qcd-conformal-window-4d",
-    "tn-4d",
-    "free-fermion-5d",
-    "free-scalar-5d",
-    "lee-yang-5d",
-    "on-model-5d",
-    "percolation-5d",
-    "free-scalar-6d",
-    "free-self-dual-tensor-6d",
-    "free-weyl-fermion-6d",
-    "nhc-6d",
-    "branched-polymers-7d"
-   ]
-  },
-  {
    "abbr": "CB",
    "name": "Numerical conformal bootstrap",
    "description": "Crossing symmetry and unitarity of four-point functions, imposed numerically (usually by semidefinite programming), exclude regions of CFT data. Gives rigorous bounds or islands, or estimates where stated in the qualifier (`CB, non-rigorous error`).",
@@ -36982,7 +37516,7 @@
      "url": "https://en.wikipedia.org/wiki/Conformal_bootstrap"
     }
    ],
-   "rows": 76,
+   "rows": 106,
    "entries": [
     "narain-cft",
     "gny-n1-3d",
@@ -36997,6 +37531,7 @@
     "o4-model-3d",
     "on-om-chiral-3d",
     "qed3-3d",
+    "saw-3d",
     "argyres-douglas-4d",
     "minimal-ad-4d"
    ]
@@ -37016,9 +37551,10 @@
      "url": "https://arxiv.org/abs/1211.2810"
     }
    ],
-   "rows": 30,
+   "rows": 31,
    "entries": [
     "ising-3d",
+    "n2-super-ising-3d",
     "minimal-ad-4d"
    ]
   },
@@ -37037,7 +37573,7 @@
      "url": "https://arxiv.org/abs/1307.3111"
     }
    ],
-   "rows": 3,
+   "rows": 7,
    "entries": [
     "lee-yang-3d",
     "lee-yang-4d",
@@ -37054,7 +37590,7 @@
      "url": "https://en.wikipedia.org/wiki/Monte_Carlo_method_in_statistical_mechanics"
     }
    ],
-   "rows": 50,
+   "rows": 88,
    "entries": [
     "cubic-3d",
     "dqcp-3d",
@@ -37124,9 +37660,10 @@
      "url": "https://en.wikipedia.org/wiki/Lattice_gauge_theory"
     }
    ],
-   "rows": 4,
+   "rows": 6,
    "entries": [
-    "adjoint-qcd-su2-4d"
+    "adjoint-qcd-su2-4d",
+    "qcd-conformal-window-4d"
    ]
   },
   {
@@ -37143,7 +37680,7 @@
      "url": "https://arxiv.org/abs/2210.13482"
     }
    ],
-   "rows": 26,
+   "rows": 29,
    "entries": [
     "dqcp-3d",
     "ising-3d",
@@ -37160,11 +37697,12 @@
      "url": "https://doi.org/10.1016/0370-1573(74)90023-4"
     }
    ],
-   "rows": 19,
+   "rows": 33,
    "entries": [
     "gny-xy-3d",
     "ising-3d",
     "lee-yang-3d",
+    "n2-super-ising-3d",
     "on-om-chiral-3d",
     "percolation-3d",
     "scalar-qed3-3d",
@@ -37172,7 +37710,8 @@
     "percolation-4d",
     "lee-yang-5d",
     "on-model-5d",
-    "percolation-5d"
+    "percolation-5d",
+    "branched-polymers-7d"
    ]
   },
   {
@@ -37185,7 +37724,7 @@
      "url": "https://en.wikipedia.org/wiki/1/N_expansion"
     }
    ],
-   "rows": 37,
+   "rows": 40,
    "entries": [
     "gny-3d",
     "gny-xy-3d",
@@ -37211,7 +37750,7 @@
      "url": "https://arxiv.org/abs/1812.05368"
     }
    ],
-   "rows": 13,
+   "rows": 18,
    "entries": [
     "n4-sqed-3d",
     "qcd3-3d",
@@ -37229,11 +37768,12 @@
      "url": "https://en.wikipedia.org/wiki/Feynman_diagram"
     }
    ],
-   "rows": 12,
+   "rows": 15,
    "entries": [
     "fishnet-4d",
     "litim-sannino-4d",
     "n4-sym",
+    "qcd-conformal-window-4d",
     "yang-mills-4d"
    ]
   },
@@ -37248,7 +37788,7 @@
      "url": "https://en.wikipedia.org/wiki/Banks%E2%80%93Zaks_fixed_point"
     }
    ],
-   "rows": 2,
+   "rows": 4,
    "entries": [
     "adjoint-qcd-su2-4d",
     "qcd-conformal-window-4d"
@@ -37264,7 +37804,7 @@
      "url": "https://en.wikipedia.org/wiki/Functional_renormalization_group"
     }
    ],
-   "rows": 4,
+   "rows": 7,
    "entries": [
     "lee-yang-3d",
     "on-om-chiral-3d",
@@ -37282,7 +37822,7 @@
      "url": "https://en.wikipedia.org/wiki/Cluster_expansion"
     }
    ],
-   "rows": 3,
+   "rows": 4,
    "entries": [
     "lee-yang-3d",
     "lee-yang-4d",
@@ -37299,12 +37839,14 @@
      "url": "https://en.wikipedia.org/wiki/Pad%C3%A9_approximant"
     }
    ],
-   "rows": 7,
+   "rows": 11,
    "entries": [
     "gny-n2-3d",
     "gny-n4-3d",
     "gny-n8-3d",
-    "gny-xy-3d"
+    "gny-xy-3d",
+    "lee-yang-4d",
+    "lee-yang-5d"
    ]
   },
   {
@@ -37317,7 +37859,7 @@
      "url": "https://en.wikipedia.org/wiki/Supersymmetric_localization"
     }
    ],
-   "rows": 20,
+   "rows": 23,
    "entries": [
     "abjm-3d",
     "blg-3d",
@@ -37369,8 +37911,10 @@
      "url": "https://en.wikipedia.org/wiki/Anomaly_matching_condition"
     }
    ],
-   "rows": 7,
+   "rows": 11,
    "entries": [
+    "beta-deformed-n4-4d",
+    "klebanov-witten-4d",
     "conformal-matter-6d",
     "e-string-6d",
     "nhc-6d"
