@@ -1,0 +1,147 @@
+id: free-scalar-6d
+name: Free massless scalar (6d)
+aliases:
+  - 6d Gaussian fixed point
+  - Free conformal scalar (6d)
+d: 6
+summary: >-
+  A single free massless real scalar in six dimensions: the Gaussian fixed point,
+  and the simplest field for the 6d Weyl anomaly. Five of them, with two Weyl
+  fermions and a self-dual 2-form, make up the free (2,0) tensor multiplet.
+tags: [CFT, free, unitary, Lagrangian, exactly solvable]
+
+description: |
+  The simplest CFT in $d=6$. All correlators follow from Wick contractions of
+  $\langle \phi(x)\phi(0)\rangle \propto |x|^{-4}$, so $\Delta_\phi = 2$ and
+  $\phi^n$ has $\Delta = 2n$. The cubic operator $\phi^3$ is classically marginal.
+  On a curved background the scalar is conformally coupled, with kinetic operator
+  $-\nabla^2 + \tfrac15 R$.
+
+  The free $(2,0)$ tensor multiplet, the low-energy theory on a single M5-brane,
+  consists of 5 such scalars, 2 Weyl fermions and a 2-form with self-dual field
+  strength (Bastianelli, Frolov and Tseytlin).
+
+  ### Weyl anomaly
+  On a curved background the trace of the stress tensor of a 6d CFT has the form
+  (Bastianelli, Frolov and Tseytlin, eqs. (1.1) and (2.9))
+  $$\langle T^m{}_m\rangle = a\,E_6 + c_1 I_1 + c_2 I_2 + c_3 I_3 + \nabla_i J^i ,$$
+  with the Euler density $E_6 = -\epsilon_6\epsilon_6 RRR$ and the Weyl invariants
+  $I_1 = C_{amnb}C^{mijn}C_i{}^{ab}{}_j$,
+  $I_2 = C_{ab}{}^{mn}C_{mn}{}^{ij}C_{ij}{}^{ab}$ and
+  $I_3 = C_{mabc}\left(\nabla^2\delta^m_n + 4R^m_n - \tfrac65 R\,\delta^m_n\right)C^{nabc}$
+  plus a total derivative. The last term is scheme dependent. The coefficients are
+  computed from the heat-kernel coefficient $b_6$ of the kinetic operator. In this
+  normalization $a$ is negative for the free scalar, the Dirac fermion and the
+  2-form; other papers use other signs and normalizations. Bastianelli, Frolov and Tseytlin relate $c_3$ to the
+  coefficient of $\langle TT\rangle$, and $c_1, c_2$ to $\langle TTT\rangle$.
+
+  Giombi and Klebanov's $\tilde F = \sin(\pi d/2)\log Z_{S^d}$, continued in $d$, is
+  finite at $d=6$ and equals $(-1)^{d/2}\frac{\pi}{2}a$ for the $a$-anomaly in their
+  own normalization, which differs from the one above.
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$\mathbb{Z}_2$ ($\phi\to-\phi$), plus shift symmetry $\phi \to \phi + \text{const}$'
+
+quantities:
+  - symbol: 'a'
+    description: 'Euler (type A) Weyl-anomaly coefficient, normalization of Bastianelli, Frolov and Tseytlin (see the Weyl anomaly section)'
+    value: '-\frac{5}{72}\cdot\frac{1}{(4\pi)^3\,7!}'
+    method: exact
+    refs: [bastianelli2000]
+    note: 'Eq. (2.17).'
+  - symbol: 'c_1'
+    description: 'Coefficient of the Weyl invariant $I_1$, same normalization'
+    value: '-\frac{28}{3}\cdot\frac{1}{(4\pi)^3\,7!}'
+    method: exact
+    refs: [bastianelli2000]
+    note: 'Eq. (2.17).'
+  - symbol: 'c_2'
+    description: 'Coefficient of the Weyl invariant $I_2$, same normalization'
+    value: '\frac{5}{3}\cdot\frac{1}{(4\pi)^3\,7!}'
+    method: exact
+    refs: [bastianelli2000]
+    note: 'Eq. (2.17).'
+  - symbol: 'c_3'
+    description: 'Coefficient of the Weyl invariant $I_3$, same normalization'
+    value: '2\cdot\frac{1}{(4\pi)^3\,7!}'
+    method: exact
+    refs: [bastianelli2000]
+    note: 'Eq. (2.17).'
+  - symbol: '\tilde F'
+    description: 'Sphere free energy continued in $d$, in the convention of Giombi and Klebanov, $\tilde F = \sin(\pi d/2)\log Z_{S^d}$'
+    value: '\frac{\pi}{1512}'
+    method: exact
+    refs: [giombi2014]
+    note: 'Eq. (2.7).'
+  - symbol: 'C_T'
+    description: 'Stress-tensor two-point coefficient in the absolute Osborn–Petkou normalization, $\langle T_{\mu\nu}(x)T_{\sigma\rho}(0)\rangle = C_T\,\mathcal{I}_{\mu\nu,\sigma\rho}(x)/x^{2d}$'
+    value: '\frac{6}{5\pi^6}'
+    method: derived
+    refs: [osborn1994, bastianelli1999]
+    note: 'Osborn–Petkou eq. (5.5), $C_T = \frac{d}{d-1}\frac{1}{S_d^2}$ with $S_d = 2\pi^{d/2}/\Gamma(d/2)$, evaluated at $d=6$, where $S_6 = \pi^3$. The same follows from eq. (3.22) of Bastianelli, Frolov and Tseytlin (1999) with one scalar.'
+
+operators:
+  - name: '\phi'
+    Delta: 2
+    spin: 0
+    rep: '$\mathbb{Z}_2$-odd'
+    method: exact
+    refs: [osborn1994]
+    note: 'From the propagator $\langle\phi(x)\phi(0)\rangle = \frac{1}{(d-2)S_d\,x^{d-2}}$ (Osborn–Petkou eq. (5.3)).'
+  - name: '\phi^2'
+    Delta: 4
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even'
+    method: exact
+    refs: [osborn1994]
+  - name: '\phi^3'
+    Delta: 6
+    spin: 0
+    rep: '$\mathbb{Z}_2$-odd'
+    method: exact
+    refs: [osborn1994]
+    note: 'Classically marginal.'
+  - name: 'T_{\mu\nu}'
+    Delta: 6
+    spin: 2
+    rep: '$\mathbb{Z}_2$-even'
+    method: exact
+    note: Stress tensor (conserved).
+
+references:
+  - key: bastianelli2000
+    title: Conformal anomaly of (2,0) tensor multiplet in six dimensions and AdS/CFT correspondence
+    authors: Bastianelli, Frolov, Tseytlin
+    year: 2000
+    journal: JHEP 02 (2000) 013
+    arxiv: hep-th/0001041
+    doi: 10.1088/1126-6708/2000/02/013
+    note: 'Trace anomalies of the free conformal scalar (eq. (2.17)), Dirac fermion (eq. (2.20)) and 2-form (eq. (2.27)) in $d=6$.'
+  - key: bastianelli1999
+    title: Three-point correlators of stress tensors in maximally-supersymmetric conformal theories in d=3 and d=6
+    authors: Bastianelli, Frolov, Tseytlin
+    year: 2000
+    journal: Nucl. Phys. B 578, 139
+    arxiv: hep-th/9911135
+    doi: 10.1016/S0550-3213(99)00822-6
+    note: 'Eq. (3.22): $C_T$ of free scalars, spinors and $k$-forms.'
+  - key: osborn1994
+    title: Implications of conformal invariance in field theories for general dimensions
+    authors: Osborn, Petkou
+    year: 1994
+    journal: Annals Phys. 231, 311
+    arxiv: hep-th/9307010
+    doi: 10.1006/aphy.1994.1045
+  - key: giombi2014
+    title: Interpolating between $a$ and $F$
+    authors: Giombi, Klebanov
+    year: 2015
+    journal: JHEP 03 (2015) 117
+    arxiv: '1409.1937'
+    doi: 10.1007/JHEP03(2015)117
+
+contributors: [Canonical111]

@@ -1,0 +1,157 @@
+id: free-self-dual-tensor-6d
+name: Free self-dual 2-form (6d)
+aliases:
+  - Free chiral 2-form (6d)
+  - 6d self-dual tensor field
+d: 6
+summary: >-
+  A free 2-form gauge field in six dimensions whose 3-form field strength is
+  self-dual. It is conformal, unlike free Maxwell theory in $d \neq 4$, and is the
+  chiral bosonic field of the free (2,0) and (1,0) tensor multiplets.
+tags: [CFT, free, unitary, gauge theory, exactly solvable]
+
+description: |
+  The gauge field is a 2-form $B$ with gauge symmetry $B \to B + d\Lambda$. Its field
+  strength $H = dB$ is a 3-form, constrained to be self-dual, $H = \star H$ (or
+  anti-self-dual, depending on conventions). The two-point function of $H$ falls
+  off as $|x|^{-6}$, so $\Delta_H = 3$. A free $k$-form gauge field is conformal in
+  $d = 2k+2$ (Bastianelli, Frolov and Tseytlin, 1999): $k=1$ is Maxwell theory in
+  $d=4$, and $k=2$ is this theory. Free Maxwell theory in $d \neq 4$ is scale
+  invariant but not conformal (El-Showk, Nakayama and Rychkov).
+
+  Lorentz-covariant actions for the self-dual field exist, for example that of
+  Pasti, Sorokin and Tonin, with one auxiliary scalar entering non-polynomially,
+  but they are hard to use at the quantum level. In practice correlators and
+  anomalies are computed with a non-chiral 2-form, projecting onto the self-dual
+  part of $H$ in composite operators. With this prescription the two- and
+  three-point functions of the stress tensor of the chiral field are half those of
+  the non-chiral 2-form (Bastianelli, Frolov and Tseytlin, 1999), and so is its
+  trace anomaly (Bastianelli, Frolov and Tseytlin, 2000).
+
+  A self-dual antisymmetric tensor coupled to gravity in $4k+2$ dimensions has a
+  one-loop gravitational anomaly (Alvarez-Gaumé and Witten).
+
+  ### Tensor multiplets
+  The free $(2,0)$ tensor multiplet, the low-energy theory on a single M5-brane,
+  consists of 5 real scalars, 2 Weyl fermions and this field. Its trace anomaly
+  (Bastianelli, Frolov and Tseytlin 2000, eq. (2.29)) has $a = -\frac{245}{8}$,
+  $c_1 = -1680$, $c_2 = -420$, $c_3 = 140$, in units of $\frac{1}{(4\pi)^3\,7!}$ and
+  the conventions of the free 6d scalar page, and $C_T = \frac{84}{\pi^6}$
+  (Bastianelli, Frolov and Tseytlin 1999, eq. (3.23)). The values for the free
+  scalar, the free Weyl fermion and this field add up to these totals. Compared
+  with the AdS$_7$ supergravity prediction for the $(2,0)$ theory of $N$ M5-branes
+  at large $N$, the coefficients obey $c_n^{(2,0)} = 4N^3 c_n^{\rm (tens.)}$ but
+  $a^{(2,0)} = \frac{16}{7}N^3 a^{\rm (tens.)}$ (2000 paper, eq. (1.4)).
+
+  A self-dual tensor also sits in each $(1,0)$ tensor multiplet. On the tensor
+  branch of 6d $(1,0)$ SCFTs its Bianchi identity can be deformed to $dH = I$, which
+  gives the Green–Schwarz contribution to the anomaly polynomial (Ohmori, Shimizu,
+  Tachikawa and Yonekura).
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  gauge: '2-form gauge symmetry $B \to B + d\Lambda$'
+  notes: 'Gravitational anomaly (Alvarez-Gaumé and Witten).'
+
+quantities:
+  - symbol: 'a'
+    description: 'Euler (type A) Weyl-anomaly coefficient, normalization of Bastianelli, Frolov and Tseytlin (defined on the free 6d scalar page)'
+    value: '-\frac{221}{8}\cdot\frac{1}{(4\pi)^3\,7!}'
+    method: derived
+    refs: [bastianelli2000]
+    note: 'Half of the non-chiral 2-form value $-\frac{221}{4}$ in eq. (2.27).'
+  - symbol: 'c_1'
+    description: 'Coefficient of the Weyl invariant $I_1$, same normalization'
+    value: '-\frac{4004}{3}\cdot\frac{1}{(4\pi)^3\,7!}'
+    method: derived
+    refs: [bastianelli2000]
+    note: 'Half of $-\frac{8008}{3}$ in eq. (2.27).'
+  - symbol: 'c_2'
+    description: 'Coefficient of the Weyl invariant $I_2$, same normalization'
+    value: '-\frac{1189}{3}\cdot\frac{1}{(4\pi)^3\,7!}'
+    method: derived
+    refs: [bastianelli2000]
+    note: 'Half of $-\frac{2378}{3}$ in eq. (2.27).'
+  - symbol: 'c_3'
+    description: 'Coefficient of the Weyl invariant $I_3$, same normalization'
+    value: '90\cdot\frac{1}{(4\pi)^3\,7!}'
+    method: derived
+    refs: [bastianelli2000]
+    note: 'Half of $180$ in eq. (2.27).'
+  - symbol: 'C_T'
+    description: 'Stress-tensor two-point coefficient in the absolute Osborn–Petkou normalization, $\langle T_{\mu\nu}(x)T_{\sigma\rho}(0)\rangle = C_T\,\mathcal{I}_{\mu\nu,\sigma\rho}(x)/x^{2d}$'
+    value: '\frac{54}{\pi^6}'
+    method: derived
+    refs: [bastianelli1999]
+    note: 'Eq. (3.22), $C_T = \frac{1}{\omega_{d-1}^2}\frac{d^2}{2}\tilde n_B$ with $\tilde n_B = \frac{(2k)!}{(k!)^2}n_B$, at $d=6$, $k=2$, $\omega_5 = \pi^3$ and $n_B = \tfrac12$ for a chiral 2-form. It is 45 times the value $\frac{6}{5\pi^6}$ of one real scalar.'
+
+operators:
+  - name: 'H_{\mu\nu\rho}'
+    Delta: 3
+    spin: '\text{self-dual 3-form}'
+    rep: gauge invariant
+    method: exact
+    refs: [bastianelli1999]
+    note: 'Free field strength; its two-point function is eq. (2.5) of the 1999 paper at $d=6$, $k=2$.'
+  - name: 'T_{\mu\nu}'
+    Delta: 6
+    spin: 2
+    rep: gauge invariant
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: free-scalar-6d
+    note: 'With 5 real scalars and 2 Weyl fermions, this field forms the free $(2,0)$ tensor multiplet.'
+  - type: related_to
+    target: free-weyl-fermion-6d
+    note: 'With 5 real scalars and 2 Weyl fermions, this field forms the free $(2,0)$ tensor multiplet.'
+
+references:
+  - key: bastianelli2000
+    title: Conformal anomaly of (2,0) tensor multiplet in six dimensions and AdS/CFT correspondence
+    authors: Bastianelli, Frolov, Tseytlin
+    year: 2000
+    journal: JHEP 02 (2000) 013
+    arxiv: hep-th/0001041
+    doi: 10.1088/1126-6708/2000/02/013
+    note: 'Eq. (2.27): trace anomaly of a non-chiral 2-form; eq. (2.29): the (2,0) tensor multiplet; eq. (1.4): comparison with AdS$_7$.'
+  - key: bastianelli1999
+    title: Three-point correlators of stress tensors in maximally-supersymmetric conformal theories in d=3 and d=6
+    authors: Bastianelli, Frolov, Tseytlin
+    year: 2000
+    journal: Nucl. Phys. B 578, 139
+    arxiv: hep-th/9911135
+    doi: 10.1016/S0550-3213(99)00822-6
+    note: 'Free $k$-forms in $d = 2k+2$; eq. (3.22): $C_T$; eq. (3.23): $C_T$ of the (2,0) tensor multiplet.'
+  - key: agw1984
+    title: Gravitational Anomalies
+    authors: Alvarez-Gaumé, Witten
+    year: 1984
+    journal: Nucl. Phys. B 234, 269
+    doi: 10.1016/0550-3213(84)90066-X
+  - key: pst1997
+    title: On Lorentz invariant actions for chiral p-forms
+    authors: Pasti, Sorokin, Tonin
+    year: 1997
+    journal: Phys. Rev. D 55, 6292
+    arxiv: hep-th/9611100
+    doi: 10.1103/PhysRevD.55.6292
+  - key: elshowk2011
+    title: What Maxwell theory in $d \neq 4$ teaches us about scale and conformal invariance
+    authors: El-Showk, Nakayama, Rychkov
+    year: 2011
+    journal: Nucl. Phys. B 848, 578
+    arxiv: '1101.5385'
+    doi: 10.1016/j.nuclphysb.2011.03.008
+  - key: osty2014
+    title: Anomaly polynomial of general 6d SCFTs
+    authors: Ohmori, Shimizu, Tachikawa, Yonekura
+    year: 2014
+    journal: PTEP 2014, 103B07
+    arxiv: '1408.5572'
+    doi: 10.1093/ptep/ptu140
+
+contributors: [Canonical111]

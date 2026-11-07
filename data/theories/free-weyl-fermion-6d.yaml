@@ -1,0 +1,152 @@
+id: free-weyl-fermion-6d
+name: Free massless Weyl fermion (6d)
+aliases:
+  - 6d free chiral fermion
+  - Free symplectic Majorana–Weyl fermion pair (6d)
+d: 6
+summary: >-
+  A single free massless Weyl fermion in six dimensions. It is chiral, so it has
+  a gravitational anomaly; two of them are the fermions of the free (2,0) tensor
+  multiplet.
+tags: [CFT, free, unitary, Lagrangian, exactly solvable]
+
+description: |
+  A Weyl spinor $\psi$ in $d=6$ has 4 complex components, half of the
+  ${\rm Tr}\,\mathbb{1} = 2^{d/2} = 8$ of a Dirac spinor. The propagator
+  $\langle\psi(x)\bar\psi(0)\rangle \propto \gamma\cdot x/|x|^{6}$, projected on one
+  chirality, gives $\Delta_\psi = \tfrac52$, and all correlators follow from Wick
+  contractions. In six-dimensional Minkowski space there are no Majorana or
+  Majorana–Weyl spinors, but symplectic Majorana–Weyl spinors exist, and the
+  minimal spinor has 8 real components (Van Proeyen, Table 2), the content of one
+  Weyl spinor.
+
+  A Weyl fermion of spin $\tfrac12$ coupled to gravity in $4k+2$ dimensions has a
+  one-loop gravitational anomaly (Alvarez-Gaumé and Witten), so this theory cannot
+  be coupled consistently to dynamical gravity on its own. The anomaly comes from
+  the imaginary part of the Weyl determinant. The trace anomaly comes from the real
+  part and is half that of a Dirac fermion (Bastianelli, Frolov and Tseytlin, who
+  write the $(2,0)$ tensor multiplet anomaly as half that of a non-chiral multiplet
+  with Dirac fermions).
+
+  The free $(2,0)$ tensor multiplet consists of 5 scalars, 2 such Weyl fermions and
+  a 2-form with self-dual field strength.
+
+  ### Weyl anomaly
+  The coefficients $a, c_1, c_2, c_3$ below are those of
+  $\langle T^m{}_m\rangle = a\,E_6 + c_1 I_1 + c_2 I_2 + c_3 I_3 + \nabla_i J^i$ in
+  the conventions of Bastianelli, Frolov and Tseytlin, defined on the page of the
+  free 6d scalar. Each is half of the Dirac-fermion value in their eq. (2.20).
+
+lagrangian: '\mathcal{L} = i\,\bar\psi\,\gamma^\mu\partial_\mu\psi, \qquad \gamma_7\psi = \psi'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$U(1)$ fermion number, $\psi\to e^{i\alpha}\psi$ (the manifest symmetry of the Weyl Lagrangian)'
+  notes: 'Gravitational anomaly (Alvarez-Gaumé and Witten).'
+
+quantities:
+  - symbol: 'a'
+    description: 'Euler (type A) Weyl-anomaly coefficient, normalization of Bastianelli, Frolov and Tseytlin'
+    value: '-\frac{191}{144}\cdot\frac{1}{(4\pi)^3\,7!}'
+    method: derived
+    refs: [bastianelli2000]
+    note: 'Half of the Dirac value $-\frac{191}{72}$ in eq. (2.20).'
+  - symbol: 'c_1'
+    description: 'Coefficient of the Weyl invariant $I_1$, same normalization'
+    value: '-\frac{448}{3}\cdot\frac{1}{(4\pi)^3\,7!}'
+    method: derived
+    refs: [bastianelli2000]
+    note: 'Half of the Dirac value $-\frac{896}{3}$ in eq. (2.20).'
+  - symbol: 'c_2'
+    description: 'Coefficient of the Weyl invariant $I_2$, same normalization'
+    value: '-16\cdot\frac{1}{(4\pi)^3\,7!}'
+    method: derived
+    refs: [bastianelli2000]
+    note: 'Half of the Dirac value $-32$ in eq. (2.20).'
+  - symbol: 'c_3'
+    description: 'Coefficient of the Weyl invariant $I_3$, same normalization'
+    value: '20\cdot\frac{1}{(4\pi)^3\,7!}'
+    method: derived
+    refs: [bastianelli2000]
+    note: 'Half of the Dirac value $40$ in eq. (2.20).'
+  - symbol: '\tilde F'
+    description: 'Sphere free energy continued in $d$, in the convention of Giombi and Klebanov, $\tilde F = \sin(\pi d/2)\log Z_{S^d}$'
+    value: '\frac{191\pi}{15120}'
+    method: derived
+    refs: [giombi2014, bastianelli2000]
+    note: 'Four times (4 components) the per-component fermion integral of Giombi–Klebanov eq. (2.6) at $d=6$, evaluated numerically and equal to $\frac{191\pi}{60480}$ to 30 digits. It is $\frac{191}{10}$ times the scalar value $\frac{\pi}{1512}$, the same ratio as for $a$ above, as required by $\tilde F \propto a$ in even $d$.'
+  - symbol: 'C_T'
+    description: 'Stress-tensor two-point coefficient in the absolute Osborn–Petkou normalization, $\langle T_{\mu\nu}(x)T_{\sigma\rho}(0)\rangle = C_T\,\mathcal{I}_{\mu\nu,\sigma\rho}(x)/x^{2d}$'
+    value: '\frac{12}{\pi^6}'
+    method: derived
+    refs: [osborn1994, bastianelli1999]
+    note: 'Half of the Dirac value ${\rm Tr}\,\mathbb{1}\,\frac{d}{2S_d^2}$ (Osborn–Petkou eq. (5.6)) with ${\rm Tr}\,\mathbb{1} = 8$ and $S_6 = \pi^3$. Bastianelli, Frolov and Tseytlin (1999), eq. (3.22), give the same and state that Weyl fermions count as half a Dirac fermion. It is 10 times the value $\frac{6}{5\pi^6}$ of one real scalar.'
+
+operators:
+  - name: '\psi'
+    Delta: '\frac{5}{2}'
+    spin: '1/2'
+    rep: 'charge $1$, one chirality'
+    method: exact
+    refs: [osborn1994, giombi2014]
+    note: 'From $\langle\psi(x)\bar\psi(0)\rangle = \frac{1}{S_d}\frac{\gamma\cdot x}{x^d}$ (Osborn–Petkou eq. (5.3)); $\Delta = (d-1)/2$.'
+  - name: 'J_\mu = \bar\psi\gamma_\mu\psi'
+    Delta: 5
+    spin: 1
+    rep: neutral
+    method: exact
+    note: 'Conserved $U(1)$ current.'
+  - name: 'T_{\mu\nu}'
+    Delta: 6
+    spin: 2
+    rep: neutral
+    method: exact
+    note: Stress tensor (conserved).
+
+references:
+  - key: bastianelli2000
+    title: Conformal anomaly of (2,0) tensor multiplet in six dimensions and AdS/CFT correspondence
+    authors: Bastianelli, Frolov, Tseytlin
+    year: 2000
+    journal: JHEP 02 (2000) 013
+    arxiv: hep-th/0001041
+    doi: 10.1088/1126-6708/2000/02/013
+    note: 'Eq. (2.20): trace anomaly of a 6d Dirac fermion; section 2: the tensor multiplet as half of a non-chiral multiplet.'
+  - key: bastianelli1999
+    title: Three-point correlators of stress tensors in maximally-supersymmetric conformal theories in d=3 and d=6
+    authors: Bastianelli, Frolov, Tseytlin
+    year: 2000
+    journal: Nucl. Phys. B 578, 139
+    arxiv: hep-th/9911135
+    doi: 10.1016/S0550-3213(99)00822-6
+    note: 'Eq. (3.22): $C_T$ of free scalars, spinors and $k$-forms.'
+  - key: osborn1994
+    title: Implications of conformal invariance in field theories for general dimensions
+    authors: Osborn, Petkou
+    year: 1994
+    journal: Annals Phys. 231, 311
+    arxiv: hep-th/9307010
+    doi: 10.1006/aphy.1994.1045
+  - key: giombi2014
+    title: Interpolating between $a$ and $F$
+    authors: Giombi, Klebanov
+    year: 2015
+    journal: JHEP 03 (2015) 117
+    arxiv: '1409.1937'
+    doi: 10.1007/JHEP03(2015)117
+  - key: agw1984
+    title: Gravitational Anomalies
+    authors: Alvarez-Gaumé, Witten
+    year: 1984
+    journal: Nucl. Phys. B 234, 269
+    doi: 10.1016/0550-3213(84)90066-X
+  - key: vanproeyen1999
+    title: Tools for supersymmetry
+    authors: Van Proeyen
+    year: 1999
+    journal: Ann. U. Craiova Phys. 9, 1
+    arxiv: hep-th/9910030
+    note: 'Table 2: minimal spinors in each dimension.'
+
+contributors: [Canonical111]
