@@ -73,7 +73,9 @@ family:
       note: '$4a = 6N^2 - 5N$. $N = 2$: $\mathcal{N}=4$ $G_2$ SYM.'
 
 symmetry:
-  spacetime: '$SU(2,2|3)$ — 4d $\mathcal{N}=3$ superconformal group (12 $Q$ + 12 $S$ supercharges); parity not recorded'
+  spacetime: '4d $\mathcal{N}=3$ superconformal group (12 $Q$ + 12 $S$ supercharges); parity not recorded'
+  euclidean: '$SO(5,1)$ (bosonic conformal part)'
+  lorentzian: '$SU(2,2|3)$'
   supercharges: 12
   global: '$R$-symmetry $SU(3)_R\times U(1)_R$; no continuous flavour symmetry'
   notes: 'For $\ell < k$ the parent theory has a discrete $\mathbb{Z}_{k/\ell}$ global symmetry, and its gauging has a $\mathbb{Z}_{k/\ell}$ 2-form symmetry.'

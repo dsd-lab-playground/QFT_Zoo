@@ -11,7 +11,7 @@ description: 'The $m=4$ diagonal minimal model. It describes the tricritical poi
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2 + \lambda\,\phi^6 \quad (\text{Landau–Ginzburg description, tuned to the tricritical point})'
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{7}{10}$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{7}{10}$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$\mathbb{Z}_2$'
 

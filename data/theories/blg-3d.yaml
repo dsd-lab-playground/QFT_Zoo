@@ -84,7 +84,9 @@ family:
       note: 'No known M-theory interpretation; weakly coupled as $k \to \infty$.'
 
 symmetry:
-  spacetime: '$OSp(8|4)$ — 3d $\mathcal{N}=8$ superconformal group (16 $Q$ + 16 $S$ supercharges), with parity combined with exchange of the two gauge groups'
+  spacetime: '3d $\mathcal{N}=8$ superconformal group (16 $Q$ + 16 $S$ supercharges), with parity combined with exchange of the two gauge groups'
+  euclidean: '$O(4,1)$ (bosonic conformal part)'
+  lorentzian: '$OSp(8|4)$'
   supercharges: 16
   global: '$SO(8)_R$; parity'
   gauge: '$SU(2)_k\times SU(2)_{-k}$ or $(SU(2)_k\times SU(2)_{-k})/\mathbb{Z}_2$'

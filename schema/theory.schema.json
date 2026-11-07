@@ -199,7 +199,15 @@
       "properties": {
         "spacetime": {
           "type": "string",
-          "description": "[markdown] Spacetime symmetry group with its discrete part, then a colloquial name, e.g. '$O(4,1)$ — 3d conformal group with parity' or '$PSU(2,2|4)$ — 4d $\\mathcal{N}=4$ superconformal group (16 $Q$ + 16 $S$ supercharges), with parity at $\\theta \\in \\{0, \\pi\\}$'. Conventions in CONTRIBUTING.md, Spacetime symmetry."
+          "description": "[markdown] Colloquial name of the spacetime symmetry and its qualifiers, e.g. '3d conformal group with parity' or '4d $\\mathcal{N}=4$ superconformal group (16 $Q$ + 16 $S$ supercharges), with parity at $\\theta \\in \\{0, \\pi\\}$'. In 2d it names the Virasoro algebras, e.g. 'Two Virasoro algebras, $c = \\bar c = \\tfrac12$ — 2d conformal symmetry, with parity'. Conventions in CONTRIBUTING.md, Spacetime symmetry."
+        },
+        "euclidean": {
+          "type": "string",
+          "description": "[markdown] Spacetime symmetry group in Euclidean signature, d >= 3, e.g. '$O(4,1)$'; for superconformal theories its bosonic conformal part, '$O(5,1)$ (bosonic conformal part)'. Not used in 2d."
+        },
+        "lorentzian": {
+          "type": "string",
+          "description": "[markdown] Spacetime symmetry group in Lorentzian signature, d >= 3, e.g. '$O(3,2)$' or '$PSU(2,2|4)$'. Omitted when the theory has no unitary Lorentzian continuation ('Euclidean only' in `spacetime`) or its Lorentzian form is not recorded. Not used in 2d."
         },
         "supercharges": {
           "type": "integer",

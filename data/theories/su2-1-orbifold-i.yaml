@@ -11,7 +11,7 @@ description: |
   A rotation by angle $2\pi t$ twists the winding by $t$, so its twisted-sector ground state is a scalar Virasoro primary with $h = \bar h = t^2/4$. The smallest rotation in $I$ has order 5, giving $\Delta_{\rm gap} = \frac{1}{2\cdot5^2} = 1/50$; the lightest untwisted invariant has $\Delta = \tfrac12$.
 
 symmetry:
-  spacetime: '$SO(3,1)$, extended to two Virasoro algebras, $c = \bar c = 1$ — 2d conformal group; parity not recorded'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = 1$ — 2d conformal symmetry; parity not recorded'
   supercharges: 0
 
 quantities:

@@ -73,7 +73,9 @@ family:
       note: '$m, n$ coprime: extra branches where $n$ D3-branes form a toroidal D5-brane (the $\Phi_i$ form a fuzzy torus), and extra single-trace chiral primaries with $U(1)^3$ charges $k_1 \equiv k_2 \equiv k_3 \pmod n$.'
 
 symmetry:
-  spacetime: '$SU(2,2|1)$ — 4d $\mathcal{N}=1$ superconformal group (4 $Q$ + 4 $S$ supercharges); parity not recorded'
+  spacetime: '4d $\mathcal{N}=1$ superconformal group (4 $Q$ + 4 $S$ supercharges); parity not recorded'
+  euclidean: '$SO(5,1)$ (bosonic conformal part)'
+  lorentzian: '$SU(2,2|1)$'
   supercharges: 4
   global: '$U(1)\times U(1)$ flavour symmetry and $U(1)_R$, plus the $\mathbb{Z}_3$ cyclic permutation of the $\Phi_i$'
   gauge: '$SU(N)$'

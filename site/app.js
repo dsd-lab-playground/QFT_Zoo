@@ -183,8 +183,10 @@ const section = (id, title, body) => `<section class="block" id="sec-${id}"><h2>
 /** Wikipedia articles for the standard names used in `symmetry.spacetime` (CONTRIBUTING.md, Spacetime symmetry). */
 const SPACETIME_LINKS = [
   ["superconformal group", "Superconformal_algebra"],
+  ["superconformal symmetry", "Superconformal_algebra"],
   ["super-Virasoro", "Super_Virasoro_algebra"],
   ["conformal group", "Conformal_group"],
+  ["conformal symmetry", "Conformal_symmetry"],
   ["Poincaré group", "Poincar%C3%A9_group"],
   ["Virasoro", "Virasoro_algebra"],
   ["parity", "Parity_(physics)"],
@@ -208,6 +210,19 @@ function linkSpacetime(src) {
           })
     )
     .join("");
+}
+
+/** The Spacetime row: "Euclidean G_E · Lorentzian G_L — name and qualifiers" (CONTRIBUTING.md, Spacetime symmetry). */
+function spacetimeHtml(s) {
+  const groups = [
+    ["Euclidean", s.euclidean],
+    ["Lorentzian", s.lorentzian],
+  ]
+    .filter(([, g]) => g)
+    .map(([k, g]) => `<span class="muted">${k}</span> ${md(g, true)}`)
+    .join(" · ");
+  const name = s.spacetime && md(linkSpacetime(s.spacetime), true);
+  return [groups, name].filter(Boolean).join(" — ");
 }
 
 function symmetrySummary(t) {
@@ -376,7 +391,7 @@ let rowCache = null; // id -> rendered <tr>
 function searchText(t) {
   const s = t.symmetry || {};
   return plain(
-    [t.id, t.name, ...(t.aliases || []), t.summary, ...(t.tags || []), s.global, s.gauge, s.spacetime, `${t.d}d`, `d=${t.d}`].join(" ")
+    [t.id, t.name, ...(t.aliases || []), t.summary, ...(t.tags || []), s.global, s.gauge, s.spacetime, s.euclidean, s.lorentzian, `${t.d}d`, `d=${t.d}`].join(" ")
   ).toLowerCase();
 }
 
@@ -1049,7 +1064,7 @@ function viewTheory(id) {
   if (t.symmetry) {
     const s = t.symmetry;
     const rows = [
-      ["Spacetime", s.spacetime && md(linkSpacetime(s.spacetime), true)],
+      ["Spacetime", (s.spacetime || s.euclidean || s.lorentzian) && spacetimeHtml(s)],
       ["Global", s.global && md(s.global, true)],
       ["Gauge", s.gauge && md(s.gauge, true)],
       ["Notes", s.notes && md(s.notes, true)],

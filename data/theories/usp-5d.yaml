@@ -70,7 +70,9 @@ family:
       note: 'Two fixed points, analogues of $E_1$ and $\tilde E_1$ (theta angle $0$ or $\pi$).'
 
 symmetry:
-  spacetime: '$F(4)$ — 5d $\mathcal{N}=1$ superconformal group (8 $Q$ + 8 $S$ supercharges); parity not recorded'
+  spacetime: '5d $\mathcal{N}=1$ superconformal group (8 $Q$ + 8 $S$ supercharges); parity not recorded'
+  euclidean: '$SO(6,1)$ (bosonic conformal part)'
+  lorentzian: '$F(4)$'
   supercharges: 8
   global: 'Flavor $E_{N_f+1}\times SU(2)$ (the $SU(2)$ acts on the antisymmetric hypermultiplet and is absent at $N=1$); R-symmetry $SU(2)_R$'
   gauge: '$USp(2N)$ (infrared gauge theory description)'

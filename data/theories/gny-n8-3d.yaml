@@ -28,7 +28,9 @@ description: |
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2 + \tfrac{1}{2}\bar\psi_i\gamma^\mu\partial_\mu\psi_i + \tfrac{g}{2}\,\phi\,\bar\psi_i\psi_i + \tfrac{1}{2}m^2\phi^2 + \tfrac{\lambda}{4!}\phi^4, \quad i = 1,\dots,8 \text{ Majorana} \quad (m^2 \text{ tuned})'
 
 symmetry:
-  spacetime: '$O(4,1)$ — 3d conformal group with parity'
+  spacetime: '3d conformal group with parity'
+  euclidean: '$O(4,1)$'
+  lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$O(8)$ and parity / time reversal ($\sigma$ odd)'
 

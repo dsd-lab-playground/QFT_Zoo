@@ -44,7 +44,9 @@ family:
   show: 5
 
 symmetry:
-  spacetime: '$O(d+1,1)$ — $d$-dimensional conformal group with parity'
+  spacetime: '$d$-dimensional conformal group with parity'
+  euclidean: '$O(d+1,1)$'
+  lorentzian: '$O(d,2)$'
   supercharges: 0
   global: '$U(1)$ fermion number (the manifest symmetry)'
 

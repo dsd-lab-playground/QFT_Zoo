@@ -46,7 +46,7 @@ description: |
   this fixed point and, it is argued, its tricritical version $\mathcal{M}(2,7)$ [@lencses2023].
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = -\tfrac{22}{5}$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = -\tfrac{22}{5}$ — 2d conformal symmetry, with parity; Euclidean only (non-unitary statistical model)'
   supercharges: 0
   global: 'No invertible internal symmetry: since $C_{\phi\phi\phi} \neq 0$, no phase rotation of $\phi$ is allowed (the Ising $\mathbb{Z}_2$ is broken by the imaginary field).'
   notes: 'Not unitary. The spectrum is real because the quantum Hamiltonian is invariant under complex conjugation, $H \to H^*$, combined with $\phi \to -\phi$ [@cardy2023].'

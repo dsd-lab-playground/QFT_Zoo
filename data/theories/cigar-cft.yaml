@@ -73,7 +73,7 @@ parameters:
     range: '$k>2$'
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{3k}{k-2} - 1$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{3k}{k-2} - 1$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$U(1)$ momentum around the cigar; winding is not conserved'
 

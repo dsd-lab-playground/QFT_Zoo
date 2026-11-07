@@ -42,7 +42,9 @@ description: |
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2'
 
 symmetry:
-  spacetime: '$O(7,1)$ — 6d conformal group with parity'
+  spacetime: '6d conformal group with parity'
+  euclidean: '$O(7,1)$'
+  lorentzian: '$O(6,2)$'
   supercharges: 0
   global: '$\mathbb{Z}_2$ ($\phi\to-\phi$), plus shift symmetry $\phi \to \phi + \text{const}$'
 

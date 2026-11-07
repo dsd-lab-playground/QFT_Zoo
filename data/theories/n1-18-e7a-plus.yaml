@@ -8,7 +8,7 @@ tags: [CFT, interacting, unitary, rational, coset, minimal model]
 description: 'The $(E_7, A)$ and $(E_7, D)$ invariants have identical invariant matrices on the coset fields. The gap comes from the NS field $(5,5)$.'
 
 symmetry:
-  spacetime: '$SO(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{22}{15}$ — 2d conformal group; parity not recorded'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{22}{15}$ — 2d conformal symmetry; parity not recorded'
   notes: 'Bosonic theory: the $\mathcal{N}=(1,1)$ supercurrents $G$, $\bar G$ have spin $\tfrac32$ and are not local operators here, so the $\mathcal{N}=1$ super-Virasoro symmetry ($OSp(1|2)\times OSp(1|2)$ globally, 2 $Q$ + 2 $S$ supercharges) acts on the fermionic minimal model, not on this bosonization.'
 
 quantities:

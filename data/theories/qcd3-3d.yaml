@@ -58,7 +58,9 @@ family:
       note: 'Strict large-$N_f$ limit at fixed $N_c$.'
 
 symmetry:
-  spacetime: '$O(4,1)$ — 3d conformal group with parity (even $N_f$, no Chern–Simons term; conformal at large $N_f$)'
+  spacetime: '3d conformal group with parity (even $N_f$, no Chern–Simons term; conformal at large $N_f$)'
+  euclidean: '$O(4,1)$'
+  lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$U(N_f)$ flavor (enlarged to $Sp(N_f)$ for $N_c = 2$), charge conjugation, parity and time reversal'
   gauge: '$SU(N_c)$'

@@ -26,7 +26,7 @@ family:
     note: 'Same partition function as the bosonized $\mathcal{N}=1$ minimal model $\mathcal{N}_6^{(D,A)+}$.'
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{2(k-1)}{k+2}$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{2(k-1)}{k+2}$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: 'Dihedral $D_k$ ($\mathbb{Z}_k$ rotations and charge conjugation)'
 

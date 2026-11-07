@@ -64,7 +64,7 @@ family:
     note: 'The holomorphically factorized $(E_8)_1$ point saturates the scalar-gap bound $\Delta = 2$ at $c = 8$ [@cly2018]; the largest $\Delta_1$ found is $\sqrt2$, for the Barnes–Wall lattice [@acht2021].'
 
 symmetry:
-  spacetime: '$SO(3,1)$, extended to two Virasoro algebras, $c = \bar c = d$ — 2d conformal group; parity ($O(3,1)$) for $d = 1$, and for $d \geq 2$ only on special loci of the moduli space such as $B = 0$, since parity maps $B \to -B$'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = d$ — 2d conformal symmetry; parity for $d = 1$, and for $d \geq 2$ only on special loci of the moduli space such as $B = 0$, since parity maps $B \to -B$'
   supercharges: 0
   global: '$U(1)^d_L\times U(1)^d_R$ (momentum and winding), enhanced to $G_L\times G_R$ at special points'
   notes: 'T-duality $O(d,d;\mathbb{Z})$ acts on the moduli and identifies equivalent theories.'

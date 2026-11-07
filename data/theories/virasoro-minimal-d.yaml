@@ -30,7 +30,7 @@ family:
   show: 8
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = 1 - \tfrac{6}{m(m+1)}$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = 1 - \tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity'
   global: '$\mathbb{Z}_2$, dual to the spin flip of the A-series model of which the D-series model is the orbifold; $S_3$ for the two $D_4$ invariants, $m = 5$ (3-state Potts) and $m = 6$ (tricritical 3-state Potts)'
 
 quantities:

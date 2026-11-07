@@ -37,7 +37,9 @@ family:
       note: '$\Delta_F = 5$; $\tilde n_t = 70$; $C_T = \frac{504000}{\pi^{10}}$ (3150 times the free scalar). With self-dual $F$: $\tilde n_t = 35$, $C_T = \frac{252000}{\pi^{10}}$.'
 
 symmetry:
-  spacetime: '$O(d+1,1)$ — $d$-dimensional conformal group with parity'
+  spacetime: '$d$-dimensional conformal group with parity'
+  euclidean: '$O(d+1,1)$'
+  lorentzian: '$O(d,2)$'
   supercharges: 0
   gauge: '$U(1)$ $(n-1)$-form gauge symmetry $A \to A + d\lambda$'
 

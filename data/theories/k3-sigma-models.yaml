@@ -31,7 +31,7 @@ description: |
   - **The $\mathbb{Z}_2^8:\mathbb{M}_{20}$ model.** The $\mathbb{Z}_2$ orbifold of the $D_4$-torus theory, whose bosonic part has $so(8)_1$ currents on each side, i.e. the sigma model on the tetrahedral Kummer surface. It is also a theory of twelve free Majorana fermions on each side, a rational theory based on $su(2)_1^{\oplus 6}$, and a $\mathbb{Z}_2\times\mathbb{Z}_2$ orbifold of the Gepner model $(2)^4$. Its symmetry group $\mathbb{Z}_2^8:\mathbb{M}_{20}$ is one of the largest maximal symmetry groups of K3 sigma models [@gtvw2014].
 
 symmetry:
-  spacetime: '$PSU(1,1|2)\times PSU(1,1|2)$, extended to two small $\mathcal{N}=4$ super-Virasoro algebras at $c = \bar c = 6$ — 2d $\mathcal{N}=(4,4)$ superconformal group (8 $Q$ + 8 $S$ supercharges); parity not recorded (in a sigma-model description it maps $B \to -B$)'
+  spacetime: 'Two small $\mathcal{N}=4$ super-Virasoro algebras at $c = \bar c = 6$ — 2d $\mathcal{N}=(4,4)$ superconformal symmetry (8 $Q$ + 8 $S$ supercharges); parity not recorded (in a sigma-model description it maps $B \to -B$)'
   supercharges: 8
   global: '$SU(2)_L\times SU(2)_R$ R-symmetry; at special points, finite symmetry groups (subgroups of $\mathrm{Co}_0$)'
 

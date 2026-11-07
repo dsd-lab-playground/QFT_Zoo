@@ -7,7 +7,7 @@ tags: [CFT, interacting, unitary, rational, coset, minimal model]
 description: '$\mathcal{W}_3(6,7) = SU(3)_3\times SU(3)_1/SU(3)_4$. Its modular invariants (Beltaos–Gannon) are the diagonal one, a $\mathbb{Z}_3$ extension $D$ (from $SU(3)_3 \subset SO(8)_1$) and the partial conjugation $C_a$ acting on the level-3 label only.'
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{10}{7}$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{10}{7}$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$S_3$ ($\mathbb{Z}_3$ and $C: W \to -W$)'
 

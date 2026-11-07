@@ -90,7 +90,9 @@ family:
       note: 'No supersymmetric relevant deformation [@morrison1996].'
 
 symmetry:
-  spacetime: '$F(4)$ — 5d $\mathcal{N}=1$ superconformal group (8 $Q$ + 8 $S$ supercharges); parity not recorded'
+  spacetime: '5d $\mathcal{N}=1$ superconformal group (8 $Q$ + 8 $S$ supercharges); parity not recorded'
+  euclidean: '$SO(6,1)$ (bosonic conformal part)'
+  lorentzian: '$F(4)$'
   supercharges: 8
   global: 'Flavor $E_n$ for $n\ge1$, $U(1)$ for $\tilde E_1$, none for $E_0$; R-symmetry $SU(2)_R$'
   notes: 'In the infrared gauge theory only $SO(2N_f)\times U(1)_I$ is manifest; the current of $U(1)_I$ is proportional to $*\,\mathrm{Tr}\,F\wedge F$.'

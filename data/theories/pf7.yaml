@@ -5,7 +5,7 @@ summary: 'The $\mathbb{Z}_7$ parafermion CFT $SU(2)_7/U(1)$ with the diagonal in
 tags: [CFT, interacting, unitary, rational, coset]
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac43$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac43$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: 'Dihedral $D_{7}$: $\mathbb{Z}_{7}$ rotations $r$ and charge conjugation $C$'
 

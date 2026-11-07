@@ -8,7 +8,7 @@ tags: [CFT, interacting, unitary, rational]
 description: 'The modular data of TIM factorise as Fibonacci $\boxtimes$ a braided Ising category. Exchanging only the Fibonacci labels, $(f_1 i_1, f_2 i_2) \mapsto (f_2 i_1, f_1 i_2)$, is a braided autoequivalence of Rep(TIM$^2$) and therefore defines a full CFT. Its torus partition function equals that of the orbifold of $\mathrm{PF}_8$ by $\langle r^4, Cr\rangle \cong \mathbb{Z}_2^2$.'
 
 symmetry:
-  spacetime: '$SO(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac75$ — 2d conformal group; parity not recorded'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac75$ — 2d conformal symmetry; parity not recorded'
 
 quantities:
 - key: c

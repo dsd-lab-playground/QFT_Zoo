@@ -20,7 +20,7 @@ description: |
   related to a free Majorana fermion (they differ by a sum over spin structures).
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac12$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac12$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$\mathbb{Z}_2$'
   notes: 'Kramers–Wannier duality is a non-invertible symmetry of the critical theory.'

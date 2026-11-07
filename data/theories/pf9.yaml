@@ -5,7 +5,7 @@ summary: 'The $\mathbb{Z}_9$ parafermion CFT $SU(2)_9/U(1)$ with the diagonal in
 tags: [CFT, interacting, unitary, rational, coset]
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{16}{11}$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{16}{11}$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: 'Dihedral $D_{9}$: $\mathbb{Z}_{9}$ rotations $r$ and charge conjugation $C$'
 

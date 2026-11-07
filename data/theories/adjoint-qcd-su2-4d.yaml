@@ -39,7 +39,9 @@ description: |
 lagrangian: '\mathcal{L} = -\frac{1}{2g^2}\,\mathrm{Tr}\,F_{\mu\nu}F^{\mu\nu} + \sum_{i=1}^{2}\mathrm{Tr}\,\bar\psi_i\, i\gamma^\mu D_\mu\psi_i, \qquad D_\mu\psi = \partial_\mu\psi + i[A_\mu,\psi]'
 
 symmetry:
-  spacetime: '$O(5,1)$ — 4d conformal group with parity (infrared fixed point, from lattice evidence)'
+  spacetime: '4d conformal group with parity (infrared fixed point, from lattice evidence)'
+  euclidean: '$O(5,1)$'
+  lorentzian: '$O(4,2)$'
   supercharges: 0
   global: '$SU(4)$ acting on the four Majorana fermions (it contains $SU(2)_L\times SU(2)_R\times U(1)_V$ of the Dirac description)'
   gauge: '$SU(2)$'

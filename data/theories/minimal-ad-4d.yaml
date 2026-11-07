@@ -50,7 +50,9 @@ description: |
   $c$ at $\Delta_u = 6/5$ is consistent with converging to $11/30$, but this is not conclusive.
 
 symmetry:
-  spacetime: '$SU(2,2|2)$ — 4d $\mathcal{N}=2$ superconformal group (8 $Q$ + 8 $S$ supercharges); parity not recorded'
+  spacetime: '4d $\mathcal{N}=2$ superconformal group (8 $Q$ + 8 $S$ supercharges); parity not recorded'
+  euclidean: '$SO(5,1)$ (bosonic conformal part)'
+  lorentzian: '$SU(2,2|2)$'
   supercharges: 8
   global: 'No flavor symmetry; R-symmetry $SU(2)_R\times U(1)_r$'
 

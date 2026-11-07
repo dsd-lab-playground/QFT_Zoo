@@ -7,7 +7,7 @@ tags: [CFT, interacting, unitary, rational, orbifold]
 description: 'The $C$-twisted sectors have weights $h = \frac{k-2+(k-2s)^2}{16(k+2)}$; for $k=5$ the lightest is $h = \frac{1}{28}$.'
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac87$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac87$ — 2d conformal symmetry, with parity'
   global: 'Contains the dual $\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sectors'
 
 quantities:

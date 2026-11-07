@@ -42,7 +42,7 @@ family:
   - {at: '(E_8)_1', label: '$(E_8)_1$', c: '8', gap: '1', note: 'Lattice CFT of the $E_8$ lattice; the vacuum is the only primary and $Z = |j(\tau)|^{2/3}$. The gap comes from the 248 currents.'}
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{k\dim G}{k+h^\vee}$ — 2d conformal group with parity (combined with $g \to g^{-1}$)'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{k\dim G}{k+h^\vee}$ — 2d conformal symmetry, with parity (combined with $g \to g^{-1}$)'
   supercharges: 0
   global: 'Left and right multiplication of $g$ ($G_L \times G_R$), part of the chiral current algebras $\hat{\mathfrak g}_k \times \hat{\mathfrak g}_k$'
 

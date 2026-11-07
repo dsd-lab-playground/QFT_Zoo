@@ -5,7 +5,7 @@ summary: 'Diagonal $\mathbb{Z}_2$ orbifold of Ising $\times\ \mathcal{M}_{12}^{(
 tags: [CFT, interacting, unitary, rational, orbifold]
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{19}{13}$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{19}{13}$ — 2d conformal symmetry, with parity'
   global: 'Contains $\mathbb{Z}_2 \times \mathbb{Z}_2$: the spin flip of one factor (equivalent to that of the other once their product is gauged) and the dual $\mathbb{Z}_2$ of the orbifold, odd on the twisted sector'
 
 quantities:

@@ -84,7 +84,7 @@ family:
       note: 'Related to symplectic fermions and loop-erased random walks [@granssamuelsson2022].'
 
 symmetry:
-  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = 1 - \tfrac{6(1-g)^2}{g}$ — 2d conformal group with parity'
+  spacetime: 'Two Virasoro algebras, $c = \bar c = 1 - \tfrac{6(1-g)^2}{g}$ — 2d conformal symmetry, with parity; Euclidean only (non-unitary statistical model)'
   supercharges: 0
   global: '$O(n)$ for continuous $n$ (a categorical symmetry of the loop model)'
 
