@@ -77,7 +77,14 @@ symmetry:
   lorentzian: '$SU(2,2|1)$'
   supercharges: 4
   global: '$SU(N_f)\times SU(N_f)\times U(1)_B$ flavour symmetry and $U(1)_R$'
+  parity: true
+  global_group:
+    - {id: SU(Nf)_L, group: SU(N_f), tex: 'SU(N_f)_L'}
+    - {id: SU(Nf)_R, group: SU(N_f), tex: 'SU(N_f)_R'}
+    - {id: U(1)_B, group: U(1), tex: 'U(1)_B'}
+    - {id: U(1)_R, group: U(1), tex: 'U(1)_R', note: 'The superconformal R-symmetry: a chiral primary has $\Delta = \tfrac32 R$. Parity ($CP$) reverses it.'}
   gauge: '$SU(N_c)$ (electric) or $SU(N_f-N_c)$ (magnetic)'
+  notes: 'Multiplet names follow Cordova, Dumitrescu and Intriligator [@cdi2016].'
 
 quantities:
   - symbol: 'R_Q = R_{\tilde Q}'
@@ -109,27 +116,34 @@ operators:
   - name: 'M^i_{\ \tilde\jmath} = Q^i\tilde Q_{\tilde\jmath}'
     Delta: '3\Big(1 - \frac{N_c}{N_f}\Big)'
     spin: 0
-    rep: '$(\mathbf{N_f}, \overline{\mathbf{N_f}})$ of $SU(N_f)\times SU(N_f)$, $U(1)_B$ neutral'
+    parity: pair
+    global: {SU(Nf)_L: fundamental, SU(Nf)_R: antifundamental, U(1)_B: 0, U(1)_R: '2(N_f-N_c)/N_f'}
+    multiplet: {name: '$M$', component: primary, type: 'chiral, $L\bar B_1[0;0]^{(r)}_{3r/2}$'}
     method: exact
     refs: [seiberg1995]
     note: 'Chiral primary [@seiberg1995, Eq. (2.3)]. It equals 1 at $N_f = \tfrac32 N_c$. In the magnetic description $M$ is an elementary field.'
   - name: 'B = Q^{N_c},\ \tilde B = \tilde Q^{N_c}'
     Delta: '\frac{3N_c(N_f - N_c)}{2N_f}'
     spin: 0
-    rep: 'rank-$N_c$ antisymmetric tensor of $SU(N_f)_L$ (resp. $SU(N_f)_R$), $U(1)_B$ charge $\pm N_c$'
+    parity: pair
+    global: {SU(Nf)_L: [singlet, anti(N_c)], SU(Nf)_R: [singlet, anti(N_c)bar], U(1)_B: '±N_c', U(1)_R: 'N_c(N_f-N_c)/N_f'}
+    multiplet: {name: '$B$, $\tilde B$', component: primary, type: 'chiral, $L\bar B_1[0;0]^{(r)}_{3r/2}$'}
     method: exact
     refs: [seiberg1995]
     note: 'Baryons [@seiberg1995, Eq. (2.4)]. In the magnetic description $B \propto q^{N_f - N_c}$.'
   - name: 'J_\mu^{SU(N_f)_{L,R}},\ J_\mu^{B},\ J_\mu^{R}'
     Delta: 3
     spin: 1
-    rep: 'adjoints of $SU(N_f)_{L,R}$; singlets'
+    parity: unknown
+    global: {SU(Nf)_L: [singlet, adjoint], SU(Nf)_R: [singlet, adjoint], U(1)_B: 0, U(1)_R: 0}
     method: exact
     note: Conserved currents.
   - name: 'T_{\mu\nu}'
     Delta: 4
     spin: 2
-    rep: singlet
+    parity: even
+    global: {SU(Nf)_L: singlet, SU(Nf)_R: singlet, U(1)_B: 0, U(1)_R: 0}
+    multiplet: {name: stress tensor, component: 'Q\bar Q', type: '$A_1\bar A_1[1;1]^{(0)}_3$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -184,5 +198,10 @@ references:
     journal: JHEP 05 (2012) 110
     arxiv: '1109.5176'
     doi: 10.1007/JHEP05(2012)110
+  - key: cdi2016
+    title: Multiplets of Superconformal Symmetry in Diverse Dimensions
+    authors: Cordova, Dumitrescu, Intriligator
+    year: 2016
+    arxiv: '1612.00809'
 
 contributors: [Canonical111]

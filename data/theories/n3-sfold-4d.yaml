@@ -78,7 +78,11 @@ symmetry:
   lorentzian: '$SU(2,2|3)$'
   supercharges: 12
   global: '$R$-symmetry $SU(3)_R\times U(1)_R$; no continuous flavour symmetry'
-  notes: 'For $\ell < k$ the parent theory has a discrete $\mathbb{Z}_{k/\ell}$ global symmetry, and its gauging has a $\mathbb{Z}_{k/\ell}$ 2-form symmetry.'
+  parity: false
+  global_group:
+    - {id: SU(3)_R, group: SU(3), tex: 'SU(3)_R'}
+    - {id: U(1)_R, group: U(1), tex: 'U(1)_R'}
+  notes: 'For $\ell < k$ the parent theory has a discrete $\mathbb{Z}_{k/\ell}$ global symmetry, and its gauging has a $\mathbb{Z}_{k/\ell}$ 2-form symmetry. Multiplet names follow Cordova, Dumitrescu and Intriligator [@cdi2016].'
 
 quantities:
   - symbol: 'a = c'
@@ -104,21 +108,24 @@ operators:
   - name: 'u_j,\ j = 1, \dots, N-1'
     Delta: 'jk'
     spin: 0
-    rep: 'Coulomb-branch chiral primary'
+    global: {SU(3)_R: unknown, U(1)_R: unknown}
+    role: Coulomb-branch chiral primary
     method: exact, moduli space
     refs: [at2016]
     note: 'Generators of the Coulomb-branch chiral ring: symmetric polynomials of $z_i^k$, where $z_i$ are the D3-brane positions.'
   - name: 'u_N'
     Delta: 'N\ell'
     spin: 0
-    rep: 'Coulomb-branch chiral primary'
+    global: {SU(3)_R: unknown, U(1)_R: unknown}
+    role: Coulomb-branch chiral primary
     method: exact, moduli space
     refs: [at2016]
     note: 'The generator $(z_1\cdots z_N)^\ell$ of the parent theory (replaced by $\sum_i z_i^{Nk}$, of dimension $Nk$, after the discrete gauging). A Coulomb-branch operator of dimension 1 or 2 signals $\mathcal{N}=4$ enhancement.'
   - name: 'T_{\mu\nu}'
     Delta: 4
     spin: 2
-    rep: singlet
+    global: {SU(3)_R: singlet, U(1)_R: 0}
+    multiplet: {name: stress tensor, component: 'Q^2\bar Q^2', type: '$B_1\bar B_1[0;0]^{(1,1;0)}_2$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -152,5 +159,10 @@ references:
     journal: JHEP 06 (2016) 044
     arxiv: '1602.08638'
     doi: 10.1007/JHEP06(2016)044
+  - key: cdi2016
+    title: Multiplets of Superconformal Symmetry in Diverse Dimensions
+    authors: Cordova, Dumitrescu, Intriligator
+    year: 2016
+    arxiv: '1612.00809'
 
 contributors: [Canonical111]

@@ -61,6 +61,10 @@ symmetry:
   euclidean: '$O(5,1)$'
   supercharges: 0
   global: '$U(1)\times U(1)$ charges $J_1, J_2$ counting $\phi_1$ and $\phi_2$, and the global $SU(N_c)$ (operators are $SU(N_c)$ singlets)'
+  parity: true
+  global_group:
+    - {id: J1, group: U(1), tex: 'U(1)_{J_1}'}
+    - {id: J2, group: U(1), tex: 'U(1)_{J_2}'}
   notes: 'Non-unitary: the action is not real.'
 
 quantities:
@@ -81,35 +85,40 @@ operators:
   - name: '\mathrm{tr}(\phi_1\phi_1)'
     Delta: '2 \mp i\sqrt{2\sqrt{1+4\xi^4}-2}'
     spin: 0
-    rep: '$J_1 = 2$ (same for $\mathrm{tr}(\phi_2\phi_2)$)'
+    parity: even
+    global: {J1: 2, J2: 0}
     method: exact, root of the spectral relation
     refs: [grabner2018]
     note: 'Root of $(\Delta-4)(\Delta-2)^2\Delta = 16\xi^4$ [@grabner2018, Eq. (6)] that tends to 2 at $\xi = 0$; the sign labels the fixed point $\alpha_{1,\pm}^2$. Its expansion reproduces the seven-loop result $\Delta_\pm = 2 \mp 2i\xi^2 \pm i\xi^6 \mp \tfrac{7i}{4}\xi^{10} + O(\xi^{14})$ [@grabner2018, Eq. (16)].'
   - name: '\text{twist-4 scalar},\ J_1 = 2'
     Delta: '2 + \sqrt{2 + 2\sqrt{1+4\xi^4}}'
     spin: 0
-    rep: '$J_1 = 2$'
+    parity: even
+    global: {J1: 2, J2: 0}
     method: exact, root of the spectral relation
     refs: [grabner2018]
     note: 'The root of the relation [@grabner2018, Eq. (6)] that tends to 4; Grabner et al. [@grabner2018] give $4 + \xi^4 + O(\xi^8)$. Its shadow has $\Delta = -\xi^4 + O(\xi^8)$.'
   - name: '\text{twist-2, spin } S,\ J_1 = 2'
     Delta: 'S + 2 - \frac{2\xi^4}{S(S+1)} + O(\xi^8)'
     spin: 'S'
-    rep: '$J_1 = 2$; even $S \geq 2$'
+    parity: even
+    global: {J1: 2, J2: 0}
     method: exact, planar limit, weak-coupling expansion
     refs: [grabner2018]
     note: 'Exact dimensions solve $(\Delta+S-2)(\Delta+S)(\Delta-S-2)(\Delta-S-4) = 16\xi^4$ [@grabner2018, Eqs. (28), (30)]. The twist-4 partners have $\Delta = S + 4 + \frac{2\xi^4}{(S+1)(S+2)} + O(\xi^8)$.'
   - name: '\mathrm{tr}(\phi_1\phi_2),\ \mathrm{tr}(\phi_1\phi_2^\dagger)'
     Delta: 2
     spin: 0
-    rep: '$(J_1, J_2) = (1, 1)$ and $(1, -1)$'
+    parity: even
+    global: {J1: 1, J2: [1, -1]}
     method: exact, planar limit
     refs: [grabner2018]
     note: 'Protected at the fixed point $\alpha_2^2 = \xi^2$.'
   - name: 'T_{\mu\nu}'
     Delta: 4
     spin: 2
-    rep: singlet
+    parity: even
+    global: {J1: 0, J2: 0}
     method: exact
     note: Stress tensor (conserved).
 

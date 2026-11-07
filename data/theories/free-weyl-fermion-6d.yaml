@@ -45,6 +45,9 @@ symmetry:
   lorentzian: '$SO(6,2)$'
   supercharges: 0
   global: '$U(1)$ fermion number, $\psi\to e^{i\alpha}\psi$ (the manifest symmetry of the Weyl Lagrangian)'
+  parity: false
+  global_group:
+    - {id: U(1), group: U(1)}
   notes: 'Gravitational anomaly [@agw1984].'
 
 quantities:
@@ -89,20 +92,21 @@ operators:
   - name: '\psi'
     Delta: '\frac{5}{2}'
     spin: '1/2'
-    rep: 'charge $1$, one chirality'
+    lorentz: '[1/2, 1/2, 1/2]'
+    global: {U(1): 1}
     method: exact
     refs: [osborn1994, giombi2014]
     note: 'From $\langle\psi(x)\bar\psi(0)\rangle = \frac{1}{S_d}\frac{\gamma\cdot x}{x^d}$ [@osborn1994, Eq. (5.3)]; $\Delta = (d-1)/2$.'
   - name: 'J_\mu = \bar\psi\gamma_\mu\psi'
     Delta: 5
     spin: 1
-    rep: neutral
+    global: {U(1): 0}
     method: exact
     note: 'Conserved $U(1)$ current.'
   - name: 'T_{\mu\nu}'
     Delta: 6
     spin: 2
-    rep: neutral
+    global: {U(1): 0}
     method: exact
     note: Stress tensor (conserved).
 

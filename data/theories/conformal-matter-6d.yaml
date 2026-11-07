@@ -73,6 +73,12 @@ symmetry:
   lorentzian: '$OSp(8^*|2)$'
   supercharges: 8
   global: 'Flavor $G_L\times G_R$; R-symmetry $SU(2)_R$'
+  parity: false
+  global_group:
+    - {id: SU(2)_R, group: SU(2), tex: 'SU(2)_R'}
+    - {id: G_L, group: 'Lie(G)', tex: 'G_L'}
+    - {id: G_R, group: 'Lie(G)', tex: 'G_R'}
+  notes: 'Multiplet names follow Cordova, Dumitrescu and Intriligator [@cdi2016].'
 
 quantities:
   - symbol: '(\alpha,\beta,\gamma,x,y)'
@@ -86,13 +92,15 @@ operators:
   - name: 'J_\mu'
     Delta: 5
     spin: 1
-    rep: 'adjoint of $G_L$ or $G_R$'
+    global: {SU(2)_R: singlet, G_L: [singlet, adjoint], G_R: [singlet, adjoint]}
+    multiplet: {name: flavor current, component: 'Q^2', type: '$D_1[0,0,0]^{(2)}_4$'}
     method: exact
     note: Conserved flavor currents.
   - name: 'T_{\mu\nu}'
     Delta: 6
     spin: 2
-    rep: singlet
+    global: {SU(2)_R: singlet, G_L: singlet, G_R: singlet}
+    multiplet: {name: stress tensor, component: 'Q^4', type: '$B_3[0,0,0]^{(0)}_4$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -127,5 +135,10 @@ references:
     journal: JHEP 10 (2016) 080
     arxiv: '1506.03807'
     doi: 10.1007/JHEP10(2016)080
+  - key: cdi2016
+    title: Multiplets of Superconformal Symmetry in Diverse Dimensions
+    authors: Cordova, Dumitrescu, Intriligator
+    year: 2016
+    arxiv: '1612.00809'
 
 contributors: [Canonical111]

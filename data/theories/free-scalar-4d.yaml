@@ -25,6 +25,9 @@ symmetry:
   lorentzian: '$O(4,2)$'
   supercharges: 0
   global: '$\mathbb{Z}_2$ ($\phi\to-\phi$), plus shift symmetry $\phi \to \phi + \text{const}$'
+  parity: true
+  global_group:
+    - {id: Z2, group: Z2}
 
 quantities:
   - key: a
@@ -52,23 +55,27 @@ operators:
   - name: '\phi'
     Delta: 1
     spin: 0
-    rep: '$\mathbb{Z}_2$-odd'
+    parity: even
+    global: {Z2: odd}
     method: exact
   - name: '\phi^2'
     Delta: 2
     spin: 0
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: exact
   - name: '\phi^4'
     Delta: 4
     spin: 0
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: exact
     note: Marginal at the free point; the coupling is marginally irrelevant.
   - name: 'T_{\mu\nu}'
     Delta: 4
     spin: 2
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: exact
     note: Stress tensor (conserved).
 

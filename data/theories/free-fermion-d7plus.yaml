@@ -49,6 +49,9 @@ symmetry:
   lorentzian: '$O(d,2)$'
   supercharges: 0
   global: '$U(1)$ fermion number (the manifest symmetry)'
+  parity: true
+  global_group:
+    - {id: U(1), group: U(1)}
 
 quantities:
   - symbol: 'C_T'
@@ -62,27 +65,31 @@ operators:
   - name: '\psi'
     Delta: '\frac{d-1}{2}'
     spin: '1/2'
-    rep: 'charge $1$'
+    parity: unknown
+    global: {U(1): 1}
     method: exact
     refs: [osborn1994]
     note: 'Saturates the spinor unitarity bound.'
   - name: '\bar\psi\psi'
     Delta: 'd-1'
     spin: 0
-    rep: neutral
+    parity: unknown
+    global: {U(1): 0}
     method: exact
     refs: [osborn1994]
     note: 'Dirac mass term. Relevant.'
   - name: 'J_\mu = \bar\psi\gamma_\mu\psi'
     Delta: 'd-1'
     spin: 1
-    rep: neutral
+    parity: even
+    global: {U(1): 0}
     method: exact
     note: 'Conserved $U(1)$ current.'
   - name: 'T_{\mu\nu}'
     Delta: 'd'
     spin: 2
-    rep: neutral
+    parity: even
+    global: {U(1): 0}
     method: exact
     note: Stress tensor (conserved).
 

@@ -107,6 +107,29 @@ def parse_factor(f: dict, params: set[str]) -> dict:  # noqa: F811 (extends the 
     return _parse_factor_base(f, params)
 
 
+# --- extension (4d-and-up batch): exceptional groups E6, E7, E8, and a parameter-dependent Lie group `Lie(G)` -------
+# `E_6`, `E_7`, `E_8` (or E6, E7, E8): flavor symmetries of Minahan–Nemeschansky, E-string and Seiberg theories.
+# `Lie(G)`: a continuous group that differs between the members of a family and has no single type, e.g. G_L x G_R of
+# conformal matter, E_n of Seiberg's 5d theories, the flavor group of each Argyres–Douglas theory; G is its display
+# name. Only labels valid for every member are offered (singlet, adjoint: the adjoint of its Lie algebra, reducible
+# when a member's group is not simple). Labels: see the matching block in the labels section.
+
+_GROUP.extend([
+    (re.compile(r"^E_?\{?([678])\}?$"), lambda m: {"type": "E", "n": int(m.group(1))}),
+    (re.compile(r"^Lie\((.+)\)$"), lambda m: {"type": "Lie", "name": m.group(1).strip()}),
+])
+
+_default_tex_core = default_tex
+
+
+def default_tex(group: str, g: dict) -> str:  # noqa: F811 (extends the definition above)
+    if g["type"] == "E":
+        return f"E_{g['n']}"
+    if g["type"] == "Lie":
+        return g["name"]
+    return _default_tex_core(group, g)
+
+
 # ------------------------------------------------------------------ labels
 
 def _num(s: str, params: set[str]):
@@ -461,6 +484,54 @@ def _label_ext(g, t, s, params, G):
         return {"canon": f"{kind}({k}){'bar' if conj else ''}", "short": short, "trivial": False,
                 "sort": [BIG, 2 if kind == "sym" else 3, int(conj)]}
     return None
+
+
+# --- extension (4d-and-up batch): labels of E_n and Lie(G); U(1) charges that depend on parameters ------------------
+# E_6, E_7, E_8: `singlet`, `adjoint` (78, 133, 248), and for E_6 `fundamental` (27) and `antifundamental` (27bar),
+# for E_7 `fundamental` (56). Lie(G): `singlet`, `adjoint`.
+# U(1): besides numbers, a charge may be an expression in the entry's parameters, optionally with a sign or ±:
+# '2(N_f-N_c)/N_f', '±N_c', '-N'. It sorts after every numeric charge.
+
+E_IRREPS = {
+    6: {"singlet": (1, ""), "fundamental": (27, "27"), "antifundamental": (27, "27b"), "adjoint": (78, "78")},
+    7: {"singlet": (1, ""), "fundamental": (56, "56"), "adjoint": (133, "133")},
+    8: {"singlet": (1, ""), "adjoint": (248, "248")},
+}
+
+_label_core = _label
+
+
+def _label(g, t, s, params, G):  # noqa: F811 (extends the definition above)
+    if t == "E":
+        irr = E_IRREPS[g["n"]]
+        if s not in irr:
+            raise RepError(f"an E_{g['n']} label is {', '.join(irr)}; not '{s}'")
+        dim, name = irr[s]
+        if s == "singlet":
+            return {"canon": s, "short": "singlet", "trivial": True, "sort": [1, 0]}
+        return {"canon": s, "short": f"{s} ${bold_dim(name)}$", "trivial": False, "sort": [dim, int(name.endswith("b"))]}
+    if t == "Lie":
+        if s not in ("singlet", "adjoint"):
+            raise RepError(f"a Lie(G) label (a group that depends on the family member) is singlet or adjoint; not '{s}'")
+        return {"canon": s, "short": s, "trivial": s == "singlet", "sort": [0 if s == "singlet" else 1]}
+    if t == "U1":
+        try:
+            charge(s)
+        except RepError:
+            v = s.replace("+-", "±").strip()
+            sign = v[0] if v[:1] in ("±", "-", "+") else ""
+            body = v[len(sign):].strip()
+            try:
+                e = _num(body, params)
+            except RepError:
+                raise RepError(f"charge '{s}' is not an integer, a fraction a/b, ±q, or an expression in the entry's parameters")
+            if isinstance(e, int):
+                return _label_core(g, t, s, params, G)
+            pre = {"±": "\\pm ", "-": "-", "+": ""}.get(sign, "")
+            canon = ("±" if sign == "±" else "-" if sign == "-" else "") + norm_sym(e)
+            return {"canon": canon, "short": f"charge ${pre}{e}$", "trivial": False,
+                    "sort": [BIG, {"±": 0, "": 1, "+": 1, "-": 2}[sign]]}
+    return _label_core(g, t, s, params, G)
 
 
 # ------------------------------------------------------------------ spacetime

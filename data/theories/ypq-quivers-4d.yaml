@@ -60,7 +60,14 @@ symmetry:
   lorentzian: '$SU(2,2|1)$'
   supercharges: 4
   global: '$SU(2)\times U(1)_F$ and $U(1)_R$ (together the isometries of $Y^{p,q}$), and the baryonic $U(1)_B$'
+  parity: false
+  global_group:
+    - {id: SU(2), group: SU(2)}
+    - {id: U(1)_F, group: U(1), tex: 'U(1)_F'}
+    - {id: U(1)_R, group: U(1), tex: 'U(1)_R'}
+    - {id: U(1)_B, group: U(1), tex: 'U(1)_B'}
   gauge: '$SU(N)^{2p}$'
+  notes: 'Multiplet names follow Cordova, Dumitrescu and Intriligator [@cdi2016].'
 
 quantities:
   - symbol: 'a = c'
@@ -86,13 +93,14 @@ operators:
   - name: 'J_\mu^{SU(2)},\ J_\mu^{F},\ J_\mu^{B},\ J_\mu^{R}'
     Delta: 3
     spin: 1
-    rep: 'adjoint of $SU(2)$; singlets'
+    global: {SU(2): [singlet, adjoint], U(1)_F: 0, U(1)_R: 0, U(1)_B: 0}
     method: exact
     note: Conserved currents.
   - name: 'T_{\mu\nu}'
     Delta: 4
     spin: 2
-    rep: singlet
+    global: {SU(2): singlet, U(1)_F: 0, U(1)_R: 0, U(1)_B: 0}
+    multiplet: {name: stress tensor, component: 'Q\bar Q', type: '$A_1\bar A_1[1;1]^{(0)}_3$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -115,5 +123,10 @@ references:
     year: 2004
     journal: Adv. Theor. Math. Phys. 8, 711
     arxiv: hep-th/0403002
+  - key: cdi2016
+    title: Multiplets of Superconformal Symmetry in Diverse Dimensions
+    authors: Cordova, Dumitrescu, Intriligator
+    year: 2016
+    arxiv: '1612.00809'
 
 contributors: [Canonical111]

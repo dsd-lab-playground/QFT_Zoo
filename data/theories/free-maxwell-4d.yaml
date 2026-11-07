@@ -47,6 +47,9 @@ symmetry:
   lorentzian: '$O(4,2)$'
   supercharges: 0
   global: '$U(1)^{(1)}_e \times U(1)^{(1)}_m$ one-form symmetries (with a mixed anomaly), and charge conjugation $\mathbb{Z}_2^C$'
+  parity: true
+  global_group:
+    - {id: C, group: Z2, tex: '\mathbb{Z}_2^C', note: 'Charge conjugation. The one-form symmetries act on line operators, not on local operators, and are not factors here.'}
   gauge: '$U(1)$'
 
 quantities:
@@ -75,25 +78,30 @@ operators:
   - name: 'F_{\mu\nu}'
     Delta: 2
     spin: '(1,0)\oplus(0,1)'
-    rep: '$C$-odd'
+    lorentz: '(1, 0)'
+    parity: pair
+    global: {C: odd}
     method: exact
     note: 'Free field. $F$ and its dual $\tilde F$ are the conserved two-form currents of the electric and magnetic one-form symmetries.'
   - name: 'F_{\mu\nu}F^{\mu\nu}'
     Delta: 4
     spin: 0
-    rep: '$C$-even'
+    parity: even
+    global: {C: even}
     method: exact
     note: 'Exactly marginal: it shifts $1/e^2$.'
   - name: 'F_{\mu\nu}\tilde F^{\mu\nu}'
     Delta: 4
     spin: 0
-    rep: '$C$-even, $P$-odd'
+    parity: odd
+    global: {C: even}
     method: exact
     note: 'Locally a total derivative; its integral is the $\theta$ term.'
   - name: 'T_{\mu\nu}'
     Delta: 4
     spin: 2
-    rep: '$C$-even'
+    parity: even
+    global: {C: even}
     method: exact
     note: Stress tensor (conserved).
 
