@@ -188,7 +188,9 @@ def check_entry(data: dict, rel: str) -> list[str]:
 
 def flow_ref_keys(flow: dict) -> list[tuple[str, str]]:
     """Every (location, reference key) used inside a relation's `flow` block."""
-    out = [("flow/refs", k) for k in flow.get("refs", [])]
+    ident = flow.get("identification", {})
+    out = [("flow/identification/refs", k) for k in ident.get("refs", [])]
+    out += [("flow/identification/competing_refs", k) for k in ident.get("competing_refs", [])]
     for sec in ("deformations", "vevs", "tuned", "symmetry_changes"):
         for j, item in enumerate(flow.get(sec, [])):
             out += [(f"flow/{sec}/{j}/refs", k) for k in item.get("refs", [])]
@@ -252,6 +254,15 @@ def check_flows(data: dict, rel: str, keys: list[str]) -> list[str]:
             continue
         if not f.get("deformations") and not f.get("vevs"):
             errs.append(f"{where}/flow: give `deformations`, `vevs` or both")
+        if f["identification"]["status"] == "disputed" and not f["identification"].get("competing_refs"):
+            errs.append(f"{where}/flow/identification: a disputed identification needs `competing_refs`")
+        # Every statement has its own sources, unless it is standard.
+        items = [(f"{sec}/{j}", x) for sec in ("deformations", "vevs", "tuned", "symmetry_changes")
+                 for j, x in enumerate(f.get(sec, []))]
+        items += [(k, f[k]) for k in ("spectrum", "integrability") if k in f]
+        for loc, x in items:
+            if not x.get("refs") and not x.get("standard"):
+                errs.append(f"{where}/flow/{loc}: needs `refs` (or `standard: true` for a textbook statement)")
         for j, dfm in enumerate(f.get("deformations", [])):
             if "sign" in dfm and not str(dfm.get("sign_convention", "")).strip():
                 errs.append(f"{where}/flow/deformations/{j}: `sign` needs a `sign_convention` "
@@ -263,10 +274,8 @@ def check_flows(data: dict, rel: str, keys: list[str]) -> list[str]:
         if spec is not None:
             if not any(k in spec for k in ("summary", "particles", "vacua", "kinks")):
                 errs.append(f"{where}/flow/spectrum: give at least one of summary, particles, vacua, kinks")
-            if any(k in spec for k in ("summary", "vacua", "kinks")) and not spec.get("refs"):
-                errs.append(f"{where}/flow/spectrum: `summary`, `vacua` and `kinks` need `refs`")
         integ = f.get("integrability")
-        if integ and integ["status"] != "open" and not str(integ.get("note", "")).strip():
+        if integ and integ["status"] != "open" and not integ.get("standard") and not str(integ.get("note", "")).strip():
             errs.append(f"{where}/flow/integrability: status `{integ['status']}` needs a `note` "
                         f"naming the evidence")
         for loc, k in flow_ref_keys(f):

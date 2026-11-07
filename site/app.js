@@ -821,15 +821,19 @@ function drawFlowArrows() {
 function flowSources(f) {
   const uv = BY_ID.get(f.uv);
   const fl = f.flow || {};
-  const keys = [...(fl.refs || [])];
+  const keys = [];
   const add = (ks) => (ks || []).forEach((k) => keys.includes(k) || keys.push(k));
+  add(fl.identification?.refs);
+  add(fl.identification?.competing_refs);
   ["deformations", "vevs", "tuned", "symmetry_changes"].forEach((s) => (fl[s] || []).forEach((x) => add(x.refs)));
   add(fl.spectrum?.refs);
   (fl.spectrum?.particles || []).forEach((p) => add(p.refs));
   add(fl.integrability?.refs);
   const refs = keys.map((k) => (uv.references || []).find((r) => r.key === k)).filter(Boolean);
-  const cite = (ks) =>
-    (ks || []).map((k) => keys.indexOf(k)).filter((i) => i >= 0).map((i) => `<span class="cite">[${i + 1}]</span>`).join("");
+  // An item's sources, or "standard" for a textbook statement.
+  const cite = (ks, x = {}) =>
+    (ks || []).map((k) => keys.indexOf(k)).filter((i) => i >= 0).map((i) => `<span class="cite">[${i + 1}]</span>`).join("") +
+    (x.standard ? ' <span class="muted small">(standard)</span>' : "");
   return { refs, cite };
 }
 
@@ -849,6 +853,7 @@ function spectrumSummary(sp) {
 
 const NOT_RECORDED = `<span class="muted">Not recorded</span>`;
 const INTEGRABILITY = { integrable: "Integrable", not_integrable: "Not integrable", open: "Open question" };
+const IDENT = { established: "Established", conjectured: "Conjectured", disputed: "Disputed" };
 
 function flowPanel(f) {
   const fl = f.flow;
@@ -861,8 +866,11 @@ function flowPanel(f) {
   row("To (IR)", nodeName(f.ir) + (f.expr?.decoration ? `<div class="sub">${md(f.expr.decoration, true)}</div>` : ""));
   if (f.note) row("Description", md(f.note, true));
   if (!fl) {
-    row("Details", `${NOT_RECORDED}: this flow has no structured data yet (operator, sign, symmetry, spectrum, integrability).`);
+    row("Details", `${NOT_RECORDED}: this flow has no structured data yet (who identified it, operator, sign, symmetry, spectrum, integrability).`);
   } else {
+    const id = fl.identification;
+    row("Identification", `${IDENT[id.status]}, by ${md(id.method, true)} ${cite(id.refs)}${
+      id.competing_refs ? `<div class="sub">Argued otherwise: ${cite(id.competing_refs)}</div>` : ""}${note(id)}`);
     const kind = [fl.deformations?.length && "relevant deformation", fl.vevs?.length && "vacuum expectation value"].filter(Boolean);
     row("Kind", kind.join(" and ").replace(/^./, (c) => c.toUpperCase()));
     for (const d of fl.deformations || []) {
@@ -870,21 +878,21 @@ function flowPanel(f) {
       const sign = d.sign
         ? `${tex(`${d.coupling} ${SIGN_REL[d.sign]}`)} <span class="muted">(${SIGN_WORD[d.sign]})</span><div class="sub">Convention: ${md(d.sign_convention, true)}</div>`
         : `<div class="sub">Sign: ${NOT_RECORDED}</div>`;
-      row("Deformation", `${tex(d.operator)}${dims ? ` <span class="muted">(${dims})</span>` : ""}, coupling ${tex(d.coupling)} ${cite(d.refs)}<div>${sign}</div>${note(d)}`);
+      row("Deformation", `${tex(d.operator)}${dims ? ` <span class="muted">(${dims})</span>` : ""}, coupling ${tex(d.coupling)} ${cite(d.refs, d)}<div>${sign}</div>${note(d)}`);
     }
     for (const v of fl.vevs || [])
-      row("Vev", `${tex(`\\langle ${v.operator} \\rangle \\neq 0`)}: ${md(v.direction, true)}${v.branch ? ` <span class="muted">(${md(v.branch, true)})</span>` : ""} ${cite(v.refs)}${note(v)}`);
+      row("Vev", `${tex(`\\langle ${v.operator} \\rangle \\neq 0`)}: ${md(v.direction, true)}${v.branch ? ` <span class="muted">(${md(v.branch, true)})</span>` : ""} ${cite(v.refs, v)}${note(v)}`);
     row("Tuned", fl.tuned?.length
-      ? fl.tuned.map((x) => `<div>${tex(x.operator)}, coupling ${tex(x.coupling)}: ${md(x.condition, true)} ${cite(x.refs)}${note(x)}</div>`).join("")
+      ? fl.tuned.map((x) => `<div>${tex(x.operator)}, coupling ${tex(x.coupling)}: ${md(x.condition, true)} ${cite(x.refs, x)}${note(x)}</div>`).join("")
       : NOT_RECORDED);
     row("Symmetry", fl.symmetry_changes?.length
       ? fl.symmetry_changes.map((s) => `<div>${md(s.from, true)} → ${md(s.to, true)} <span class="muted">(${esc(s.kind)}${
-          s.vacua ? `, ${s.vacua} vacu${s.vacua > 1 ? "a" : "um"}` : ""})</span>${s.manifold ? `, vacuum manifold ${md(s.manifold, true)}` : ""} ${cite(s.refs)}${note(s)}</div>`).join("")
+          s.vacua ? `, ${s.vacua} vacu${s.vacua > 1 ? "a" : "um"}` : ""})</span>${s.manifold ? `, vacuum manifold ${md(s.manifold, true)}` : ""} ${cite(s.refs, s)}${note(s)}</div>`).join("")
       : NOT_RECORDED);
     const sp = fl.spectrum;
     let spec = NOT_RECORDED;
     if (sp) {
-      spec = `${spectrumSummary(sp)} ${cite(sp.refs)}${note(sp)}`;
+      spec = `${spectrumSummary(sp)} ${cite(sp.refs, sp)}${note(sp)}`;
       // With a flow page, the full table lives there; otherwise it can be opened here.
       if (sp.particles?.length && !fl.page)
         spec += `<details class="flow-particles"><summary>Particles (${sp.particles.length} rows)</summary>${table(
@@ -895,7 +903,7 @@ function flowPanel(f) {
     }
     row("Massive spectrum", spec);
     const ig = fl.integrability;
-    row("Integrability", ig ? `${INTEGRABILITY[ig.status]} ${cite(ig.refs)}${note(ig)}` : NOT_RECORDED);
+    row("Integrability", ig ? `${INTEGRABILITY[ig.status]} ${cite(ig.refs, ig)}${note(ig)}` : NOT_RECORDED);
     if (fl.page && BY_ID.get(fl.page)) row("Flow page", `<a href="#/theory/${encodeURIComponent(fl.page)}">${md(BY_ID.get(fl.page).name, true)}</a>`);
     if (fl.note) row("Notes", md(fl.note, true));
   }
@@ -917,6 +925,7 @@ function flowPreview(f) {
     bits.push(`${tex(d.operator)}, ${d.sign ? tex(`${d.coupling} ${SIGN_REL[d.sign]}`) : `coupling ${tex(d.coupling)}`}`);
   for (const v of fl?.vevs || []) bits.push(`vev ${tex(`\\langle ${v.operator} \\rangle`)}`);
   if (!bits.length && f.note) bits.push(md(f.note, true));
+  if (fl?.identification && fl.identification.status !== "established") bits.push(`<i>${IDENT[fl.identification.status].toLowerCase()}</i>`);
   return `<b>${esc(nodePlain(f.uv))} → ${esc(nodePlain(f.ir))}</b>${bits.length ? `<div>${bits.join("; ")}</div>` : ""}
     <div class="muted small">${fl ? "Click or tap for details" : "Click or tap for the description"}</div>`;
 }
@@ -989,11 +998,20 @@ function hideTip(el) {
 }
 
 /** The list of flows next to a diagram, each with a button opening the same panel. */
-function flowItem(f, other, at = "") {
+function flowItem(f, other, at = "", withSources = false) {
   const desc = f.note ? md(f.note, true) : f.flow ? flowPreviewText(f) : "";
+  let ident = "";
+  if (withSources && f.flow) {
+    // On a flow's own page: who identified the flow, with the papers (from the UV entry's references).
+    const id = f.flow.identification;
+    const refs = BY_ID.get(f.uv).references || [];
+    const list = (ks) => ks.map((k) => refs.find((r) => r.key === k)).filter(Boolean).map((r) => refItem(r).replace(/ id="ref-[^"]*"/, "")).join("");
+    ident = `<div class="sub">Identification: ${IDENT[id.status]}, by ${md(id.method, true)}.</div><ol class="refs flow-refs">${list(id.refs)}</ol>${
+      id.competing_refs ? `<div class="sub">Argued otherwise:</div><ol class="refs flow-refs">${list(id.competing_refs)}</ol>` : ""}`;
+  }
   return `<li>${nodeName(other)}${at}${desc ? ` <span class="muted">— ${desc}</span>` : ""}
     <button type="button" class="linkish flow-open" data-flow-open="${esc(f.key)}" aria-expanded="false"
-      aria-label="Details of the ${esc(edgeName(f).replace(/^Flow/, "flow"))}">details</button></li>`;
+      aria-label="Details of the ${esc(edgeName(f).replace(/^Flow/, "flow"))}">details</button>${ident}</li>`;
 }
 
 function flowPreviewText(f) {
@@ -1018,7 +1036,7 @@ function flowList(t, fs) {
     ["Flows from (UV)", fs.from.map((f) => flowItem(f, f.uv, linkAt(t, { target: f.uv, at: f.rel.at, variant: f.rel.variant })))],
     ["Flows to (IR)", fs.to.map((f) => flowItem(f, f.ir, linkAt(t, f.rel)))],
     ["Part of a composite IR", fs.part.map((f) => flowItem(f, f.ir, ` <span class="muted">(from ${nodeName(f.uv)})</span>`))],
-    ["Flows described on this page", fs.page.map((f) => flowItem(f, f.ir, ` <span class="muted">(from ${nodeName(f.uv)})</span>`))],
+    ["Flows described on this page", fs.page.map((f) => flowItem(f, f.ir, ` <span class="muted">(from ${nodeName(f.uv)})</span>`, true))],
   ].filter(([, items]) => items.length);
   return `<dl class="kv relations">${groups.map(([title, items]) => `<dt>${title}</dt><dd><ul>${items.join("")}</ul></dd>`).join("")}</dl>`;
 }

@@ -9,16 +9,21 @@ relations:
     id: mixed
     target: fixture-neither
     flow:
-      refs: [review]
+      identification:
+        status: established
+        method: 'fixture TCSA'
+        refs: [review]
       deformations:
         - operator: '\mathcal{O}'''
           coupling: 'h'
           sign: either
           sign_convention: '$S = S_{\rm IR} + h\int\mathcal{O}''$.'
           note: 'Synthetic: the fixture symmetry maps $h \to -h$.'
+          refs: [review]
       vevs:
         - operator: '\chi'
           direction: 'the fixture direction'
+          standard: true
       spectrum:
         summary: 'Three fixture particles.'
         refs: [review]

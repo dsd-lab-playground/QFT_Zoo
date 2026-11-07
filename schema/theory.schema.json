@@ -541,17 +541,12 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "refs"
+        "identification"
       ],
-      "description": "Structured description of a flows_to relation. Give `deformations`, `vevs` or both. Every field is optional apart from `refs`: a field that is absent is shown as 'not recorded', never as 'none'. Reference keys are always those of the UV entry.",
+      "description": "Structured description of a flows_to relation. Give `identification`, and `deformations`, `vevs` or both. Every item needs its own `refs` unless it is marked `standard: true` (textbook or exact by construction). A field that is absent is shown as 'not recorded', never as 'none'. Reference keys are always those of the UV entry.",
       "properties": {
-        "refs": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "string"
-          },
-          "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
+        "identification": {
+          "$ref": "#/$defs/flowIdentification"
         },
         "deformations": {
           "type": "array",
@@ -643,6 +638,10 @@
           "type": "string",
           "description": "[markdown]"
         },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
+        },
         "refs": {
           "$ref": "#/$defs/refKeys",
           "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
@@ -672,6 +671,10 @@
         "note": {
           "type": "string",
           "description": "[markdown]"
+        },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
         },
         "refs": {
           "$ref": "#/$defs/refKeys",
@@ -703,6 +706,10 @@
         "note": {
           "type": "string",
           "description": "[markdown]"
+        },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
         },
         "refs": {
           "$ref": "#/$defs/refKeys",
@@ -748,6 +755,10 @@
           "type": "string",
           "description": "[markdown]"
         },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
+        },
         "refs": {
           "$ref": "#/$defs/refKeys",
           "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
@@ -757,7 +768,7 @@
     "flowSpectrum": {
       "type": "object",
       "additionalProperties": false,
-      "description": "What is known about the massive spectrum when the IR is (partly) gapped. Give `refs` whenever `summary`, `vacua` or `kinks` is present.",
+      "description": "What is known about the massive spectrum when the IR is (partly) gapped. Needs `refs` (or `standard: true`); each particle row has its own.",
       "properties": {
         "summary": {
           "type": "string",
@@ -783,6 +794,10 @@
         "note": {
           "type": "string",
           "description": "[markdown] e.g. how masses are normalized."
+        },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
         },
         "refs": {
           "$ref": "#/$defs/refKeys",
@@ -838,8 +853,7 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "status",
-        "refs"
+        "status"
       ],
       "properties": {
         "status": {
@@ -854,13 +868,13 @@
           "type": "string",
           "description": "[markdown]"
         },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
+        },
         "refs": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "string"
-          },
-          "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
+          "$ref": "#/$defs/refKeys",
+          "description": "Keys in the references list of the UV entry. Required unless `standard: true`."
         }
       }
     },
@@ -977,6 +991,50 @@
             "type": "string",
             "pattern": "^[A-Za-z0-9-]+$"
           }
+        }
+      }
+    },
+    "flowIdentification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "method",
+        "refs"
+      ],
+      "description": "Who established that this UV theory flows to this IR theory, and how. Separate from the sources of the deformation, spectrum, etc.",
+      "properties": {
+        "status": {
+          "enum": [
+            "established",
+            "conjectured",
+            "disputed"
+          ],
+          "description": "disputed needs `competing_refs`."
+        },
+        "method": {
+          "type": "string",
+          "description": "[markdown] The argument: anomaly matching, numerics, lattice, supersymmetry, a duality, ..."
+        },
+        "refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "description": "Keys in the references list of the UV entry: the papers that identified the flow."
+        },
+        "competing_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "description": "For a disputed or conjectured identification: papers that argue otherwise."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
         }
       }
     }

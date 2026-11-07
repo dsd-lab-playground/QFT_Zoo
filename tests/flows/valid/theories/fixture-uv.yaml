@@ -13,7 +13,10 @@ relations:
     target: fixture-ir
     note: 'Legacy description, kept beside the structured data.'
     flow:
-      refs: [review]
+      identification:
+        status: established
+        method: 'fixture numerics'
+        refs: [review]
       deformations:
         - operator: '\mathcal{O}'
           coupling: 'g'
@@ -21,14 +24,17 @@ relations:
           rep: '$G$-singlet'
           sign: positive
           sign_convention: '$S = S_{\rm UV} + g\int \mathcal{O}$, with $\mathcal{O}$ normalized as in [fixture-a].'
+          refs: [fixture-a]
       tuned:
         - operator: '\mathcal{E}'
           coupling: 't'
           condition: '$t = t_c(g)$'
+          standard: true
       symmetry_changes:
         - from: '$G$'
           to: '$H$'
           kind: explicit
+          standard: true
       integrability:
         status: open
         refs: [fixture-a]
@@ -37,7 +43,12 @@ relations:
     id: negative-g
     target: fixture-ir
     flow:
-      refs: [fixture-a]
+      identification:
+        status: conjectured
+        method: 'fixture anomaly matching'
+        refs: [fixture-a]
+        competing_refs: [review]
+        note: 'Synthetic: the fixture review argues for another IR.'
       deformations:
         - operator: '\mathcal{O}'
           coupling: 'g'
@@ -49,6 +60,7 @@ relations:
           to: '$K$'
           kind: spontaneous
           vacua: 2
+          refs: [fixture-a]
       integrability:
         status: integrable
         note: 'Synthetic: infinitely many fixture charges.'
@@ -68,12 +80,17 @@ relations:
           multiplicity: 2
       decoration: 'The fixture symmetry exchanges the two summands.'
     flow:
-      refs: [fixture-a]
+      identification:
+        status: disputed
+        method: 'fixture lattice'
+        refs: [fixture-a]
+        competing_refs: [review]
       deformations:
         - operator: '\mathcal{E}'
           coupling: 't'
           sign: negative
           sign_convention: '$S = S_{\rm UV} + t\int\mathcal{E}$.'
+          standard: true
       spectrum:
         vacua: 2
         kinks: 'Domain walls between the two vacua.'
@@ -90,11 +107,15 @@ relations:
               - expr: {entry: fixture-both}
               - expr: {entry: fixture-family, at: 2}
     flow:
-      refs: [fixture-a]
+      identification:
+        status: established
+        method: 'fixture supersymmetry'
+        refs: [fixture-a]
       vevs:
         - operator: '\Phi'
           direction: 'a generic point of the fixture branch'
           branch: 'Coulomb branch'
+          refs: [fixture-a]
   - type: related_to
     target: fixture-neither
     note: 'An ordinary relation, unchanged.'
