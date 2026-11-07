@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nathansbenjamin/QFT_Zoo/schema/methods.schema.json",
+  "title": "QFT Zoo methods list (data/methods.yaml)",
+  "description": "The methods that a quantity's or operator's `method` field names by abbreviation. See CONTRIBUTING.md, \"Methods\".",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["methods"],
+  "properties": {
+    "methods": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/method" }
+    }
+  },
+  "$defs": {
+    "method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["abbr", "name", "description"],
+      "properties": {
+        "abbr": {
+          "type": "string",
+          "pattern": "^[^\\s,]{1,12}$",
+          "description": "What data rows write, e.g. 'MC-BC': no spaces or commas, at most 12 characters."
+        },
+        "name": {
+          "type": "string",
+          "description": "[markdown] Full name, shown on hover and on the Methods page."
+        },
+        "parent": {
+          "type": "string",
+          "description": "The abbr of the broader method this is a kind of (MC-BC: MC)."
+        },
+        "description": {
+          "type": "string",
+          "description": "[markdown] One to three sentences: what the method is and what kind of error it gives."
+        },
+        "links": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "url"],
+            "properties": {
+              "label": { "type": "string" },
+              "url": { "type": "string", "pattern": "^https://" }
+            }
+          },
+          "description": "Pages that explain the method (Wikipedia, a standard review)."
+        }
+      }
+    }
+  }
+}

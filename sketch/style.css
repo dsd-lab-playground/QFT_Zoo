@@ -143,6 +143,17 @@ table.catalogue td.sym { min-width: 150px; }
 table.catalogue td.summary { color: var(--muted); min-width: 260px; }
 
 table.data .value { white-space: nowrap; }
+/* Operators grouped by representation: one tbody per sector, headed by its rep. */
+table.data.grouped tbody tr:nth-child(even) { background: none; }
+table.data.grouped tbody tr:nth-child(odd):not(.op-group) { background: var(--row-hover); }
+table.data.grouped tr.op-group th {
+  background: var(--accent-soft); color: var(--text); font: 600 0.92rem var(--sans);
+  padding: 5px 10px; border-top: 1px solid var(--border);
+}
+table.data.grouped tr.op-group th .katex { font-size: 1.05em; }
+table.data.grouped tbody tr:last-child td { border-bottom: 1px solid var(--border); }
+table.data.grouped tbody:last-child tr:last-child td { border-bottom: 0; }
+.op-group-none { color: var(--muted); font-weight: 400; font-style: italic; }
 .sub { color: var(--muted); font-size: 0.88rem; margin-top: 2px; }
 
 .empty { text-align: center; color: var(--muted); padding: 30px 0; }
@@ -392,3 +403,16 @@ a.flow-node:hover, a.flow-node:focus-visible { background: var(--accent-soft); t
 .flow-open { margin-left: 4px; font-size: 0.85rem; }
 .flow-particles summary { cursor: pointer; color: var(--accent); }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* --------------------------------------------------------------- methods */
+/* A row's method: the abbreviation links to #/methods (full name on hover), then the qualifier. */
+a.method { font-weight: 600; text-decoration: none; border-bottom: 1px dotted currentColor; white-space: nowrap; }
+a.method:hover { border-bottom-style: solid; }
+.method-q { color: var(--muted); }
+table.methods td.method-abbr { white-space: nowrap; }
+table.methods td:nth-child(3) { min-width: 260px; }
+table.methods tr.flash td { animation: flash 2.4s ease-out; }
+table.methods tr { scroll-margin-top: 80px; }
+.method-uses summary { cursor: pointer; white-space: nowrap; }
+.method-uses[open] { min-width: 200px; }
+.method-link + .method-link { margin-top: 6px; }
