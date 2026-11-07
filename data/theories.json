@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-07 17:51 UTC",
+ "generated": "2026-11-07 18:06 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
- "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math.\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: conformal\n  supercharges: 0\n  global: '$O(N)$'\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: conformal bootstrap\n    refs: [author2025]\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    rep: 'vector'\n    method: conformal bootstrap\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
+ "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math.\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: conformal\n  supercharges: 0\n  global: '$O(N)$'\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: conformal bootstrap\n    refs: [author2025]\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    rep: 'vector'\n    method: conformal bootstrap\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
  "theories": [
   {
    "id": "lee-yang-2d",
@@ -2012,7 +2012,9 @@
     {
      "type": "flows_from",
      "target": "tricritical-ising",
-     "note": "Relevant $\\epsilon^\\prime = \\phi_{1,3}$ deformation with the sign that gives a massless flow."
+     "note": "Relevant $\\epsilon^\\prime = \\phi_{1,3}$ deformation with the sign that gives a massless flow.",
+     "flow_key": "tricritical-ising@1",
+     "source_entry": "tricritical-ising"
     }
    ],
    "spectra": [
@@ -3109,7 +3111,8 @@
     {
      "type": "flows_to",
      "target": "ising-2d",
-     "note": "Relevant $\\epsilon^\\prime = \\phi_{1,3}$ deformation with the sign that gives a massless flow."
+     "note": "Relevant $\\epsilon^\\prime = \\phi_{1,3}$ deformation with the sign that gives a massless flow.",
+     "flow_key": "tricritical-ising@1"
     }
    ],
    "references": [
@@ -20634,7 +20637,9 @@
     {
      "type": "flows_from",
      "target": "o3-model-3d",
-     "note": "Cubic anisotropy (the cubic-invariant component of the rank-4 traceless symmetric operator), which is relevant at the $O(3)$ fixed point, with the mass tuned to criticality."
+     "note": "Cubic anisotropy (the cubic-invariant component of the rank-4 traceless symmetric operator), which is relevant at the $O(3)$ fixed point, with the mass tuned to criticality.",
+     "flow_key": "o3-model-3d@3",
+     "source_entry": "o3-model-3d"
     }
    ]
   },
@@ -21157,7 +21162,8 @@
     {
      "type": "flows_to",
      "target": "ising-3d",
-     "note": "Relevant $\\phi^4$ deformation, with $m^2$ tuned to the critical point (Wilson–Fisher)."
+     "note": "Relevant $\\phi^4$ deformation, with $m^2$ tuned to the critical point (Wilson–Fisher).",
+     "flow_key": "free-scalar-3d@0"
     }
    ],
    "references": [
@@ -23623,6 +23629,12 @@
      "type": "member_of",
      "target": "on-model-3d",
      "at": 1
+    },
+    {
+     "type": "flows_to",
+     "target": "trivial-tqft-3d",
+     "note": "Thermal deformation $S=S_{\\rm Ising}+t\\int d^3x\\,\\epsilon$ with $t>0$ the disordered side, $\\epsilon$ normalized so that $\\lambda_{\\sigma\\sigma\\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$. The global $\\mathbb Z_2$ remains unbroken, acting trivially in the infrared, with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary Ising normalization. No stacked invertible sector is included. [Caselle et al.](https://arxiv.org/abs/1605.05133), Eqs. (1), (4), the value of $C^{\\epsilon}_{\\sigma\\sigma}$ after Eq. (5) and the Monte Carlo convention $t_{\\rm lat}=\\beta_c-\\beta>0$ at high temperature; [Bhardwaj et al.](https://arxiv.org/abs/2408.05266), Sec. 4.1.1, Eqs. (4.8)-(4.10).",
+     "flow_key": "ising-3d@1"
     }
    ],
    "references": [
@@ -23717,6 +23729,26 @@
      "year": 2017,
      "journal": "Phys. Rev. D 96, 036016",
      "arxiv": "1705.06483"
+    },
+    {
+     "key": "caselle2016thermal",
+     "title": "Conformal perturbation of off-critical correlators in the 3D Ising universality class",
+     "authors": "Caselle, Costagliola, Magnoli",
+     "year": 2016,
+     "arxiv": "1605.05133",
+     "doi": "10.1103/PhysRevD.94.026005",
+     "journal": "Phys. Rev. D 94, 026005",
+     "note": "Eqs. (1), (4), p. 2, and the Monte Carlo section, p. 3, fix the thermal-coupling sign convention."
+    },
+    {
+     "key": "bhardwaj2024phases",
+     "title": "Gapped Phases in (2+1)d with Non-Invertible Symmetries: Part I",
+     "authors": "Bhardwaj, Pajer, Schafer-Nameki, Tiwari, Warman, Wu",
+     "year": 2025,
+     "arxiv": "2408.05266",
+     "doi": "10.21468/SciPostPhys.19.2.056",
+     "journal": "SciPost Physics 19, 056",
+     "note": "Section 4.1.1, Eqs. (4.5)-(4.13), arXiv v2 pp. 27-29, distinguishes SSB, trivial and SPT phases."
     }
    ],
    "contributors": [
@@ -23733,7 +23765,9 @@
     {
      "type": "flows_from",
      "target": "free-scalar-3d",
-     "note": "Relevant $\\phi^4$ deformation, with $m^2$ tuned to the critical point (Wilson–Fisher)."
+     "note": "Relevant $\\phi^4$ deformation, with $m^2$ tuned to the critical point (Wilson–Fisher).",
+     "flow_key": "free-scalar-3d@0",
+     "source_entry": "free-scalar-3d"
     },
     {
      "type": "related_to",
@@ -23753,12 +23787,16 @@
     {
      "type": "flows_from",
      "target": "o2-model-3d",
-     "note": "Relevant charge-2 anisotropy $t \\propto \\phi_1^2 - \\phi_2^2$, with the mass tuned so that the lighter component is critical."
+     "note": "Relevant charge-2 anisotropy $t \\propto \\phi_1^2 - \\phi_2^2$, with the mass tuned so that the lighter component is critical.",
+     "flow_key": "o2-model-3d@0",
+     "source_entry": "o2-model-3d"
     },
     {
      "type": "flows_from",
      "target": "o3-model-3d",
-     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy axis, with the mass tuned to criticality."
+     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy axis, with the mass tuned to criticality.",
+     "flow_key": "o3-model-3d@0",
+     "source_entry": "o3-model-3d"
     }
    ]
   },
@@ -24949,7 +24987,8 @@
     {
      "type": "flows_to",
      "target": "ising-3d",
-     "note": "Relevant charge-2 anisotropy $t \\propto \\phi_1^2 - \\phi_2^2$, with the mass tuned so that the lighter component is critical."
+     "note": "Relevant charge-2 anisotropy $t \\propto \\phi_1^2 - \\phi_2^2$, with the mass tuned so that the lighter component is critical.",
+     "flow_key": "o2-model-3d@0"
     },
     {
      "type": "member_of",
@@ -25050,7 +25089,9 @@
     {
      "type": "flows_from",
      "target": "o3-model-3d",
-     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy plane, with the mass tuned to criticality."
+     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy plane, with the mass tuned to criticality.",
+     "flow_key": "o3-model-3d@1",
+     "source_entry": "o3-model-3d"
     },
     {
      "type": "dual_to",
@@ -25273,12 +25314,14 @@
     {
      "type": "flows_to",
      "target": "ising-3d",
-     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy axis, with the mass tuned to criticality."
+     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy axis, with the mass tuned to criticality.",
+     "flow_key": "o3-model-3d@0"
     },
     {
      "type": "flows_to",
      "target": "o2-model-3d",
-     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy plane, with the mass tuned to criticality."
+     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy plane, with the mass tuned to criticality.",
+     "flow_key": "o3-model-3d@1"
     },
     {
      "type": "member_of",
@@ -25288,7 +25331,8 @@
     {
      "type": "flows_to",
      "target": "cubic-3d",
-     "note": "Cubic anisotropy (the cubic-invariant component of the rank-4 traceless symmetric operator), which is relevant at the $O(3)$ fixed point, with the mass tuned to criticality."
+     "note": "Cubic anisotropy (the cubic-invariant component of the rank-4 traceless symmetric operator), which is relevant at the $O(3)$ fixed point, with the mass tuned to criticality.",
+     "flow_key": "o3-model-3d@3"
     }
    ],
    "references": [
@@ -26996,7 +27040,9 @@
     {
      "type": "flows_from",
      "target": "qed3-gn-3d",
-     "note": "Mass deformation of $\\phi$ toward the $\\langle\\phi\\rangle = 0$ phase, at the same $N_f$ (when the QED$_3$ fixed point exists)."
+     "note": "Mass deformation of $\\phi$ toward the $\\langle\\phi\\rangle = 0$ phase, at the same $N_f$ (when the QED$_3$ fixed point exists).",
+     "flow_key": "qed3-gn-3d@1",
+     "source_entry": "qed3-gn-3d"
     }
    ]
   },
@@ -27127,7 +27173,8 @@
     {
      "type": "flows_to",
      "target": "qed3-3d",
-     "note": "Mass deformation of $\\phi$ toward the $\\langle\\phi\\rangle = 0$ phase, at the same $N_f$ (when the QED$_3$ fixed point exists)."
+     "note": "Mass deformation of $\\phi$ toward the $\\langle\\phi\\rangle = 0$ phase, at the same $N_f$ (when the QED$_3$ fixed point exists).",
+     "flow_key": "qed3-gn-3d@1"
     }
    ],
    "references": [
@@ -27962,7 +28009,15 @@
     "davidsd"
    ],
    "source": "data/theories/trivial-tqft-3d.yaml",
-   "backlinks": []
+   "backlinks": [
+    {
+     "type": "flows_from",
+     "target": "ising-3d",
+     "note": "Thermal deformation $S=S_{\\rm Ising}+t\\int d^3x\\,\\epsilon$ with $t>0$ the disordered side, $\\epsilon$ normalized so that $\\lambda_{\\sigma\\sigma\\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$. The global $\\mathbb Z_2$ remains unbroken, acting trivially in the infrared, with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary Ising normalization. No stacked invertible sector is included. [Caselle et al.](https://arxiv.org/abs/1605.05133), Eqs. (1), (4), the value of $C^{\\epsilon}_{\\sigma\\sigma}$ after Eq. (5) and the Monte Carlo convention $t_{\\rm lat}=\\beta_c-\\beta>0$ at high temperature; [Bhardwaj et al.](https://arxiv.org/abs/2408.05266), Sec. 4.1.1, Eqs. (4.8)-(4.10).",
+     "flow_key": "ising-3d@1",
+     "source_entry": "ising-3d"
+    }
+   ]
   },
   {
    "id": "xyz-model-3d",
@@ -29549,7 +29604,8 @@
     {
      "type": "flows_to",
      "target": "n4-sym",
-     "note": "On the branch where all $A_k$, $B_l$ are proportional to the identity (the D3-branes at a smooth point of the conifold), $SU(N)\\times SU(N)$ breaks to its diagonal $SU(N)$. Of the $4N^2$ chiral components, $N^2-1$ are eaten, leaving three adjoints and four gauge-singlet chiral multiplets: the low-energy theory is $\\mathcal{N}=4$ $SU(N)$ SYM together with a decoupled free singlet sector."
+     "note": "On the branch where all $A_k$, $B_l$ are proportional to the identity (the D3-branes at a smooth point of the conifold), $SU(N)\\times SU(N)$ breaks to its diagonal $SU(N)$. Of the $4N^2$ chiral components, $N^2-1$ are eaten, leaving three adjoints and four gauge-singlet chiral multiplets: the low-energy theory is $\\mathcal{N}=4$ $SU(N)$ SYM together with a decoupled free singlet sector.",
+     "flow_key": "klebanov-witten-4d@0"
     },
     {
      "type": "related_to",
@@ -31039,7 +31095,8 @@
     {
      "type": "flows_to",
      "target": "yang-mills-4d",
-     "note": "Give masses to all adjoint scalars and fermions (\"$\\mathcal{N}=0^*$\"); below the mass scale the theory is pure Yang–Mills."
+     "note": "Give masses to all adjoint scalars and fermions (\"$\\mathcal{N}=0^*$\"); below the mass scale the theory is pure Yang–Mills.",
+     "flow_key": "n4-sym@0"
     }
    ],
    "contributors": [
@@ -31075,7 +31132,9 @@
     {
      "type": "flows_from",
      "target": "klebanov-witten-4d",
-     "note": "On the branch where all $A_k$, $B_l$ are proportional to the identity (the D3-branes at a smooth point of the conifold), $SU(N)\\times SU(N)$ breaks to its diagonal $SU(N)$. Of the $4N^2$ chiral components, $N^2-1$ are eaten, leaving three adjoints and four gauge-singlet chiral multiplets: the low-energy theory is $\\mathcal{N}=4$ $SU(N)$ SYM together with a decoupled free singlet sector."
+     "note": "On the branch where all $A_k$, $B_l$ are proportional to the identity (the D3-branes at a smooth point of the conifold), $SU(N)\\times SU(N)$ breaks to its diagonal $SU(N)$. Of the $4N^2$ chiral components, $N^2-1$ are eaten, leaving three adjoints and four gauge-singlet chiral multiplets: the low-energy theory is $\\mathcal{N}=4$ $SU(N)$ SYM together with a decoupled free singlet sector.",
+     "flow_key": "klebanov-witten-4d@0",
+     "source_entry": "klebanov-witten-4d"
     },
     {
      "type": "related_to",
@@ -32214,7 +32273,9 @@
     {
      "type": "flows_from",
      "target": "n4-sym",
-     "note": "Give masses to all adjoint scalars and fermions (\"$\\mathcal{N}=0^*$\"); below the mass scale the theory is pure Yang–Mills."
+     "note": "Give masses to all adjoint scalars and fermions (\"$\\mathcal{N}=0^*$\"); below the mass scale the theory is pure Yang–Mills.",
+     "flow_key": "n4-sym@0",
+     "source_entry": "n4-sym"
     },
     {
      "type": "related_to",
@@ -35639,5 +35700,6 @@
    ],
    "backlinks": []
   }
- ]
+ ],
+ "operations": []
 }
