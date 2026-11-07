@@ -58,7 +58,7 @@ description: |
 lagrangian: '\mathcal{L} = \frac{1}{8\pi}\left(\psi\,\bar\partial\psi + \bar\psi\,\partial\bar\psi\right)'
 
 symmetry:
-  spacetime: 'conformal (Virasoro $\times$ Virasoro, $c = \bar c = \tfrac12$)'
+  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac12$ — 2d conformal group with parity'
   supercharges: 0
   global: 'Fermion parity $(-1)^F$, and chiral fermion parity $\psi \to \psi$, $\bar\psi \to -\bar\psi$ (the discrete chiral symmetry, which flips the sign of the mass)'
   notes: 'The chiral symmetry has a mod 2 anomaly: it shifts the action by $i\pi\,\mathrm{Arf}$ of the spin structure [@ktt2019, Eq. (2.3)].'

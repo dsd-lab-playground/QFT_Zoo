@@ -38,7 +38,7 @@ family:
     note: 'Same partition function as three free Majorana fermions summed over a common spin structure.'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{3k}{k+2}$ — 2d conformal group with parity (combined with $g \to g^{-1}$)'
   supercharges: 0
   global: '$SU(2) \times SU(2)$ acting as $g \to h_L\, g\, h_R^{-1}$, part of the affine $\widehat{su}(2)_k \times \widehat{su}(2)_k$ symmetry'
   notes: 'The centre $\mathbb{Z}_2$ acts as $(-1)^{2j}$ on $\Phi_j$. It has a mixed anomaly for odd $k$; for even $k$ it can be gauged, and the orbifold is the D-series theory.'

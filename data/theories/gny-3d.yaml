@@ -71,7 +71,7 @@ family:
       note: '$\Delta_\psi = \Delta_\sigma = 1$, $\Delta_\epsilon = 2$; conjectured dual to type B higher-spin gravity.'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(4,1)$ — 3d conformal group with parity'
   supercharges: 0
   global: '$O(N)$ and parity / time reversal ($\sigma$ odd)'
   notes: '$\mathcal{N}=1$ supersymmetry emerges at $N=1$.'

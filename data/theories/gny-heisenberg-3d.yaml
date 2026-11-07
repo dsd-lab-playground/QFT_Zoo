@@ -24,7 +24,7 @@ description: |
 lagrangian: '\mathcal{L} = \bar\psi\,\gamma^\mu\partial_\mu\psi + \tfrac{1}{2}(\partial\vec\phi)^2 + g\,\vec\phi\cdot\bar\psi\,(\mathbb{1}_2\otimes\vec\sigma)\,\psi + \tfrac{1}{2}m^2\vec\phi^{\,2} + \tfrac{\lambda}{4!}(\vec\phi^{\,2})^2 \quad (m^2 \text{ tuned})'
 
 symmetry:
-  spacetime: conformal (emergent Lorentz)
+  spacetime: '$O(4,1)$ — 3d conformal group with parity (Lorentz invariance emergent)'
   supercharges: 0
   global: '$SU(2)$ spin, plus the lattice-derived flavour and discrete symmetries'
 

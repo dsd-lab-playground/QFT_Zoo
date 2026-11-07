@@ -53,7 +53,7 @@ parameters:
     range: '$\mu>0$'
 
 symmetry:
-  spacetime: '$\mathcal{N}=(1,1)$ superconformal'
+  spacetime: '$OSp(1|2)\times OSp(1|2)$, extended to two $\mathcal{N}=1$ super-Virasoro algebras at $c = \bar c = \tfrac32 + 3Q^2$ — 2d $\mathcal{N}=(1,1)$ superconformal group (2 $Q$ + 2 $S$ supercharges), with parity'
   supercharges: 2
   notes: 'The chiral algebra is the $\mathcal{N}=1$ super-Virasoro algebra, with NS and R sectors. The theory is fermionic: $\psi$ and $T_F$ are local fields. Reflection $\alpha\to Q-\alpha$ is an identification, not a symmetry.'
 

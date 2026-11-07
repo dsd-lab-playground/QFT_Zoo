@@ -34,7 +34,7 @@ parameters:
     range: 'upper half-plane, modulo $SL(2,\mathbb{Z})$'
 
 symmetry:
-  spacetime: 'superconformal, $PSU(2,2|4)$'
+  spacetime: '$PSU(2,2|4)$ — 4d $\mathcal{N}=4$ superconformal group (16 $Q$ + 16 $S$ supercharges), with parity at $\theta \in \{0, \pi\}$ (parity maps $\theta \to -\theta$)'
   supercharges: 16
   global: '$SU(4)_R$ R-symmetry'
   gauge: '$SU(N)$'

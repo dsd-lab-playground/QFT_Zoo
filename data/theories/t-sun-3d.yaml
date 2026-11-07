@@ -54,7 +54,7 @@ family:
       note: '$F = \tfrac12N^2\log N + O(N^2)$; holographic dual in type IIB.'
 
 symmetry:
-  spacetime: '$\mathcal{N}=4$ superconformal'
+  spacetime: '$OSp(4|4)$ — 3d $\mathcal{N}=4$ superconformal group (8 $Q$ + 8 $S$ supercharges), with parity'
   supercharges: 8
   global: '$SU(N)\times SU(N)$ (Higgs-branch and Coulomb-branch flavor symmetries, exchanged by mirror symmetry); R-symmetry $SU(2)_H\times SU(2)_C$'
   gauge: '$U(1)\times U(2)\times\dots\times U(N-1)$ (UV quiver)'

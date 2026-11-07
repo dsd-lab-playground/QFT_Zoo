@@ -187,12 +187,12 @@
       "properties": {
         "spacetime": {
           "type": "string",
-          "description": "[markdown] e.g. 'conformal', 'Poincaré', 'superconformal $PSU(2,2|4)$'."
+          "description": "[markdown] Spacetime symmetry group with its discrete part, then a colloquial name, e.g. '$O(4,1)$ — 3d conformal group with parity' or '$PSU(2,2|4)$ — 4d $\\mathcal{N}=4$ superconformal group (16 $Q$ + 16 $S$ supercharges), with parity at $\\theta \\in \\{0, \\pi\\}$'. Conventions in CONTRIBUTING.md, Spacetime symmetry."
         },
         "supercharges": {
           "type": "integer",
           "minimum": 0,
-          "description": "Number of real Poincaré supercharges (0 if not supersymmetric)."
+          "description": "Number of real Poincaré supercharges (0 if not supersymmetric). Used for sorting and the catalogue; the page shows supercharges only through `spacetime`."
         },
         "global": {
           "type": "string",

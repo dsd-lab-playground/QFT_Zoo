@@ -43,7 +43,7 @@ description: |
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2 + \tfrac{i\lambda}{3!}\,\phi^3 \quad (\phi \text{ real; the relevant coupling to } \phi \text{ is tuned to the edge})'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(6,1)$ — 5d conformal group with parity'
   supercharges: 0
   global: 'None (the Ising $\mathbb{Z}_2$ is broken by the imaginary field)'
   notes: 'Not unitary. The action has a $\mathcal{PT}$ symmetry, $\phi \to -\phi$ combined with $i \to -i$.'

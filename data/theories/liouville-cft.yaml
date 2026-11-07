@@ -282,7 +282,7 @@ parameters:
     range: '$\mu>0$'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = 1 + 6Q^2$ — 2d conformal group with parity'
   supercharges: 0
   global: none
   notes: 'The chiral algebra is Virasoro at central charge $c$. Reflection $V_{-P}=V_P$ and duality $b\to b^{-1}$ are identifications, not symmetries.'

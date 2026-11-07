@@ -55,7 +55,7 @@ family:
       note: 'Six nodes; $R_Z = \tfrac13(4\sqrt6 - 9)$, $R_Y = \tfrac23\sqrt6 - 1$, $a = \tfrac{27}{16}(4\sqrt6 - 9)N^2$ [@bfhms2005, Sec. 4.1].'
 
 symmetry:
-  spacetime: '$\mathcal{N}=1$ superconformal'
+  spacetime: '$SU(2,2|1)$ — 4d $\mathcal{N}=1$ superconformal group (4 $Q$ + 4 $S$ supercharges); parity not recorded'
   supercharges: 4
   global: '$SU(2)\times U(1)_F$ and $U(1)_R$ (together the isometries of $Y^{p,q}$), and the baryonic $U(1)_B$'
   gauge: '$SU(N)^{2p}$'

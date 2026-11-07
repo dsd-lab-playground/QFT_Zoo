@@ -68,7 +68,7 @@ parameters:
     range: '$0 < \epsilon < \epsilon_{\max}$, with $\epsilon_{\max}$ of order $0.1$'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(5,1)$ — 4d conformal group with parity'
   supercharges: 0
   global: '$SU(N_f)_L\times SU(N_f)_R$ flavor symmetry, under which $H$ is a bifundamental, and the $U(1)_V$ fermion number'
   gauge: '$SU(N_c)$; $H$ is a gauge singlet'

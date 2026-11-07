@@ -87,7 +87,7 @@ family:
       note: '$h_{\min} = h_{2,3} = -\tfrac{3}{140}$, $c_{\rm eff} = \tfrac{29}{35}$ (derived). Positive $c$, but non-unitary.'
 
 symmetry:
-  spacetime: 'conformal (Virasoro $\times$ Virasoro)'
+  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = 1 - \tfrac{6(p-q)^2}{pq}$ — 2d conformal group with parity'
   supercharges: 0
 
 quantities:

@@ -49,7 +49,7 @@ description: |
   [@osty2014].
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$SO(7,1)$ — 6d conformal group, no parity (chiral)'
   supercharges: 0
   gauge: '2-form gauge symmetry $B \to B + d\Lambda$'
   notes: 'Gravitational anomaly [@agw1984].'

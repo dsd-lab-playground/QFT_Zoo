@@ -57,7 +57,7 @@ family:
       note: 'The exact relation for $\mathrm{tr}(\phi_1^2)$ below gives $\Delta \approx 2 \mp 2i\xi$ as $\xi\to\infty$ (derived).'
 
 symmetry:
-  spacetime: 'conformal (planar limit, at the fixed points)'
+  spacetime: '$O(5,1)$ — 4d conformal group with parity (planar limit, at the fixed points)'
   supercharges: 0
   global: '$U(1)\times U(1)$ charges $J_1, J_2$ counting $\phi_1$ and $\phi_2$, and the global $SU(N_c)$ (operators are $SU(N_c)$ singlets)'
   notes: 'Non-unitary: the action is not real.'

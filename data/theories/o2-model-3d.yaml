@@ -40,7 +40,7 @@ description: |
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\vec\phi)^2 + \tfrac{1}{2} m^2 \vec\phi^{\,2} + \tfrac{\lambda}{4!}(\vec\phi^{\,2})^2, \quad \vec\phi\in\mathbb{R}^2 \quad (m^2 \text{ tuned to criticality, flow to the IR})'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(4,1)$ — 3d conformal group with parity'
   supercharges: 0
   global: '$O(2) = U(1) \rtimes \mathbb{Z}_2^C$'
 

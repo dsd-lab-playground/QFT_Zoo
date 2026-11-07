@@ -39,12 +39,60 @@ match the filename. See the existing entries for worked examples, e.g.
 | `lagrangian` | | LaTeX, shown in display mode |
 | `parameters` | | `symbol`, `description`, `range` |
 | `family` | | marks the entry as a family of theories (see *Families* below) |
-| `symmetry` | | `spacetime`, `supercharges` (number of real Poincaré supercharges), `global`, `gauge`, `notes` |
+| `symmetry` | | `spacetime` (the spacetime symmetry group, see *Spacetime symmetry* below), `supercharges` (number of real Poincaré supercharges $Q$; used for sorting, not shown on the page), `global`, `gauge`, `notes` |
 | `quantities` | | central charges, exponents, OPE coefficients, …: `key`, `symbol`, `description`, `value`, `method`, `refs`, `note` |
 | `operators` | | `name`, `Delta`, `spin`, `weights` (2d: `(h, \bar h)`), `degeneracy`, `rep`, `method`, `refs`, `note` |
 | `relations` | | `type`, `target`, `at`, `variant`, `note`; for flows also `id`, `flow`, `target_expr` (see below) |
 | `references` | yes | `key`, `title`, `authors`, `year`, `journal`, `note`, and at least one of `arxiv` / `doi` / `url` |
 | `contributors` | | GitHub usernames |
+
+### Spacetime symmetry
+
+`symmetry.spacetime` names the spacetime symmetry group, discrete parts included, then
+a colloquial name after an em dash, then any qualifiers:
+
+```yaml
+spacetime: '$O(4,1)$ — 3d conformal group with parity'
+spacetime: '$SO(4,1)$ — 3d conformal group, no parity for $\lambda \neq 0$ (Chern–Simons level $k$)'
+spacetime: '$OSp(2|4)$ — 3d $\mathcal{N}=2$ superconformal group (4 $Q$ + 4 $S$ supercharges), with parity'
+spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac12$ — 2d conformal group with parity'
+```
+
+Conventions:
+
+- **Euclidean signature.** The conformal group of a $d$-dimensional CFT is written
+  $SO(d+1,1)$: strictly its identity component, the orientation-preserving conformal
+  maps of $S^d$ (Wick rotation of the Lorentzian $SO(d,2)$). With a reflection symmetry
+  it is $O(d+1,1)$ (strictly $O(d+1,1)/\{\pm 1\}$, since $-1$ acts trivially on the
+  embedding-space null cone). Spin and Pin covers for fermions are not distinguished.
+  Non-conformal theories use the Euclidean form of the Poincaré group,
+  $\mathbb{R}^d\rtimes SO(d)$, or $\mathbb{R}^d\rtimes O(d)$ with a reflection.
+- **"With parity"** means a reflection $x^1 \to -x^1$ is a symmetry, possibly combined
+  with an internal symmetry (say which, e.g. "combined with charge conjugation"). In
+  Lorentzian signature this is parity, and, by the CRT theorem, equivalently time
+  reversal. Claim it only when the Lagrangian or a standard fact settles it (a
+  Chern–Simons term, a parity-odd mass, a $\theta$ angle, or chirality breaks it). If it
+  depends on parameters say how ("at $\theta \in \{0, \pi\}$"); if it is not settled,
+  write $SO$ and "parity not recorded". Never guess.
+- **2d CFTs:** the global group $SO(3,1)$ or $O(3,1)$, extended to two Virasoro
+  algebras, with their central charges $c$, $\bar c$. Parity
+  needs $c = \bar c$; holomorphic theories have Virasoro on one side only and no parity.
+  Extended chiral algebras that are not spacetime symmetries ($\mathcal{W}$-algebras,
+  current algebras) go under `global` or in the description.
+- **Superconformal theories:** the superconformal group under its usual (Lorentzian) name,
+  whose bosonic part is the conformal group times the R-symmetry: $OSp(\mathcal{N}|4)$ in
+  3d, $SU(2,2|\mathcal{N})$ ($PSU(2,2|4)$ for $\mathcal{N}=4$) in 4d, $F(4)$ in 5d,
+  $OSp(8^*|2)$ or $OSp(8^*|4)$ in 6d; in 2d the global $OSp(1|2)$, $SU(1,1|1)$ or
+  $PSU(1,1|2)$ on each side, extended to super-Virasoro algebras. Give the number of real
+  supercharges, Poincaré ($Q$) and superconformal ($S$), e.g. "(8 $Q$ + 8 $S$
+  supercharges)", and parity as above. Non-supersymmetric theories say nothing about
+  supercharges.
+- **Families:** say how the group depends on the parameters.
+- Keep qualifiers about whether the symmetry is established (emergent Lorentz invariance,
+  large $N_f$, lattice evidence, …) in parentheses after the name.
+
+The colloquial names (conformal group, Poincaré group, superconformal group, Virasoro,
+parity, …) link to Wikipedia on the page automatically; don't add links yourself.
 
 ### Writing LaTeX in YAML
 

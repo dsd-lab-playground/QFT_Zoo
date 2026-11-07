@@ -37,7 +37,7 @@ description: |
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(6,1)$ — 5d conformal group with parity'
   supercharges: 0
   global: '$\mathbb{Z}_2$ ($\phi\to-\phi$), plus shift symmetry $\phi \to \phi + \text{const}$'
 

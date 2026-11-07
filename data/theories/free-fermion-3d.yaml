@@ -44,7 +44,7 @@ description: |
 lagrangian: '\mathcal{L} = \tfrac{1}{2}\bar\psi\gamma^\mu\partial_\mu\psi \quad (\text{one Majorana}), \qquad \mathcal{L} = \bar\Psi\gamma^\mu\partial_\mu\Psi \quad (\text{one Dirac} = \text{two Majorana})'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(4,1)$ — 3d conformal group with parity'
   supercharges: 0
   global: 'fermion parity $(-1)^F$, parity and time reversal; $O(2)$ for a Dirac fermion'
   notes: 'Time reversal forbids the mass $\bar\psi\psi$. The Dirac fermion has a parity anomaly between $U(1)$ and time reversal.'

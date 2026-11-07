@@ -5,7 +5,7 @@ summary: 'The $p=5$ unitary $\mathcal{W}_3$ minimal model with the diagonal inva
 tags: [CFT, interacting, unitary, rational, coset, minimal model]
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac65$ — 2d conformal group with parity'
   supercharges: 0
   global: '$S_3$ ($\mathbb{Z}_3$ and $C: W \to -W$)'
 

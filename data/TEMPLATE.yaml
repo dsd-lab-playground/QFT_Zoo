@@ -27,8 +27,8 @@ parameters:
     range: '$N \geq 1$'
 
 symmetry:
-  spacetime: conformal
-  supercharges: 0
+  spacetime: '$O(4,1)$ — 3d conformal group with parity'   # group — colloquial name; see CONTRIBUTING.md, Spacetime symmetry
+  supercharges: 0                  # real Poincaré supercharges Q; for SUSY theories also state Q and S in spacetime
   global: '$O(N)$'
   # gauge: '$SU(N)$'
   # notes: 'Anomalies, emergent symmetries, ...'

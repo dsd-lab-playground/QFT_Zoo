@@ -31,7 +31,7 @@ description: |
   [@hsu2005, Table I].
 
 symmetry:
-  spacetime: 'conformal (Parisi–Sourlas superconformal symmetry of the supersymmetric description)'
+  spacetime: '$O(8,1)$ — 7d conformal group with parity (the Parisi–Sourlas description also has a superconformal $OSp(8,1|2)$, which is not a Poincaré supersymmetry)'
   supercharges: 0
   notes: 'The Parisi–Sourlas supersymmetry acts on a superspace with two Grassmann coordinates; it is not a Poincaré supersymmetry.'
 

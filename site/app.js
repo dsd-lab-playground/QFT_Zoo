@@ -180,6 +180,36 @@ function table(headers, rows, cls = "") {
 
 const section = (id, title, body) => `<section class="block" id="sec-${id}"><h2>${title}</h2>${body}</section>`;
 
+/** Wikipedia articles for the standard names used in `symmetry.spacetime` (CONTRIBUTING.md, Spacetime symmetry). */
+const SPACETIME_LINKS = [
+  ["superconformal group", "Superconformal_algebra"],
+  ["super-Virasoro", "Super_Virasoro_algebra"],
+  ["conformal group", "Conformal_group"],
+  ["Poincaré group", "Poincar%C3%A9_group"],
+  ["Virasoro", "Virasoro_algebra"],
+  ["parity", "Parity_(physics)"],
+  ["topological", "Topological_quantum_field_theory"],
+];
+const SPACETIME_RE = new RegExp(SPACETIME_LINKS.map(([w]) => w).join("|"), "gi");
+/** Link the first occurrence of each standard name, outside $...$ math. */
+function linkSpacetime(src) {
+  const used = new Set();
+  return String(src)
+    .split(/(\$[^$]*\$)/)
+    .map((part, i) =>
+      i % 2
+        ? part
+        : part.replace(SPACETIME_RE, (m) => {
+            const k = m.toLowerCase();
+            if (used.has(k)) return m;
+            used.add(k);
+            const page = SPACETIME_LINKS.find(([w]) => w.toLowerCase() === k)[1];
+            return `[${m}](https://en.wikipedia.org/wiki/${page})`;
+          })
+    )
+    .join("");
+}
+
 function symmetrySummary(t) {
   const s = t.symmetry || {};
   const parts = [];
@@ -697,8 +727,7 @@ function viewTheory(id) {
   if (t.symmetry) {
     const s = t.symmetry;
     const rows = [
-      ["Spacetime", s.spacetime && md(s.spacetime, true)],
-      ["Supercharges", s.supercharges != null && tex(s.supercharges)],
+      ["Spacetime", s.spacetime && md(linkSpacetime(s.spacetime), true)],
       ["Global", s.global && md(s.global, true)],
       ["Gauge", s.gauge && md(s.gauge, true)],
       ["Notes", s.notes && md(s.notes, true)],
