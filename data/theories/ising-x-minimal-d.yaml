@@ -26,6 +26,10 @@ family:
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac32 - \tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity'
   global: '$\mathbb{Z}_2 \times \mathbb{Z}_2$ (the Ising spin flip and the $\mathbb{Z}_2$ of the D-series factor); $\mathbb{Z}_2 \times S_3$ at $m = 5, 6$, where the D-series factor is the 3-state Potts or tricritical 3-state Potts model'
+  parity: true
+  global_group:
+    - {id: Z2_Ising, group: Z2, tex: '\mathbb{Z}_2^{\rm Ising}', note: 'Ising spin flip'}
+    - {id: Z2_D, group: Z2, tex: '\mathbb{Z}_2^{D}', note: 'the $\mathbb{Z}_2$ of the D-series factor (inside $S_3$ at $m = 5, 6$)'}
 
 quantities:
 - key: c
@@ -44,6 +48,8 @@ operators:
 - name: '1 \otimes \phi_{3,3}'
   Delta: '\frac{4}{m(m+1)}'
   spin: 0
+  parity: even
+  global: {Z2_Ising: even, Z2_D: unknown}
   note: 'Lightest non-vacuum primary for $m \geq 6$.'
 
 relations:

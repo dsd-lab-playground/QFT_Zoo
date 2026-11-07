@@ -7,6 +7,10 @@ tags: [CFT, interacting, unitary, rational, orbifold]
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{19}{13}$ — 2d conformal symmetry, with parity'
   global: 'Contains $\mathbb{Z}_2 \times \mathbb{Z}_2$: the spin flip of one factor (equivalent to that of the other once their product is gauged) and the dual $\mathbb{Z}_2$ of the orbifold, odd on the twisted sector'
+  parity: true
+  global_group:
+    - {id: Z2_s, group: Z2, tex: '\mathbb{Z}_2^{s}', note: 'spin flip of one factor; the global symmetry contains the factors declared here; the full group is not recorded'}
+    - {id: Z2_dual, group: Z2, tex: '\hat{\mathbb{Z}}_2', note: 'dual symmetry of the orbifold, odd on the twisted sector'}
 
 quantities:
 - key: c
@@ -25,6 +29,8 @@ operators:
   Delta: '1/13'
   spin: 0
   weights: '(\tfrac{1}{26}, \tfrac{1}{26})'
+  parity: unknown
+  global: {Z2_s: unknown, Z2_dual: unknown}
   note: Lightest non-vacuum Virasoro primary.
 
 relations:

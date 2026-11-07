@@ -25,6 +25,10 @@ family:
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac32 - \tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity'
   global: '$\mathbb{Z}_2 \times \mathbb{Z}_2$ (the spin flip of each factor)'
+  parity: true
+  global_group:
+    - {id: Z2_Ising, group: Z2, tex: '\mathbb{Z}_2^{\rm Ising}', note: 'Ising spin flip'}
+    - {id: Z2_M, group: Z2, tex: '\mathbb{Z}_2^{\mathcal{M}_m}', note: 'spin flip of $\mathcal{M}_m$'}
 
 quantities:
 - key: c
@@ -42,6 +46,8 @@ operators:
 - name: '1 \otimes \phi_{2,2}'
   Delta: '\frac{3}{2m(m+1)}'
   spin: 0
+  parity: even
+  global: {Z2_Ising: even, Z2_M: odd}
   note: Lightest non-vacuum primary.
 
 relations:
