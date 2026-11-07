@@ -679,6 +679,7 @@ function flowClusters(flows) {
 }
 
 const SIGN_REL = { positive: "> 0", negative: "< 0", zero: "= 0", either: "\\gtrless 0" };
+const SIGN_SHORT = { positive: "+", negative: "−", zero: "0", either: "±" };
 const SIGN_WORD = { positive: "positive", negative: "negative", zero: "zero", either: "either sign" };
 
 /** Short label drawn on an arrow: the first deformation and its sign, or the first vev. */
@@ -687,7 +688,7 @@ function edgeLabel(f) {
   if (!fl) return `<span class="flow-edge-i" aria-hidden="true">i</span>`;
   const parts = [];
   const d = fl.deformations?.[0];
-  if (d) parts.push(tex(d.operator) + (d.sign ? `<span class="flow-edge-sign">${tex(`${d.coupling} ${SIGN_REL[d.sign]}`)}</span>` : ""));
+  if (d) parts.push(tex(d.operator) + (d.sign ? `<span class="flow-edge-sign">${tex(`${d.coupling} ${SIGN_REL[d.sign]}`)}</span><span class="flow-edge-sgn">${SIGN_SHORT[d.sign]}</span>` : ""));
   const v = fl.vevs?.[0];
   if (v) parts.push(tex(`\\langle ${v.operator} \\rangle`));
   const extra = (fl.deformations?.length || 0) + (fl.vevs?.length || 0) - parts.length;

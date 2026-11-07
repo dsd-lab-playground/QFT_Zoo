@@ -381,8 +381,9 @@ a.flow-node:hover, a.flow-node:focus-visible { background: var(--accent-soft); t
 .flow-edge[aria-expanded="true"] { background: var(--accent); color: var(--accent-text); }
 .flow-edge-i { font-style: italic; font-family: Georgia, serif; }
 .flow-edge-sign { margin-left: 0.35em; font-size: 0.9em; }
-/* On phones the arrow shows only the operator; the sign is in the preview and the panel. */
-@media (max-width: 640px) { .flow-edge-sign { display: none; } }
+/* On phones the arrow shows the operator and a bare sign; the convention is in the preview and the panel. */
+.flow-edge-sgn { display: none; margin-left: 2px; font-weight: 600; }
+@media (max-width: 640px) { .flow-edge-sign { display: none; } .flow-edge-sgn { display: inline; } }
 .flow-tip {
   position: absolute; z-index: 3; max-width: 340px; padding: 6px 10px; font-size: 0.85rem; pointer-events: none;
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
