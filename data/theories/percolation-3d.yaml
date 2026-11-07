@@ -29,17 +29,16 @@ description: |
   ($\eta < 0$), a direct sign that the theory is not unitary.
 
   The most precise exponents come from Monte Carlo simulations on several lattices with
-  periodic boundary conditions, analysed by finite-size scaling (Wang, Zhou, Zhang, Garoni
-  and Deng; Xu, Wang, Lv and Deng). The $6-\epsilon$ expansion is known to five loops
-  (Borinsky, Gracey, Kompaniets and Schnetz), but in $d = 3$ its resummed values are much
+  periodic boundary conditions, analysed by finite-size scaling [@wang2013; @xu2014]. The
+  $6-\epsilon$ expansion is known to five loops [@borinsky2021], but in $d = 3$ its resummed values are much
   less precise. The leading correction-to-scaling exponent $\omega$ is large, though
   Monte Carlo estimates of it differ.
 
   ### Conformal invariance and logarithms
-  Conformal invariance of 3d percolation is not proven. Gori and Trombettoni tested it
+  Conformal invariance of 3d percolation is not proven. Gori and Trombettoni [@gori2015] tested it
   numerically: crossing probabilities in bounded domains are invariant under conformal
   maps, most clearly in continuum percolation. As in two dimensions, the CFT is expected to
-  be logarithmic. Vasseur, Jacobsen and Saleur found that at $q = 1$ the energy operator
+  be logarithmic. Vasseur, Jacobsen and Saleur [@vasseur2012] found that at $q = 1$ the energy operator
   mixes with a logarithmic partner, the field that creates two propagating clusters, so
   that suitable two-point functions scale logarithmically. They worked in $d = 2$ but argue
   that the mechanism, which rests only on the $S_q$ symmetry, holds in any dimension.
@@ -58,31 +57,31 @@ quantities:
     value: '1.1410(15)'
     method: Monte Carlo (bond and site, simple cubic)
     refs: [wang2013]
-    note: 'Simultaneous fit of eight lattice models: $1.1413(15)$ (Xu et al.). Site percolation: $\nu = 0.8765(16)(2)$ (Ballesteros et al.).'
+    note: 'Simultaneous fit of eight lattice models: $1.1413(15)$ [@xu2014]. Site percolation: $\nu = 0.8765(16)(2)$ [@ballesteros1999].'
   - symbol: '\nu'
     description: Correlation-length exponent
     value: '0.89(3)'
     method: 'epsilon-expansion (6 − ε, five loops, resummed)'
     refs: [borinsky2021]
-    note: 'Resummation of the series for $1/\nu$, all methods combined (Table 15).'
+    note: 'Resummation of the series for $1/\nu$, all methods combined [@borinsky2021, Table 15].'
   - symbol: 'd_f'
     description: 'Fractal dimension of critical clusters, $d_f = y_h = 3 - \Delta_\sigma$'
     value: '2.52293(10)'
     method: Monte Carlo (eight lattice models)
     refs: [xu2014]
-    note: 'Simple cubic lattice alone: $2.52295(15)$ (Wang et al.).'
+    note: 'Simple cubic lattice alone: $2.52295(15)$ [@wang2013].'
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 2 + d - 2d_f = 2\Delta_\sigma - 1$'
     value: '-0.04602(27)(7)'
     method: Monte Carlo (site, simple cubic)
     refs: [ballesteros1999]
-    note: 'The second error comes from the uncertainty in $\omega$. From $d_f$ of Xu et al., $\eta = -0.04586(20)$ (derived). Five-loop $6-\epsilon$: $-0.06(10)$.'
+    note: 'The second error comes from the uncertainty in $\omega$. From $d_f$ of Xu et al. [@xu2014], $\eta = -0.04586(20)$ (derived). Five-loop $6-\epsilon$: $-0.06(10)$.'
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent'
     value: '1.62(13)'
     method: Monte Carlo (site, simple cubic)
     refs: [ballesteros1999]
-    note: 'Wang et al. find the leading irrelevant exponent $y_i = -1.2(2)$, i.e. $\omega = 1.2(2)$. Five-loop $6-\epsilon$: $1.7(3)$ (Borinsky et al.).'
+    note: 'Wang et al. [@wang2013] find the leading irrelevant exponent $y_i = -1.2(2)$, i.e. $\omega = 1.2(2)$. Five-loop $6-\epsilon$: $1.7(3)$ [@borinsky2021].'
 
 operators:
   - name: '\sigma'
@@ -91,7 +90,7 @@ operators:
     rep: '$(q-1)$-dimensional representation of $S_q$ (order parameter)'
     method: Monte Carlo
     refs: [wang2013]
-    note: 'Quoted as $\beta/\nu$. Below the unitarity bound $\tfrac12$. From $d_f$ of Xu et al.: $0.47707(10)$ (derived).'
+    note: 'Quoted as $\beta/\nu$. Below the unitarity bound $\tfrac12$. From $d_f$ of Xu et al. [@xu2014]: $0.47707(10)$ (derived).'
   - name: '\epsilon'
     Delta: '1.8590(15)'
     spin: 0

@@ -15,7 +15,7 @@ description: |
   In site percolation each site is occupied independently with probability $p$; on the triangular lattice the
   threshold is $p_c = \tfrac12$. Written in Fortuin–Kasteleyn clusters, the $Q$-state Potts model makes sense
   for real $Q$, and percolation is its limit $Q \to 1$. The partition function becomes trivial and $c = 0$
-  (Cardy), but correlation functions describe the geometry of critical clusters: the two-point function of the
+  [@cardy1992], but correlation functions describe the geometry of critical clusters: the two-point function of the
   spin field is the probability that two points lie in the same cluster.
 
   In the Kac parametrization of the Potts CFT at $Q = 1$ ($m = 2$), the order parameter has weight
@@ -23,32 +23,32 @@ description: |
   $\nu = 1/(2 - \Delta_\epsilon) = \tfrac43$, $\eta = 2\Delta_\sigma = \tfrac{5}{24}$,
   $\beta = \nu\Delta_\sigma = \tfrac{5}{36}$, $\gamma = \nu(2 - \eta) = \tfrac{43}{18}$, and clusters have
   fractal dimension $2 - \Delta_\sigma = \tfrac{91}{48}$. Cluster boundaries (hulls) have dimension $\tfrac74$
-  (Saleur and Duplantier); they are the loops of the dense $O(n)$ loop model at $n = 1$. These values were
-  predicted with Coulomb-gas and conformal field theory methods (see the references in Smirnov and Werner).
+  [@saleurduplantier1987]; they are the loops of the dense $O(n)$ loop model at $n = 1$. These values were
+  predicted with Coulomb-gas and conformal field theory methods (see the references in [@smirnovwerner2001]).
 
-  Cardy found the probability that a cluster connects the boundary arcs $(x_1, x_2)$ and $(x_3, x_4)$ of a
+  Cardy [@cardy1992] found the probability that a cluster connects the boundary arcs $(x_1, x_2)$ and $(x_3, x_4)$ of a
   simply connected domain mapped to the upper half plane,
   $$\pi_h = \frac{3\,\Gamma(\tfrac23)}{\Gamma(\tfrac13)^2}\,\lambda^{1/3}\,{}_2F_1\!\left(\tfrac13, \tfrac23; \tfrac43; \lambda\right), \qquad \lambda = \frac{(x_4 - x_3)(x_2 - x_1)}{(x_3 - x_1)(x_4 - x_2)}$$
   (Cardy writes $\eta$ for the cross-ratio $\lambda$), from the second-order differential equation of the
   boundary-condition-changing operator $\phi_{1,2}$, whose weight vanishes at $c = 0$.
 
   ### Proofs
-  For site percolation on the triangular lattice, the main predictions are theorems. Schramm showed that SLE$_6$
+  For site percolation on the triangular lattice, the main predictions are theorems. Schramm [@schramm2000] showed that SLE$_6$
   is the only possible conformally invariant scaling limit of cluster interfaces, and that Cardy's formula would
-  follow from it. Smirnov proved that the scaling limit exists and is conformally invariant, proving Cardy's
-  formula and convergence of interfaces to SLE$_6$. Lawler, Schramm and Werner computed the one-arm exponent:
-  the probability that the cluster of the origin reaches distance $R$ is $R^{-5/48 + o(1)}$. Smirnov and Werner
+  follow from it. Smirnov [@smirnov2001] proved that the scaling limit exists and is conformally invariant, proving Cardy's
+  formula and convergence of interfaces to SLE$_6$. Lawler, Schramm and Werner [@lsw2002] computed the one-arm exponent:
+  the probability that the cluster of the origin reaches distance $R$ is $R^{-5/48 + o(1)}$. Smirnov and Werner [@smirnovwerner2001]
   combined these results with Kesten's scaling relations to prove the values of $\nu$, $\beta$, $\gamma$ and
   $\eta$. They listed the extension to other lattices, such as bond percolation on the square lattice, as open.
 
   ### Status
-  The bulk CFT is not fully understood. Jacobsen and Saleur describe it as non-unitary, probably logarithmic,
+  The bulk CFT is not fully understood. Jacobsen and Saleur [@jacobsensaleur2019] describe it as non-unitary, probably logarithmic,
   and containing non-degenerate operators that preclude the BPZ differential equations. Vasseur, Jacobsen and
-  Saleur found observables whose two-point functions are logarithmic at $Q \to 1$: the energy operator mixes
-  with a logarithmic partner, the field that creates two propagating clusters. Delfino and Viti conjectured
+  Saleur [@vasseur2012] found observables whose two-point functions are logarithmic at $Q \to 1$: the energy operator mixes
+  with a logarithmic partner, the field that creates two propagating clusters. Delfino and Viti [@delfinoviti2011] conjectured
   the three-point connectivity ratio $P_3/\sqrt{P_2P_2P_2} \approx 1.0220$ from the $c \le 1$ Liouville
-  structure constant; Nivesvivat and Ribault confirmed it numerically to about 26 significant digits, and
-  computed four-point connectivities to arbitrary precision. Saleur proposed a twisted $\mathcal{N}=2$
+  structure constant; Nivesvivat and Ribault [@nivesvivatribault2021] confirmed it numerically to about 26 significant digits, and
+  computed four-point connectivities to arbitrary precision. Saleur [@saleur1992] proposed a twisted $\mathcal{N}=2$
   description at $c = 0$ that explains why percolation and self-avoiding walks share exponents. Four-point
   functions at generic $Q$ are discussed in the 2d Potts CFT entry.
 
@@ -96,7 +96,7 @@ quantities:
     value: '\frac{7}{4}'
     method: exact
     refs: [saleurduplantier1987, smirnovwerner2001]
-    note: 'Coulomb-gas prediction of Saleur and Duplantier; equal to the Hausdorff dimension $2 - \tfrac14$ of SLE$_6$.'
+    note: 'Coulomb-gas prediction of Saleur and Duplantier [@saleurduplantier1987]; equal to the Hausdorff dimension $2 - \tfrac14$ of SLE$_6$.'
 
 operators:
   - name: '\sigma'

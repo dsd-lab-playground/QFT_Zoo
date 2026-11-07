@@ -10,8 +10,8 @@ description: |
 
   Weights are given by the Kac formula
   $$h_{r,s} = \frac{\big((m+1)r - ms\big)^2 - 1}{4m(m+1)}, \qquad 1 \le r \le m-1,\ 1 \le s \le m,$$
-  with $(r,s) \sim (m-r, m+1-s)$. Friedan, Qiu and Shenker showed these are the only unitary
-  theories with $c<1$; Cappelli, Itzykson and Zuber classified their modular invariants by pairs of
+  with $(r,s) \sim (m-r, m+1-s)$. Friedan, Qiu and Shenker [@fqs1984] showed these are the only unitary
+  theories with $c<1$; Cappelli, Itzykson and Zuber [@ciz1987] classified their modular invariants by pairs of
   ADE Dynkin diagrams $(G, G^\prime)$ with Coxeter numbers $m$ and $m+1$.
 
   The surviving labels are the exponents of the E diagram ($E_6$: 1, 4, 5, 7, 8, 11; $E_7$: 1, 5, 7, 9, 11, 13, 17; $E_8$: 1, 7, 11, 13, 17, 19, 23, 29), so the lightest primary is $\phi_{k,k}$ with $k = 4, 5, 7$ and $\Delta_{\rm gap} = \frac{k^2-1}{2m(m+1)}$.
