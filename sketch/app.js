@@ -646,10 +646,29 @@ function operatorDims(t) {
   };
 }
 
+/** A value as a range: { x, e } (central value and stated error; e = 0 when exact), { hi } or { lo } (a one-sided
+ *  bound), or null when it states no error ("1.41", "\approx 0.86", a series in 1/N). */
+function valueRange(value, method) {
+  const s = String(value ?? "").trim().replace(/\\[,;: ]|~/g, " ").replace(/\s+/g, " ");
+  const N = "(-?\\d*\\.?\\d+)";
+  let m;
+  if ((m = new RegExp(`^${N}\\((\\d+)\\)$`).exec(s))) return { x: +m[1], e: +m[2] * 10 ** -((m[1].split(".")[1] || "").length) };
+  if ((m = new RegExp(`^${N} ?\\\\pm ?${N}$`).exec(s))) return { x: +m[1], e: Math.abs(+m[2]) };
+  if ((m = new RegExp(`^${N} ?(?:\\\\text\\{[–-]\\}|–|--) ?${N}$`).exec(s)) || (m = new RegExp(`^\\[${N}, ?${N}\\]$`).exec(s)))
+    return +m[2] >= +m[1] ? { x: (+m[1] + +m[2]) / 2, e: (+m[2] - +m[1]) / 2 } : null;
+  if ((m = new RegExp(`^(?:\\\\leq?|≤|<) ?${N}$`).exec(s))) return { hi: +m[1] };
+  if ((m = new RegExp(`^(?:\\\\geq?|≥|>) ?${N}$`).exec(s))) return { lo: +m[1] };
+  if (/^-?\d+(?:\/\d+)?$|^\\[dt]?frac\{-?\d+\}\{\d+\}$/.test(s.replace(/ /g, "")) || (/^exact/i.test(method || "") && new RegExp(`^${N}$`).test(s)))
+    return { x: leadingNumber(s.replace(/ /g, "")), e: 0 };
+  return null;
+}
+
 /** Relative uncertainty of a value: 0 for an exact expression, Infinity if unknown. */
 function relError(q) {
   const s = String(q.value);
   if (/^exact/i.test(q.method || "")) return 0;
+  const r = valueRange(q.value, q.method);
+  if (r && "x" in r) return r.e / (Math.abs(r.x) || 1);
   let m = s.match(/(-?\d*\.?\d+)\((\d+)\)/);
   if (m) return (+m[2] * 10 ** -((m[1].split(".")[1] || "").length)) / (Math.abs(+m[1]) || 1);
   m = s.match(/(-?\d*\.?\d+)\s*\\pm\s*(\d*\.?\d+)/);
@@ -658,8 +677,59 @@ function relError(q) {
   return Infinity;
 }
 
-/** "Edge exponent" for "Edge exponent, from the dimer density": the description up to its first , : ; or (. */
-const descBase = (d) => String(d ?? "").split(/[,:;(]/)[0].trim().toLowerCase();
+/** A rigorous determination: the bootstrap's bounds and islands (bare `CB`) or a qualifier saying "rigorous". */
+function isRigorous(method) {
+  const s = String(method ?? "");
+  if (/non-?rigorous|not rigorous|estimate/i.test(s)) return false;
+  return /\brigorous\b/i.test(s) || s.split(",")[0].trim() === "CB";
+}
+
+/** Several determinations of one quantity or operator, best first: exact; then rigorous intervals, the narrowest
+ *  first (a rigorous interval is never folded under a non-rigorous estimate that quotes a smaller error); then
+ *  everything else by relative error; ties keep the data order. `val` and `meth` give a row's value and method. */
+function orderDets(rows, val, meth = (q) => q.method) {
+  const rank = (q) => {
+    const e = relError({ value: val(q), method: meth(q) });
+    return e === 0 ? [0, 0] : Number.isFinite(e) && isRigorous(meth(q)) ? [1, e] : [2, e];
+  };
+  const r = new Map(rows.map((q, i) => [q, [...rank(q), i]]));
+  return [...rows].sort((a, b) => {
+    const [x, y] = [r.get(a), r.get(b)];
+    return x[0] - y[0] || x[1] - y[1] || x[2] - y[2];
+  });
+}
+
+/** Does determination b disagree with the preferred one a beyond their stated errors? Two values disagree when
+ *  they differ by more than twice their combined error (errors added in quadrature, i.e. beyond 2σ); a value and a
+ *  one-sided bound when the value lies more than twice its error beyond the bound. Values without a stated error
+ *  are not judged. Returns a short explanation, or "". */
+function disagreement(a, b, val) {
+  const [p, q] = [valueRange(val(a), a.method), valueRange(val(b), b.method)];
+  if (!p || !q) return "";
+  const fmt = (x) => (x >= 10 ? x.toFixed(0) : x.toPrecision(2));
+  if ("x" in p && "x" in q) {
+    const d = Math.abs(p.x - q.x), s = Math.hypot(p.e, q.e);
+    if (s === 0) return d > 1e-12 * Math.max(1, Math.abs(p.x)) ? "differs from the exact value shown first" : "";
+    return d > 2 * s ? `differs from the value shown first by ${fmt(d / s)}× the combined stated error` : "";
+  }
+  const [v, bd, vFirst] = "x" in p ? [p, q, true] : "x" in q ? [q, p, false] : [null];
+  if (!v) return "";
+  const out = "hi" in bd ? v.x - 2 * v.e > bd.hi : v.x + 2 * v.e < bd.lo;
+  if (!out) return "";
+  return vFirst ? "the value shown first lies more than twice its error beyond this bound" : "lies more than twice its error beyond the bound shown first";
+}
+
+/** "+n more" for a folded item, with a warning when some folded determination disagrees with the one shown. */
+function detsButton(id, n, nbad) {
+  return `<div class="sub"><button type="button" class="linkish dets" data-dets="${id}" data-n="${n}" aria-expanded="false"
+    title="Other determinations (papers or methods)">+${n} more</button>${nbad
+      ? ` <span class="badge warn" title="${nbad} of them disagree${nbad > 1 ? "" : "s"} with the value shown, beyond twice the combined stated error">${nbad} disagree${nbad > 1 ? "" : "s"}</span>` : ""}</div>`;
+}
+const disagreeBadge = (why) => (why ? ` <span class="badge warn" title="${esc(why)}">disagrees</span>` : "");
+
+/** "Edge exponent" for "Edge exponent, from the dimer density": the description up to its first , : ; or ( outside
+ *  math (so "$U(2)_1 \times U(2)_{-1}$" and "$U(2)_2 \times U(2)_{-2}$" stay apart). */
+const descBase = (d) => String(d ?? "").replace(/\$[^$]*\$/g, (m) => m.replace(/[,:;(]/g, " ")).split(/[,:;(]/)[0].trim().toLowerCase();
 // "N = 25", "$k = 1$": a description that fixes a parameter describes a different quantity.
 const fixesParameter = (d) => /(^|[\s$(])([A-Za-z]|\\[a-zA-Z]+)\s*=\s*-?\d+(\.\d+)?\s*($|[$,;)])/.test(String(d ?? ""));
 
@@ -670,7 +740,7 @@ function sameQuantity(a, b) {
 }
 
 /** Quantities as items { cat, rows }: rows of one quantity (same symbol, same description up to the
- *  method), most precise first; items in the order of their first row. */
+ *  method), best first (orderDets); items in the order of their first row. */
 function quantityItems(t) {
   const items = [];
   for (const q of t.quantities || []) {
@@ -679,10 +749,7 @@ function quantityItems(t) {
     if (it) it.rows.push(q);
     else items.push({ cat, rows: [q] });
   }
-  for (const it of items) {
-    const err = new Map(it.rows.map((q) => [q, relError(q)]));
-    it.rows = it.rows.map((q, i) => [q, i]).sort((x, y) => err.get(x[0]) - err.get(y[0]) || x[1] - y[1]).map(([q]) => q);
-  }
+  for (const it of items) it.rows = orderDets(it.rows, (q) => q.value);
   return items;
 }
 
@@ -720,10 +787,8 @@ function quantityTable(t, items, cat, source) {
     const d = describe(q, it);
     const desc = head || d !== describe(it.rows[0], it) ? md(d, true) : "";
     const n = it.rows.length - 1;
-    const more = head && n
-      ? `<div class="sub"><button type="button" class="linkish dets" data-dets="${it.id}" data-n="${n}" aria-expanded="false"
-          title="Other determinations (papers or methods)">+${n} more</button></div>`
-      : "";
+    const bad = (r) => disagreement(it.rows[0], r, (x) => x.value);
+    const more = head && n ? detsButton(it.id, n, it.rows.filter((r) => bad(r)).length) : head ? "" : disagreeBadge(bad(q));
     return [
       head ? tex(q.symbol) : "",
       desc + (q.note ? `<div class="sub">${md(q.note, true)}</div>` : ""),
@@ -858,24 +923,82 @@ function leadingNumber(s) {
   return !rest || /^(?:[+\-−–]|\\pm|\\mp|\\text\{[–-]\})/.test(rest) ? v : NaN;
 }
 
-/** Split a rep at its first ',', ';' or ' (' outside math and brackets: the head names the representation, the rest
- *  qualifies it ('singlet (thermal)', '$\mathbb{Z}_2$-even, parity-odd', 'adjoint of $O(N)$; triplet ...'). */
-function repSplit(rep) {
-  let math = false, depth = 0;
-  for (let i = 0; i < rep.length; i++) {
-    const c = rep[i];
+/** Split s at the separators in `seps` outside math, brackets and parentheses: [{ sep, text }], sep being the
+ *  separator before the part ("" for the first). */
+function topSplit(s, seps) {
+  const out = [];
+  let math = false, depth = 0, start = 0, sep = "";
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
     if (c === "\\") i++;
     else if (c === "$") math = !math;
     else if (math) continue;
-    else if (c === "(" && depth === 0 && rep[i - 1] === " ") return [rep.slice(0, i).trim(), rep.slice(i)];
     else if ("([{".includes(c)) depth++;
     else if (")]}".includes(c)) depth--;
-    else if ((c === "," || c === ";") && depth === 0) return [rep.slice(0, i).trim(), rep.slice(i)];
+    else if (depth === 0 && seps.includes(c)) {
+      out.push({ sep, text: s.slice(start, i).trim() });
+      [sep, start] = [c, i + 1];
+    }
   }
-  return [rep.trim(), ""];
+  out.push({ sep, text: s.slice(start).trim() });
+  return out.filter((x) => x.text);
 }
 
-const PARITY = /\bparity(?:[- ]and[- ]time[- ]reversal)?[- ](even|odd)\b/i;
+/** The parenthesized remarks of s outside math, " (...)" after a space: [{ start, end, inner }]. */
+function parenGroups(s) {
+  const out = [];
+  let math = false, depth = 0, open = -1;
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    if (c === "\\") i++;
+    else if (c === "$") math = !math;
+    else if (math) continue;
+    else if (c === "(") {
+      if (depth === 0) open = i > 0 && s[i - 1] !== " " ? -1 : i;
+      depth++;
+    } else if (c === ")" && --depth === 0 && open >= 0) out.push({ start: open, end: i + 1, inner: s.slice(open + 1, i).trim() });
+  }
+  return out;
+}
+const cutParens = (s, groups) =>
+  groups.reduceRight((acc, g) => acc.slice(0, g.start) + acc.slice(g.end), s).replace(/\s{2,}/g, " ").replace(/\s+([,;])/g, "$1").trim();
+
+// A rep string mixes three things: the internal-symmetry representation ("$\mathbb{Z}_2$-even", "adjoint of $O(N)$"),
+// spacetime parity / time reversal ("parity-odd", "odd under parity and time reversal", "$P$-odd") and remarks on
+// the operator's role ("thermal", "order parameter", "superpartner of $\sigma$"). Each part (split at top-level , and ;
+// with its parenthesized remarks) is classified by these words.
+const OP_PARITY = /^(?:(?:parity|\$P\$)(?:[- ]and[- ](time[- ]reversal))?[- ](even|odd)|(even|odd) under (?:parity(?: and (time[- ]reversal))?|reflections?))$/i;
+const OP_ROLE = /thermal|order parameter|energy|\\sim\b|∼|predominantly|at large|descends|contains|partner|multiplet|component|descendant|^degenerate|same anomalous|same for|walk|generator|permuted|sum over|Néel|VBS|primar(?:y|ies)\b|spin field|supercurrent|mass operator|^fermion|fermionic$|^dirac|^even \$|chirality/i;
+const OP_REP = /singlet|adjoint|vector|symmetric|traceless|triplet|doublet|charge|neutral|\beven\b|\bodd\b|-even|-odd|bifundamental|representation|\brank\b|rank-|\\mathbf|irreducible|trivial|invariant|tensor|fundamental|\\wedge|winding|momentum|dimensional|sector|series|continu|discrete|completely degenerate|weights?\b|\$\s*\(?\s*(?:S?U|S?O|Sp|E_|SL|\\mathbb\s*\{Z\}|\\mathfrak)/i;
+const mathOnly = (s) => /\$/.test(s) && !s.replace(/\$[^$]*\$/g, "").replace(/\b(?:and|or|resp\.?)\b|[\s,;()]/g, "");
+const roleLike = (s) => OP_ROLE.test(s) || !(OP_REP.test(s) || mathOnly(s));
+
+/** An operator's rep string as { internal, head, P, T, parityText, role }: the internal representation (head: its first
+ *  part, which names the sector), parity and time reversal ("even" / "odd" / ""), the parity's wording, and the
+ *  remarks on its role, which the table shows with the note. null without a rep. */
+function repParts(rep) {
+  if (rep == null || !String(rep).trim()) return null;
+  const r = { P: "", T: "", parityText: "" }, kept = [], role = [];
+  for (const { sep, text } of topSplit(String(rep), ",;")) {
+    const parens = parenGroups(text), bare = cutParens(text, parens);
+    const pm = OP_PARITY.exec(bare);
+    if (pm) {
+      r.P = (pm[2] || pm[3]).toLowerCase();
+      if (pm[1] || pm[4]) r.T = r.P;
+      r.parityText = bare;
+      role.push(...parens.map((p) => p.inner));
+    } else if (roleLike(bare)) role.push(text);
+    else {
+      const q = parens.filter((p) => roleLike(p.inner));
+      role.push(...q.map((p) => p.inner));
+      kept.push({ sep, text: cutParens(text, q) });
+    }
+  }
+  r.internal = kept.map((k, i) => (i ? `${k.sep} ` : "") + k.text).join("");
+  r.head = kept[0] ? cutParens(kept[0].text, parenGroups(kept[0].text)) : "";
+  r.role = role.join("; ");
+  return r;
+}
 
 /** Grouping key of a rep head: spelling-insensitive ('$\mathbb{Z}_2$-even' = 'Z2-even', case, spaces), nothing more. */
 const repKey = (s) =>
@@ -890,44 +1013,60 @@ const repKey = (s) =>
 /** The trivial sector (singlet, neutral, even, charge 0) comes first in the table. */
 const trivialRep = (key) => /(?:^|\s)singlets?$|^(?:neutral|trivial|charge 0|r ?= ?0)$|-even$/.test(key);
 
-/** Strip separators around a rep's qualifier, and a single pair of parentheses around all of it. */
-function cleanQualifier(s) {
-  let q = s.replace(/^[\s,;]+|[\s,;]+$/g, "").replace(/\s*([,;])(?:\s*[,;])+/g, "$1").replace(/\s{2,}/g, " ");
-  if (q.startsWith("(") && q.endsWith(")")) {
-    let depth = 0, wraps = true;
-    for (let i = 0; i < q.length - 1 && wraps; i++) {
-      if (q[i] === "(") depth++;
-      else if (q[i] === ")") depth--;
-      if (depth === 0) wraps = false;
-    }
-    if (wraps) q = q.slice(1, -1).trim();
-  }
-  return q;
+/** Operator rows { o, i, parts, hk, key }: the sector key is the rep's head plus parity-odd, so parity-odd operators
+ *  form their own sector and an unlabelled parity counts as even (T_{μν}, currents, ...). No internal rep and no
+ *  parity: key null. */
+function operatorRows(ops) {
+  return ops.map((o, i) => {
+    const parts = repParts(o.rep);
+    if (!parts || (!parts.head && !parts.P)) return { o, i, parts, hk: null, key: null };
+    const hk = repKey(parts.head);
+    return { o, i, parts, hk, key: `${hk}|${parts.P === "odd" ? "odd" : ""}` };
+  });
 }
 
-/** Group operators into representation sectors. Returns null when grouping would add nothing (no reps, or one rep). */
-function operatorGroups(ops) {
-  const rows = ops.map((o, i) => {
-    const rep = o.rep != null && String(o.rep).trim() ? String(o.rep) : null;
-    if (!rep) return { o, i, rep, key: null };
-    let [head, rest] = repSplit(rep), parity = "", parityText = "", m;
-    const full = PARITY.exec(head);
-    if (full && full[0].length === head.length) [head, parity, parityText] = ["", full[1].toLowerCase(), full[0]];
-    else if ((m = PARITY.exec(rest))) [parity, parityText] = [m[1].toLowerCase(), m[0]];
-    // Parity-odd operators form their own sector; an unlabelled parity is the even one (T_{μν}, currents, ...).
-    return { o, i, rep, head, parity, parityText, hk: repKey(head), key: `${repKey(head)}|${parity === "odd" ? "odd" : ""}` };
-  });
+/** Rows that are one operator determined several times (by different methods or papers) as items { rows, id }: same
+ *  name, spin, weights and multiplicity (rows already share a sector), and no theory parameter fixed differently
+ *  ("N_f = 12" in the name, note or rep). Rows best first (orderDets); items in the order of their first row. */
+function operatorItems(t, rows) {
+  const pars = (t.parameters || []).map((p) => normTex(p.symbol)).filter(Boolean);
+  const reEsc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const fixed = (o) => {
+    const s = normTex([o.name, o.note, o.rep].join(" "));
+    return pars.map((p) => new RegExp(`(?<![A-Za-z\\\\{])${reEsc(p)}=(-?\\d+(?:\\.\\d+)?)`).exec(s)?.[1] ?? "").join(",");
+  };
+  const key = (o) => [o.name, o.spin, o.weights, o.degeneracy].map(normTex).join("|") + "|" + fixed(o);
+  const items = new Map();
+  for (const r of rows) {
+    const k = key(r.o);
+    if (!items.has(k)) items.set(k, { rows: [], first: r.i });
+    items.get(k).rows.push(r);
+  }
+  const list = [...items.values()];
+  for (const it of list) it.rows = orderDets(it.rows, (r) => r.o.Delta, (r) => r.o.method);
+  return list;
+}
+
+/** Operators grouped into representation sectors, each a list of items ordered by spin, then by the Δ shown (the
+ *  preferred determination). Returns { groups, grouped }; grouped is false when sectors would add nothing (no reps, or
+ *  one rep): then one group, in data order. */
+function operatorGroups(t) {
+  const rows = operatorRows(t.operators);
   const groups = new Map();
   for (const r of rows) {
     if (!groups.has(r.key)) groups.set(r.key, { key: r.key, rows: [] });
     groups.get(r.key).rows.push(r);
   }
   const named = [...groups.values()].filter((g) => g.key !== null);
-  if (named.length < 2 || named.every((g) => g.rows.length < 2)) return null;
+  if (named.length < 2 || named.every((g) => g.rows.length < 2)) {
+    // Ungrouped: still one item per operator, though only rows of the same sector fold together.
+    const items = [...groups.values()].flatMap((g) => operatorItems(t, g.rows)).sort((a, b) => a.first - b.first);
+    return { grouped: false, groups: [{ key: "", heading: null, base: null, items }] };
+  }
 
   const headOrder = new Map();
   rows.forEach((r) => r.key !== null && !headOrder.has(r.hk) && headOrder.set(r.hk, headOrder.size));
-  const trivial = (r) => trivialRep(r.hk) || (!r.hk && r.parity === "even");
+  const trivial = (r) => trivialRep(r.hk) || (!r.hk && r.parts.P === "even");
   const rank = (g) => (g.key === null ? [2, 0, 0] : [trivial(g.rows[0]) ? 0 : 1, headOrder.get(g.rows[0].hk), g.key.endsWith("|odd") ? 1 : 0]);
   const list = [...groups.values()].sort((a, b) => {
     const [x, y] = [rank(a), rank(b)];
@@ -937,32 +1076,24 @@ function operatorGroups(ops) {
   const num = (v) => { const x = leadingNumber(v); return Number.isFinite(x) ? x : Infinity; };
   for (const g of list) {
     if (g.key !== null) {
-      // The heading is the rep itself when the group shares one; otherwise the common head (plus the parity when all share
-      // it), and each row keeps what is left of its rep (e.g. 'thermal') in the Representation column.
-      const same = g.rows.every((r) => r.rep === g.rows[0].rep);
-      const showParity = g.rows.every((r) => r.parity && r.parity === g.rows[0].parity);
-      const h = g.rows[0];
-      g.heading = same ? h.rep : [h.head, showParity ? h.parityText : ""].filter(Boolean).join(", ");
-      for (const r of g.rows) {
-        let q = same ? "" : r.rep.slice(r.head ? r.rep.indexOf(r.head) + r.head.length : 0);
-        if (!same && showParity) q = q.replace(r.parityText, "");
-        r.qualifier = cleanQualifier(q);
-      }
-    } else {
-      g.heading = null;
-      for (const r of g.rows) r.qualifier = "";
-    }
-    // By spin, then by Δ; several values of one operator (different sources) stay together in their listed order.
-    const first = new Map();
-    for (const r of g.rows) if (!first.has(r.o.name)) first.set(r.o.name, r);
-    const sk = (r) => { const f = first.get(r.o.name); return [num(r.o.spin), num(f.o.Delta), f.i, r.i]; };
-    g.rows.sort((a, b) => {
+      // The heading is the internal representation when the sector shares one (else the common head), plus the parity
+      // when all its operators state the same one. The Representation column then shows a row's internal
+      // representation only where it says more than the heading.
+      const h = g.rows[0].parts;
+      const same = g.rows.every((r) => r.parts.internal === h.internal);
+      const showParity = g.rows.every((r) => r.parts.P && r.parts.P === h.P);
+      g.base = same ? h.internal : h.head;
+      g.heading = [g.base, showParity || !g.base ? h.parityText : ""].filter(Boolean).join(", ");
+    } else [g.heading, g.base] = [null, null];
+    g.items = operatorItems(t, g.rows);
+    const sk = (it) => [num(it.rows[0].o.spin), num(it.rows[0].o.Delta), it.first];
+    g.items.sort((a, b) => {
       const [x, y] = [sk(a), sk(b)];
-      for (let k = 0; k < 4; k++) if (x[k] !== y[k]) return x[k] < y[k] ? -1 : 1;
+      for (let k = 0; k < 3; k++) if (x[k] !== y[k]) return x[k] < y[k] ? -1 : 1;
       return 0;
     });
   }
-  return list;
+  return { grouped: true, groups: list };
 }
 
 /** A group heading links its first common rep word to Wikipedia (one link at most, never inside math). */
@@ -987,23 +1118,67 @@ function repWikiLinks(heading) {
   return parts.join("");
 }
 
-function operatorsTable(ops, cols) {
-  const groups = operatorGroups(ops);
-  if (!groups) return table(cols.map(([h]) => h), ops.map((o) => cols.map(([, f]) => f(o))), "data");
-  // Grouped: the Representation column keeps only what the group heading leaves out, and goes when that is nothing.
-  const qual = new Map(groups.flatMap((g) => g.rows.map((r) => [r.o, r.qualifier])));
-  const use = cols
-    .filter(([h]) => h !== "Representation" || [...qual.values()].some(Boolean))
-    .map(([h, f]) => (h === "Representation" ? [h, (o) => md(qual.get(o), true)] : [h, f]));
+/** The operators table. One tbody per operator: the preferred determination shows (orderDets), the others fold under
+ *  "+n more" in the same item. Parity (P) and time reversal (T) get their own columns, as + / −, where some operator
+ *  states them. A grouped table has no Representation column: the sector heading carries the representation, and a
+ *  row whose representation says more than its heading ("singlet; $SU(N_f)$ adjoint" under "singlet") states it in
+ *  its note. An ungrouped table keeps a Representation column of internal representations only. Remarks on an
+ *  operator's role ("thermal", "order parameter") are a muted tag after its name, never a representation. */
+function operatorsTable(t, source) {
+  const { groups, grouped } = operatorGroups(t);
+  const allItems = groups.flatMap((g) => g.items);
+  const sign = (s, what) => (s ? `<span title="${what} ${s}">${s === "odd" ? "−" : "+"}</span>` : "");
+  const repOf = (g, r) => {
+    const x = r.parts?.internal ?? "";
+    return grouped && g.key !== null && x === g.base ? "" : x;
+  };
+  // A short remark stays on one line with the name; a long one wraps.
+  const roleTag = (r) => (r.parts?.role ? ` <span class="op-role${r.parts.role.length <= 24 ? " nowrap" : ""}">· ${md(r.parts.role, true)}</span>` : "");
+  const ops = t.operators;
+  // [header, cell(row, item, group, head?), shown?]. A folded row repeats a column only where it differs from the row shown.
+  const differs = (f) => (r, it, g, head) => {
+    const v = f(r, it, g);
+    return head || v !== f(it.rows[0], it, g) ? v : "";
+  };
+  const extraRep = (r, it, g) => (grouped && repOf(g, r) ? `<div class="op-rep">Representation: ${md(repOf(g, r), true)}</div>` : "");
+  const cols = [
+    ["Operator", (r, it, g, head) => (head ? tex(r.o.name) + roleTag(r) : (r.parts?.role ?? "") !== (it.rows[0].parts?.role ?? "") ? roleTag(r).trim() : ""), true],
+    ["Δ", (r, it, g, head) => {
+      const v = `<span class="value">${tex(r.o.Delta)}</span>`;
+      const bad = (x) => disagreement(it.rows[0].o, x.o, (o) => o.Delta);
+      if (!head) return v + disagreeBadge(bad(r));
+      const n = it.rows.length - 1;
+      return v + (n ? detsButton(it.id, n, it.rows.filter((x) => bad(x)).length) : "");
+    }, true],
+    [tex("(h, \\bar h)"), differs((r) => (r.o.weights ? tex(r.o.weights) : "")), ops.some((o) => o.weights != null)],
+    ["Mult.", differs((r) => (r.o.degeneracy ? tex(r.o.degeneracy) : "")), ops.some((o) => o.degeneracy != null)],
+    ["Spin", differs((r) => (r.o.spin != null ? tex(r.o.spin) : "")), ops.some((o) => o.spin != null)],
+    [`<span title="Parity: + even, − odd">P</span>`, differs((r) => sign(r.parts?.P, "parity")), allItems.some((it) => it.rows.some((r) => r.parts?.P))],
+    [`<span title="Time reversal: + even, − odd">T</span>`, differs((r) => sign(r.parts?.T, "time reversal")), allItems.some((it) => it.rows.some((r) => r.parts?.T))],
+    ["Representation", differs((r, it, g) => md(repOf(g, r), true)), !grouped && allItems.some((it) => it.rows.some((r) => r.parts?.internal))],
+    ["Notes", (r, it, g, head) => differs(extraRep)(r, it, g, head) + (r.o.note ? md(r.o.note, true) : ""),
+      ops.some((o) => o.note != null) || (grouped && groups.some((g) => g.items.some((it) => it.rows.some((r) => repOf(g, r)))))],
+    ["Source", (r) => source(r.o), ops.some((o) => o.method || o.refs?.length)],
+  ].filter(([, , shown]) => shown);
+  const narrow = new Set(["P", "T"].map((h) => cols.findIndex(([x]) => x.endsWith(`>${h}</span>`))));
+  const td = (c, k) => `<td${narrow.has(k) ? ` class="num"` : ""}>${c ?? ""}</td>`;
   const body = groups
     .map((g) => {
-      const head = g.heading == null ? `<span class="op-group-none">representation not given</span>` : md(repWikiLinks(g.heading), true);
-      return `<tbody><tr class="op-group"><th colspan="${use.length}" scope="rowgroup">${head}</th></tr>${g.rows
-        .map((r) => `<tr>${use.map(([, f]) => `<td>${f(r.o) ?? ""}</td>`).join("")}</tr>`)
-        .join("")}</tbody>`;
+      const head = !grouped ? "" : `<tbody class="op-head"><tr class="op-group"><th colspan="${cols.length}" scope="rowgroup">${
+        g.heading == null ? `<span class="op-group-none">representation not given</span>` : md(repWikiLinks(g.heading), true)}</th></tr></tbody>`;
+      return head + g.items
+        .map((it, j) => {
+          it.id = `det-${++DET_SEQ}`;
+          const [first, ...rest] = it.rows;
+          const tr = (r, isHead) => `<tr${isHead ? "" : ` class="det" data-det="${it.id}" hidden`}>${cols.map(([, f], k) => td(f(r, it, g, isHead), k)).join("")}</tr>`;
+          return `<tbody class="item${j % 2 ? " alt" : ""}">${tr(first, true)}${rest.map((r) => tr(r, false)).join("")}</tbody>`;
+        })
+        .join("");
     })
     .join("");
-  return `<div class="table-wrap"><table class="data grouped"><thead><tr>${use.map(([h]) => `<th>${h}</th>`).join("")}</tr></thead>${body}</table></div>`;
+  const btn = allItems.some((it) => it.rows.length > 1)
+    ? `<p class="small"><button type="button" class="linkish small" data-dets-all aria-expanded="false">Show all determinations</button></p>` : "";
+  return `${btn}<div class="table-wrap"><table class="ops"><thead><tr>${cols.map(([h], k) => `<th${narrow.has(k) ? ` class="num"` : ""}>${h}</th>`).join("")}</tr></thead>${body}</table></div>`;
 }
 
 function viewTheory(id) {
@@ -1057,22 +1232,7 @@ function viewTheory(id) {
     out.push(section("symmetry", "Symmetry", `<dl class="kv">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>`));
   }
 
-  if (t.operators?.length) {
-    // Only show columns that some operator fills.
-    const cols = [
-      ["Operator", (o) => tex(o.name), true],
-      ["Δ", (o) => `<span class="value">${tex(o.Delta)}</span>`, true],
-      [tex("(h, \\bar h)"), (o) => (o.weights ? tex(o.weights) : ""), "weights"],
-      ["Mult.", (o) => (o.degeneracy ? tex(o.degeneracy) : ""), "degeneracy"],
-      ["Spin", (o) => (o.spin != null ? tex(o.spin) : ""), "spin"],
-      ["Representation", (o) => md(o.rep, true), "rep"],
-      ["Notes", (o) => md(o.note, true), "note"],
-      ["Source", source, null],
-    ].filter(([, , key]) => key === true || key === null || t.operators.some((o) => o[key] != null));
-    const hasSource = t.operators.some((o) => o.method || o.refs?.length);
-    const use = cols.filter(([h]) => h !== "Source" || hasSource);
-    out.push(section("operators", "Operators", operatorsTable(t.operators, use)));
-  }
+  if (t.operators?.length) out.push(section("operators", "Operators", operatorsTable(t, source)));
 
   const usedTopics = new Set();
   if (t.quantities?.length) out.push(...dataSections(t, source, topics, usedTopics));
@@ -1398,6 +1558,8 @@ function drawFlowArrows() {
     const outs = (id) => arrows.filter((A) => A.uv === id).length;
     const hue = new Map(dots.map(([, , id]) => id).filter((id) => outs(id) > 1)
       .sort((a, b) => outs(b) - outs(a) || R.get(a).t - R.get(b).t || cx(a) - cx(b)).slice(0, 4).map((id, i) => [id, ` c${i + 1}`]));
+    // The box takes the colour of its arrows.
+    els.forEach((n, id) => { n.classList.remove("c1", "c2", "c3", "c4"); if (hue.has(id)) n.classList.add(hue.get(id).trim()); });
     const confusable = (A, p) => [...dots, ...arrows.map((B) => [B.x2, B.y2, B.ir])].some(([x, y, id]) =>
       id !== A.uv && id !== A.ir && p.some(([px, py]) => Math.hypot(px - x, py - y) < 14));
     const runsAlong = (p, q) => { // p stays within 6px of q for 20px or more
