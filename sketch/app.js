@@ -62,6 +62,48 @@ marked.use({
 
 /** Markdown with $inline$ and $$display$$ math. Math is typeset first and
  *  protected from the Markdown parser by placeholders. */
+/* Citations. A page keeps one numbered reference list (CITES) and every citation on it is a bracketed number
+ * linked to that list, shown at the bottom of the page. Prose cites with [@key] or [@key, Sec. 4.1.1] (several:
+ * [@a; @b, Eq. (3)]); build.py prefixes each key with its entry's id ([@ising-3d/kos2016]), so a note shown on
+ * another page still finds its reference. Data rows cite through `refs`, each "key" or "key, Table 2". */
+let CITES = null;
+let CITE_OWNER = null; // entry whose unprefixed keys a citation means (build.py prefixes them all)
+function citeStart(seed = []) {
+  CITES = { list: [], num: new Map() };
+  seed.forEach(([id, key]) => citeNum(id, key));
+}
+function citeNum(id, key) {
+  if (!CITES) return null;
+  const k = `${id}/${key}`;
+  if (!CITES.num.has(k)) {
+    const r = (BY_ID.get(id)?.references || []).find((x) => x.key === key);
+    if (!r) return null;
+    // The same paper under another entry's key keeps its number.
+    const same = CITES.list.findIndex(({ r: o }) => (r.arxiv && o.arxiv === r.arxiv) || (r.doi && o.doi === r.doi));
+    if (same >= 0) CITES.num.set(k, same + 1);
+    else { CITES.list.push({ id, r }); CITES.num.set(k, CITES.list.length); }
+  }
+  return CITES.num.get(k);
+}
+const splitRef = (k) => { const i = String(k).indexOf(","); return i < 0 ? [String(k).trim(), ""] : [k.slice(0, i).trim(), k.slice(i + 1).trim()]; };
+/** One bracket for several sources: parts = [[entry id, key, locator html]]. */
+function citeBracket(parts) {
+  if (!CITES) // no reference list on this page (e.g. a summary in the catalogue): point to the entry's page
+    return parts.length ? `<a class="cite" href="#/theory/${encodeURIComponent(parts[0][0])}">[ref]</a>` : "";
+  const bits = parts.map(([id, key, loc]) => {
+    const n = citeNum(id, key);
+    const label = `${n ?? "?"}${loc ? `, ${loc}` : ""}`;
+    return n == null
+      ? `<span class="cite-missing" title="${esc(`${id}: no reference ${key}`)}">${esc(key)}${loc ? `, ${loc}` : ""}</span>`
+      : `<a class="cite" href="#" data-ref="${esc(`${id}/${key}`)}">${label}</a>`;
+  });
+  return bits.length ? `<span class="cite-group">[${bits.join("; ")}]</span>` : "";
+}
+/** Citations from a data row's refs list (keys of entry `id`). */
+const citeRefs = (id, keys) => (keys?.length ? citeBracket(keys.map((k) => { const [key, loc] = splitRef(k); return [id, key, loc ? md(loc, true) : ""]; })) : "");
+/** The page's reference list, for its last section. */
+const citeList = () => `<ol class="refs">${CITES.list.map(({ id, r }) => refItem(r, id)).join("")}</ol>`;
+
 function md(src, inline = false) {
   if (src == null || src === "") return "";
   const stash = [];
@@ -69,7 +111,13 @@ function md(src, inline = false) {
   const s = String(src)
     .replace(/\$\$([\s\S]+?)\$\$/g, (_, m) => hold(tex(m, true)))
     .replace(/(^|[^\\])\$((?:\\.|[^$\\\n]|\n(?!\n))+?)\$/g, (_, pre, m) => pre + hold(tex(m)))
-    .replace(/\\\$/g, "$");
+    .replace(/\\\$/g, "$")
+    .replace(/\[(@[^\]]*)\]/g, (m, body) => {
+      const parts = body.split(";").map((p) => p.match(/^\s*@(?:([a-z0-9-]+)\/)?([A-Za-z0-9_:-]+)(?:\s*,\s*(\S[^]*?))?\s*$/));
+      if (parts.some((p) => !p)) return m;
+      const unhold = (x) => x.replace(/\uE000(\d+)\uE001/g, (_, i) => stash[+i]);
+      return hold(citeBracket(parts.map(([, id, key, loc]) => [id ?? CITE_OWNER, key, loc ? unhold(marked.parseInline(loc)) : ""])));
+    });
   const html = inline ? marked.parseInline(s) : marked.parse(s);
   return html.replace(/(\d+)/g, (_, i) => stash[+i]);
 }
@@ -431,9 +479,9 @@ function viewTheory(id) {
   document.title = `${plain(t.name)} — QFT Zoo`;
 
   const refs = t.references || [];
-  const refNum = new Map(refs.map((r, i) => [r.key, i + 1]));
-  const cite = (keys) =>
-    (keys || []).map((k) => `<a class="cite" href="#" data-ref="${esc(k)}">[${refNum.get(k)}]</a>`).join("");
+  citeStart(refs.map((r) => [t.id, r.key])); // the entry's own references keep their order; others cited on the page follow
+  CITE_OWNER = t.id;
+  const cite = (keys) => citeRefs(t.id, keys);
   const source = (x) => [x.method ? esc(x.method) : "", cite(x.refs)].filter(Boolean).join(" ");
 
   const out = [];
@@ -522,8 +570,7 @@ function viewTheory(id) {
   const others = theoryLinks(t).filter((l) => !isFlow(l));
   if (others.length) out.push(section("relations", "Relations", relationList(t, others)));
 
-  if (refs.length)
-    out.push(section("references", "References", `<ol class="refs">${refs.map(refItem).join("")}</ol>`));
+  if (CITES.list.length) out.push(section("references", "References", citeList()));
 
   const contributors = (t.contributors || [])
     .map((u) => `<a href="https://github.com/${encodeURIComponent(u)}" target="_blank" rel="noopener">@${esc(u)}</a>`)
@@ -748,9 +795,9 @@ function flowDiagram(cluster, current = null) {
     const sym = MONOTONE_SYM[t.d];
     // Tooltip: the full name, and the value that set the theory's height.
     const height = fh && sym
-      ? (fh.estimated ? `${plain(sym)} not recorded: placed by a rough count of UV degrees of freedom` : `${plain(sym)} ≈ ${+fh.value.toPrecision(4)}`)
+      ? (fh.estimated ? `$${sym}$ not recorded: placed by a rough count of UV degrees of freedom` : `$${sym}$ ${fh.exact ? "=" : "≈"} ${+fh.value.toPrecision(4)}`)
       : "";
-    const title = ` title="${esc([plain(t.name), height].filter(Boolean).join("\n"))}"`;
+    const title = ` data-tip="${esc(`<b>${md(t.name, true)}</b>${height ? `<div class="muted small">${md(height, true)}</div>` : ""}`)}"`;
     return id === current
       ? `<span class="flow-node current" data-flow-node="${esc(id)}" aria-current="page"${title}>${md(shortName(t), true)}</span>`
       : `<a class="flow-node" data-flow-node="${esc(id)}" href="#/theory/${encodeURIComponent(id)}"${title}>${md(shortName(t), true)}</a>`;
@@ -817,7 +864,7 @@ function drawFlowArrows() {
       if (best.dx) { R.set(id, shift(id, best.dx)); els.get(id).style.transform = `translateX(${best.dx}px)`; }
     }
     const arrows = E.map(([uv, ir, key, lane, n]) => ({ uv, ir, key,
-      lane: (lane - (n - 1) / 2) * 112, x1: cx(uv), y1: R.get(uv).b, x2: cx(ir), y2: R.get(ir).t - 2 }));
+      lane: (lane - (n - 1) / 2) * 112, x1: cx(uv), y1: R.get(uv).b, x2: cx(ir), y2: R.get(ir).t }));
     // A course bent `off` px sideways at its middle (quadratic), and points along it.
     const course = (A, off) => {
       const len = Math.hypot(A.x2 - A.x1, A.y2 - A.y1) || 1;
@@ -829,6 +876,12 @@ function drawFlowArrows() {
     const into = new Map();
     arrows.forEach((A) => into.set(A.ir, [...(into.get(A.ir) || []), A]));
     const dots = [...new Set(arrows.map((A) => A.uv))].map((id) => [cx(id), R.get(id).b, id]);
+    // Colour: arrows from one theory share a colour with its dot. The theories with several arrows out, the
+    // busiest first (then top to bottom, left to right), take the four flow colours in fixed order; the rest
+    // keep the site's green.
+    const outs = (id) => arrows.filter((A) => A.uv === id).length;
+    const hue = new Map(dots.map(([, , id]) => id).filter((id) => outs(id) > 1)
+      .sort((a, b) => outs(b) - outs(a) || R.get(a).t - R.get(b).t || cx(a) - cx(b)).slice(0, 4).map((id, i) => [id, ` c${i + 1}`]));
     const confusable = (A, p) => [...dots, ...arrows.map((B) => [B.x2, B.y2, B.ir])].some(([x, y, id]) =>
       id !== A.uv && id !== A.ir && p.some(([px, py]) => Math.hypot(px - x, py - y) < 14));
     const runsAlong = (p, q) => { // p stays within 6px of q for 20px or more
@@ -877,13 +930,14 @@ function drawFlowArrows() {
       const on = A.key === selected ? " selected" : "";
       // The wide invisible copy comes first, so hovering it can thicken the visible line after it (CSS +).
       svgEl("path", { d, class: "flow-hit", "data-flow-open": A.key }, svg);
-      svgEl("path", { d, class: `flow-line${on}`, "data-flow-line": A.key }, svg);
-      svgEl("polygon", { points: `${A.x2},${A.y2} ${bx - 5 * uy},${by + 5 * ux} ${bx + 5 * uy},${by - 5 * ux}`, class: `flow-head${on}`, "data-flow-line": A.key }, svg);
+      const c = hue.get(A.uv) ?? "";
+      svgEl("path", { d, class: `flow-line${on}${c}`, "data-flow-line": A.key }, svg);
+      svgEl("polygon", { points: `${A.x2},${A.y2} ${bx - 5 * uy},${by + 5 * ux} ${bx + 5 * uy},${by - 5 * ux}`, class: `flow-head${on}${c}`, "data-flow-line": A.key }, svg);
     }
     // Dots go on their own layer above the boxes.
     g.querySelector(".flow-dots")?.remove();
     const top = svgEl("svg", { class: "flow-arrows flow-dots", width: box.width, height: box.height, "aria-hidden": "true" });
-    for (const [x, y] of dots) svgEl("circle", { cx: x, cy: y, r: 4, class: "flow-dot" }, top);
+    for (const [x, y, id] of dots) svgEl("circle", { cx: x, cy: y, r: 4, class: `flow-dot${hue.get(id) ?? ""}` }, top);
     g.prepend(svg);
     g.append(top);
   });
@@ -896,7 +950,7 @@ function flowSources(f) {
   const uv = BY_ID.get(f.uv);
   const fl = f.flow || {};
   const keys = [];
-  const add = (ks) => (ks || []).forEach((k) => keys.includes(k) || keys.push(k));
+  const add = (ks) => (ks || []).map((k) => splitRef(k)[0]).forEach((k) => keys.includes(k) || keys.push(k));
   add(fl.identification?.refs);
   add(fl.identification?.competing_refs);
   ["deformations", "vevs", "tuned", "symmetry_changes"].forEach((s) => (fl[s] || []).forEach((x) => add(x.refs)));
@@ -906,7 +960,8 @@ function flowSources(f) {
   const refs = keys.map((k) => (uv.references || []).find((r) => r.key === k)).filter(Boolean);
   // An item's sources, or "standard" for a textbook statement.
   const cite = (ks, x = {}) =>
-    (ks || []).map((k) => keys.indexOf(k)).filter((i) => i >= 0).map((i) => `<span class="cite">[${i + 1}]</span>`).join("") +
+    (ks || []).map(splitRef).map(([k, loc]) => [keys.indexOf(k), loc]).filter(([i]) => i >= 0)
+      .map(([i, loc]) => `<span class="cite">[${i + 1}${loc ? `, ${md(loc, true)}` : ""}]</span>`).join("") +
     (x.standard ? ' <span class="muted small">(standard)</span>' : "");
   return { refs, cite };
 }
@@ -1055,8 +1110,8 @@ function showTip(el, e = null) {
   if (!view || !g) return;
   const tip = view.querySelector(".flow-tip");
   const f = FLOW_BY_KEY.get(el.dataset.flowOpen);
-  if (!f) return;
-  tip.innerHTML = flowPreview(f);
+  if (!f && !el.dataset.tip) return;
+  tip.innerHTML = f ? flowPreview(f) : el.dataset.tip; // an arrow's preview, or a theory box's full name
   tip.hidden = false;
   const box = g.getBoundingClientRect();
   // Next to the pointer when there is one, else under the arrow.
@@ -1118,6 +1173,7 @@ function flowList(t, fs) {
 
 function viewFlows() {
   document.title = "RG Flows — QFT Zoo";
+  citeStart();
   const flows = allFlows();
   const dimOf = (c) => Math.min(...c.flatMap((f) => [nodeDim(f.uv), nodeDim(f.ir)]));
   const clusters = flowClusters(flows).sort((a, b) => dimOf(a) - dimOf(b));
@@ -1140,6 +1196,8 @@ function viewFlows() {
         ${table(["UV", "IR", "Deformation", ""], c.map((f) => [nodeName(f.uv) + f.at, nodeName(f.ir),
           f.note ? md(f.note, true) : f.flow ? flowPreviewText(f) : "", details(f)]), "data")}</section>`)
       .join("")}`;
+  // The papers cited in the flow descriptions above (CITES filled while they were rendered).
+  if (CITES.list.length) app.insertAdjacentHTML("beforeend", section("references", "References", citeList()));
   drawFlowArrows();
 }
 
@@ -1210,14 +1268,14 @@ function membersTable(t) {
     <tbody>${rows.join("")}</tbody></table></div>${more}`;
 }
 
-function refItem(r) {
+function refItem(r, id = null) {
   const links = [];
   if (r.arxiv) links.push(`<a href="https://arxiv.org/abs/${encodeURI(r.arxiv)}" target="_blank" rel="noopener">arXiv:${esc(r.arxiv)}</a>`);
   if (r.doi) links.push(`<a href="https://doi.org/${encodeURI(r.doi)}" target="_blank" rel="noopener">DOI</a>`);
   if (r.url) links.push(`<a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener">link</a>`);
   const q = r.arxiv ? `arxiv:${r.arxiv}` : r.doi ? `doi:${r.doi}` : null;
   if (q) links.push(`<a href="https://inspirehep.net/literature?q=${encodeURIComponent(q)}" target="_blank" rel="noopener">INSPIRE</a>`);
-  return `<li id="ref-${esc(r.key)}">${r.authors ? `${esc(r.authors)}, ` : ""}<em>${md(r.title, true)}</em>${
+  return `<li id="ref-${esc(id ? `${id}/${r.key}` : r.key)}">${r.authors ? `${esc(r.authors)}, ` : ""}<em>${md(r.title, true)}</em>${
     r.journal ? `, ${esc(r.journal)}` : ""
   }${r.year ? ` (${r.year})` : ""}. <span class="ref-links">${links.join(" · ")}</span>${
     r.note ? ` <span class="muted small">— ${md(r.note, true)}</span>` : ""}</li>`;
@@ -1750,6 +1808,7 @@ function applyCatalogueLink(arg) {
 }
 
 function route() {
+  [CITES, CITE_OWNER] = [null, null]; // each page starts its own reference list
   const [page, arg] = location.hash.replace(/^#\/?/, "").split("/");
   if (!page) viewHome();
   else if (page === "catalogue") {
@@ -1770,6 +1829,10 @@ function route() {
 }
 
 window.addEventListener("resize", drawFlowArrows);
+// Boxes change size after the first drawing (math fonts, KaTeX styles): redraw so arrows meet them exactly.
+const FLOW_RESIZE = new ResizeObserver(() => requestAnimationFrame(drawFlowArrows));
+new MutationObserver(() => app.querySelectorAll(".flow-node").forEach((n) => FLOW_RESIZE.observe(n)))
+  .observe(app, { childList: true, subtree: true });
 document.fonts?.addEventListener?.("loadingdone", drawFlowArrows);
 
 app.addEventListener("change", (e) => {
@@ -1778,11 +1841,11 @@ app.addEventListener("change", (e) => {
 
 // Flow arrows: a preview on hover; click or tap opens the details (keyboard: the "details" buttons by the diagram).
 app.addEventListener("mouseover", (e) => {
-  const el = e.target.closest(".flow-graph [data-flow-open]");
-  if (el) showTip(el, e);
+  const el = e.target.closest(".flow-graph [data-flow-open], .flow-graph [data-tip]");
+  if (el) showTip(el, el.dataset.tip ? null : e);
 });
 app.addEventListener("mouseout", (e) => {
-  const el = e.target.closest(".flow-graph [data-flow-open]");
+  const el = e.target.closest(".flow-graph [data-flow-open], .flow-graph [data-tip]");
   if (el && !el.contains(e.relatedTarget)) hideTip(el);
 });
 document.addEventListener("keydown", (e) => {

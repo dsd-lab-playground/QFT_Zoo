@@ -8,6 +8,7 @@
 }
 
 :root {
+  --flow-1: #3a65b8; --flow-2: #c65d26; --flow-3: #b23e88; --flow-4: #ad8100; /* validated with the green (dataviz checks) */
   --bg: #f7f7f3;
   --surface: #ffffff;
   --text: #1c2624;
@@ -30,6 +31,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #131417;
+    --flow-1: #547ecd; --flow-2: #d06d3d; --flow-3: #bc5694; --flow-4: #b38c15;
     --surface: #1b1d21;
     --text: #e7e7ea;
     --muted: #9a9ca6;
@@ -366,6 +368,10 @@ a.flow-node:hover, a.flow-node:focus-visible { background: var(--accent-soft); t
 .flow-kind { display: block; font-size: 0.75rem; opacity: 0.8; }
 .flow-arrows .flow-line { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; }
 .flow-arrows .flow-head, .flow-arrows .flow-dot { fill: var(--accent); }
+.flow-arrows .flow-line.c1 { stroke: var(--flow-1); } .flow-arrows .c1:is(.flow-head, .flow-dot) { fill: var(--flow-1); }
+.flow-arrows .flow-line.c2 { stroke: var(--flow-2); } .flow-arrows .c2:is(.flow-head, .flow-dot) { fill: var(--flow-2); }
+.flow-arrows .flow-line.c3 { stroke: var(--flow-3); } .flow-arrows .c3:is(.flow-head, .flow-dot) { fill: var(--flow-3); }
+.flow-arrows .flow-line.c4 { stroke: var(--flow-4); } .flow-arrows .c4:is(.flow-head, .flow-dot) { fill: var(--flow-4); }
 /* A wide invisible copy of each arrow, drawn just before it, so the line itself can be hovered, clicked or tapped. */
 .flow-arrows .flow-hit { fill: none; stroke: transparent; stroke-width: 18; pointer-events: stroke; cursor: pointer; }
 .flow-arrows .flow-line.selected, .flow-arrows .flow-hit:hover + .flow-line { stroke-width: 4.5; }

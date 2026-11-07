@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-07 18:53 UTC",
+ "generated": "2026-11-07 19:12 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
- "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math.\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: conformal\n  supercharges: 0\n  global: '$O(N)$'\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: conformal bootstrap\n    refs: [author2025]\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    rep: 'vector'\n    method: conformal bootstrap\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
+ "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math,\n#     and cite as [@key] or [@key, Sec. 2] (never a direct link; see CONTRIBUTING.md, Citations).\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: conformal\n  supercharges: 0\n  global: '$O(N)$'\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: conformal bootstrap\n    refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    rep: 'vector'\n    method: conformal bootstrap\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
  "theories": [
   {
    "id": "lee-yang-2d",
@@ -215,7 +215,8 @@
    "backlinks": [],
    "flow_height": {
     "value": -4.4,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    }
   },
   {
@@ -1238,7 +1239,8 @@
    "backlinks": [],
    "flow_height": {
     "value": -2.0,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    }
   },
   {
@@ -1480,7 +1482,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 0.0,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    }
   },
   {
@@ -1692,7 +1695,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 0.0,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    }
   },
   {
@@ -1825,7 +1829,8 @@
    ],
    "flow_height": {
     "value": 0.5,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    }
   },
   {
@@ -2039,7 +2044,8 @@
    ],
    "flow_height": {
     "value": 0.5,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -3185,7 +3191,8 @@
    ],
    "flow_height": {
     "value": 0.7,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -3339,7 +3346,8 @@
    ],
    "flow_height": {
     "value": 0.8,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -4712,7 +4720,8 @@
    ],
    "flow_height": {
     "value": 1.0,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -4925,7 +4934,8 @@
    ],
    "flow_height": {
     "value": 1.0,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -5086,7 +5096,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.0,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    }
   },
   {
@@ -6123,7 +6134,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.0,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    }
   },
   {
@@ -6215,7 +6227,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.0,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -6314,7 +6327,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.0,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -6413,7 +6427,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.0,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -7090,7 +7105,8 @@
    ],
    "flow_height": {
     "value": 1.1428571428571428,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -7174,7 +7190,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.1428571428571428,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -8586,7 +8603,8 @@
    ],
    "flow_height": {
     "value": 1.2,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -8669,7 +8687,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.2,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -11194,7 +11213,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.2727272727272727,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -11281,7 +11301,8 @@
    ],
    "flow_height": {
     "value": 1.2727272727272727,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -11365,7 +11386,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.2727272727272727,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -11882,7 +11904,8 @@
    ],
    "flow_height": {
     "value": 1.3,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -11975,7 +11998,8 @@
    ],
    "flow_height": {
     "value": 1.3333333333333333,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -12058,7 +12082,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.3333333333333333,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -12132,7 +12157,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.3621621621621622,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -12226,7 +12252,8 @@
    ],
    "flow_height": {
     "value": 1.3689839572192513,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -12314,7 +12341,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.3689839572192513,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -12426,7 +12454,8 @@
    ],
    "flow_height": {
     "value": 1.4,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -12513,7 +12542,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -12622,7 +12652,8 @@
    ],
    "flow_height": {
     "value": 1.4,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -12721,7 +12752,8 @@
    ],
    "flow_height": {
     "value": 1.4,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -12820,7 +12852,8 @@
    ],
    "flow_height": {
     "value": 1.4,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -12910,7 +12943,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -12999,7 +13033,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -13109,7 +13144,8 @@
    ],
    "flow_height": {
     "value": 1.4,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -13209,7 +13245,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4285714285714286,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -13310,7 +13347,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4285714285714286,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -13427,7 +13465,8 @@
    ],
    "flow_height": {
     "value": 1.4285714285714286,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -13510,7 +13549,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4285714285714286,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -13597,7 +13637,8 @@
    ],
    "flow_height": {
     "value": 1.4285714285714286,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -13680,7 +13721,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4285714285714286,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -13770,7 +13812,8 @@
    ],
    "flow_height": {
     "value": 1.4545454545454546,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -13870,7 +13913,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4545454545454546,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -13973,7 +14017,8 @@
    ],
    "flow_height": {
     "value": 1.4545454545454546,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -14056,7 +14101,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4545454545454546,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -14141,7 +14187,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4545454545454546,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -14233,7 +14280,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4583333333333333,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -14325,7 +14373,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4583333333333333,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -14420,7 +14469,8 @@
    ],
    "flow_height": {
     "value": 1.4615384615384615,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -14502,7 +14552,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4615384615384615,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -14592,7 +14643,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4615384615384615,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -14672,7 +14724,8 @@
    ],
    "flow_height": {
     "value": 1.4666666666666666,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -14764,7 +14817,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4666666666666666,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -14856,7 +14910,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4666666666666666,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -14936,7 +14991,8 @@
    ],
    "flow_height": {
     "value": 1.4666666666666666,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -15019,7 +15075,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4666666666666666,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -15103,7 +15160,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4803921568627452,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -15187,7 +15245,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4824561403508771,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -15274,7 +15333,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4857142857142858,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -15361,7 +15421,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4875,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -15445,7 +15506,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.493103448275862,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -15529,7 +15591,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.4935483870967743,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    },
    "spectra": [
     {
@@ -17253,7 +17316,8 @@
    ],
    "flow_height": {
     "value": 6.0,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    }
   },
   {
@@ -20831,7 +20895,7 @@
     {
      "type": "flows_to",
      "target": "trivial-tqft-3d",
-     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with the cubic symmetry unbroken. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.",
+     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with the cubic symmetry unbroken. Pelissetto and Vicari [@cubic-3d/pelissetto2002] review the phases of these models.",
      "flow_key": "cubic-3d@0"
     },
     {
@@ -20896,6 +20960,14 @@
      "year": 2020,
      "journal": "SciPost Phys. 8, 085",
      "arxiv": "1911.00522"
+    },
+    {
+     "key": "pelissetto2002",
+     "title": "Critical phenomena and renormalization-group theory",
+     "authors": "Andrea Pelissetto and Ettore Vicari",
+     "year": 2002,
+     "journal": "Phys. Rept. 368, 549",
+     "arxiv": "cond-mat/0012164"
     }
    ],
    "contributors": [
@@ -21376,7 +21448,8 @@
    ],
    "flow_height": {
     "value": 0.11,
-    "estimated": false
+    "estimated": false,
+    "exact": false
    }
   },
   {
@@ -21479,7 +21552,8 @@
    ],
    "flow_height": {
     "value": 0.0638,
-    "estimated": false
+    "estimated": false,
+    "exact": false
    }
   },
   {
@@ -23923,7 +23997,7 @@
     {
      "type": "flows_to",
      "target": "trivial-tqft-3d",
-     "note": "Thermal deformation $S=S_{\\rm Ising}+t\\int d^3x\\,\\epsilon$ with $t>0$ the disordered side, $\\epsilon$ normalized so that $\\lambda_{\\sigma\\sigma\\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$. The global $\\mathbb Z_2$ remains unbroken, acting trivially in the infrared, with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary Ising normalization. No stacked invertible sector is included. [Caselle et al.](https://arxiv.org/abs/1605.05133), Eqs. (1), (4), the value of $C^{\\epsilon}_{\\sigma\\sigma}$ after Eq. (5) and the Monte Carlo convention $t_{\\rm lat}=\\beta_c-\\beta>0$ at high temperature; [Bhardwaj et al.](https://arxiv.org/abs/2408.05266), Sec. 4.1.1, Eqs. (4.8)-(4.10).",
+     "note": "Thermal deformation $S=S_{\\rm Ising}+t\\int d^3x\\,\\epsilon$ with $t>0$ the disordered side, $\\epsilon$ normalized so that $\\lambda_{\\sigma\\sigma\\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$. The global $\\mathbb Z_2$ remains unbroken, acting trivially in the infrared, with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary Ising normalization. No stacked invertible sector is included. Sign convention: [@ising-3d/caselle2016thermal, Eqs. (1), (4)], with the value of $C^{\\epsilon}_{\\sigma\\sigma}$ after their Eq. (5) and the Monte Carlo convention $t_{\\rm lat}=\\beta_c-\\beta>0$ at high temperature; the infrared phase: [@ising-3d/bhardwaj2024phases, Sec. 4.1.1, Eqs. (4.8)–(4.10)].",
      "flow_key": "ising-3d@1"
     }
    ],
@@ -24091,7 +24165,8 @@
    ],
    "flow_height": {
     "value": 0.0612,
-    "estimated": false
+    "estimated": false,
+    "exact": false
    }
   },
   {
@@ -24618,7 +24693,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 0.642965,
-    "estimated": false
+    "estimated": false,
+    "exact": false
    }
   },
   {
@@ -24865,7 +24941,8 @@
    ],
    "flow_height": {
     "value": 0.290791,
-    "estimated": false
+    "estimated": false,
+    "exact": false
    }
   },
   {
@@ -25291,7 +25368,7 @@
     {
      "type": "flows_to",
      "target": "trivial-tqft-3d",
-     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with $O(2)$ unbroken. The other sign breaks $O(2)$ and leaves a Goldstone boson, not this theory. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.",
+     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with $O(2)$ unbroken. The other sign breaks $O(2)$ and leaves a Goldstone boson, not this theory. Pelissetto and Vicari [@o2-model-3d/pelissetto2002] review the phases of these models.",
      "flow_key": "o2-model-3d@0"
     },
     {
@@ -25384,6 +25461,14 @@
      "year": 1972,
      "journal": "Phys. Rev. Lett. 28, 240",
      "doi": "10.1103/PhysRevLett.28.240"
+    },
+    {
+     "key": "pelissetto2002",
+     "title": "Critical phenomena and renormalization-group theory",
+     "authors": "Andrea Pelissetto and Ettore Vicari",
+     "year": 2002,
+     "journal": "Phys. Rept. 368, 549",
+     "arxiv": "cond-mat/0012164"
     }
    ],
    "contributors": [
@@ -25629,7 +25714,7 @@
     {
      "type": "flows_to",
      "target": "trivial-tqft-3d",
-     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with $O(3)$ unbroken. The other sign breaks $O(3)$ to $O(2)$ and leaves two Goldstone bosons, not this theory. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.",
+     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with $O(3)$ unbroken. The other sign breaks $O(3)$ to $O(2)$ and leaves two Goldstone bosons, not this theory. Pelissetto and Vicari [@o3-model-3d/pelissetto2002] review the phases of these models.",
      "flow_key": "o3-model-3d@0"
     },
     {
@@ -25703,6 +25788,14 @@
      "year": 1972,
      "journal": "Phys. Rev. Lett. 28, 240",
      "doi": "10.1103/PhysRevLett.28.240"
+    },
+    {
+     "key": "pelissetto2002",
+     "title": "Critical phenomena and renormalization-group theory",
+     "authors": "Andrea Pelissetto and Ettore Vicari",
+     "year": 2002,
+     "journal": "Phys. Rept. 368, 549",
+     "arxiv": "cond-mat/0012164"
     }
    ],
    "contributors": [
@@ -28312,7 +28405,7 @@
     "unitary",
     "exactly solvable"
    ],
-   "description": "This is the tensor unit of three-dimensional bosonic topological field theories,\nnormalized to $Z(M)=1$ and $\\mathcal H(\\Sigma)=\\mathbb C$: Moore and Saxena,\nsection 9, define it by the state space $\\mathbb C$ on every spatial manifold and\nthe identity map on every bordism, so it does not depend on the metric.\nIt has no intrinsic topological order or chiral gravitational response.\nIts only local operator is the identity: the symmetry-TFT construction of this\nphase produces no genuine topological defects (Bhardwaj et al., section 4.1.1,\nEqs. (4.8)-(4.10)).\n\n### Symmetry-equipped endpoints\nThis entry alone does not choose a global symmetry group. For the conventional\nungauged Ising disordered phase, equip it with an unbroken $\\mathbb Z_2$\nwhose infrared action is trivial, with response $Z(M,A)=1$ for flat backgrounds\n$A$: the trivial $\\mathbb Z_2$ phase of Bhardwaj et al., section 4.1.1,\nEqs. (4.8)-(4.10). The flow relation must record this choice.\nThe nontrivial $\\mathbb Z_2$ SPT phase has the same underlying theory but a\ndifferent realization of the symmetry (their Eqs. (3.5)-(3.6) and (4.11)-(4.13));\na flow to it must say so. Invertible theories that are\nnontrivial even without symmetry, such as those with a chiral gravitational\nresponse, are different theories and are not this entry.\n\n### Meaning of the infrared limit\nA microscopic massive theory has finite correlation length. This entry retains\nonly its normalized topological infrared limit, not its massive particles.\nIt is also the trivial CFT: its only local operator is the identity, its\nstress tensor vanishes, and local metric rescalings act trivially.\n",
+   "description": "This is the tensor unit of three-dimensional bosonic topological field theories,\nnormalized to $Z(M)=1$ and $\\mathcal H(\\Sigma)=\\mathbb C$: Moore and Saxena\n[@trivial-tqft-3d/moore2025, Sec. 9] define it by the state space $\\mathbb C$ on every spatial manifold and\nthe identity map on every bordism, so it does not depend on the metric.\nIt has no intrinsic topological order or chiral gravitational response.\nIts only local operator is the identity: the symmetry-TFT construction of this\nphase produces no genuine topological defects\n[@trivial-tqft-3d/bhardwaj2024, Sec. 4.1.1, Eqs. (4.8)–(4.10)].\n\n### Symmetry-equipped endpoints\nThis entry alone does not choose a global symmetry group. For the conventional\nungauged Ising disordered phase, equip it with an unbroken $\\mathbb Z_2$\nwhose infrared action is trivial, with response $Z(M,A)=1$ for flat backgrounds\n$A$: the trivial $\\mathbb Z_2$ phase of Bhardwaj et al.\n[@trivial-tqft-3d/bhardwaj2024, Sec. 4.1.1, Eqs. (4.8)–(4.10)]. The flow relation must record this choice.\nThe nontrivial $\\mathbb Z_2$ SPT phase has the same underlying theory but a\ndifferent realization of the symmetry [@trivial-tqft-3d/bhardwaj2024, Eqs. (3.5)–(3.6), (4.11)–(4.13)];\na flow to it must say so. Invertible theories that are\nnontrivial even without symmetry, such as those with a chiral gravitational\nresponse, are different theories and are not this entry.\n\n### Meaning of the infrared limit\nA microscopic massive theory has finite correlation length. This entry retains\nonly its normalized topological infrared limit, not its massive particles.\nIt is also the trivial CFT: its only local operator is the identity, its\nstress tensor vanishes, and local metric rescalings act trivially.\n",
    "symmetry": {
     "spacetime": "Topological; local metric rescalings act trivially.",
     "notes": "No global symmetry is fixed by this underlying entry. A flow may specify a retained symmetry, how it is realized, and its background response."
@@ -28358,7 +28451,7 @@
     {
      "type": "flows_from",
      "target": "cubic-3d",
-     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with the cubic symmetry unbroken. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.",
+     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with the cubic symmetry unbroken. Pelissetto and Vicari [@cubic-3d/pelissetto2002] review the phases of these models.",
      "flow_key": "cubic-3d@0",
      "source_entry": "cubic-3d"
     },
@@ -28372,28 +28465,29 @@
     {
      "type": "flows_from",
      "target": "ising-3d",
-     "note": "Thermal deformation $S=S_{\\rm Ising}+t\\int d^3x\\,\\epsilon$ with $t>0$ the disordered side, $\\epsilon$ normalized so that $\\lambda_{\\sigma\\sigma\\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$. The global $\\mathbb Z_2$ remains unbroken, acting trivially in the infrared, with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary Ising normalization. No stacked invertible sector is included. [Caselle et al.](https://arxiv.org/abs/1605.05133), Eqs. (1), (4), the value of $C^{\\epsilon}_{\\sigma\\sigma}$ after Eq. (5) and the Monte Carlo convention $t_{\\rm lat}=\\beta_c-\\beta>0$ at high temperature; [Bhardwaj et al.](https://arxiv.org/abs/2408.05266), Sec. 4.1.1, Eqs. (4.8)-(4.10).",
+     "note": "Thermal deformation $S=S_{\\rm Ising}+t\\int d^3x\\,\\epsilon$ with $t>0$ the disordered side, $\\epsilon$ normalized so that $\\lambda_{\\sigma\\sigma\\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$. The global $\\mathbb Z_2$ remains unbroken, acting trivially in the infrared, with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary Ising normalization. No stacked invertible sector is included. Sign convention: [@ising-3d/caselle2016thermal, Eqs. (1), (4)], with the value of $C^{\\epsilon}_{\\sigma\\sigma}$ after their Eq. (5) and the Monte Carlo convention $t_{\\rm lat}=\\beta_c-\\beta>0$ at high temperature; the infrared phase: [@ising-3d/bhardwaj2024phases, Sec. 4.1.1, Eqs. (4.8)–(4.10)].",
      "flow_key": "ising-3d@1",
      "source_entry": "ising-3d"
     },
     {
      "type": "flows_from",
      "target": "o2-model-3d",
-     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with $O(2)$ unbroken. The other sign breaks $O(2)$ and leaves a Goldstone boson, not this theory. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.",
+     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with $O(2)$ unbroken. The other sign breaks $O(2)$ and leaves a Goldstone boson, not this theory. Pelissetto and Vicari [@o2-model-3d/pelissetto2002] review the phases of these models.",
      "flow_key": "o2-model-3d@0",
      "source_entry": "o2-model-3d"
     },
     {
      "type": "flows_from",
      "target": "o3-model-3d",
-     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with $O(3)$ unbroken. The other sign breaks $O(3)$ to $O(2)$ and leaves two Goldstone bosons, not this theory. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.",
+     "note": "Singlet mass deformation $t\\,\\phi_a\\phi_a$ on the disordered (high-temperature) side: gapped, with $O(3)$ unbroken. The other sign breaks $O(3)$ to $O(2)$ and leaves two Goldstone bosons, not this theory. Pelissetto and Vicari [@o3-model-3d/pelissetto2002] review the phases of these models.",
      "flow_key": "o3-model-3d@0",
      "source_entry": "o3-model-3d"
     }
    ],
    "flow_height": {
     "value": 0.0,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    }
   },
   {
@@ -28565,7 +28659,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 0.872,
-    "estimated": false
+    "estimated": false,
+    "exact": false
    }
   },
   {
@@ -29582,7 +29677,8 @@
    ],
    "flow_height": {
     "value": 0.17222222222222222,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    }
   },
   {
@@ -29712,7 +29808,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 0.002777777777777778,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    }
   },
   {
@@ -29848,7 +29945,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 0.015277777777777777,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    }
   },
   {
@@ -30939,7 +31037,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 0.35833333333333334,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    }
   },
   {
@@ -31394,7 +31493,8 @@
    "backlinks": [],
    "flow_height": {
     "value": 1.25,
-    "estimated": false
+    "estimated": false,
+    "exact": true
    }
   },
   {
