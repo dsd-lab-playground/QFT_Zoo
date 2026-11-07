@@ -1067,6 +1067,12 @@ function operatorItems(t, rows) {
  *  one rep): then one group, in data order. */
 function operatorGroups(t) {
   const rows = operatorRows(t.operators);
+  // In a theory with parity whose entry marks some operators parity-odd, an operator with no parity stated is
+  // parity-even: say so (P column "+", heading "parity-even") rather than leave it blank.
+  const sym = t.symmetry || {};
+  const hasParity = /with parity/i.test(sym.spacetime || "") || /^\$O\(/.test(sym.euclidean || "");
+  if (hasParity && rows.some((r) => r.parts?.P === "odd"))
+    rows.forEach((r) => { if (r.parts && !r.parts.P) Object.assign(r.parts, { P: "even", parityText: "parity-even" }); });
   const groups = new Map();
   for (const r of rows) {
     if (!groups.has(r.key)) groups.set(r.key, { key: r.key, rows: [] });
