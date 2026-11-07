@@ -1,0 +1,220 @@
+id: on-model-5d
+name: '5d $O(N)$ model'
+aliases:
+  - 'Critical $O(N)$ model in $4<d<6$'
+  - 'UV fixed point of the $(\phi^i\phi^i)^2$ theory in $d=5$'
+  - 'Cubic $O(N)$ model of Fei, Giombi and Klebanov'
+d: 5
+summary: >-
+  Status disputed: the large-$N$ UV fixed point of $N$ scalars with a $(\phi^i\phi^i)^2$
+  interaction, equivalently the IR fixed point of a cubic theory of $N+1$ scalars. It is
+  unitary order by order in $1/N$, but instantons give its scaling dimensions imaginary
+  parts of order $e^{-Nf}$.
+tags: [CFT, interacting, Lagrangian, large N, holographic, family]
+
+description: |
+  $N$ counts real scalars $\phi^i$. In $d > 4$ the quartic coupling $(\phi^i\phi^i)^2$ is
+  irrelevant, so $N$ free scalars are the IR end of the flow. At large $N$, a
+  Hubbard–Stratonovich field $\sigma \sim \phi^i\phi^i$ shows a UV fixed point with
+  $\Delta_\phi = \tfrac{d}{2} - 1 + O(1/N)$ and $\Delta_\sigma = 2 + O(1/N)$; since
+  $\Delta_\sigma$ must exceed the unitarity bound $\tfrac{d}{2} - 1$, the interesting range
+  is $4 < d < 6$. In $d = 4 + \epsilon$ the same fixed point sits at negative quartic
+  coupling. Fei, Giombi and Klebanov proposed that it is the IR fixed point of the cubic
+  theory below, whose couplings are relevant for $d < 6$: near $d = 6$ the fixed point is
+  at real couplings for $N$ above a critical value $N_{\rm crit}$, and its $6-\epsilon$
+  expansions match the $1/N$ expansions of the quartic model.
+
+  The fixed point has two relevant $O(N)$ singlets, $\sigma$ and $\sigma^2$, so on a
+  lattice two couplings would have to be tuned, and even then only near-critical
+  behaviour in a long-lived metastable state is expected (Giombi, Huang, Klebanov, Pufu
+  and Tarnopolsky). Its $C_T$ is smaller than that of $N$ free
+  scalars, so the flow from it to $N$ free scalars violates a would-be $C_T$ theorem, while
+  the $\tilde F$-theorem holds for the flows from $N+1$ and to $N$ free scalars (Fei,
+  Giombi and Klebanov). At large $N$ the singlet sector is conjectured to be dual to the
+  Vasiliev higher-spin theory in AdS$_6$ with the alternate ($\Delta = 2 + O(1/N)$)
+  boundary condition on the bulk scalar; Giombi et al. expect that choice to be
+  metastable in the bulk as well.
+
+  ### Status
+  **Perturbative evidence.** Perturbatively in $1/N$ the fixed point exists, with real
+  dimensions above the unitarity bounds. How far it extends to finite $N$ is unclear.
+  The one-loop $N_{\rm crit} \approx 1038$ near $d = 6$ drops to about 64 when the
+  three-loop series is evaluated at $\epsilon = 1$ (Fei, Giombi, Klebanov and
+  Tarnopolsky), but four-loop Padé approximants settle near 400 in $d = 5$ (Gracey). The
+  $1/N^3$ value of $\Delta_\phi$ crosses the unitarity bound at $N \approx 35$, a crude
+  estimate.
+
+  **Instability.** The cubic potential is unbounded below, and on $S^5$ or
+  $\mathbb{R}\times S^4$ the conformal coupling makes the perturbative vacuum metastable.
+  Giombi et al. studied the instantons that mediate the decay, both near $d = 6$ and at
+  large $N$. They give the scaling dimensions, the sphere free energy, $C_J$ and OPE
+  coefficients imaginary parts of order $e^{-Nf(d)}$, where $f(d)$ is the sphere free
+  energy of a conformal scalar in $d - 2$ dimensions, with
+  $f(5) = \frac{\log 2}{8} - \frac{3\zeta(3)}{16\pi^2} \approx 0.0638$. So at every
+  finite $N$ the theory is at best a complex CFT. In $d = 5$, $|{\rm Im}\,\Delta_\phi| < 10^{-2}$ ($10^{-3}$) requires
+  $N > 172$ ($220$), and $|{\rm Im}\,\Delta_\sigma| < 10^{-2}$ ($10^{-3}$) requires
+  $N > 310$ ($355$). This fits the expectation, supported by rigorous results, that
+  interacting $\phi^4$ theory has no true critical point in $d > 4$.
+
+  **Bootstrap.** Unitarity-based bootstrap studies find features at the large-$N$ values
+  but disagree on small $N$. Nakayama and Ohtsuki find that the lower bound on $C_J$ has a
+  minimum at the large-$N$ $\Delta_\phi$ for $N = 500$ and $1000$; the minimum persists for
+  all $N$ they studied. Chester, Pufu and Yacoby find a kink at the large-$N$ values for
+  $N = 500$, which disappears between $N = 15$ and $22$ (assuming
+  $\Delta_{\sigma^2} \ge 3.8$). Bae and Rey, with a different two-gap approach, find
+  indications that the fixed point persists down to $N = 1$. Li and Su, with mixed
+  correlators, find a closed island around the large-$N$ values at $N = 500$, but for
+  $N \le 100$ their islands disappear as the number of derivatives grows, and they
+  conclude that the unitary range starts above $N = 100$. Giombi et al. note that their
+  thresholds on $N$ are roughly commensurate with Li and Su's, and that the bootstrap
+  cannot distinguish a complex CFT with tiny imaginary parts from a unitary one.
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi_i)^2 + \tfrac{1}{2}(\partial\sigma)^2 + \tfrac{g_1}{2}\,\sigma\phi_i\phi_i + \tfrac{g_2}{6}\,\sigma^3, \quad i = 1,\dots,N \quad (\text{IR fixed point; equivalently the UV fixed point of } \tfrac{\lambda}{4}(\phi_i\phi_i)^2)'
+
+parameters:
+  - symbol: N
+    description: Number of real scalar components $\phi^i$.
+    range: 'Large $N$; estimates of the smallest $N$ with a (nearly) unitary fixed point range from $N = 1$ to about 400'
+
+family:
+  parameter: N
+  members:
+    - at: 100
+      note: 'Mixed-correlator bootstrap islands disappear at higher derivative order, which Li and Su read as non-unitarity.'
+    - at: 500
+      note: 'Large $N$: $(\Delta_\phi, \Delta_\sigma) = (1.500414, 2.02158)$. Bootstrap kink at $(1.500409, 2.027)$ (Chester et al.) and a closed island around the large-$N$ point (Li and Su).'
+    - at: 1000
+      note: 'The minimum of the lower bound on $C_J$ sits at the large-$N$ $\Delta_\phi$ to within $2\times10^{-5}$ (Nakayama and Ohtsuki).'
+    - at: '\infty'
+      label: Large-$N$ limit
+      note: '$\Delta_\phi = \tfrac32$, $\Delta_\sigma = 2$. Singlet sector conjectured dual to the Vasiliev theory in AdS$_6$ with alternate boundary conditions.'
+
+symmetry:
+  spacetime: conformal (order by order in $1/N$)
+  supercharges: 0
+  global: '$O(N)$'
+  notes: 'On $S^5$ or $\mathbb{R}\times S^4$ the conformal coupling makes the perturbative vacuum metastable; instantons make the CFT data complex at finite $N$.'
+
+quantities:
+  - symbol: 'N_{\rm crit}'
+    description: 'Smallest $N$ with a real IR fixed point of the cubic theory in $d = 6 - \epsilon$'
+    value: '1038.266 - 609.840\,\epsilon - 364.173\,\epsilon^2 + O(\epsilon^3)'
+    method: 'epsilon-expansion (6 − ε, three loops)'
+    refs: [fei2014b, gracey2015]
+    note: 'The three terms give $64.253$ at $\epsilon = 1$. The four-loop term is large and positive; Padé approximants of the four-loop series give $421.76$ in $d = 5$ (Gracey, Table 10).'
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor two-point coefficient, relative to $N$ free real scalars'
+    value: '1 - \frac{1408}{1575\pi^2 N} + O(N^{-2})'
+    method: derived
+    refs: [fei2014]
+    note: 'From the large-$N$ result $C_T = \frac{5}{4S_5^2}\left(N - \frac{1408}{1575\pi^2}\right)$ (Fei et al., eq. 6.6), divided by the free value $\frac{5N}{4S_5^2}$ given there.'
+  - symbol: '\tilde F'
+    description: 'Sphere free energy in the convention of Giombi and Klebanov, $\tilde F = \log Z_{S^5} = -F$, with $\tilde F_s = \frac{\log 2}{128} + \frac{\zeta(3)}{128\pi^2} - \frac{15\zeta(5)}{256\pi^4} \approx 0.00574$ for one free conformal scalar'
+    value: 'N\tilde F_s + 0.001601 + O(1/N)'
+    method: large N
+    refs: [fei2014, giombi2014]
+    note: 'Real part. The $O(N^0)$ term equals $\frac{3\zeta(5)+\pi^2\zeta(3)}{96\pi^4}$ (derived: it matches the general-$d$ integral of Giombi and Klebanov at $d = 5$; the arXiv text of Fei et al., eq. 6.11, prints $96\pi^2$, a misprint). It lies between 0 and $\tilde F_s$, as the $\tilde F$-theorem requires.'
+
+operators:
+  - name: '\phi_i'
+    Delta: '\frac{3}{2}+\frac{32}{15\pi^2N}-\frac{1427456}{3375\pi^4N^2}+\left(\frac{275255197696}{759375\pi^6}-\frac{89735168}{2025\pi^4}+\frac{32768\ln 4}{9\pi^4}-\frac{229376\,\zeta(3)}{3\pi^6}\right)\frac{1}{N^3}+O(N^{-4})'
+    spin: 0
+    rep: vector
+    method: large N
+    refs: [fei2014]
+    note: 'Numerically $\tfrac32 + 0.216152/N - 4.342/N^2 - 121.673/N^3$ (eq. 2.23). Unitarity bound $\tfrac32$.'
+  - name: '\sigma'
+    Delta: '2+\frac{512}{5\pi^2N}+\frac{2048\left(12625\pi^2-113552\right)}{1125\pi^4N^2}+O(N^{-3})'
+    spin: 0
+    rep: singlet
+    method: large N
+    refs: [fei2014]
+    note: 'Numerically $2 + 10.3753/N + 206.542/N^2$ (eq. 2.24). Relevant; $\sigma \sim \phi_i\phi_i$.'
+  - name: '\sigma^2'
+    Delta: '4 - \frac{13.8337}{N} - \frac{1819.66}{N^2} + O(N^{-3})'
+    spin: 0
+    rep: singlet
+    method: large N
+    refs: [chester2014]
+    note: 'Second relevant singlet (eq. 2.1c). The $1/N$ coefficient is $\frac{2048}{15\pi^2}$, from eq. 2.25 of Fei et al. with $k = 2$ (derived).'
+  - name: 'J_\mu^{[ij]}'
+    Delta: 4
+    spin: 1
+    rep: antisymmetric (adjoint)
+    method: exact
+    note: Conserved $O(N)$ currents.
+  - name: 'T_{\mu\nu}'
+    Delta: 5
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: on-model-3d
+    note: 'The same large-$N$ family in another dimension. For $2 < d < 4$ the critical $O(N)$ model is the IR (Wilson–Fisher) fixed point of the quartic theory; for $4 < d < 6$ the $1/N$ expansion continues to a UV fixed point of the quartic theory, equivalently an IR fixed point of the cubic theory (Fei, Giombi and Klebanov).'
+  - type: related_to
+    target: free-scalar-5d
+    note: 'The fixed point flows in the IR to $N$ free scalars and, in the cubic description, is reached from $N+1$ free scalars; the sphere free energy satisfies $N\tilde F_s < \tilde F < (N+1)\tilde F_s$.'
+  - type: related_to
+    target: lee-yang-5d
+    note: 'At $N = 0$ the cubic Lagrangian reduces to one scalar with a $\sigma^3$ coupling, Fisher''s Lee–Yang theory, whose fixed point sits at imaginary coupling (Fei, Giombi and Klebanov).'
+
+references:
+  - key: fei2014
+    title: 'Critical $O(N)$ Models in $6-\epsilon$ Dimensions'
+    authors: Fei, Giombi, Klebanov
+    year: 2014
+    journal: Phys. Rev. D 90, 025018
+    arxiv: '1404.1094'
+  - key: fei2014b
+    title: 'Three Loop Analysis of the Critical $O(N)$ Models in $6-\epsilon$ Dimensions'
+    authors: Fei, Giombi, Klebanov, Tarnopolsky
+    year: 2015
+    journal: Phys. Rev. D 91, 045011
+    arxiv: '1411.1099'
+  - key: gracey2015
+    title: 'Four loop renormalization of $\phi^3$ theory in six dimensions'
+    authors: Gracey
+    year: 2015
+    journal: Phys. Rev. D 92, 025012
+    arxiv: '1506.03357'
+  - key: giombi2019
+    title: 'The $O(N)$ Model in $4<d<6$: Instantons and Complex CFTs'
+    authors: Giombi, Huang, Klebanov, Pufu, Tarnopolsky
+    year: 2020
+    journal: Phys. Rev. D 101, 045013
+    arxiv: '1910.02462'
+  - key: giombi2014
+    title: 'Interpolating between $a$ and $F$'
+    authors: Giombi, Klebanov
+    year: 2015
+    journal: JHEP 03 (2015) 117
+    arxiv: '1409.1937'
+  - key: nakayama2014
+    title: 'Five dimensional $O(N)$-symmetric CFTs from conformal bootstrap'
+    authors: Nakayama, Ohtsuki
+    year: 2014
+    journal: Phys. Lett. B 734, 193
+    arxiv: '1404.5201'
+  - key: bae2014
+    title: Conformal Bootstrap Approach to O(N) Fixed Points in Five Dimensions
+    authors: Bae, Rey
+    year: 2014
+    arxiv: '1412.6549'
+    note: Preprint; not published in a journal.
+  - key: chester2014
+    title: 'Bootstrapping $O(N)$ Vector Models in $4<d<6$'
+    authors: Chester, Pufu, Yacoby
+    year: 2015
+    journal: Phys. Rev. D 91, 086014
+    arxiv: '1412.7746'
+  - key: li2016
+    title: Bootstrapping Mixed Correlators in the Five Dimensional Critical O(N) Models
+    authors: Li, Su
+    year: 2017
+    journal: JHEP 04 (2017) 098
+    arxiv: '1607.07077'
+
+contributors: [Canonical111]

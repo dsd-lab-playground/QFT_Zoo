@@ -1,0 +1,149 @@
+id: percolation-5d
+name: 5d percolation CFT
+aliases:
+  - Critical percolation in five dimensions
+  - '$q \to 1$ Potts model (5d)'
+  - Bond and site percolation universality class (5d)
+d: 5
+summary: >-
+  The critical point of bond and site percolation in five dimensions, the $q \to 1$ limit
+  of the $q$-state Potts model, one dimension below the upper critical dimension 6. A
+  non-unitary CFT, expected to be logarithmic, with exponents from Monte Carlo and the
+  $6-\epsilon$ expansion.
+tags: [CFT, interacting, non-unitary, Lagrangian, critical phenomena]
+
+description: |
+  Percolation is the $q \to 1$ limit of the Fortuin–Kasteleyn cluster representation of
+  the $q$-state Potts model. Its field theory is a cubic theory of $N = q - 1$ scalars
+  with the $S_q$-invariant tensor coupling $d_{ijk}$, continued to $N \to 0$, with upper
+  critical dimension 6. In $d = 5$ it is $\epsilon = 1$ of the $6-\epsilon$ expansion, and
+  the five-loop resummed $\nu$ and $\eta$ agree with the Monte Carlo values to within
+  about $0.005$.
+
+  The thermal operator $\epsilon$, an $S_q$ singlet coupled to $p - p_c$, has
+  $\Delta_\epsilon = 5 - 1/\nu$. The order-parameter (spin) operator $\sigma$, in the
+  $(q-1)$-dimensional representation of $S_q$, has $\Delta_\sigma = 5 - d_f$, where $d_f$
+  is the fractal dimension of critical clusters, and $\eta = 2\Delta_\sigma - 3$.
+  $\Delta_\sigma \approx 1.474$ lies below the unitarity bound $\Delta \geq \tfrac32$ for a
+  5d scalar ($\eta < 0$).
+
+  The most precise values come from Monte Carlo simulations of bond percolation on
+  hypercubic lattices: the two-cluster exponent, which equals $\Delta_\epsilon$, from a
+  transfer Monte Carlo method on cylinders (Tan, Deng and Jacobsen), and $d_f$ on periodic
+  hypercubes (Zhang, Hou, Fang, Hu and Deng). For $1/\nu$ these two groups and Koza and
+  Poła (site percolation, $1/\nu \approx 1.747$) differ by up to about two standard
+  deviations; Tan et al. argue that the central value $1.747$ is nearly excluded by their
+  data.
+
+  ### Logarithmic CFT
+  Vasseur, Jacobsen and Saleur showed that at $q = 1$ the thermal operator mixes with a
+  partner that creates two propagating clusters, so that suitable two-point functions
+  scale logarithmically, and expect the mechanism to hold also for $d > 2$. Tan, Deng and
+  Jacobsen measured the $N$-cluster correlation functions ($N = 2, 3$) of this
+  logarithmic CFT in $d = 4$ and $5$, including the logarithmic combination and its
+  universal amplitude, and conclude that their results confirm the logarithmic CFT
+  description.
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi_i)^2 + \tfrac{1}{2} m^2 \phi_i\phi_i + \tfrac{g}{3!}\, d_{ijk}\,\phi_i\phi_j\phi_k, \quad d_{ijk} = \sum_{\alpha=1}^{N+1} e^i_\alpha e^j_\alpha e^k_\alpha, \quad i = 1,\dots,N = q - 1 \to 0 \quad (m^2 \text{ tuned})'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$S_q$ permutation symmetry of the Potts model, at $q \to 1$ (formal)'
+  notes: 'The $N+1$ vectors $e_\alpha$ are the vertices of an $N$-dimensional tetrahedron, so $d_{ijk}$ is invariant under their permutations, the $S_{N+1} = S_q$ of the Potts model.'
+
+quantities:
+  - symbol: '1/\nu'
+    description: 'Thermal exponent $y_t = 1/\nu = 5 - \Delta_\epsilon$'
+    value: '1.737(2)'
+    method: Monte Carlo (bond, hypercubic)
+    refs: [tan2020, zhang2021, koza2016]
+    note: 'Other Monte Carlo values: $1.743(10)$ (bond, Zhang et al.); site percolation $\nu = 0.5723(18)$ (Koza and Poła).'
+  - symbol: '\nu'
+    description: Correlation-length exponent
+    value: '0.5741(6)'
+    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    refs: [borinsky2021]
+    note: 'Resummation of the series for $1/\nu$, all methods combined (Table 15).'
+  - symbol: 'd_f'
+    description: 'Fractal dimension of critical clusters, $d_f = y_h = 5 - \Delta_\sigma$'
+    value: '3.5260(14)'
+    method: Monte Carlo (bond, hypercubic)
+    refs: [zhang2021, mertens2018]
+    note: 'Consistent with the site-percolation Fisher exponent $\tau = 1 + 5/d_f = 2.419(1)$ (Mertens and Moore).'
+  - symbol: '\eta'
+    description: 'Anomalous dimension, $\eta = 7 - 2d_f = 2\Delta_\sigma - 3$'
+    value: '-0.0520(28)'
+    method: derived
+    refs: [zhang2021, borinsky2021]
+    note: 'From $d_f = 3.5260(14)$. Five-loop $6-\epsilon$: $-0.056(3)$ (Borinsky et al., Table 13).'
+  - symbol: '\omega'
+    description: 'Leading correction-to-scaling exponent'
+    value: '0.746(11)'
+    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    refs: [borinsky2021]
+    note: 'All methods combined (Table 19).'
+
+operators:
+  - name: '\sigma'
+    Delta: '1.4740(14)'
+    spin: 0
+    rep: '$(q-1)$-dimensional representation of $S_q$ (order parameter)'
+    method: derived
+    refs: [zhang2021, tan2020]
+    note: '$5 - d_f$ with $d_f = 3.5260(14)$, listed as the magnetic dimension $X_1$ in Table IV of Tan et al. Below the unitarity bound $\tfrac32$.'
+  - name: '\epsilon'
+    Delta: '3.263(2)'
+    spin: 0
+    rep: '$S_q$ singlet (thermal)'
+    method: Monte Carlo (bond, hypercubic)
+    refs: [tan2020]
+    note: 'Measured as the two-cluster exponent $X_{2s}$, which equals $5 - y_t$.'
+
+relations:
+  - type: related_to
+    target: percolation-4d
+    note: 'The same universality class in four dimensions; both are continuations of the $q \to 1$ Potts fixed point from $d = 6-\epsilon$, with $\epsilon = 1$ here and $\epsilon = 2$ there.'
+  - type: related_to
+    target: lee-yang-5d
+    note: 'Both are fixed points of cubic scalar theories with upper critical dimension 6: one real field with an imaginary coupling, or $N = q-1 \to 0$ fields with the Potts tensor $d_{ijk}$. Borinsky et al. obtain both $6-\epsilon$ expansions from the same five-loop renormalization of the general cubic theory, which differ only in the tensor factors of each Feynman graph.'
+
+references:
+  - key: tan2020
+    title: N-cluster correlations in four- and five-dimensional percolation
+    authors: Tan, Deng, Jacobsen
+    year: 2020
+    journal: Front. Phys. 15, 41501
+    arxiv: '2006.10981'
+  - key: zhang2021
+    title: Critical exponents and universal excess cluster number of percolation in four and five dimensions
+    authors: Zhang, Hou, Fang, Hu, Deng
+    year: 2021
+    journal: Physica A 580, 126124
+    arxiv: '2004.11289'
+  - key: koza2016
+    title: From discrete to continuous percolation in dimensions 3 to 7
+    authors: Koza, Poła
+    year: 2016
+    journal: J. Stat. Mech. (2016) 103206
+    arxiv: '1606.08050'
+  - key: mertens2018
+    title: Percolation thresholds and Fisher exponents in hypercubic lattices
+    authors: Mertens, Moore
+    year: 2018
+    journal: Phys. Rev. E 98, 022120
+    arxiv: '1806.08067'
+  - key: borinsky2021
+    title: Five loop renormalization of $\phi^3$ theory with applications to the Lee-Yang edge singularity and percolation theory
+    authors: Borinsky, Gracey, Kompaniets, Schnetz
+    year: 2021
+    journal: Phys. Rev. D 103, 116024
+    arxiv: '2103.16224'
+  - key: vasseur2012
+    title: Logarithmic observables in critical percolation
+    authors: Vasseur, Jacobsen, Saleur
+    year: 2012
+    journal: J. Stat. Mech. (2012) L07001
+    arxiv: '1206.2312'
+
+contributors: [Canonical111]
