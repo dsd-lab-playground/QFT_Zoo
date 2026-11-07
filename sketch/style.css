@@ -156,6 +156,19 @@ table.data.grouped tbody:last-child tr:last-child td { border-bottom: 0; }
 .op-group-none { color: var(--muted); font-weight: 400; font-style: italic; }
 .sub { color: var(--muted); font-size: 0.88rem; margin-top: 2px; }
 
+/* Quantity tables: one tbody per quantity; further determinations folded below it. */
+table.qty .value, table.qty .rel { white-space: nowrap; }
+table.qty tbody tr:last-child td { border-bottom: 1px solid var(--border); }
+table.qty tbody:last-child tr:last-child td { border-bottom: 0; }
+table.qty tr.det td { background: var(--row-hover); font-size: 0.86rem; }
+table.qty tr.det td:first-child { border-left: 3px solid var(--accent-soft); }
+table.qty tbody.group th {
+  background: var(--accent-soft); color: var(--text); font: 500 0.9rem var(--sans); padding: 4px 10px;
+  border-bottom: 1px solid var(--border);
+}
+table.qty .dets { font-size: 0.82rem; white-space: nowrap; }
+.block > p.intro, .block > p.conv { margin: -4px 0 10px; }
+
 .empty { text-align: center; color: var(--muted); padding: 30px 0; }
 
 /* ----------------------------------------------------------------- pills */

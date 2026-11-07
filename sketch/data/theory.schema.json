@@ -130,6 +130,18 @@
         "$ref": "#/$defs/reference"
       }
     },
+    "conventions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "central": { "type": "string" },
+        "anomaly": { "type": "string" },
+        "ope": { "type": "string" },
+        "exponent": { "type": "string" },
+        "other": { "type": "string" }
+      },
+      "description": "[markdown] Normalization conventions shared by the entry's quantities of one category (see quantity.category), shown at the top of that section, e.g. ope: 'Operators unit-normalized, conformal blocks as in [@kos2016]'. A convention specific to one quantity goes in its description."
+    },
     "uv_dof": {
       "type": "number",
       "minimum": 0,
@@ -246,6 +258,20 @@
         "note": {
           "type": "string",
           "description": "[markdown]"
+        },
+        "category": {
+          "enum": [
+            "central",
+            "anomaly",
+            "ope",
+            "exponent",
+            "other"
+          ],
+          "description": "Section the quantity is shown in: central (central charges, C_T, C_J, sphere and thermal free energies), anomaly (Weyl anomalies a, c in d >= 4, 't Hooft anomalies, anomaly polynomials), ope (OPE coefficients and other three-point data), exponent (critical exponents), other. Omit it unless the site's inference from key, symbol and description is wrong."
+        },
+        "relation": {
+          "type": "string",
+          "description": "[latex] For a critical exponent: its relation to scaling dimensions, e.g. '\\nu = 1/(3-\\Delta_\\epsilon)'. Omit it when the description already contains it in $...$ (the site finds it there)."
         }
       }
     },
