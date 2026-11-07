@@ -68,13 +68,13 @@ quantities:
   - symbol: 'a'
     description: 'Euler conformal anomaly (a free chiral multiplet has $a = \tfrac{1}{48}$)'
     value: '\frac{27N^2}{64} - \frac{3}{8}'
-    method: derived, anomaly matching
+    method: anomaly
     refs: [kw1998, iw2003]
     note: 'From $a = \tfrac{3}{32}(3\mathrm{Tr}R^3 - \mathrm{Tr}R)$ with $2(N^2-1)$ gauginos ($R=1$) and $4N^2$ chiral fermions ($R=-\tfrac12$): $\mathrm{Tr}R = -2$, $\mathrm{Tr}R^3 = \tfrac32 N^2 - 2$.'
   - symbol: 'c'
     description: 'Weyl conformal anomaly (a free chiral multiplet has $c = \tfrac{1}{24}$)'
     value: '\frac{27N^2}{64} - \frac{1}{4}'
-    method: derived, anomaly matching
+    method: anomaly
     refs: [kw1998, iw2003]
     note: 'From $c = \tfrac{1}{32}(9\mathrm{Tr}R^3 - 5\mathrm{Tr}R)$ with the same traces, so $c - a = \tfrac18$.'
   - symbol: 'a = c'

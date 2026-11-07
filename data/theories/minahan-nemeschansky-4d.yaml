@@ -85,7 +85,7 @@ quantities:
   - symbol: '\dim_{\mathbb{H}}\mathcal{M}_H'
     description: 'Quaternionic dimension of the Higgs branch'
     value: '11,\ 17,\ 29'
-    method: derived
+    method: exact, from a and c
     refs: [chacaltana2010, aharony2007]
     note: 'From $\dim_{\mathbb{H}}\mathcal{M}_H = n_h - n_v = 24(c-a)$ [@chacaltana2010] with the values of $a$ and $c$ above.'
 

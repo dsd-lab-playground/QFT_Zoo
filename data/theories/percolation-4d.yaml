@@ -57,14 +57,28 @@ quantities:
     description: 'Thermal exponent $y_t = 1/\nu = 4 - \Delta_\epsilon$'
     value: '1.4610(12)'
     method: MC, bond, hypercubic
-    refs: [tan2020, zhang2021, koza2016, ballesteros1997]
-    note: 'Other Monte Carlo values: $1.461(5)$ (bond, [@zhang2021]); site percolation $\nu = 0.6852(28)$ [@koza2016] and $\nu = 0.689(10)$ [@ballesteros1997].'
+    refs: [tan2020]
+  - symbol: '1/\nu'
+    description: 'Thermal exponent $y_t = 1/\nu = 4 - \Delta_\epsilon$'
+    value: '1.461(5)'
+    method: MC, bond
+    refs: [zhang2021]
   - symbol: '\nu'
     description: Correlation-length exponent
     value: '0.689(5)'
     method: 'ε-exp, 6 − ε, five loops, resummed'
     refs: [borinsky2021]
     note: 'Resummation of the series for $1/\nu$, all methods combined (Table 15).'
+  - symbol: '\nu'
+    description: Correlation-length exponent
+    value: '0.6852(28)'
+    method: MC, site
+    refs: [koza2016]
+  - symbol: '\nu'
+    description: Correlation-length exponent
+    value: '0.689(10)'
+    method: MC, site
+    refs: [ballesteros1997]
   - symbol: 'd_f'
     description: 'Fractal dimension of critical clusters, $d_f = y_h = 4 - \Delta_\sigma$'
     value: '3.0446(7)'
@@ -74,22 +88,43 @@ quantities:
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 6 - 2d_f = 2\Delta_\sigma - 2$'
     value: '-0.0892(14)'
-    method: derived
-    refs: [zhang2021, ballesteros1997, borinsky2021]
-    note: 'From $d_f = 3.0446(7)$. Direct Monte Carlo (site): $-0.0944(17+11)$, where the second error comes from the uncertainty in $\omega$ [@ballesteros1997]. Five-loop $6-\epsilon$: $-0.10(3)$ [@borinsky2021, Table 13].'
+    method: MC, from d_f
+    refs: [zhang2021]
+    note: 'Computed by this relation from $d_f = 3.0446(7)$.'
+  - symbol: '\eta'
+    description: 'Anomalous dimension, $\eta = 6 - 2d_f = 2\Delta_\sigma - 2$'
+    value: '-0.0944(17)(11)'
+    method: MC, site
+    refs: [ballesteros1997]
+    note: 'Measured directly. Quoted as $-0.0944(17+11)$; the second error comes from the uncertainty in $\omega$.'
+  - symbol: '\eta'
+    description: 'Anomalous dimension, $\eta = 6 - 2d_f = 2\Delta_\sigma - 2$'
+    value: '-0.10(3)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
+    refs: ['borinsky2021, Table 13']
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent'
     value: '1.22(9)'
     method: MC, bond, four 4d lattices
-    refs: [xun2020, ballesteros1997, borinsky2021]
-    note: 'Quoted as $\omega = \Omega d_f$ with the measured $\Omega = 0.40(3)$. Site percolation: $1.13(10)$ [@ballesteros1997]. Five-loop $6-\epsilon$: $1.31(9)$ [@borinsky2021, Table 19].'
+    refs: [xun2020]
+    note: 'Quoted as $\omega = \Omega d_f$ with the measured $\Omega = 0.40(3)$.'
+  - symbol: '\omega'
+    description: 'Leading correction-to-scaling exponent'
+    value: '1.13(10)'
+    method: MC, site
+    refs: [ballesteros1997]
+  - symbol: '\omega'
+    description: 'Leading correction-to-scaling exponent'
+    value: '1.31(9)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
+    refs: ['borinsky2021, Table 19']
 
 operators:
   - name: '\sigma'
     Delta: '0.9554(7)'
     spin: 0
     rep: '$(q-1)$-dimensional representation of $S_q$ (order parameter)'
-    method: derived
+    method: MC, from d_f
     refs: [zhang2021, tan2020]
     note: '$4 - d_f$ with $d_f = 3.0446(7)$, listed as the magnetic dimension $X_1$ in [@tan2020, Table IV] Below the unitarity bound 1.'
   - name: '\epsilon'

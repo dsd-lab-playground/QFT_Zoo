@@ -76,7 +76,7 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient of $T[SU(3)]$, relative to the 8 free hypermultiplets of its quiver'
     value: '0.786801'
-    method: derived, supersymmetric localization
+    method: LOC
     refs: [chang2019]
     note: 'Chang et al. [@chang2019] give $C_T = 75.5329$ in units where a free hypermultiplet has $C_T = 12$; divided here by 96.'
 

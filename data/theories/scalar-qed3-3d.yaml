@@ -125,7 +125,7 @@ operators:
     Delta: '1 - \frac{16}{\pi^2 N} + O(N^{-2})'
     spin: 0
     rep: '$SU(N)$ adjoint (Néel order parameter)'
-    method: derived, large-N expansion
+    method: 1/N, from η_q
     refs: [kaul2008, benvenuti2018]
     note: '$\Delta = (1+\eta_q)/2$ with $\eta_q = 1 - 32/(\pi^2 N)$ (called $\eta_N$ by Kaul–Sachdev [@kaul2008]).'
   - name: 'M_{1/2}'

@@ -81,14 +81,14 @@ operators:
     Delta: '2 \mp i\sqrt{2\sqrt{1+4\xi^4}-2}'
     spin: 0
     rep: '$J_1 = 2$ (same for $\mathrm{tr}(\phi_2\phi_2)$)'
-    method: derived, exact relation
+    method: exact, root of the spectral relation
     refs: [grabner2018]
     note: 'Root of $(\Delta-4)(\Delta-2)^2\Delta = 16\xi^4$ [@grabner2018, Eq. (6)] that tends to 2 at $\xi = 0$; the sign labels the fixed point $\alpha_{1,\pm}^2$. Its expansion reproduces the seven-loop result $\Delta_\pm = 2 \mp 2i\xi^2 \pm i\xi^6 \mp \tfrac{7i}{4}\xi^{10} + O(\xi^{14})$ [@grabner2018, Eq. (16)].'
   - name: '\text{twist-4 scalar},\ J_1 = 2'
     Delta: '2 + \sqrt{2 + 2\sqrt{1+4\xi^4}}'
     spin: 0
     rep: '$J_1 = 2$'
-    method: derived, exact relation
+    method: exact, root of the spectral relation
     refs: [grabner2018]
     note: 'The root of the relation [@grabner2018, Eq. (6)] that tends to 4; Grabner et al. [@grabner2018] give $4 + \xi^4 + O(\xi^8)$. Its shadow has $\Delta = -\xi^4 + O(\xi^8)$.'
   - name: '\text{twist-2, spin } S,\ J_1 = 2'

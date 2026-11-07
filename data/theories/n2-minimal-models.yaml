@@ -63,7 +63,7 @@ quantities:
   symbol: '\Delta_{\rm gap}'
   description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
   value: '\min\!\left(\frac{1}{k+2}, \frac{k}{4(k+2)}\right)'
-  method: derived
+  method: exact
   refs: [cordovarizi2025, gray2012]
   note: 'From the weights: the chiral primary $(1,1,0)$ for $k \geq 4$, the Ramond ground states ($\Delta = \frac{c}{12}$) for $k \leq 3$ (equal at $k = 4$). Confirmed by the spectrum files for $k \leq 8$.'
 - symbol: 'N_{\rm prim}'

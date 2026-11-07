@@ -88,7 +88,7 @@ quantities:
   - symbol: 'd_f'
     description: 'Fractal dimension of critical clusters, $2 - \Delta_\sigma$'
     value: '\frac{91}{48}'
-    method: derived
+    method: exact
     refs: [lsw2002, smirnovwerner2001]
     note: '$2 - \tfrac{5}{48}$ from the one-arm exponent $\tfrac{5}{48}$; equal to $2 - \beta/\nu = (d + 2 - \eta)/2$.'
   - symbol: 'd_H'

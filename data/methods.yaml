@@ -19,12 +19,6 @@ methods:
       Known in closed form or to arbitrary precision: a solved model, a symmetry or a proof. The qualifier
       says how, e.g. `exact, planar limit`.
 
-  - abbr: derived
-    name: Derived from other values
-    description: >-
-      Computed from other values on the same page by an exact relation, such as a scaling relation
-      ($\nu = 1/(d-\Delta_\epsilon)$) or a supersymmetry relation; the uncertainty is propagated from the inputs.
-
   - abbr: CB
     name: Numerical conformal bootstrap
     description: >-

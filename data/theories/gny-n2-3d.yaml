@@ -94,14 +94,26 @@ operators:
     rep: singlet, parity odd
     method: Padé, large N and N = 1
     refs: [mitchell2024]
-    note: 'Bootstrap bounds: $3.071 \le \Delta \le 3.328$ (with mild gap assumptions).'
+  - name: '\sigma'''
+    Delta: '[3.071,\ 3.328]'
+    spin: 0
+    rep: singlet, parity odd
+    method: CB, rigorous bounds
+    refs: [mitchell2024]
+    note: 'With mild gap assumptions.'
   - name: '\epsilon'''
     Delta: '3.5474(5)'
     spin: 0
     rep: singlet, parity even
     method: Padé, large N and N = 1
     refs: [mitchell2024]
-    note: 'Bootstrap bounds: $3.169 \le \Delta \le 3.835$ (with mild gap assumptions).'
+  - name: '\epsilon'''
+    Delta: '[3.169,\ 3.835]'
+    spin: 0
+    rep: singlet, parity even
+    method: CB, rigorous bounds
+    refs: [mitchell2024]
+    note: 'With mild gap assumptions.'
 
 relations:
   - type: related_to

@@ -45,13 +45,13 @@ quantities:
   - symbol: '\tilde F'
     description: 'Sphere free energy in the convention of Giombi and Klebanov [@giombi2014], $\tilde F = \sin(\pi d/2)\log Z_{S^d}$; at $d=5$, $\tilde F = \log Z_{S^5} = -F$'
     value: '\frac{1}{2^8}\left(2\log 2 + \frac{2\zeta(3)}{\pi^2} - \frac{15\zeta(5)}{\pi^4}\right) \approx 5.74\times 10^{-3}'
-    method: derived
+    method: exact
     refs: [klebanov2011, giombi2014]
     note: 'Klebanov, Pufu and Safdi [@klebanov2011, Table 1] give $F = -\log|Z_{S^5}| = \frac{-1}{2^8}\left(2\log 2 + \frac{2\zeta(3)}{\pi^2} - \frac{15\zeta(5)}{\pi^4}\right) \approx -5.74\times10^{-3}$. The sign is flipped with [@giombi2014, Eq. (1.5)]. A numerical evaluation of the integral in [@giombi2014, Eq. (2.5)] at $d=5$ gives the same number.'
   - symbol: 'C_T'
     description: 'Stress-tensor two-point coefficient in the absolute Osborn–Petkou normalization, $\langle T_{\mu\nu}(x)T_{\sigma\rho}(0)\rangle = C_T\,\mathcal{I}_{\mu\nu,\sigma\rho}(x)/x^{2d}$'
     value: '\frac{45}{256\pi^4}'
-    method: derived
+    method: exact
     refs: [osborn1994]
     note: '[@osborn1994, Eq. (5.5)], $C_T = \frac{d}{d-1}\frac{1}{S_d^2}$ with $S_d = 2\pi^{d/2}/\Gamma(d/2)$, evaluated at $d=5$, where $S_5 = 8\pi^2/3$.'
 

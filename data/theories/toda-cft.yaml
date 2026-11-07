@@ -67,7 +67,7 @@ quantities:
   - symbol: '\Delta_{\min}'
     description: 'Lower edge of the continuous spectrum, $h+\bar h$ at $p=0$'
     value: '(Q,Q)=\frac{c-N+1}{12}'
-    method: derived
+    method: exact
     note: 'From $h=\frac12(\alpha,2Q-\alpha)=\frac12\big((Q,Q)+(p,p)\big)$ at $\alpha=Q+ip$. There is no gap above it. Reduces to the Liouville value $\frac{c-1}{12}$ at $N=2$.'
     refs: [fredenhagen2011, fl2007]
   - symbol: 'C(\alpha_1,\alpha_2,\kappa\omega_{N-1})'

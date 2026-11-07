@@ -100,19 +100,19 @@ quantities:
   - symbol: 'b_1'
     description: 'One-loop beta-function coefficient, $\beta = -2\alpha\sum_\ell b_\ell(\alpha/4\pi)^\ell$'
     value: '\frac{11N_c - 2N_f}{3}'
-    method: derived, one-loop perturbation theory
+    method: PT, one loop
     refs: [ryttov2016, appelquist1996]
     note: 'Equal to $2\pi b$ with $b$ of Appelquist et al. [@appelquist1996, Eq. (3)]. For $SU(3)$ it is $11 - 2N_f/3$ [@ryttov2016].'
   - symbol: 'b_2'
     description: 'Two-loop beta-function coefficient, same normalization'
     value: '\frac{34}{3}N_c^2 - \frac{13}{3}N_cN_f + \frac{N_f}{N_c}'
-    method: derived, two-loop perturbation theory
+    method: PT, two loops
     refs: [ryttov2016, appelquist1996]
     note: 'Equal to $8\pi^2 c$ with $c$ of Appelquist et al. [@appelquist1996, Eq. (4)]. For $SU(3)$ it is $102 - 38N_f/3$ [@ryttov2016], which vanishes at $N_f = 153/19 \approx 8.05$.'
   - symbol: '\alpha_*'
     description: 'Fixed-point coupling of the two-loop beta function, $-4\pi b_1/b_2$'
     value: '\frac{4\pi N_c(11N_c - 2N_f)}{(13N_c^2-3)N_f - 34N_c^3}'
-    method: derived, two-loop perturbation theory
+    method: PT, two loops
     refs: [ryttov2017, ryttov2016]
     note: 'Scheme dependent beyond leading order in $\Delta_f$. For $SU(3)$: $2\pi/151 \approx 0.0416$ at $N_f = 16$ and $0.754$ at $N_f = 12$, as in [@ryttov2016, Table II].'
   - symbol: '\gamma_{\bar\psi\psi}'
@@ -127,21 +127,21 @@ operators:
     Delta: '2.662'
     spin: 0
     rep: '$SU(N_f)$ adjoint and singlet (same anomalous dimension)'
-    method: derived, scheme-independent expansion, fourth order
+    method: BZ, scheme-independent, fourth order, from γ
     refs: [ryttov2017, dipietro2020]
     note: '$3 - \gamma$ with $\gamma = 0.338$ from Table I. Resummed perturbation theory gives $|\gamma| = 0.345(47)$ [@dipietro2020].'
   - name: '\bar\psi\psi\ (N_f = 12)'
     Delta: '2.765(15)'
     spin: 0
     rep: '$SU(N_f)$ adjoint and singlet'
-    method: derived, lattice finite-size scaling
+    method: LGT, finite-size scaling, from γ_m
     refs: [cheng2014, lombardo2014, aoki2012]
     note: '$3 - \gamma_m$ with $\gamma_m = 0.235(15)$ [@cheng2014]. Also $\gamma_m = 0.235(46)$ [@lombardo2014] and $\gamma_m \sim 0.4$–$0.5$ [@aoki2012].'
   - name: '\mathrm{Tr}\,F_{\mu\nu}F^{\mu\nu}\ (N_f = 12)'
     Delta: '4.228'
     spin: 0
     rep: singlet
-    method: derived, scheme-independent expansion, fifth order
+    method: BZ, scheme-independent, fifth order, from β′
     refs: [ryttov2017, hasenfratz2018, dipietro2020]
     note: '$4 + \beta^\prime(\alpha_*)$ (eq. 4.2) with $\beta^\prime = 0.228$ from Table VIII. Lattice: leading irrelevant exponent $0.26(2)$ [@hasenfratz2018]; resummed perturbation theory $0.23(6)$.'
   - name: 'J_\mu^{L},\ J_\mu^{R},\ J_\mu^{V}'

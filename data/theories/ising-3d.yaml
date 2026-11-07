@@ -42,13 +42,13 @@ quantities:
   - symbol: '\eta'
     description: 'Critical exponent, $\eta = 2\Delta_\sigma - 1$'
     value: '0.036297612(48)'
-    method: derived
-    refs: [chang2024]
+    method: CB, from Δσ
+    refs: ['chang2024, Table 2, p. 2']
   - symbol: '\nu'
     description: 'Critical exponent, $\nu = 1/(3-\Delta_\epsilon)$'
     value: '0.62997097(12)'
-    method: derived
-    refs: [chang2024]
+    method: CB, from Δε
+    refs: ['chang2024, Table 2, p. 2']
   - symbol: '\lambda_{\sigma\sigma\epsilon}'
     description: OPE coefficient
     value: '1.05185373(11)'
@@ -155,7 +155,13 @@ quantities:
     value: '0.832(6)'
     method: MC, Blume–Capel and Ising models
     refs: [hasenbusch2010]
-    note: '[@hasenbusch2010, Eq. (34), p. 14], also in the abstract. Compare the rigorous bootstrap interval $\Delta_{\epsilon''} = 3.82951(61)$ in the operator table, i.e. $\omega = 0.82951(61)$ by the stated relation.'
+    note: '[@hasenbusch2010, Eq. (34), p. 14], also in the abstract.'
+  - symbol: '\omega'
+    description: 'Leading correction-to-scaling exponent, $\omega = \Delta_{\epsilon''} - 3$'
+    value: '0.82951(61)'
+    method: CB, rigorous, from Δε′
+    refs: ['reehorst2021, Table 1, p. 4']
+    note: 'Computed by this relation from the rigorous interval $\Delta_{\epsilon''} = 3.82951(61)$ [@reehorst2021, Table 1, p. 4; @reehorst2021, Eq. (4.1)], so it is a rigorous interval under the same assumptions ($\Delta_{\sigma''}>3$ and no third $\mathbb{Z}_2$-even scalar below 6 [@reehorst2021, Sec. 4.1]).'
   - symbol: '\nu'
     description: 'Critical exponent, $\nu = 1/(3-\Delta_\epsilon)$'
     value: '0.629912(86)'

@@ -69,7 +69,7 @@ quantities:
   - symbol: 'Z(\tau)'
     description: 'Torus partition function, $V$ the length of the target'
     value: '\frac{V}{2\pi\sqrt{2\tau_2}\,|\eta(\tau)|^2}'
-    method: derived
+    method: exact
     refs: [rv2020, ginsparg-lectures]
     note: '[@rv2020, Eq. (3.30)] converted to $h = p^2/2$; agrees with the large-$R$ limit $R/(\sqrt{2\tau_2}|\eta|^2)$ of the compact boson, [@ginsparg-lectures, Eq. (8.5)] with $r = R/2$.'
 

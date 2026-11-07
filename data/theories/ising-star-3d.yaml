@@ -65,8 +65,8 @@ quantities:
   - symbol: '\nu'
     description: 'Correlation-length exponent, $\nu = 1/(3-\Delta_\epsilon)$'
     value: '0.62997097(12)'
-    method: derived
-    refs: [chang2024]
+    method: CB, from Δε
+    refs: ['chang2024, Table 2']
     note: 'From $\Delta_\epsilon$ [@chang2024, Table 2]; identical to the 3d Ising value.'
   - symbol: '\lambda_{\epsilon\epsilon\epsilon}'
     description: OPE coefficient

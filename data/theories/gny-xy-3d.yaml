@@ -70,7 +70,7 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N$ free Majorana fermions'
     value: '1 + \frac{16}{9\pi^2 N} + O(N^{-2})'
-    method: derived
+    method: 1/N, from the Gross–Neveu value
     refs: [fei2016, diab2016]
     note: 'Fei et al. [@fei2016] show that the $1/N$ coefficient is twice the Gross–Neveu one, which is $8/(9\pi^2)$ in $d=3$ [@diab2016].'
   - symbol: 'F'

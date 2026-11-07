@@ -70,7 +70,7 @@ quantities:
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 2\Delta_\phi$'
     value: '\frac{5}{24}'
-    method: derived
+    method: exact
     refs: [lsw2004, saleur1992]
     note: 'From $\gamma = \nu(2 - \eta)$; equivalently $4h_1$ with $h_1 = \tfrac{5}{96}$.'
   - symbol: 'd_F'

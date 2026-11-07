@@ -75,8 +75,13 @@ quantities:
     description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 3$'
     value: '-0.151(2)'
     method: 'ε-exp, 6 − ε, five loops, resummed'
-    refs: [borinsky2021, an2016]
-    note: 'Table 1. Functional renormalization group: $-0.126(6)$ [@an2016].'
+    refs: [borinsky2021]
+    note: 'Table 1.'
+  - symbol: '\eta'
+    description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 3$'
+    value: '-0.126(6)'
+    method: FRG
+    refs: [an2016]
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent, $\omega = \Delta_{\phi^3} - 5$'
     value: '0.691(8)'
@@ -89,9 +94,16 @@ operators:
     Delta: '1.4245(10)'
     spin: 0
     rep: the only relevant primary
-    method: derived
-    refs: [borinsky2021, arguellocruz2025]
-    note: '$(3+\eta)/2$ with the five-loop $\eta = -0.151(2)$. Below the unitarity bound $\tfrac32$. Two-sided Padé of the $6-\epsilon$ series: $1.425$ [@arguellocruz2025, Table 2].'
+    method: 'ε-exp, 6 − ε, five loops, resummed, from η'
+    refs: ['borinsky2021, Table 1']
+    note: '$(3+\eta)/2$ with the five-loop $\eta = -0.151(2)$, computed by this relation. Below the unitarity bound $\tfrac32$.'
+  - name: '\phi'
+    Delta: '1.425'
+    spin: 0
+    rep: the only relevant primary
+    method: Padé, two-sided
+    refs: ['arguellocruz2025, Table 2']
+    note: 'Two-sided Padé of the $6-\epsilon$ series.'
   - name: 'T_{\mu\nu}'
     Delta: 5
     spin: 2
@@ -100,9 +112,20 @@ operators:
   - name: '\phi^3'
     Delta: '5.691(8)'
     spin: 0
-    method: derived
-    refs: [borinsky2021, arguellocruz2025, gliozzi2014]
-    note: 'Leading irrelevant scalar, $5 + \omega$ with the five-loop $\omega$. Two-sided Padé: $5.701$ and $5.702$ [@arguellocruz2025, Table 2]. The truncated bootstrap gives $6.4(1)$ [@gliozzi2014].'
+    method: 'ε-exp, 6 − ε, five loops, resummed, from ω'
+    refs: ['borinsky2021, Table 6']
+    note: 'Leading irrelevant scalar, $5 + \omega$ with the five-loop $\omega$, computed by this relation.'
+  - name: '\phi^3'
+    Delta: '5.701\text{–}5.702'
+    spin: 0
+    method: Padé, two-sided
+    refs: ['arguellocruz2025, Table 2']
+    note: 'Two two-sided Padé approximants, giving $5.701$ and $5.702$.'
+  - name: '\phi^3'
+    Delta: '6.4(1)'
+    spin: 0
+    method: CB-trunc
+    refs: [gliozzi2014]
 
 relations:
   - type: related_to

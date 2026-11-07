@@ -65,7 +65,7 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient of one Majorana fermion, relative to one free real scalar'
     value: '1'
-    method: derived
+    method: exact
     refs: [osborn1993, diab2016, fei2016]
     note: 'From $C_T^{\rm sc} = \frac{d}{(d-1)S_d^2}$ and $C_T^{\rm fer} = {\rm Tr}\,\mathbb{1}\,\frac{d}{2S_d^2}$ with ${\rm Tr}\,\mathbb{1} = 2$, a two-component Dirac fermion has twice the $C_T$ of a real scalar (as also used by Fei et al. [@fei2016]); a Majorana fermion has half of that.'
 
