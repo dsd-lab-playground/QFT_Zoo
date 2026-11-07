@@ -109,6 +109,7 @@ quantities:
     method: CB, rigorous bounds
     refs: [gimenezgrau2020]
     note: 'Lower and upper bounds at derivative order $\Lambda = 50$ [@gimenezgrau2020, Table 7], with $\Delta_u$ and $c$ fixed to the values above. For $H_0$ see the minimal Argyres–Douglas entry.'
+    category: ope
 
 operators:
   - name: 'u\ (H_0)'

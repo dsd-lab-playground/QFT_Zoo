@@ -94,26 +94,42 @@ quantities:
     value: '0.904395(28)'
     method: CB, non-rigorous error
     refs: [chester2019]
-  - symbol: '\lambda_{\phi\phi s}'
-    description: OPE coefficient
-    value: '0.687126(27)'
-    method: CB, non-rigorous error
-    refs: [chester2019]
-  - symbol: '\lambda_{sss}'
-    description: OPE coefficient
-    value: '0.830914(32)'
-    method: CB, non-rigorous error
-    refs: [chester2019]
-  - symbol: '\lambda_{tts}'
-    description: OPE coefficient
-    value: '1.25213(14)'
-    method: CB, non-rigorous error
-    refs: [chester2019]
-  - symbol: '\lambda_{\phi\phi t}'
-    description: OPE coefficient
-    value: '1.213408(65)'
-    method: CB, non-rigorous error
-    refs: [chester2019]
+
+ope_structures:
+  - id: chester2019
+    symbol: '\lambda'
+    ref: 'chester2019'
+    description: '$O(2)$ tensor structures of the three-point functions that involve the charge-2 scalar $t$, with the operators unit-normalized and the invariant tensors normalized as in [@chester2019]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator.'
+
+ope_coefficients:
+  - operators: ['\phi', '\phi', 's']
+    values:
+      - structure: vector-vector-singlet
+        symbol: '\lambda_{\phi\phi s}'
+        value: '0.687126(27)'
+        method: CB, non-rigorous error
+        refs: [chester2019]
+  - operators: ['s', 's', 's']
+    values:
+      - structure: scalar
+        symbol: '\lambda_{sss}'
+        value: '0.830914(32)'
+        method: CB, non-rigorous error
+        refs: [chester2019]
+  - operators: ['t', 't', 's']
+    values:
+      - structure: chester2019
+        symbol: '\lambda_{tts}'
+        value: '1.25213(14)'
+        method: CB, non-rigorous error
+        refs: [chester2019]
+  - operators: ['\phi', '\phi', 't']
+    values:
+      - structure: chester2019
+        symbol: '\lambda_{\phi\phi t}'
+        value: '1.213408(65)'
+        method: CB, non-rigorous error
+        refs: [chester2019]
 
 operators:
   - name: '\phi'

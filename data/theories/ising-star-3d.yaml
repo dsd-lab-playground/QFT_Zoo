@@ -70,12 +70,16 @@ quantities:
     method: CB, from Δε
     refs: ['chang2024, Table 2']
     note: 'From $\Delta_\epsilon$ [@chang2024, Table 2]; identical to the 3d Ising value.'
-  - symbol: '\lambda_{\epsilon\epsilon\epsilon}'
-    description: OPE coefficient
-    value: '1.53244304(58)'
-    method: CB
-    refs: [chang2024]
-    note: Identical to the 3d Ising value.
+
+ope_coefficients:
+  - operators: ['\epsilon', '\epsilon', '\epsilon']
+    values:
+      - structure: scalar
+        symbol: '\lambda_{\epsilon\epsilon\epsilon}'
+        value: '1.53244304(58)'
+        method: CB
+        refs: [chang2024]
+        note: Identical to the 3d Ising value.
 
 operators:
   - name: '\epsilon'

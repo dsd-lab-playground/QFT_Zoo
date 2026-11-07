@@ -31,6 +31,7 @@ from jsonschema import Draft202012Validator
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from zoo_spectrum import SPECTRA, SPECTRUM_SCHEMA, check as check_spectrum, expected_path  # noqa: E402
 from reps import check_entry_reps, direct_sums, legacy_reps  # noqa: E402
+from ope import STANDARD, check_entry_ope, labelled_operators, set_standard  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 THEORIES = ROOT / "data" / "theories"
@@ -39,6 +40,8 @@ TEMPLATE = ROOT / "data" / "TEMPLATE.yaml"
 SCHEMA = ROOT / "schema" / "theory.schema.json"
 METHODS = ROOT / "data" / "methods.yaml"
 METHODS_SCHEMA = ROOT / "schema" / "methods.schema.json"
+OPE_STRUCTURES = ROOT / "data" / "ope_structures.yaml"
+OPE_SCHEMA = ROOT / "schema" / "ope_structures.schema.json"
 SITE_SRC = ROOT / "site"
 OUT = ROOT / "_site"
 
@@ -306,11 +309,15 @@ def method_abbr(value: str) -> str | None:
 
 
 def method_rows(data: dict):
-    """(location, method) of every quantity and operator row that has a method."""
+    """(location, method) of every quantity, operator and OPE value row that has a method."""
     for section in ("quantities", "operators"):
         for i, item in enumerate(data.get(section, []) or []):
             if "method" in item:
                 yield f"{section}/{i}", item["method"]
+    for i, item in enumerate(data.get("ope_coefficients", []) or []):
+        for k, v in enumerate(item["values"]):
+            if "method" in v:
+                yield f"ope_coefficients/{i}/values/{k}", v["method"]
 
 
 def check_methods(data: dict, rel: str) -> list[str]:
@@ -364,6 +371,7 @@ def check_entry(data: dict, rel: str) -> list[str]:
     errs += check_citations(data, rel, keys)
     errs += check_methods(data, rel)
     errs += check_entry_reps(data, rel)
+    errs += check_entry_ope(data, rel)
     return errs
 
 
@@ -590,9 +598,26 @@ def load_operations(errors: list[str]) -> list[dict]:
     return out
 
 
+def load_ope_structures(errors: list[str]) -> list[dict]:
+    """The standard three-point structures (data/ope_structures.yaml), validated and installed for the entry checks."""
+    data = load_yaml(OPE_STRUCTURES, errors)
+    if data is None:
+        set_standard([])
+        return []
+    validator = Draft202012Validator(json.loads(OPE_SCHEMA.read_text(encoding="utf-8")))
+    errs = schema_errors(validator, data, show_path(OPE_STRUCTURES))
+    if errs:
+        errors += errs
+        set_standard([])
+        return []
+    errors += set_standard(data["structures"])
+    return data["structures"]
+
+
 def load_all() -> tuple[list[dict], list[str]]:
     errors: list[str] = []
     load_methods(errors)  # before any entry: check_entry resolves method abbreviations
+    load_ope_structures(errors)  # before any entry: values may name a standard structure
     validator = Draft202012Validator(json.loads(SCHEMA.read_text(encoding="utf-8")))
 
     for stray in sorted(THEORIES.glob("*.yml")):
@@ -604,6 +629,7 @@ def load_all() -> tuple[list[dict], list[str]]:
         errors += schema_errors(validator, tmpl, show_path(TEMPLATE))
         errors += check_methods(tmpl, show_path(TEMPLATE))
         errors += check_entry_reps(tmpl, show_path(TEMPLATE))
+        errors += check_entry_ope(tmpl, show_path(TEMPLATE))
 
     entries = []
     for path in sorted(THEORIES.glob("*.yaml")):
@@ -773,11 +799,13 @@ def build(entries: list[dict], spectra: dict[str, dict], operations: list[dict],
         "theories": entries,
         "operations": operations,
         "methods": methods,
+        "ope_structures": list(STANDARD.values()),
     }
     (OUT / "data" / "theories.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
     shutil.copy(SCHEMA, OUT / "data" / "theory.schema.json")
     shutil.copy(METHODS_SCHEMA, OUT / "data" / "methods.schema.json")
+    shutil.copy(OPE_SCHEMA, OUT / "data" / "ope_structures.schema.json")
     shutil.copy(SPECTRUM_SCHEMA, OUT / "data" / "spectrum.schema.json")
     for rel, summary in spectra.items():
         dest = OUT / rel
@@ -803,7 +831,7 @@ def main() -> int:
     ap.add_argument("--data", type=Path, help="data folder with theories/ (and operations/, spectra/); default data/")
     ap.add_argument("--out", type=Path, help="where to build the site; default _site/")
     args = ap.parse_args()
-    global THEORIES, OPERATIONS, TEMPLATE, SPECTRA, OUT, METHODS
+    global THEORIES, OPERATIONS, TEMPLATE, SPECTRA, OUT, METHODS, OPE_STRUCTURES
     if args.data:
         data = args.data.resolve()
         THEORIES, OPERATIONS, SPECTRA = data / "theories", data / "operations", data / "spectra"
@@ -811,6 +839,8 @@ def main() -> int:
             TEMPLATE = data / "TEMPLATE.yaml"
         if (data / "methods.yaml").exists():
             METHODS = data / "methods.yaml"
+        if (data / "ope_structures.yaml").exists():
+            OPE_STRUCTURES = data / "ope_structures.yaml"
     if args.out:
         OUT = args.out.resolve()
 
@@ -839,6 +869,11 @@ def main() -> int:
     if n_rep:
         print(f"! {n_rep} operator rep(s) in {n_rep_entries} entries still free text instead of structured "
               f"`global` / `parity` (docs/REPRESENTATIONS.md)")
+    n_ope = sum(len(it["values"]) for e in entries for it in e.get("ope_coefficients", []) or [])
+    n_ope_e = sum(bool(e.get("ope_coefficients")) for e in entries)
+    print(f"✓ {n_ope} OPE values in {n_ope_e} entries, each labelled by its structure ({len(STANDARD)} standard structures; docs/OPE.md)")
+    if (n := labelled_operators(entries)):
+        print(f"! {n} OPE operator(s) named by a label instead of an operator of the entry's table (docs/OPE.md)")
     if (n := direct_sums(entries)):
         print(f"! {n} operator row(s) list several irreps at once (a direct sum); one row per irrep is clearer")
 

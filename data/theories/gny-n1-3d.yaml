@@ -50,16 +50,21 @@ quantities:
     value: '0.8869(25)'
     method: CB, supersymmetric
     refs: [atanasov2022]
-  - symbol: '\lambda_{\sigma\sigma\epsilon}'
-    description: OPE coefficient
-    value: '1.072125(9)'
-    method: CB, supersymmetric
-    refs: [atanasov2022]
   - symbol: '\lambda_{\epsilon\epsilon\epsilon}/\lambda_{\sigma\sigma\epsilon}'
     description: 'Fixed by supersymmetry in terms of $\Delta_\sigma$'
     value: '1.55775(36)'
     method: CB, supersymmetric
     refs: [atanasov2022]
+    category: ope
+
+ope_coefficients:
+  - operators: ['\sigma', '\sigma', '\epsilon']
+    values:
+      - structure: scalar
+        symbol: '\lambda_{\sigma\sigma\epsilon}'
+        value: '1.072125(9)'
+        method: CB, supersymmetric
+        refs: [atanasov2022]
 
 operators:
   - name: '\sigma'

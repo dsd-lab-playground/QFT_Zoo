@@ -83,11 +83,13 @@ quantities:
     method: exact
     note: 'With $\lambda=\mu\pi\gamma(\frac{bQ}{2})b^{1-b^2}$. Agrees with the gamma-function form [@fh2002, Eq. (2.35)] by the shift relations of $\Upsilon$.'
     refs: [fh2002, poghossian1997]
+    category: ope
   - symbol: 'C^{\rm NS}(\alpha_1,\alpha_2,\alpha_3)'
     description: 'Three-point function of NS primaries'
     value: '\lambda^{\frac{Q-\sum_i\alpha_i}{b}}\frac{\Upsilon_{\rm NS}''(0)\prod_{i=1}^3\Upsilon_{\rm NS}(2\alpha_i)}{\Upsilon_{\rm NS}(\alpha_1+\alpha_2+\alpha_3-Q)\Upsilon_{\rm NS}(\alpha_1+\alpha_2-\alpha_3)\Upsilon_{\rm NS}(\alpha_2+\alpha_3-\alpha_1)\Upsilon_{\rm NS}(\alpha_3+\alpha_1-\alpha_2)}'
     method: exact
     refs: [rs1996, poghossian1997, fh2002, fw2007]
+    category: ope
 
 operators:
   - name: 'V_\alpha'

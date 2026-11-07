@@ -86,12 +86,16 @@ quantities:
     value: '-0.586(29)'
     method: FRG
     refs: [an2016]
-  - symbol: '|C_{\phi\phi\phi}|'
-    description: OPE coefficient (absolute value)
-    value: '1.9696(31)'
-    method: FS
-    refs: [arguellocruz2025]
-    note: 'From matrix elements of the fuzzy-sphere observable $Z_\ell$; from $X_\ell$, $1.969(5)$. The truncated bootstrap gives $C_{\phi\phi\phi}^2 = -3.88(1)$ [@gliozzi2014]: the coefficient is imaginary.'
+
+ope_coefficients:
+  - operators: ['\phi', '\phi', '\phi']
+    values:
+      - structure: scalar
+        symbol: '|C_{\phi\phi\phi}|'
+        value: '1.9696(31)'
+        method: FS
+        refs: [arguellocruz2025]
+        note: 'From matrix elements of the fuzzy-sphere observable $Z_\ell$; from $X_\ell$, $1.969(5)$. The truncated bootstrap gives $C_{\phi\phi\phi}^2 = -3.88(1)$ [@gliozzi2014]: the coefficient is imaginary.'
 
 operators:
   - name: '\phi'

@@ -53,6 +53,16 @@ operators:
     method: CB
     refs: [author2025]
 
+# OPE coefficients: one item per triplet of operators, each value naming the structure it multiplies (docs/OPE.md).
+# ope_coefficients:
+#   - operators: ['\phi', '\phi', 's']        # `name`s from the operators table
+#     values:
+#       - structure: vector-vector-singlet     # a standard structure (data/ope_structures.yaml), or an id of ope_structures
+#         symbol: '\lambda_{\phi\phi s}'
+#         value: '0.52(1)'
+#         method: CB
+#         refs: [author2025]
+
 relations:
   - type: flows_to                 # flows_to | dual_to | related_to
     target: ising-3d               # id of an existing entry

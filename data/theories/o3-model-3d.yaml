@@ -89,31 +89,49 @@ quantities:
     value: '0.90632(16)'
     method: CB, non-rigorous error
     refs: [chester2020]
-  - symbol: '\lambda_{\phi\phi s}'
-    description: OPE coefficient
-    value: '0.524261(59)'
-    method: CB, non-rigorous error
-    refs: [chester2020]
-  - symbol: '\lambda_{sss}'
-    description: OPE coefficient
-    value: '0.5055(11)'
-    method: CB, non-rigorous error
-    refs: [chester2020]
-  - symbol: '\lambda_{tts}'
-    description: OPE coefficient
-    value: '0.98348(39)'
-    method: CB, non-rigorous error
-    refs: [chester2020]
-  - symbol: '\lambda_{\phi\phi t}'
-    description: OPE coefficient
-    value: '0.87451(22)'
-    method: CB, non-rigorous error
-    refs: [chester2020]
-  - symbol: '\lambda_{ttt}'
-    description: OPE coefficient
-    value: '1.49957(49)'
-    method: CB, non-rigorous error
-    refs: [chester2020]
+
+ope_structures:
+  - id: chester2020
+    symbol: '\lambda'
+    ref: 'chester2020'
+    description: '$O(3)$ tensor structures of the three-point functions that involve the symmetric traceless tensor $t_{ij}$, with the operators unit-normalized and the invariant tensors normalized as in [@chester2020]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator.'
+
+ope_coefficients:
+  - operators: ['\phi_i', '\phi_i', 's']
+    values:
+      - structure: vector-vector-singlet
+        symbol: '\lambda_{\phi\phi s}'
+        value: '0.524261(59)'
+        method: CB, non-rigorous error
+        refs: [chester2020]
+  - operators: ['s', 's', 's']
+    values:
+      - structure: scalar
+        symbol: '\lambda_{sss}'
+        value: '0.5055(11)'
+        method: CB, non-rigorous error
+        refs: [chester2020]
+  - operators: ['t_{ij}', 't_{ij}', 's']
+    values:
+      - structure: chester2020
+        symbol: '\lambda_{tts}'
+        value: '0.98348(39)'
+        method: CB, non-rigorous error
+        refs: [chester2020]
+  - operators: ['\phi_i', '\phi_i', 't_{ij}']
+    values:
+      - structure: chester2020
+        symbol: '\lambda_{\phi\phi t}'
+        value: '0.87451(22)'
+        method: CB, non-rigorous error
+        refs: [chester2020]
+  - operators: ['t_{ij}', 't_{ij}', 't_{ij}']
+    values:
+      - structure: chester2020
+        symbol: '\lambda_{ttt}'
+        value: '1.49957(49)'
+        method: CB, non-rigorous error
+        refs: [chester2020]
 
 operators:
   - name: '\phi_i'

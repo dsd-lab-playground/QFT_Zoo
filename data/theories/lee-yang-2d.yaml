@@ -74,12 +74,16 @@ quantities:
     value: '\frac{5}{12}'
     method: exact
     refs: [isz1986]
-  - symbol: 'C_{\phi\phi\phi}'
-    description: 'OPE coefficient, normalized by $\langle\phi(x)\phi(0)\rangle = |x|^{4/5}$'
-    value: 'i\left(\frac{\Gamma(6/5)^2\,\Gamma(1/5)\,\Gamma(2/5)}{\Gamma(3/5)\,\Gamma(4/5)^3}\right)^{1/2}'
-    method: exact
-    refs: [arguellocruz2025, cardy2023]
-    note: '$\approx 1.911312699\,i$ [@arguellocruz2025, Eq. (2.2)], defined by $\phi(x)\times\phi(0) = |x|^{4/5}\,1 + C_{\phi\phi\phi}\,|x|^{2/5}\,\phi$. Purely imaginary; its sign flips under $\phi \to -\phi$.'
+
+ope_coefficients:
+  - operators: ['\phi = \phi_{1,2}', '\phi = \phi_{1,2}', '\phi = \phi_{1,2}']
+    values:
+      - structure: scalar
+        symbol: 'C_{\phi\phi\phi}'
+        value: 'i\left(\frac{\Gamma(6/5)^2\,\Gamma(1/5)\,\Gamma(2/5)}{\Gamma(3/5)\,\Gamma(4/5)^3}\right)^{1/2}'
+        method: exact
+        refs: [arguellocruz2025, cardy2023]
+        note: '$\approx 1.911312699\,i$ [@arguellocruz2025, Eq. (2.2)], defined by $\phi(x)\times\phi(0) = |x|^{4/5}\,1 + C_{\phi\phi\phi}\,|x|^{2/5}\,\phi$. Purely imaginary; its sign flips under $\phi \to -\phi$.'
 
 operators:
   - name: '\phi = \phi_{1,2}'

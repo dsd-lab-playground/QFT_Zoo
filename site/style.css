@@ -182,6 +182,19 @@ table.qty tbody.group th {
 }
 table.qty .dets, table.ops .dets { font-size: 0.82rem; white-space: nowrap; }
 .block > p.intro, .block > p.conv { margin: -4px 0 10px; }
+/* OPE coefficients: the structures used on the page, defined once above the table; a row names its structure. */
+.ope-structures { margin: 0 0 12px; }
+.ope-structures .ope-structures-title { margin: 0 0 2px; font-weight: 600; }
+.ope-structures ul { margin: 0; padding-left: 18px; }
+.ope-structures li { margin: 2px 0; border-radius: 3px; }
+.ope-structures li.flash { animation: flash 1.6s ease-out; }
+table.qty .ope-st { white-space: nowrap; }
+/* A triplet with several coefficients (n_B, n_F of <TTT>) is one item: its lines are separated by a dotted rule only. */
+table.qty tbody.ope-item td { border-bottom: 0; }
+table.qty tbody.ope-item { border-bottom: 1px solid var(--border); }
+table.qty tbody.ope-item:last-child { border-bottom: 0; }
+table.qty tbody.ope-item tr.ope-line td { border-top: 1px dotted var(--border); }
+table.qty .ope-st button.linkish { font-size: inherit; }
 
 .empty { text-align: center; color: var(--muted); padding: 30px 0; }
 
