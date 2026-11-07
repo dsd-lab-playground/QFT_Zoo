@@ -1,0 +1,146 @@
+id: n4-sqed-3d
+name: '3d $\mathcal{N}=4$ SQED with $N_f$ flavours'
+aliases:
+  - '$\mathcal{N}=4$ supersymmetric QED$_3$'
+  - '$\mathcal{N}=4$ $U(1)$ gauge theory with $N_f$ hypermultiplets'
+  - 'SQED$_{N_f}$'
+d: 3
+summary: >-
+  The infrared fixed points of a 3d $\mathcal{N}=4$ $U(1)$ vector multiplet coupled to $N_f$
+  hypermultiplets of charge 1. Mirror to the necklace (affine $A_{N_f-1}$) quiver; $N_f=1$ is a
+  free twisted hypermultiplet and $N_f=2$ is the self-mirror $T[SU(2)]$.
+tags: [CFT, SCFT, interacting, unitary, gauge theory, supersymmetric, Lagrangian, large N, family]
+
+description: |
+  An $\mathcal{N}=4$ $U(1)$ vector multiplet (in $\mathcal{N}=2$ language, a vector multiplet
+  and a neutral chiral $\Phi$) coupled to $N_f$ hypermultiplets, i.e. chirals $Q_a$ and
+  $\tilde Q^a$ of charge $+1$ and $-1$ with $W = \tilde Q^a\Phi Q_a$. $N_f$ counts
+  hypermultiplets: $2N_f$ complex scalars and $2N_f$ two-component Dirac fermions. The gauge
+  coupling is relevant, and the theory flows to an SCFT at the origin of the moduli space,
+  where the Higgs branch (the centred one-instanton moduli space of $SU(N_f)$) meets the
+  Coulomb branch (with an $A_{N_f-1}$ singularity). The $SU(2)_H\times SU(2)_C$ R-symmetry
+  fixes $\Delta_Q = \Delta_{\tilde Q} = 1/2$.
+
+  Mirror symmetry (Intriligator and Seiberg) identifies the same fixed point with the infrared
+  limit of $U(1)^{N_f}/U(1)$ with $N_f$ bifundamental hypermultiplets $Q_i$ of neighbouring
+  factors $U(1)_i\times U(1)_{i+1}$ ($i$ mod $N_f$), arranged in a necklace. It exchanges the
+  Higgs and Coulomb branches, and masses with Fayet–Iliopoulos parameters. The hidden
+  $U(1)^{N_f-1}$ topological symmetry of the necklace quiver becomes the $SU(N_f)$ flavor
+  symmetry of SQED.
+
+  The BPS monopole operators $V_\pm$ of magnetic charge $\pm1$ are chiral, with R-charge
+  and dimension $N_f/2$ (Borokhov, Kapustin and Wu; Gaiotto and Witten). At $N_f=1$ they have
+  $\Delta = 1/2$ and form a free twisted hypermultiplet, which is the content of the basic
+  mirror pair. At $N_f=2$ they have $\Delta = 1$ and, together with the topological current,
+  enhance the $U(1)_J$ symmetry of the Coulomb branch to $SU(2)$. For $N_f\ge3$ no monopole has
+  $\Delta \le 1$ and $U(1)_J$ is not enhanced.
+
+  The $S^3$ partition function localizes to a single integral,
+  $Z = 2^{-N_f}\int d\lambda\,\cosh^{-N_f}(\pi\lambda)$, which is elementary.
+
+parameters:
+  - symbol: 'N_f'
+    description: Number of hypermultiplets of charge 1.
+    range: '$N_f \geq 1$'
+
+family:
+  parameter: N_f
+  members:
+    - at: 1
+      label: 'Free twisted hypermultiplet'
+      note: 'Mirror to a free twisted hypermultiplet; $F = \log 2$.'
+    - at: 2
+      label: '$T[SU(2)]$ (self-mirror)'
+      note: '$SU(2)\times SU(2)$ global symmetry; $F = \log 2\pi$; $C_T/C_T^{\rm free} = \tfrac89 + \tfrac{2}{3\pi^2}$ relative to two free hypermultiplets.'
+    - at: 3
+      note: '$F = 4\log 2$.'
+    - at: '\infty'
+      label: 'Large $N_f$'
+      note: '$F = N_f\log 2 + \tfrac12\log\frac{\pi N_f}{2} + O(1/N_f)$.'
+
+symmetry:
+  spacetime: '$\mathcal{N}=4$ superconformal'
+  supercharges: 8
+  global: '$SU(N_f)$ acting on the hypermultiplets, times the topological $U(1)_J$, which is enhanced to $SU(2)$ at $N_f=1$ (the free twisted hypermultiplet, whose moment maps are bilinears of the free monopole fields $V_\pm$) and at $N_f=2$; R-symmetry $SU(2)_H\times SU(2)_C$'
+  gauge: '$U(1)$'
+
+quantities:
+  - symbol: 'F'
+    description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$'
+    value: 'N_f\log 2 + \log\frac{\sqrt{\pi}\,\Gamma\left(\frac{N_f+1}{2}\right)}{\Gamma\left(\frac{N_f}{2}\right)}'
+    method: exact (supersymmetric localization)
+    refs: [klebanov2012]
+    note: 'From $Z_{S^3} = \frac{2^{-N_f}\,\Gamma(N_f/2)}{\sqrt{\pi}\,\Gamma\left(\frac{N_f+1}{2}\right)}$. It gives $\log 2$ at $N_f=1$, the value for a free hypermultiplet.'
+  - symbol: 'F'
+    description: 'Large-$N_f$ expansion of the free energy (asymptotic)'
+    value: 'N_f\log 2 + \frac12\log\frac{\pi N_f}{2} - \frac{1}{4N_f} + \frac{1}{24N_f^3} + \dots'
+    method: large-N_f expansion of the exact result
+    refs: [klebanov2012]
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor two-point coefficient, relative to $N_f$ free hypermultiplets'
+    value: '\frac{2N_f^2\,\psi^{(1)}\!\left(\frac{N_f}{2}+1\right) + (\pi^2N_f + 4)N_f + 4}{\pi^2 N_f(N_f+1)}'
+    method: derived (supersymmetric localization)
+    refs: [chang2019]
+    note: 'Chang et al. give $C_T = 12\,[\cdots]/(\pi^2(N_f+1))$ for $N_f \ge 2$, in units where a free hypermultiplet has $C_T = 12$; divided here by $12N_f$. $\psi^{(1)}$ is the trigamma function. The expression also equals 1 at $N_f = 1$.'
+
+operators:
+  - name: '\tilde Q^a Q_b'
+    Delta: 1
+    spin: 0
+    rep: 'adjoint of $SU(N_f)$; triplet of $SU(2)_H$'
+    method: exact
+    refs: [klebanov2012]
+    note: 'Higgs-branch moment map, bottom of the $SU(N_f)$ current multiplet ($N_f\ge2$).'
+  - name: 'V_\pm'
+    Delta: '\frac{N_f}{2}'
+    spin: 0
+    rep: '$U(1)_J$ charge $\pm1$; Coulomb-branch chiral operators'
+    method: exact
+    refs: [borokhov2002, gaiotto2008]
+    note: 'BPS monopole operators of unit magnetic charge; $\Delta$ equals their R-charge $N_f/2$.'
+  - name: 'J_\mu'
+    Delta: 2
+    spin: 1
+    rep: 'adjoint of $SU(N_f)$, and $U(1)_J$'
+    method: exact
+    note: Conserved flavor and topological currents.
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+references:
+  - key: intriligator1996
+    title: Mirror Symmetry in Three Dimensional Gauge Theories
+    authors: Intriligator, Seiberg
+    year: 1996
+    journal: Phys. Lett. B387, 513
+    arxiv: hep-th/9607207
+  - key: borokhov2002
+    title: Monopole Operators and Mirror Symmetry in Three Dimensions
+    authors: Borokhov, Kapustin, Wu
+    year: 2002
+    journal: JHEP 12 (2002) 044
+    arxiv: hep-th/0207074
+  - key: gaiotto2008
+    title: S-Duality of Boundary Conditions In N=4 Super Yang-Mills Theory
+    authors: Gaiotto, Witten
+    year: 2009
+    journal: Adv. Theor. Math. Phys. 13, 721
+    arxiv: '0807.3720'
+  - key: klebanov2012
+    title: Entanglement Entropy of 3-d Conformal Gauge Theories with Many Flavors
+    authors: Klebanov, Pufu, Sachdev, Safdi
+    year: 2012
+    journal: JHEP 05 (2012) 036
+    arxiv: '1112.5342'
+  - key: chang2019
+    title: 3d N=4 Bootstrap and Mirror Symmetry
+    authors: Chang, Fluder, Lin, Shao, Wang
+    year: 2021
+    journal: SciPost Phys. 10, 097
+    arxiv: '1910.03600'
+
+contributors: [Canonical111]

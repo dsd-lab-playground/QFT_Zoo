@@ -22,7 +22,8 @@ symmetry:
   global: '$\mathbb{Z}_2$ ($\phi\to-\phi$), plus shift symmetry $\phi \to \phi + c$'
 
 quantities:
-  - symbol: 'F'
+  - key: F
+    symbol: 'F'
     description: '$S^3$ free energy, $F = -\log Z_{S^3}$'
     value: '\frac{\log 2}{8} - \frac{3\zeta(3)}{16\pi^2} \approx 0.0638'
     method: exact

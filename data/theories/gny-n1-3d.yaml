@@ -102,6 +102,11 @@ operators:
     method: exact
     note: Stress tensor, in the same multiplet as the supercurrent.
 
+relations:
+  - type: member_of
+    target: gny-3d
+    at: 1
+
 references:
   - key: atanasov2022
     title: Precision bootstrap for the $\mathcal{N}=1$ super-Ising model

@@ -1,0 +1,180 @@
+id: n2-super-ising-3d
+name: '3d $\mathcal{N}=2$ super-Ising CFT ($W=\Phi^3$ Wess–Zumino model)'
+aliases:
+  - '$\mathcal{N}=2$ super-Ising model'
+  - 'Critical $\mathcal{N}=2$ Wess–Zumino model (cWZ)'
+  - '$\mathcal{N}=2$ supersymmetric Ising model'
+  - 'Chiral XY Gross–Neveu–Yukawa fixed point with one Dirac fermion'
+d: 3
+summary: >-
+  The infrared fixed point of one $\mathcal{N}=2$ chiral superfield with cubic superpotential
+  $W=\Phi^3$, i.e. a complex scalar and one two-component Dirac fermion. The chiral primary has
+  the exact dimension $\Delta_\Phi = 2/3$.
+tags: [CFT, SCFT, interacting, unitary, Lagrangian, supersymmetric, critical phenomena]
+
+description: |
+  One chiral superfield $\Phi$: a complex scalar $\phi$ and one two-component Dirac fermion
+  $\psi$ (in the counting of the GNY entries, $N=2$ two-component Majorana fermions), with
+  superpotential $W = \tfrac{\lambda}{3}\Phi^3$. The coupling is relevant in $d=3$ and the
+  theory flows to an interacting $\mathcal{N}=2$ SCFT. The superpotential fixes the
+  $U(1)_R$ charge $R_\Phi = 2/3$, so $\Delta_\Phi = 2/3$ exactly, and the equation of motion
+  gives the chiral-ring relation $\Phi^2 = 0$. The theory has no continuous flavor symmetry.
+  Continued to $d=2$ it becomes the $c=1$ member of the $\mathcal{N}=(2,2)$ minimal series.
+
+  In the $\mathcal{N}=2$ bootstrap of $\langle\Phi\bar\Phi\Phi\bar\Phi\rangle$ the theory sits
+  at a kink of the upper bound on the leading unprotected scalar $[\bar\Phi\Phi]$ at
+  $\Delta_\Phi = 2/3$. There the extracted $C_T$ has a minimum that agrees with the exact
+  localization value, and the coefficient of $\Phi^2$ in $\Phi\times\Phi$ vanishes, as the
+  chiral-ring relation requires.
+
+  The same fixed point is reached from the non-supersymmetric chiral XY GNY model with one
+  Dirac fermion (the Nambu–Jona-Lasinio–Yukawa model with $N=2$), where the scalar mass is
+  tuned. In $d=4-\epsilon$ its fixed-point couplings obey the supersymmetric relation to order
+  $\epsilon^2$, and its chiral $U(1)$ becomes the $U(1)_R$ symmetry, so supersymmetry is
+  emergent (Fei, Giombi, Klebanov and Tarnopolsky). Physically, it describes the transition
+  between the Dirac semimetal and the $s$-wave superconductor of a single Dirac cone on the
+  surface of a 3d topological insulator at zero chemical potential, where the Cooper-pair field
+  becomes the superpartner of the surface fermion (Ponte and Lee; Grover, Sheng and
+  Vishwanath). Supersymmetry then gives $\eta_\phi = \eta_\psi = 1/3$ exactly.
+
+lagrangian: '\mathcal{L} = \partial_\mu\bar\phi\,\partial^\mu\phi + i\bar\psi\gamma^\mu\partial_\mu\psi + |\lambda|^2|\phi|^4 + \left(\lambda\,\phi\,\psi^\alpha\epsilon_{\alpha\beta}\psi^\beta + \text{c.c.}\right), \qquad W = \tfrac{\lambda}{3}\Phi^3'
+
+symmetry:
+  spacetime: '$\mathcal{N}=2$ superconformal (emergent from the chiral XY GNY model)'
+  supercharges: 4
+  global: '$U(1)_R$ (R-symmetry, $R_\Phi = 2/3$); no continuous flavor symmetry'
+
+quantities:
+  - key: F
+    symbol: 'F'
+    description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$'
+    value: '-\ell\left(\tfrac13\right) \approx 0.290791'
+    method: exact (supersymmetric localization)
+    refs: [jafferis2010, fei2016]
+    note: 'A chiral multiplet of R-charge $\Delta$ contributes $-\ell(1-\Delta)$, with $\ell(z) = -z\log(1-e^{2\pi i z}) + \tfrac{i}{2}\big(\pi z^2 + \tfrac{1}{\pi}\mathrm{Li}_2(e^{2\pi i z})\big) - \tfrac{i\pi}{12}$. The same formula gives $\tfrac12\log 2$ for a free chiral multiplet, so $F$ decreases along the flow.'
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor two-point coefficient, relative to one free chiral multiplet (two real scalars and one two-component Dirac fermion)'
+    value: '\frac{16(16\pi - 9\sqrt{3})}{243\pi} \approx 0.7268'
+    method: exact (supersymmetric localization)
+    refs: [fei2016, bobev2015b]
+    note: 'The bootstrap solution at the kink gives $0.7265(3)$ (Bobev et al. 2015).'
+  - symbol: '\eta_\phi = \eta_\psi'
+    description: 'Anomalous dimensions, $\eta_\phi = 2\Delta_\Phi - 1$, $\Delta_\psi = 1 + \eta_\psi/2$'
+    value: '\frac{1}{3}'
+    method: exact (supersymmetry)
+    refs: [grover2014]
+  - symbol: '\nu^{-1}'
+    description: 'Inverse correlation-length exponent, $3 - \Delta_{[\bar\Phi\Phi]}$'
+    value: '1.0902(20)'
+    method: derived
+    refs: [bobev2015]
+    note: 'From the bootstrap value $\Delta_{[\bar\Phi\Phi]} = 1.9098(20)$.'
+  - symbol: '\omega'
+    description: 'Correction-to-scaling exponent, $\Delta_{[Q^4\bar\Phi\Phi]} - 3$'
+    value: '0.9098(20)'
+    method: derived
+    refs: [bobev2015, bobev2015b]
+    note: 'From the bootstrap value $\Delta_{[Q^4\bar\Phi\Phi]} = 3.9098(20)$. Supersymmetry implies $\omega = 2 - \nu^{-1}$.'
+
+operators:
+  - name: '\phi'
+    Delta: '\frac{2}{3}'
+    spin: 0
+    rep: 'chiral primary, $R = 2/3$'
+    method: exact
+    refs: [bobev2015b]
+    note: '$\Delta = R$ for a chiral primary.'
+  - name: '\psi'
+    Delta: '\frac{7}{6}'
+    spin: '1/2'
+    rep: 'superpartner of $\phi$, $R = -1/3$'
+    method: exact (supersymmetry)
+    refs: [fei2016]
+    note: '$\Delta_\psi = \Delta_\phi + \tfrac12$.'
+  - name: '\phi^2'
+    Delta: '\frac{5}{3}'
+    spin: 0
+    rep: '$R = 4/3$; superconformal descendant $Q^2\bar\Phi$'
+    method: exact (supersymmetry)
+    refs: [bobev2015, fei2016]
+    note: 'Not a chiral primary, since $\Phi^2 = 0$ in the chiral ring; $\Delta = \Delta_\phi + 1$.'
+  - name: '[\bar\Phi\Phi]'
+    Delta: '1.9098(20)'
+    spin: 0
+    rep: '$R = 0$; lowest unprotected superconformal primary'
+    method: conformal bootstrap
+    refs: [bobev2015, fei2016]
+    note: 'Its coupling is the tuning parameter of the non-supersymmetric description. $4-\epsilon$: $2 - \tfrac13\epsilon^2 + \tfrac{1+12\zeta(3)}{18}\epsilon^3 + O(\epsilon^4)$, whose Padé estimate in $d=3$ is $\approx 1.909$ (Fei et al.).'
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: '$R = 0$'
+    method: exact
+    note: 'Stress tensor, in the multiplet whose bottom component is the $U(1)_R$ current.'
+  - name: '[Q^4\bar\Phi\Phi]'
+    Delta: '3.9098(20)'
+    spin: 0
+    rep: '$R = 0$; top component of the $[\bar\Phi\Phi]$ multiplet'
+    method: conformal bootstrap
+    refs: [bobev2015]
+    note: '$\Delta = \Delta_{[\bar\Phi\Phi]} + 2$; the analogue of $\epsilon^\prime$ of the Ising model, $\omega = \Delta - 3$.'
+  - name: 'J^\prime'
+    Delta: '5.25(25)'
+    spin: 1
+    rep: 'second spin-1 superconformal primary in $\Phi\times\bar\Phi$'
+    method: conformal bootstrap
+    refs: [bobev2015]
+  - name: '[\bar\Phi\Phi]^\prime'
+    Delta: '5.3(1)'
+    spin: 0
+    rep: '$R = 0$; second scalar superconformal primary in $\Phi\times\bar\Phi$'
+    method: conformal bootstrap
+    refs: [bobev2015]
+
+relations:
+  - type: member_of
+    target: gny-xy-3d
+    at: 2
+  - type: related_to
+    target: gny-n1-3d
+    note: 'The $\mathcal{N}=1$ super-Ising model: the analogous fixed point with one Majorana fermion and one real scalar.'
+
+references:
+  - key: bobev2015
+    title: Bootstrapping the Three-Dimensional Supersymmetric Ising Model
+    authors: Bobev, El-Showk, Mazáč, Paulos
+    year: 2015
+    journal: Phys. Rev. Lett. 115, 051601
+    arxiv: '1502.04124'
+  - key: bobev2015b
+    title: Bootstrapping SCFTs with Four Supercharges
+    authors: Bobev, El-Showk, Mazáč, Paulos
+    year: 2015
+    journal: JHEP 08 (2015) 142
+    arxiv: '1503.02081'
+  - key: fei2016
+    title: Yukawa CFTs and Emergent Supersymmetry
+    authors: Fei, Giombi, Klebanov, Tarnopolsky
+    year: 2016
+    journal: PTEP 2016, 12C105
+    arxiv: '1607.05316'
+  - key: jafferis2010
+    title: The Exact Superconformal R-Symmetry Extremizes Z
+    authors: Jafferis
+    year: 2012
+    journal: JHEP 05 (2012) 159
+    arxiv: '1012.3210'
+  - key: grover2014
+    title: Emergent space-time supersymmetry at the boundary of a topological phase
+    authors: Grover, Sheng, Vishwanath
+    year: 2014
+    journal: Science 344, 280
+    arxiv: '1301.7449'
+  - key: ponte2014
+    title: Emergence of supersymmetry on the surface of three dimensional topological insulators
+    authors: Ponte, Lee
+    year: 2014
+    journal: New J. Phys. 16, 013044
+    arxiv: '1206.2340'
+
+contributors: [Canonical111]

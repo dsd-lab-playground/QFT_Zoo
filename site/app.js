@@ -36,6 +36,10 @@ const app = document.getElementById("app");
 const esc = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
+/** A family parameter is a plain identifier (schema); spell Greek names as LaTeX commands. */
+const GREEK = new Set(["alpha", "beta", "gamma", "delta", "epsilon", "zeta", "eta", "theta", "kappa", "lambda", "mu", "nu", "xi", "rho", "sigma", "tau", "phi", "chi", "psi", "omega"]);
+const paramTex = (p) => (GREEK.has(p) ? `\\${p}` : p);
+
 function tex(src, display = false) {
   try {
     return katex.renderToString(String(src), { displayMode: display, throwOnError: false, strict: "ignore" });
@@ -556,7 +560,7 @@ function linkAt(t, l) {
   if (l.at == null) return "";
   const other = BY_ID.get(l.target);
   const famSide = other?.family ? other : t.family ? t : null;
-  return ` <span class="muted">(${tex(`${famSide?.family.parameter ?? ""}${famSide ? " = " : ""}${l.at}`)}${
+  return ` <span class="muted">(${tex(`${paramTex(famSide?.family.parameter ?? "")}${famSide ? " = " : ""}${l.at}`)}${
     l.variant ? `, ${esc(l.variant)}` : ""})</span>`;
 }
 
@@ -701,14 +705,18 @@ function jumpBar(sections) {
  *  with a toggle for the rest that build.py computed. */
 function membersTable(t) {
   const f = t.family;
-  const p = f.parameter || "m";
+  const p = paramTex(f.parameter || "m");
   const values = [...new Set(t.members.map((m) => String(m.at)))];
   const shown = new Set(values.slice(0, f.show || 8));
   const hasVariant = t.members.some((m) => m.variant);
   const hasLabel = t.members.some((m) => m.label);
   const hasNotes = t.members.some((m) => m.entries?.length || m.note);
+  // c and the gap are 2d data; families in other dimensions omit these columns.
+  const hasC = t.members.some((m) => m.c != null);
+  const hasGap = t.members.some((m) => m.gap != null);
   const specIndex = new Map((t.spectra || []).map((r, i) => [`${r.at}|${r.variant ?? ""}`, i]));
-  const head = [tex(p), ...(hasVariant ? ["Variant"] : []), ...(hasLabel ? ["Theory"] : []), tex("c"), tex("\\Delta_{\\rm gap}"),
+  const head = [tex(p), ...(hasVariant ? ["Variant"] : []), ...(hasLabel ? ["Theory"] : []),
+    ...(hasC ? [tex("c")] : []), ...(hasGap ? [tex("\\Delta_{\\rm gap}")] : []),
     ...(hasNotes ? ["Entry / notes"] : []), ...(specIndex.size ? ["Spectrum"] : [])];
   const rows = t.members.map((m) => {
     const entries = (m.entries || [])
@@ -716,7 +724,8 @@ function membersTable(t) {
       .join(", ");
     const notes = [entries, m.note ? md(m.note, true) : ""].filter(Boolean).join(" · ");
     const cells = [tex(m.at), ...(hasVariant ? [esc(m.variant ?? "")] : []), ...(hasLabel ? [md(m.label, true)] : []),
-      m.c != null ? tex(m.c) : "", m.gap != null ? tex(m.gap) : "", ...(hasNotes ? [notes] : [])];
+      ...(hasC ? [m.c != null ? tex(m.c) : ""] : []), ...(hasGap ? [m.gap != null ? tex(m.gap) : ""] : []),
+      ...(hasNotes ? [notes] : [])];
     if (specIndex.size) {
       const i = specIndex.get(`${m.at}|${m.variant ?? ""}`);
       cells.push(i == null ? "" : `<button type="button" class="linkish" data-spec-member="${i}">show</button>`);

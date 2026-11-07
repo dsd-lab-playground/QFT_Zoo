@@ -1,0 +1,229 @@
+id: blg-3d
+name: 'BLG theory, $SU(2)_k \times SU(2)_{-k}$'
+aliases:
+  - Bagger–Lambert–Gustavsson theory
+  - 'Bagger–Lambert $\mathcal{A}_4$ theory'
+  - '$\mathcal{N}=8$ $SO(4)$ Chern–Simons-matter theory'
+d: 3
+summary: >-
+  $\mathcal{N}=8$ Chern–Simons-matter SCFTs with gauge group $SU(2)\times SU(2)$ (or its
+  $\mathbb{Z}_2$ quotient) at levels $(k,-k)$, for every integer $k$. For $k \le 4$ they
+  are dual to ABJ(M) theories or their interacting sectors.
+tags: [CFT, SCFT, interacting, unitary, gauge theory, supersymmetric, Lagrangian, family]
+
+description: |
+  Bagger and Lambert, and Gustavsson, constructed a theory of eight scalars
+  and their fermionic partners, valued in an algebra with a totally antisymmetric triple
+  product (a 3-algebra) and coupled to a non-dynamical gauge field, as a candidate
+  worldvolume theory of several M2-branes. It has 16 supercharges, conformal invariance and
+  an $SO(8)$ R-symmetry acting on the eight transverse scalars, and the Chern–Simons
+  coefficient is quantized. For the explicit example, the $\mathcal{A}_4$ 3-algebra with
+  gauge group $SO(4)$, Van Raamsdonk rewrote the theory as an ordinary
+  $SU(2)\times SU(2)$ Chern–Simons theory with bifundamental matter, which clarifies its
+  parity invariance. In $\mathcal{N}=2$ language it is the ABJM quiver with
+  $SU(2)$ gauge factors: ABJM noted that their construction with gauge group
+  $SU(2)\times SU(2)$ has extra symmetry and coincides with the Bagger–Lambert theory.
+
+  There are two global forms, $SU(2)_k\times SU(2)_{-k}$ and
+  $(SU(2)_k\times SU(2)_{-k})/\mathbb{Z}_2$. Both have manifest $\mathcal{N}=8$
+  supersymmetry for every integer $k$, and they have the same stress-tensor four-point
+  function, so the $c_T$ values below apply to both (Agmon, Chester and Pufu). As
+  $k \to \infty$ the theory becomes weakly coupled and $c_T \to 64$, the value for its
+  free field content.
+
+  Lambert and Tong argued that the theory describes two membranes in the orbifold
+  $\mathbb{R}^8/\mathbb{Z}_2$; at $k = 1$ and $k = 2$ its classical moduli space coincides
+  with the infrared moduli space of $SO(4)$ and $SO(5)$ super Yang–Mills theory. Distler, Mukhi, Papageorgakis and Van Raamsdonk argued that the moduli space at
+  level $k$ is $(\mathbb{R}^8\times\mathbb{R}^8)/D_{2k}$, with $D_{2k}$ the dihedral group of
+  order $4k$, and conjectured that the theory describes two M2-branes on a
+  $\mathbb{Z}_{2k}$ "M-fold". For general $k$ no M-theory interpretation is known.
+
+  ### Dualities with ABJ(M) theories
+  In the notation $\mathrm{BLG}_k = (SU(2)_k\times SU(2)_{-k})/\mathbb{Z}_2$ and
+  $\mathrm{BLG}'_k = SU(2)_k\times SU(2)_{-k}$, the dualities listed by Agmon, Chester and
+  Pufu are:
+  - $\mathrm{BLG}_1$ $\cong$ $U(2)_1\times U(2)_{-1}$ ABJM, two M2-branes in flat space;
+  - $\mathrm{BLG}'_2$ $\cong$ $U(2)_2\times U(2)_{-2}$ ABJM;
+  - $\mathrm{BLG}_3$ $\otimes$ (free $\mathcal{N}=8$ theory) $\cong$ $U(3)_1\times U(3)_{-1}$ ABJM, so
+    $\mathrm{BLG}_3$ is the interacting sector of three M2-branes in flat space;
+  - $\mathrm{BLG}_4$ $\cong$ $U(2)_2\times U(3)_{-2}$ ABJ.
+
+  Lambert and Papageorgakis derived the first by integrating out the $U(1)$ gauge field of
+  ABJM, and conjectured the second. Bashkirov and Kapustin tested such dualities by
+  comparing superconformal indices. Agmon, Chester and Pufu proposed the third and
+  supported it by matching moduli spaces, superconformal indices, $S^3$ partition functions
+  and BPS OPE coefficients. They also computed the BPS OPE coefficients of $\mathrm{BLG}_k$ for all
+  $k$ and found that, unlike some ABJ(M) theories, these generically do not saturate the
+  numerical bootstrap bounds.
+
+lagrangian: '\mathcal{L} = \frac{k}{4\pi}\,\mathrm{Tr}\Big(A\wedge dA + \tfrac{2}{3}A^3 - \hat A\wedge d\hat A - \tfrac{2}{3}\hat A^3\Big) + \text{(bifundamental matter, as in ABJM)}, \quad A, \hat A \in \mathfrak{su}(2)'
+
+parameters:
+  - symbol: 'k'
+    description: Chern–Simons level.
+    range: 'positive integer'
+
+family:
+  parameter: k
+  members:
+    - at: 1
+      label: '$\cong U(2)_1\times U(2)_{-1}$ ABJM'
+      note: 'For the $(SU(2)\times SU(2))/\mathbb{Z}_2$ form; two M2-branes in flat space, including the free centre-of-mass sector.'
+    - at: 2
+      label: '$\cong U(2)_2\times U(2)_{-2}$ ABJM'
+      note: 'For the $SU(2)\times SU(2)$ form.'
+    - at: 3
+      label: 'Interacting sector of $U(3)_1\times U(3)_{-1}$ ABJM'
+      note: 'For the $(SU(2)\times SU(2))/\mathbb{Z}_2$ form (Agmon, Chester and Pufu).'
+    - at: 4
+      label: '$\cong U(2)_2\times U(3)_{-2}$ ABJ'
+      note: 'For the $(SU(2)\times SU(2))/\mathbb{Z}_2$ form.'
+    - at: 'k \geq 5'
+      label: Generic member
+      note: 'No known M-theory interpretation; weakly coupled as $k \to \infty$.'
+
+symmetry:
+  spacetime: 'superconformal, $\mathcal{N}=8$ ($\mathfrak{osp}(8|4)$)'
+  supercharges: 16
+  global: '$SO(8)_R$; parity'
+  gauge: '$SU(2)_k\times SU(2)_{-k}$ or $(SU(2)_k\times SU(2)_{-k})/\mathbb{Z}_2$'
+  notes: 'Supersymmetry is manifest in the Lagrangian for every $k$, unlike for ABJM at $k = 1, 2$.'
+
+quantities:
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor coefficient $c_T$ for all $k$, relative to one free real scalar (equivalently one free Majorana fermion)'
+    value: '32\left(2 - \frac{I_{4,k}}{I_{2,k}}\right), \quad I_{n,k} = \int_{-\infty}^{\infty} dx\, \frac{x\,\tanh^n(\pi x)}{\sinh(\pi k x)}'
+    method: supersymmetric localization
+    refs: [agmon2018]
+    note: 'Eqs. (34)–(35) of the reference. In this normalization the free $\mathcal{N}=8$ theory of eight real scalars and eight Majorana fermions has $c_T = 16$.'
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: '$k = 1$, relative to one free real scalar'
+    value: '\frac{112}{3}'
+    method: supersymmetric localization
+    refs: [agmon2018, chester2014]
+    note: 'Table 4 of Agmon et al. gives $16/c_T = \frac{3}{7}$; equal to $c_T$ of $U(2)_1\times U(2)_{-1}$ ABJM (Chester et al.).'
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: '$k = 2$, relative to one free real scalar'
+    value: '\frac{128}{3}'
+    method: supersymmetric localization
+    refs: [agmon2018, chester2014]
+    note: 'Table 4 of Agmon et al. gives $16/c_T = \frac{3}{8}$; equal to $c_T$ of $U(2)_2\times U(2)_{-2}$ ABJM (Chester et al.).'
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: '$k = 3$, relative to one free real scalar'
+    value: '16\,\frac{31 - 10\pi}{3 - \pi} \approx 46.9998'
+    method: supersymmetric localization
+    refs: [chester2014]
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: '$k = 4$, relative to one free real scalar'
+    value: '50.3575'
+    method: supersymmetric localization
+    refs: [chester2014]
+    note: 'Table 9 of the reference; $k = 5$: $52.9354$.'
+
+operators:
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+  - name: 'J_\mu^R'
+    Delta: 2
+    spin: 1
+    rep: '$\mathbf{28}$ of $SO(8)_R$'
+    method: exact
+    note: Conserved R-symmetry currents.
+  - name: '\mathcal{O}_{\mathbf{35}_c}'
+    Delta: 1
+    spin: 0
+    rep: '$\mathbf{35}_c$ of $SO(8)_R$'
+    method: exact
+    refs: [chester2014]
+    note: 'Superconformal primary of the half-BPS $\mathcal{N}=8$ stress-tensor multiplet; protected.'
+
+relations:
+  - type: related_to
+    target: abjm-3d
+    note: '$\mathrm{BLG}_1$ $\cong$ $U(2)_1\times U(2)_{-1}$ ABJM; $SU(2)_2\times SU(2)_{-2}$ $\cong$ $U(2)_2\times U(2)_{-2}$ ABJM; $\mathrm{BLG}_3$ $\otimes$ free $\cong$ $U(3)_1\times U(3)_{-1}$ ABJM; $\mathrm{BLG}_4$ $\cong$ $U(2)_2\times U(3)_{-2}$ ABJ, where $\mathrm{BLG}_k$ denotes the $(SU(2)_k\times SU(2)_{-k})/\mathbb{Z}_2$ form. Both families come from the same $\mathcal{N}=2$ quiver.'
+
+references:
+  - key: bagger2007
+    title: Modeling Multiple M2's
+    authors: Bagger, Lambert
+    year: 2007
+    journal: Phys. Rev. D 75, 045020
+    arxiv: hep-th/0611108
+  - key: bagger2008a
+    title: Gauge Symmetry and Supersymmetry of Multiple M2-Branes
+    authors: Bagger, Lambert
+    year: 2008
+    journal: Phys. Rev. D 77, 065008
+    arxiv: '0711.0955'
+  - key: bagger2008b
+    title: Comments on Multiple M2-branes
+    authors: Bagger, Lambert
+    year: 2008
+    journal: JHEP 02 (2008) 105
+    arxiv: '0712.3738'
+  - key: gustavsson2009
+    title: Algebraic structures on parallel M2-branes
+    authors: Gustavsson
+    year: 2009
+    journal: Nucl. Phys. B 811, 66
+    arxiv: '0709.1260'
+  - key: vanraamsdonk2008
+    title: Comments on the Bagger-Lambert theory and multiple M2-branes
+    authors: Van Raamsdonk
+    year: 2008
+    journal: JHEP 05 (2008) 105
+    arxiv: '0803.3803'
+  - key: abjm2008
+    title: 'N=6 superconformal Chern-Simons-matter theories, M2-branes and their gravity duals'
+    authors: Aharony, Bergman, Jafferis, Maldacena
+    year: 2008
+    journal: JHEP 10 (2008) 091
+    arxiv: '0806.1218'
+  - key: lambert2008
+    title: Membranes on an Orbifold
+    authors: Lambert, Tong
+    year: 2008
+    journal: Phys. Rev. Lett. 101, 041602
+    arxiv: '0804.1114'
+  - key: distler2008
+    title: M2-branes on M-folds
+    authors: Distler, Mukhi, Papageorgakis, Van Raamsdonk
+    year: 2008
+    journal: JHEP 05 (2008) 038
+    arxiv: '0804.1256'
+  - key: lambert2010
+    title: Relating U(N)xU(N) to SU(N)xSU(N) Chern-Simons Membrane theories
+    authors: Lambert, Papageorgakis
+    year: 2010
+    journal: JHEP 04 (2010) 104
+    arxiv: '1001.4779'
+  - key: bashkirov2011b
+    title: Dualities between N = 8 superconformal field theories in three dimensions
+    authors: Bashkirov, Kapustin
+    year: 2011
+    journal: JHEP 05 (2011) 074
+    arxiv: '1103.3548'
+  - key: agmon2018b
+    title: A new duality between $\mathcal{N}=8$ superconformal field theories in three dimensions
+    authors: Agmon, Chester, Pufu
+    year: 2018
+    journal: JHEP 06 (2018) 005
+    arxiv: '1708.07861'
+  - key: agmon2018
+    title: Solving M-theory with the Conformal Bootstrap
+    authors: Agmon, Chester, Pufu
+    year: 2018
+    journal: JHEP 06 (2018) 159
+    arxiv: '1711.07343'
+  - key: chester2014
+    title: The $\mathcal{N}=8$ superconformal bootstrap in three dimensions
+    authors: Chester, Lee, Pufu, Yacoby
+    year: 2014
+    journal: JHEP 09 (2014) 143
+    arxiv: '1406.4814'
+
+contributors: [Canonical111]

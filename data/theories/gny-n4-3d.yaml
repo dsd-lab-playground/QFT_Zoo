@@ -107,6 +107,9 @@ relations:
   - type: related_to
     target: gny-n2-3d
     note: 'The $O(N)$ GNY model at another $N$.'
+  - type: member_of
+    target: gny-3d
+    at: 4
 
 references:
   - key: erramilli2022

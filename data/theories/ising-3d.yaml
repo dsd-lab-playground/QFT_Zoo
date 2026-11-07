@@ -70,6 +70,11 @@ operators:
     method: exact
     note: Stress tensor (conserved).
 
+relations:
+  - type: member_of
+    target: on-model-3d
+    at: 1
+
 references:
   - key: chang2024
     title: Bootstrapping the 3d Ising Stress Tensor

@@ -1,0 +1,174 @@
+id: gny-xy-3d
+name: '3d chiral XY Gross–Neveu–Yukawa models'
+aliases:
+  - Chiral XY universality class
+  - 'Nambu–Jona-Lasinio–Yukawa (NJLY) model'
+d: 3
+summary: >-
+  Critical points of $N$ two-component Majorana fermions coupled to a complex order
+  parameter with a $U(1)$ chiral symmetry. $N=2$ has emergent $\mathcal{N}=2$
+  supersymmetry, and $N=8$ describes Kekulé and superconducting transitions of
+  Dirac fermions in graphene.
+tags: [CFT, interacting, unitary, Lagrangian, critical phenomena, large N, family]
+
+description: |
+  $N$ counts two-component Majorana fermions and is even ($N/2$ two-component Dirac
+  fermions). The Lagrangian is usually written with $N_f$ four-component Dirac fermions,
+  $N = 4N_f$ (Fei et al.); Zerf et al. and Li et al. call $N_f$ "$N$", and their values are
+  converted here. The complex scalar $\phi = \phi_1 + i\phi_2$ couples through
+  $\bar\psi(\phi_1 + i\gamma_5\phi_2)\psi$, so the theory is invariant under
+  $\psi\to e^{i\alpha\gamma_5}\psi$, $\phi\to e^{-2i\alpha}\phi$. When $\phi$ orders, this
+  $U(1)$ is broken and the fermions are gapped; the mass $m^2|\phi|^2$ is tuned to
+  criticality. The Yukawa theory is the UV completion of the Nambu–Jona-Lasinio model
+  $\tfrac{g}{2}[(\bar\psi\psi)^2 - (\bar\psi\gamma_5\psi)^2]$, as in the Gross–Neveu case
+  (Fei et al.).
+
+  For $N=2$ (one two-component Dirac fermion, $N_f = 1/2$) the fixed point is expected to
+  be the $\mathcal{N}=2$ Wess–Zumino model with $W = \Phi^3$, with emergent supersymmetry; the
+  chiral $U(1)$ becomes the $R$-symmetry (Fei et al., Sec. 4.1; four-loop check by Zerf et al.).
+
+  For $N=8$ ($N_f = 2$: the spin-1/2 electrons of graphene) the class describes
+  superconducting transitions of the Dirac semimetal and the transition to a Kekulé
+  valence-bond solid (Zerf et al.). The Kekulé order parameter has a $\mathbb{Z}_3$ cubic
+  anisotropy; Li, Jiang, Jian and Yao argue that the Dirac fermions make it irrelevant at
+  this fixed point, and they find continuous transitions in sign-free quantum Monte Carlo
+  for $N_f = 2,\dots,6$.
+
+  ### Large $N$
+  The expansions below are from Fei et al., eq. (3.33), in $d=3$ with the same $N$. The
+  leading fermion anomalous dimension is twice that of the $O(N)$ Gross–Neveu model.
+  At $N=\infty$, $\Delta_\psi = \Delta_\phi = 1$ and $\Delta_{|\phi|^2} = 2$.
+
+lagrangian: '\mathcal{L} = \bar\psi_j\gamma^\mu\partial_\mu\psi_j + g\,\bar\psi_j(\phi_1 + i\gamma_5\phi_2)\psi_j + |\partial\phi|^2 + m^2|\phi|^2 + \lambda|\phi|^4, \quad j = 1,\dots,N/4 \text{ four-component Dirac} \quad (m^2 \text{ tuned})'
+
+parameters:
+  - symbol: N
+    description: Number of two-component Majorana fermions ($N = 4N_f$ for $N_f$ four-component Dirac fermions).
+    range: '$N = 2, 4, 6, \dots$'
+
+family:
+  parameter: N
+  members:
+    - at: 2
+      label: '$\mathcal{N}=2$ super-Ising ($W = \Phi^3$)'
+      note: 'Emergent $\mathcal{N}=2$ supersymmetry; $\Delta_\phi = 2/3$ exactly.'
+    - at: 4
+      label: One four-component Dirac fermion
+    - at: 8
+      label: Two four-component Dirac fermions
+      note: 'Graphene: Kekulé valence-bond-solid and superconducting transitions.'
+    - at: '\infty'
+      label: Large-$N$ limit
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$U(1)$ chiral symmetry ($\phi$ has charge 2), and $U(N_f)$ flavour symmetry in the four-component notation'
+  notes: '$\mathcal{N}=2$ supersymmetry emerges at $N=2$, where the $U(1)$ is the $R$-symmetry.'
+
+quantities:
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor two-point coefficient, relative to $N$ free Majorana fermions'
+    value: '1 + \frac{16}{9\pi^2 N} + O(N^{-2})'
+    method: derived
+    refs: [fei2016, diab2016]
+    note: 'Fei et al. show that the $1/N$ coefficient is twice the Gross–Neveu one, which is $8/(9\pi^2)$ in $d=3$ (Diab et al.).'
+  - symbol: 'F'
+    description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$, with $F_f = \frac{\log 2}{8} + \frac{3\zeta(3)}{16\pi^2}$ the value for one free Majorana fermion'
+    value: 'N F_f + \frac{\zeta(3)}{4\pi^2} + \frac{4}{9\pi^2 N} + O(N^{-2})'
+    method: large N
+    refs: [fei2016, tarnopolsky2016]
+    note: 'The $O(N^0)$ term is twice the Gross–Neveu one (Fei et al.). The $1/N$ term is a conjecture of Tarnopolsky, checked against the $\epsilon$-expansions.'
+  - symbol: '\Delta_\phi\ (N=4)'
+    description: 'Order-parameter dimension at $N=4$: two-sided Padé of the $4-\epsilon$ and $2+\epsilon$ expansions'
+    value: '0.807'
+    method: Padé (4 − ε and 2 + ε)
+    refs: [fei2016]
+    note: 'Same table: $\Delta_\psi = 1.074$, $\Delta_{|\phi|^2} = 2.018$. At $N=8$: $\Delta_\phi = 0.903$, $\Delta_\psi = 1.041$, $\Delta_{|\phi|^2} = 2.055$.'
+  - symbol: '\nu^{-1}\ (N=8)'
+    description: 'Inverse correlation-length exponent at $N=8$, four-loop $4-\epsilon$ expansion, Padé [2/2]'
+    value: '0.840'
+    method: epsilon-expansion (4 loops, Padé)
+    refs: [zerf2017]
+    note: 'Padé [3/1]: $0.841$. Same work: $\eta_\phi = 0.810$ ($0.788$), $\eta_\psi = 0.117$ ($0.108$) for Padé [2/2] ([3/1]).'
+  - symbol: '\nu\ (N=8)'
+    description: 'Correlation-length exponent at $N=8$: quantum Monte Carlo of the Kekulé transition of spin-1/2 fermions on the honeycomb lattice'
+    value: '1.06(5)'
+    method: quantum Monte Carlo
+    refs: [li2017]
+    note: 'Same work: $\eta = 0.71(3)$ for the order parameter. Zerf et al. (Table II) list this value under $1/\nu$; Li et al. (Table I) give it as $\nu$.'
+
+operators:
+  - name: '\psi_j'
+    Delta: '1 + \frac{8}{3\pi^2 N} + \frac{1280}{27\pi^4 N^2} + O(N^{-3})'
+    spin: '1/2'
+    rep: fermion
+    method: large N
+    refs: [fei2016]
+  - name: '\phi'
+    Delta: '1 - \frac{16}{3\pi^2 N} + \frac{4352}{27\pi^4 N^2} + O(N^{-3})'
+    spin: 0
+    rep: '$U(1)$ charge 2 (order parameter)'
+    method: large N
+    refs: [fei2016]
+  - name: '|\phi|^2'
+    Delta: '2 + \frac{64}{3\pi^2 N} - \frac{128(364 + 27\pi^2)}{27\pi^4 N^2} + O(N^{-3})'
+    spin: 0
+    rep: singlet
+    method: large N
+    refs: [fei2016]
+    note: 'The tuning parameter: $\nu^{-1} = 3 - \Delta_{|\phi|^2}$.'
+  - name: 'J_\mu'
+    Delta: 2
+    spin: 1
+    rep: singlet
+    method: exact
+    note: Conserved $U(1)$ chiral current (flavour currents are also conserved).
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: gny-3d
+    note: 'Yukawa models of the same Dirac fermions with a complex ($U(1)$) instead of a real ($\mathbb{Z}_2$) order parameter.'
+
+references:
+  - key: fei2016
+    title: Yukawa CFTs and Emergent Supersymmetry
+    authors: Fei, Giombi, Klebanov, Tarnopolsky
+    year: 2016
+    journal: PTEP 2016, 12C105
+    arxiv: '1607.05316'
+    note: 'NJLY model: large-$N$ dimensions (eq. (3.33)), $C_T$ (eq. (3.37)), $F$ (eq. (3.34)), Padé estimates (Table 2), emergent supersymmetry at $N=2$ (Sec. 4.1).'
+  - key: zerf2017
+    title: Four-loop critical exponents for the Gross-Neveu-Yukawa models
+    authors: Zerf, Mihaila, Marquard, Herbut, Scherer
+    year: 2017
+    journal: Phys. Rev. D 96, 096010
+    arxiv: '1709.05057'
+    note: 'Their $N$ counts four-component Dirac fermions ($N_{\rm here} = 4N$).'
+  - key: li2017
+    title: Fermion-induced quantum critical points
+    authors: Li, Jiang, Jian, Yao
+    year: 2017
+    journal: Nature Commun. 8, 314
+    arxiv: '1512.07908'
+    note: 'Their $N$ counts four-component Dirac fermions; $N = 2$ there is $N = 8$ here.'
+  - key: diab2016
+    title: On $C_J$ and $C_T$ in the Gross-Neveu and $O(N)$ Models
+    authors: Diab, Fei, Giombi, Klebanov, Tarnopolsky
+    year: 2016
+    journal: J. Phys. A 49, 405402
+    arxiv: '1601.07198'
+  - key: tarnopolsky2016
+    title: On Large N Expansion of the Sphere Free Energy
+    authors: Tarnopolsky
+    year: 2017
+    journal: Phys. Rev. D 96, 025017
+    arxiv: '1609.09113'
+
+contributors: [Canonical111]

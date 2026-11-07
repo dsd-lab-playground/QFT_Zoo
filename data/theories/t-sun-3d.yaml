@@ -1,0 +1,150 @@
+id: t-sun-3d
+name: '$T[SU(N)]$'
+aliases:
+  - '$T(SU(N))$ theory'
+  - 'Gaiotto–Witten $T[SU(N)]$'
+  - 'S-duality wall theory of $SU(N)$ $\mathcal{N}=4$ super Yang–Mills'
+d: 3
+summary: >-
+  The self-mirror 3d $\mathcal{N}=4$ SCFT on the S-duality wall of 4d $\mathcal{N}=4$ $SU(N)$
+  super Yang–Mills: the infrared limit of the linear quiver $U(1)\times U(2)\times\dots\times
+  U(N-1)$ with $N$ flavours at the last node, with $SU(N)\times SU(N)$ global symmetry.
+tags: [CFT, SCFT, interacting, unitary, gauge theory, supersymmetric, Lagrangian, holographic, large N, family]
+
+description: |
+  The quiver has gauge group $U(1)\times U(2)\times\dots\times U(N-1)$, bifundamental
+  hypermultiplets between neighbouring nodes and $N$ fundamental hypermultiplets of
+  $U(N-1)$. Every node is balanced (its number of flavours is twice its rank), so the
+  $U(1)^{N-1}$ topological symmetry is enhanced in the infrared to $SU(N)$, which acts on the
+  Coulomb branch; the manifest $SU(N)$ acts on the Higgs branch. The theory is self-mirror:
+  mirror symmetry exchanges the two $SU(N)$ factors, the Higgs and Coulomb branches, and
+  masses with Fayet–Iliopoulos parameters. Both branches are the nilpotent cone of
+  $SL(N,\mathbb{C})$, of complex dimension $N(N-1)$.
+
+  Gaiotto and Witten found $T[SU(N)]$ as the boundary theory obtained by S-duality from
+  Dirichlet boundary conditions of 4d $\mathcal{N}=4$ $U(N)$ super Yang–Mills. It is also the
+  theory on the S-duality wall of $\mathcal{N}=4$ $SU(N)$ super Yang–Mills, and the building
+  block of the star-shaped quivers that are mirror to class-$\mathcal{S}$ theories reduced to
+  3d. At $N=2$ it is $\mathcal{N}=4$ SQED with two flavours.
+
+  The $S^3$ partition function with masses $m$ and FI parameters $\zeta$ (each in the Cartan of
+  $SU(N)$) has a closed form that is manifestly mirror symmetric:
+  $$Z(m;\zeta) = \frac{\sum_{w\in S_N}(-1)^{w}\, e^{2\pi i\sum_j m_{w(j)}\zeta_j}}{i^{N(N-1)/2}\prod_{i<j}2\sinh\pi(m_i-m_j)\,\prod_{i<j}2\sinh\pi(\zeta_i-\zeta_j)}$$
+  (Benvenuti and Pasquetti; Nishioka, Tachikawa and Yamazaki give the same expression with a
+  different overall normalization). The conformal point is the limit $m, \zeta \to 0$. At
+  large $N$, $F \simeq \tfrac12 N^2\log N$, which Assel, Estes and Yamazaki match with the type
+  IIB supergravity dual, an $AdS_4\times S^2\times S^2$ fibration over a Riemann surface.
+
+parameters:
+  - symbol: 'N'
+    description: Rank of the flavor groups $SU(N)\times SU(N)$.
+    range: '$N \geq 2$'
+
+family:
+  parameter: N
+  members:
+    - at: 2
+      label: '$\mathcal{N}=4$ SQED with $N_f=2$'
+      note: '$F = \log 2\pi$; $C_T/C_T^{\rm free} = \tfrac89 + \tfrac{2}{3\pi^2}$ relative to two free hypermultiplets.'
+    - at: 3
+      note: '$F = \log 16\pi^3$; $C_T/C_T^{\rm free} = 0.786801$ relative to the 8 hypermultiplets of the quiver.'
+    - at: '\infty'
+      label: 'Large $N$'
+      note: '$F = \tfrac12N^2\log N + O(N^2)$; holographic dual in type IIB.'
+
+symmetry:
+  spacetime: '$\mathcal{N}=4$ superconformal'
+  supercharges: 8
+  global: '$SU(N)\times SU(N)$ (Higgs-branch and Coulomb-branch flavor symmetries, exchanged by mirror symmetry); R-symmetry $SU(2)_H\times SU(2)_C$'
+  gauge: '$U(1)\times U(2)\times\dots\times U(N-1)$ (UV quiver)'
+  notes: 'Only the Cartan $U(1)^{N-1}$ of the Coulomb-branch $SU(N)$ is visible in the UV.'
+
+quantities:
+  - symbol: 'F'
+    description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$ at $m = \zeta = 0$'
+    value: '\frac{N(N-1)}{2}\log 2\pi + \log G(N+1)'
+    method: exact (supersymmetric localization)
+    refs: [assel2012]
+    note: '$G$ is the Barnes $G$-function, $G(N+1) = 1!\,2!\cdots(N-1)!$. From $Z = (2\pi)^{-N(N-1)/2}/G(N+1)$; Chang et al. give $Z = 1/(16\pi^3)$ at $N=3$, in agreement.'
+  - symbol: 'F'
+    description: 'Large-$N$ expansion of the free energy'
+    value: '\frac{N^2}{2}\log N + \left(-\frac34 - \frac12\log\frac{1}{2\pi}\right)N^2 + O(N\log N)'
+    method: large-N expansion of the exact result
+    refs: [assel2012]
+    note: 'The leading term is reproduced by the supergravity action.'
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor two-point coefficient of $T[SU(3)]$, relative to the 8 free hypermultiplets of its quiver'
+    value: '0.786801'
+    method: derived (supersymmetric localization)
+    refs: [chang2019]
+    note: 'Chang et al. give $C_T = 75.5329$ in units where a free hypermultiplet has $C_T = 12$; divided here by 96.'
+
+operators:
+  - name: '\mu_H'
+    Delta: 1
+    spin: 0
+    rep: 'adjoint of the Higgs-branch $SU(N)$; triplet of $SU(2)_H$'
+    method: exact
+    refs: [gaiotto2008]
+    note: 'Higgs-branch moment map, bottom of the flavor-current multiplet.'
+  - name: '\mu_C'
+    Delta: 1
+    spin: 0
+    rep: 'adjoint of the Coulomb-branch $SU(N)$; triplet of $SU(2)_C$'
+    method: exact
+    refs: [gaiotto2008]
+    note: 'Coulomb-branch moment map; its components along the roots of $SU(N)$ are monopole operators of R-charge 1.'
+  - name: 'J_\mu'
+    Delta: 2
+    spin: 1
+    rep: 'adjoint of either $SU(N)$'
+    method: exact
+    note: Conserved flavor currents.
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: n4-sqed-3d
+    note: '$T[SU(2)]$ is $\mathcal{N}=4$ SQED with two flavours.'
+  - type: related_to
+    target: n4-sym
+    note: '$T[SU(N)]$ lives on the S-duality wall of 4d $\mathcal{N}=4$ super Yang–Mills (Gaiotto–Witten).'
+
+references:
+  - key: gaiotto2008
+    title: S-Duality of Boundary Conditions In N=4 Super Yang-Mills Theory
+    authors: Gaiotto, Witten
+    year: 2009
+    journal: Adv. Theor. Math. Phys. 13, 721
+    arxiv: '0807.3720'
+  - key: benvenuti2011
+    title: '3D-partition functions on the sphere: exact evaluation and mirror symmetry'
+    authors: Benvenuti, Pasquetti
+    year: 2012
+    journal: JHEP 05 (2012) 099
+    arxiv: '1105.2551'
+  - key: nishioka2011
+    title: 3d Partition Function as Overlap of Wavefunctions
+    authors: Nishioka, Tachikawa, Yamazaki
+    year: 2011
+    journal: JHEP 08 (2011) 003
+    arxiv: '1105.4390'
+  - key: assel2012
+    title: Large N Free Energy of 3d N=4 SCFTs and AdS4/CFT3
+    authors: Assel, Estes, Yamazaki
+    year: 2012
+    journal: JHEP 09 (2012) 074
+    arxiv: '1206.2920'
+  - key: chang2019
+    title: 3d N=4 Bootstrap and Mirror Symmetry
+    authors: Chang, Fluder, Lin, Shao, Wang
+    year: 2021
+    journal: SciPost Phys. 10, 097
+    arxiv: '1910.03600'
+
+contributors: [Canonical111]

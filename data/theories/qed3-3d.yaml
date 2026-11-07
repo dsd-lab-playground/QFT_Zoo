@@ -1,0 +1,271 @@
+id: qed3-3d
+name: '3d quantum electrodynamics (QED$_3$) with $N_f$ fermion flavors'
+aliases:
+  - 'QED$_3$'
+  - 'Dirac spin liquid ($N_f = 4$)'
+d: 3
+summary: >-
+  A $U(1)$ gauge field coupled to $N_f$ two-component Dirac fermions of unit charge,
+  with no Chern–Simons term. It flows to an interacting CFT at large $N_f$; whether
+  it does so at small $N_f$ (in particular $N_f = 2$) is unsettled.
+tags: [CFT, interacting, unitary, Lagrangian, gauge theory, large N, critical phenomena, family]
+
+description: |
+  **Counting.** $N_f$ counts two-component complex (Dirac) fermions. Many papers count
+  four-component fermions $N_f^{(4)} = N_f/2$ (Giombi–Tarnopolsky–Klebanov also use
+  $N = 4N_f^{(4)} = 2N_f$); values from them are converted below. $N_f$ is even, so that
+  parity and time reversal are preserved without a Chern–Simons term (odd $N_f$ has a
+  parity anomaly).
+
+  The Maxwell coupling $e^2$ has mass dimension one, so the theory is free in the UV and
+  strongly coupled in the IR. At large $N_f$ it flows to an interacting CFT in which the
+  Maxwell term is irrelevant, and all data below are the leading terms of the $1/N_f$
+  expansion. Besides local operators built from $\psi_i$ and $f_{\mu\nu}$, the CFT has
+  monopole operators $M_q$ that carry flux $4\pi q$, $q \in \tfrac12\mathbb{Z}$, so the
+  minimal monopole $M_{1/2}$ has unit $U(1)_{\rm top}$ charge. Each $M_q$ is a Lorentz
+  scalar in the $SU(N_f)$ irrep with a rectangular Young diagram of $N_f/2$ rows and
+  $2|q|$ columns.
+
+  $N_f = 4$ describes the $U(1)$ Dirac spin liquid of spin-1/2 magnets, which is more
+  stable on the triangular and kagome lattices than on bipartite ones; monopoles allowed
+  by the lattice symmetries can drive confinement. $N_f = 2$ is conjectured to be
+  self-dual, with $(SU(2)\times U(1)_{\rm top})/\mathbb{Z}_2$ enhanced to $O(4)$, and dual to
+  the easy-plane NCCP$^1$ model (Wang et al.).
+
+  ### Status at small $N_f$
+  Below some $N_f^*$ the IR phase may instead break $SU(N_f) \to SU(N_f/2)\times SU(N_f/2)\times U(1)$,
+  and the estimates of $N_f^*$ disagree. Lattice simulations with parity-invariant
+  regularizations (Karthik–Narayanan) find no bilinear condensate for $N_f = 2, 4, 6, 8$ and scale-invariant
+  behavior at $N_f = 2$, with mass anomalous dimension $\gamma_m = 1.0(2)$ from Dirac
+  eigenvalues and $0.8(1)$ from the scalar correlator (so $\Delta = 2-\gamma_m$ for the
+  flavor-nonsinglet bilinear); earlier lattice work had found symmetry breaking at small
+  $N_f$. A one-loop $4-2\epsilon$ extrapolation (Di Pietro et al.) finds a singlet
+  four-fermion operator relevant at $N_f = 2, 4$ in our counting. Conformal bootstrap kinks
+  in $SU(N_f)$-adjoint bounds track the large-$N_f$ spectrum and disappear at small $N_f$,
+  suggesting $N_f^* \in (2,4)$ (Li), and imposing irrelevance assumptions excludes the
+  $N_f = 2$ lattice data, indicating that $N_f = 2$ is not conformal (Li). At $N_f = 4$ the
+  bootstrap gives a closed island compatible with $1/N_f$ (Albayrak et al.), but only under
+  gap assumptions taken from the $1/N_f$ spectrum; stability of the Dirac spin liquid on
+  the triangular and kagome lattices requires $\Delta_{M_{1/2}} > 1.046$ and $1.105$
+  (He–Rong–Su). The $N_f = 2$ and $N_f = 4$ members should therefore be read as
+  conjectural CFTs.
+
+lagrangian: '\mathcal{L} = \sum_{i=1}^{N_f} \bar\psi_i\,\gamma^\mu(\partial_\mu - i a_\mu)\psi_i + \frac{1}{4e^2} f_{\mu\nu}f^{\mu\nu}, \quad f = da \quad (\text{two-component } \psi_i;\ e^2 \to \infty \text{ in the IR})'
+
+parameters:
+  - symbol: N_f
+    description: Number of two-component Dirac fermions of gauge charge 1
+    range: 'even $N_f \geq 2$; conformality established only at large $N_f$'
+
+family:
+  parameter: N_f
+  members:
+    - at: 2
+      label: '$N_f = 2$ (conjectured self-dual)'
+      note: 'Disputed: lattice suggests scale invariance; bootstrap with irrelevance assumptions excludes the lattice data.'
+    - at: 4
+      label: '$U(1)$ Dirac spin liquid'
+      note: 'Presumed conformal; bootstrap island exists only under large-$N_f$-inspired gap assumptions.'
+    - at: 12
+      note: 'Lattice estimate $\Delta_{M_{1/2}} = 3.24(24)$ (Karthik–Narayanan): the minimal monopole is close to marginal here.'
+    - at: '\infty'
+      note: 'Strict large-$N_f$ limit, where the $1/N_f$ expansion is controlled.'
+
+symmetry:
+  spacetime: conformal (at large $N_f$)
+  supercharges: 0
+  global: '$SU(N_f)$ flavor, $U(1)_{\rm top}$ with current $j^{\rm top} = \star f/2\pi$ (charged operators are monopoles), charge conjugation, parity and time reversal'
+  gauge: '$U(1)$'
+  notes: 'At $N_f = 2$ the continuous symmetry acting faithfully is $(SU(2)\times U(1)_{\rm top})/\mathbb{Z}_2$, conjectured to enhance to $O(4)$.'
+
+quantities:
+  - symbol: 'F'
+    description: 'Sphere free energy $-\log Z_{S^3}$'
+    value: 'N_f\Big(\frac{\log 2}{4} + \frac{3\zeta(3)}{8\pi^2}\Big) + \frac12\log\frac{\pi N_f}{8} + O(1/N_f)'
+    method: large-N_f expansion
+    refs: [klebanov2012]
+    note: 'The first term is $N_f$ free two-component Dirac fermions. Eq. (1.4) of the reference at $N_b = k = 0$.'
+  - symbol: 'C_T/C_T^{\rm free}'
+    description: 'Stress-tensor two-point coefficient, relative to $N_f$ free two-component Dirac fermions (no photon)'
+    value: '1 + \frac{1}{N_f}\Big(\frac{2096}{45\pi^2} - 4\Big) + O(N_f^{-2})'
+    method: derived (large-N_f expansion)
+    refs: [giombi2016, chester2016a]
+    note: 'From $C_{T1} = \frac{4192}{45\pi^2} - 8$ with $N = 2N_f$. Numerically $1 + 0.7193/N_f$.'
+  - symbol: 'C_J/C_J^{\rm free}'
+    description: '$SU(N_f)$ current two-point coefficient, relative to $N_f$ free two-component Dirac fermions'
+    value: '1 + \frac{1}{N_f}\Big(\frac{368}{9\pi^2} - 4\Big) + O(N_f^{-2})'
+    method: derived (large-N_f expansion)
+    refs: [giombi2016, chester2016a]
+    note: 'From $C_{J1} = \frac{736}{9\pi^2} - 8$ with $N = 2N_f$. Numerically $1 + 0.1429/N_f$.'
+  - symbol: 'C_J^{\rm top}/C_J^{\rm free}'
+    description: 'Topological-current two-point coefficient ($j^{\rm top} = \star f/2\pi$), relative to the $U(1)$ current of one free two-component Dirac fermion of unit charge'
+    value: '\frac{64}{\pi^2 N_f}\Big[1 + \frac{1}{N_f}\Big(4 - \frac{368}{9\pi^2}\Big)\Big] + O(N_f^{-3})'
+    method: derived (large-N_f expansion)
+    refs: [giombi2016, chester2016a]
+    note: 'Eq. (1.11) of Giombi et al. with $N = 2N_f$, times $8\pi^2$. Numerically $6.4846/N_f - 0.9267/N_f^2$.'
+
+operators:
+  - name: 'M_{1/2}'
+    Delta: '0.265\,N_f - 0.0383 + O(1/N_f)'
+    spin: 0
+    rep: 'unit topological charge; $SU(N_f)$ rank-$N_f/2$ antisymmetric tensor'
+    method: large-N_f expansion
+    refs: [pufu2013, dyer2013, borokhov2002, karthik2019]
+    note: 'Minimal monopole; the $O(N_f)$ term is from Borokhov–Kapustin–Wu. Lattice (noncompact QED, Karthik–Narayanan): $3.24(24)$ at $N_f = 12$, and $\Delta/N_f$ larger at $N_f = 2, 4$ than at $12$, opposite to the sign of the $O(N_f^0)$ term.'
+  - name: 'M_{1}'
+    Delta: '0.673\,N_f - 0.194 + O(1/N_f)'
+    spin: 0
+    rep: 'topological charge 2'
+    method: large-N_f expansion
+    refs: [dyer2013]
+  - name: '\bar\psi_i\psi^j - \tfrac{1}{N_f}\delta_i^j\bar\psi_k\psi^k'
+    Delta: '2 - \frac{64}{3\pi^2 N_f} + O(N_f^{-2})'
+    spin: 0
+    rep: '$SU(N_f)$ adjoint'
+    method: large-N_f expansion
+    refs: [hermele2005, chester2016b]
+    note: 'In the staggered-flux spin liquid ($N_f = 4$) this multiplet contains the Néel vector and the VBS order parameters.'
+  - name: '\bar\psi_k\psi^k'
+    Delta: '2 + \frac{128}{3\pi^2 N_f} + O(N_f^{-2})'
+    spin: 0
+    rep: 'singlet, parity odd'
+    method: large-N_f expansion
+    refs: [chester2016b]
+  - name: '(\bar\psi\psi)^2,\ f_{\mu\nu}f^{\mu\nu}\ \text{mixtures}'
+    Delta: '4 + \frac{64(2 \pm \sqrt7)}{3\pi^2 N_f} + O(N_f^{-2})'
+    spin: 0
+    rep: 'singlet, parity even'
+    method: large-N_f expansion
+    refs: [chester2016b]
+    degeneracy: 2
+    note: 'Lowest parity-even singlets. At this order the lower one stays irrelevant for all $N_f > 1$; in the merger-and-annihilation scenario it reaches marginality at $N_f^*$.'
+  - name: 'M_{1/2}\ (N_f = 4)'
+    Delta: '1.00\text{–}1.10'
+    spin: 0
+    rep: 'unit topological charge, $SU(4)$ $\mathbf{6}$'
+    method: conformal bootstrap (with gap assumptions)
+    refs: [albayrak2022]
+    note: 'Island with $\Delta_{M_1} \le 2.50$ at $\Lambda = 39$; same island gives $1.03 \le \Delta \le 1.61$ for the adjoint bilinear. Large $N_f$: $1.022$.'
+  - name: 'J_\mu^{\rm top},\ J_\mu^{SU(N_f)}'
+    Delta: 2
+    spin: 1
+    rep: 'singlet; $SU(N_f)$ adjoint'
+    method: exact
+    note: Conserved currents.
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+
+references:
+  - key: borokhov2002
+    title: Topological disorder operators in three-dimensional conformal field theory
+    authors: Borokhov, Kapustin, Wu
+    year: 2002
+    journal: JHEP 11 (2002) 049
+    arxiv: hep-th/0206054
+  - key: pufu2013
+    title: Anomalous dimensions of monopole operators in three-dimensional quantum electrodynamics
+    authors: Pufu
+    year: 2014
+    journal: Phys. Rev. D 89, 065016
+    arxiv: '1303.6125'
+  - key: dyer2013
+    title: Monopole taxonomy in three-dimensional conformal field theories
+    authors: Dyer, Mezei, Pufu
+    year: 2013
+    arxiv: '1309.1160'
+  - key: hermele2005
+    title: Algebraic spin liquid as the mother of many competing orders
+    authors: Hermele, Senthil, Fisher
+    year: 2005
+    journal: Phys. Rev. B 72, 104404
+    arxiv: cond-mat/0502215
+  - key: chester2016a
+    title: Towards bootstrapping QED$_3$
+    authors: Chester, Pufu
+    year: 2016
+    journal: JHEP 08 (2016) 019
+    arxiv: '1601.03476'
+  - key: chester2016b
+    title: Anomalous dimensions of scalar operators in QED$_3$
+    authors: Chester, Pufu
+    year: 2016
+    journal: JHEP 08 (2016) 069
+    arxiv: '1603.05582'
+  - key: giombi2016
+    title: On $C_J$ and $C_T$ in conformal QED
+    authors: Giombi, Tarnopolsky, Klebanov
+    year: 2016
+    journal: JHEP 08 (2016) 156
+    arxiv: '1602.01076'
+  - key: klebanov2012
+    title: Entanglement entropy of 3-d conformal gauge theories with many flavors
+    authors: Klebanov, Pufu, Sachdev, Safdi
+    year: 2012
+    journal: JHEP 05 (2012) 036
+    arxiv: '1112.5342'
+  - key: albayrak2022
+    title: Bootstrapping $N_f=4$ conformal QED$_3$
+    authors: Albayrak, Erramilli, Li, Poland, Xin
+    year: 2022
+    journal: Phys. Rev. D 105, 085008
+    arxiv: '2112.02106'
+  - key: he2022
+    title: Conformal bootstrap bounds for the $U(1)$ Dirac spin liquid and $N=7$ Stiefel liquid
+    authors: He, Rong, Su
+    year: 2022
+    journal: SciPost Phys. 13, 014
+    arxiv: '2107.14637'
+  - key: li2022a
+    title: Bootstrapping conformal QED$_3$ and deconfined quantum critical point
+    authors: Li
+    year: 2022
+    journal: JHEP 11 (2022) 005
+    arxiv: '1812.09281'
+  - key: li2022b
+    title: Conformality and self-duality of $N_f=2$ QED$_3$
+    authors: Li
+    year: 2022
+    journal: Phys. Lett. B 831, 137192
+    arxiv: '2107.09020'
+  - key: karthik2016a
+    title: No evidence for bilinear condensate in parity-invariant three-dimensional QED with massless fermions
+    authors: Karthik, Narayanan
+    year: 2016
+    journal: Phys. Rev. D 93, 045020
+    arxiv: '1512.02993'
+  - key: karthik2016b
+    title: Scale-invariance of parity-invariant three-dimensional QED
+    authors: Karthik, Narayanan
+    year: 2016
+    journal: Phys. Rev. D 94, 065026
+    arxiv: '1606.04109'
+  - key: karthik2019
+    title: Numerical determination of monopole scaling dimension in parity-invariant three-dimensional noncompact QED
+    authors: Karthik, Narayanan
+    year: 2019
+    journal: Phys. Rev. D 100, 054514
+    arxiv: '1908.05500'
+  - key: dipietro2016
+    title: Quantum electrodynamics in $d=3$ from the $\epsilon$ expansion
+    authors: Di Pietro, Komargodski, Shamir, Stamou
+    year: 2016
+    journal: Phys. Rev. Lett. 116, 131601
+    arxiv: '1508.06278'
+  - key: song2019
+    title: Unifying description of competing orders in two-dimensional quantum magnets
+    authors: Song, Wang, Vishwanath, He
+    year: 2019
+    journal: Nature Commun. 10, 4254
+    arxiv: '1811.11186'
+  - key: wang2017
+    title: 'Deconfined quantum critical points: symmetries and dualities'
+    authors: Wang, Nahum, Metlitski, Xu, Senthil
+    year: 2017
+    journal: Phys. Rev. X 7, 031051
+    arxiv: '1703.02426'
+
+contributors: [Canonical111]

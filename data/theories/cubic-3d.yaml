@@ -1,0 +1,152 @@
+id: cubic-3d
+name: '3d cubic fixed point ($N=3$)'
+aliases:
+  - Cubic universality class
+  - 'Cubic fixed point of three scalars'
+d: 3
+summary: >-
+  The fixed point of three real scalars with a cubic-symmetric quartic interaction.
+  Cubic anisotropy is relevant at the $O(3)$ (Heisenberg) point, so for one sign of it
+  cubic magnets flow here; the exponents differ from Heisenberg ones by less than $10^{-3}$.
+tags: [CFT, interacting, unitary, Lagrangian, critical phenomena]
+
+description: |
+  Three real scalars with the most general quartic potential invariant under the cubic
+  group (sign flips and permutations of the three components). In the $\epsilon$-expansion
+  the quartic couplings $(u, v)$ have, besides the free theory, three fixed points: three
+  decoupled Ising models ($u = 0$), the $O(3)$ point ($v = 0$) and the cubic point
+  ($u, v \neq 0$) (Aharony).
+  The cubic term $\sum_i \phi_i^4$ is a singlet plus a component of the rank-4 traceless
+  symmetric operator $t_4$ of $O(3)$, so the stability of the $O(3)$ point is decided by
+  $\Delta_{t_4}$. The bootstrap proves $\Delta_{t_4} < 2.99056$ (Chester et al.) and Monte
+  Carlo gives $\Delta_{t_4} = 2.9858(6)$ (Hasenbusch 2023), so the $O(3)$ point is unstable and the cubic
+  point is the stable one. Depending on the sign of the anisotropy, the transition of a
+  cubic system is either continuous and governed by this fixed point, or first order
+  (Hasenbusch 2023).
+
+  Because $3 - \Delta_{t_4} \approx 0.014$ is so small, the cubic point lies close to
+  the $O(3)$ point and the flow between them is extremely slow: the leading irrelevant
+  cubic-invariant scalar has $\Delta = 3 + \omega_2$ with $\omega_2 = 0.0133(8)$.
+  Conformal perturbation theory around $O(3)$, with $\delta = \Delta_X - 3 \approx 0.01$ at
+  the cubic point, shifts $\Delta_\phi$ and $\Delta_s$ only at order $\delta^2$, while
+  $\Delta_t$ (rank 2) shifts at order $\delta$ (Chester et al.). Monte Carlo confirms that
+  $\nu$ and $\eta$ barely move.
+
+  The numerical bootstrap has not yet isolated this fixed point. Single-correlator bounds
+  with cubic symmetry have singlet-sector kinks that coincide with the $O(N)$ ones
+  (Stergiou), and mixed-correlator studies (Kousvos and Stergiou) found an island that
+  contains the decoupled Ising theory and a candidate "Platonic" CFT, whose dimensions do
+  not match the cubic fixed point found in Monte Carlo (Chester et al.; Hasenbusch 2023).
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\vec\phi)^2 + \tfrac{1}{2} m^2 \vec\phi^{\,2} + \tfrac{u}{4!}(\vec\phi^{\,2})^2 + \tfrac{v}{4!}\sum_{i=1}^{3}\phi_i^4, \quad \vec\phi\in\mathbb{R}^3 \quad (m^2 \text{ tuned to criticality})'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$\mathbb{Z}_2^3 \rtimes S_3$ (cubic group, order 48)'
+  notes: 'The $O(3)$ of the Heisenberg point is broken to this discrete group, so there are no conserved spin-1 currents.'
+
+quantities:
+  - symbol: '\nu'
+    description: 'Correlation-length exponent, $\nu = 1/(3-\Delta_s)$'
+    value: '0.7111(3)'
+    method: Monte Carlo (improved two-parameter φ⁴ model)
+    refs: [hasenbusch2023]
+  - symbol: '\nu - \nu_{O(3)}'
+    description: 'Difference from the $O(3)$ fixed point'
+    value: '-0.00061(10)'
+    method: Monte Carlo
+    refs: [hasenbusch2023]
+    note: 'From ratios of observables in which subleading corrections largely cancel.'
+  - symbol: '\eta'
+    description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 1$'
+    value: '0.03782(13)'
+    method: Monte Carlo (improved two-parameter φ⁴ model)
+    refs: [hasenbusch2023]
+    note: 'Difference from $O(3)$: $-0.00001 \lesssim \eta - \eta_{O(3)} \lesssim 0.00007$.'
+  - symbol: '\omega_2'
+    description: 'Small correction-to-scaling exponent of the slow cubic direction, $\omega_2 = \Delta_X - 3$'
+    value: '0.0133(8)'
+    method: Monte Carlo
+    refs: [hasenbusch2023]
+    note: 'Conformal perturbation theory: $\omega_2 \approx 3 - \Delta_{t_4}^{O(3)}$ (Chester et al.).'
+
+operators:
+  - name: '\phi_i'
+    Delta: '0.51891(7)'
+    spin: 0
+    rep: three-dimensional (order parameter)
+    method: derived
+    refs: [hasenbusch2023]
+    note: 'From $\Delta_\phi = (1+\eta)/2$.'
+  - name: 's'
+    Delta: '1.5937(6)'
+    spin: 0
+    rep: singlet (thermal)
+    method: derived
+    refs: [hasenbusch2023]
+    note: 'From $\Delta_s = 3 - 1/\nu$.'
+  - name: 'T_{\mu\nu}'
+    Delta: 3
+    spin: 2
+    rep: singlet
+    method: exact
+    note: Stress tensor (conserved).
+  - name: 'X'
+    Delta: '3.0133(8)'
+    spin: 0
+    rep: singlet (descends from $t_4$ of $O(3)$)
+    method: derived
+    refs: [hasenbusch2023, chester2020]
+    note: 'From $3 + \omega_2$. Leading irrelevant singlet; conformal perturbation theory gives $\Delta_X \approx 3.01$ (Chester et al.).'
+
+relations:
+  - type: related_to
+    target: ising-3d
+    note: 'Three decoupled 3d Ising CFTs form another, unstable fixed point of the same Lagrangian. The coupling $\sum_{i \neq j}\epsilon_i\epsilon_j$ is relevant there, and with the mass tuned it drives the flow to the cubic fixed point (Binder).'
+
+references:
+  - key: hasenbusch2023
+    title: 'Cubic fixed point in three dimensions: Monte Carlo simulations of the $\phi^4$ model on the lattice'
+    authors: Hasenbusch
+    year: 2023
+    journal: Phys. Rev. B 107, 024409
+    arxiv: '2211.16170'
+  - key: chester2020
+    title: Bootstrapping Heisenberg magnets and their cubic instability
+    authors: Chester, Landry, Liu, Poland, Simmons-Duffin, Su, Vichi
+    year: 2021
+    journal: Phys. Rev. D 104, 105013
+    arxiv: '2011.14647'
+  - key: aharony1973
+    title: Critical behavior of anisotropic cubic systems
+    authors: Aharony
+    year: 1973
+    journal: Phys. Rev. B 8, 4270
+    doi: '10.1103/PhysRevB.8.4270'
+  - key: binder2021
+    title: The Cubic Fixed Point at Large N
+    authors: Binder
+    year: 2021
+    journal: JHEP 09 (2021) 071
+    arxiv: '2106.03493'
+  - key: stergiou2018
+    title: Bootstrapping hypercubic and hypertetrahedral theories in three dimensions
+    authors: Stergiou
+    year: 2018
+    journal: JHEP 05 (2018) 035
+    arxiv: '1801.07127'
+  - key: kousvos2018
+    title: Bootstrapping mixed correlators in three-dimensional cubic theories
+    authors: Kousvos, Stergiou
+    year: 2019
+    journal: SciPost Phys. 6, 035
+    arxiv: '1810.10015'
+  - key: kousvos2019
+    title: Bootstrapping mixed correlators in three-dimensional cubic theories II
+    authors: Kousvos, Stergiou
+    year: 2020
+    journal: SciPost Phys. 8, 085
+    arxiv: '1911.00522'
+
+contributors: [Canonical111]
