@@ -77,7 +77,8 @@ quantities:
     value: '0.944056(15)'
     method: conformal bootstrap (non-rigorous error)
     refs: [chester2019]
-  - symbol: 'C_J/C_J^{\rm free}'
+  - key: C_J
+    symbol: 'C_J/C_J^{\rm free}'
     description: 'Current two-point coefficient, relative to two free real scalars; it gives the zero-temperature conductivity, $2\pi\sigma_\infty = 0.355155(11)$'
     value: '0.904395(28)'
     method: conformal bootstrap (non-rigorous error)
@@ -102,6 +103,38 @@ quantities:
     value: '1.213408(65)'
     method: conformal bootstrap (non-rigorous error)
     refs: [chester2019]
+  - key: c_tilde
+    symbol: '\tilde c'
+    description: 'Thermal free energy density on $S^1_\beta\times\mathbb{R}^{2}$, $f = -\tilde c\,\frac{\zeta(3)}{2\pi}\,T^{3}$ ($\tilde c = 1$ for one free real scalar)'
+    value: '1.5890(84)'
+    method: Monte Carlo (non-equilibrium, Casimir amplitude)
+    refs: [bulgarelli2025]
+    note: 'Table II, $\Delta/N = -0.1520(8)$ at $N=2$; the critical Casimir amplitude of a periodic slab is $\Delta = f/T^3$, so $\tilde c = -N(\Delta/N)\,2\pi/\zeta(3)$. Extrapolated to infinite transverse size (their App. C) and fitted in the thickness (App. D). About $0.79N$, near the large-$N$ value $\tfrac45N$.'
+  - symbol: '\tilde c'
+    description: 'Thermal free energy density, as above'
+    value: '1.5645(37)'
+    method: Monte Carlo (Casimir amplitude)
+    refs: [vasilyev2009]
+    note: 'Sec. IV A, $\Delta_P = -0.2993(7)$ for the XY model, times $-2\pi/\zeta(3)$. Bulgarelli et al. (App. C) note this value is at fixed aspect ratio $\rho = 1/6$, not extrapolated in $L$; it is $2.6\sigma$ below their $1.5890(84)$.'
+  - symbol: '\tilde c'
+    description: 'Thermal free energy density, as above'
+    value: '1.44(6)'
+    method: thermal bootstrap (KMS condition)
+    refs: [barrat2024]
+    note: 'Derived here from $a_T = 1.90(8)$ (eq. (10)) with their eq. (6), $f = -a_T\frac{\Gamma(d/2)}{2\pi^{d/2}(d-1)\Delta_\phi}\frac{c_T}{c_{T,\rm free}}$, at $d=3$, taking $\Delta_\phi = 0.519088$ and $c_T/c_{T,\rm free} = 2\times0.944056$ (one free scalar as reference) from the bootstrap: $f/T^3 = -0.275$. Below the Monte Carlo value by about 2.5$\sigma$.'
+  - key: F
+    symbol: 'F'
+    description: '$S^3$ free energy, $F = -\log Z_{S^3}$'
+    value: '0.1243'
+    method: epsilon-expansion (two-sided Padé, estimate)
+    refs: [fei2015]
+    note: 'Table 1: $\tilde F_{O(2)}/(N\tilde F_s) = 0.9740$ (Padé with the $d=2$ boundary condition; $0.9765$ without it), times $2F_s$ with $F_s = \frac{\log 2}{8} - \frac{3\zeta(3)}{16\pi^2}$. No error is quoted; the two Padé variants differ by $3\times10^{-4}$ in $F$. Below $2F_s$, as the $F$-theorem requires.'
+  - symbol: 'F'
+    description: '$S^3$ free energy, as above'
+    value: '0.1245'
+    method: long-range model continuation (estimate)
+    refs: [giombi2024]
+    note: 'Table 5.1, $\tilde F^{\rm LRA}$: the long-range $O(N)$ model continued to the short-range point using the bootstrap $\Delta_\phi$; no error quoted.'
 
 operators:
   - name: '\phi'
@@ -226,5 +259,35 @@ references:
     year: 1972
     journal: Phys. Rev. Lett. 28, 240
     doi: '10.1103/PhysRevLett.28.240'
+  - key: bulgarelli2025
+    title: Casimir effect in critical $O(N)$ models from non-equilibrium Monte Carlo simulations
+    authors: Bulgarelli, Caselle, Nada, Panero
+    year: 2025
+    journal: Phys. Rev. E 112, 064126
+    arxiv: '2505.20403'
+  - key: vasilyev2009
+    title: Universal scaling functions of critical Casimir forces obtained by Monte Carlo simulations
+    authors: Vasilyev, Gambassi, Maciołek, Dietrich
+    year: 2009
+    journal: Phys. Rev. E 79, 041142
+    arxiv: '0812.0750'
+  - key: barrat2024
+    title: The thermal bootstrap for the critical $O(N)$ model
+    authors: Barrat, Marchetto, Miscioscia, Pomoni
+    year: 2025
+    journal: Phys. Rev. Lett. 134, 211604
+    arxiv: '2411.00978'
+  - key: fei2015
+    title: Generalized $F$-Theorem and the $\epsilon$ Expansion
+    authors: Fei, Giombi, Klebanov, Tarnopolsky
+    year: 2015
+    journal: JHEP 12 (2015) 155
+    arxiv: '1507.01960'
+  - key: giombi2024
+    title: Sphere free energy of scalar field theories with cubic interactions
+    authors: Giombi, Himwich, Katsevich, Klebanov, Sun
+    year: 2025
+    journal: JHEP 12 (2025) 133
+    arxiv: '2412.14086'
 
-contributors: [nathansbenjamin]
+contributors: [nathansbenjamin, davidsd]

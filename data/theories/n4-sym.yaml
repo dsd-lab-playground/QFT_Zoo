@@ -44,6 +44,18 @@ quantities:
     value: '\frac{N^2-1}{4}'
     method: exact
     note: Independent of $\tau$.
+  - symbol: '\tilde c'
+    description: 'Thermal free energy density on $S^1_\beta\times\mathbb{R}^{3}$, $f = -\tilde c\,\frac{\pi^2}{90}\,T^{4}$ ($\tilde c = 1$ for one free real scalar)'
+    value: '15\,(N^2-1)'
+    method: exact (free limit)
+    refs: [gubser1998, laine2016, sachdev1993]
+    note: 'Per adjoint component: 6 real scalars and 2 gluon polarizations ($\tilde c = 8$) and 4 Weyl fermions ($4\times\tfrac74 = 7$), with the Stefan–Boltzmann values of Laine and Vuorinen eq. (5.61). Gubser, Klebanov and Tseytlin eq. (27) write $F = -f\,\frac{\pi^2}{6}N^2VT^4$ with $f \to 1$ at weak coupling (the large-$N$ form, $N^2$ for $N^2-1$), i.e. $\tilde c = 15fN^2$.'
+  - symbol: '\tilde c'
+    description: 'Thermal free energy density, as above, at large $N$ and strong ’t Hooft coupling'
+    value: '\frac{45}{4}N^2\Big(1 + \frac{15}{8}\zeta(3)\,(2g_{\rm YM}^2N)^{-3/2} + \dots\Big)'
+    method: holography (type IIB supergravity with the α′³ correction)
+    refs: [gubser1998]
+    note: 'Eqs. (26)–(28): $f = \tfrac34 + \tfrac{45}{32}\zeta(3)(2g_{\rm YM}^2N)^{-3/2} + \dots$ at $N\to\infty$, in their normalization of $g_{\rm YM}$; the leading $\tfrac34$ is the black-brane result they cite (Gubser, Klebanov and Peet). So the free energy at strong coupling is $\tfrac34$ of the free value, approached from above.'
 
 operators:
   - name: '\mathcal{O}_{\mathbf{20}^\prime} = \mathrm{Tr}\,\phi^{\{I}\phi^{J\}}'
@@ -77,10 +89,29 @@ references:
     authors: Beisert et al.
     year: 2010
     arxiv: '1012.3982'
+  - key: sachdev1993
+    title: Polylogarithm identities in a conformal field theory in three dimensions
+    authors: Sachdev
+    year: 1993
+    journal: Phys. Lett. B 309, 285
+    arxiv: hep-th/9305131
+    note: 'Defines the thermal coefficient $\tilde c$ (eq. 1) and proves $\tilde c/N = 4/5$ for the $O(N)$ model at $N=\infty$.'
+  - key: gubser1998
+    title: Coupling Constant Dependence in the Thermodynamics of $\mathcal{N}=4$ Supersymmetric Yang–Mills Theory
+    authors: Gubser, Klebanov, Tseytlin
+    year: 1998
+    journal: Nucl. Phys. B 534, 202
+    arxiv: hep-th/9805156
+  - key: laine2016
+    title: Basics of Thermal Field Theory
+    authors: Laine, Vuorinen
+    year: 2016
+    journal: Lect. Notes Phys. 925
+    arxiv: '1701.01554'
 
 relations:
   - type: flows_to
     target: yang-mills-4d
     note: 'Give masses to all adjoint scalars and fermions ("$\mathcal{N}=0^*$"); below the mass scale the theory is pure Yang–Mills.'
 
-contributors: [nathansbenjamin]
+contributors: [nathansbenjamin, davidsd]

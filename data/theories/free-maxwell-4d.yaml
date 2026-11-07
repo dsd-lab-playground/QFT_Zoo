@@ -68,6 +68,13 @@ quantities:
     method: exact
     refs: [osborn1994]
     note: 'Osborn–Petkou eq. (5.16), $C_T = 16/S_4^2$ with $S_4 = 2\pi^2$. It agrees with $C_T = 40c/\pi^4$, their eq. (8.12) in this normalisation.'
+  - key: c_tilde
+    symbol: '\tilde c'
+    description: 'Thermal free energy density on $S^1_\beta\times\mathbb{R}^{3}$, $f = -\tilde c\,\frac{\pi^2}{90}\,T^{4}$ ($\tilde c = 1$ for one free real scalar)'
+    value: '2'
+    method: exact
+    refs: [sachdev1993, laine2016]
+    note: 'Normalization of Sachdev eq. (1): $f = -\tilde c\,\Gamma(d/2)\zeta(d)\pi^{-d/2}T^d$. Laine and Vuorinen eq. (5.61) with $N_c^2-1 \to 1$ and $N_f = 0$ (blackbody radiation, two polarizations): $f = -\frac{\pi^2}{45}T^4$. Independent of $\tau$.'
 
 operators:
   - name: 'F_{\mu\nu}'
@@ -145,5 +152,18 @@ references:
     journal: Nucl. Phys. B 848, 578
     arxiv: '1101.5385'
     doi: 10.1016/j.nuclphysb.2011.03.008
+  - key: sachdev1993
+    title: Polylogarithm identities in a conformal field theory in three dimensions
+    authors: Sachdev
+    year: 1993
+    journal: Phys. Lett. B 309, 285
+    arxiv: hep-th/9305131
+    note: 'Defines the thermal coefficient $\tilde c$ (eq. 1) and proves $\tilde c/N = 4/5$ for the $O(N)$ model at $N=\infty$.'
+  - key: laine2016
+    title: Basics of Thermal Field Theory
+    authors: Laine, Vuorinen
+    year: 2016
+    journal: Lect. Notes Phys. 925
+    arxiv: '1701.01554'
 
-contributors: [nathansbenjamin]
+contributors: [nathansbenjamin, davidsd]

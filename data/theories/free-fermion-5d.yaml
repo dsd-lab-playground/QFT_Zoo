@@ -44,7 +44,8 @@ symmetry:
   notes: 'Reflections of one coordinate flip the sign of the Dirac mass term.'
 
 quantities:
-  - symbol: '\tilde F'
+  - key: F_tilde
+    symbol: '\tilde F'
     description: 'Sphere free energy of one Dirac fermion in the convention of Giombi and Klebanov, $\tilde F = \sin(\pi d/2)\log Z_{S^d}$; at $d=5$, $\tilde F = \log Z_{S^5} = -F$'
     value: '\frac{1}{2^6}\left(6\log 2 + \frac{10\zeta(3)}{\pi^2} + \frac{15\zeta(5)}{\pi^4}\right) \approx 8.65\times 10^{-2}'
     method: derived
@@ -131,4 +132,4 @@ references:
     arxiv: hep-th/9910030
     note: 'Table 2 (minimal spinors in each dimension) and eq. (3.27) (symplectic Majorana condition).'
 
-contributors: [Canonical111]
+contributors: [Canonical111, davidsd]

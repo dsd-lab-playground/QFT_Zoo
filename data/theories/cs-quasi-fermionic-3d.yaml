@@ -90,6 +90,12 @@ quantities:
     value: '\tan\frac{\pi\lambda}{2}'
     method: exact (planar limit)
     refs: [gurari2012]
+  - symbol: '\tilde c'
+    description: 'Thermal free energy density on $S^1_\beta\times\mathbb{R}^{2}$, $f = -\tilde c\,\frac{\zeta(3)}{2\pi}\,T^{3}$ ($\tilde c = 1$ for one free real scalar), planar limit'
+    value: '\frac{N}{\zeta(3)}\Big[\frac{\mu^3}{3}\Big(\frac{1}{|\lambda|}-1\Big) - \frac{2}{\pi|\lambda|}\int_\mu^\infty\! dy\, y\,{\rm Im}\,{\rm Li}_2\big(-e^{-y+\pi i|\lambda|}\big)\Big]'
+    method: exact (planar limit)
+    refs: [aharony2012b, sachdev1993]
+    note: 'Aharony, Giombi, Gur-Ari, Maldacena and Yacoby (2012) eqs. (5.16) and (5.28) at $\tilde\sigma = 0$ (regular fermion), written in real form and divided by $-\zeta(3)/(2\pi)$. $T\mu$ is the thermal mass, fixed by $\mu(1-|\lambda|) = \frac{2}{\pi}{\rm Im}\,{\rm Li}_2\big(-e^{-\mu-\pi i|\lambda|}\big)$. Numerically $\tilde c/N = 1.5$ (free Dirac fermions), $1.4774$, $1.3025$, $0.9833$, $0.5796$, $0.1745$ at $|\lambda| = 0, 0.1, 0.3, 0.5, 0.7, 0.9$, and $\tilde c \to \tfrac85N(1-|\lambda|) = \tfrac85N_b$ as $|\lambda|\to1$ (their eq. (5.31)): the critical $U(N_b)$ model, $\tfrac45$ per real scalar. The same function follows from the critical-boson side, eqs. (4.41)–(4.42), under the map (5.30); we checked this numerically at five couplings.'
 
 operators:
   - name: 'J_0 = \bar\psi\psi'
@@ -164,5 +170,12 @@ references:
     year: 2016
     journal: JHEP 02 (2016) 093
     arxiv: '1512.00161'
+  - key: sachdev1993
+    title: Polylogarithm identities in a conformal field theory in three dimensions
+    authors: Sachdev
+    year: 1993
+    journal: Phys. Lett. B 309, 285
+    arxiv: hep-th/9305131
+    note: 'Defines the thermal coefficient $\tilde c$ (eq. 1) and proves $\tilde c/N = 4/5$ for the $O(N)$ model at $N=\infty$.'
 
-contributors: [Canonical111]
+contributors: [Canonical111, davidsd]

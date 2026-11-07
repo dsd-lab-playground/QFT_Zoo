@@ -75,6 +75,20 @@ quantities:
     method: conformal bootstrap (non-rigorous)
     refs: [kos2013]
     note: 'Value at which the lower bound on $C_T$ is saturated for the Monte Carlo $\Delta_\phi$, assuming that the $O(4)$ model saturates it.'
+  - key: c_tilde
+    symbol: '\tilde c'
+    description: 'Thermal free energy density on $S^1_\beta\times\mathbb{R}^{2}$, $f = -\tilde c\,\frac{\zeta(3)}{2\pi}\,T^{3}$ ($\tilde c = 1$ for one free real scalar)'
+    value: '3.134(15)'
+    method: Monte Carlo (non-equilibrium, Casimir amplitude)
+    refs: [bulgarelli2025]
+    note: 'Table II, $\Delta/N = -0.1499(7)$ at $N=4$; the critical Casimir amplitude of a periodic slab is $\Delta = f/T^3$, so $\tilde c = -N(\Delta/N)\,2\pi/\zeta(3)$. Extrapolated to infinite transverse size (their App. C) and fitted in the thickness (App. D). About $0.79N$, near the large-$N$ value $\tfrac45N$.'
+  - key: F
+    symbol: 'F'
+    description: '$S^3$ free energy, $F = -\log Z_{S^3}$'
+    value: '0.2491'
+    method: epsilon-expansion (two-sided Padé, estimate)
+    refs: [fei2015]
+    note: 'Table 1: $\tilde F_{O(4)}/(N\tilde F_s) = 0.9759$ (Padé with the $d=2$ boundary condition; $0.9766$ without it), times $4F_s$ with $F_s = \frac{\log 2}{8} - \frac{3\zeta(3)}{16\pi^2}$. No error is quoted; the two Padé variants differ by $2\times10^{-4}$ in $F$. Below $4F_s$, as the $F$-theorem requires.'
 
 operators:
   - name: '\phi_i'
@@ -181,5 +195,17 @@ references:
     year: 1993
     journal: Nucl. Phys. B 399, 395
     arxiv: hep-ph/9210253
+  - key: bulgarelli2025
+    title: Casimir effect in critical $O(N)$ models from non-equilibrium Monte Carlo simulations
+    authors: Bulgarelli, Caselle, Nada, Panero
+    year: 2025
+    journal: Phys. Rev. E 112, 064126
+    arxiv: '2505.20403'
+  - key: fei2015
+    title: Generalized $F$-Theorem and the $\epsilon$ Expansion
+    authors: Fei, Giombi, Klebanov, Tarnopolsky
+    year: 2015
+    journal: JHEP 12 (2015) 155
+    arxiv: '1507.01960'
 
-contributors: [Canonical111]
+contributors: [Canonical111, davidsd]

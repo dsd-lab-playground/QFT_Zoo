@@ -65,7 +65,8 @@ quantities:
     method: derived (supersymmetric localization)
     refs: [baggio2017]
     note: 'Baggio et al. give $C_T = \tfrac{32}{27}\big(16 - \tfrac{9\sqrt3}{\pi}\big) \approx 13.0821$ in units where a free chiral multiplet has $C_T = 6$; divided here by 18. Independent of $\tau$ on the conformal manifold.'
-  - symbol: 'C_J/C_J^{\rm free}'
+  - key: C_J
+    symbol: 'C_J/C_J^{\rm free}'
     description: 'Two-point coefficient of either $U(1)$ flavor current (charges $(1,-1,0)$ on $(X,Y,Z)$), relative to one free chiral multiplet of unit charge'
     value: '\frac{16}{9} - \frac{4}{\sqrt{3}\,\pi} \approx 1.043'
     method: exact (supersymmetric localization)
@@ -144,4 +145,4 @@ references:
     journal: Phys. Rev. Lett. 118, 166802
     arxiv: '1609.02146'
 
-contributors: [Canonical111]
+contributors: [Canonical111, davidsd]

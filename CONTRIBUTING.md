@@ -86,7 +86,61 @@ quantities:
     method: exact
 ```
 
-Other keys: `a`, `C_T`, `F`. Each key may appear once per entry.
+Other keys: `a`, `C_T`, `F`, `F_tilde`, `c_tilde`, `C_J` (see *Universal CFT data*
+below). Each key may appear once per entry.
+
+### Universal CFT data
+
+Some numbers characterise any CFT, not a particular operator. Give them these keys,
+with the convention below, so they can be compared across theories:
+
+| `key` | `symbol` | Definition and normalisation |
+|---|---|---|
+| `F` | `'F'` | Sphere free energy in $d=3$: $F = -\log Z_{S^3}$ (finite part; scheme independent in odd $d$). $F = \tfrac{\log 2}{8} - \tfrac{3\zeta(3)}{16\pi^2}$ for a real free scalar. |
+| `F_tilde` | `'\tilde F'` | Generalised sphere free energy for $d \neq 3$: $\tilde F = \sin(\pi d/2)\log Z_{S^d}$ (Giombi and Klebanov, [arXiv:1409.1937](https://arxiv.org/abs/1409.1937)). $\tilde F = -F$ in $d=5$; in even $d$ it restates the $a$-anomaly ($\tilde F = \pi c/6$ in 2d, $2\pi a$ in 4d with $a = \tfrac1{360}$ for a free scalar), so give it there only if the entry quotes it. |
+| `c_tilde` | `'\tilde c'` | Thermal free energy density on $S^1_\beta \times \mathbb R^{d-1}$: $f = -T\log Z/V = -\tilde c\,\frac{\Gamma(d/2)\,\zeta(d)}{\pi^{d/2}}\,T^d$ (Sachdev, [hep-th/9305131](https://arxiv.org/abs/hep-th/9305131), eq. 1). $\tilde c = 1$ for a real free scalar in every $d$; a free fermion counts $1-2^{1-d}$ per on-shell degree of freedom. In 2d $\tilde c = c_{\rm eff} = c - 24h_{\min}$, which is $c$ for a unitary compact CFT: give it in 2d only where it differs from $c$. |
+| `C_J` | `'C_J/C_J^{\rm free}'` | Two-point coefficient of the conserved current of a continuous global symmetry, divided by its value in the free theory that `description` names (for $O(N)$ models: $N$ free real scalars in the vector). Key the main symmetry; give other factors as unkeyed rows. |
+
+Related numbers are restatements of these and need no key of their own: the thermal
+one-point coefficient of the stress tensor ($b_T = d\,f/T^d$), the energy and entropy
+densities, the critical Casimir amplitude of a periodic slab in 3d ($\Delta = f/T^3$);
+the 4d Weyl anomaly $c$ ($C_T = 40c/\pi^4$); the universal terms of disk or sphere
+entanglement entropy ($-F$ in 3d, proportional to $a$ in 4d). The Casimir energy on
+$S^{d-1}$ is not universal (zero in odd $d$ in a conformal scheme, scheme dependent in
+even $d$).
+
+Every value with one of these keys needs its own `method` and `refs`, exact ones
+included (the build checks this for `F_tilde`, `c_tilde` and `C_J`), and a `note` saying
+where in the paper it is (equation or table) and any conversion you made. A key marks
+the value of *this* theory: in a family entry, large-$N$ or $\epsilon$-expansion formulas
+stay unkeyed. When several determinations exist, the key goes on the most reliable one
+(rigorous, or the smallest well-controlled error), and the others are unkeyed rows with
+the same `symbol`, so readers can compare methods. Say in the `note` when they disagree
+beyond their errors.
+
+Worked example (3d Ising). A Monte Carlo paper quotes the critical Casimir amplitude
+$\Delta = f/T^3 = -0.1531(4)$; one free scalar has $f/T^3 = -\zeta(3)/(2\pi) = -0.191313$,
+so $\tilde c = 0.1531(4)/0.191313 = 0.8003(21)$. A thermal-bootstrap paper gives the
+stress-tensor coefficient $a_T = 1.97(7)$ instead, which converts to $f$ with that paper's
+own formula; say so in the `note`:
+
+```yaml
+quantities:
+  - key: c_tilde
+    symbol: '\tilde c'
+    description: 'Thermal free energy density on $S^1_\beta\times\mathbb{R}^{2}$, $f = -\tilde c\,\frac{\zeta(3)}{2\pi}\,T^{3}$ ($\tilde c = 1$ for one free real scalar)'
+    value: '0.8003(21)'
+    method: Monte Carlo (non-equilibrium, Casimir amplitude)
+    refs: [bulgarelli2025]
+    note: 'Table II, $\Delta/N = -0.1531(4)$ at $N=1$, times $-2\pi/\zeta(3)$.'
+  - symbol: '\tilde c'
+    description: 'Thermal free energy density, as above'
+    value: '0.748(27)'
+    method: thermal bootstrap (KMS condition)
+    refs: [barrat2024]
+    note: 'Derived here from Table I, $a_T = 1.97(7)$, with their eq. (6): $f/T^3 = -0.1432(51)$. About $2\sigma$ below the Monte Carlo value.'
+```
+
 
 ### Families
 
