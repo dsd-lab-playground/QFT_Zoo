@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07 18:57 UTC",
+ "generated": "2026-11-07 19:16 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
  "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math.\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: conformal\n  supercharges: 0\n  global: '$O(N)$'\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: conformal bootstrap\n    refs: [author2025]\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    rep: 'vector'\n    method: conformal bootstrap\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
@@ -45,6 +45,7 @@
      ]
     },
     {
+     "key": "c_tilde",
      "symbol": "c_{\\rm eff}",
      "description": "Effective central charge, $c - 24h_{\\min}$ with $h_{\\min} = h_\\phi$",
      "value": "\\frac{2}{5}",
@@ -208,7 +209,8 @@
     }
    ],
    "contributors": [
-    "Canonical111"
+    "Canonical111",
+    "davidsd"
    ],
    "source": "data/theories/lee-yang-2d.yaml",
    "c_num": -4.4,
@@ -19590,6 +19592,28 @@
      "refs": [
       "chester2014"
      ]
+    },
+    {
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{2}$, $f = -\\tilde c\\,\\frac{\\zeta(3)}{2\\pi}\\,T^{3}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "14N^2",
+     "method": "exact (free limit, k ≫ N)",
+     "refs": [
+      "abjm2008",
+      "sachdev1993"
+     ],
+     "note": "Eq. (4.9): $\\beta F \\simeq -N^2V_2T^2\\,\\frac{7\\zeta(3)}{\\pi}$ at $\\lambda = N/k \\to 0$, divided by $\\zeta(3)/(2\\pi)$. It matches the field content: $8N^2$ real scalars and $4N^2$ two-component Dirac fermions ($8 + 4\\cdot2\\cdot\\tfrac34 = 14$ per $N^2$)."
+    },
+    {
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density, as above, at large $N$ and strong coupling ($\\lambda = N/k \\gg 1$)",
+     "value": "\\frac{16\\sqrt2\\,\\pi^3}{81\\,\\zeta(3)}\\,k^{1/2}N^{3/2} \\approx 7.2057\\,k^{1/2}N^{3/2}",
+     "method": "holography (supergravity)",
+     "refs": [
+      "klebanov1996",
+      "abjm2008"
+     ],
+     "note": "$f = -\\frac{2^{7/2}\\pi^2}{3^4}k^{1/2}N^{3/2}T^3$: integrating the near-extremal M2-brane entropy of Klebanov and Tseytlin, eq. (3.15), $S = 2^{7/2}3^{-3}\\pi^2N^{3/2}V_2T^2$ ($k=1$), with $N^{3/2} \\to k^{1/2}N^{3/2}$ for the $\\mathbb{Z}_k$ orbifold (Aharony et al., eq. (4.8)). Aharony et al. print the prefactor of $\\beta F$ as $2^{7/2}3^{-2}\\pi^2$; $3^{-4}$ is what both the Klebanov–Tseytlin entropy and the planar AdS$_4$ black brane give, $f = -\\frac{4\\pi^2}{27}\\frac{L^2}{G_N}T^3$ with $\\frac{L^2}{G_N} = \\frac{2F}{\\pi}$ fixed by the $S^3$ free energy above, so we take $3^{-2}$ to be a misprint. Corrections are suppressed by powers of $1/\\sqrt\\lambda$ (Aharony et al.)."
     }
    ],
    "operators": [
@@ -19685,10 +19709,28 @@
      "year": 2018,
      "journal": "JHEP 06 (2018) 159",
      "arxiv": "1711.07343"
+    },
+    {
+     "key": "sachdev1993",
+     "title": "Polylogarithm identities in a conformal field theory in three dimensions",
+     "authors": "Sachdev",
+     "year": 1993,
+     "journal": "Phys. Lett. B 309, 285",
+     "arxiv": "hep-th/9305131",
+     "note": "Defines the thermal coefficient $\\tilde c$ (eq. 1) and proves $\\tilde c/N = 4/5$ for the $O(N)$ model at $N=\\infty$."
+    },
+    {
+     "key": "klebanov1996",
+     "title": "Entropy of Near-Extremal Black p-branes",
+     "authors": "Klebanov, Tseytlin",
+     "year": 1996,
+     "journal": "Nucl. Phys. B 475, 164",
+     "arxiv": "hep-th/9604089"
     }
    ],
    "contributors": [
-    "Canonical111"
+    "Canonical111",
+    "davidsd"
    ],
    "source": "data/theories/abjm-3d.yaml",
    "members": [
@@ -20325,6 +20367,17 @@
      "refs": [
       "gurari2012"
      ]
+    },
+    {
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{2}$, $f = -\\tilde c\\,\\frac{\\zeta(3)}{2\\pi}\\,T^{3}$ ($\\tilde c = 1$ for one free real scalar), planar limit",
+     "value": "\\frac{N}{\\zeta(3)}\\Big[\\frac{\\mu^3}{3}\\Big(\\frac{1}{|\\lambda|}-1\\Big) - \\frac{2}{\\pi|\\lambda|}\\int_\\mu^\\infty\\! dy\\, y\\,{\\rm Im}\\,{\\rm Li}_2\\big(-e^{-y+\\pi i|\\lambda|}\\big)\\Big]",
+     "method": "exact (planar limit)",
+     "refs": [
+      "aharony2012b",
+      "sachdev1993"
+     ],
+     "note": "Aharony, Giombi, Gur-Ari, Maldacena and Yacoby (2012) eqs. (5.16) and (5.28) at $\\tilde\\sigma = 0$ (regular fermion), written in real form and divided by $-\\zeta(3)/(2\\pi)$. $T\\mu$ is the thermal mass, fixed by $\\mu(1-|\\lambda|) = \\frac{2}{\\pi}{\\rm Im}\\,{\\rm Li}_2\\big(-e^{-\\mu-\\pi i|\\lambda|}\\big)$. Numerically $\\tilde c/N = 1.5$ (free Dirac fermions), $1.4774$, $1.3025$, $0.9833$, $0.5796$, $0.1745$ at $|\\lambda| = 0, 0.1, 0.3, 0.5, 0.7, 0.9$, and $\\tilde c \\to \\tfrac85N(1-|\\lambda|) = \\tfrac85N_b$ as $|\\lambda|\\to1$ (their eq. (5.31)): the critical $U(N_b)$ model, $\\tfrac45$ per real scalar. The same function follows from the critical-boson side, eqs. (4.41)–(4.42), under the map (5.30); we checked this numerically at five couplings."
     }
    ],
    "operators": [
@@ -20429,10 +20482,20 @@
      "year": 2016,
      "journal": "JHEP 02 (2016) 093",
      "arxiv": "1512.00161"
+    },
+    {
+     "key": "sachdev1993",
+     "title": "Polylogarithm identities in a conformal field theory in three dimensions",
+     "authors": "Sachdev",
+     "year": 1993,
+     "journal": "Phys. Lett. B 309, 285",
+     "arxiv": "hep-th/9305131",
+     "note": "Defines the thermal coefficient $\\tilde c$ (eq. 1) and proves $\\tilde c/N = 4/5$ for the $O(N)$ model at $N=\\infty$."
     }
    ],
    "contributors": [
-    "Canonical111"
+    "Canonical111",
+    "davidsd"
    ],
    "source": "data/theories/cs-quasi-fermionic-3d.yaml",
    "members": [
@@ -20946,6 +21009,18 @@
       "fei2016"
      ],
      "note": "From $C_T^{\\rm sc} = \\frac{d}{(d-1)S_d^2}$ and $C_T^{\\rm fer} = {\\rm Tr}\\,\\mathbb{1}\\,\\frac{d}{2S_d^2}$ with ${\\rm Tr}\\,\\mathbb{1} = 2$, a two-component Dirac fermion has twice the $C_T$ of a real scalar (as also used by Fei et al.); a Majorana fermion has half of that."
+    },
+    {
+     "key": "c_tilde",
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{2}$, $f = -\\tilde c\\,\\frac{\\zeta(3)}{2\\pi}\\,T^{3}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "\\frac{3}{4}",
+     "method": "exact",
+     "refs": [
+      "sachdev1993",
+      "diatlyk2023"
+     ],
+     "note": "Normalization of Sachdev eq. (1): $f = -\\tilde c\\,\\Gamma(d/2)\\zeta(d)\\pi^{-d/2}T^d$. A fermion with antiperiodic thermal boundary conditions contributes $1-2^{1-d} = 3/4$ of a real scalar per on-shell degree of freedom, and a two-component Majorana fermion has one. Diatlyk, Popov and Wang eq. (3.16): $N$ free two-component Dirac fermions (the $\\phi=0$ saddle of the Gross–Neveu model) have $f = -\\frac{3N\\zeta(3)}{4\\pi}T^3$, i.e. $\\tilde c = 3/2$ per Dirac fermion."
     }
    ],
    "operators": [
@@ -21081,10 +21156,28 @@
      "year": 2014,
      "journal": "Science 344, 280",
      "arxiv": "1301.7449"
+    },
+    {
+     "key": "sachdev1993",
+     "title": "Polylogarithm identities in a conformal field theory in three dimensions",
+     "authors": "Sachdev",
+     "year": 1993,
+     "journal": "Phys. Lett. B 309, 285",
+     "arxiv": "hep-th/9305131",
+     "note": "Defines the thermal coefficient $\\tilde c$ (eq. 1) and proves $\\tilde c/N = 4/5$ for the $O(N)$ model at $N=\\infty$."
+    },
+    {
+     "key": "diatlyk2023",
+     "title": "Beyond $N=\\infty$ in Large $N$ Conformal Vector Models at Finite Temperature",
+     "authors": "Diatlyk, Popov, Wang",
+     "year": 2024,
+     "journal": "JHEP 08 (2024) 219",
+     "arxiv": "2309.02347"
     }
    ],
    "contributors": [
-    "Canonical111"
+    "Canonical111",
+    "davidsd"
    ],
    "source": "data/theories/free-fermion-3d.yaml",
    "backlinks": [
@@ -21132,6 +21225,18 @@
      "refs": [
       "klebanov2011"
      ]
+    },
+    {
+     "key": "c_tilde",
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{2}$, $f = -\\tilde c\\,\\frac{\\zeta(3)}{2\\pi}\\,T^{3}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "1",
+     "method": "exact",
+     "refs": [
+      "sachdev1993",
+      "iliesiu2018"
+     ],
+     "note": "Normalization of Sachdev eq. (1): $f = -\\tilde c\\,\\Gamma(d/2)\\zeta(d)\\pi^{-d/2}T^d$. Iliesiu et al. (2018), Sec. 2.1.1: one free real scalar has $b_T = -2d\\zeta(d)/S_d$ and $f = b_T/d$, i.e. $f = -\\Gamma(d/2)\\zeta(d)\\pi^{-d/2}T^d$ $= -0.191313\\,T^3$."
     }
    ],
    "operators": [
@@ -21173,10 +21278,28 @@
      "authors": "Klebanov, Pufu, Safdi",
      "year": 2011,
      "arxiv": "1105.4598"
+    },
+    {
+     "key": "sachdev1993",
+     "title": "Polylogarithm identities in a conformal field theory in three dimensions",
+     "authors": "Sachdev",
+     "year": 1993,
+     "journal": "Phys. Lett. B 309, 285",
+     "arxiv": "hep-th/9305131",
+     "note": "Defines the thermal coefficient $\\tilde c$ (eq. 1) and proves $\\tilde c/N = 4/5$ for the $O(N)$ model at $N=\\infty$."
+    },
+    {
+     "key": "iliesiu2018",
+     "title": "The Conformal Bootstrap at Finite Temperature",
+     "authors": "Iliesiu, Koloğlu, Mahajan, Perlmutter, Simmons-Duffin",
+     "year": 2018,
+     "journal": "JHEP 10 (2018) 070",
+     "arxiv": "1802.10266"
     }
    ],
    "contributors": [
-    "nathansbenjamin"
+    "nathansbenjamin",
+    "davidsd"
    ],
    "source": "data/theories/free-scalar-3d.yaml",
    "backlinks": [
@@ -21283,6 +21406,17 @@
       "tarnopolsky2016"
      ],
      "note": "The $O(N^0)$ term is from Klebanov et al. The $1/N$ term is a conjecture of Tarnopolsky, checked against the $4-\\epsilon$ and $2+\\epsilon$ expansions."
+    },
+    {
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{2}$, $f = -\\tilde c\\,\\frac{\\zeta(3)}{2\\pi}\\,T^{3}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "\\frac{3}{4}N - 0.070047 + O(1/N)",
+     "method": "large N",
+     "refs": [
+      "diatlyk2023",
+      "sachdev1993"
+     ],
+     "note": "Diatlyk, Popov and Wang eq. (1.12): $f_{\\rm GN} = -\\frac{3\\zeta(3)}{4\\pi}N_D - 0.01340099 + O(N_D^{-1})$ (units of $T^3$) for $N_D$ two-component Dirac fermions, $N_D = N/2$ in this entry's Majorana count; divided by $-\\zeta(3)/(2\\pi)$. The leading term is that of $N$ free Majorana fermions ($\\tfrac34$ each). Their GN model has $O(2N_D)$ symmetry, as here; the chiral Ising variant (cGN) has the same $f$ to this order. They take the parity-preserving saddle $\\phi = 0$, which describes the CFT (Sec. 3.1, eq. (3.16))."
     }
    ],
    "operators": [
@@ -21463,10 +21597,28 @@
      "year": 2024,
      "arxiv": "2406.12974",
      "note": "Table 1: large-$N$ dimensions of $\\epsilon^\\prime$ and $\\epsilon^{\\prime\\prime}$ and their identification."
+    },
+    {
+     "key": "sachdev1993",
+     "title": "Polylogarithm identities in a conformal field theory in three dimensions",
+     "authors": "Sachdev",
+     "year": 1993,
+     "journal": "Phys. Lett. B 309, 285",
+     "arxiv": "hep-th/9305131",
+     "note": "Defines the thermal coefficient $\\tilde c$ (eq. 1) and proves $\\tilde c/N = 4/5$ for the $O(N)$ model at $N=\\infty$."
+    },
+    {
+     "key": "diatlyk2023",
+     "title": "Beyond $N=\\infty$ in Large $N$ Conformal Vector Models at Finite Temperature",
+     "authors": "Diatlyk, Popov, Wang",
+     "year": 2024,
+     "journal": "JHEP 08 (2024) 219",
+     "arxiv": "2309.02347"
     }
    ],
    "contributors": [
-    "Canonical111"
+    "Canonical111",
+    "davidsd"
    ],
    "source": "data/theories/gny-3d.yaml",
    "members": [
@@ -22607,6 +22759,17 @@
       "li2017"
      ],
      "note": "Same work: $\\eta = 0.71(3)$ for the order parameter. Zerf et al. (Table II) list this value under $1/\\nu$; Li et al. (Table I) give it as $\\nu$."
+    },
+    {
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{2}$, $f = -\\tilde c\\,\\frac{\\zeta(3)}{2\\pi}\\,T^{3}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "\\frac{3}{4}N - 0.140095 + O(1/N)",
+     "method": "large N",
+     "refs": [
+      "diatlyk2023",
+      "sachdev1993"
+     ],
+     "note": "Diatlyk, Popov and Wang eq. (1.12): $f_{\\rm NJL} = -\\frac{3\\zeta(3)}{4\\pi}N_D - 0.02680198 + O(N_D^{-1})$ (units of $T^3$) for $N_D$ two-component Dirac fermions, $N_D = N/2$ in this entry's Majorana count; divided by $-\\zeta(3)/(2\\pi)$. The leading term is that of $N$ free Majorana fermions ($\\tfrac34$ each). Their NJL model (Sec. 3.7) is the four-fermion completion of the chiral XY GNY model, with $N_f$ four-component Dirac fermions and $N_D = 2N_f$."
     }
    ],
    "operators": [
@@ -22708,10 +22871,28 @@
      "year": 2017,
      "journal": "Phys. Rev. D 96, 025017",
      "arxiv": "1609.09113"
+    },
+    {
+     "key": "sachdev1993",
+     "title": "Polylogarithm identities in a conformal field theory in three dimensions",
+     "authors": "Sachdev",
+     "year": 1993,
+     "journal": "Phys. Lett. B 309, 285",
+     "arxiv": "hep-th/9305131",
+     "note": "Defines the thermal coefficient $\\tilde c$ (eq. 1) and proves $\\tilde c/N = 4/5$ for the $O(N)$ model at $N=\\infty$."
+    },
+    {
+     "key": "diatlyk2023",
+     "title": "Beyond $N=\\infty$ in Large $N$ Conformal Vector Models at Finite Temperature",
+     "authors": "Diatlyk, Popov, Wang",
+     "year": 2024,
+     "journal": "JHEP 08 (2024) 219",
+     "arxiv": "2309.02347"
     }
    ],
    "contributors": [
-    "Canonical111"
+    "Canonical111",
+    "davidsd"
    ],
    "source": "data/theories/gny-xy-3d.yaml",
    "members": [
@@ -23036,6 +23217,7 @@
      "note": "arXiv:2303.08844v1, Table I, p. 4, written $f_{\\epsilon\\epsilon\\epsilon}\\approx 1.5441(23)$, finite-size extrapolation; error = difference between leading- and next-to-leading-order fits (Supplemental Material, Sec. IV). **Disagrees** with the bootstrap value $1.53244304(58)$ by about $5\\times$ its stated error, so the stated error does not cover the extrapolation systematics."
     },
     {
+     "key": "F",
      "symbol": "F",
      "description": "Sphere free energy ($F = -\\log Z_{S^3}$), from the entanglement entropy of a disk",
      "value": "0.0612(5)",
@@ -23174,6 +23356,68 @@
       "reehorst2021"
      ],
      "note": "arXiv:2111.12093v1, Table 1, p. 4 and Eq. (4.5), p. 16, $\\Lambda=19$. Same assumptions. Compare $2 f_{\\epsilon\\epsilon T'} = 1.3805(10)$, which lies inside this interval."
+    },
+    {
+     "key": "c_tilde",
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{2}$, $f = -\\tilde c\\,\\frac{\\zeta(3)}{2\\pi}\\,T^{3}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "0.8003(21)",
+     "method": "Monte Carlo (non-equilibrium, Casimir amplitude)",
+     "refs": [
+      "bulgarelli2025"
+     ],
+     "note": "Table II, $\\Delta/N = -0.1531(4)$ at $N=1$; the critical Casimir amplitude of a periodic slab is $\\Delta = f/T^3$, so $\\tilde c = -N(\\Delta/N)\\,2\\pi/\\zeta(3)$. Extrapolated to infinite transverse size (their App. C) and fitted in the thickness (App. D). Close to the large-$N$ value per component, $\\tfrac45$."
+    },
+    {
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density, as above",
+     "value": "0.7945(10)",
+     "method": "Monte Carlo (Casimir amplitude)",
+     "refs": [
+      "vasilyev2009"
+     ],
+     "note": "Sec. IV B, $\\Delta_P = -0.1520(2)$, times $-2\\pi/\\zeta(3)$. At fixed aspect ratio $\\rho = 1/6$ (Bulgarelli et al., App. C); $2.5\\sigma$ below their $0.8003(21)$."
+    },
+    {
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density, as above",
+     "value": "0.749(17)",
+     "method": "thermal bootstrap (inversion formula + KMS)",
+     "refs": [
+      "iliesiu2019",
+      "iliesiu2018"
+     ],
+     "note": "Eq. (3.1), $b_T = -0.43(1)$, with $f = b_T/d$ (iliesiu2018, Sec. 2.1.1), times $-2\\pi/\\zeta(3)$. Their eq. (3.2) quotes the Monte Carlo $b_T = -0.459(3)$, i.e. $\\tilde c = 0.800(5)$."
+    },
+    {
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density, as above",
+     "value": "0.748(27)",
+     "method": "thermal bootstrap (KMS condition)",
+     "refs": [
+      "barrat2024"
+     ],
+     "note": "Derived here from Table I, $a_T = 1.97(7)$, with their eq. (6) at $d=3$, $\\Delta_\\sigma = 0.5181489$, $c_T/c_{T,\\rm free} = 0.946534$: $f/T^3 = -0.1432(51)$. About $2\\sigma$ below the Monte Carlo value (the 2019 bootstrap value is $3\\sigma$ below); Bulgarelli et al. discuss the tension."
+    },
+    {
+     "symbol": "F",
+     "description": "Sphere free energy, $F = -\\log Z_{S^3}$",
+     "value": "0.0623",
+     "method": "epsilon-expansion (two-sided Padé, estimate)",
+     "refs": [
+      "fei2015"
+     ],
+     "note": "Eq. (3.20), $\\tilde F_{\\rm Ising}/\\tilde F_s \\approx 0.976$ (average of Padé approximants with the 2d Ising value as boundary condition; Table 1 gives 0.9763), times $F_s = 0.063807$. No error quoted; $2\\sigma$ above the fuzzy-sphere value."
+    },
+    {
+     "symbol": "F",
+     "description": "Sphere free energy, $F = -\\log Z_{S^3}$",
+     "value": "0.06234",
+     "method": "long-range model continuation (estimate)",
+     "refs": [
+      "giombi2024"
+     ],
+     "note": "Table 5.1, $\\tilde F^{\\rm LRA}$ at $N=1$; no error quoted."
     }
    ],
    "operators": [
@@ -23749,6 +23993,62 @@
      "doi": "10.21468/SciPostPhys.19.2.056",
      "journal": "SciPost Physics 19, 056",
      "note": "Section 4.1.1, Eqs. (4.5)-(4.13), arXiv v2 pp. 27-29, distinguishes SSB, trivial and SPT phases."
+    },
+    {
+     "key": "bulgarelli2025",
+     "title": "Casimir effect in critical $O(N)$ models from non-equilibrium Monte Carlo simulations",
+     "authors": "Bulgarelli, Caselle, Nada, Panero",
+     "year": 2025,
+     "journal": "Phys. Rev. E 112, 064126",
+     "arxiv": "2505.20403"
+    },
+    {
+     "key": "vasilyev2009",
+     "title": "Universal scaling functions of critical Casimir forces obtained by Monte Carlo simulations",
+     "authors": "Vasilyev, Gambassi, Maciołek, Dietrich",
+     "year": 2009,
+     "journal": "Phys. Rev. E 79, 041142",
+     "arxiv": "0812.0750"
+    },
+    {
+     "key": "iliesiu2019",
+     "title": "Bootstrapping the 3d Ising model at finite temperature",
+     "authors": "Iliesiu, Koloğlu, Simmons-Duffin",
+     "year": 2019,
+     "journal": "JHEP 12 (2019) 072",
+     "arxiv": "1811.05451"
+    },
+    {
+     "key": "iliesiu2018",
+     "title": "The Conformal Bootstrap at Finite Temperature",
+     "authors": "Iliesiu, Koloğlu, Mahajan, Perlmutter, Simmons-Duffin",
+     "year": 2018,
+     "journal": "JHEP 10 (2018) 070",
+     "arxiv": "1802.10266"
+    },
+    {
+     "key": "barrat2024",
+     "title": "The thermal bootstrap for the critical $O(N)$ model",
+     "authors": "Barrat, Marchetto, Miscioscia, Pomoni",
+     "year": 2025,
+     "journal": "Phys. Rev. Lett. 134, 211604",
+     "arxiv": "2411.00978"
+    },
+    {
+     "key": "fei2015",
+     "title": "Generalized $F$-Theorem and the $\\epsilon$ Expansion",
+     "authors": "Fei, Giombi, Klebanov, Tarnopolsky",
+     "year": 2015,
+     "journal": "JHEP 12 (2015) 155",
+     "arxiv": "1507.01960"
+    },
+    {
+     "key": "giombi2024",
+     "title": "Sphere free energy of scalar field theories with cubic interactions",
+     "authors": "Giombi, Himwich, Katsevich, Klebanov, Sun",
+     "year": 2025,
+     "journal": "JHEP 12 (2025) 133",
+     "arxiv": "2412.14086"
     }
    ],
    "contributors": [
@@ -24854,6 +25154,7 @@
      ]
     },
     {
+     "key": "C_J",
      "symbol": "C_J/C_J^{\\rm free}",
      "description": "Current two-point coefficient, relative to two free real scalars; it gives the zero-temperature conductivity, $2\\pi\\sigma_\\infty = 0.355155(11)$",
      "value": "0.904395(28)",
@@ -24897,6 +25198,58 @@
      "refs": [
       "chester2019"
      ]
+    },
+    {
+     "key": "c_tilde",
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{2}$, $f = -\\tilde c\\,\\frac{\\zeta(3)}{2\\pi}\\,T^{3}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "1.5890(84)",
+     "method": "Monte Carlo (non-equilibrium, Casimir amplitude)",
+     "refs": [
+      "bulgarelli2025"
+     ],
+     "note": "Table II, $\\Delta/N = -0.1520(8)$ at $N=2$; the critical Casimir amplitude of a periodic slab is $\\Delta = f/T^3$, so $\\tilde c = -N(\\Delta/N)\\,2\\pi/\\zeta(3)$. Extrapolated to infinite transverse size (their App. C) and fitted in the thickness (App. D). About $0.79N$, near the large-$N$ value $\\tfrac45N$."
+    },
+    {
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density, as above",
+     "value": "1.5645(37)",
+     "method": "Monte Carlo (Casimir amplitude)",
+     "refs": [
+      "vasilyev2009"
+     ],
+     "note": "Sec. IV A, $\\Delta_P = -0.2993(7)$ for the XY model, times $-2\\pi/\\zeta(3)$. Bulgarelli et al. (App. C) note this value is at fixed aspect ratio $\\rho = 1/6$, not extrapolated in $L$; it is $2.6\\sigma$ below their $1.5890(84)$."
+    },
+    {
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density, as above",
+     "value": "1.44(6)",
+     "method": "thermal bootstrap (KMS condition)",
+     "refs": [
+      "barrat2024"
+     ],
+     "note": "Derived here from $a_T = 1.90(8)$ (eq. (10)) with their eq. (6), $f = -a_T\\frac{\\Gamma(d/2)}{2\\pi^{d/2}(d-1)\\Delta_\\phi}\\frac{c_T}{c_{T,\\rm free}}$, at $d=3$, taking $\\Delta_\\phi = 0.519088$ and $c_T/c_{T,\\rm free} = 2\\times0.944056$ (one free scalar as reference) from the bootstrap: $f/T^3 = -0.275$. Below the Monte Carlo value by about 2.5$\\sigma$."
+    },
+    {
+     "key": "F",
+     "symbol": "F",
+     "description": "$S^3$ free energy, $F = -\\log Z_{S^3}$",
+     "value": "0.1243",
+     "method": "epsilon-expansion (two-sided Padé, estimate)",
+     "refs": [
+      "fei2015"
+     ],
+     "note": "Table 1: $\\tilde F_{O(2)}/(N\\tilde F_s) = 0.9740$ (Padé with the $d=2$ boundary condition; $0.9765$ without it), times $2F_s$ with $F_s = \\frac{\\log 2}{8} - \\frac{3\\zeta(3)}{16\\pi^2}$. No error is quoted; the two Padé variants differ by $3\\times10^{-4}$ in $F$. Below $2F_s$, as the $F$-theorem requires."
+    },
+    {
+     "symbol": "F",
+     "description": "$S^3$ free energy, as above",
+     "value": "0.1245",
+     "method": "long-range model continuation (estimate)",
+     "refs": [
+      "giombi2024"
+     ],
+     "note": "Table 5.1, $\\tilde F^{\\rm LRA}$: the long-range $O(N)$ model continued to the short-range point using the bootstrap $\\Delta_\\phi$; no error quoted."
     }
    ],
    "operators": [
@@ -25074,10 +25427,51 @@
      "year": 1972,
      "journal": "Phys. Rev. Lett. 28, 240",
      "doi": "10.1103/PhysRevLett.28.240"
+    },
+    {
+     "key": "bulgarelli2025",
+     "title": "Casimir effect in critical $O(N)$ models from non-equilibrium Monte Carlo simulations",
+     "authors": "Bulgarelli, Caselle, Nada, Panero",
+     "year": 2025,
+     "journal": "Phys. Rev. E 112, 064126",
+     "arxiv": "2505.20403"
+    },
+    {
+     "key": "vasilyev2009",
+     "title": "Universal scaling functions of critical Casimir forces obtained by Monte Carlo simulations",
+     "authors": "Vasilyev, Gambassi, Maciołek, Dietrich",
+     "year": 2009,
+     "journal": "Phys. Rev. E 79, 041142",
+     "arxiv": "0812.0750"
+    },
+    {
+     "key": "barrat2024",
+     "title": "The thermal bootstrap for the critical $O(N)$ model",
+     "authors": "Barrat, Marchetto, Miscioscia, Pomoni",
+     "year": 2025,
+     "journal": "Phys. Rev. Lett. 134, 211604",
+     "arxiv": "2411.00978"
+    },
+    {
+     "key": "fei2015",
+     "title": "Generalized $F$-Theorem and the $\\epsilon$ Expansion",
+     "authors": "Fei, Giombi, Klebanov, Tarnopolsky",
+     "year": 2015,
+     "journal": "JHEP 12 (2015) 155",
+     "arxiv": "1507.01960"
+    },
+    {
+     "key": "giombi2024",
+     "title": "Sphere free energy of scalar field theories with cubic interactions",
+     "authors": "Giombi, Himwich, Katsevich, Klebanov, Sun",
+     "year": 2025,
+     "journal": "JHEP 12 (2025) 133",
+     "arxiv": "2412.14086"
     }
    ],
    "contributors": [
-    "nathansbenjamin"
+    "nathansbenjamin",
+    "davidsd"
    ],
    "source": "data/theories/o2-model-3d.yaml",
    "backlinks": [
@@ -25182,6 +25576,7 @@
      ]
     },
     {
+     "key": "C_J",
      "symbol": "C_J/C_J^{\\rm free}",
      "description": "Current two-point coefficient, relative to three free real scalars",
      "value": "0.90632(16)",
@@ -25234,6 +25629,48 @@
      "refs": [
       "chester2020"
      ]
+    },
+    {
+     "key": "c_tilde",
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{2}$, $f = -\\tilde c\\,\\frac{\\zeta(3)}{2\\pi}\\,T^{3}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "2.360(11)",
+     "method": "Monte Carlo (non-equilibrium, Casimir amplitude)",
+     "refs": [
+      "bulgarelli2025"
+     ],
+     "note": "Table II, $\\Delta/N = -0.1505(7)$ at $N=3$; the critical Casimir amplitude of a periodic slab is $\\Delta = f/T^3$, so $\\tilde c = -N(\\Delta/N)\\,2\\pi/\\zeta(3)$. Extrapolated to infinite transverse size (their App. C) and fitted in the thickness (App. D). About $0.79N$, near the large-$N$ value $\\tfrac45N$."
+    },
+    {
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density, as above",
+     "value": "2.06(9)",
+     "method": "thermal bootstrap (KMS condition)",
+     "refs": [
+      "barrat2024"
+     ],
+     "note": "Derived here from $a_T = 1.81(8)$ (eq. (13)) with their eq. (6), $f = -a_T\\frac{\\Gamma(d/2)}{2\\pi^{d/2}(d-1)\\Delta_\\phi}\\frac{c_T}{c_{T,\\rm free}}$, at $d=3$, taking $\\Delta_\\phi = 0.518936$ and $c_T/c_{T,\\rm free} = 3\\times0.944524$ (one free scalar as reference) from the bootstrap: $f/T^3 = -0.393$. Below the Monte Carlo value by about 3.3$\\sigma$."
+    },
+    {
+     "key": "F",
+     "symbol": "F",
+     "description": "$S^3$ free energy, $F = -\\log Z_{S^3}$",
+     "value": "0.1866",
+     "method": "epsilon-expansion (two-sided Padé, estimate)",
+     "refs": [
+      "fei2015"
+     ],
+     "note": "Table 1: $\\tilde F_{O(3)}/(N\\tilde F_s) = 0.9748$ (Padé with the $d=2$ boundary condition; $0.9762$ without it), times $3F_s$ with $F_s = \\frac{\\log 2}{8} - \\frac{3\\zeta(3)}{16\\pi^2}$. No error is quoted; the two Padé variants differ by $3\\times10^{-4}$ in $F$. Below $3F_s$, as the $F$-theorem requires."
+    },
+    {
+     "symbol": "F",
+     "description": "$S^3$ free energy, as above",
+     "value": "0.1868",
+     "method": "long-range model continuation (estimate)",
+     "refs": [
+      "giombi2024"
+     ],
+     "note": "Table 5.1, $\\tilde F^{\\rm LRA}$: the long-range $O(N)$ model continued to the short-range point using the bootstrap $\\Delta_\\phi$; no error quoted."
     }
    ],
    "operators": [
@@ -25382,10 +25819,43 @@
      "year": 1972,
      "journal": "Phys. Rev. Lett. 28, 240",
      "doi": "10.1103/PhysRevLett.28.240"
+    },
+    {
+     "key": "bulgarelli2025",
+     "title": "Casimir effect in critical $O(N)$ models from non-equilibrium Monte Carlo simulations",
+     "authors": "Bulgarelli, Caselle, Nada, Panero",
+     "year": 2025,
+     "journal": "Phys. Rev. E 112, 064126",
+     "arxiv": "2505.20403"
+    },
+    {
+     "key": "barrat2024",
+     "title": "The thermal bootstrap for the critical $O(N)$ model",
+     "authors": "Barrat, Marchetto, Miscioscia, Pomoni",
+     "year": 2025,
+     "journal": "Phys. Rev. Lett. 134, 211604",
+     "arxiv": "2411.00978"
+    },
+    {
+     "key": "fei2015",
+     "title": "Generalized $F$-Theorem and the $\\epsilon$ Expansion",
+     "authors": "Fei, Giombi, Klebanov, Tarnopolsky",
+     "year": 2015,
+     "journal": "JHEP 12 (2015) 155",
+     "arxiv": "1507.01960"
+    },
+    {
+     "key": "giombi2024",
+     "title": "Sphere free energy of scalar field theories with cubic interactions",
+     "authors": "Giombi, Himwich, Katsevich, Klebanov, Sun",
+     "year": 2025,
+     "journal": "JHEP 12 (2025) 133",
+     "arxiv": "2412.14086"
     }
    ],
    "contributors": [
-    "nathansbenjamin"
+    "nathansbenjamin",
+    "davidsd"
    ],
    "source": "data/theories/o3-model-3d.yaml",
    "backlinks": [
@@ -25476,6 +25946,28 @@
       "kos2013"
      ],
      "note": "Value at which the lower bound on $C_T$ is saturated for the Monte Carlo $\\Delta_\\phi$, assuming that the $O(4)$ model saturates it."
+    },
+    {
+     "key": "c_tilde",
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{2}$, $f = -\\tilde c\\,\\frac{\\zeta(3)}{2\\pi}\\,T^{3}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "3.134(15)",
+     "method": "Monte Carlo (non-equilibrium, Casimir amplitude)",
+     "refs": [
+      "bulgarelli2025"
+     ],
+     "note": "Table II, $\\Delta/N = -0.1499(7)$ at $N=4$; the critical Casimir amplitude of a periodic slab is $\\Delta = f/T^3$, so $\\tilde c = -N(\\Delta/N)\\,2\\pi/\\zeta(3)$. Extrapolated to infinite transverse size (their App. C) and fitted in the thickness (App. D). About $0.79N$, near the large-$N$ value $\\tfrac45N$."
+    },
+    {
+     "key": "F",
+     "symbol": "F",
+     "description": "$S^3$ free energy, $F = -\\log Z_{S^3}$",
+     "value": "0.2491",
+     "method": "epsilon-expansion (two-sided Padé, estimate)",
+     "refs": [
+      "fei2015"
+     ],
+     "note": "Table 1: $\\tilde F_{O(4)}/(N\\tilde F_s) = 0.9759$ (Padé with the $d=2$ boundary condition; $0.9766$ without it), times $4F_s$ with $F_s = \\frac{\\log 2}{8} - \\frac{3\\zeta(3)}{16\\pi^2}$. No error is quoted; the two Padé variants differ by $2\\times10^{-4}$ in $F$. Below $4F_s$, as the $F$-theorem requires."
     }
    ],
    "operators": [
@@ -25626,10 +26118,27 @@
      "year": 1993,
      "journal": "Nucl. Phys. B 399, 395",
      "arxiv": "hep-ph/9210253"
+    },
+    {
+     "key": "bulgarelli2025",
+     "title": "Casimir effect in critical $O(N)$ models from non-equilibrium Monte Carlo simulations",
+     "authors": "Bulgarelli, Caselle, Nada, Panero",
+     "year": 2025,
+     "journal": "Phys. Rev. E 112, 064126",
+     "arxiv": "2505.20403"
+    },
+    {
+     "key": "fei2015",
+     "title": "Generalized $F$-Theorem and the $\\epsilon$ Expansion",
+     "authors": "Fei, Giombi, Klebanov, Tarnopolsky",
+     "year": 2015,
+     "journal": "JHEP 12 (2015) 155",
+     "arxiv": "1507.01960"
     }
    ],
    "contributors": [
-    "Canonical111"
+    "Canonical111",
+    "davidsd"
    ],
    "source": "data/theories/o4-model-3d.yaml",
    "backlinks": []
@@ -25765,6 +26274,18 @@
       "klebanov2011"
      ],
      "note": "A conjectured formula for the next term, checked against the $\\epsilon$-expansion, gives $+\\frac{4}{9\\pi^2 N}$ (Tarnopolsky)."
+    },
+    {
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{2}$, $f = -\\tilde c\\,\\frac{\\zeta(3)}{2\\pi}\\,T^{3}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "\\frac{4}{5}N - 0.334506 + O(1/N)",
+     "method": "large N",
+     "refs": [
+      "sachdev1993",
+      "diatlyk2023",
+      "bulgarelli2025"
+     ],
+     "note": "Leading term: Sachdev, $\\tilde c/N = 4/5$ (abstract and final result). Next term: Diatlyk, Popov and Wang eq. (1.11), $f = -\\frac{2\\zeta(3)}{5\\pi}N + 0.06399553$ (in units of $T^3$), divided by $-\\zeta(3)/(2\\pi)$. The series is asymptotic: at $N=2,3$ the two terms give $1.27$, $2.07$, against the Monte Carlo $1.589(8)$, $2.360(11)$ (Bulgarelli et al.), which stay close to $\\tfrac45N$ ($\\tilde c/N = 0.78$–$0.80$ for $N=1,\\dots,6$)."
     }
    ],
    "operators": [
@@ -25926,10 +26447,36 @@
      "year": 1972,
      "journal": "Phys. Lett. A 38, 339",
      "doi": "10.1016/0375-9601(72)90149-1"
+    },
+    {
+     "key": "sachdev1993",
+     "title": "Polylogarithm identities in a conformal field theory in three dimensions",
+     "authors": "Sachdev",
+     "year": 1993,
+     "journal": "Phys. Lett. B 309, 285",
+     "arxiv": "hep-th/9305131",
+     "note": "Defines the thermal coefficient $\\tilde c$ (eq. 1) and proves $\\tilde c/N = 4/5$ for the $O(N)$ model at $N=\\infty$."
+    },
+    {
+     "key": "diatlyk2023",
+     "title": "Beyond $N=\\infty$ in Large $N$ Conformal Vector Models at Finite Temperature",
+     "authors": "Diatlyk, Popov, Wang",
+     "year": 2024,
+     "journal": "JHEP 08 (2024) 219",
+     "arxiv": "2309.02347"
+    },
+    {
+     "key": "bulgarelli2025",
+     "title": "Casimir effect in critical $O(N)$ models from non-equilibrium Monte Carlo simulations",
+     "authors": "Bulgarelli, Caselle, Nada, Panero",
+     "year": 2025,
+     "journal": "Phys. Rev. E 112, 064126",
+     "arxiv": "2505.20403"
     }
    ],
    "contributors": [
-    "Canonical111"
+    "Canonical111",
+    "davidsd"
    ],
    "source": "data/theories/on-model-3d.yaml",
    "members": [
@@ -28071,6 +28618,7 @@
      "note": "Baggio et al. give $C_T = \\tfrac{32}{27}\\big(16 - \\tfrac{9\\sqrt3}{\\pi}\\big) \\approx 13.0821$ in units where a free chiral multiplet has $C_T = 6$; divided here by 18. Independent of $\\tau$ on the conformal manifold."
     },
     {
+     "key": "C_J",
      "symbol": "C_J/C_J^{\\rm free}",
      "description": "Two-point coefficient of either $U(1)$ flavor current (charges $(1,-1,0)$ on $(X,Y,Z)$), relative to one free chiral multiplet of unit charge",
      "value": "\\frac{16}{9} - \\frac{4}{\\sqrt{3}\\,\\pi} \\approx 1.043",
@@ -28182,7 +28730,8 @@
     }
    ],
    "contributors": [
-    "Canonical111"
+    "Canonical111",
+    "davidsd"
    ],
    "source": "data/theories/xyz-model-3d.yaml",
    "backlinks": []
@@ -29087,6 +29636,18 @@
       "osborn1994"
      ],
      "note": "Osborn–Petkou eq. (5.16), $C_T = 16/S_4^2$ with $S_4 = 2\\pi^2$. It agrees with $C_T = 40c/\\pi^4$, their eq. (8.12) in this normalisation."
+    },
+    {
+     "key": "c_tilde",
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{3}$, $f = -\\tilde c\\,\\frac{\\pi^2}{90}\\,T^{4}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "2",
+     "method": "exact",
+     "refs": [
+      "sachdev1993",
+      "laine2016"
+     ],
+     "note": "Normalization of Sachdev eq. (1): $f = -\\tilde c\\,\\Gamma(d/2)\\zeta(d)\\pi^{-d/2}T^d$. Laine and Vuorinen eq. (5.61) with $N_c^2-1 \\to 1$ and $N_f = 0$ (blackbody radiation, two polarizations): $f = -\\frac{\\pi^2}{45}T^4$. Independent of $\\tau$."
     }
    ],
    "operators": [
@@ -29186,10 +29747,28 @@
      "journal": "Nucl. Phys. B 848, 578",
      "arxiv": "1101.5385",
      "doi": "10.1016/j.nuclphysb.2011.03.008"
+    },
+    {
+     "key": "sachdev1993",
+     "title": "Polylogarithm identities in a conformal field theory in three dimensions",
+     "authors": "Sachdev",
+     "year": 1993,
+     "journal": "Phys. Lett. B 309, 285",
+     "arxiv": "hep-th/9305131",
+     "note": "Defines the thermal coefficient $\\tilde c$ (eq. 1) and proves $\\tilde c/N = 4/5$ for the $O(N)$ model at $N=\\infty$."
+    },
+    {
+     "key": "laine2016",
+     "title": "Basics of Thermal Field Theory",
+     "authors": "Laine, Vuorinen",
+     "year": 2016,
+     "journal": "Lect. Notes Phys. 925",
+     "arxiv": "1701.01554"
     }
    ],
    "contributors": [
-    "nathansbenjamin"
+    "nathansbenjamin",
+    "davidsd"
    ],
    "source": "data/theories/free-maxwell-4d.yaml",
    "backlinks": [
@@ -29254,6 +29833,19 @@
       "osborn1994"
      ],
      "note": "Osborn–Petkou eq. (5.5), $C_T = \\frac{d}{d-1}\\frac{1}{S_d^2}$, at $d=4$ with $S_4 = 2\\pi^2$."
+    },
+    {
+     "key": "c_tilde",
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{3}$, $f = -\\tilde c\\,\\frac{\\pi^2}{90}\\,T^{4}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "1",
+     "method": "exact",
+     "refs": [
+      "sachdev1993",
+      "iliesiu2018",
+      "laine2016"
+     ],
+     "note": "Normalization of Sachdev eq. (1): $f = -\\tilde c\\,\\Gamma(d/2)\\zeta(d)\\pi^{-d/2}T^d$. Iliesiu et al. (2018), Sec. 2.1.1: one free real scalar has $b_T = -2d\\zeta(d)/S_d$ and $f = b_T/d$, i.e. $f = -\\Gamma(d/2)\\zeta(d)\\pi^{-d/2}T^d$ $= -\\pi^2T^4/90$. Laine and Vuorinen eq. (5.52): $f = -\\pi^2T^4/90$ per real scalar."
     }
    ],
    "operators": [
@@ -29318,10 +29910,36 @@
      "journal": "Annals Phys. 231, 311",
      "arxiv": "hep-th/9307010",
      "doi": "10.1006/aphy.1994.1045"
+    },
+    {
+     "key": "sachdev1993",
+     "title": "Polylogarithm identities in a conformal field theory in three dimensions",
+     "authors": "Sachdev",
+     "year": 1993,
+     "journal": "Phys. Lett. B 309, 285",
+     "arxiv": "hep-th/9305131",
+     "note": "Defines the thermal coefficient $\\tilde c$ (eq. 1) and proves $\\tilde c/N = 4/5$ for the $O(N)$ model at $N=\\infty$."
+    },
+    {
+     "key": "iliesiu2018",
+     "title": "The Conformal Bootstrap at Finite Temperature",
+     "authors": "Iliesiu, Koloğlu, Mahajan, Perlmutter, Simmons-Duffin",
+     "year": 2018,
+     "journal": "JHEP 10 (2018) 070",
+     "arxiv": "1802.10266"
+    },
+    {
+     "key": "laine2016",
+     "title": "Basics of Thermal Field Theory",
+     "authors": "Laine, Vuorinen",
+     "year": 2016,
+     "journal": "Lect. Notes Phys. 925",
+     "arxiv": "1701.01554"
     }
    ],
    "contributors": [
-    "rodriguez-va"
+    "rodriguez-va",
+    "davidsd"
    ],
    "source": "data/theories/free-scalar-4d.yaml",
    "backlinks": []
@@ -29381,6 +29999,18 @@
       "osborn1994"
      ],
      "note": "Half the Dirac value of Osborn–Petkou eq. (5.6), $C_T = \\tfrac{d}{2}\\,2^{d/2}/S_d^2$, at $d=4$ with $S_4 = 2\\pi^2$. It agrees with $C_T = 40c/\\pi^4$, their eq. (8.12) in this normalisation."
+    },
+    {
+     "key": "c_tilde",
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{3}$, $f = -\\tilde c\\,\\frac{\\pi^2}{90}\\,T^{4}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "\\frac{7}{4}",
+     "method": "exact",
+     "refs": [
+      "sachdev1993",
+      "laine2016"
+     ],
+     "note": "Normalization of Sachdev eq. (1): $f = -\\tilde c\\,\\Gamma(d/2)\\zeta(d)\\pi^{-d/2}T^d$. Laine and Vuorinen eq. (5.61): a massless Dirac fermion contributes $\\tfrac72$ to $f = -\\frac{\\pi^2T^4}{90}[\\dots]$; a Weyl fermion is half of it, $f = -\\frac{7\\pi^2}{360}T^4$ ($\\tfrac78$ per helicity state, two states)."
     }
    ],
    "operators": [
@@ -29450,10 +30080,28 @@
      "journal": "Annals Phys. 231, 311",
      "arxiv": "hep-th/9307010",
      "doi": "10.1006/aphy.1994.1045"
+    },
+    {
+     "key": "sachdev1993",
+     "title": "Polylogarithm identities in a conformal field theory in three dimensions",
+     "authors": "Sachdev",
+     "year": 1993,
+     "journal": "Phys. Lett. B 309, 285",
+     "arxiv": "hep-th/9305131",
+     "note": "Defines the thermal coefficient $\\tilde c$ (eq. 1) and proves $\\tilde c/N = 4/5$ for the $O(N)$ model at $N=\\infty$."
+    },
+    {
+     "key": "laine2016",
+     "title": "Basics of Thermal Field Theory",
+     "authors": "Laine, Vuorinen",
+     "year": 2016,
+     "journal": "Lect. Notes Phys. 925",
+     "arxiv": "1701.01554"
     }
    ],
    "contributors": [
-    "nathansbenjamin"
+    "nathansbenjamin",
+    "davidsd"
    ],
    "source": "data/theories/free-weyl-fermion-4d.yaml",
    "backlinks": []
@@ -31044,6 +31692,28 @@
      "value": "\\frac{N^2-1}{4}",
      "method": "exact",
      "note": "Independent of $\\tau$."
+    },
+    {
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{3}$, $f = -\\tilde c\\,\\frac{\\pi^2}{90}\\,T^{4}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "15\\,(N^2-1)",
+     "method": "exact (free limit)",
+     "refs": [
+      "gubser1998",
+      "laine2016",
+      "sachdev1993"
+     ],
+     "note": "Per adjoint component: 6 real scalars and 2 gluon polarizations ($\\tilde c = 8$) and 4 Weyl fermions ($4\\times\\tfrac74 = 7$), with the Stefan–Boltzmann values of Laine and Vuorinen eq. (5.61). Gubser, Klebanov and Tseytlin eq. (27) write $F = -f\\,\\frac{\\pi^2}{6}N^2VT^4$ with $f \\to 1$ at weak coupling (the large-$N$ form, $N^2$ for $N^2-1$), i.e. $\\tilde c = 15fN^2$."
+    },
+    {
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density, as above, at large $N$ and strong ’t Hooft coupling",
+     "value": "\\frac{45}{4}N^2\\Big(1 + \\frac{15}{8}\\zeta(3)\\,(2g_{\\rm YM}^2N)^{-3/2} + \\dots\\Big)",
+     "method": "holography (type IIB supergravity with the α′³ correction)",
+     "refs": [
+      "gubser1998"
+     ],
+     "note": "Eqs. (26)–(28): $f = \\tfrac34 + \\tfrac{45}{32}\\zeta(3)(2g_{\\rm YM}^2N)^{-3/2} + \\dots$ at $N\\to\\infty$, in their normalization of $g_{\\rm YM}$; the leading $\\tfrac34$ is the black-brane result they cite (Gubser, Klebanov and Peet). So the free energy at strong coupling is $\\tfrac34$ of the free value, approached from above."
     }
    ],
    "operators": [
@@ -31089,6 +31759,31 @@
      "authors": "Beisert et al.",
      "year": 2010,
      "arxiv": "1012.3982"
+    },
+    {
+     "key": "sachdev1993",
+     "title": "Polylogarithm identities in a conformal field theory in three dimensions",
+     "authors": "Sachdev",
+     "year": 1993,
+     "journal": "Phys. Lett. B 309, 285",
+     "arxiv": "hep-th/9305131",
+     "note": "Defines the thermal coefficient $\\tilde c$ (eq. 1) and proves $\\tilde c/N = 4/5$ for the $O(N)$ model at $N=\\infty$."
+    },
+    {
+     "key": "gubser1998",
+     "title": "Coupling Constant Dependence in the Thermodynamics of $\\mathcal{N}=4$ Supersymmetric Yang–Mills Theory",
+     "authors": "Gubser, Klebanov, Tseytlin",
+     "year": 1998,
+     "journal": "Nucl. Phys. B 534, 202",
+     "arxiv": "hep-th/9805156"
+    },
+    {
+     "key": "laine2016",
+     "title": "Basics of Thermal Field Theory",
+     "authors": "Laine, Vuorinen",
+     "year": 2016,
+     "journal": "Lect. Notes Phys. 925",
+     "arxiv": "1701.01554"
     }
    ],
    "relations": [
@@ -31100,7 +31795,8 @@
     }
    ],
    "contributors": [
-    "nathansbenjamin"
+    "nathansbenjamin",
+    "davidsd"
    ],
    "source": "data/theories/n4-sym.yaml",
    "backlinks": [
@@ -32479,6 +33175,7 @@
    },
    "quantities": [
     {
+     "key": "F_tilde",
      "symbol": "\\tilde F",
      "description": "Sphere free energy of one Dirac fermion in the convention of Giombi and Klebanov, $\\tilde F = \\sin(\\pi d/2)\\log Z_{S^d}$; at $d=5$, $\\tilde F = \\log Z_{S^5} = -F$",
      "value": "\\frac{1}{2^6}\\left(6\\log 2 + \\frac{10\\zeta(3)}{\\pi^2} + \\frac{15\\zeta(5)}{\\pi^4}\\right) \\approx 8.65\\times 10^{-2}",
@@ -32605,7 +33302,8 @@
     }
    ],
    "contributors": [
-    "Canonical111"
+    "Canonical111",
+    "davidsd"
    ],
    "source": "data/theories/free-fermion-5d.yaml",
    "backlinks": []
@@ -32635,6 +33333,7 @@
    },
    "quantities": [
     {
+     "key": "F_tilde",
      "symbol": "\\tilde F",
      "description": "Sphere free energy in the convention of Giombi and Klebanov, $\\tilde F = \\sin(\\pi d/2)\\log Z_{S^d}$; at $d=5$, $\\tilde F = \\log Z_{S^5} = -F$",
      "value": "\\frac{1}{2^8}\\left(2\\log 2 + \\frac{2\\zeta(3)}{\\pi^2} - \\frac{15\\zeta(5)}{\\pi^4}\\right) \\approx 5.74\\times 10^{-3}",
@@ -32654,6 +33353,18 @@
       "osborn1994"
      ],
      "note": "Osborn–Petkou eq. (5.5), $C_T = \\frac{d}{d-1}\\frac{1}{S_d^2}$ with $S_d = 2\\pi^{d/2}/\\Gamma(d/2)$, evaluated at $d=5$, where $S_5 = 8\\pi^2/3$."
+    },
+    {
+     "key": "c_tilde",
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{4}$, $f = -\\tilde c\\,\\frac{3\\zeta(5)}{4\\pi^2}\\,T^{5}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "1",
+     "method": "exact",
+     "refs": [
+      "sachdev1993",
+      "iliesiu2018"
+     ],
+     "note": "Normalization of Sachdev eq. (1): $f = -\\tilde c\\,\\Gamma(d/2)\\zeta(d)\\pi^{-d/2}T^d$. Iliesiu et al. (2018), Sec. 2.1.1: one free real scalar has $b_T = -2d\\zeta(d)/S_d$ and $f = b_T/d$, i.e. $f = -\\Gamma(d/2)\\zeta(d)\\pi^{-d/2}T^d$."
     }
    ],
    "operators": [
@@ -32747,10 +33458,28 @@
      "journal": "Phys. Rev. D 90, 025018",
      "arxiv": "1404.1094",
      "doi": "10.1103/PhysRevD.90.025018"
+    },
+    {
+     "key": "sachdev1993",
+     "title": "Polylogarithm identities in a conformal field theory in three dimensions",
+     "authors": "Sachdev",
+     "year": 1993,
+     "journal": "Phys. Lett. B 309, 285",
+     "arxiv": "hep-th/9305131",
+     "note": "Defines the thermal coefficient $\\tilde c$ (eq. 1) and proves $\\tilde c/N = 4/5$ for the $O(N)$ model at $N=\\infty$."
+    },
+    {
+     "key": "iliesiu2018",
+     "title": "The Conformal Bootstrap at Finite Temperature",
+     "authors": "Iliesiu, Koloğlu, Mahajan, Perlmutter, Simmons-Duffin",
+     "year": 2018,
+     "journal": "JHEP 10 (2018) 070",
+     "arxiv": "1802.10266"
     }
    ],
    "contributors": [
-    "Canonical111"
+    "Canonical111",
+    "davidsd"
    ],
    "source": "data/theories/free-scalar-5d.yaml",
    "backlinks": [
@@ -34357,6 +35086,7 @@
      "note": "Eq. (2.17)."
     },
     {
+     "key": "F_tilde",
      "symbol": "\\tilde F",
      "description": "Sphere free energy continued in $d$, in the convention of Giombi and Klebanov, $\\tilde F = \\sin(\\pi d/2)\\log Z_{S^d}$",
      "value": "\\frac{\\pi}{1512}",
@@ -34376,6 +35106,18 @@
       "bastianelli1999"
      ],
      "note": "Osborn–Petkou eq. (5.5), $C_T = \\frac{d}{d-1}\\frac{1}{S_d^2}$ with $S_d = 2\\pi^{d/2}/\\Gamma(d/2)$, evaluated at $d=6$, where $S_6 = \\pi^3$. The same follows from eq. (3.22) of Bastianelli, Frolov and Tseytlin (1999) with one scalar."
+    },
+    {
+     "key": "c_tilde",
+     "symbol": "\\tilde c",
+     "description": "Thermal free energy density on $S^1_\\beta\\times\\mathbb{R}^{5}$, $f = -\\tilde c\\,\\frac{2\\pi^3}{945}\\,T^{6}$ ($\\tilde c = 1$ for one free real scalar)",
+     "value": "1",
+     "method": "exact",
+     "refs": [
+      "sachdev1993",
+      "iliesiu2018"
+     ],
+     "note": "Normalization of Sachdev eq. (1): $f = -\\tilde c\\,\\Gamma(d/2)\\zeta(d)\\pi^{-d/2}T^d$. Iliesiu et al. (2018), Sec. 2.1.1: one free real scalar has $b_T = -2d\\zeta(d)/S_d$ and $f = b_T/d$, i.e. $f = -\\Gamma(d/2)\\zeta(d)\\pi^{-d/2}T^d$."
     }
    ],
    "operators": [
@@ -34458,10 +35200,28 @@
      "journal": "JHEP 03 (2015) 117",
      "arxiv": "1409.1937",
      "doi": "10.1007/JHEP03(2015)117"
+    },
+    {
+     "key": "sachdev1993",
+     "title": "Polylogarithm identities in a conformal field theory in three dimensions",
+     "authors": "Sachdev",
+     "year": 1993,
+     "journal": "Phys. Lett. B 309, 285",
+     "arxiv": "hep-th/9305131",
+     "note": "Defines the thermal coefficient $\\tilde c$ (eq. 1) and proves $\\tilde c/N = 4/5$ for the $O(N)$ model at $N=\\infty$."
+    },
+    {
+     "key": "iliesiu2018",
+     "title": "The Conformal Bootstrap at Finite Temperature",
+     "authors": "Iliesiu, Koloğlu, Mahajan, Perlmutter, Simmons-Duffin",
+     "year": 2018,
+     "journal": "JHEP 10 (2018) 070",
+     "arxiv": "1802.10266"
     }
    ],
    "contributors": [
-    "Canonical111"
+    "Canonical111",
+    "davidsd"
    ],
    "source": "data/theories/free-scalar-6d.yaml",
    "backlinks": [
@@ -34720,6 +35480,7 @@
      "note": "Half of the Dirac value $40$ in eq. (2.20)."
     },
     {
+     "key": "F_tilde",
      "symbol": "\\tilde F",
      "description": "Sphere free energy continued in $d$, in the convention of Giombi and Klebanov, $\\tilde F = \\sin(\\pi d/2)\\log Z_{S^d}$",
      "value": "\\frac{191\\pi}{15120}",
@@ -34830,7 +35591,8 @@
     }
    ],
    "contributors": [
-    "Canonical111"
+    "Canonical111",
+    "davidsd"
    ],
    "source": "data/theories/free-weyl-fermion-6d.yaml",
    "backlinks": [
