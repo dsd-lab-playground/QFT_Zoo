@@ -458,6 +458,334 @@ function applyFilters() {
   app.querySelector("#empty").hidden = shown > 0;
 }
 
+/* ------------------------------------------------------------ theory data */
+
+// A theory's quantities are shown by kind: central charges and free energies, anomalies, OPE
+// coefficients, critical exponents, other. A quantity's kind is its `category`, or else inferred
+// from its key, symbol and description (quantityCategory). Rows with the same symbol that describe
+// the same quantity (other papers or methods) are one item: the most precise first, the rest folded.
+const wiki = (page, text) => `<a href="https://en.wikipedia.org/wiki/${page}" target="_blank" rel="noopener">${text}</a>`;
+const QCATS = {
+  central: {
+    id: "central-charges",
+    title: "Central charges and free energy",
+    intro: () => `Normalizations of the stress tensor and of conserved currents (${wiki("Central_charge", "central charges")}), and free energies.`,
+  },
+  anomaly: {
+    id: "anomalies",
+    title: "Anomalies",
+    intro: () => `${wiki("Conformal_anomaly", "Conformal (Weyl) anomalies")} of the stress-tensor trace and ${wiki("%27t_Hooft_anomaly", "'t Hooft anomalies")} of global symmetries.`,
+  },
+  ope: {
+    id: "ope",
+    title: "OPE coefficients",
+    intro: (grouped) =>
+      `Coefficients of the ${wiki("Operator_product_expansion", "operator product expansion")}${
+        grouped ? ", grouped by the OPE they appear in and ordered by the dimension of the exchanged operator" : ""}. ` +
+      "Papers normalize operators and conformal blocks differently; a row states its convention where the entry records it.",
+  },
+  exponent: {
+    id: "exponents",
+    title: "Critical exponents",
+    intro: (rel) =>
+      `${wiki("Critical_exponent", "Critical exponents")} are derived quantities: ${
+        rel ? "most follow from scaling dimensions of operators, by the relation shown." : "they follow from scaling dimensions of operators."}`,
+  },
+  other: { id: "data-other", title: "Other data", intro: () => "" },
+};
+const QCAT_ORDER = ["central", "anomaly", "ope", "exponent", "other"];
+
+function quantityCategory(q, t) {
+  if (q.category) return q.category;
+  const s = String(q.symbol).trim();
+  const d = q.description || "";
+  if (q.key === "a") return "anomaly";
+  if (q.key === "c" || q.key === "C_T" || q.key === "F") return "central";
+  if (q.key === "gap") return "other";
+  // a, c (4d) and a, c_i (6d) are Weyl-anomaly coefficients; in 2d, c is the Virasoro central charge.
+  if (/\banomal(y|ies)\b/i.test(d) || (t.d >= 4 && /^(a|c|a\s*=\s*c|c_[1-3])$/.test(s)) || /^\[?I_\d/.test(s)) return "anomaly";
+  if (/OPE (coefficient|measure)|^(\S+\s)?three-point|structure constant|reflection amplitude|\\langle\s*TTT/i.test(d)) return "ope";
+  if (/^(C_T|C_J|k(?![A-Za-z])|\\tau_|F(?![A-Za-z])|\\tilde\s*F|Z_\{?S|\(c_L|c_\{\\rm eff\}|c$)/.test(s) ||
+      /central charge|two-point coefficient|free energy/i.test(d)) return "central";
+  if (/exponent|anomalous dimension|fractal dimension|RG eigenvalue/i.test(d) ||
+      /^(\\nu|\\eta|\\omega|\\beta|\\gamma|\\delta|\\theta|1\/\\nu|d_[fFH])(?![A-Za-z])/.test(s)) return "exponent";
+  if (/^\|?(\\lambda|f|C)(\^\{?[^_]*?\}?)?_\{/.test(s)) return "ope";
+  return "other";
+}
+
+/** LaTeX compared loosely: no spaces, primes as ', \varepsilon as \epsilon. */
+const normTex = (s) =>
+  String(s ?? "")
+    .replace(/\s+/g, "")
+    .replace(/\^\{((?:\\prime)+)\}/g, (_, p) => "'".repeat(p.length / 6))
+    .replace(/\^\\prime/g, "'")
+    .replace(/\\varepsilon/g, "\\epsilon");
+
+/** Index just past the group that opens at s[j] ("{" or "["). */
+function groupEnd(s, j) {
+  const open = s[j], close = open === "{" ? "}" : "]";
+  let depth = 0;
+  for (let k = j; k < s.length; k++) {
+    if (s[k] === open) depth++;
+    else if (s[k] === close && --depth === 0) return k + 1;
+  }
+  return s.length;
+}
+
+/** Split a product of operator names ("\sigma\sigma\epsilon'", "TT\epsilon", "\phi\phi s") into names. */
+function texTokens(src) {
+  const s = String(src);
+  const atom = (j) => {
+    if (s[j] === "{" || s[j] === "[") return groupEnd(s, j);
+    if (s[j] !== "\\") return j + 1;
+    let k = j + 1;
+    while (k < s.length && /[a-zA-Z]/.test(s[k])) k++;
+    if (k === j + 1) return k + 1;
+    if (/^(mathcal|mathbb|mathrm|mathbf|bar|tilde|hat|rm)$/.test(s.slice(j + 1, k))) {
+      while (s[k] === " ") k++;
+      return atom(k);
+    }
+    return k;
+  };
+  const out = [];
+  for (let i = 0; i < s.length; ) {
+    if (/[\s,]/.test(s[i])) { i++; continue; }
+    let k = atom(i);
+    for (;;) {
+      if (s[k] === "'") k++;
+      else if (s[k] === "_" || s[k] === "^") k = atom(k + 1);
+      else break;
+    }
+    out.push(s.slice(i, k));
+    i = k;
+  }
+  return out;
+}
+
+/** The operators of an OPE coefficient [O1, O2, O3] (O3 exchanged in O1 × O2), from its symbol
+ *  (\lambda_{O1 O2 O3}, f_{...}, C_{...}) or its description ("in $u\times u$", "<TTT>"); else null. */
+function opeOperators(q) {
+  const s = String(q.symbol).replace(/^\|/, "");
+  const d = q.description || "";
+  let toks = [];
+  const m = s.match(/^(?:\\lambda|f|C)(?:\^\{?[^_{}]*\}?)?_/);
+  if (m) {
+    const j = m[0].length;
+    toks = texTokens(s[j] === "{" ? s.slice(j + 1, groupEnd(s, j) - 1) : s[j]);
+  }
+  if (toks.length >= 3) return toks;
+  const x = d.match(/\$([^$]*?)\\times([^$]*?)\$/);
+  if (x) return [x[1].trim(), x[2].trim(), toks[0] ?? ""];
+  const y = d.match(/\\langle\s*([^$]*?)\s*\\rangle/);
+  if (y && texTokens(y[1]).length >= 3) return texTokens(y[1]);
+  return null;
+}
+
+/** Scaling dimension of a named operator in the theory's table (Infinity if not found). Names match
+ *  loosely: "T" finds T_{\mu\nu}, "C" finds C_{\mu\nu\rho\sigma}. */
+function operatorDims(t) {
+  const exact = new Map(), loose = new Map();
+  const strip = (n) => n.replace(/_\{(?:\\(?:mu|nu|rho|sigma|lambda|kappa|alpha|beta)(?:_\d)?|\\[cl]dots|\d)+\}/g, "");
+  for (const o of t.operators || []) {
+    const v = parseFloat(o.Delta);
+    const D = Number.isFinite(v) ? v : Infinity;
+    const n = normTex(o.name);
+    if (!exact.has(n) || exact.get(n) > D) exact.set(n, D);
+    if (!loose.has(strip(n)) || loose.get(strip(n)) > D) loose.set(strip(n), D);
+  }
+  return (name) => {
+    const n = normTex(name);
+    return exact.get(n) ?? loose.get(n) ?? loose.get(strip(n)) ?? Infinity;
+  };
+}
+
+/** Relative uncertainty of a value: 0 for an exact expression, Infinity if unknown. */
+function relError(q) {
+  const s = String(q.value);
+  if (/^exact/i.test(q.method || "")) return 0;
+  let m = s.match(/(-?\d*\.?\d+)\((\d+)\)/);
+  if (m) return (+m[2] * 10 ** -((m[1].split(".")[1] || "").length)) / (Math.abs(+m[1]) || 1);
+  m = s.match(/(-?\d*\.?\d+)\s*\\pm\s*(\d*\.?\d+)/);
+  if (m) return +m[2] / (Math.abs(+m[1]) || 1);
+  if (!/\d\.\d/.test(s) && !/\\(approx|sim|lesssim|gtrsim|leq?|geq?)|[<>≈~]|\.\.\./.test(s)) return 0;
+  return Infinity;
+}
+
+/** "Edge exponent" for "Edge exponent, from the dimer density": the description up to its first , : ; or (. */
+const descBase = (d) => String(d ?? "").split(/[,:;(]/)[0].trim().toLowerCase();
+// "N = 25", "$k = 1$": a description that fixes a parameter describes a different quantity.
+const fixesParameter = (d) => /(^|[\s$(])([A-Za-z]|\\[a-zA-Z]+)\s*=\s*-?\d+(\.\d+)?\s*($|[$,;)])/.test(String(d ?? ""));
+
+function sameQuantity(a, b) {
+  const da = String(a.description ?? "").trim(), db = String(b.description ?? "").trim();
+  if (da === db || /^same\b/i.test(db)) return true;
+  return descBase(da) !== "" && descBase(da) === descBase(db) && !fixesParameter(da) && !fixesParameter(db);
+}
+
+/** Quantities as items { cat, rows }: rows of one quantity (same symbol, same description up to the
+ *  method), most precise first; items in the order of their first row. */
+function quantityItems(t) {
+  const items = [];
+  for (const q of t.quantities || []) {
+    const cat = quantityCategory(q, t);
+    const it = items.find((i) => i.cat === cat && normTex(i.rows[0].symbol) === normTex(q.symbol) && sameQuantity(i.rows[0], q));
+    if (it) it.rows.push(q);
+    else items.push({ cat, rows: [q] });
+  }
+  for (const it of items) {
+    const err = new Map(it.rows.map((q) => [q, relError(q)]));
+    it.rows = it.rows.map((q, i) => [q, i]).sort((x, y) => err.get(x[0]) - err.get(y[0]) || x[1] - y[1]).map(([q]) => q);
+  }
+  return items;
+}
+
+/** The math in a description that relates an exponent to scaling dimensions ("$\nu = 1/(3-\Delta_\epsilon)$"). */
+function exponentRelation(it) {
+  const own = it.rows.find((q) => q.relation);
+  if (own) return { tex: own.relation };
+  const sym = normTex(it.rows[0].symbol);
+  for (const q of it.rows)
+    for (const m of String(q.description ?? "").matchAll(/\$([^$]+)\$/g)) {
+      const x = m[1], lhs = normTex(x.split("=")[0]);
+      if (/\\(propto|sim)\b/.test(x)) continue;
+      if ([...x.matchAll(/\\Delta(_\{[^}]*\}|_\\?[A-Za-z0-9]+)?/g)].some(([D]) => normTex(D) !== sym)) return { tex: /=/.test(x) ? x : `${it.rows[0].symbol} = ${x}`, src: m[0] };
+      if (/=/.test(x) && lhs === sym) return { tex: x, src: m[0] };
+    }
+  return null;
+}
+
+let DET_SEQ = 0;
+
+/** One table of quantity items. With `cat`, the table is shaped for that kind: exponents get a
+ *  relation column, OPE coefficients are grouped by OPE. */
+function quantityTable(t, items, cat, source) {
+  const rel = new Map(cat === "exponent" ? items.map((it) => [it, exponentRelation(it)]) : []);
+  const hasRel = [...rel.values()].some(Boolean);
+  const describe = (q, it) => {
+    let d = String(q.description ?? "");
+    const r = rel.get(it);
+    if (r?.src) d = d.replace(r.src, "").replace(/\s*[,:;]?\s*$/, "").replace(/\s*,\s*,/, ",").replace(/^\s*[,:;]\s*/, "").replace(/\s+([,;.])/g, "$1").replace(/,\s*\(/, " (");
+    if (cat === "exponent" && /^critical exponent\.?$/i.test(d.trim())) d = "";
+    if (cat === "ope" && /^(spinning\s+)?OPE coefficient\.?$/i.test(d.trim())) d = "";
+    return d.trim();
+  };
+  const row = (q, it, head) => {
+    const d = describe(q, it);
+    const desc = head || d !== describe(it.rows[0], it) ? md(d, true) : "";
+    const n = it.rows.length - 1;
+    const more = head && n
+      ? `<div class="sub"><button type="button" class="linkish dets" data-dets="${it.id}" data-n="${n}" aria-expanded="false"
+          title="Other determinations (papers or methods)">+${n} more</button></div>`
+      : "";
+    return [
+      head ? tex(q.symbol) : "",
+      desc + (q.note ? `<div class="sub">${md(q.note, true)}</div>` : ""),
+      ...(hasRel ? [head && rel.get(it) ? `<span class="rel">${tex(rel.get(it).tex)}</span>` : ""] : []),
+      `<span class="value">${tex(q.value)}</span>${more}`,
+      source(q),
+    ];
+  };
+  const tr = (cells, attrs = "") => `<tr${attrs}>${cells.map((c) => `<td>${c ?? ""}</td>`).join("")}</tr>`;
+  const body = (it) => {
+    it.id = `det-${++DET_SEQ}`;
+    const [head, ...rest] = it.rows;
+    return `<tbody class="item">${tr(row(head, it, true))}${rest
+      .map((q) => tr(row(q, it, false), ` class="det" data-det="${it.id}" hidden`))
+      .join("")}</tbody>`;
+  };
+  const headers = [cat === "exponent" ? "Exponent" : cat === "ope" ? "Coefficient" : "Quantity", "Description",
+    ...(hasRel ? ["Relation"] : []), "Value", "Source"];
+  let groups = [[null, items]];
+  if (cat === "ope") groups = opeGroups(t, items);
+  const ncol = headers.length;
+  const html = groups
+    .map(([label, its]) => (label ? `<tbody class="group"><tr><th colspan="${ncol}" scope="rowgroup">${label}</th></tr></tbody>` : "") + its.map(body).join(""))
+    .join("");
+  return {
+    html: `<div class="table-wrap"><table class="qty"><thead><tr>${headers.map((h) => `<th>${h}</th>`).join("")}</tr></thead>${html}</table></div>`,
+    grouped: groups.length > 1,
+    hasRel,
+  };
+}
+
+/** OPE coefficients by OPE O1 × O2 (ordered by the dimensions of O1, O2), each ordered by the
+ *  dimension of the exchanged operator. Labels only when there are several OPEs. */
+function opeGroups(t, items) {
+  const dim = operatorDims(t);
+  const chans = new Map();
+  items.forEach((it, i) => {
+    const ops = opeOperators(it.rows[0]);
+    const key = ops ? [normTex(ops[0]), normTex(ops[1])].sort().join("|") : "";
+    if (!chans.has(key)) {
+      const dims = ops ? [dim(ops[0]), dim(ops[1])].sort((a, b) => a - b) : [Infinity, Infinity];
+      chans.set(key, { key, label: ops ? tex(`${ops[0]} \\times ${ops[1]}`) : "Other", dims, first: i, list: [] });
+    }
+    chans.get(key).list.push({ it, i, d: ops ? dim(ops[2]) : Infinity });
+  });
+  const list = [...chans.values()].sort((a, b) =>
+    (a.key === "") - (b.key === "") || a.dims[0] - b.dims[0] || a.dims[1] - b.dims[1] || a.first - b.first);
+  for (const c of list) c.list.sort((a, b) => a.d - b.d || a.i - b.i);
+  const labelled = list.length > 1 && items.length > 3;
+  if (!labelled) return [[null, list.flatMap((c) => c.list.map((x) => x.it))]];
+  return list.map((c) => [c.label, c.list.map((x) => x.it)]);
+}
+
+/** The page sections for a theory's quantities. A small entry (one kind, or under six items and
+ *  under three of any named kind) keeps one table; otherwise each kind gets its own section, in the
+ *  contents bar. A description part
+ *  titled like "Anomalies" or "Weyl anomaly" is shown in the anomalies section (its index is added
+ *  to `used`). */
+function dataSections(t, source, topics, used) {
+  const items = quantityItems(t);
+  const cats = QCAT_ORDER.filter((c) => items.some((it) => it.cat === c));
+  const conv = t.conventions || {};
+  const convLine = (c) => (conv[c] ? `<p class="small conv">${md(conv[c], true)}</p>` : "");
+  const allBtn = (its) => its.some((it) => it.rows.length > 1)
+    ? ` <button type="button" class="linkish small" data-dets-all aria-expanded="false">Show all determinations</button>` : "";
+  const most = Math.max(...cats.filter((c) => c !== "other").map((c) => items.filter((it) => it.cat === c).length));
+  if (cats.length > 1 && items.length < 6 && most < 3) {
+    const tb = quantityTable(t, items, null, source);
+    const notes = QCAT_ORDER.filter((c) => conv[c]).map((c) => `<p class="small conv"><b>${QCATS[c].title}.</b> ${md(conv[c], true)}</p>`).join("");
+    const btn = allBtn(items);
+    return [section("data", "Data", `${notes}${btn ? `<p class="small">${btn}</p>` : ""}${tb.html}`)];
+  }
+  return cats.map((c) => {
+    const its = items.filter((it) => it.cat === c);
+    const tb = quantityTable(t, its, c, source);
+    const meta = QCATS[c];
+    let prose = "";
+    if (c === "anomaly")
+      topics.forEach((tp, i) => {
+        if (!used.has(i) && /anomal/i.test(tp.title)) {
+          used.add(i);
+          prose += `<div class="prose">${md(tp.body)}</div>`;
+        }
+      });
+    const intro = meta.intro(c === "ope" ? tb.grouped : tb.hasRel) + allBtn(its);
+    const id = cats.length === 1 && c === "other" ? "data" : meta.id;
+    const title = cats.length === 1 && c === "other" ? "Data" : meta.title;
+    return section(id, title, `${intro.trim() ? `<p class="small muted intro">${intro}</p>` : ""}${convLine(c)}${prose}${tb.html}`);
+  });
+}
+
+function setDets(btn, open) {
+  app.querySelectorAll(`[data-det="${btn.dataset.dets}"]`).forEach((tr) => (tr.hidden = !open));
+  btn.setAttribute("aria-expanded", open);
+  btn.textContent = open ? "fold" : `+${btn.dataset.n} more`;
+}
+
+app.addEventListener("click", (e) => {
+  const one = e.target.closest("[data-dets]");
+  if (one) return setDets(one, one.getAttribute("aria-expanded") !== "true");
+  const all = e.target.closest("[data-dets-all]");
+  if (all) {
+    const open = all.getAttribute("aria-expanded") !== "true";
+    all.closest("section").querySelectorAll("[data-dets]").forEach((b) => setDets(b, open));
+    all.setAttribute("aria-expanded", open);
+    all.textContent = open ? "Fold other determinations" : "Show all determinations";
+  }
+});
+
 /* ------------------------------------------------------------ theory view */
 
 /** Split a description at its "### Title" lines. The text before the first one is the
@@ -543,28 +871,13 @@ function viewTheory(id) {
       table(use.map(([h]) => h), t.operators.map((o) => use.map(([, f]) => f(o))), "data")));
   }
 
-  if (t.quantities?.length)
-    out.push(
-      section(
-        "data",
-        "Data",
-        table(
-          ["Quantity", "Description", "Value", "Source"],
-          t.quantities.map((q) => [
-            tex(q.symbol),
-            md(q.description, true) + (q.note ? `<div class="sub">${md(q.note, true)}</div>` : ""),
-            `<span class="value">${tex(q.value)}</span>`,
-            source(q),
-          ]),
-          "data"
-        )
-      )
-    );
+  const usedTopics = new Set();
+  if (t.quantities?.length) out.push(...dataSections(t, source, topics, usedTopics));
 
   if (t.spectra?.length) out.push(section("spectrum", "Spectrum", spectrumShell(t)));
 
   topics.forEach(({ title, body }, i) =>
-    out.push(section(`topic-${i}`, md(title, true), `<div class="prose">${md(body)}</div>`))
+    usedTopics.has(i) || out.push(section(`topic-${i}`, md(title, true), `<div class="prose">${md(body)}</div>`))
   );
 
   const others = theoryLinks(t).filter((l) => !isFlow(l));

@@ -40,7 +40,8 @@ match the filename. See the existing entries for worked examples, e.g.
 | `parameters` | | `symbol`, `description`, `range` |
 | `family` | | marks the entry as a family of theories (see *Families* below) |
 | `symmetry` | | `spacetime`, `supercharges` (number of real Poincaré supercharges), `global`, `gauge`, `notes` |
-| `quantities` | | central charges, exponents, OPE coefficients, …: `key`, `symbol`, `description`, `value`, `method`, `refs`, `note` |
+| `quantities` | | central charges, anomalies, OPE coefficients, exponents, …: `key`, `symbol`, `description`, `value`, `method`, `refs`, `note`, optional `category` and `relation` (see *How quantities are shown*) |
+| `conventions` | | normalizations shared by one category of quantities, e.g. `ope: 'Unit-normalized operators; blocks as in [@kos2016]'` |
 | `operators` | | `name`, `Delta`, `spin`, `weights` (2d: `(h, \bar h)`), `degeneracy`, `rep`, `method`, `refs`, `note` |
 | `relations` | | `type`, `target`, `at`, `variant`, `note`; for flows also `id`, `flow`, `target_expr` (see below) |
 | `references` | yes | `key`, `title`, `authors`, `year`, `journal`, `note`, and at least one of `arxiv` / `doi` / `url` |
@@ -87,6 +88,31 @@ quantities:
 ```
 
 Other keys: `a`, `C_T`, `F`. Each key may appear once per entry.
+
+### How quantities are shown
+
+A theory page shows its quantities by kind, each kind in its own section:
+**Central charges and free energy** (`central`: $c$ in 2d, $C_T$, $C_J$, flavor central
+charges, sphere and thermal free energies), **Anomalies** (`anomaly`: the Weyl anomalies
+$a$, $c$ in $d \ge 4$ and $a$, $c_i$ in 6d, 't Hooft anomalies, anomaly polynomials),
+**OPE coefficients** (`ope`: also other three-point data, such as $\langle TTT\rangle$
+coefficients or the DOZZ formula), **Critical exponents** (`exponent`) and **Other data**.
+An entry with few quantities keeps one table.
+
+- The kind is inferred from `key`, `symbol` and `description` ("OPE coefficient",
+  "anomaly", "exponent", "two-point coefficient", `\lambda_{...}`, `\nu`, ...). Set
+  `category:` only when the inference is wrong.
+- OPE coefficients are grouped by OPE and ordered by the dimension of the exchanged
+  operator, read from the symbol: write `\lambda_{\sigma\sigma\epsilon}` with the
+  operator names used in `operators` (`T` finds `T_{\mu\nu}`). State the normalization in
+  the description (or once for all, in `conventions: {ope: ...}`).
+- Exponents show their relation to scaling dimensions, taken from the description's
+  `$...$` (e.g. `'Critical exponent, $\nu = 1/(3-\Delta_\epsilon)$'`) or from `relation:`.
+- **Several determinations** of one quantity (other papers or methods): give each its own
+  row with the same `symbol` and the same `description` (or one that only adds the method
+  after a comma or colon, or starts with "Same"). The page shows them as one quantity, the
+  most precise value first and the others folded below it. Rows that fix a parameter in the
+  description (`$N = 25$`, `$k = 1$`) stay separate quantities.
 
 ### Families
 
