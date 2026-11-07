@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07 17:37 UTC",
+ "generated": "2026-11-07 17:51 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
  "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math.\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: conformal\n  supercharges: 0\n  global: '$O(N)$'\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: conformal bootstrap\n    refs: [author2025]\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    rep: 'vector'\n    method: conformal bootstrap\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
@@ -23623,11 +23623,6 @@
      "type": "member_of",
      "target": "on-model-3d",
      "at": 1
-    },
-    {
-     "type": "flows_to",
-     "target": "trivial-tqft-3d",
-     "note": "Thermal deformation $S=S_{\\rm Ising}+t\\int d^3x\\,\\epsilon$ with $t>0$ the disordered side, $\\epsilon$ normalized so that $\\lambda_{\\sigma\\sigma\\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$. The global $\\mathbb Z_2$ remains unbroken, acting trivially in the infrared, with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary Ising normalization. No stacked invertible sector is included. [Caselle et al.](https://arxiv.org/abs/1605.05133), Eqs. (1), (4), the value of $C^{\\epsilon}_{\\sigma\\sigma}$ after Eq. (5) and the Monte Carlo convention $t_{\\rm lat}=\\beta_c-\\beta>0$ at high temperature; [Bhardwaj et al.](https://arxiv.org/abs/2408.05266), Sec. 4.1.1, Eqs. (4.8)-(4.10)."
     }
    ],
    "references": [
@@ -23722,26 +23717,6 @@
      "year": 2017,
      "journal": "Phys. Rev. D 96, 036016",
      "arxiv": "1705.06483"
-    },
-    {
-     "key": "caselle2016thermal",
-     "title": "Conformal perturbation of off-critical correlators in the 3D Ising universality class",
-     "authors": "Caselle, Costagliola, Magnoli",
-     "year": 2016,
-     "arxiv": "1605.05133",
-     "doi": "10.1103/PhysRevD.94.026005",
-     "journal": "Phys. Rev. D 94, 026005",
-     "note": "Eqs. (1), (4), p. 2, and the Monte Carlo section, p. 3, fix the thermal-coupling sign convention."
-    },
-    {
-     "key": "bhardwaj2024phases",
-     "title": "Gapped Phases in (2+1)d with Non-Invertible Symmetries: Part I",
-     "authors": "Bhardwaj, Pajer, Schafer-Nameki, Tiwari, Warman, Wu",
-     "year": 2025,
-     "arxiv": "2408.05266",
-     "doi": "10.21468/SciPostPhys.19.2.056",
-     "journal": "SciPost Physics 19, 056",
-     "note": "Section 4.1.1, Eqs. (4.5)-(4.13), arXiv v2 pp. 27-29, distinguishes SSB, trivial and SPT phases."
     }
    ],
    "contributors": [
@@ -27987,13 +27962,7 @@
     "davidsd"
    ],
    "source": "data/theories/trivial-tqft-3d.yaml",
-   "backlinks": [
-    {
-     "type": "flows_from",
-     "target": "ising-3d",
-     "note": "Thermal deformation $S=S_{\\rm Ising}+t\\int d^3x\\,\\epsilon$ with $t>0$ the disordered side, $\\epsilon$ normalized so that $\\lambda_{\\sigma\\sigma\\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$. The global $\\mathbb Z_2$ remains unbroken, acting trivially in the infrared, with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary Ising normalization. No stacked invertible sector is included. [Caselle et al.](https://arxiv.org/abs/1605.05133), Eqs. (1), (4), the value of $C^{\\epsilon}_{\\sigma\\sigma}$ after Eq. (5) and the Monte Carlo convention $t_{\\rm lat}=\\beta_c-\\beta>0$ at high temperature; [Bhardwaj et al.](https://arxiv.org/abs/2408.05266), Sec. 4.1.1, Eqs. (4.8)-(4.10)."
-    }
-   ]
+   "backlinks": []
   },
   {
    "id": "xyz-model-3d",
