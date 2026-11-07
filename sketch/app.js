@@ -634,10 +634,9 @@ function flowDiagram(cluster, current = null) {
   ids.forEach((id) => rank(id, new Set()));
   const node = (id) => {
     const t = BY_ID.get(id);
-    const kind = t.tags?.includes("CFT") ? "" : `<span class="flow-kind">not a CFT</span>`;
     return id === current
-      ? `<span class="flow-node current" data-flow-node="${esc(id)}" aria-current="page">${md(t.name, true)}${kind}</span>`
-      : `<a class="flow-node" data-flow-node="${esc(id)}" href="#/theory/${encodeURIComponent(id)}">${md(t.name, true)}${kind}</a>`;
+      ? `<span class="flow-node current" data-flow-node="${esc(id)}" aria-current="page">${md(t.name, true)}</span>`
+      : `<a class="flow-node" data-flow-node="${esc(id)}" href="#/theory/${encodeURIComponent(id)}">${md(t.name, true)}</a>`;
   };
   const rows = [];
   for (let r = Math.max(...ranks.values()); r >= 0; r--) {

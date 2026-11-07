@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07 17:50 UTC",
+ "generated": "2026-11-07 17:56 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
  "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math.\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: conformal\n  supercharges: 0\n  global: '$O(N)$'\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: conformal bootstrap\n    refs: [author2025]\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    rep: 'vector'\n    method: conformal bootstrap\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
@@ -19474,8 +19474,9 @@
   },
   {
    "id": "abjm-3d",
-   "name": "ABJM theory, $U(N)_k \\times U(N)_{-k}$",
+   "name": "3d ABJM theory, $U(N)_k \\times U(N)_{-k}$",
    "aliases": [
+    "ABJM theory, $U(N)_k \\times U(N)_{-k}$",
     "Aharony–Bergman–Jafferis–Maldacena theory",
     "$\\mathcal{N}=6$ superconformal Chern–Simons-matter theory",
     "M2-brane SCFT"
@@ -19720,8 +19721,9 @@
   },
   {
    "id": "blg-3d",
-   "name": "BLG theory, $SU(2)_k \\times SU(2)_{-k}$",
+   "name": "3d BLG theory, $SU(2)_k \\times SU(2)_{-k}$",
    "aliases": [
+    "BLG theory, $SU(2)_k \\times SU(2)_{-k}$",
     "Bagger–Lambert–Gustavsson theory",
     "Bagger–Lambert $\\mathcal{A}_4$ theory",
     "$\\mathcal{N}=8$ $SO(4)$ Chern–Simons-matter theory"
@@ -20014,8 +20016,9 @@
   },
   {
    "id": "cs-quasi-bosonic-3d",
-   "name": "Chern–Simons theory with fundamental scalars (quasi-bosonic family)",
+   "name": "3d Chern–Simons theory with fundamental scalars (quasi-bosonic family)",
    "aliases": [
+    "Chern–Simons theory with fundamental scalars (quasi-bosonic family)",
     "Quasi-bosonic theories",
     "$U(N)_k$ Chern–Simons theory coupled to a fundamental scalar",
     "Chern–Simons theory coupled to a critical fermion (Chern–Simons–Gross–Neveu)"
@@ -20234,8 +20237,9 @@
   },
   {
    "id": "cs-quasi-fermionic-3d",
-   "name": "Chern–Simons theory with fundamental fermions (quasi-fermionic family)",
+   "name": "3d Chern–Simons theory with fundamental fermions (quasi-fermionic family)",
    "aliases": [
+    "Chern–Simons theory with fundamental fermions (quasi-fermionic family)",
     "Quasi-fermionic theories",
     "$U(N)_k$ Chern–Simons theory coupled to a fundamental fermion",
     "Chern–Simons theory coupled to a critical boson"
@@ -20640,8 +20644,9 @@
   },
   {
    "id": "dqcp-3d",
-   "name": "Deconfined quantum critical point (NCCP$^1$, $SO(5)$)",
+   "name": "3d deconfined quantum critical point (NCCP$^1$, $SO(5)$)",
    "aliases": [
+    "Deconfined quantum critical point (NCCP$^1$, $SO(5)$)",
     "Néel–VBS deconfined criticality",
     "NCCP$^1$ model",
     "$SO(5)$ deconfined criticality"
@@ -20886,8 +20891,9 @@
   },
   {
    "id": "free-fermion-3d",
-   "name": "Free massless Majorana fermion (3d)",
+   "name": "3d free Majorana fermion",
    "aliases": [
+    "Free massless Majorana fermion (3d)",
     "Free Dirac fermion (3d)",
     "Free two-component fermion"
    ],
@@ -21097,8 +21103,9 @@
   },
   {
    "id": "free-scalar-3d",
-   "name": "Free massless scalar (3d)",
+   "name": "3d free scalar",
    "aliases": [
+    "Free massless scalar (3d)",
     "Gaussian fixed point"
    ],
    "d": 3,
@@ -23623,6 +23630,11 @@
      "type": "member_of",
      "target": "on-model-3d",
      "at": 1
+    },
+    {
+     "type": "flows_to",
+     "target": "trivial-tqft-3d",
+     "note": "Thermal deformation $S=S_{\\rm Ising}+t\\int d^3x\\,\\epsilon$ with $t>0$ the disordered side, $\\epsilon$ normalized so that $\\lambda_{\\sigma\\sigma\\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$. The global $\\mathbb Z_2$ remains unbroken, acting trivially in the infrared, with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary Ising normalization. No stacked invertible sector is included. [Caselle et al.](https://arxiv.org/abs/1605.05133), Eqs. (1), (4), the value of $C^{\\epsilon}_{\\sigma\\sigma}$ after Eq. (5) and the Monte Carlo convention $t_{\\rm lat}=\\beta_c-\\beta>0$ at high temperature; [Bhardwaj et al.](https://arxiv.org/abs/2408.05266), Sec. 4.1.1, Eqs. (4.8)-(4.10)."
     }
    ],
    "references": [
@@ -23717,6 +23729,26 @@
      "year": 2017,
      "journal": "Phys. Rev. D 96, 036016",
      "arxiv": "1705.06483"
+    },
+    {
+     "key": "caselle2016thermal",
+     "title": "Conformal perturbation of off-critical correlators in the 3D Ising universality class",
+     "authors": "Caselle, Costagliola, Magnoli",
+     "year": 2016,
+     "arxiv": "1605.05133",
+     "doi": "10.1103/PhysRevD.94.026005",
+     "journal": "Phys. Rev. D 94, 026005",
+     "note": "Eqs. (1), (4), p. 2, and the Monte Carlo section, p. 3, fix the thermal-coupling sign convention."
+    },
+    {
+     "key": "bhardwaj2024phases",
+     "title": "Gapped Phases in (2+1)d with Non-Invertible Symmetries: Part I",
+     "authors": "Bhardwaj, Pajer, Schafer-Nameki, Tiwari, Warman, Wu",
+     "year": 2025,
+     "arxiv": "2408.05266",
+     "doi": "10.21468/SciPostPhys.19.2.056",
+     "journal": "SciPost Physics 19, 056",
+     "note": "Section 4.1.1, Eqs. (4.5)-(4.13), arXiv v2 pp. 27-29, distinguishes SSB, trivial and SPT phases."
     }
    ],
    "contributors": [
@@ -24175,8 +24207,9 @@
   },
   {
    "id": "minimal-n4-scft-3d",
-   "name": "Minimal 3d $\\mathcal{N}=4$ SCFT $\\mathcal{T}_{\\rm min}$",
+   "name": "3d minimal $\\mathcal{N}=4$ SCFT $\\mathcal{T}_{\\rm min}$",
    "aliases": [
+    "Minimal 3d $\\mathcal{N}=4$ SCFT $\\mathcal{T}_{\\rm min}$",
     "$\\mathcal{N}=2$ $U(1)_{-3/2}$ Chern–Simons theory with one chiral of charge 1",
     "Gang–Yamazaki minimal $\\mathcal{N}=4$ SCFT",
     "Rank-0 minimal $\\mathcal{N}=4$ SCFT"
@@ -26430,8 +26463,9 @@
   },
   {
    "id": "qcd3-3d",
-   "name": "QCD$_3$: $SU(N_c)$ gauge theory with $N_f$ fundamental fermions",
+   "name": "3d QCD (QCD$_3$): $SU(N_c)$ gauge theory with $N_f$ fundamental fermions",
    "aliases": [
+    "QCD$_3$: $SU(N_c)$ gauge theory with $N_f$ fundamental fermions",
     "QCD$_3$",
     "$SU(N_c)_0$ with $N_f$ fundamental fermions"
    ],
@@ -27002,8 +27036,9 @@
   },
   {
    "id": "qed3-gn-3d",
-   "name": "QED$_3$–Gross–Neveu–Yukawa model with $N_f$ fermion flavors",
+   "name": "3d QED–Gross–Neveu–Yukawa model with $N_f$ fermion flavors",
    "aliases": [
+    "QED$_3$–Gross–Neveu–Yukawa model with $N_f$ fermion flavors",
     "QED$_3$–GN",
     "QED-GN$_+$"
    ],
@@ -27382,8 +27417,9 @@
   },
   {
    "id": "scalar-qed3-3d",
-   "name": "Scalar QED$_3$ with $N$ complex scalars",
+   "name": "3d scalar QED with $N$ complex scalars",
    "aliases": [
+    "Scalar QED$_3$ with $N$ complex scalars",
     "Abelian Higgs model",
     "Noncompact $\\mathbb{CP}^{N-1}$ model",
     "Bosonic QED$_3$",
@@ -27711,8 +27747,9 @@
   },
   {
    "id": "t-sun-3d",
-   "name": "$T[SU(N)]$",
+   "name": "3d $T[SU(N)]$ theory",
    "aliases": [
+    "$T[SU(N)]$",
     "$T(SU(N))$ theory",
     "Gaiotto–Witten $T[SU(N)]$",
     "S-duality wall theory of $SU(N)$ $\\mathcal{N}=4$ super Yang–Mills"
@@ -27921,19 +27958,20 @@
   },
   {
    "id": "trivial-tqft-3d",
-   "name": "Trivial 3d topological field theory",
+   "name": "3d trivial theory",
    "aliases": [
     "Trivial gapped infrared fixed point"
    ],
    "d": 3,
    "summary": "The normalized trivial bosonic theory: one state on every closed spatial surface and partition function one. Symmetry actions and background responses must be specified when it is used as an RG-flow endpoint.",
    "tags": [
+    "CFT",
     "TQFT",
     "gapped",
     "unitary",
     "exactly solvable"
    ],
-   "description": "This is the tensor unit of three-dimensional bosonic topological field theories,\nnormalized to $Z(M)=1$ and $\\mathcal H(\\Sigma)=\\mathbb C$: Moore and Saxena,\nsection 9, define it by the state space $\\mathbb C$ on every spatial manifold and\nthe identity map on every bordism, so it does not depend on the metric.\nIt has no intrinsic topological order or chiral gravitational response.\nIts only local operator is the identity: the symmetry-TFT construction of this\nphase produces no genuine topological defects (Bhardwaj et al., section 4.1.1,\nEqs. (4.8)-(4.10)).\n\n### Symmetry-equipped endpoints\nThis entry alone does not choose a global symmetry group. For the conventional\nungauged Ising disordered phase, equip it with an unbroken $\\mathbb Z_2$\nwhose infrared action is trivial, with response $Z(M,A)=1$ for flat backgrounds\n$A$: the trivial $\\mathbb Z_2$ phase of Bhardwaj et al., section 4.1.1,\nEqs. (4.8)-(4.10). The flow relation must record this choice.\nThe nontrivial $\\mathbb Z_2$ SPT phase has the same underlying theory but a\ndifferent realization of the symmetry (their Eqs. (3.5)-(3.6) and (4.11)-(4.13));\na flow to it must say so. Invertible theories that are\nnontrivial even without symmetry, such as those with a chiral gravitational\nresponse, are different theories and are not this entry.\n\n### Meaning of the infrared limit\nA microscopic massive theory has finite correlation length. This entry retains\nonly its normalized topological infrared limit, not its massive particles.\nLocal metric rescalings act trivially; this is a conformal fixed point in a\nbroader sense than an interacting CFT with a nonzero stress tensor.\n",
+   "description": "This is the tensor unit of three-dimensional bosonic topological field theories,\nnormalized to $Z(M)=1$ and $\\mathcal H(\\Sigma)=\\mathbb C$: Moore and Saxena,\nsection 9, define it by the state space $\\mathbb C$ on every spatial manifold and\nthe identity map on every bordism, so it does not depend on the metric.\nIt has no intrinsic topological order or chiral gravitational response.\nIts only local operator is the identity: the symmetry-TFT construction of this\nphase produces no genuine topological defects (Bhardwaj et al., section 4.1.1,\nEqs. (4.8)-(4.10)).\n\n### Symmetry-equipped endpoints\nThis entry alone does not choose a global symmetry group. For the conventional\nungauged Ising disordered phase, equip it with an unbroken $\\mathbb Z_2$\nwhose infrared action is trivial, with response $Z(M,A)=1$ for flat backgrounds\n$A$: the trivial $\\mathbb Z_2$ phase of Bhardwaj et al., section 4.1.1,\nEqs. (4.8)-(4.10). The flow relation must record this choice.\nThe nontrivial $\\mathbb Z_2$ SPT phase has the same underlying theory but a\ndifferent realization of the symmetry (their Eqs. (3.5)-(3.6) and (4.11)-(4.13));\na flow to it must say so. Invertible theories that are\nnontrivial even without symmetry, such as those with a chiral gravitational\nresponse, are different theories and are not this entry.\n\n### Meaning of the infrared limit\nA microscopic massive theory has finite correlation length. This entry retains\nonly its normalized topological infrared limit, not its massive particles.\nIt is also the trivial CFT: its only local operator is the identity, its\nstress tensor vanishes, and local metric rescalings act trivially.\n",
    "symmetry": {
     "spacetime": "Topological; local metric rescalings act trivially.",
     "notes": "No global symmetry is fixed by this underlying entry. A flow may specify a retained symmetry, how it is realized, and its background response."
@@ -27962,7 +28000,13 @@
     "davidsd"
    ],
    "source": "data/theories/trivial-tqft-3d.yaml",
-   "backlinks": []
+   "backlinks": [
+    {
+     "type": "flows_from",
+     "target": "ising-3d",
+     "note": "Thermal deformation $S=S_{\\rm Ising}+t\\int d^3x\\,\\epsilon$ with $t>0$ the disordered side, $\\epsilon$ normalized so that $\\lambda_{\\sigma\\sigma\\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$. The global $\\mathbb Z_2$ remains unbroken, acting trivially in the infrared, with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary Ising normalization. No stacked invertible sector is included. [Caselle et al.](https://arxiv.org/abs/1605.05133), Eqs. (1), (4), the value of $C^{\\epsilon}_{\\sigma\\sigma}$ after Eq. (5) and the Monte Carlo convention $t_{\\rm lat}=\\beta_c-\\beta>0$ at high temperature; [Bhardwaj et al.](https://arxiv.org/abs/2408.05266), Sec. 4.1.1, Eqs. (4.8)-(4.10)."
+    }
+   ]
   },
   {
    "id": "xyz-model-3d",
