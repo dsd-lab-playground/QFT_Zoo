@@ -187,7 +187,8 @@ quantities:
     method: fuzzy sphere
     refs: [hu2023]
     note: 'arXiv:2303.08844v1, Table I, p. 4, written $f_{\epsilon\epsilon\epsilon}\approx 1.5441(23)$, finite-size extrapolation; error = difference between leading- and next-to-leading-order fits (Supplemental Material, Sec. IV). **Disagrees** with the bootstrap value $1.53244304(58)$ by about $5\times$ its stated error, so the stated error does not cover the extrapolation systematics.'
-  - symbol: 'F'
+  - key: F
+    symbol: 'F'
     description: 'Sphere free energy ($F = -\log Z_{S^3}$), from the entanglement entropy of a disk'
     value: '0.0612(5)'
     method: fuzzy sphere
@@ -271,6 +272,43 @@ quantities:
     method: conformal bootstrap (rigorous)
     refs: [reehorst2021]
     note: 'arXiv:2111.12093v1, Table 1, p. 4 and Eq. (4.5), p. 16, $\Lambda=19$. Same assumptions. Compare $2 f_{\epsilon\epsilon T''} = 1.3805(10)$, which lies inside this interval.'
+  - key: c_tilde
+    symbol: '\tilde c'
+    description: 'Thermal free energy density on $S^1_\beta\times\mathbb{R}^{2}$, $f = -\tilde c\,\frac{\zeta(3)}{2\pi}\,T^{3}$ ($\tilde c = 1$ for one free real scalar)'
+    value: '0.8003(21)'
+    method: Monte Carlo (non-equilibrium, Casimir amplitude)
+    refs: [bulgarelli2025]
+    note: 'Table II, $\Delta/N = -0.1531(4)$ at $N=1$; the critical Casimir amplitude of a periodic slab is $\Delta = f/T^3$, so $\tilde c = -N(\Delta/N)\,2\pi/\zeta(3)$. Extrapolated to infinite transverse size (their App. C) and fitted in the thickness (App. D). Close to the large-$N$ value per component, $\tfrac45$.'
+  - symbol: '\tilde c'
+    description: 'Thermal free energy density, as above'
+    value: '0.7945(10)'
+    method: Monte Carlo (Casimir amplitude)
+    refs: [vasilyev2009]
+    note: 'Sec. IV B, $\Delta_P = -0.1520(2)$, times $-2\pi/\zeta(3)$. At fixed aspect ratio $\rho = 1/6$ (Bulgarelli et al., App. C); $2.5\sigma$ below their $0.8003(21)$.'
+  - symbol: '\tilde c'
+    description: 'Thermal free energy density, as above'
+    value: '0.749(17)'
+    method: thermal bootstrap (inversion formula + KMS)
+    refs: [iliesiu2019, iliesiu2018]
+    note: 'Eq. (3.1), $b_T = -0.43(1)$, with $f = b_T/d$ (iliesiu2018, Sec. 2.1.1), times $-2\pi/\zeta(3)$. Their eq. (3.2) quotes the Monte Carlo $b_T = -0.459(3)$, i.e. $\tilde c = 0.800(5)$.'
+  - symbol: '\tilde c'
+    description: 'Thermal free energy density, as above'
+    value: '0.748(27)'
+    method: thermal bootstrap (KMS condition)
+    refs: [barrat2024]
+    note: 'Derived here from Table I, $a_T = 1.97(7)$, with their eq. (6) at $d=3$, $\Delta_\sigma = 0.5181489$, $c_T/c_{T,\rm free} = 0.946534$: $f/T^3 = -0.1432(51)$. About $2\sigma$ below the Monte Carlo value (the 2019 bootstrap value is $3\sigma$ below); Bulgarelli et al. discuss the tension.'
+  - symbol: 'F'
+    description: 'Sphere free energy, $F = -\log Z_{S^3}$'
+    value: '0.0623'
+    method: epsilon-expansion (two-sided Padé, estimate)
+    refs: [fei2015]
+    note: 'Eq. (3.20), $\tilde F_{\rm Ising}/\tilde F_s \approx 0.976$ (average of Padé approximants with the 2d Ising value as boundary condition; Table 1 gives 0.9763), times $F_s = 0.063807$. No error quoted; $2\sigma$ above the fuzzy-sphere value.'
+  - symbol: 'F'
+    description: 'Sphere free energy, $F = -\log Z_{S^3}$'
+    value: '0.06234'
+    method: long-range model continuation (estimate)
+    refs: [giombi2024]
+    note: 'Table 5.1, $\tilde F^{\rm LRA}$ at $N=1$; no error quoted.'
 
 operators:
   - name: '\sigma'
@@ -632,5 +670,47 @@ references:
     year: 2017
     journal: Phys. Rev. D 96, 036016
     arxiv: '1705.06483'
+  - key: bulgarelli2025
+    title: Casimir effect in critical $O(N)$ models from non-equilibrium Monte Carlo simulations
+    authors: Bulgarelli, Caselle, Nada, Panero
+    year: 2025
+    journal: Phys. Rev. E 112, 064126
+    arxiv: '2505.20403'
+  - key: vasilyev2009
+    title: Universal scaling functions of critical Casimir forces obtained by Monte Carlo simulations
+    authors: Vasilyev, Gambassi, Maciołek, Dietrich
+    year: 2009
+    journal: Phys. Rev. E 79, 041142
+    arxiv: '0812.0750'
+  - key: iliesiu2019
+    title: Bootstrapping the 3d Ising model at finite temperature
+    authors: Iliesiu, Koloğlu, Simmons-Duffin
+    year: 2019
+    journal: JHEP 12 (2019) 072
+    arxiv: '1811.05451'
+  - key: iliesiu2018
+    title: The Conformal Bootstrap at Finite Temperature
+    authors: Iliesiu, Koloğlu, Mahajan, Perlmutter, Simmons-Duffin
+    year: 2018
+    journal: JHEP 10 (2018) 070
+    arxiv: '1802.10266'
+  - key: barrat2024
+    title: The thermal bootstrap for the critical $O(N)$ model
+    authors: Barrat, Marchetto, Miscioscia, Pomoni
+    year: 2025
+    journal: Phys. Rev. Lett. 134, 211604
+    arxiv: '2411.00978'
+  - key: fei2015
+    title: Generalized $F$-Theorem and the $\epsilon$ Expansion
+    authors: Fei, Giombi, Klebanov, Tarnopolsky
+    year: 2015
+    journal: JHEP 12 (2015) 155
+    arxiv: '1507.01960'
+  - key: giombi2024
+    title: Sphere free energy of scalar field theories with cubic interactions
+    authors: Giombi, Himwich, Katsevich, Klebanov, Sun
+    year: 2025
+    journal: JHEP 12 (2025) 133
+    arxiv: '2412.14086'
 
 contributors: [nathansbenjamin, davidsd]
