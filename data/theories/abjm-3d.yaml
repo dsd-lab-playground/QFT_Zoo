@@ -117,6 +117,18 @@ quantities:
     value: '\frac{128}{3}'
     method: supersymmetric localization
     refs: [chester2014]
+  - symbol: '\tilde c'
+    description: 'Thermal free energy density on $S^1_\beta\times\mathbb{R}^{2}$, $f = -\tilde c\,\frac{\zeta(3)}{2\pi}\,T^{3}$ ($\tilde c = 1$ for one free real scalar)'
+    value: '14N^2'
+    method: exact (free limit, k ≫ N)
+    refs: [abjm2008, sachdev1993]
+    note: 'Eq. (4.9): $\beta F \simeq -N^2V_2T^2\,\frac{7\zeta(3)}{\pi}$ at $\lambda = N/k \to 0$, divided by $\zeta(3)/(2\pi)$. It matches the field content: $8N^2$ real scalars and $4N^2$ two-component Dirac fermions ($8 + 4\cdot2\cdot\tfrac34 = 14$ per $N^2$).'
+  - symbol: '\tilde c'
+    description: 'Thermal free energy density, as above, at large $N$ and strong coupling ($\lambda = N/k \gg 1$)'
+    value: '\frac{16\sqrt2\,\pi^3}{81\,\zeta(3)}\,k^{1/2}N^{3/2} \approx 7.2057\,k^{1/2}N^{3/2}'
+    method: holography (supergravity)
+    refs: [klebanov1996, abjm2008]
+    note: '$f = -\frac{2^{7/2}\pi^2}{3^4}k^{1/2}N^{3/2}T^3$: integrating the near-extremal M2-brane entropy of Klebanov and Tseytlin, eq. (3.15), $S = 2^{7/2}3^{-3}\pi^2N^{3/2}V_2T^2$ ($k=1$), with $N^{3/2} \to k^{1/2}N^{3/2}$ for the $\mathbb{Z}_k$ orbifold (Aharony et al., eq. (4.8)). Aharony et al. print the prefactor of $\beta F$ as $2^{7/2}3^{-2}\pi^2$; $3^{-4}$ is what both the Klebanov–Tseytlin entropy and the planar AdS$_4$ black brane give, $f = -\frac{4\pi^2}{27}\frac{L^2}{G_N}T^3$ with $\frac{L^2}{G_N} = \frac{2F}{\pi}$ fixed by the $S^3$ free energy above, so we take $3^{-2}$ to be a misprint. Corrections are suppressed by powers of $1/\sqrt\lambda$ (Aharony et al.).'
 
 operators:
   - name: 'T_{\mu\nu}'
@@ -188,5 +200,18 @@ references:
     year: 2018
     journal: JHEP 06 (2018) 159
     arxiv: '1711.07343'
+  - key: sachdev1993
+    title: Polylogarithm identities in a conformal field theory in three dimensions
+    authors: Sachdev
+    year: 1993
+    journal: Phys. Lett. B 309, 285
+    arxiv: hep-th/9305131
+    note: 'Defines the thermal coefficient $\tilde c$ (eq. 1) and proves $\tilde c/N = 4/5$ for the $O(N)$ model at $N=\infty$.'
+  - key: klebanov1996
+    title: Entropy of Near-Extremal Black p-branes
+    authors: Klebanov, Tseytlin
+    year: 1996
+    journal: Nucl. Phys. B 475, 164
+    arxiv: hep-th/9604089
 
-contributors: [Canonical111]
+contributors: [Canonical111, davidsd]
