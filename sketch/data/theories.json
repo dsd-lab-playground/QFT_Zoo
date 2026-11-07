@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07 18:21 UTC",
+ "generated": "2026-11-07 18:27 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
  "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math.\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: conformal\n  supercharges: 0\n  global: '$O(N)$'\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: conformal bootstrap\n    refs: [author2025]\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    rep: 'vector'\n    method: conformal bootstrap\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
@@ -3043,6 +3043,7 @@
   {
    "id": "tricritical-ising",
    "name": "Tricritical Ising CFT",
+   "short_name": "2d tricritical Ising",
    "aliases": [
     "$\\mathcal{M}(5,4)$",
     "TIM",
@@ -20718,6 +20719,7 @@
   {
    "id": "cubic-3d",
    "name": "3d cubic fixed point ($N=3$)",
+   "short_name": "3d cubic FP",
    "aliases": [
     "Cubic universality class",
     "Cubic fixed point of three scalars"
@@ -26975,6 +26977,7 @@
   {
    "id": "qed3-3d",
    "name": "3d quantum electrodynamics (QED$_3$) with $N_f$ fermion flavors",
+   "short_name": "QED$_3$, $N_f$",
    "aliases": [
     "QED$_3$",
     "Dirac spin liquid ($N_f = 4$)"
@@ -27349,6 +27352,7 @@
   {
    "id": "qed3-gn-3d",
    "name": "3d QED–Gross–Neveu–Yukawa model with $N_f$ fermion flavors",
+   "short_name": "QED$_3$–GNY, $N_f$",
    "aliases": [
     "QED$_3$–Gross–Neveu–Yukawa model with $N_f$ fermion flavors",
     "QED$_3$–GN",
@@ -29786,6 +29790,7 @@
   {
    "id": "klebanov-witten-4d",
    "name": "Klebanov–Witten theory",
+   "short_name": "KW theory",
    "aliases": [
     "Conifold theory",
     "$T^{1,1}$ theory",
@@ -31332,6 +31337,7 @@
   {
    "id": "n4-sym",
    "name": "$\\mathcal{N}=4$ super Yang–Mills",
+   "short_name": "4d $\\mathcal{N}=4$ SYM",
    "aliases": [
     "N=4 SYM",
     "Maximally supersymmetric Yang–Mills in 4d"
@@ -32517,6 +32523,7 @@
   {
    "id": "yang-mills-4d",
    "name": "4d pure $SU(N)$ Yang–Mills",
+   "short_name": "4d $SU(N)$ YM",
    "aliases": [
     "Pure glue",
     "Yang–Mills theory"
