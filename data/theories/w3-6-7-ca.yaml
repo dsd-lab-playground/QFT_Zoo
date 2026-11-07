@@ -6,6 +6,10 @@ tags: [CFT, interacting, unitary, rational, coset]
 
 description: '$\mathcal{W}_3(6,7) = SU(3)_3\times SU(3)_1/SU(3)_4$.'
 
+symmetry:
+  spacetime: '$SO(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{10}{7}$ — 2d conformal group; parity not recorded'
+  global: 'Contains charge conjugation $C: W \to -W$ (gauged in the $C$ orbifold)'
+
 quantities:
 - key: c
   symbol: c

@@ -50,6 +50,10 @@ family:
     gap: '4/155'
   show: 6
 
+symmetry:
+  spacetime: '$O(3,1)$ for the $E_6$ and $E_8$ invariants, $SO(3,1)$ for $E_7$, extended to two Virasoro algebras, $c = \bar c = 1 - \tfrac{6}{m(m+1)}$ — 2d conformal group with parity for $E_6$ and $E_8$ (diagonal invariants of the extended chiral algebra); parity not recorded for the $E_7$ permutation invariant'
+  global: '$\mathbb{Z}_2$ for the $E_6$ models ($m = 11, 12$), $-1$ on the fields whose $E_6$ label is 4 or 8; not recorded for $E_7$ and $E_8$'
+
 quantities:
 - key: c
   symbol: c

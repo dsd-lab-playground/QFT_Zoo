@@ -7,6 +7,10 @@ tags: [CFT, interacting, unitary, rational, coset, minimal model]
 
 description: 'Same torus partition function as the $S_3$ orbifold $\mathcal{W}_3(6,7)/S_3$.'
 
+symmetry:
+  spacetime: '$SO(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac{10}{7}$ — 2d conformal group; parity not recorded'
+  notes: 'Bosonic theory: the $\mathcal{N}=(1,1)$ supercurrents $G$, $\bar G$ have spin $\tfrac32$ and are not local operators here, so the $\mathcal{N}=1$ super-Virasoro symmetry ($OSp(1|2)\times OSp(1|2)$ globally, 2 $Q$ + 2 $S$ supercharges) acts on the fermionic minimal model, not on this bosonization.'
+
 quantities:
 - key: c
   symbol: c
