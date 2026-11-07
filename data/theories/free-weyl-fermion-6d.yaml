@@ -70,7 +70,8 @@ quantities:
     method: derived
     refs: [bastianelli2000]
     note: 'Half of the Dirac value $40$ in eq. (2.20).'
-  - symbol: '\tilde F'
+  - key: F_tilde
+    symbol: '\tilde F'
     description: 'Sphere free energy continued in $d$, in the convention of Giombi and Klebanov, $\tilde F = \sin(\pi d/2)\log Z_{S^d}$'
     value: '\frac{191\pi}{15120}'
     method: derived
@@ -149,4 +150,4 @@ references:
     arxiv: hep-th/9910030
     note: 'Table 2: minimal spinors in each dimension.'
 
-contributors: [Canonical111]
+contributors: [Canonical111, davidsd]
