@@ -54,7 +54,7 @@ quantities:
     value: '{\rm Tr}\,\mathbb{1}\,\frac{d}{2S_d^2},\quad {\rm Tr}\,\mathbb{1} = 2^{[d/2]}'
     method: exact
     refs: [osborn1994, diab2016, buchel2010]
-    note: 'Osborn–Petkou eq. (5.6) in the form quoted by Diab et al. (footnote 2), and the fermion term of Buchel et al. eq. (7.6) with $\tilde n_f = 2^{[d/2]}$. The member values are this formula at each $d$ (derived); the ratio to the free scalar is ${\rm Tr}\,\mathbb{1}\,\frac{d-1}{2}$.'
+    note: 'Osborn–Petkou [@osborn1994, Eq. (5.6)] in the form quoted by Diab et al. [@diab2016, fn. 2], and the fermion term of Buchel et al. [@buchel2010, Eq. (7.6)] with $\tilde n_f = 2^{[d/2]}$. The member values are this formula at each $d$ (derived); the ratio to the free scalar is ${\rm Tr}\,\mathbb{1}\,\frac{d-1}{2}$.'
 
 operators:
   - name: '\psi'

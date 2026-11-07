@@ -14,24 +14,24 @@ description: |
   The theory is $SU(2)$ gauge theory with $N_f = 2$ massless Dirac fermions in the adjoint
   (equivalently, four Majorana fermions). For adjoint Dirac fermions asymptotic freedom requires
   $N_f < 11/4$, and the two-loop beta function has an infrared zero for $N_f > 17/16$, so
-  $N_f = 2$ is the only integer value in that interval (Ryttov and Shrock). That zero is at
+  $N_f = 2$ is the only integer value in that interval [@ryttov2017]. That zero is at
   strong coupling, and whether the theory is conformal in the infrared is decided by lattice
   simulations. It was proposed for technicolor as "minimal walking technicolor".
 
   Because the adjoint representation is real, the flavor symmetry acting on the four Majorana
   fermions is $SU(4)$. If chiral symmetry were broken by a condensate, the pattern would be
-  $SU(4)\to SO(4)$ (Bergner et al.); in the conformal phase it is unbroken.
+  $SU(4)\to SO(4)$ [@bergner2017]; in the conformal phase it is unbroken.
 
   ### Status
   There is no analytic control, and the infrared phase rests on lattice simulations. These are
-  consistent with an infrared fixed point (Ryttov and Shrock's summary of the lattice work). The
+  consistent with an infrared fixed point (Ryttov and Shrock's summary of the lattice work [@ryttov2017]). The
   running coupling in the Schrödinger-functional scheme gives evidence of a fixed point at
-  $1/g_*^2 = 0.20(4)(3)$ (DeGrand, Shamir and Svetitsky) and is consistent with a fixed point in
-  $2.2 \lesssim g_*^2 \lesssim 3$ (Rantaharju et al.). The mesonic spectrum favors infrared
-  conformality over chiral symmetry breaking (Del Debbio et al. 2010), and a large-volume study
-  of finite-size effects supports conformal behavior (Del Debbio et al. 2016). The mass
+  $1/g_*^2 = 0.20(4)(3)$ [@degrand2011] and is consistent with a fixed point in
+  $2.2 \lesssim g_*^2 \lesssim 3$ [@rantaharju2016]. The mesonic spectrum favors infrared
+  conformality over chiral symmetry breaking [@delDebbio2010], and a large-volume study
+  of finite-size effects supports conformal behavior [@delDebbio2016]. The mass
   anomalous dimension is small: published lattice values range from about 0.2 to 0.5, and the
-  more precise ones listed below lie between 0.2 and 0.38. Bergner et al. find that $\gamma_*$ from the Dirac mode number depends on the lattice
+  more precise ones listed below lie between 0.2 and 0.38. Bergner et al. [@bergner2017] find that $\gamma_*$ from the Dirac mode number depends on the lattice
   coupling, $0.376(3)$ at $\beta = 1.5$ and $0.274(10)$ at $\beta = 1.7$, and conclude that
   scaling corrections must be included before quoting the fixed-point value. The
   scheme-independent expansion to fourth order gives a larger value, $0.556$.

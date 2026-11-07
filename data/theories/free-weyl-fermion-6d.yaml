@@ -17,14 +17,14 @@ description: |
   chirality, gives $\Delta_\psi = \tfrac52$, and all correlators follow from Wick
   contractions. In six-dimensional Minkowski space there are no Majorana or
   Majorana–Weyl spinors, but symplectic Majorana–Weyl spinors exist, and the
-  minimal spinor has 8 real components (Van Proeyen, Table 2), the content of one
+  minimal spinor has 8 real components [@vanproeyen1999, Table 2], the content of one
   Weyl spinor.
 
   A Weyl fermion of spin $\tfrac12$ coupled to gravity in $4k+2$ dimensions has a
-  one-loop gravitational anomaly (Alvarez-Gaumé and Witten), so this theory cannot
+  one-loop gravitational anomaly [@agw1984], so this theory cannot
   be coupled consistently to dynamical gravity on its own. The anomaly comes from
   the imaginary part of the Weyl determinant. The trace anomaly comes from the real
-  part and is half that of a Dirac fermion (Bastianelli, Frolov and Tseytlin, who
+  part and is half that of a Dirac fermion (Bastianelli, Frolov and Tseytlin [@bastianelli2000, Sec. 2], who
   write the $(2,0)$ tensor multiplet anomaly as half that of a non-chiral multiplet
   with Dirac fermions).
 
@@ -34,8 +34,8 @@ description: |
   ### Weyl anomaly
   The coefficients $a, c_1, c_2, c_3$ below are those of
   $\langle T^m{}_m\rangle = a\,E_6 + c_1 I_1 + c_2 I_2 + c_3 I_3 + \nabla_i J^i$ in
-  the conventions of Bastianelli, Frolov and Tseytlin, defined on the page of the
-  free 6d scalar. Each is half of the Dirac-fermion value in their eq. (2.20).
+  the conventions of Bastianelli, Frolov and Tseytlin [@bastianelli2000], defined on the page of the
+  free 6d scalar. Each is half of the Dirac-fermion value in [@bastianelli2000, Eq. (2.20)].
 
 lagrangian: '\mathcal{L} = i\,\bar\psi\,\gamma^\mu\partial_\mu\psi, \qquad \gamma_7\psi = \psi'
 
@@ -43,11 +43,11 @@ symmetry:
   spacetime: conformal
   supercharges: 0
   global: '$U(1)$ fermion number, $\psi\to e^{i\alpha}\psi$ (the manifest symmetry of the Weyl Lagrangian)'
-  notes: 'Gravitational anomaly (Alvarez-Gaumé and Witten).'
+  notes: 'Gravitational anomaly [@agw1984].'
 
 quantities:
   - symbol: 'a'
-    description: 'Euler (type A) Weyl-anomaly coefficient, normalization of Bastianelli, Frolov and Tseytlin'
+    description: 'Euler (type A) Weyl-anomaly coefficient, normalization of Bastianelli, Frolov and Tseytlin [@bastianelli2000]'
     value: '-\frac{191}{144}\cdot\frac{1}{(4\pi)^3\,7!}'
     method: derived
     refs: [bastianelli2000]
@@ -71,17 +71,17 @@ quantities:
     refs: [bastianelli2000]
     note: 'Half of the Dirac value $40$ in eq. (2.20).'
   - symbol: '\tilde F'
-    description: 'Sphere free energy continued in $d$, in the convention of Giombi and Klebanov, $\tilde F = \sin(\pi d/2)\log Z_{S^d}$'
+    description: 'Sphere free energy continued in $d$, in the convention of Giombi and Klebanov [@giombi2014], $\tilde F = \sin(\pi d/2)\log Z_{S^d}$'
     value: '\frac{191\pi}{15120}'
     method: derived
     refs: [giombi2014, bastianelli2000]
-    note: 'Four times (4 components) the per-component fermion integral of Giombi–Klebanov eq. (2.6) at $d=6$, evaluated numerically and equal to $\frac{191\pi}{60480}$ to 30 digits. It is $\frac{191}{10}$ times the scalar value $\frac{\pi}{1512}$, the same ratio as for $a$ above, as required by $\tilde F \propto a$ in even $d$.'
+    note: 'Four times (4 components) the per-component fermion integral of [@giombi2014, Eq. (2.6)] at $d=6$, evaluated numerically and equal to $\frac{191\pi}{60480}$ to 30 digits. It is $\frac{191}{10}$ times the scalar value $\frac{\pi}{1512}$, the same ratio as for $a$ above, as required by $\tilde F \propto a$ in even $d$.'
   - symbol: 'C_T'
     description: 'Stress-tensor two-point coefficient in the absolute Osborn–Petkou normalization, $\langle T_{\mu\nu}(x)T_{\sigma\rho}(0)\rangle = C_T\,\mathcal{I}_{\mu\nu,\sigma\rho}(x)/x^{2d}$'
     value: '\frac{12}{\pi^6}'
     method: derived
     refs: [osborn1994, bastianelli1999]
-    note: 'Half of the Dirac value ${\rm Tr}\,\mathbb{1}\,\frac{d}{2S_d^2}$ (Osborn–Petkou eq. (5.6)) with ${\rm Tr}\,\mathbb{1} = 8$ and $S_6 = \pi^3$. Bastianelli, Frolov and Tseytlin (1999), eq. (3.22), give the same and state that Weyl fermions count as half a Dirac fermion. It is 10 times the value $\frac{6}{5\pi^6}$ of one real scalar.'
+    note: 'Half of the Dirac value ${\rm Tr}\,\mathbb{1}\,\frac{d}{2S_d^2}$ [@osborn1994, Eq. (5.6)] with ${\rm Tr}\,\mathbb{1} = 8$ and $S_6 = \pi^3$. Bastianelli, Frolov and Tseytlin [@bastianelli1999, Eq. (3.22)] give the same and state that Weyl fermions count as half a Dirac fermion. It is 10 times the value $\frac{6}{5\pi^6}$ of one real scalar.'
 
 operators:
   - name: '\psi'
@@ -90,7 +90,7 @@ operators:
     rep: 'charge $1$, one chirality'
     method: exact
     refs: [osborn1994, giombi2014]
-    note: 'From $\langle\psi(x)\bar\psi(0)\rangle = \frac{1}{S_d}\frac{\gamma\cdot x}{x^d}$ (Osborn–Petkou eq. (5.3)); $\Delta = (d-1)/2$.'
+    note: 'From $\langle\psi(x)\bar\psi(0)\rangle = \frac{1}{S_d}\frac{\gamma\cdot x}{x^d}$ [@osborn1994, Eq. (5.3)]; $\Delta = (d-1)/2$.'
   - name: 'J_\mu = \bar\psi\gamma_\mu\psi'
     Delta: 5
     spin: 1
