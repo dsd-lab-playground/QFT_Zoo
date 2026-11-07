@@ -45,7 +45,7 @@ description: |
   $-\cos\tilde\theta$ of the dual boson.
 
   The Thirring coupling $\frac{g}{2}(\bar\psi\gamma^\mu\psi)^2$ is exactly marginal and moves along the
-  compact-boson line, with $(2/R)^2 = 1 + g/\pi$ [@ktt2019, Eq. (3.16)], following Coleman.
+  compact-boson line, with $(2/R)^2 = 1 + g/\pi$ [@ktt2019, Eq. (3.16)], following Coleman [@coleman1975].
 
 lagrangian: '\mathcal{L} = \frac{1}{8\pi}\sum_{i=1,2}\left(\psi_i\,\bar\partial\psi_i + \bar\psi_i\,\partial\bar\psi_i\right)'
 
@@ -124,5 +124,12 @@ references:
     arxiv: '1902.05550'
     doi: '10.21468/SciPostPhys.7.1.007'
     note: 'Dirac fermion symmetries and anomaly (section 3.1), compact boson at $R = 2$ (section 3.3), Thirring coupling (eq. (3.16)).'
+  - key: coleman1975
+    title: 'Quantum sine-Gordon equation as the massive Thirring model'
+    authors: Coleman
+    year: 1975
+    journal: 'Phys. Rev. D 11, 2088'
+    doi: '10.1103/PhysRevD.11.2088'
+    note: 'Thirring-coupling–radius dictionary, as cited by [@ktt2019].'
 
 contributors: [Canonical111]

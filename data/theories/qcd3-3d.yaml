@@ -84,7 +84,7 @@ operators:
     rep: '$Sp(N_f)$ traceless antisymmetric rank-2 fermion bilinear'
     method: 1/Nf
     refs: [huffman2026]
-    note: '[@huffman2026, Eq. (11)], from Xu (2008) converted to this $N_f$. For $N_f = 2$ this is the $SO(5)$ vector of deconfined criticality.'
+    note: '[@huffman2026, Eq. (11)], from Xu [@xu2008] converted to this $N_f$. For $N_f = 2$ this is the $SO(5)$ vector of deconfined criticality.'
   - name: '\phi^{[ij]}\ (N_c = 2,\ N_f = 4)'
     Delta: '1.10(1)'
     spin: 0
@@ -146,5 +146,13 @@ references:
     journal: Phys. Rev. D 114, 034503
     arxiv: '2602.11255'
     note: 'Their $N$ is our $N_f$ (two-component Dirac fermions in the $SU(2)$ fundamental).'
+  - key: xu2008
+    title: 'Renormalization group studies on four-fermion interaction instabilities on algebraic spin liquids'
+    authors: Xu
+    year: 2008
+    journal: 'Phys. Rev. B 78, 054432'
+    arxiv: '0803.0794'
+    doi: '10.1103/PhysRevB.78.054432'
+    note: 'Large-$N$ dimensions at the $SU(2)$ QCD$_3$ fixed point, as used by [@huffman2026].'
 
 contributors: [Canonical111]

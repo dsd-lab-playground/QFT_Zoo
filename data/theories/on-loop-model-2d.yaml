@@ -140,7 +140,7 @@ relations:
     note: 'The dilute member $g = \tfrac43$ ($n = 1$): its local observables form the Ising minimal model, while loop observables need the larger non-unitary CFT.'
   - type: related_to
     target: potts-2d
-    note: 'Boundaries of the Fortuin–Kasteleyn clusters of the critical $Q$-state Potts model form a completely packed loop model with loop weight $\sqrt{Q}$ and Coulomb-gas coupling $g = m/(m+1)$ (Jacobsen and Saleur), the coupling of the dense branch at $n = \sqrt{Q}$: the dense members $g = \tfrac12, \tfrac23$ correspond to $Q = 0, 1$. The two CFTs share $c$ but have different spectra and global symmetries ($O(n)$ versus $S_Q$; [@jrs2023]).'
+    note: 'Boundaries of the Fortuin–Kasteleyn clusters of the critical $Q$-state Potts model form a completely packed loop model with loop weight $\sqrt{Q}$ and Coulomb-gas coupling $g = m/(m+1)$ (Jacobsen and Saleur [@jacobsensaleur2019, Eqs. (4), (43)]), the coupling of the dense branch at $n = \sqrt{Q}$: the dense members $g = \tfrac12, \tfrac23$ correspond to $Q = 0, 1$. The two CFTs share $c$ but have different spectra and global symmetries ($O(n)$ versus $S_Q$; [@jrs2023]).'
 
 references:
   - key: nienhuis1982
@@ -194,5 +194,13 @@ references:
     year: 2012
     journal: Ann. of Math. 175, 1653
     arxiv: '1007.0575'
+  - key: jacobsensaleur2019
+    title: 'Bootstrap approach to geometrical four-point functions in the two-dimensional critical $Q$-state Potts model: A study of the $s$-channel spectra'
+    authors: Jacobsen, Saleur
+    year: 2019
+    journal: 'JHEP 01 (2019) 084'
+    arxiv: '1809.02191'
+    doi: '10.1007/JHEP01(2019)084'
+    note: 'Sec. 2.1: FK cluster boundaries as completely packed loops of weight $\sqrt{Q}$; Eq. (43) and below: $\sqrt{Q} = 2\cos\frac{\pi}{m+1}$, $g = \frac{m}{m+1}$.'
 
 contributors: [Canonical111]

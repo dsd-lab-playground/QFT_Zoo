@@ -36,7 +36,7 @@ description: |
 
   Superconformal symmetry gives all other NS three-point functions from this one and from $\langle\psi\bar\psi V_{\alpha_1}V_{\alpha_2}V_{\alpha_3}\rangle$, whose denominator is built from $\Upsilon_{\rm R}$ [@fh2002, Eq. (2.58)]. Three-point functions with two R fields are given in [@fh2002, Eq. (2.64)]. The NS function has poles where $\sum_i(\alpha_i\ \text{or}\ Q-\alpha_i)=Q-mb-nb^{-1}$ with $m,n\geq0$ and $m+n$ even, reflecting the fermionic screening operator $\psi\bar\psi e^{b\phi}$.
 
-  The structure constants were proposed by Rashkov and Stanishkov [@rs1996] from their pole structure, and derived by Poghossian [@poghossian1997], in both sectors, from four-point functions with the degenerate R field $\Theta_{-b/2}$ (the method Teschner used for Liouville). Fukuda and Hosomichi [@fh2002] rederived them in the form above.
+  The structure constants were proposed by Rashkov and Stanishkov [@rs1996] from their pole structure, and derived by Poghossian [@poghossian1997], in both sectors, from four-point functions with the degenerate R field $\Theta_{-b/2}$ (the method Teschner [@teschner1995] used for Liouville). Fukuda and Hosomichi [@fh2002] rederived them in the form above.
 
   ### Related theories
 
@@ -163,5 +163,13 @@ references:
     year: 1981
     journal: Phys. Lett. B103, 211
     doi: '10.1016/0370-2693(81)90744-9'
+  - key: teschner1995
+    title: 'On the Liouville three-point function'
+    authors: Teschner
+    year: 1995
+    journal: 'Phys. Lett. B363, 65'
+    arxiv: 'hep-th/9507109'
+    doi: '10.1016/0370-2693(95)01200-A'
+    note: 'The degenerate-field method for Liouville structure constants.'
 
 contributors: [Canonical111]

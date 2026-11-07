@@ -42,7 +42,7 @@ description: |
   $\tilde E_1$ theories from the infrared $SU(2)$ gauge theory, assuming that it factorizes into
   three Nekrasov partition functions, and summed the instanton series to four instantons. They
   define $F = -\log Z_{S^5}$ and tabulate $-F$, which is positive. In the convention
-  $\tilde F = \log|Z_{S^5}|$ of Klebanov, Pufu and Safdi, $\tilde F = -F$. Their
+  $\tilde F = \log|Z_{S^5}|$ of Klebanov, Pufu and Safdi [@klebanov2011, Sec. 2], $\tilde F = -F$. Their
   $C_T$ is normalized so that a free real scalar has $C_T = d/(d-1) = 5/4$, a free Dirac fermion
   $C_T = 10$, and a free hypermultiplet $C_T = 15$. The members table quotes their four-instanton
   totals [@chang2017, Tables 2–3]. No error estimates are given; the summed instanton corrections to
@@ -160,5 +160,13 @@ references:
     arxiv: '1710.08418'
     doi: 10.1007/JHEP03(2018)123
     note: 'Tables 2 and 3: $-F$ and $C_T$ to four instantons; footnote 7 and Fig. 1: discrete theta angle.'
+  - key: klebanov2011
+    title: 'F-Theorem without Supersymmetry'
+    authors: Klebanov, Pufu, Safdi
+    year: 2011
+    journal: 'JHEP 10 (2011) 038'
+    arxiv: '1105.4598'
+    doi: '10.1007/JHEP10(2011)038'
+    note: 'Sec. 2: $\tilde F = (-1)^{(d+1)/2}F$ with $F = -\log|Z_{S^d}|$, i.e. $\log|Z_{S^5}|$ in $d=5$.'
 
 contributors: [Canonical111]

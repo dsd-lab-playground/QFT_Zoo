@@ -26,13 +26,13 @@ description: |
 
   $$C(\alpha_1,\alpha_2,\kappa\omega_{N-1})=\big[\pi\mu\gamma(b^2)b^{2-2b^2}\big]^{\frac{(2Q-\sum_i\alpha_i,\rho)}{b}}\,\frac{\Upsilon(b)^{N-1}\,\Upsilon(\kappa)\prod_{e>0}\Upsilon\big((Q-\alpha_1,e)\big)\Upsilon\big((Q-\alpha_2,e)\big)}{\prod_{i,j=1}^{N}\Upsilon\big(\frac{\kappa}{N}+(\alpha_1-Q,h_i)+(\alpha_2-Q,h_j)\big)}.$$
 
-  Here $h_k=\omega_1-e_1-\dots-e_{k-1}$ are the weights of the fundamental representation, $\Upsilon$ is the function of the DOZZ formula, normalised by $\Upsilon(\frac{b+b^{-1}}{2})=1$, and $\sum_i\alpha_i=\alpha_1+\alpha_2+\kappa\omega_{N-1}$. The case $\alpha_3=\kappa\omega_1$ follows from $h_k\to-h_{N+1-k}$. With a semi-degenerate field, the four-point function with the completely degenerate field $V_{-b\omega_1}$ obeys a Fuchsian equation of order $N$, solved by hypergeometric functions of type $(N,N-1)$. For $N=3$, Fateev and Litvinov also give fields degenerate at higher level as Coulomb-type integrals.
+  Here $h_k=\omega_1-e_1-\dots-e_{k-1}$ are the weights of the fundamental representation, $\Upsilon$ is the function of the DOZZ formula, normalised by $\Upsilon(\frac{b+b^{-1}}{2})=1$, and $\sum_i\alpha_i=\alpha_1+\alpha_2+\kappa\omega_{N-1}$. The case $\alpha_3=\kappa\omega_1$ follows from $h_k\to-h_{N+1-k}$. With a semi-degenerate field, the four-point function with the completely degenerate field $V_{-b\omega_1}$ obeys a Fuchsian equation of order $N$, solved by hypergeometric functions of type $(N,N-1)$. For $N=3$, Fateev and Litvinov [@fl2009, Sec. 3] also give fields degenerate at higher level as Coulomb-type integrals.
 
   For imaginary $b$ ($c\leq N-1$) Dupic, Estienne and Ikhlef [@dei2019] computed the semi-degenerate structure constants by the conformal bootstrap; they are not the analytic continuation of the formula above.
 
   ### AGT relation
 
-  Alday, Gaiotto and Tachikawa [@agt2010] conjectured that Liouville correlators on a punctured Riemann surface equal integrals of $|Z|^2$, with $Z$ the full Nekrasov partition function of a four-dimensional $\mathcal{N}=2$ $SU(2)$ superconformal theory of the corresponding class, at $\epsilon_1=b$, $\epsilon_2=b^{-1}$. The sphere with four punctures gives $SU(2)$ with four flavours, and $b=1$ gives Pestun's $S^4$ partition function. Wyllard [@wyllard2009] extended the conjecture to $A_{N-1}$ Toda CFT and conformal $\mathcal{N}=2$ $SU(N)$ quiver gauge theories. A puncture with $U(1)$ flavour symmetry corresponds to a semi-degenerate field and a full puncture to a generic $\alpha$; the one-loop factors match the semi-degenerate structure constants up to normalisation, and the one-instanton term of $SU(3)$ with six fundamentals matches the $\mathcal{W}_3$ conformal block.
+  Alday, Gaiotto and Tachikawa [@agt2010] conjectured that Liouville correlators on a punctured Riemann surface equal integrals of $|Z|^2$, with $Z$ the full Nekrasov partition function of a four-dimensional $\mathcal{N}=2$ $SU(2)$ superconformal theory of the corresponding class, at $\epsilon_1=b$, $\epsilon_2=b^{-1}$. The sphere with four punctures gives $SU(2)$ with four flavours, and $b=1$ gives Pestun's $S^4$ partition function [@pestun2007]. Wyllard [@wyllard2009] extended the conjecture to $A_{N-1}$ Toda CFT and conformal $\mathcal{N}=2$ $SU(N)$ quiver gauge theories. A puncture with $U(1)$ flavour symmetry corresponds to a semi-degenerate field and a full puncture to a generic $\alpha$; the one-loop factors match the semi-degenerate structure constants up to normalisation, and the one-instanton term of $SU(3)$ with six fundamentals matches the $\mathcal{W}_3$ conformal block.
 
   ### $\mathcal{W}_N$ minimal models
 
@@ -170,5 +170,13 @@ references:
     journal: J. Phys. A 52, 105201
     arxiv: '1809.05568'
     doi: '10.1088/1751-8121/aafeaa'
+  - key: pestun2007
+    title: 'Localization of gauge theory on a four-sphere and supersymmetric Wilson loops'
+    authors: Pestun
+    year: 2012
+    journal: 'Commun. Math. Phys. 313, 71'
+    arxiv: '0712.2824'
+    doi: '10.1007/s00220-012-1485-0'
+    note: 'The $S^4$ partition function of $\mathcal{N}=2$ theories, the $b=1$ case of AGT.'
 
 contributors: [Canonical111]

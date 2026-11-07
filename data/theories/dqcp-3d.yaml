@@ -40,7 +40,7 @@ description: |
 
   **Bootstrap.** For a unitary $SO(5)$-invariant CFT, an irrelevant singlet $S$ requires
   $\Delta_\Phi > 0.76$, whereas the measured value is $\Delta_\Phi \approx 0.63$
-  ([@nakayama2016] and Simmons-Duffin; the bound $0.76$ is quoted in
+  ([@nakayama2016]; Simmons-Duffin made the same observation [@nakayama2016, fn. 33]; the bound $0.76$ is quoted in
   [@poland2019; @gorbenko2018]). Li [@li2022] also excludes the lattice and perturbative estimates once
   $S$ is assumed irrelevant. So the measured exponents cannot belong to a unitary $SO(5)$
   CFT without a relevant singlet.

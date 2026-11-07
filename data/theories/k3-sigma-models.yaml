@@ -93,7 +93,7 @@ operators:
 relations:
 - type: related_to
   target: conway-module
-  note: 'GHV [@ghv2012] place the symmetry groups of K3 sigma models in $\mathrm{Co}_0$, the symmetry group of the Conway module; Duncan and Mack-Crane recover twined K3 elliptic genera from its canonically twisted module (see that entry).'
+  note: 'GHV [@ghv2012] place the symmetry groups of K3 sigma models in $\mathrm{Co}_0$, the symmetry group of the Conway module; Duncan and Mack-Crane [@dmc2016] recover twined K3 elliptic genera from its canonically twisted module (see that entry).'
 
 references:
 - key: am1996
@@ -157,5 +157,13 @@ references:
   year: 2004
   journal: Commun. Math. Phys. 246, 181
   arxiv: hep-th/0203213
+- key: dmc2016
+  title: 'Derived equivalences of K3 surfaces and twined elliptic genera'
+  authors: Duncan, Mack-Crane
+  year: 2016
+  journal: 'Res. Math. Sci. 3, 1'
+  arxiv: '1506.06198'
+  doi: '10.1186/s40687-015-0050-9'
+  note: 'Twined K3 elliptic genera from the canonically twisted Conway module.'
 
 contributors: [Canonical111]

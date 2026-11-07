@@ -77,7 +77,7 @@ quantities:
     value: '84\,Q\,(16Q^2+42Q+33)'
     method: anomaly, conjectured c3 relation
     refs: [chang2017b]
-    note: 'Chang–Lin [@chang2017b, Eqs. (6.5)–(6.17)]: $C_T = 3024\,c_3$, with $c_3$ given by the linear relation of Beccaria and Tseytlin between $c_3$ and $(\alpha,\beta,\gamma,\delta)$. Rank 1 without the free hypermultiplet: $C_T = \tfrac{38136}{5}$ [@chang2017b, Eq. (6.18)].'
+    note: 'Chang–Lin [@chang2017b, Eqs. (6.5)–(6.17)]: $C_T = 3024\,c_3$, with $c_3$ given by the linear relation of Beccaria and Tseytlin [@bt2015; @bt2017] between $c_3$ and $(\alpha,\beta,\gamma,\delta)$. Rank 1 without the free hypermultiplet: $C_T = \tfrac{38136}{5}$ [@chang2017b, Eq. (6.18)].'
   - symbol: 'C_J^{E_8}'
     description: '$E_8$ flavor central charge, in the normalization of Chang–Lin [@chang2017b, Sec. 6.2] (a free hypermultiplet has $C_J = 5/2$)'
     value: '60Q^2 + 90Q'
@@ -182,5 +182,21 @@ references:
     journal: JHEP 08 (2017) 128
     arxiv: '1705.05392'
     doi: 10.1007/JHEP08(2017)128
+  - key: bt2015
+    title: 'Conformal anomaly c-coefficients of superconformal 6d theories'
+    authors: Beccaria, Tseytlin
+    year: 2016
+    journal: 'JHEP 01 (2016) 001'
+    arxiv: '1510.02685'
+    doi: '10.1007/JHEP01(2016)001'
+    note: 'Linear relation between $c_3$ and $(\alpha,\beta,\gamma,\delta)$ up to one parameter [@chang2017b, Eq. (6.7)].'
+  - key: bt2017
+    title: '$C_T$ for higher derivative conformal fields and anomalies of (1,0) superconformal 6d theories'
+    authors: Beccaria, Tseytlin
+    year: 2017
+    journal: 'JHEP 06 (2017) 002'
+    arxiv: '1705.00305'
+    doi: '10.1007/JHEP06(2017)002'
+    note: 'Fixes the remaining parameter of the relation [@chang2017b, Eqs. (6.12)–(6.14)].'
 
 contributors: [Canonical111]

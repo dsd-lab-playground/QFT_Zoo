@@ -26,15 +26,15 @@ description: |
   numbers (in string theory on $AdS_3$, a point on the boundary). With $b^2=\frac{1}{k-2}$ their weights are
   $\Delta_j=\bar\Delta_j=-b^2j(j+1)=-\frac{j(j+1)}{k-2}$. The spectrum is the continuum
   $j\in-\frac12+i\mathbb{R}_{\geq0}$, built on the principal series of $SL(2,\mathbb{C})$ that decomposes
-  $L^2(H_3^+)$, and $\Phi^j$ is identified with $\Phi^{-j-1}$ by reflection (Teschner). At $j=-\frac12+is$,
+  $L^2(H_3^+)$, and $\Phi^j$ is identified with $\Phi^{-j-1}$ by reflection [@teschner1997, Sec. 3.1, Eq. (40)]. At $j=-\frac12+is$,
   $\Delta_j=\frac{1/4+s^2}{k-2}>0$. The vacuum is not normalizable, like that of a free boson on $\mathbb{R}$, but it
   lies $\frac{1}{4(k-2)}$ below the continuum, so it is not a limit of normalizable states; Gawedzki [@gawedzki1991] showed that these
   representations and their descendants make up the whole space of states [@mo2002]. Unlike for compact
   WZW models, the representations do not factorize into left and right current-algebra modules.
 
-  The model is not unitary (Teschner; Gawedzki). On a Euclidean worldsheet the action is real and positive, because
+  The model is not unitary [@teschner1997, Sec. 1; @gawedzki1991, Sec. 1]. On a Euclidean worldsheet the action is real and positive, because
   the $B$-field is imaginary there, and normalizable operators have positive weights, so the Euclidean theory is well
-  behaved. But the hermitian form that makes the Hamiltonian symmetric is not positive definite (Teschner), and on a
+  behaved. But the hermitian form that makes the Hamiltonian symmetric is not positive definite [@teschner1997, Sec. 2.1; @teschner1999, Sec. 2.1], and on a
   Lorentzian worldsheet the action is complex and the modes $J^3_{-n}$ create negative-norm states
   [@mo2002]. The model is used as the Euclidean version of the $SL(2,\mathbb{R})$ WZW model for strings on $AdS_3$, and
   as the parent of the Euclidean black hole coset $H_3^+/U(1)$.
@@ -55,7 +55,7 @@ description: |
   Ribault and Teschner [@rt2005] proved that every $n$-point function on the sphere is a Liouville correlator with $n-2$ extra
   degenerate fields:
   $$\Big\langle\prod_{i=1}^n\Phi^{j_i}(\mu_i|z_i)\Big\rangle=\frac{\pi}{2}(-\pi)^{-n}b\,\delta^{(2)}\Big(\sum_i\mu_i\Big)|\Theta_n|^2\Big\langle\prod_{i=1}^nV_{\alpha_i}(z_i)\prod_{a=1}^{n-2}V_{-\frac{1}{2b}}(y_a)\Big\rangle .$$
-  The Liouville theory, in the conventions of Zamolodchikov and Zamolodchikov, has the same $b$ and cosmological
+  The Liouville theory, in the conventions of Zamolodchikov and Zamolodchikov [@zz1996], has the same $b$ and cosmological
   constant $\mu_L=\frac{b^2}{\pi^2}$; the momenta are $\alpha_i=b(j_i+1)+\frac{1}{2b}$; the $y_a$ and $u$ are fixed by
   $\sum_i\frac{\mu_i}{t-z_i}=u\,\frac{\prod_a(t-y_a)}{\prod_i(t-z_i)}$; and
   $\Theta_n=u\prod_{r<s}z_{rs}^{1/2b^2}\prod_{a<a'}y_{aa'}^{1/2b^2}\prod_{r,a}(z_r-y_a)^{-1/2b^2}$. Then
@@ -95,7 +95,7 @@ quantities:
     value: '-\frac{1}{2\pi^3b}\Big[\frac{\gamma(b^2)\,b^{2-2b^2}}{\pi}\Big]^{-2-\sum_ij_i}\frac{\Upsilon_b''(0)\,\Upsilon_b(-b(2j_1+1))\,\Upsilon_b(-b(2j_2+1))\,\Upsilon_b(-b(2j_3+1))}{\Upsilon_b(-b(j_1+j_2+j_3+1))\,\Upsilon_b(-bj^3_{12})\,\Upsilon_b(-bj^2_{13})\,\Upsilon_b(-bj^1_{23})}'
     method: exact
     refs: [rt2005, teschner1997, teschner1999]
-    note: '[@rt2005, Eq. (2.28)], with the normalization discussed by Teschner (1999). In the $x$ basis the three-point function is $C^H$ times $|x_{21}|^{2j^3_{21}}|x_{31}|^{2j^2_{31}}|x_{32}|^{2j^1_{32}}$ and the powers of $|z_{ij}|$ [@rt2005, Eq. (A.4)].'
+    note: '[@rt2005, Eq. (2.28)], with the normalization discussed by Teschner [@teschner1999]. In the $x$ basis the three-point function is $C^H$ times $|x_{21}|^{2j^3_{21}}|x_{31}|^{2j^2_{31}}|x_{32}|^{2j^1_{32}}$ and the powers of $|z_{ij}|$ [@rt2005, Eq. (A.4)].'
 
 operators:
   - name: '\Phi^j'
@@ -175,5 +175,13 @@ references:
     journal: JHEP 03, 095
     arxiv: '0805.3931'
     doi: '10.1088/1126-6708/2009/03/095'
+  - key: zz1996
+    title: 'Structure constants and conformal bootstrap in Liouville field theory'
+    authors: Zamolodchikov, Zamolodchikov
+    year: 1996
+    journal: 'Nucl. Phys. B477, 577'
+    arxiv: 'hep-th/9506136'
+    doi: '10.1016/0550-3213(96)00351-3'
+    note: 'Liouville conventions used by the $H_3^+$–Liouville correspondence [@rt2005].'
 
 contributors: [Canonical111]

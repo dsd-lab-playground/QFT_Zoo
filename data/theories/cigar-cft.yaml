@@ -63,7 +63,7 @@ description: |
   $h_{\min}=\frac{1}{4k}$, so the effective central charge is $c-24h_{\min}=3$.
 
   ### Status
-  Gawedzki [@gawedzki1991] expected the Euclidean black hole CFT to be unitary, citing the result of Dixon, Lykken and Peskin that the
+  Gawedzki [@gawedzki1991, Sec. 5] expected the Euclidean black hole CFT to be unitary, citing the result of Dixon, Lykken and Peskin [@dlp1989] that the
   conditions $J^3_n|\psi\rangle=0$, $n\geq1$, remove the negative-norm states of the $SL(2,\mathbb{R})$ modules for
   discrete spins in a range bounded by $\frac{k}{2}$.
 
@@ -184,5 +184,12 @@ references:
     year: 1989
     journal: Nucl. Phys. B321, 232
     doi: '10.1016/0550-3213(89)90250-2'
+  - key: dlp1989
+    title: 'N=2 superconformal symmetry and SO(2,1) current algebra'
+    authors: Dixon, Peskin, Lykken
+    year: 1989
+    journal: 'Nucl. Phys. B325, 329'
+    doi: '10.1016/0550-3213(89)90459-8'
+    note: 'No-ghost result for $SL(2,\mathbb{R})$ modules with $J^3_n|\psi\rangle = 0$, cited in [@gawedzki1991, Sec. 5].'
 
 contributors: [Canonical111]
