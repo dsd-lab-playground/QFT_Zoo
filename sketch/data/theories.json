@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07 21:52 UTC",
+ "generated": "2026-11-07 23:29 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
  "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, role, ...) are Markdown: use $...$ for math,\n#     and cite as [@key] or [@key, Sec. 2] (never a direct link; see CONTRIBUTING.md, Citations).\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: '$O(4,1)$ — 3d conformal group with parity'   # group — colloquial name; see CONTRIBUTING.md, Spacetime symmetry\n  supercharges: 0                  # real Poincaré supercharges Q; for SUSY theories also state Q and S in spacetime\n  global: '$O(N)$'                 # the global symmetry in words (Markdown)\n  parity: true                     # true | false | conditional (docs/REPRESENTATIONS.md)\n  global_group:                    # the factors operators' representations refer to; [] if none\n    - {id: O(N), group: O(N)}      # group: Z2, Z_n, U(1), O(N), SO(N), SU(N), Sp(N), S_n, D_n, finite\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: 'CB, rigorous'         # an abbreviation from data/methods.yaml, then an optional qualifier (CONTRIBUTING.md, Methods)\n    refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    parity: even                   # even | odd | pair | unknown\n    global: {O(N): vector}         # a label per factor of global_group (docs/REPRESENTATIONS.md)\n    role: 'order parameter'        # optional remark; never part of the representation\n    method: CB\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
@@ -558,7 +558,30 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = 1 - \\tfrac{6(1-g)^2}{g}$ — 2d conformal symmetry, with parity; Euclidean only (non-unitary statistical model)",
     "supercharges": 0,
-    "global": "$O(n)$ for continuous $n$ (a categorical symmetry of the loop model)"
+    "global": "$O(n)$ for continuous $n$ (a categorical symmetry of the loop model)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "O(n)",
+      "group": "listed",
+      "tex": "O(n)",
+      "note": "continuous $n = -2\\cos(\\pi g)$, a categorical symmetry of the loop model",
+      "irreps": [
+       {
+        "label": "singlet",
+        "tex": "\\text{singlet}"
+       },
+       {
+        "label": "vector",
+        "tex": "\\text{vector}"
+       },
+       {
+        "label": "sym(L)",
+        "tex": "\\text{traceless symmetric tensor } [L]"
+       }
+      ]
+     }
+    ]
    },
    "quantities": [
     {
@@ -600,38 +623,95 @@
      "name": "V_{(\\frac12,0)}",
      "Delta": "\\frac{g}{8} - \\frac{(1-g)^2}{2g}",
      "spin": 0,
-     "rep": "vector (spin field, 1-leg operator)",
+     "parity": "even",
+     "global": {
+      "O(n)": "vector"
+     },
+     "role": "spin field, 1-leg operator",
      "method": "exact",
      "refs": [
       "jrs2023",
       "granssamuelsson2022"
      ],
-     "note": "$2\\Delta_{(\\frac12,0)}$. Gives $\\tfrac18$ at $g = \\tfrac43$ (Ising $\\sigma$) and $\\tfrac{5}{48}$ at $g = \\tfrac32$."
+     "note": "$2\\Delta_{(\\frac12,0)}$. Gives $\\tfrac18$ at $g = \\tfrac43$ (Ising $\\sigma$) and $\\tfrac{5}{48}$ at $g = \\tfrac32$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(n)",
+        "canon": "vector",
+        "short": "$\\text{vector}$",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$O(n)$ $\\text{vector}$"
+       }
+      ],
+      "key": "O(n)=vector"
+     }
     },
     {
      "name": "V_{(\\frac{L}{2},0)}",
      "Delta": "\\frac{gL^2}{8} - \\frac{(1-g)^2}{2g}",
      "spin": 0,
-     "rep": "$L$-leg (watermelon) operator, in the traceless symmetric tensor $[L]$ of $O(n)$",
+     "parity": "even",
+     "global": {
+      "O(n)": "sym(L)"
+     },
+     "role": "$L$-leg (watermelon) operator",
      "method": "exact",
      "refs": [
       "jrs2023",
       "granssamuelsson2022",
       "saleur1992"
      ],
-     "note": "$2\\Delta_{(\\frac{L}{2},0)}$. Agrees with Saleur's [@on-loop-model-2d/saleur1992] $2h_L = (9L^2-4)/48$ for dilute polymers ($g = \\tfrac32$) and with his dense-polymer ($g = \\tfrac12$) and percolation-hull ($g = \\tfrac23$) weights."
+     "note": "$2\\Delta_{(\\frac{L}{2},0)}$. Agrees with Saleur's [@on-loop-model-2d/saleur1992] $2h_L = (9L^2-4)/48$ for dilute polymers ($g = \\tfrac32$) and with his dense-polymer ($g = \\tfrac12$) and percolation-hull ($g = \\tfrac23$) weights.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(n)",
+        "canon": "sym(L)",
+        "short": "$\\text{traceless symmetric tensor } [L]$",
+        "trivial": false,
+        "sort": [
+         2
+        ],
+        "text": "$O(n)$ $\\text{traceless symmetric tensor } [L]$"
+       }
+      ],
+      "key": "O(n)=sym(L)"
+     }
     },
     {
      "name": "\\varepsilon = V^D_{\\langle 1,3\\rangle}",
      "Delta": "\\frac{4}{g} - 2",
      "spin": 0,
-     "rep": "singlet (energy operator)",
+     "parity": "even",
+     "global": {
+      "O(n)": "singlet"
+     },
+     "role": "energy operator",
      "method": "exact",
      "refs": [
       "jrs2023",
       "gorbenkozan2020"
      ],
-     "note": "$2\\Delta_{(1,3)}$. Relevant on the dilute branch, marginal at $n = 2$, irrelevant on the dense branch; $\\Delta = 1$ at $g = \\tfrac43$ (Ising $\\epsilon$)."
+     "note": "$2\\Delta_{(1,3)}$. Relevant on the dilute branch, marginal at $n = 2$, irrelevant on the dense branch; $\\Delta = 1$ at $g = \\tfrac43$ (Ising $\\epsilon$).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(n)",
+        "canon": "singlet",
+        "short": "$\\text{singlet}$",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$O(n)$ $\\text{singlet}$"
+       }
+      ],
+      "key": "O(n)=singlet"
+     }
     }
    ],
    "relations": [
@@ -732,6 +812,13 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "O(n)",
+     "type": "listed",
+     "tex": "O(n)"
+    }
    ],
    "source": "data/theories/on-loop-model-2d.yaml",
    "members": [
@@ -1291,7 +1378,26 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = 0$ — 2d conformal symmetry, with parity; Euclidean only (non-unitary statistical model)",
     "supercharges": 0,
-    "global": "$S_Q$ permutation symmetry of the Potts model, at $Q \\to 1$ (formal)"
+    "global": "$S_Q$ permutation symmetry of the Potts model, at $Q \\to 1$ (formal)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "S_Q",
+      "group": "listed",
+      "tex": "S_Q",
+      "note": "permutation symmetry of the Potts model at $Q \\to 1$ (formal)",
+      "irreps": [
+       {
+        "label": "trivial",
+        "tex": "\\text{singlet}"
+       },
+       {
+        "label": "standard",
+        "tex": "(Q-1)\\text{-dimensional}"
+       }
+      ]
+     }
+    ]
    },
    "quantities": [
     {
@@ -1371,27 +1477,65 @@
      "Delta": "\\frac{5}{48}",
      "spin": 0,
      "weights": "(\\tfrac{5}{96}, \\tfrac{5}{96})",
-     "rep": "order parameter; $(Q-1)$-dimensional representation of $S_Q$",
+     "parity": "even",
+     "global": {
+      "S_Q": "standard"
+     },
+     "role": "order parameter",
      "method": "exact",
      "refs": [
       "saleur1992",
       "jacobsensaleur2019",
       "smirnovwerner2001"
      ],
-     "note": "Kac weight $h_{1/2,0}$; its two-point function is the connectivity $\\propto |x|^{-5/24}$."
+     "note": "Kac weight $h_{1/2,0}$; its two-point function is the connectivity $\\propto |x|^{-5/24}$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "S_Q",
+        "canon": "standard",
+        "short": "$(Q-1)\\text{-dimensional}$",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$S_Q$ $(Q-1)\\text{-dimensional}$"
+       }
+      ],
+      "key": "S_Q=standard"
+     }
     },
     {
      "name": "\\epsilon",
      "Delta": "\\frac{5}{4}",
      "spin": 0,
      "weights": "(\\tfrac58, \\tfrac58)",
-     "rep": "$S_Q$ singlet (thermal)",
+     "parity": "even",
+     "global": {
+      "S_Q": "trivial"
+     },
+     "role": "thermal",
      "method": "exact",
      "refs": [
       "saleur1992",
       "delfinoviti2011"
      ],
-     "note": "Kac weight $h_{2,1}$, degenerate; $\\Delta_\\epsilon = 2 - 1/\\nu$."
+     "note": "Kac weight $h_{2,1}$, degenerate; $\\Delta_\\epsilon = 2 - 1/\\nu$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "S_Q",
+        "canon": "trivial",
+        "short": "$\\text{singlet}$",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$S_Q$ $\\text{singlet}$"
+       }
+      ],
+      "key": "S_Q=trivial"
+     }
     }
    ],
    "relations": [
@@ -1523,6 +1667,13 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "S_Q",
+     "type": "listed",
+     "tex": "S_Q"
+    }
    ],
    "source": "data/theories/percolation-2d.yaml",
    "c_num": 0.0,
@@ -1778,6 +1929,20 @@
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac12$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
     "global": "Fermion parity $(-1)^F$, and chiral fermion parity $\\psi \\to \\psi$, $\\bar\\psi \\to -\\bar\\psi$ (the discrete chiral symmetry, which flips the sign of the mass)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2_F",
+      "group": "Z2",
+      "tex": "(-1)^F"
+     },
+     {
+      "id": "Z2_chi",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{\\chi}",
+      "note": "chiral fermion parity $\\psi \\to \\psi$, $\\bar\\psi \\to -\\bar\\psi$"
+     }
+    ],
     "notes": "The chiral symmetry has a mod 2 anomaly: it shifts the action by $i\\pi\\,\\mathrm{Arf}$ of the spin structure [@free-majorana-fermion-2d/ktt2019, Eq. (2.3)]."
    },
    "quantities": [
@@ -1798,31 +1963,119 @@
      "Delta": "\\frac{1}{2}",
      "spin": "1/2",
      "weights": "(\\tfrac12, 0)",
-     "rep": "$(-1)^F$-odd",
+     "parity": "pair",
+     "global": {
+      "Z2_F": "odd",
+      "Z2_chi": "even"
+     },
      "method": "exact",
      "refs": [
       "ginsparg-lectures"
      ],
-     "note": "Holomorphic fermion; $\\bar\\psi$ has weights $(0, \\tfrac12)$."
+     "note": "Holomorphic fermion; $\\bar\\psi$ has weights $(0, \\tfrac12)$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_F",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$(-1)^F$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       },
+       {
+        "factor": "Z2_chi",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2^{\\chi}$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2_F=odd|Z2_chi=even"
+     }
     },
     {
      "name": "\\psi\\bar\\psi",
      "Delta": 1,
      "spin": 0,
      "weights": "(\\tfrac12, \\tfrac12)",
-     "rep": "$(-1)^F$-even, odd under the chiral symmetry",
+     "parity": "unknown",
+     "global": {
+      "Z2_F": "even",
+      "Z2_chi": "odd"
+     },
      "method": "exact",
      "refs": [
       "ginsparg-lectures"
      ],
-     "note": "Mass term; the Ising energy operator $\\varepsilon$ after bosonization [@free-majorana-fermion-2d/ginsparg-lectures, Sec. 5.1]."
+     "note": "Mass term; the Ising energy operator $\\varepsilon$ after bosonization [@free-majorana-fermion-2d/ginsparg-lectures, Sec. 5.1].",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_F",
+        "canon": "even",
+        "short": "even",
+        "text": "$(-1)^F$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       },
+       {
+        "factor": "Z2_chi",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2^{\\chi}$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2_F=even|Z2_chi=odd"
+     }
     },
     {
      "name": "T",
      "Delta": 2,
      "spin": 2,
+     "parity": "pair",
+     "global": {
+      "Z2_F": "even",
+      "Z2_chi": "even"
+     },
      "method": "exact",
-     "note": "Stress tensor, $T = \\tfrac12{:}\\psi\\partial\\psi{:}$ in the normalization of the Lagrangian above [@free-majorana-fermion-2d/ginsparg-lectures, Sec. 3.2]."
+     "note": "Stress tensor, $T = \\tfrac12{:}\\psi\\partial\\psi{:}$ in the normalization of the Lagrangian above [@free-majorana-fermion-2d/ginsparg-lectures, Sec. 3.2].",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_F",
+        "canon": "even",
+        "short": "even",
+        "text": "$(-1)^F$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       },
+       {
+        "factor": "Z2_chi",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2^{\\chi}$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2_F=even|Z2_chi=even"
+     }
     },
     {
      "name": "\\sigma,\\ \\mu",
@@ -1830,12 +2083,47 @@
      "spin": 0,
      "weights": "(\\tfrac{1}{16}, \\tfrac{1}{16})",
      "degeneracy": 2,
+     "parity": "unknown",
+     "global": {
+      "Z2_F": [
+       "even",
+       "odd"
+      ],
+      "Z2_chi": "unknown"
+     },
      "method": "exact",
      "refs": [
       "ginsparg-lectures",
       "ktt2019"
      ],
-     "note": "Ramond-sector ground states, with opposite $(-1)^F$. They are not local operators of the fermionic theory (they end a $(-1)^F$ line); in the Ising model one of them becomes the spin field $\\sigma$."
+     "note": "Ramond-sector ground states, with opposite $(-1)^F$. They are not local operators of the fermionic theory (they end a $(-1)^F$ line); in the Ising model one of them becomes the spin field $\\sigma$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_F",
+        "canon": "even+odd",
+        "short": "even $\\oplus$ odd",
+        "text": "$(-1)^F$ even $\\oplus$ odd",
+        "trivial": false,
+        "sort": [
+         0,
+         0.5
+        ],
+        "sum": true
+       },
+       {
+        "factor": "Z2_chi",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\mathbb{Z}_2^{\\chi}$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "Z2_F=even+odd|Z2_chi=unknown"
+     }
     }
    ],
    "relations": [
@@ -1873,6 +2161,18 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2_F",
+     "type": "Z2",
+     "tex": "(-1)^F"
+    },
+    {
+     "id": "Z2_chi",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{\\chi}"
+    }
    ],
    "source": "data/theories/free-majorana-fermion-2d.yaml",
    "c_num": 0.5,
@@ -4742,7 +5042,21 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = 1$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "$U(1)_{\\rm momentum} \\times U(1)_{\\rm winding}$, plus $X \\to -X$; enhanced to $SU(2)\\times SU(2)$ at $R=\\sqrt2$"
+    "global": "$U(1)_{\\rm momentum} \\times U(1)_{\\rm winding}$, plus $X \\to -X$; enhanced to $SU(2)\\times SU(2)$ at $R=\\sqrt2$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "U(1)_m",
+      "group": "U(1)",
+      "tex": "U(1)_{\\rm momentum}",
+      "note": "$X \\to -X$ reverses both charges (an outer automorphism, said in `global`); enhanced at $R = \\sqrt2$"
+     },
+     {
+      "id": "U(1)_w",
+      "group": "U(1)",
+      "tex": "U(1)_{\\rm winding}"
+     }
+    ]
    },
    "quantities": [
     {
@@ -4768,13 +5082,77 @@
      "name": "V_{n,w}",
      "Delta": "\\frac{n^2}{R^2} + \\frac{w^2R^2}{4}",
      "spin": "nw",
-     "note": "Momentum $n$, winding $w$."
+     "parity": "unknown",
+     "global": {
+      "U(1)_m": "n",
+      "U(1)_w": "w"
+     },
+     "note": "Momentum $n$, winding $w$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)_m",
+        "canon": "q(n)",
+        "short": "charge $n$",
+        "trivial": false,
+        "sort": [
+         1000000,
+         0
+        ],
+        "text": "$U(1)_{\\rm momentum}$ charge $n$"
+       },
+       {
+        "factor": "U(1)_w",
+        "canon": "q(w)",
+        "short": "charge $w$",
+        "trivial": false,
+        "sort": [
+         1000000,
+         0
+        ],
+        "text": "$U(1)_{\\rm winding}$ charge $w$"
+       }
+      ],
+      "key": "U(1)_m=q(n)|U(1)_w=q(w)"
+     }
     },
     {
      "name": "\\partial X,\\ \\bar\\partial X",
      "Delta": 1,
      "spin": 1,
-     "note": "$U(1)$ currents."
+     "parity": "pair",
+     "global": {
+      "U(1)_m": 0,
+      "U(1)_w": 0
+     },
+     "note": "$U(1)$ currents.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)_m",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_{\\rm momentum}$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "U(1)_w",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_{\\rm winding}$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)_m=0|U(1)_w=0"
+     }
     }
    ],
    "references": [
@@ -4804,6 +5182,18 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "U(1)_m",
+     "type": "U1",
+     "tex": "U(1)_{\\rm momentum}"
+    },
+    {
+     "id": "U(1)_w",
+     "type": "U1",
+     "tex": "U(1)_{\\rm winding}"
+    }
    ],
    "source": "data/theories/compact-boson.yaml",
    "span_num": {
@@ -4981,7 +5371,15 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = 1$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "$D_4$ at generic radius"
+    "global": "$D_4$ at generic radius",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "D4",
+      "group": "D_4",
+      "note": "at generic radius; larger at special radii"
+     }
+    ]
    },
    "quantities": [
     {
@@ -5009,7 +5407,26 @@
      "spin": 0,
      "weights": "(\\tfrac{1}{16}, \\tfrac{1}{16})",
      "degeneracy": 2,
-     "note": "Twist fields."
+     "parity": "unknown",
+     "global": {
+      "D4": "E1"
+     },
+     "note": "Twist fields.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "D4",
+        "canon": "E1",
+        "short": "$E_{1}$",
+        "trivial": false,
+        "sort": [
+         4
+        ],
+        "text": "$D_4$ $E_{1}$"
+       }
+      ],
+      "key": "D4=E1"
+     }
     },
     {
      "name": "\\tau_1,\\ \\tau_2",
@@ -5017,7 +5434,26 @@
      "spin": 0,
      "weights": "(\\tfrac{9}{16}, \\tfrac{9}{16})",
      "degeneracy": 2,
-     "note": "Excited twist fields."
+     "parity": "unknown",
+     "global": {
+      "D4": "E1"
+     },
+     "note": "Excited twist fields.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "D4",
+        "canon": "E1",
+        "short": "$E_{1}$",
+        "trivial": false,
+        "sort": [
+         4
+        ],
+        "text": "$D_4$ $E_{1}$"
+       }
+      ],
+      "key": "D4=E1"
+     }
     }
    ],
    "relations": [
@@ -5054,6 +5490,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "D4",
+     "type": "D",
+     "tex": "D_4"
+    }
    ],
    "source": "data/theories/compact-boson-orbifold.yaml",
    "span_num": {
@@ -5160,6 +5603,20 @@
     "spacetime": "Two Virasoro algebras, $c = \\bar c = 1$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
     "global": "$U(1)_L \\times U(1)_R = (U(1)_V \\times U(1)_A)/\\mathbb{Z}_2$, with $\\mathbb{Z}_2 = (-1)^F$; charge conjugation",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "U(1)_V",
+      "group": "U(1)",
+      "tex": "U(1)_V"
+     },
+     {
+      "id": "U(1)_A",
+      "group": "U(1)",
+      "tex": "U(1)_A",
+      "note": "normalized so that $\\psi_L$ has charges $(1, 1)$ and $\\psi_R$ $(1, -1)$ under $U(1)_V\\times U(1)_A$; $U(1)_L\\times U(1)_R = (U(1)_V\\times U(1)_A)/\\mathbb{Z}_2$; charge conjugation is said in `global`"
+     }
+    ],
     "notes": "Mixed $U(1)_V$–$U(1)_A$ anomaly (the chiral anomaly). The discrete chiral transformation of one Majorana component exchanges $U(1)_V$ and $U(1)_A$ and becomes $T$-duality after bosonization [@free-dirac-fermion-2d/ktt2019]."
    },
    "quantities": [
@@ -5180,20 +5637,83 @@
      "Delta": "\\frac{1}{2}",
      "spin": "1/2",
      "weights": "(\\tfrac12, 0)",
-     "rep": "charge $\\pm1$ under $U(1)_L$",
+     "parity": "pair",
+     "global": {
+      "U(1)_V": "±1",
+      "U(1)_A": "±1"
+     },
      "method": "exact",
      "refs": [
       "ginsparg-lectures",
       "ktt2019"
      ],
-     "note": "Left-moving fermion; $\\psi_R$, $\\psi_R^\\dagger$ have weights $(0, \\tfrac12)$ and charge $\\pm1$ under $U(1)_R$."
+     "note": "Left-moving fermion; $\\psi_R$, $\\psi_R^\\dagger$ have weights $(0, \\tfrac12)$ and charge $\\pm1$ under $U(1)_R$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)_V",
+        "canon": "±1",
+        "short": "charge $\\pm1$",
+        "trivial": false,
+        "sort": [
+         1.0,
+         0
+        ],
+        "text": "$U(1)_V$ charge $\\pm1$"
+       },
+       {
+        "factor": "U(1)_A",
+        "canon": "±1",
+        "short": "charge $\\pm1$",
+        "trivial": false,
+        "sort": [
+         1.0,
+         0
+        ],
+        "text": "$U(1)_A$ charge $\\pm1$"
+       }
+      ],
+      "key": "U(1)_V=±1|U(1)_A=±1"
+     }
     },
     {
      "name": "J,\\ \\bar J",
      "Delta": 1,
      "spin": 1,
+     "parity": "pair",
+     "global": {
+      "U(1)_V": 0,
+      "U(1)_A": 0
+     },
      "method": "exact",
-     "note": "$U(1)_L$ and $U(1)_R$ currents; $J \\pm \\bar J$ are the vector and axial currents."
+     "note": "$U(1)_L$ and $U(1)_R$ currents; $J \\pm \\bar J$ are the vector and axial currents.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)_V",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_V$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "U(1)_A",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_A$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)_V=0|U(1)_A=0"
+     }
     },
     {
      "name": "\\psi_L^\\dagger\\psi_R,\\ \\psi_R^\\dagger\\psi_L",
@@ -5201,30 +5721,125 @@
      "spin": 0,
      "weights": "(\\tfrac12, \\tfrac12)",
      "degeneracy": 2,
-     "rep": "neutral under $U(1)_V$, charged under $U(1)_A$",
+     "parity": "pair",
+     "global": {
+      "U(1)_V": 0,
+      "U(1)_A": "±2"
+     },
      "method": "exact",
      "refs": [
       "ktt2019"
      ],
-     "note": "Mass terms; $\\bar\\psi\\psi \\leftrightarrow -\\cos\\tilde\\theta$ in the dual boson."
+     "note": "Mass terms; $\\bar\\psi\\psi \\leftrightarrow -\\cos\\tilde\\theta$ in the dual boson.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)_V",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_V$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "U(1)_A",
+        "canon": "±2",
+        "short": "charge $\\pm2$",
+        "trivial": false,
+        "sort": [
+         2.0,
+         0
+        ],
+        "text": "$U(1)_A$ charge $\\pm2$"
+       }
+      ],
+      "key": "U(1)_V=0|U(1)_A=±2"
+     }
     },
     {
      "name": "J\\bar J",
      "Delta": 2,
      "spin": 0,
      "weights": "(1, 1)",
+     "parity": "even",
+     "global": {
+      "U(1)_V": 0,
+      "U(1)_A": 0
+     },
      "method": "exact",
      "refs": [
       "ktt2019"
      ],
-     "note": "Thirring operator, proportional to $(\\bar\\psi\\gamma^\\mu\\psi)^2$; exactly marginal."
+     "note": "Thirring operator, proportional to $(\\bar\\psi\\gamma^\\mu\\psi)^2$; exactly marginal.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)_V",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_V$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "U(1)_A",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_A$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)_V=0|U(1)_A=0"
+     }
     },
     {
      "name": "T",
      "Delta": 2,
      "spin": 2,
+     "parity": "pair",
+     "global": {
+      "U(1)_V": 0,
+      "U(1)_A": 0
+     },
      "method": "exact",
-     "note": "Stress tensor."
+     "note": "Stress tensor.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)_V",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_V$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "U(1)_A",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_A$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)_V=0|U(1)_A=0"
+     }
     }
    ],
    "relations": [
@@ -5272,6 +5887,18 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "U(1)_V",
+     "type": "U1",
+     "tex": "U(1)_V"
+    },
+    {
+     "id": "U(1)_A",
+     "type": "U1",
+     "tex": "U(1)_A"
+    }
    ],
    "source": "data/theories/free-dirac-fermion-2d.yaml",
    "c_num": 1.0,
@@ -5343,7 +5970,22 @@
    "symmetry": {
     "spacetime": "Two $\\mathcal{N}=2$ super-Virasoro algebras at $c = \\bar c = \\tfrac{3k}{k+2}$ — 2d $\\mathcal{N}=(2,2)$ superconformal symmetry (4 $Q$ + 4 $S$ supercharges), with parity",
     "supercharges": 4,
-    "global": "$U(1)$ R-symmetry on each side (currents $J$, $\\bar J$)"
+    "global": "$U(1)$ R-symmetry on each side (currents $J$, $\\bar J$)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "U(1)_R",
+      "group": "U(1)",
+      "tex": "U(1)_R",
+      "note": "left-moving R-symmetry (current $J$), normalized so that $G^\\pm$ have charge $\\pm1$ and NS chiral primaries have $h = q/2$"
+     },
+     {
+      "id": "U(1)_Rbar",
+      "group": "U(1)",
+      "tex": "\\overline{U(1)}_R",
+      "note": "right-moving R-symmetry (current $\\bar J$); parity exchanges the two factors"
+     }
+    ]
    },
    "quantities": [
     {
@@ -5386,32 +6028,140 @@
      "Delta": "\\frac{l}{k+2}",
      "spin": 0,
      "weights": "\\left(\\tfrac{l}{2(k+2)}, \\tfrac{l}{2(k+2)}\\right)",
+     "parity": "even",
+     "global": {
+      "U(1)_R": "l/(k+2)",
+      "U(1)_Rbar": "l/(k+2)"
+     },
+     "multiplet": {
+      "name": "$\\Phi^l_{l,0}$",
+      "component": "primary",
+      "type": "NS chiral primary, $(c,c)$ ring [@n2-minimal-models/lvw1989]"
+     },
      "method": "exact",
      "refs": [
       "cordovarizi2025",
       "chen2025"
      ],
-     "note": "NS chiral primaries ($h = q/2$), $l = 1, \\dots, k$ ($l = 0$ is the identity); $l = 1$ is the lightest non-vacuum primary for $k \\geq 4$."
+     "note": "NS chiral primaries ($h = q/2$), $l = 1, \\dots, k$ ($l = 0$ is the identity); $l = 1$ is the lightest non-vacuum primary for $k \\geq 4$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)_R",
+        "canon": "q(l/(k+2))",
+        "short": "charge $l/(k+2)$",
+        "trivial": false,
+        "sort": [
+         1000000,
+         0
+        ],
+        "text": "$U(1)_R$ charge $l/(k+2)$"
+       },
+       {
+        "factor": "U(1)_Rbar",
+        "canon": "q(l/(k+2))",
+        "short": "charge $l/(k+2)$",
+        "trivial": false,
+        "sort": [
+         1000000,
+         0
+        ],
+        "text": "$\\overline{U(1)}_R$ charge $l/(k+2)$"
+       }
+      ],
+      "key": "U(1)_R=q(l/(k+2))|U(1)_Rbar=q(l/(k+2))"
+     }
     },
     {
      "name": "\\Phi^l_{l+1,1}",
      "Delta": "\\frac{k}{4(k+2)}",
      "spin": 0,
      "weights": "\\left(\\tfrac{c}{24}, \\tfrac{c}{24}\\right)",
+     "parity": "unknown",
+     "global": {
+      "U(1)_R": "unknown",
+      "U(1)_Rbar": "unknown"
+     },
+     "multiplet": {
+      "name": "$\\Phi^l_{l+1,1}$",
+      "component": "primary",
+      "type": "Ramond ground state [@n2-minimal-models/lvw1989]"
+     },
      "method": "exact",
      "refs": [
       "gray2012",
       "cordovarizi2025"
      ],
-     "note": "Ramond ground states, the spectral flows of the chiral primaries, $l = 0, \\dots, k$; the lightest primaries for $k \\leq 3$."
+     "note": "Ramond ground states, the spectral flows of the chiral primaries, $l = 0, \\dots, k$; the lightest primaries for $k \\leq 3$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)_R",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$U(1)_R$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       },
+       {
+        "factor": "U(1)_Rbar",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\overline{U(1)}_R$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "U(1)_R=unknown|U(1)_Rbar=unknown"
+     }
     },
     {
      "name": "J",
      "Delta": 1,
      "spin": 1,
      "weights": "(1, 0)",
+     "parity": "pair",
+     "global": {
+      "U(1)_R": 0,
+      "U(1)_Rbar": 0
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "primary"
+     },
      "method": "exact",
-     "note": "$U(1)$ R-current."
+     "note": "$U(1)$ R-current.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)_R",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_R$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "U(1)_Rbar",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$\\overline{U(1)}_R$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)_R=0|U(1)_Rbar=0"
+     }
     }
    ],
    "relations": [
@@ -5546,10 +6296,31 @@
      "year": 2020,
      "arxiv": "2004.05742",
      "note": "Branching identity, eq. (A.16), and string-function formula, eq. (A.18)."
+    },
+    {
+     "key": "lvw1989",
+     "title": "Chiral rings in N = 2 superconformal theories",
+     "authors": "Lerche, Vafa, Warner",
+     "year": 1989,
+     "journal": "Nucl. Phys. B324, 427",
+     "doi": "10.1016/0550-3213(89)90474-4",
+     "note": "Nomenclature of the operator multiplets: NS chiral primaries ($h = q/2$), the $(c,c)$ ring, Ramond ground states and spectral flow."
     }
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "U(1)_R",
+     "type": "U1",
+     "tex": "U(1)_R"
+    },
+    {
+     "id": "U(1)_Rbar",
+     "type": "U1",
+     "tex": "\\overline{U(1)}_R"
+    }
    ],
    "source": "data/theories/n2-minimal-models.yaml",
    "members": [
@@ -5969,6 +6740,40 @@
     "spacetime": "Two Virasoro algebras, $c = \\bar c = d$ — 2d conformal symmetry; parity for $d = 1$, and for $d \\geq 2$ only on special loci of the moduli space such as $B = 0$, since parity maps $B \\to -B$",
     "supercharges": 0,
     "global": "$U(1)^d_L\\times U(1)^d_R$ (momentum and winding), enhanced to $G_L\\times G_R$ at special points",
+    "parity": "conditional",
+    "global_group": [
+     {
+      "id": "U(1)^d_L",
+      "group": "listed",
+      "tex": "U(1)^d_L",
+      "note": "charges are the lattice vectors $p_L$; enhanced to $G_L$ at special points",
+      "irreps": [
+       {
+        "label": "0",
+        "tex": "\\text{neutral}"
+       },
+       {
+        "label": "p_L",
+        "tex": "\\text{charge } p_L"
+       }
+      ]
+     },
+     {
+      "id": "U(1)^d_R",
+      "group": "listed",
+      "tex": "U(1)^d_R",
+      "irreps": [
+       {
+        "label": "0",
+        "tex": "\\text{neutral}"
+       },
+       {
+        "label": "p_R",
+        "tex": "\\text{charge } p_R"
+       }
+      ]
+     }
+    ],
     "notes": "T-duality $O(d,d;\\mathbb{Z})$ acts on the moduli and identifies equivalent theories."
    },
    "quantities": [
@@ -6023,19 +6828,79 @@
      "Delta": "\\tfrac12(p_L^2+p_R^2)",
      "spin": "\\tfrac12(p_L^2-p_R^2)",
      "weights": "(\\tfrac12 p_L^2,\\ \\tfrac12 p_R^2)",
+     "parity": "unknown",
+     "global": {
+      "U(1)^d_L": "p_L",
+      "U(1)^d_R": "p_R"
+     },
      "method": "exact",
      "refs": [
       "acht2021"
      ],
-     "note": "Vertex operators, one for each non-zero vector of $\\Lambda$; $U(1)^d\\times U(1)^d$ primaries."
+     "note": "Vertex operators, one for each non-zero vector of $\\Lambda$; $U(1)^d\\times U(1)^d$ primaries.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)^d_L",
+        "canon": "p_L",
+        "short": "$\\text{charge } p_L$",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$U(1)^d_L$ $\\text{charge } p_L$"
+       },
+       {
+        "factor": "U(1)^d_R",
+        "canon": "p_R",
+        "short": "$\\text{charge } p_R$",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$U(1)^d_R$ $\\text{charge } p_R$"
+       }
+      ],
+      "key": "U(1)^d_L=p_L|U(1)^d_R=p_R"
+     }
     },
     {
      "name": "\\partial X^p,\\ \\bar\\partial X^p",
      "Delta": 1,
      "spin": 1,
      "weights": "(1,0),\\ (0,1)",
+     "parity": "pair",
+     "global": {
+      "U(1)^d_L": "0",
+      "U(1)^d_R": "0"
+     },
      "method": "exact",
-     "note": "$U(1)$ currents, $d$ of each chirality; Virasoro primaries."
+     "note": "$U(1)$ currents, $d$ of each chirality; Virasoro primaries.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)^d_L",
+        "canon": "0",
+        "short": "$\\text{neutral}$",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$U(1)^d_L$ $\\text{neutral}$"
+       },
+       {
+        "factor": "U(1)^d_R",
+        "canon": "0",
+        "short": "$\\text{neutral}$",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$U(1)^d_R$ $\\text{neutral}$"
+       }
+      ],
+      "key": "U(1)^d_L=0|U(1)^d_R=0"
+     }
     }
    ],
    "relations": [
@@ -6116,6 +6981,18 @@
    "contributors": [
     "Canonical111"
    ],
+   "global_factors": [
+    {
+     "id": "U(1)^d_L",
+     "type": "listed",
+     "tex": "U(1)^d_L"
+    },
+    {
+     "id": "U(1)^d_R",
+     "type": "listed",
+     "tex": "U(1)^d_R"
+    }
+   ],
    "source": "data/theories/narain-cft.yaml",
    "members": [
     {
@@ -6185,7 +7062,26 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = 1$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "Shifts $X \\to X + a$, $a \\in \\mathbb{R}$ (the momentum $p$ is the charge), and the reflection $X \\to -X$"
+    "global": "Shifts $X \\to X + a$, $a \\in \\mathbb{R}$ (the momentum $p$ is the charge), and the reflection $X \\to -X$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "R",
+      "group": "listed",
+      "tex": "\\mathbb{R}",
+      "note": "shifts $X \\to X + a$; the reflection $X \\to -X$ ($p \\to -p$) is said in `global`",
+      "irreps": [
+       {
+        "label": "0",
+        "tex": "\\text{neutral}"
+       },
+       {
+        "label": "p",
+        "tex": "\\text{charge } p"
+       }
+      ]
+     }
+    ]
    },
    "quantities": [
     {
@@ -6227,26 +7123,82 @@
      "Delta": "p^2",
      "spin": 0,
      "weights": "(\\tfrac{p^2}{2}, \\tfrac{p^2}{2})",
-     "rep": "shift charge $p \\in \\mathbb{R}$",
+     "parity": "even",
+     "global": {
+      "R": "p"
+     },
      "method": "exact",
      "refs": [
       "tong2009"
      ],
-     "note": "Continuous family, delta-function normalizable. Tong [@noncompact-boson-2d/tong2009] gives $h = \\alpha' p^2/4$; here $\\alpha' = 2$."
+     "note": "Continuous family, delta-function normalizable. Tong [@noncompact-boson-2d/tong2009] gives $h = \\alpha' p^2/4$; here $\\alpha' = 2$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "R",
+        "canon": "p",
+        "short": "$\\text{charge } p$",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$\\mathbb{R}$ $\\text{charge } p$"
+       }
+      ],
+      "key": "R=p"
+     }
     },
     {
      "name": "\\partial X,\\ \\bar\\partial X",
      "Delta": 1,
      "spin": 1,
+     "parity": "pair",
+     "global": {
+      "R": "0"
+     },
      "method": "exact",
-     "note": "Shift currents."
+     "note": "Shift currents.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "R",
+        "canon": "0",
+        "short": "$\\text{neutral}$",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$\\mathbb{R}$ $\\text{neutral}$"
+       }
+      ],
+      "key": "R=0"
+     }
     },
     {
      "name": "T",
      "Delta": 2,
      "spin": 2,
+     "parity": "pair",
+     "global": {
+      "R": "0"
+     },
      "method": "exact",
-     "note": "Stress tensor."
+     "note": "Stress tensor.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "R",
+        "canon": "0",
+        "short": "$\\text{neutral}$",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$\\mathbb{R}$ $\\text{neutral}$"
+       }
+      ],
+      "key": "R=0"
+     }
     }
    ],
    "relations": [
@@ -6310,6 +7262,13 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "R",
+     "type": "listed",
+     "tex": "\\mathbb{R}"
+    }
    ],
    "source": "data/theories/noncompact-boson-2d.yaml",
    "c_num": 1.0,
@@ -7219,7 +8178,15 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac87$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "Dihedral $D_{5}$: $\\mathbb{Z}_{5}$ rotations $r$ and charge conjugation $C$"
+    "global": "Dihedral $D_{5}$: $\\mathbb{Z}_{5}$ rotations $r$ and charge conjugation $C$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "D5",
+      "group": "D_5",
+      "note": "rotations $r$ ($\\mathbb{Z}_5$) and charge conjugation $C$"
+     }
+    ]
    },
    "quantities": [
     {
@@ -7244,7 +8211,26 @@
      "spin": 0,
      "weights": "(\\tfrac{2}{35}, \\tfrac{2}{35})",
      "degeneracy": 2,
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "even",
+     "global": {
+      "D5": "E1"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "D5",
+        "canon": "E1",
+        "short": "$E_{1}$",
+        "trivial": false,
+        "sort": [
+         2
+        ],
+        "text": "$D_5$ $E_{1}$"
+       }
+      ],
+      "key": "D5=E1"
+     }
     }
    ],
    "relations": [
@@ -7274,6 +8260,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "D5",
+     "type": "D",
+     "tex": "D_5"
+    }
    ],
    "source": "data/theories/pf5.yaml",
    "c_num": 1.1428571428571428,
@@ -7313,7 +8306,16 @@
    "description": "The $C$-twisted sectors have weights $h = \\frac{k-2+(k-2s)^2}{16(k+2)}$; for $k=5$ the lightest is $h = \\frac{1}{28}$.",
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac87$ — 2d conformal symmetry, with parity",
-    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sectors"
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sectors",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2_dual",
+      "group": "Z2",
+      "tex": "\\hat{\\mathbb{Z}}_2",
+      "note": "dual symmetry of the orbifold, odd on the $C$-twisted sectors; the global symmetry contains the factors declared here; the full group is not recorded"
+     }
+    ]
    },
    "quantities": [
     {
@@ -7337,7 +8339,26 @@
      "Delta": "1/14",
      "spin": 0,
      "weights": "(\\tfrac{1}{28}, \\tfrac{1}{28})",
-     "note": "Lightest $C$-twisted-sector field; lightest non-vacuum primary."
+     "parity": "unknown",
+     "global": {
+      "Z2_dual": "odd"
+     },
+     "note": "Lightest $C$-twisted-sector field; lightest non-vacuum primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_dual",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\hat{\\mathbb{Z}}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2_dual=odd"
+     }
     }
    ],
    "relations": [
@@ -7369,6 +8390,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2_dual",
+     "type": "Z2",
+     "tex": "\\hat{\\mathbb{Z}}_2"
+    }
    ],
    "source": "data/theories/pf5-c.yaml",
    "c_num": 1.1428571428571428,
@@ -7422,6 +8450,14 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac32 - \\tfrac{12}{m(m+2)}$ — 2d conformal symmetry, with parity",
     "global": "Contains $\\mathbb{Z}_2$, $-1$ on the Ramond fields ($r - s$ odd); at $m = 3$ this is the spin flip of the tricritical Ising model",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2",
+      "note": "$-1$ on the Ramond fields; the global symmetry contains the factors declared here; the full group is not recorded"
+     }
+    ],
     "notes": "Bosonic theory: the $\\mathcal{N}=(1,1)$ supercurrents $G$, $\\bar G$ have spin $\\tfrac32$ and are not local operators here, so the $\\mathcal{N}=1$ super-Virasoro symmetry ($OSp(1|2)\\times OSp(1|2)$ globally, 2 $Q$ + 2 $S$ supercharges) acts on the fermionic minimal model, not on this bosonization."
    },
    "quantities": [
@@ -7448,7 +8484,26 @@
      "name": "\\Phi_{2,2}",
      "Delta": "\\frac{3}{m(m+2)}",
      "spin": 0,
-     "note": "NS sector; lightest non-vacuum primary."
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
+     "note": "NS sector; lightest non-vacuum primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     }
    ],
    "relations": [
@@ -7486,6 +8541,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2"
+    }
    ],
    "source": "data/theories/n1-minimal-aa-odd.yaml",
    "members": [
@@ -7859,7 +8921,22 @@
    },
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac32 - \\tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity",
-    "global": "$\\mathbb{Z}_2 \\times \\mathbb{Z}_2$ (the spin flip of each factor)"
+    "global": "$\\mathbb{Z}_2 \\times \\mathbb{Z}_2$ (the spin flip of each factor)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2_Ising",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{\\rm Ising}",
+      "note": "Ising spin flip"
+     },
+     {
+      "id": "Z2_M",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{\\mathcal{M}_m}",
+      "note": "spin flip of $\\mathcal{M}_m$"
+     }
+    ]
    },
    "quantities": [
     {
@@ -7882,7 +8959,37 @@
      "name": "1 \\otimes \\phi_{2,2}",
      "Delta": "\\frac{3}{2m(m+1)}",
      "spin": 0,
-     "note": "Lightest non-vacuum primary."
+     "parity": "even",
+     "global": {
+      "Z2_Ising": "even",
+      "Z2_M": "odd"
+     },
+     "note": "Lightest non-vacuum primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_Ising",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2^{\\rm Ising}$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       },
+       {
+        "factor": "Z2_M",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2^{\\mathcal{M}_m}$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2_Ising=even|Z2_M=odd"
+     }
     }
    ],
    "relations": [
@@ -7916,6 +9023,18 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2_Ising",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{\\rm Ising}"
+    },
+    {
+     "id": "Z2_M",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{\\mathcal{M}_m}"
+    }
    ],
    "source": "data/theories/ising-x-minimal-a.yaml",
    "members": [
@@ -11657,7 +12776,22 @@
    },
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac32 - \\tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity",
-    "global": "$\\mathbb{Z}_2 \\times \\mathbb{Z}_2$ (the Ising spin flip and the $\\mathbb{Z}_2$ of the D-series factor); $\\mathbb{Z}_2 \\times S_3$ at $m = 5, 6$, where the D-series factor is the 3-state Potts or tricritical 3-state Potts model"
+    "global": "$\\mathbb{Z}_2 \\times \\mathbb{Z}_2$ (the Ising spin flip and the $\\mathbb{Z}_2$ of the D-series factor); $\\mathbb{Z}_2 \\times S_3$ at $m = 5, 6$, where the D-series factor is the 3-state Potts or tricritical 3-state Potts model",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2_Ising",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{\\rm Ising}",
+      "note": "Ising spin flip"
+     },
+     {
+      "id": "Z2_D",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{D}",
+      "note": "the $\\mathbb{Z}_2$ of the D-series factor (inside $S_3$ at $m = 5, 6$)"
+     }
+    ]
    },
    "quantities": [
     {
@@ -11681,7 +12815,37 @@
      "name": "1 \\otimes \\phi_{3,3}",
      "Delta": "\\frac{4}{m(m+1)}",
      "spin": 0,
-     "note": "Lightest non-vacuum primary for $m \\geq 6$."
+     "parity": "even",
+     "global": {
+      "Z2_Ising": "even",
+      "Z2_D": "unknown"
+     },
+     "note": "Lightest non-vacuum primary for $m \\geq 6$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_Ising",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2^{\\rm Ising}$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       },
+       {
+        "factor": "Z2_D",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\mathbb{Z}_2^{D}$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "Z2_Ising=even|Z2_D=unknown"
+     }
     }
    ],
    "relations": [
@@ -11714,6 +12878,18 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2_Ising",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{\\rm Ising}"
+    },
+    {
+     "id": "Z2_D",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{D}"
+    }
    ],
    "source": "data/theories/ising-x-minimal-d.yaml",
    "members": [
@@ -12159,7 +13335,15 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac43$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "Dihedral $D_{7}$: $\\mathbb{Z}_{7}$ rotations $r$ and charge conjugation $C$"
+    "global": "Dihedral $D_{7}$: $\\mathbb{Z}_{7}$ rotations $r$ and charge conjugation $C$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "D7",
+      "group": "D_7",
+      "note": "rotations $r$ ($\\mathbb{Z}_7$) and charge conjugation $C$"
+     }
+    ]
    },
    "quantities": [
     {
@@ -12184,7 +13368,26 @@
      "spin": 0,
      "weights": "(\\tfrac{1}{21}, \\tfrac{1}{21})",
      "degeneracy": 2,
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "even",
+     "global": {
+      "D7": "E1"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "D7",
+        "canon": "E1",
+        "short": "$E_{1}$",
+        "trivial": false,
+        "sort": [
+         2
+        ],
+        "text": "$D_7$ $E_{1}$"
+       }
+      ],
+      "key": "D7=E1"
+     }
     }
    ],
    "relations": [
@@ -12214,6 +13417,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "D7",
+     "type": "D",
+     "tex": "D_7"
+    }
    ],
    "source": "data/theories/pf7.yaml",
    "c_num": 1.3333333333333333,
@@ -12252,7 +13462,16 @@
    ],
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac43$ — 2d conformal symmetry, with parity",
-    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sectors"
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sectors",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2_dual",
+      "group": "Z2",
+      "tex": "\\hat{\\mathbb{Z}}_2",
+      "note": "dual symmetry of the orbifold, odd on the $C$-twisted sectors; the global symmetry contains the factors declared here; the full group is not recorded"
+     }
+    ]
    },
    "quantities": [
     {
@@ -12276,7 +13495,26 @@
      "Delta": "1/12",
      "spin": 0,
      "weights": "(\\tfrac{1}{24}, \\tfrac{1}{24})",
-     "note": "Lightest $C$-twisted-sector field; lightest non-vacuum primary."
+     "parity": "unknown",
+     "global": {
+      "Z2_dual": "odd"
+     },
+     "note": "Lightest $C$-twisted-sector field; lightest non-vacuum primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_dual",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\hat{\\mathbb{Z}}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2_dual=odd"
+     }
     }
    ],
    "relations": [
@@ -12308,6 +13546,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2_dual",
+     "type": "Z2",
+     "tex": "\\hat{\\mathbb{Z}}_2"
+    }
    ],
    "source": "data/theories/pf7-c.yaml",
    "c_num": 1.3333333333333333,
@@ -12613,7 +13858,15 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac75$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "Dihedral $D_{8}$: $\\mathbb{Z}_{8}$ rotations $r$ and charge conjugation $C$"
+    "global": "Dihedral $D_{8}$: $\\mathbb{Z}_{8}$ rotations $r$ and charge conjugation $C$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "D8",
+      "group": "D_8",
+      "note": "rotations $r$ ($\\mathbb{Z}_8$) and charge conjugation $C$"
+     }
+    ]
    },
    "quantities": [
     {
@@ -12638,7 +13891,26 @@
      "spin": 0,
      "weights": "(\\tfrac{7}{160}, \\tfrac{7}{160})",
      "degeneracy": 2,
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "even",
+     "global": {
+      "D8": "E1"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "D8",
+        "canon": "E1",
+        "short": "$E_{1}$",
+        "trivial": false,
+        "sort": [
+         4
+        ],
+        "text": "$D_8$ $E_{1}$"
+       }
+      ],
+      "key": "D8=E1"
+     }
     }
    ],
    "relations": [
@@ -12673,6 +13945,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "D8",
+     "type": "D",
+     "tex": "D_8"
+    }
    ],
    "source": "data/theories/pf8.yaml",
    "c_num": 1.4,
@@ -12725,7 +14004,22 @@
    "description": "For even $k$ the reflections of the dihedral group form two classes, $C$ and $Cr$ ($r$ the $\\mathbb{Z}_k$ generator). $\\mathrm{PF}_8/C$ is $\\mathrm{Sym}^2(\\mathrm{TIM})$; this is the orbifold by the other class.",
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac75$ — 2d conformal symmetry, with parity",
-    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $Cr$-twisted sectors, and the rotation $r^4$, which commutes with $Cr$"
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $Cr$-twisted sectors, and the rotation $r^4$, which commutes with $Cr$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2_dual",
+      "group": "Z2",
+      "tex": "\\hat{\\mathbb{Z}}_2",
+      "note": "dual symmetry of the orbifold, odd on the $Cr$-twisted sectors; the global symmetry contains the factors declared here; the full group is not recorded"
+     },
+     {
+      "id": "Z2_r4",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{(r^4)}",
+      "note": "the rotation $r^4$, which commutes with $Cr$"
+     }
+    ]
    },
    "quantities": [
     {
@@ -12749,7 +14043,37 @@
      "Delta": "7/80",
      "spin": 0,
      "weights": "(\\tfrac{7}{160}, \\tfrac{7}{160})",
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "unknown",
+     "global": {
+      "Z2_dual": "unknown",
+      "Z2_r4": "unknown"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_dual",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\hat{\\mathbb{Z}}_2$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       },
+       {
+        "factor": "Z2_r4",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\mathbb{Z}_2^{(r^4)}$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "Z2_dual=unknown|Z2_r4=unknown"
+     }
     }
    ],
    "relations": [
@@ -12781,6 +14105,18 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2_dual",
+     "type": "Z2",
+     "tex": "\\hat{\\mathbb{Z}}_2"
+    },
+    {
+     "id": "Z2_r4",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{(r^4)}"
+    }
    ],
    "source": "data/theories/pf8-cr.yaml",
    "c_num": 1.4,
@@ -14029,7 +15365,22 @@
    ],
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{16}{11}$ — 2d conformal symmetry, with parity",
-    "global": "Contains $\\mathbb{Z}_2 \\times \\mathbb{Z}_2$: the Ising spin flip and the $\\mathbb{Z}_2$ of the $E_6$ minimal model"
+    "global": "Contains $\\mathbb{Z}_2 \\times \\mathbb{Z}_2$: the Ising spin flip and the $\\mathbb{Z}_2$ of the $E_6$ minimal model",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2_Ising",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{\\rm Ising}",
+      "note": "Ising spin flip; the global symmetry contains the factors declared here; the full group is not recorded"
+     },
+     {
+      "id": "Z2_E6",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{E_6}",
+      "note": "the $\\mathbb{Z}_2$ of the $E_6$ minimal model"
+     }
+    ]
    },
    "quantities": [
     {
@@ -14053,7 +15404,37 @@
      "Delta": "5/88",
      "spin": 0,
      "weights": "(\\tfrac{5}{176}, \\tfrac{5}{176})",
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "even",
+     "global": {
+      "Z2_Ising": "even",
+      "Z2_E6": "unknown"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_Ising",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2^{\\rm Ising}$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       },
+       {
+        "factor": "Z2_E6",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\mathbb{Z}_2^{E_6}$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "Z2_Ising=even|Z2_E6=unknown"
+     }
     }
    ],
    "relations": [
@@ -14087,6 +15468,18 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2_Ising",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{\\rm Ising}"
+    },
+    {
+     "id": "Z2_E6",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{E_6}"
+    }
    ],
    "source": "data/theories/ising-x-m11-ae6.yaml",
    "c_num": 1.4545454545454546,
@@ -14129,7 +15522,22 @@
    "description": "Same torus partition function as the dihedral orbifold $\\mathrm{PF}_9/D_3$.",
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{16}{11}$ — 2d conformal symmetry, with parity",
-    "global": "Contains $\\mathbb{Z}_2 \\times \\mathbb{Z}_2$: the spin flip of one factor (equivalent to that of the other once their product is gauged) and the dual $\\mathbb{Z}_2$ of the orbifold, odd on the twisted sector"
+    "global": "Contains $\\mathbb{Z}_2 \\times \\mathbb{Z}_2$: the spin flip of one factor (equivalent to that of the other once their product is gauged) and the dual $\\mathbb{Z}_2$ of the orbifold, odd on the twisted sector",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2_s",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{s}",
+      "note": "spin flip of one factor; the global symmetry contains the factors declared here; the full group is not recorded"
+     },
+     {
+      "id": "Z2_dual",
+      "group": "Z2",
+      "tex": "\\hat{\\mathbb{Z}}_2",
+      "note": "dual symmetry of the orbifold, odd on the twisted sector"
+     }
+    ]
    },
    "quantities": [
     {
@@ -14153,7 +15561,37 @@
      "Delta": "1/11",
      "spin": 0,
      "weights": "(\\tfrac{1}{22}, \\tfrac{1}{22})",
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "unknown",
+     "global": {
+      "Z2_s": "unknown",
+      "Z2_dual": "unknown"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_s",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\mathbb{Z}_2^{s}$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       },
+       {
+        "factor": "Z2_dual",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\hat{\\mathbb{Z}}_2$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "Z2_s=unknown|Z2_dual=unknown"
+     }
     }
    ],
    "relations": [
@@ -14198,6 +15636,18 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2_s",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{s}"
+    },
+    {
+     "id": "Z2_dual",
+     "type": "Z2",
+     "tex": "\\hat{\\mathbb{Z}}_2"
+    }
    ],
    "source": "data/theories/ising-x-m11-ae6-z2.yaml",
    "c_num": 1.4545454545454546,
@@ -14705,7 +16155,22 @@
    ],
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{19}{13}$ — 2d conformal symmetry, with parity",
-    "global": "Contains $\\mathbb{Z}_2 \\times \\mathbb{Z}_2$: the Ising spin flip and the $\\mathbb{Z}_2$ of the $E_6$ minimal model"
+    "global": "Contains $\\mathbb{Z}_2 \\times \\mathbb{Z}_2$: the Ising spin flip and the $\\mathbb{Z}_2$ of the $E_6$ minimal model",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2_Ising",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{\\rm Ising}",
+      "note": "Ising spin flip; the global symmetry contains the factors declared here; the full group is not recorded"
+     },
+     {
+      "id": "Z2_E6",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{E_6}",
+      "note": "the $\\mathbb{Z}_2$ of the $E_6$ minimal model"
+     }
+    ]
    },
    "quantities": [
     {
@@ -14729,7 +16194,37 @@
      "Delta": "5/104",
      "spin": 0,
      "weights": "(\\tfrac{5}{208}, \\tfrac{5}{208})",
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "even",
+     "global": {
+      "Z2_Ising": "even",
+      "Z2_E6": "unknown"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_Ising",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2^{\\rm Ising}$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       },
+       {
+        "factor": "Z2_E6",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\mathbb{Z}_2^{E_6}$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "Z2_Ising=even|Z2_E6=unknown"
+     }
     }
    ],
    "relations": [
@@ -14763,6 +16258,18 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2_Ising",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{\\rm Ising}"
+    },
+    {
+     "id": "Z2_E6",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{E_6}"
+    }
    ],
    "source": "data/theories/ising-x-m12-e6a.yaml",
    "c_num": 1.4615384615384615,
@@ -14806,7 +16313,22 @@
    ],
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{19}{13}$ — 2d conformal symmetry, with parity",
-    "global": "Contains $\\mathbb{Z}_2 \\times \\mathbb{Z}_2$: the spin flip of one factor (equivalent to that of the other once their product is gauged) and the dual $\\mathbb{Z}_2$ of the orbifold, odd on the twisted sector"
+    "global": "Contains $\\mathbb{Z}_2 \\times \\mathbb{Z}_2$: the spin flip of one factor (equivalent to that of the other once their product is gauged) and the dual $\\mathbb{Z}_2$ of the orbifold, odd on the twisted sector",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2_s",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{s}",
+      "note": "spin flip of one factor; the global symmetry contains the factors declared here; the full group is not recorded"
+     },
+     {
+      "id": "Z2_dual",
+      "group": "Z2",
+      "tex": "\\hat{\\mathbb{Z}}_2",
+      "note": "dual symmetry of the orbifold, odd on the twisted sector"
+     }
+    ]
    },
    "quantities": [
     {
@@ -14830,7 +16352,37 @@
      "Delta": "1/13",
      "spin": 0,
      "weights": "(\\tfrac{1}{26}, \\tfrac{1}{26})",
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "unknown",
+     "global": {
+      "Z2_s": "unknown",
+      "Z2_dual": "unknown"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_s",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\mathbb{Z}_2^{s}$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       },
+       {
+        "factor": "Z2_dual",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\hat{\\mathbb{Z}}_2$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "Z2_s=unknown|Z2_dual=unknown"
+     }
     }
    ],
    "relations": [
@@ -14861,6 +16413,18 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2_s",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{s}"
+    },
+    {
+     "id": "Z2_dual",
+     "type": "Z2",
+     "tex": "\\hat{\\mathbb{Z}}_2"
+    }
    ],
    "source": "data/theories/ising-x-m12-e6a-z2.yaml",
    "c_num": 1.4615384615384615,
@@ -15435,7 +16999,16 @@
    ],
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{151}{102}$ — 2d conformal symmetry; parity not recorded",
-    "global": "Contains the $\\mathbb{Z}_2$ spin flip of the Ising factor"
+    "global": "Contains the $\\mathbb{Z}_2$ spin flip of the Ising factor",
+    "parity": false,
+    "global_group": [
+     {
+      "id": "Z2_Ising",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{\\rm Ising}",
+      "note": "Ising spin flip; the global symmetry contains the factors declared here; the full group is not recorded"
+     }
+    ]
    },
    "quantities": [
     {
@@ -15459,7 +17032,25 @@
      "Delta": "2/51",
      "spin": 0,
      "weights": "(\\tfrac{1}{51}, \\tfrac{1}{51})",
-     "note": "Lightest non-vacuum Virasoro primary."
+     "global": {
+      "Z2_Ising": "even"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_Ising",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2^{\\rm Ising}$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2_Ising=even"
+     }
     }
    ],
    "relations": [
@@ -15494,6 +17085,13 @@
    "contributors": [
     "nathansbenjamin"
    ],
+   "global_factors": [
+    {
+     "id": "Z2_Ising",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{\\rm Ising}"
+    }
+   ],
    "source": "data/theories/ising-x-m17-ae7.yaml",
    "c_num": 1.4803921568627452,
    "gap_num": 0.0392156862745098,
@@ -15524,7 +17122,16 @@
    ],
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{169}{114}$ — 2d conformal symmetry; parity not recorded",
-    "global": "Contains the $\\mathbb{Z}_2$ spin flip of the Ising factor"
+    "global": "Contains the $\\mathbb{Z}_2$ spin flip of the Ising factor",
+    "parity": false,
+    "global_group": [
+     {
+      "id": "Z2_Ising",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{\\rm Ising}",
+      "note": "Ising spin flip; the global symmetry contains the factors declared here; the full group is not recorded"
+     }
+    ]
    },
    "quantities": [
     {
@@ -15548,7 +17155,25 @@
      "Delta": "2/57",
      "spin": 0,
      "weights": "(\\tfrac{1}{57}, \\tfrac{1}{57})",
-     "note": "Lightest non-vacuum Virasoro primary."
+     "global": {
+      "Z2_Ising": "even"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_Ising",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2^{\\rm Ising}$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2_Ising=even"
+     }
     }
    ],
    "relations": [
@@ -15582,6 +17207,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2_Ising",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{\\rm Ising}"
+    }
    ],
    "source": "data/theories/ising-x-m18-e7a.yaml",
    "c_num": 1.4824561403508771,
@@ -15797,7 +17429,16 @@
    ],
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{433}{290}$ — 2d conformal symmetry, with parity",
-    "global": "Contains the $\\mathbb{Z}_2$ spin flip of the Ising factor"
+    "global": "Contains the $\\mathbb{Z}_2$ spin flip of the Ising factor",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2_Ising",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{\\rm Ising}",
+      "note": "Ising spin flip; the global symmetry contains the factors declared here; the full group is not recorded"
+     }
+    ]
    },
    "quantities": [
     {
@@ -15821,7 +17462,26 @@
      "Delta": "4/145",
      "spin": 0,
      "weights": "(\\tfrac{2}{145}, \\tfrac{2}{145})",
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "even",
+     "global": {
+      "Z2_Ising": "even"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_Ising",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2^{\\rm Ising}$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2_Ising=even"
+     }
     }
    ],
    "relations": [
@@ -15856,6 +17516,13 @@
    "contributors": [
     "nathansbenjamin"
    ],
+   "global_factors": [
+    {
+     "id": "Z2_Ising",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{\\rm Ising}"
+    }
+   ],
    "source": "data/theories/ising-x-m29-ae8.yaml",
    "c_num": 1.493103448275862,
    "gap_num": 0.027586206896551724,
@@ -15886,7 +17553,16 @@
    ],
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{463}{310}$ — 2d conformal symmetry, with parity",
-    "global": "Contains the $\\mathbb{Z}_2$ spin flip of the Ising factor"
+    "global": "Contains the $\\mathbb{Z}_2$ spin flip of the Ising factor",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2_Ising",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{\\rm Ising}",
+      "note": "Ising spin flip; the global symmetry contains the factors declared here; the full group is not recorded"
+     }
+    ]
    },
    "quantities": [
     {
@@ -15910,7 +17586,26 @@
      "Delta": "4/155",
      "spin": 0,
      "weights": "(\\tfrac{2}{155}, \\tfrac{2}{155})",
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "even",
+     "global": {
+      "Z2_Ising": "even"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2_Ising",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2^{\\rm Ising}$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2_Ising=even"
+     }
     }
    ],
    "relations": [
@@ -15944,6 +17639,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2_Ising",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{\\rm Ising}"
+    }
    ],
    "source": "data/theories/ising-x-m30-e8a.yaml",
    "c_num": 1.4935483870967743,
@@ -17281,7 +18983,22 @@
    "symmetry": {
     "spacetime": "Two $\\mathcal{N}=2$ super-Virasoro algebras at $c = \\bar c = \\sum_i \\tfrac{3k_i}{k_i+2}$ — 2d $\\mathcal{N}=(2,2)$ superconformal symmetry (4 $Q$ + 4 $S$ supercharges); for the K3 members two small $\\mathcal{N}=4$ super-Virasoro algebras, $\\mathcal{N}=(4,4)$ (8 $Q$ + 8 $S$ supercharges); parity not recorded",
     "supercharges": 4,
-    "global": "$U(1)$ R-symmetry on each side; discrete phase symmetries of the factors (including the quantum symmetry of the orbifold) and permutations of equal factors"
+    "global": "$U(1)$ R-symmetry on each side; discrete phase symmetries of the factors (including the quantum symmetry of the orbifold) and permutations of equal factors",
+    "parity": false,
+    "global_group": [
+     {
+      "id": "U(1)_R",
+      "group": "U(1)",
+      "tex": "U(1)_R",
+      "note": "left-moving R-symmetry (current $J$); the discrete symmetries and permutations are said in `global`"
+     },
+     {
+      "id": "U(1)_Rbar",
+      "group": "U(1)",
+      "tex": "\\overline{U(1)}_R",
+      "note": "right-moving R-symmetry"
+     }
+    ]
    },
    "quantities": [
     {
@@ -17303,16 +19020,86 @@
      "Delta": 1,
      "spin": 1,
      "weights": "(1, 0)",
+     "global": {
+      "U(1)_R": 0,
+      "U(1)_Rbar": 0
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "primary"
+     },
      "method": "exact",
-     "note": "$U(1)$ R-current, the sum of the currents of the factors."
+     "note": "$U(1)$ R-current, the sum of the currents of the factors.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)_R",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_R$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "U(1)_Rbar",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$\\overline{U(1)}_R$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)_R=0|U(1)_Rbar=0"
+     }
     },
     {
      "name": "G^{\\pm}",
      "Delta": "3/2",
      "spin": "3/2",
      "weights": "(\\tfrac32, 0)",
+     "global": {
+      "U(1)_R": "±1",
+      "U(1)_Rbar": 0
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "Q"
+     },
      "method": "exact",
-     "note": "$\\mathcal{N}=2$ supercurrents; fermionic."
+     "note": "$\\mathcal{N}=2$ supercurrents; fermionic.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)_R",
+        "canon": "±1",
+        "short": "charge $\\pm1$",
+        "trivial": false,
+        "sort": [
+         1.0,
+         0
+        ],
+        "text": "$U(1)_R$ charge $\\pm1$"
+       },
+       {
+        "factor": "U(1)_Rbar",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$\\overline{U(1)}_R$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)_R=±1|U(1)_Rbar=0"
+     }
     }
    ],
    "relations": [
@@ -17416,6 +19203,18 @@
    "contributors": [
     "Canonical111"
    ],
+   "global_factors": [
+    {
+     "id": "U(1)_R",
+     "type": "U1",
+     "tex": "U(1)_R"
+    },
+    {
+     "id": "U(1)_Rbar",
+     "type": "U1",
+     "tex": "\\overline{U(1)}_R"
+    }
+   ],
    "source": "data/theories/gepner-models.yaml",
    "members": [
     {
@@ -17479,7 +19278,22 @@
    "symmetry": {
     "spacetime": "Two small $\\mathcal{N}=4$ super-Virasoro algebras at $c = \\bar c = 6$ — 2d $\\mathcal{N}=(4,4)$ superconformal symmetry (8 $Q$ + 8 $S$ supercharges); parity not recorded (in a sigma-model description it maps $B \\to -B$)",
     "supercharges": 8,
-    "global": "$SU(2)_L\\times SU(2)_R$ R-symmetry; at special points, finite symmetry groups (subgroups of $\\mathrm{Co}_0$)"
+    "global": "$SU(2)_L\\times SU(2)_R$ R-symmetry; at special points, finite symmetry groups (subgroups of $\\mathrm{Co}_0$)",
+    "parity": false,
+    "global_group": [
+     {
+      "id": "SU(2)_L",
+      "group": "SU(2)",
+      "tex": "SU(2)_L",
+      "note": "left-moving R-symmetry; the finite symmetry groups at special points are said in `global`"
+     },
+     {
+      "id": "SU(2)_R",
+      "group": "SU(2)",
+      "tex": "SU(2)_R",
+      "note": "right-moving R-symmetry"
+     }
+    ]
    },
    "quantities": [
     {
@@ -17544,11 +19358,59 @@
      "spin": 0,
      "weights": "(\\tfrac14, \\tfrac14)",
      "degeneracy": 24,
+     "global": {
+      "SU(2)_L": [
+       "singlet",
+       "fundamental"
+      ],
+      "SU(2)_R": [
+       "singlet",
+       "fundamental"
+      ]
+     },
+     "multiplet": {
+      "name": "$\\Phi^{\\rm RR}_a$",
+      "component": "primary",
+      "type": "Ramond ground state"
+     },
      "method": "exact",
      "refs": [
       "ghv2012"
      ],
-     "note": "Ramond ground states, $(\\mathbf2,\\mathbf2) + 20$ singlets of $SU(2)_L\\times SU(2)_R$; they correspond to $H^{\\rm even}(\\mathrm{K3},\\mathbb{R})$."
+     "note": "Ramond ground states, $(\\mathbf2,\\mathbf2) + 20$ singlets of $SU(2)_L\\times SU(2)_R$; they correspond to $H^{\\rm even}(\\mathrm{K3},\\mathbb{R})$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_L",
+        "canon": "Dynkin(0)+Dynkin(1)",
+        "short": "singlet $\\oplus$ doublet $\\mathbf{2}$",
+        "text": "$SU(2)_L$ singlet $\\oplus$ doublet $\\mathbf{2}$",
+        "trivial": false,
+        "sort": [
+         1,
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       },
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)+Dynkin(1)",
+        "short": "singlet $\\oplus$ doublet $\\mathbf{2}$",
+        "text": "$SU(2)_R$ singlet $\\oplus$ doublet $\\mathbf{2}$",
+        "trivial": false,
+        "sort": [
+         1,
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       }
+      ],
+      "key": "SU(2)_L=Dynkin(0)+Dynkin(1)|SU(2)_R=Dynkin(0)+Dynkin(1)"
+     }
     },
     {
      "name": "J^a",
@@ -17556,8 +19418,45 @@
      "spin": 1,
      "weights": "(1, 0)",
      "degeneracy": 3,
+     "global": {
+      "SU(2)_L": "adjoint",
+      "SU(2)_R": "singlet"
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "primary"
+     },
      "method": "exact",
-     "note": "$su(2)$ R-currents at level 1 of the $\\mathcal{N}=4$ algebra (and $\\bar J^a$)."
+     "note": "$su(2)$ R-currents at level 1 of the $\\mathcal{N}=4$ algebra (and $\\bar J^a$).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_L",
+        "canon": "Dynkin(2)",
+        "short": "triplet (adjoint) $\\mathbf{3}$",
+        "trivial": false,
+        "sort": [
+         3,
+         2,
+         0
+        ],
+        "text": "$SU(2)_L$ triplet (adjoint) $\\mathbf{3}$"
+       },
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       }
+      ],
+      "key": "SU(2)_L=Dynkin(2)|SU(2)_R=Dynkin(0)"
+     }
     },
     {
      "name": "G^{\\pm},\\ G'^{\\pm}",
@@ -17565,8 +19464,45 @@
      "spin": "3/2",
      "weights": "(\\tfrac32, 0)",
      "degeneracy": 4,
+     "global": {
+      "SU(2)_L": "fundamental",
+      "SU(2)_R": "singlet"
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "Q"
+     },
      "method": "exact",
-     "note": "Supercurrents of the $\\mathcal{N}=4$ algebra (and their right-moving partners); fermionic."
+     "note": "Supercurrents of the $\\mathcal{N}=4$ algebra (and their right-moving partners); fermionic.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_L",
+        "canon": "Dynkin(1)",
+        "short": "doublet $\\mathbf{2}$",
+        "trivial": false,
+        "sort": [
+         2,
+         1,
+         0
+        ],
+        "text": "$SU(2)_L$ doublet $\\mathbf{2}$"
+       },
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       }
+      ],
+      "key": "SU(2)_L=Dynkin(1)|SU(2)_R=Dynkin(0)"
+     }
     }
    ],
    "relations": [
@@ -17669,6 +19605,18 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(2)_L",
+     "type": "SU",
+     "tex": "SU(2)_L"
+    },
+    {
+     "id": "SU(2)_R",
+     "type": "SU",
+     "tex": "SU(2)_R"
+    }
    ],
    "source": "data/theories/k3-sigma-models.yaml",
    "c_num": 6.0,
@@ -18120,7 +20068,16 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{3k}{k-2} - 1$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "$U(1)$ momentum around the cigar; winding is not conserved"
+    "global": "$U(1)$ momentum around the cigar; winding is not conserved",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "U(1)_mom",
+      "group": "U(1)",
+      "tex": "U(1)_{\\rm mom}",
+      "note": "momentum around the cigar; winding is not conserved"
+     }
+    ]
    },
    "quantities": [
     {
@@ -18153,29 +20110,89 @@
      "Delta": "\\frac{2s^2+\\frac12}{k-2}+\\frac{n^2}{2k}+\\frac{kw^2}{2}",
      "spin": "-nw",
      "weights": "(\\tfrac{s^2+1/4}{k-2}+\\tfrac{(n-kw)^2}{4k},\\ \\tfrac{s^2+1/4}{k-2}+\\tfrac{(n+kw)^2}{4k})",
-     "rep": "Continuum, $s\\in\\mathbb{R}_{\\geq0}$; momentum $n$, winding $w$",
+     "parity": "unknown",
+     "global": {
+      "U(1)_mom": "n"
+     },
+     "role": "Continuum, $s\\in\\mathbb{R}_{\\geq0}$; winding $w$",
      "method": "exact",
      "refs": [
       "hpt2002"
      ],
-     "note": "Spin $h-\\bar h=-nw$ in these conventions."
+     "note": "Spin $h-\\bar h=-nw$ in these conventions.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)_mom",
+        "canon": "q(n)",
+        "short": "charge $n$",
+        "trivial": false,
+        "sort": [
+         1000000,
+         0
+        ],
+        "text": "$U(1)_{\\rm mom}$ charge $n$"
+       }
+      ],
+      "key": "U(1)_mom=q(n)"
+     }
     },
     {
      "name": "V_{j;n,w}\\ (\\text{discrete})",
      "Delta": "-\\frac{2j(j-1)}{k-2}+\\frac{n^2}{2k}+\\frac{kw^2}{2}",
      "spin": "-nw",
-     "rep": "Discrete, $\\frac12<j<\\frac{k-1}{2}$, with $j$ fixed by $J^3_0+\\bar J^3_0=-kw$",
+     "parity": "unknown",
+     "global": {
+      "U(1)_mom": "n"
+     },
+     "role": "Discrete, $\\frac12<j<\\frac{k-1}{2}$, with $j$ fixed by $J^3_0+\\bar J^3_0=-kw$",
      "method": "exact",
      "refs": [
       "hpt2002"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)_mom",
+        "canon": "q(n)",
+        "short": "charge $n$",
+        "trivial": false,
+        "sort": [
+         1000000,
+         0
+        ],
+        "text": "$U(1)_{\\rm mom}$ charge $n$"
+       }
+      ],
+      "key": "U(1)_mom=q(n)"
+     }
     },
     {
      "name": "T",
      "Delta": 2,
      "spin": 2,
+     "parity": "pair",
+     "global": {
+      "U(1)_mom": 0
+     },
      "method": "exact",
-     "note": "Stress tensor."
+     "note": "Stress tensor.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)_mom",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_{\\rm mom}$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)_mom=0"
+     }
     }
    ],
    "relations": [
@@ -18286,6 +20303,13 @@
    "contributors": [
     "Canonical111"
    ],
+   "global_factors": [
+    {
+     "id": "U(1)_mom",
+     "type": "U1",
+     "tex": "U(1)_{\\rm mom}"
+    }
+   ],
    "source": "data/theories/cigar-cft.yaml",
    "backlinks": []
   },
@@ -18312,6 +20336,27 @@
    "symmetry": {
     "spacetime": "One $\\mathcal{N}=1$ super-Virasoro algebra at $c = 12$, on the holomorphic side only ($\\bar c = 0$) — 2d conformal symmetry, no parity (holomorphic); $\\mathcal{N}=1$ superconformal on one side (1 $Q$ + 1 $S$ supercharge)",
     "global": "$\\mathrm{Co}_1$ (automorphisms of the $\\mathcal{N}=1$ structure); $\\mathrm{Co}_0$ acts faithfully on $V^{s\\natural}$",
+    "parity": false,
+    "global_group": [
+     {
+      "id": "Co1",
+      "group": "finite",
+      "tex": "\\mathrm{Co}_1",
+      "note": "automorphisms of the $\\mathcal{N}=1$ structure; only the irreps used here are listed",
+      "irreps": [
+       {
+        "label": "1",
+        "tex": "\\mathbf{1}",
+        "dim": 1
+       },
+       {
+        "label": "276",
+        "tex": "\\mathbf{276}",
+        "dim": 276
+       }
+      ]
+     }
+    ],
     "notes": "Without the $\\mathcal{N}=1$ structure, the SVOA carries an action of $\\mathrm{Spin}_{24}(\\mathbb{R})$, generated by its weight-1 $\\mathfrak{so}(24)$ currents. In the Duncan–Mack-Crane action, $-1 \\in \\mathrm{Co}_0$ acts as fermion parity: by [@conway-module/dmc2015, Thm. 4.9], $T^s_{-1}(\\tau) = q^{-1/2}\\prod_n(1+q^{n-1/2})^{24} - 24$, which is the ordinary NS character (derived)."
    },
    "quantities": [
@@ -18353,11 +20398,29 @@
      "Delta": "3/2",
      "spin": "3/2",
      "weights": "(\\tfrac32, 0)",
+     "global": {
+      "Co1": "1"
+     },
      "method": "exact",
      "refs": [
       "duncan2007"
      ],
-     "note": "$\\mathcal{N}=1$ supercurrent, a $\\mathrm{Co}_1$-invariant vector in the 2048-dimensional weight-$\\tfrac32$ space."
+     "note": "$\\mathcal{N}=1$ supercurrent, a $\\mathrm{Co}_1$-invariant vector in the 2048-dimensional weight-$\\tfrac32$ space.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Co1",
+        "canon": "1",
+        "short": "$\\mathbf{1}$",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$\\mathrm{Co}_1$ $\\mathbf{1}$"
+       }
+      ],
+      "key": "Co1=1"
+     }
     },
     {
      "name": "J^{ij}",
@@ -18365,13 +20428,31 @@
      "spin": 1,
      "weights": "(1, 0)",
      "degeneracy": 276,
-     "rep": "adjoint of $\\mathfrak{so}(24)$",
+     "global": {
+      "Co1": "276"
+     },
+     "role": "adjoint of $\\mathfrak{so}(24)$",
      "method": "exact",
      "refs": [
       "dmc2015",
       "witten2007"
      ],
-     "note": "Fermion bilinears $\\lambda^i\\lambda^j$; the weight-1 subspace of the $D_{12}$ lattice even part."
+     "note": "Fermion bilinears $\\lambda^i\\lambda^j$; the weight-1 subspace of the $D_{12}$ lattice even part.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Co1",
+        "canon": "276",
+        "short": "$\\mathbf{276}$",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$\\mathrm{Co}_1$ $\\mathbf{276}$"
+       }
+      ],
+      "key": "Co1=276"
+     }
     }
    ],
    "relations": [
@@ -18461,6 +20542,13 @@
    "contributors": [
     "Canonical111"
    ],
+   "global_factors": [
+    {
+     "id": "Co1",
+     "type": "finite",
+     "tex": "\\mathrm{Co}_1"
+    }
+   ],
    "source": "data/theories/conway-module.yaml",
    "backlinks": [
     {
@@ -18501,6 +20589,29 @@
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{3k}{k-2}$ — 2d conformal symmetry, with parity (combined with $h \\to h^{-1}$)",
     "supercharges": 0,
     "global": "$SL(2,\\mathbb{C})$, the isometries of $H_3^+$, generated by the zero modes of the two $\\widehat{sl}(2)_k$ current algebras",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "SL2C",
+      "group": "listed",
+      "tex": "SL(2,\\mathbb{C})",
+      "note": "isometries of $H_3^+$; parity is combined with $h \\to h^{-1}$",
+      "irreps": [
+       {
+        "label": "trivial",
+        "tex": "\\text{trivial}"
+       },
+       {
+        "label": "adjoint",
+        "tex": "\\text{adjoint}"
+       },
+       {
+        "label": "principal",
+        "tex": "\\text{principal series}"
+       }
+      ]
+     }
+    ],
     "notes": "The representations with spins $j$ and $-j-1$ are equivalent, and the reflection $\\Phi^j=R^H(j)\\,\\Phi^{-j-1}$ is an identification. The identity is not normalizable and is not in the spectrum."
    },
    "quantities": [
@@ -18545,28 +20656,85 @@
      "Delta": "-\\frac{2j(j+1)}{k-2}",
      "spin": 0,
      "weights": "(\\Delta_j,\\Delta_j)",
-     "rep": "Continuum $j\\in-\\frac12+i\\mathbb{R}_{\\geq0}$; principal series of $SL(2,\\mathbb{C})$",
+     "parity": "unknown",
+     "global": {
+      "SL2C": "principal"
+     },
+     "role": "Continuum $j\\in-\\frac12+i\\mathbb{R}_{\\geq0}$",
      "method": "exact",
      "refs": [
       "rt2005",
       "teschner1999"
      ],
-     "note": "The spectrum. At $j=-\\frac12+is$, $\\Delta=\\frac{2(1/4+s^2)}{k-2}$."
+     "note": "The spectrum. At $j=-\\frac12+is$, $\\Delta=\\frac{2(1/4+s^2)}{k-2}$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SL2C",
+        "canon": "principal",
+        "short": "$\\text{principal series}$",
+        "trivial": false,
+        "sort": [
+         2
+        ],
+        "text": "$SL(2,\\mathbb{C})$ $\\text{principal series}$"
+       }
+      ],
+      "key": "SL2C=principal"
+     }
     },
     {
      "name": "J^a,\\ \\bar J^a",
      "Delta": 1,
      "spin": 1,
      "weights": "(1,0),\\ (0,1)",
+     "parity": "pair",
+     "global": {
+      "SL2C": "adjoint"
+     },
      "method": "exact",
-     "note": "$\\widehat{sl}(2)_k$ currents, $a=\\pm,3$."
+     "note": "$\\widehat{sl}(2)_k$ currents, $a=\\pm,3$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SL2C",
+        "canon": "adjoint",
+        "short": "$\\text{adjoint}$",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$SL(2,\\mathbb{C})$ $\\text{adjoint}$"
+       }
+      ],
+      "key": "SL2C=adjoint"
+     }
     },
     {
      "name": "T",
      "Delta": 2,
      "spin": 2,
+     "parity": "pair",
+     "global": {
+      "SL2C": "trivial"
+     },
      "method": "exact",
-     "note": "Sugawara stress tensor."
+     "note": "Sugawara stress tensor.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SL2C",
+        "canon": "trivial",
+        "short": "$\\text{trivial}$",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$SL(2,\\mathbb{C})$ $\\text{trivial}$"
+       }
+      ],
+      "key": "SL2C=trivial"
+     }
     }
    ],
    "relations": [
@@ -18657,6 +20825,13 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SL2C",
+     "type": "listed",
+     "tex": "SL(2,\\mathbb{C})"
+    }
    ],
    "source": "data/theories/h3-wzw.yaml",
    "backlinks": [
@@ -18936,7 +21111,26 @@
    "symmetry": {
     "spacetime": "One Virasoro algebra at $c = 24$, on the holomorphic side only ($\\bar c = 0$) — 2d conformal symmetry, no parity (holomorphic)",
     "supercharges": 0,
-    "global": "$U(1)^{24}$ (the currents $\\partial X^i$), with outer automorphisms $O(\\Lambda) = \\mathrm{Co}_0$"
+    "global": "$U(1)^{24}$ (the currents $\\partial X^i$), with outer automorphisms $O(\\Lambda) = \\mathrm{Co}_0$",
+    "parity": false,
+    "global_group": [
+     {
+      "id": "U(1)^24",
+      "group": "listed",
+      "tex": "U(1)^{24}",
+      "note": "charges are vectors of $\\Lambda$; the outer automorphisms $\\mathrm{Co}_0$ are said in `global`",
+      "irreps": [
+       {
+        "label": "0",
+        "tex": "\\text{neutral}"
+       },
+       {
+        "label": "p",
+        "tex": "\\text{charge } p \\in \\Lambda"
+       }
+      ]
+     }
+    ]
    },
    "quantities": [
     {
@@ -18976,16 +21170,52 @@
      "spin": 1,
      "weights": "(1, 0)",
      "degeneracy": 24,
+     "global": {
+      "U(1)^24": "0"
+     },
      "method": "exact",
-     "note": "$U(1)^{24}$ currents."
+     "note": "$U(1)^{24}$ currents.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)^24",
+        "canon": "0",
+        "short": "$\\text{neutral}$",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$U(1)^{24}$ $\\text{neutral}$"
+       }
+      ],
+      "key": "U(1)^24=0"
+     }
     },
     {
      "name": "T",
      "Delta": 2,
      "spin": 2,
      "weights": "(2, 0)",
+     "global": {
+      "U(1)^24": "0"
+     },
      "method": "exact",
-     "note": "Stress tensor."
+     "note": "Stress tensor.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)^24",
+        "canon": "0",
+        "short": "$\\text{neutral}$",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$U(1)^{24}$ $\\text{neutral}$"
+       }
+      ],
+      "key": "U(1)^24=0"
+     }
     },
     {
      "name": "e^{ip\\cdot X},\\ p^2 = 4",
@@ -18993,21 +21223,57 @@
      "spin": 2,
      "weights": "(2, 0)",
      "degeneracy": 196560,
+     "global": {
+      "U(1)^24": "p"
+     },
      "method": "exact",
      "refs": [
       "witten2007"
      ],
-     "note": "Lightest vertex operators, one for each norm-4 vector of $\\Lambda$. The count is the $q^2$ coefficient of $\\Theta_\\Lambda = E_4^3 - 720\\Delta$ (derived)."
+     "note": "Lightest vertex operators, one for each norm-4 vector of $\\Lambda$. The count is the $q^2$ coefficient of $\\Theta_\\Lambda = E_4^3 - 720\\Delta$ (derived).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)^24",
+        "canon": "p",
+        "short": "$\\text{charge } p \\in \\Lambda$",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$U(1)^{24}$ $\\text{charge } p \\in \\Lambda$"
+       }
+      ],
+      "key": "U(1)^24=p"
+     }
     },
     {
      "name": "e^{ip\\cdot X},\\ p \\in \\Lambda",
      "Delta": "\\tfrac{p^2}{2}",
      "spin": "\\tfrac{p^2}{2}",
      "weights": "(\\tfrac{p^2}{2}, 0)",
+     "global": {
+      "U(1)^24": "p"
+     },
      "method": "exact",
      "refs": [
       "witten2007"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)^24",
+        "canon": "p",
+        "short": "$\\text{charge } p \\in \\Lambda$",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$U(1)^{24}$ $\\text{charge } p \\in \\Lambda$"
+       }
+      ],
+      "key": "U(1)^24=p"
+     }
     }
    ],
    "relations": [
@@ -19095,6 +21361,13 @@
    "contributors": [
     "Canonical111"
    ],
+   "global_factors": [
+    {
+     "id": "U(1)^24",
+     "type": "listed",
+     "tex": "U(1)^{24}"
+    }
+   ],
    "source": "data/theories/leech-lattice-cft.yaml",
    "backlinks": [
     {
@@ -19146,6 +21419,8 @@
     "spacetime": "Two Virasoro algebras, $c = \\bar c = 1 + 6Q^2$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
     "global": "none",
+    "parity": true,
+    "global_group": [],
     "notes": "The chiral algebra is Virasoro at central charge $c$. Reflection $V_{-P}=V_P$ and duality $b\\to b^{-1}$ are identifications, not symmetries."
    },
    "quantities": [
@@ -19200,36 +21475,51 @@
      "Delta": "\\frac{Q^2}{2}+2P^2",
      "spin": 0,
      "weights": "(h_P,h_P)",
-     "rep": "Continuum, $P\\in\\mathbb{R}_{\\geq 0}$",
+     "parity": "even",
+     "role": "Continuum, $P\\in\\mathbb{R}_{\\geq 0}$",
      "method": "exact",
      "refs": [
       "cemr2024"
      ],
-     "note": "The spectrum. Reflection symmetric, $V_{-P}=V_P$."
+     "note": "The spectrum. Reflection symmetric, $V_{-P}=V_P$.",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "\\mathbf{1}",
      "Delta": 0,
      "spin": 0,
      "weights": "(0,0)",
-     "rep": "$P=\\frac{iQ}{2}$",
+     "parity": "even",
+     "role": "$P=\\frac{iQ}{2}$",
      "method": "exact",
      "refs": [
       "cemr2024"
      ],
-     "note": "Not in the spectrum: the identity is not normalisable, and is reached by analytic continuation."
+     "note": "Not in the spectrum: the identity is not normalisable, and is reached by analytic continuation.",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "V_{\\langle r,s\\rangle}",
      "Delta": "\\frac{Q^2-(rb+sb^{-1})^2}{2}",
      "spin": 0,
      "weights": "(h_{r,s},h_{r,s})",
-     "rep": "$P_{r,s}=\\frac{i}{2}(rb+sb^{-1})$, $r,s\\geq 1$",
+     "parity": "even",
+     "role": "$P_{r,s}=\\frac{i}{2}(rb+sb^{-1})$, $r,s\\geq 1$",
      "method": "exact",
      "refs": [
       "cemr2024"
      ],
-     "note": "Degenerate operators with $h_{r,s}=h_{P_{r,s}}$, not in the spectrum. $C_b$ vanishes at these momenta for generic other momenta."
+     "note": "Degenerate operators with $h_{r,s}=h_{P_{r,s}}$, not in the spectrum. $C_b$ vanishes at these momenta for generic other momenta.",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     }
    ],
    "references": [
@@ -19400,6 +21690,7 @@
    "contributors": [
     "rodriguez-va"
    ],
+   "global_factors": [],
    "source": "data/theories/liouville-cft.yaml",
    "backlinks": [
     {
@@ -19441,6 +21732,27 @@
     "spacetime": "One Virasoro algebra at $c = 24$, on the holomorphic side only ($\\bar c = 0$) — 2d conformal symmetry, no parity (holomorphic)",
     "supercharges": 0,
     "global": "The Monster group $\\mathbb{M}$ (finite, of order $\\approx 8.08\\times10^{53}$); no continuous symmetry",
+    "parity": false,
+    "global_group": [
+     {
+      "id": "M",
+      "group": "finite",
+      "tex": "\\mathbb{M}",
+      "note": "only the irreps used here are listed",
+      "irreps": [
+       {
+        "label": "1",
+        "tex": "\\mathbf{1}",
+        "dim": 1
+       },
+       {
+        "label": "196883",
+        "tex": "\\mathbf{196883}",
+        "dim": 196883
+       }
+      ]
+     }
+    ],
     "notes": "$|\\mathbb{M}| = 808017424794512875886459904961710757005754368000000000$, and its smallest non-trivial linear representation has dimension 196883 [@monster-cft/dmc2015, Eqs. (1.3)–(1.4)]."
    },
    "quantities": [
@@ -19473,8 +21785,26 @@
      "Delta": 2,
      "spin": 2,
      "weights": "(2, 0)",
+     "global": {
+      "M": "1"
+     },
      "method": "exact",
-     "note": "Stress tensor; the only Virasoro descendant of the vacuum at weight 2."
+     "note": "Stress tensor; the only Virasoro descendant of the vacuum at weight 2.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "M",
+        "canon": "1",
+        "short": "$\\mathbf{1}$",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$\\mathbb{M}$ $\\mathbf{1}$"
+       }
+      ],
+      "key": "M=1"
+     }
     },
     {
      "name": "\\phi_a\\ (a = 1,\\dots,196883)",
@@ -19482,13 +21812,30 @@
      "spin": 2,
      "weights": "(2, 0)",
      "degeneracy": 196883,
-     "rep": "the 196883-dimensional irreducible representation of $\\mathbb{M}$",
+     "global": {
+      "M": "196883"
+     },
      "method": "exact",
      "refs": [
       "witten2007",
       "dmc2015"
      ],
-     "note": "The lightest Virasoro primaries."
+     "note": "The lightest Virasoro primaries.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "M",
+        "canon": "196883",
+        "short": "$\\mathbf{196883}$",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$\\mathbb{M}$ $\\mathbf{196883}$"
+       }
+      ],
+      "key": "M=196883"
+     }
     }
    ],
    "relations": [
@@ -19602,6 +21949,13 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "M",
+     "type": "finite",
+     "tex": "\\mathbb{M}"
+    }
    ],
    "source": "data/theories/monster-cft.yaml",
    "backlinks": [
