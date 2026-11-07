@@ -211,6 +211,64 @@ Every entry needs at least one reference. If no paper contains the specific theo
 yet, cite the papers that supply its ingredients and say so with
 `note: construction ingredients`.
 
+A reference entry has a `key` (first author's surname, year and, if needed, a word:
+`kos2016`, `caselle2016thermal`), `title`, `authors`, `year`, `arxiv` and/or `doi`,
+`journal` once published, and a `note` saying what the entry takes from it (and which
+arXiv version, if the numbering of sections or equations changed between versions).
+
+### Citations
+
+On the site every citation is a number in brackets, linked to the reference list at
+the bottom of the page: `[3]`, or with a locator `[3, Table 2]`. Write citations so that
+the site can do this; never cite a paper any other way.
+
+**In data rows**, cite through `refs`. Each item is a reference key, optionally followed
+by a comma and a locator:
+
+```yaml
+refs: [kos2016]                         # → [2]
+refs: ['kos2016, Table 2', simmons2017]  # → [2, Table 2; 5]
+```
+
+**In prose** (every Markdown field: `description`, `summary`, `note`s, parameter and
+symmetry text, flow notes), cite with `[@key]`:
+
+```markdown
+Moore and Saxena [@moore2025, Sec. 9] define it by the state space ...
+... no genuine topological defects [@bhardwaj2024, Sec. 4.1.1, Eqs. (4.8)–(4.10)].
+Both bounds agree [@kos2016; @simmons2017, Table 1].
+```
+
+- Authors' names may appear in the sentence, but never instead of the citation: write
+  "Argyres and Douglas [@argyres1995] showed", not "Argyres and Douglas showed" or
+  "(Argyres–Douglas 1995)".
+- Never link a paper directly in prose (`[Caselle et al.](https://arxiv.org/abs/...)`),
+  and never cite a paper that isn't in the entry's `references` list: add it there first.
+- A key always means the current entry's reference. A note shown on another page (a flow
+  shown on its IR theory's page) still finds it; the site handles this.
+
+**Locators** point to the passage that states the claim, in the paper's own numbering
+(of the arXiv version unless the reference's `note` names another). Use these forms,
+most general first, separated by commas, with an en dash for ranges:
+
+| What | Form |
+|---|---|
+| section | `Sec. 4.1.1`, `Secs. 2–3` |
+| equation | `Eq. (4.8)`, `Eqs. (4.8)–(4.10)`, `Eqs. (1), (4)` |
+| table, figure | `Table 2`, `Fig. 3`, `Figs. 3–4` |
+| appendix | `App. B` |
+| page (printed) | `p. 28`, `pp. 27–29` |
+| theorem etc. | `Thm. 2`, `Lemma 3`, `Prop. 1` |
+| footnote | `fn. 7` |
+
+For example `[@bhardwaj2024, Sec. 4.1.1, Eqs. (4.8)–(4.10)]`. A locator may contain
+`$...$` math but no semicolon (semicolons separate sources). Prefer a locator whenever
+the paper is long or the claim is not its main result; a verifier must be able to find
+the statement from it.
+
+`python scripts/build.py --check` rejects unknown keys and malformed citations, and
+counts prose that still links papers directly.
+
 ### New tags or fields
 
 Tags come from a fixed list so that filtering stays consistent. To add one, add it

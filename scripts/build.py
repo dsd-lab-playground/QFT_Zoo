@@ -140,18 +140,20 @@ MONOTONE = {2: ["c"], 3: ["F"], 4: ["a", "a = c"], 5: ["\\tilde F", "F"], 6: ["a
 _APPROX = re.compile(r"\\approx\s*(-?\d+(?:\.\d+)?)\s*$")
 
 
-def monotone_value(e: dict) -> float | None:
-    """The entry's recorded c / F / a as a number, if one of its quantities states it numerically."""
+def monotone_value(e: dict, exact: bool = False):
+    """The entry's recorded c / F / a as a number, if one of its quantities states it numerically;
+    with exact=True, the pair (number, whether the value is exact: a rational with no uncertainty)."""
     syms = MONOTONE.get(e["d"], [])
     for q in e.get("quantities", []):
         if q.get("key") in syms or q.get("symbol", "").strip() in syms:
             v = str(q.get("value", "")).strip()
             num = parse_value(v)
+            is_exact = isinstance(num, Fraction) and "(" not in v
             if num is None and (m := _APPROX.search(v)):
                 num = float(m.group(1))
             if num is not None:
-                return float(num)
-    return None
+                return (float(num), is_exact) if exact else float(num)
+    return (None, False) if exact else None
 
 
 def flow_heights(entries: list[dict]) -> None:
@@ -159,9 +161,9 @@ def flow_heights(entries: list[dict]) -> None:
     uv_dof (free-scalar units) times the free scalar's value in that dimension: a rough ordering only."""
     scalar = {e["d"]: monotone_value(e) for e in entries if e["id"].startswith("free-scalar-")}
     for e in entries:
-        v = monotone_value(e)
+        v, is_exact = monotone_value(e, exact=True)
         if v is not None:
-            e["flow_height"] = {"value": v, "estimated": False}
+            e["flow_height"] = {"value": v, "estimated": False, "exact": is_exact}
         elif "uv_dof" in e and scalar.get(e["d"]) is not None:
             e["flow_height"] = {"value": e["uv_dof"] * scalar[e["d"]], "estimated": True}
 
@@ -197,6 +199,61 @@ def schema_errors(validator, data, rel) -> list[str]:
     return out
 
 
+def ref_key(k: str) -> str:
+    """'kos2016, Table 2' -> 'kos2016': a refs item is a reference key, optionally with a locator after a comma."""
+    return str(k).split(",", 1)[0].strip()
+
+
+# Citations in prose: [@key], [@key, Sec. 4.1.1], [@key1; @key2, Eq. (3)]. See CONTRIBUTING.md, "Citations".
+_CITE = re.compile(r"\[(@[^\]]*)\]")
+_CITE_PART = re.compile(r"^\s*@([A-Za-z0-9_:-]+)(?:\s*,\s*(\S.*?))?\s*$")
+_LEGACY = re.compile(r"\]\(https?://(?:arxiv\.org|doi\.org|dx\.doi\.org)[^)]*\)")
+
+
+def prose_strings(x, path=""):
+    """(path, string) for every string in an entry outside its references list and identifier fields."""
+    if isinstance(x, dict):
+        for k, v in x.items():
+            if k in ("references", "id", "target", "refs", "competing_refs", "key", "page", "entry", "source"):
+                continue
+            yield from prose_strings(v, f"{path}/{k}")
+    elif isinstance(x, list):
+        for i, v in enumerate(x):
+            yield from prose_strings(v, f"{path}/{i}")
+    elif isinstance(x, str):
+        yield path, x
+
+
+def check_citations(data: dict, rel: str, keys: list[str]) -> list[str]:
+    errs = []
+    for path, s in prose_strings(data):
+        for m in _CITE.finditer(s):
+            for part in m.group(1).split(";"):
+                pm = _CITE_PART.match(part)
+                if not pm:
+                    errs.append(f"{rel}: {path}: malformed citation '[{m.group(1)}]' "
+                                f"(write [@key] or [@key, Sec. 2]; several: [@a; @b])")
+                elif pm.group(1) not in keys:
+                    errs.append(f"{rel}: {path}: citation of unknown reference key '{pm.group(1)}'")
+    return errs
+
+
+def qualify_citations(x, eid: str):
+    """Prefix each prose citation key with its entry's id ([@kos2016] -> [@ising-3d/kos2016]), so a note
+    shown on another page (e.g. a flow from this entry) still finds its reference."""
+    fix = lambda s: _CITE.sub(lambda m: "[" + re.sub(r"@([A-Za-z0-9_:-]+)", lambda k: f"@{eid}/{k.group(1)}", m.group(1)) + "]", s)
+    if isinstance(x, dict):
+        return {k: (v if k == "references" else qualify_citations(v, eid)) for k, v in x.items()}
+    if isinstance(x, list):
+        return [qualify_citations(v, eid) for v in x]
+    return fix(x) if isinstance(x, str) else x
+
+
+def legacy_citations(entries: list[dict]) -> int:
+    """Prose that still cites by a direct arXiv/DOI link instead of [@key] (counted, not an error yet)."""
+    return sum(len(_LEGACY.findall(s)) for e in entries for _, s in prose_strings(e))
+
+
 def check_entry(data: dict, rel: str) -> list[str]:
     """Consistency checks that JSON Schema cannot express (within one entry)."""
     errs = []
@@ -207,13 +264,14 @@ def check_entry(data: dict, rel: str) -> list[str]:
     for section in ("quantities", "operators"):
         for i, item in enumerate(data.get(section, [])):
             for k in item.get("refs", []):
-                if k not in keys:
+                if ref_key(k) not in keys:
                     errs.append(f"{rel}: {section}/{i}: unknown reference key '{k}' "
                                 f"(add it to the references list)")
     qkeys = [q["key"] for q in data.get("quantities", []) if "key" in q]
     if len(qkeys) != len(set(qkeys)):
         errs.append(f"{rel}: quantities: each `key` may appear only once")
     errs += check_flows(data, rel, keys)
+    errs += check_citations(data, rel, keys)
     return errs
 
 
@@ -310,7 +368,7 @@ def check_flows(data: dict, rel: str, keys: list[str]) -> list[str]:
             errs.append(f"{where}/flow/integrability: status `{integ['status']}` needs a `note` "
                         f"naming the evidence")
         for loc, k in flow_ref_keys(f):
-            if k not in keys:
+            if ref_key(k) not in keys:
                 errs.append(f"{where}/{loc}: unknown reference key '{k}' "
                             f"(flow references are those of this, the UV, entry)")
     dupes = sorted({x for x in ids if ids.count(x) > 1})
@@ -466,6 +524,7 @@ def load_all() -> tuple[list[dict], list[str]]:
         if errs:
             errors += errs
             continue
+        data = qualify_citations(data, data["id"])
         data["source"] = rel
         if "family" in data:
             errors += expand_family(data)
@@ -669,6 +728,8 @@ def main() -> int:
     if operations:
         print(f"✓ {len(operations)} operation pages valid")
     print(f"✓ {len(spectra)} spectra checked (modular invariance, integrality, gaps)")
+    if (n := legacy_citations(entries)):
+        print(f"! {n} prose citation(s) still link to a paper directly instead of [@key] (CONTRIBUTING.md, Citations)")
 
     if args.check:
         return 0

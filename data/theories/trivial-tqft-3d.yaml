@@ -9,22 +9,22 @@ summary: >-
 tags: [CFT, TQFT, gapped, unitary, exactly solvable]
 description: |
   This is the tensor unit of three-dimensional bosonic topological field theories,
-  normalized to $Z(M)=1$ and $\mathcal H(\Sigma)=\mathbb C$: Moore and Saxena,
-  section 9, define it by the state space $\mathbb C$ on every spatial manifold and
+  normalized to $Z(M)=1$ and $\mathcal H(\Sigma)=\mathbb C$: Moore and Saxena
+  [@moore2025, Sec. 9] define it by the state space $\mathbb C$ on every spatial manifold and
   the identity map on every bordism, so it does not depend on the metric.
   It has no intrinsic topological order or chiral gravitational response.
   Its only local operator is the identity: the symmetry-TFT construction of this
-  phase produces no genuine topological defects (Bhardwaj et al., section 4.1.1,
-  Eqs. (4.8)-(4.10)).
+  phase produces no genuine topological defects
+  [@bhardwaj2024, Sec. 4.1.1, Eqs. (4.8)–(4.10)].
 
   ### Symmetry-equipped endpoints
   This entry alone does not choose a global symmetry group. For the conventional
   ungauged Ising disordered phase, equip it with an unbroken $\mathbb Z_2$
   whose infrared action is trivial, with response $Z(M,A)=1$ for flat backgrounds
-  $A$: the trivial $\mathbb Z_2$ phase of Bhardwaj et al., section 4.1.1,
-  Eqs. (4.8)-(4.10). The flow relation must record this choice.
+  $A$: the trivial $\mathbb Z_2$ phase of Bhardwaj et al.
+  [@bhardwaj2024, Sec. 4.1.1, Eqs. (4.8)–(4.10)]. The flow relation must record this choice.
   The nontrivial $\mathbb Z_2$ SPT phase has the same underlying theory but a
-  different realization of the symmetry (their Eqs. (3.5)-(3.6) and (4.11)-(4.13));
+  different realization of the symmetry [@bhardwaj2024, Eqs. (3.5)–(3.6), (4.11)–(4.13)];
   a flow to it must say so. Invertible theories that are
   nontrivial even without symmetry, such as those with a chiral gravitational
   response, are different theories and are not this entry.

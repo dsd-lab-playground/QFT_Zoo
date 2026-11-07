@@ -105,7 +105,7 @@ operators:
 relations:
   - type: flows_to
     target: trivial-tqft-3d
-    note: 'Singlet mass deformation $t\,\phi_a\phi_a$ on the disordered (high-temperature) side: gapped, with the cubic symmetry unbroken. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.'
+    note: 'Singlet mass deformation $t\,\phi_a\phi_a$ on the disordered (high-temperature) side: gapped, with the cubic symmetry unbroken. Pelissetto and Vicari [@pelissetto2002] review the phases of these models.'
   - type: related_to
     target: ising-3d
     note: 'Three decoupled 3d Ising CFTs form another, unstable fixed point of the same Lagrangian. The coupling $\sum_{i \neq j}\epsilon_i\epsilon_j$ is relevant there, and with the mass tuned it drives the flow to the cubic fixed point (Binder).'
@@ -153,5 +153,11 @@ references:
     year: 2020
     journal: SciPost Phys. 8, 085
     arxiv: '1911.00522'
+  - key: pelissetto2002
+    title: Critical phenomena and renormalization-group theory
+    authors: Andrea Pelissetto and Ettore Vicari
+    year: 2002
+    journal: Phys. Rept. 368, 549
+    arxiv: 'cond-mat/0012164'
 
 contributors: [Canonical111]

@@ -3,7 +3,8 @@
 # Delete any optional section you don't need. Full field reference: CONTRIBUTING.md
 #
 # LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).
-#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math.
+#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math,
+#     and cite as [@key] or [@key, Sec. 2] (never a direct link; see CONTRIBUTING.md, Citations).
 #   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.
 
 id: my-theory                      # lowercase-with-hyphens, = filename
@@ -37,7 +38,7 @@ quantities:
     description: Stress-tensor central charge
     value: '0.9(1)'                # parenthesis notation for uncertainties
     method: conformal bootstrap
-    refs: [author2025]
+    refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)
 
 operators:
   - name: '\phi'

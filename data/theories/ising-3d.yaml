@@ -570,11 +570,10 @@ relations:
       $\lambda_{\sigma\sigma\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$.
       The global $\mathbb Z_2$ remains unbroken, acting trivially in the infrared,
       with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary
-      Ising normalization. No stacked invertible sector is included.
-      [Caselle et al.](https://arxiv.org/abs/1605.05133), Eqs. (1), (4), the value of
-      $C^{\epsilon}_{\sigma\sigma}$ after Eq. (5) and the Monte Carlo convention
-      $t_{\rm lat}=\beta_c-\beta>0$ at high temperature;
-      [Bhardwaj et al.](https://arxiv.org/abs/2408.05266), Sec. 4.1.1, Eqs. (4.8)-(4.10).
+      Ising normalization. No stacked invertible sector is included. Sign convention:
+      [@caselle2016thermal, Eqs. (1), (4)], with the value of $C^{\epsilon}_{\sigma\sigma}$ after their Eq. (5)
+      and the Monte Carlo convention $t_{\rm lat}=\beta_c-\beta>0$ at high temperature; the infrared phase:
+      [@bhardwaj2024phases, Sec. 4.1.1, Eqs. (4.8)–(4.10)].
 
 references:
   - key: chang2024

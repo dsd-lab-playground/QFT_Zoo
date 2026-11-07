@@ -154,7 +154,7 @@ operators:
 relations:
   - type: flows_to
     target: trivial-tqft-3d
-    note: 'Singlet mass deformation $t\,\phi_a\phi_a$ on the disordered (high-temperature) side: gapped, with $O(3)$ unbroken. The other sign breaks $O(3)$ to $O(2)$ and leaves two Goldstone bosons, not this theory. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.'
+    note: 'Singlet mass deformation $t\,\phi_a\phi_a$ on the disordered (high-temperature) side: gapped, with $O(3)$ unbroken. The other sign breaks $O(3)$ to $O(2)$ and leaves two Goldstone bosons, not this theory. Pelissetto and Vicari [@pelissetto2002] review the phases of these models.'
   - type: flows_to
     target: ising-3d
     note: 'Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy axis, with the mass tuned to criticality.'
@@ -204,5 +204,11 @@ references:
     year: 1972
     journal: Phys. Rev. Lett. 28, 240
     doi: '10.1103/PhysRevLett.28.240'
+  - key: pelissetto2002
+    title: Critical phenomena and renormalization-group theory
+    authors: Andrea Pelissetto and Ettore Vicari
+    year: 2002
+    journal: Phys. Rept. 368, 549
+    arxiv: 'cond-mat/0012164'
 
 contributors: [nathansbenjamin]
