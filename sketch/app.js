@@ -757,24 +757,18 @@ function quantityTable(t, items, cat, source) {
 
 /** OPE coefficients by OPE O1 × O2 (ordered by the dimensions of O1, O2), each ordered by the
  *  dimension of the exchanged operator. Labels only when there are several OPEs. */
+/** OPE coefficients in one list, without per-OPE headings (David: grouping by OPE didn't make sense), ordered
+ *  by the operators involved: by their dimensions sorted from lightest, compared lexicographically, so
+ *  λσσε, λσσε′, …, λεεε, … ; coefficients whose operators aren't recognized go last, in data order. */
 function opeGroups(t, items) {
   const dim = operatorDims(t);
-  const chans = new Map();
-  items.forEach((it, i) => {
-    const ops = opeOperators(it.rows[0]);
-    const key = ops ? [normTex(ops[0]), normTex(ops[1])].sort().join("|") : "";
-    if (!chans.has(key)) {
-      const dims = ops ? [dim(ops[0]), dim(ops[1])].sort((a, b) => a - b) : [Infinity, Infinity];
-      chans.set(key, { key, label: ops ? tex(`${ops[0]} \\times ${ops[1]}`) : "Other", dims, first: i, list: [] });
-    }
-    chans.get(key).list.push({ it, i, d: ops ? dim(ops[2]) : Infinity });
+  const key = (it) => { const ops = opeOperators(it.rows[0]); return ops ? ops.map(dim).sort((x, y) => x - y) : null; };
+  const order = items.map((it, i) => ({ it, i, k: key(it) })).sort((a, b) => {
+    if (!a.k || !b.k) return (!a.k) - (!b.k) || a.i - b.i;
+    for (let j = 0; j < 3; j++) if (a.k[j] !== b.k[j]) return (a.k[j] ?? Infinity) - (b.k[j] ?? Infinity);
+    return a.i - b.i;
   });
-  const list = [...chans.values()].sort((a, b) =>
-    (a.key === "") - (b.key === "") || a.dims[0] - b.dims[0] || a.dims[1] - b.dims[1] || a.first - b.first);
-  for (const c of list) c.list.sort((a, b) => a.d - b.d || a.i - b.i);
-  const labelled = list.length > 1 && items.length > 3;
-  if (!labelled) return [[null, list.flatMap((c) => c.list.map((x) => x.it))]];
-  return list.map((c) => [c.label, c.list.map((x) => x.it)]);
+  return [[null, order.map((x) => x.it)]];
 }
 
 /** The page sections for a theory's quantities. A small entry (one kind, or under six items and
