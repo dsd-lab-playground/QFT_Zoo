@@ -29,7 +29,7 @@ description: |
   scalar ($\eta < 0$).
 
   The estimates below come from methods whose error estimates are not directly
-  comparable: the $6-\epsilon$ expansion to five loops with resummation 
+  comparable: the $6-\epsilon$ expansion to five loops with resummation
   [@borinsky2021]; series expansions of the dimer density on the
   hypersimple-cubic and hyper-body-centred-cubic lattices in $d=4$ [@butera2012];
   the functional renormalization group [@an2016]; and a truncated,

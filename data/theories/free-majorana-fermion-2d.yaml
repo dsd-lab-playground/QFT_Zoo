@@ -25,7 +25,7 @@ description: |
   $Z_{\widetilde{\rm R}}$ vanishes because of the fermion zero mode. Under $T$, $Z_{\rm NS}$ and
   $Z_{\widetilde{\rm NS}}$ are exchanged; under $S$, $Z_{\widetilde{\rm NS}}$ and $Z_{\rm R}$ are
   exchanged [@ginsparg-lectures, Eqs. (7.12), (7.14)]. The zero modes $\psi_0, \bar\psi_0$ give the Ramond sector
-  two ground states of weight $(\tfrac{1}{16}, \tfrac{1}{16})$ with opposite fermion parity 
+  two ground states of weight $(\tfrac{1}{16}, \tfrac{1}{16})$ with opposite fermion parity
   [@ginsparg-lectures, Eq. (7.17); @ktt2019, Sec. 2.3].
 
   ### Bosonization: the Ising model

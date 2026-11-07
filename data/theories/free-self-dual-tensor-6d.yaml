@@ -45,7 +45,7 @@ description: |
 
   A self-dual tensor also sits in each $(1,0)$ tensor multiplet. On the tensor
   branch of 6d $(1,0)$ SCFTs its Bianchi identity can be deformed to $dH = I$, which
-  gives the Green–Schwarz contribution to the anomaly polynomial 
+  gives the Green–Schwarz contribution to the anomaly polynomial
   [@osty2014].
 
 symmetry:

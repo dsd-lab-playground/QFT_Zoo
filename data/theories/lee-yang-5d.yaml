@@ -29,9 +29,9 @@ description: |
   5d scalar ($\eta < 0$).
 
   The estimates below come from methods whose error estimates are not directly
-  comparable: the $6-\epsilon$ expansion to five loops with resummation 
+  comparable: the $6-\epsilon$ expansion to five loops with resummation
   [@borinsky2021]; series expansions of the dimer density on the
-  hypersimple-cubic and hyper-body-centred-cubic lattices in $d = 5$ 
+  hypersimple-cubic and hyper-body-centred-cubic lattices in $d = 5$
   [@butera2012]; the functional renormalization group [@an2016]; and a
   truncated, non-rigorous bootstrap that keeps a few operators in the $\phi\times\phi$
   OPE [@gliozzi2014], since the positivity-based numerical bootstrap does not apply to

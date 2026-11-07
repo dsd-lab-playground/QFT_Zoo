@@ -17,48 +17,48 @@ description: |
   sum over subsets $A$ of edges, $Z = \sum_A v^{|A|} Q^{k(A)}$ with $v = e^K - 1$ and $k(A)$ the number of
   clusters, which makes sense for any real $Q$. On the square lattice the critical point is $v_c = \sqrt{Q}$,
   and the boundaries of the clusters form completely packed loops on the medial lattice with weight $\sqrt{Q}$
-  per loop (see Jacobsen and Saleur). The transition is continuous for $Q \le 4$. For $Q > 4$ it is first order,
-  weakly so just above $4$, which Gorbenko, Rychkov and Zan relate to complex CFTs.
+  per loop (see [@jacobsensaleur2019]). The transition is continuous for $Q \le 4$. For $Q > 4$ it is first order,
+  weakly so just above $4$, which Gorbenko, Rychkov and Zan [@grz2018] relate to complex CFTs.
 
-  Following Jacobsen and Saleur, the critical theory is parametrized by
+  Following Jacobsen and Saleur [@jacobsensaleur2019], the critical theory is parametrized by
   $$\sqrt{Q} = 2\cos\frac{\pi}{m+1}, \quad m \in [1, \infty], \qquad c = 1 - \frac{6}{m(m+1)}, \qquad h_{r,s} = \frac{[(m+1)r - ms]^2 - 1}{4m(m+1)},$$
   with $m$ and the Kac labels $r, s$ not restricted to integers; the Coulomb-gas coupling is $g = m/(m+1)$.
-  Equivalently (Nivesvivat) $Q = 4\cos^2(\pi\beta^2)$ with $\tfrac12 \le \beta^2 \le 1$ and
+  Equivalently [@nivesvivat2023] $Q = 4\cos^2(\pi\beta^2)$ with $\tfrac12 \le \beta^2 \le 1$ and
   $c = 13 - 6\beta^2 - 6\beta^{-2}$, where $\beta^2 = m/(m+1)$. The order parameter (spin field) has weights
   $h_{1/2,0}$ and the energy field $h_{2,1}$; the energy field is degenerate for generic $Q$.
 
   At $Q = 2, 3, 4$ the critical point, as seen by local spin observables, is a unitary CFT: a minimal model for
   $Q = 2, 3$ and an orbifold of the compact boson for $Q = 4$. For non-integer $Q$, and for $Q = 1$, the theory
-  is real but non-unitary (Gorbenko, Rychkov and Zan). Even at integer $Q$, the CFT of cluster observables is
+  is real but non-unitary [@grz2018]. Even at integer $Q$, the CFT of cluster observables is
   larger than the minimal model: at $Q = 2$ the Potts CFT describes Fortuin–Kasteleyn clusters and is not the
-  Ising minimal model (Nivesvivat). The Potts CFT is defined by continuation in $c$ to a double cover of the
+  Ising minimal model [@nivesvivat2023]. The Potts CFT is defined by continuation in $c$ to a double cover of the
   half-plane $\mathrm{Re}\, c < 13$ (Picco, Ribault and Santachiara; Nivesvivat).
 
   ### Spectrum
-  The torus partition function goes back to Di Francesco, Saleur and Zuber, and Jacobsen, Ribault and Saleur
+  The torus partition function goes back to Di Francesco, Saleur and Zuber [@dfsz1987], and Jacobsen, Ribault and Saleur [@jrs2023]
   determine the space of states with the action of $S_Q$. In their notation,
   $P_{(r,s)} = \frac12(\beta r - \beta^{-1}s)$ and $\Delta_{(r,s)} = P_{(r,s)}^2 - P_{(1,1)}^2$ (so their
   $\Delta_{(r,s)}$ is $h_{s,r}$ above), it consists of diagonal degenerate fields with $\Delta_{(1,s)}$,
   $s \in \mathbb{N}^*$ ($S_Q$ singlets); diagonal fields with $\Delta_{(0,s)}$, $s \in \mathbb{N} + \tfrac12$,
   in the standard representation of $S_Q$ (the spin field is $s = \tfrac12$); and non-diagonal fields with
   weights $(\Delta_{(r,s)}, \Delta_{(r,-s)})$, $r \ge 2$ an integer and $s \in \tfrac1r\mathbb{Z}$, in
-  representations $\Xi_{(r,s)}$ of $S_Q$. Grans-Samuelsson, Liu, He, Jacobsen and Saleur showed that the
+  representations $\Xi_{(r,s)}$ of $S_Q$. Grans-Samuelsson, Liu, He, Jacobsen and Saleur [@granssamuelsson2020] showed that the
   diagonal degenerate fields come in simple modules, while non-diagonal fields with integer labels form
   indecomposable "diamond" representations with rank-2 Jordan cells for $L_0$ and $\bar L_0$: the Potts CFT is
   logarithmic for generic $Q$.
 
   ### Status
   The spectrum is exactly known for $0 < Q \le 4$, but not all OPE coefficients are, so the theory has not been
-  exactly solved (Gorbenko, Rychkov and Zan). Most work concerns four-point connectivities, the probabilities
-  that four points lie in given clusters. Picco, Ribault and Santachiara proposed a spectrum and bootstrapped
-  connectivities in agreement with Monte Carlo data; later, comparing with a CFT that interpolates between
-  D-series minimal models, they argued that the agreement is exact only at $Q = 0, 3, 4$. Jacobsen and Saleur
+  exactly solved [@grz2018]. Most work concerns four-point connectivities, the probabilities
+  that four points lie in given clusters. Picco, Ribault and Santachiara [@prs2016] proposed a spectrum and bootstrapped
+  connectivities in agreement with Monte Carlo data; later [@prs2019], comparing with a CFT that interpolates between
+  D-series minimal models, they argued that the agreement is exact only at $Q = 0, 3, 4$. Jacobsen and Saleur [@jacobsensaleur2019]
   found, with lattice algebra and transfer-matrix numerics, that the spectra in the fusion channels are much
-  richer than proposed. He, Jacobsen and Saleur solved the bootstrap numerically with interchiral conformal
-  blocks, and Nivesvivat and Ribault computed connectivities to arbitrary precision with logarithmic blocks,
-  confirming the Delfino–Viti conjecture for the three-point connectivity (built from the $c \le 1$ Liouville
-  structure constant). Nivesvivat found extra crossing-symmetric solutions whose interpretation is unknown, and
-  Nivesvivat, Ribault and Jacobsen conjecture that all structure constants of critical loop models are a
+  richer than proposed. He, Jacobsen and Saleur [@hjs2020] solved the bootstrap numerically with interchiral conformal
+  blocks, and Nivesvivat and Ribault [@nivesvivatribault2021] computed connectivities to arbitrary precision with logarithmic blocks,
+  confirming the Delfino–Viti conjecture [@delfinoviti2011] for the three-point connectivity (built from the $c \le 1$ Liouville
+  structure constant). Nivesvivat [@nivesvivat2023] found extra crossing-symmetric solutions whose interpretation is unknown, and
+  Nivesvivat, Ribault and Jacobsen [@nrj2024] conjecture that all structure constants of critical loop models are a
   universal function, built from Barnes' double Gamma function, times a polynomial in the loop weights. These
   are numerical results and conjectures.
 
@@ -87,7 +87,7 @@ family:
     - at: 4
       label: '4-state Potts ($m \to \infty$)'
       c: '1'
-      note: 'An orbifold of the compact boson (Gorbenko, Rychkov and Zan, App. C).'
+      note: 'An orbifold of the compact boson [@grz2018, App. C].'
 
 symmetry:
   spacetime: conformal
@@ -101,7 +101,7 @@ quantities:
     value: '1 - \frac{6}{m(m+1)}, \quad \sqrt{Q} = 2\cos\frac{\pi}{m+1}'
     method: exact
     refs: [jacobsensaleur2019, nivesvivat2023, prs2019]
-    note: '$c = -2, 0, \tfrac12$ at $Q = 0, 1, 2$ (Nivesvivat, Table (1.3)) and $\tfrac45$ at $Q = 3$ (Picco, Ribault and Santachiara 2019); $c \to 1$ as $Q \to 4$.'
+    note: '$c = -2, 0, \tfrac12$ at $Q = 0, 1, 2$ [@nivesvivat2023, Table (1.3)] and $\tfrac45$ at $Q = 3$ [@prs2019]; $c \to 1$ as $Q \to 4$.'
   - symbol: '\nu'
     description: 'Correlation-length exponent, $1/(2 - \Delta_\epsilon)$'
     value: '\frac{2m}{3(m-1)}'
