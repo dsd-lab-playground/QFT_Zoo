@@ -70,18 +70,28 @@ quantities:
     method: exact, Seiberg–Witten geometry
     refs: [shapere2008, aharony2007, liendo2015]
     note: 'Saturates the bound $c \geq \tfrac{11}{30}$ for interacting $\mathcal{N}=2$ SCFTs [@liendo2015, Eq. (4.14)].'
-  - symbol: '\lambda^2_{u^2}'
-    description: 'Squared OPE coefficient of $u^2$ in $u\times u$ (unit-normalized two-point functions)'
-    value: '[2.142596,\ 2.16509]'
-    method: CB, rigorous bounds
-    refs: [gimenezgrau2020]
-    note: 'Bounds at derivative order $\Lambda = 50$ [@gimenezgrau2020, Table 7].'
-  - symbol: '\lambda^2_{u^2}'
-    description: 'Squared OPE coefficient of $u^2$ in $u\times u$ (unit-normalized two-point functions)'
-    value: '[2.1418,\ 2.1672]'
-    method: CB, rigorous bounds
-    refs: ['cornagliotto2017, Eq. (3.1)']
-    note: 'Bounds at $\Lambda = 40$ (earlier study). Conservative extrapolation: $2.146 \lesssim \lambda^2 \lesssim 2.159$ [@cornagliotto2017, Eq. (3.2)].'
+
+ope_structures:
+  - id: chiral
+    symbol: '\lambda'
+    name: 'chiral, unit-normalized'
+    description: 'Coefficient of the Coulomb-branch chiral operator $u^2$ in the chiral OPE $u\times u$, i.e. of the structure of $\langle u\,u\,\overline{u^2}\rangle$, with unit-normalized two-point functions $\langle u(x)\bar u(0)\rangle = |x|^{-2\Delta_u}$ and $\langle u^2(x)\,\overline{u^2}(0)\rangle = |x|^{-2\Delta_{u^2}}$.'
+
+ope_coefficients:
+  - operators: ['u', 'u', 'u^2']
+    values:
+      - structure: chiral
+        symbol: '\lambda^2_{u^2}'
+        value: '[2.142596,\ 2.16509]'
+        method: CB, rigorous bounds
+        refs: [gimenezgrau2020]
+        note: 'Bounds at derivative order $\Lambda = 50$ [@gimenezgrau2020, Table 7].'
+      - structure: chiral
+        symbol: '\lambda^2_{u^2}'
+        value: '[2.1418,\ 2.1672]'
+        method: CB, rigorous bounds
+        refs: ['cornagliotto2017, Eq. (3.1)']
+        note: 'Bounds at $\Lambda = 40$ (earlier study). Conservative extrapolation: $2.146 \lesssim \lambda^2 \lesssim 2.159$ [@cornagliotto2017, Eq. (3.2)].'
 
 operators:
   - name: 'u'

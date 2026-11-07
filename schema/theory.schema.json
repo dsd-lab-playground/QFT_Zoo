@@ -107,7 +107,21 @@
       "items": {
         "$ref": "#/$defs/quantity"
       },
-      "description": "Numbers characterising the theory: central charges, critical exponents, OPE coefficients, beta-function coefficients, free energies, ..."
+      "description": "Numbers characterising the theory: central charges, critical exponents, beta-function coefficients, free energies, ... OPE coefficients of a triplet of operators go in ope_coefficients."
+    },
+    "ope_structures": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/opeStructure"
+      },
+      "description": "Three-point structures that this entry's OPE coefficients multiply, beyond the standard ones of data/ope_structures.yaml: each defined once, by the basis of the source the values come from (a citation of the formula that defines it, or a short standard name). See docs/OPE.md."
+    },
+    "ope_coefficients": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/opeCoefficient"
+      },
+      "description": "OPE coefficients, one item per triplet of operators; each value names the structure it multiplies. See docs/OPE.md."
     },
     "operators": {
       "type": "array",
@@ -134,13 +148,23 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "central": { "type": "string" },
-        "anomaly": { "type": "string" },
-        "ope": { "type": "string" },
-        "exponent": { "type": "string" },
-        "other": { "type": "string" }
+        "central": {
+          "type": "string"
+        },
+        "anomaly": {
+          "type": "string"
+        },
+        "ope": {
+          "type": "string"
+        },
+        "exponent": {
+          "type": "string"
+        },
+        "other": {
+          "type": "string"
+        }
       },
-      "description": "[markdown] Normalization conventions shared by the entry's quantities of one category (see quantity.category), shown at the top of that section, e.g. ope: 'Operators unit-normalized, conformal blocks as in [@kos2016]'. A convention specific to one quantity goes in its description."
+      "description": "[markdown] Normalization conventions shared by the entry's quantities of one category (see quantity.category), shown at the top of that section, e.g. central: 'C_T relative to one free real scalar'. A convention specific to one quantity goes in its description. OPE coefficients state their conventions as structures (ope_structures; docs/OPE.md)."
     },
     "uv_dof": {
       "type": "number",
@@ -297,7 +321,7 @@
             "exponent",
             "other"
           ],
-          "description": "Section the quantity is shown in: central (central charges, C_T, C_J, sphere and thermal free energies), anomaly (Weyl anomalies a, c in d >= 4, 't Hooft anomalies, anomaly polynomials), ope (OPE coefficients and other three-point data), exponent (critical exponents), other. Omit it unless the site's inference from key, symbol and description is wrong."
+          "description": "Section the quantity is shown in: central (central charges, C_T, C_J, sphere and thermal free energies), anomaly (Weyl anomalies a, c in d >= 4, 't Hooft anomalies, anomaly polynomials), ope (three-point data that is not the coefficient of one triplet of operators in ope_coefficients: structure constants as functions of continuous labels, reflection amplitudes, ratios of OPE coefficients), exponent (critical exponents), other. The site infers central, anomaly, exponent and other from key, symbol and description; `ope` is never inferred and must be set. Omit it unless the inference is wrong or the quantity is OPE data."
         },
         "relation": {
           "type": "string",
@@ -1227,6 +1251,140 @@
         "note": {
           "type": "string",
           "description": "[markdown] e.g. how the factor sits in the full group (quotients, semidirect products)."
+        }
+      }
+    },
+    "opeStructure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ],
+      "anyOf": [
+        {
+          "required": [
+            "ref"
+          ]
+        },
+        {
+          "required": [
+            "name"
+          ]
+        }
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "What values write in `structure:`; unique in the entry and different from the ids of data/ope_structures.yaml."
+        },
+        "symbol": {
+          "type": "string",
+          "description": "[latex] The source's symbol for the coefficient of this structure, e.g. 'f', '\\lambda', 'n_B'. A value without its own `symbol` shows this one."
+        },
+        "ref": {
+          "type": "string",
+          "description": "The formula that defines the structure, as a refs item: reference key and locator, e.g. 'chang2024, Eq. (2.2)'. Shown as the structure's label when it has no `name`."
+        },
+        "name": {
+          "type": "string",
+          "description": "[markdown] A short name readers will recognize, for a structure that has one, e.g. 'free-boson structure'. Shown as the structure's label."
+        },
+        "description": {
+          "type": "string",
+          "description": "[markdown] What the structure is: which three-point function, the normalization of the operators and of the tensor structure or conformal block, with citations ([@key, Eq. (2.2)])."
+        },
+        "relation": {
+          "type": "string",
+          "description": "[markdown] Optional: the relation to another basis, only as a source states it (with a citation), e.g. '$\\lambda^2 = 2^\\ell f^2$ relative to ...'. Values are never converted."
+        },
+        "basis": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Only for a structure that is one element of a basis of several independent structures of the same three-point function (n_B and n_F of <TTT>): an id shared by the elements. Values of different elements are different coefficients, each shown on its own line."
+        }
+      }
+    },
+    "opeOperator": {
+      "oneOf": [
+        {
+          "type": "string",
+          "description": "[latex] The `name` of an operator in this entry's operators table, exactly as written there."
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label"
+          ],
+          "properties": {
+            "label": {
+              "type": "string",
+              "description": "[latex] An operator that is not in the operators table (the build counts these)."
+            }
+          }
+        }
+      ]
+    },
+    "opeCoefficient": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operators",
+        "values"
+      ],
+      "properties": {
+        "operators": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/opeOperator"
+          },
+          "description": "The three operators of the three-point function <O1 O2 O3> (O3 exchanged in O1 x O2), in the order the values' structures assume."
+        },
+        "values": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/opeValue"
+          },
+          "description": "Determinations of the coefficients of this triplet, each in the structure it multiplies."
+        }
+      }
+    },
+    "opeValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "structure",
+        "value"
+      ],
+      "properties": {
+        "structure": {
+          "type": "string",
+          "description": "Id of the structure this value multiplies: one of data/ope_structures.yaml or of the entry's ope_structures."
+        },
+        "symbol": {
+          "type": "string",
+          "description": "[latex] The coefficient as written, e.g. '\\lambda_{\\sigma\\sigma\\epsilon}', '\\lambda^2_{\\phi\\phi s}', '|C_{\\phi\\phi\\phi}|'. Defaults to the structure's symbol."
+        },
+        "description": {
+          "type": "string",
+          "description": "[markdown] Optional, about this value (not the convention: that is the structure's)."
+        },
+        "value": {
+          "$ref": "#/$defs/value"
+        },
+        "method": {
+          "$ref": "#/$defs/method"
+        },
+        "refs": {
+          "$ref": "#/$defs/refKeys"
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown] Locators, assumptions, rigor, agreement with other values."
         }
       }
     }

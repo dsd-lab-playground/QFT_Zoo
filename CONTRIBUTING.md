@@ -40,8 +40,10 @@ match the filename. See the existing entries for worked examples, e.g.
 | `parameters` | | `symbol`, `description`, `range` |
 | `family` | | marks the entry as a family of theories (see *Families* below) |
 | `symmetry` | | `spacetime`, `euclidean`, `lorentzian` (the spacetime symmetry in both signatures, see *Spacetime symmetry* below), `supercharges` (number of real Poincaré supercharges $Q$; used for sorting, not shown on the page), `global` (in words), `parity` and `global_group` (structured; see *Operator representations*), `gauge`, `notes` |
-| `quantities` | | central charges, anomalies, OPE coefficients, exponents, …: `key`, `symbol`, `description`, `value`, `method`, `refs`, `note`, optional `category` and `relation` (see *How quantities are shown*) |
-| `conventions` | | normalizations shared by one category of quantities, e.g. `ope: 'Unit-normalized operators; blocks as in [@kos2016]'` |
+| `quantities` | | central charges, anomalies, exponents, …: `key`, `symbol`, `description`, `value`, `method`, `refs`, `note`, optional `category` and `relation` (see *How quantities are shown*) |
+| `ope_coefficients` | | one item per triplet of operators: `operators`, `values` (each with `structure`, `symbol`, `value`, `method`, `refs`, `note`); see *OPE coefficients* |
+| `ope_structures` | | the three-point structures that this entry's OPE values multiply, beyond the standard ones: `id`, `symbol`, `ref` or `name`, `description`, `relation`, `basis` |
+| `conventions` | | normalizations shared by one category of quantities, e.g. `central: 'C_T relative to one free real scalar'` (OPE coefficients define structures instead) |
 | `operators` | | `name`, `Delta`, `spin`, `weights` (2d: `(h, \bar h)`), `lorentz`, `parity`, `global`, `role`, `multiplet`, `degeneracy`, `method`, `refs`, `note` (see *Operator representations*; older entries still use a free-text `rep`) |
 | `relations` | | `type`, `target`, `at`, `variant`, `note`; for flows also `id`, `flow`, `target_expr` (see below) |
 | `references` | yes | `key`, `title`, `authors`, `year`, `journal`, `note`, and at least one of `arxiv` / `doi` / `url` |
@@ -282,17 +284,15 @@ A theory page shows its quantities by kind, each kind in its own section:
 **Central charges and free energy** (`central`: $c$ in 2d, $C_T$, $C_J$, flavor central
 charges, sphere and thermal free energies), **Anomalies** (`anomaly`: the Weyl anomalies
 $a$, $c$ in $d \ge 4$ and $a$, $c_i$ in 6d, 't Hooft anomalies, anomaly polynomials),
-**OPE coefficients** (`ope`: also other three-point data, such as $\langle TTT\rangle$
-coefficients or the DOZZ formula), **Critical exponents** (`exponent`) and **Other data**.
+**OPE coefficients** (the entry's `ope_coefficients`, see *OPE coefficients* below, and
+quantities with `category: ope`), **Critical exponents** (`exponent`) and **Other data**.
 An entry with few quantities keeps one table.
 
-- The kind is inferred from `key`, `symbol` and `description` ("OPE coefficient",
-  "anomaly", "exponent", "two-point coefficient", `\lambda_{...}`, `\nu`, ...). Set
-  `category:` only when the inference is wrong.
-- OPE coefficients are grouped by OPE and ordered by the dimension of the exchanged
-  operator, read from the symbol: write `\lambda_{\sigma\sigma\epsilon}` with the
-  operator names used in `operators` (`T` finds `T_{\mu\nu}`). State the normalization in
-  the description (or once for all, in `conventions: {ope: ...}`).
+- The kind is inferred from `key`, `symbol` and `description` ("anomaly", "exponent",
+  "two-point coefficient", `\nu`, ...). Set `category:` only when the inference is wrong.
+  `ope` is never inferred: three-point data that is not the coefficient of one triplet of
+  operators (a structure constant as a function of continuous labels, a reflection
+  amplitude, a ratio of OPE coefficients) is a quantity with `category: ope`.
 - Exponents show their relation to scaling dimensions, taken from the description's
   `$...$` (e.g. `'Critical exponent, $\nu = 1/(3-\Delta_\epsilon)$'`) or from `relation:`.
 - **Several determinations** of one quantity (other papers or methods): give each its own
@@ -300,6 +300,62 @@ An entry with few quantities keeps one table.
   after a comma or colon, or starts with "Same"). The page shows them as one quantity, the
   most precise value first and the others folded below it. Rows that fix a parameter in the
   description (`$N = 25$`, `$k = 1$`) stay separate quantities.
+
+### OPE coefficients
+
+OPE coefficients have their own list, `ope_coefficients`: one item per **triplet of
+operators**, and in it every value recorded for that triplet, each labelled by the
+**three-point structure** it multiplies. The full specification, with the presentation
+rule, is [docs/OPE.md](docs/OPE.md).
+
+```yaml
+ope_structures:                       # structures that are a choice of a paper: defined once, by its basis
+  - id: sd16
+    symbol: 'f'
+    ref: 'simmonsduffin2016, Eq. (A.16)'          # the formula that defines it (or `name:` for a known name)
+    description: 'Scalar–scalar–spin-$\ell$ structure, external scalars unit-normalized, blocks normalized so that they start as $z^{(\Delta-\ell)/2}\bar z^{(\Delta+\ell)/2}$ [@simmonsduffin2016, Eq. (A.16)].'
+  - id: reehorst2021
+    symbol: '\lambda'
+    ref: 'reehorst2021, p. 6, fn. 3'
+    relation: '$\lambda^2 = 2^\ell f^2$ relative to [@simmonsduffin2016, Eq. (A.16)] [@reehorst2021, p. 16].'   # only as a source states it
+
+ope_coefficients:
+  - operators: ['\sigma', '\sigma', '\epsilon']   # `name`s from the operators table
+    values:
+      - structure: scalar                           # standard: three scalars, unit-normalized
+        symbol: '\lambda_{\sigma\sigma\epsilon}'
+        value: '1.0518537(41)'
+        method: CB
+        refs: [kos2016]
+  - operators: ['\sigma', '\sigma', 'T''_{\mu\nu}']
+    values:                                         # one coefficient, quoted in two papers' bases
+      - {structure: sd16, symbol: "f_{\\sigma\\sigma T'}", value: '0.0105745(42)', method: CB-EFM, refs: [simmonsduffin2016]}
+      - {structure: reehorst2021, symbol: "\\lambda_{\\sigma\\sigma T'}", value: '0.02107(20)', method: 'CB, rigorous', refs: [reehorst2021]}
+  - operators: ['T_{\mu\nu}', 'T_{\mu\nu}', 'T_{\mu\nu}']
+    values:                                         # two coefficients: elements of one standard basis
+      - {structure: ttt-free-boson-3d, value: '0.933444559(75)', method: 'CB, non-rigorous error', refs: [chang2024]}
+      - {structure: ttt-free-fermion-3d, value: '0.013094116(33)', method: 'CB, non-rigorous error', refs: [chang2024]}
+```
+
+- **Operators** are named exactly as in the entry's `operators` table (the build checks
+  it); `{label: '...'}` for one that is not there (counted by the build).
+- **Every value names its structure**: a standard one from
+  [`data/ope_structures.yaml`](data/ope_structures.yaml) (`scalar`: three scalars with
+  unit-normalized two-point functions; `vector-vector-singlet`: $\delta_{ij}$ for $O(N)$;
+  `ttt-free-boson-3d`, `ttt-free-fermion-3d`: $n_B$, $n_F$), or one defined in the entry's
+  `ope_structures` by the source's basis: `id`, the citation of its defining formula `ref`
+  (or a `name` readers know), the source's `symbol`, a precise `description`
+  (normalization of the operators and of the blocks or tensor structures), and a `relation`
+  to other bases only when a source states one. Never convert a value to another basis:
+  record it in its paper's basis, as its own value.
+- Several determinations of a coefficient are several `values` of one triplet, in the same
+  structure or in different ones. Conventions go in the structure, once; a value's `note`
+  is about the value (locator, rigor, assumptions, agreement).
+- The page shows one item per triplet, lightest operators first; each element of a basis of
+  several structures ($n_B$, $n_F$) on its own line, all other values of the triplet on one
+  line, best first within each structure, the rest folded. Rows name their structure,
+  except values in a default standard structure (three scalars), which the section states
+  once; the structures used are defined once above the table.
 
 ### Families
 

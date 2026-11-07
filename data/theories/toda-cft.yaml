@@ -76,6 +76,7 @@ quantities:
     method: exact
     note: '[@fl2007, Eq. (1.39)]. At $N=2$ it reduces to the DOZZ formula.'
     refs: [fl2007, fl2009]
+    category: ope
 
 operators:
   - name: 'V_\alpha'

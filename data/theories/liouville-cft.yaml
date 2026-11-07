@@ -307,11 +307,13 @@ quantities:
     value: '4\sqrt{2}\,\sinh(2\pi bP)\sinh(2\pi b^{-1}P)'
     method: exact
     refs: [cemr2024, cmmt2020]
+    category: ope
   - symbol: 'C_b(P_1,P_2,P_3)'
     description: 'Three-point function (DOZZ formula)'
     value: '\frac{\Gamma_b(2Q)\,\Gamma_b(\frac{Q}{2}\pm iP_1\pm iP_2\pm iP_3)}{\sqrt{2}\,\Gamma_b(Q)^3\prod_{k=1}^{3}\Gamma_b(Q\pm 2iP_k)}'
     method: exact
     refs: [dornotto1994, zz1996, teschner1995, cemr2024]
+    category: ope
 
 operators:
   - name: 'V_P'
