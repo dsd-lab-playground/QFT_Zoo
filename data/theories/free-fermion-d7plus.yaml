@@ -1,0 +1,115 @@
+id: free-fermion-d7plus
+name: Free massless Dirac fermion ($d > 6$)
+aliases:
+  - Free fermion in high dimensions
+d: 7
+summary: >-
+  A single free massless Dirac fermion in $d = 7, \dots, 11$ dimensions, filed under $d = 7$.
+  With the free scalar and the free middle-form field, it is one of the only known unitary
+  CFTs above six dimensions.
+tags: [CFT, free, unitary, Lagrangian, exactly solvable, family]
+
+description: |
+  One page for the free Dirac fermion in every dimension above six; the members table lists
+  the values for each $d$. The propagator is
+  $\langle\psi(x)\bar\psi(0)\rangle = \frac{1}{S_d}\frac{\gamma\cdot x}{|x|^d}$, so
+  $\Delta_\psi = \tfrac{d-1}{2}$. A Dirac spinor has ${\rm Tr}\,\mathbb{1} = 2^{[d/2]}$ complex
+  components (8 in $d=7$, 16 in $d=8, 9$, 32 in $d=10, 11$). In even $d$ a Weyl fermion has half
+  as many, and half the $C_T$ below. The mass term $\bar\psi\psi$ has $\Delta = d-1 < d$ and is
+  relevant, while every four-fermion interaction has $\Delta = 2(d-1) > d$ and is irrelevant.
+
+  See the free-scalar page ($d > 6$) for why free fields are the only known unitary CFTs in
+  this range.
+
+lagrangian: '\mathcal{L} = \bar\psi\,\gamma^\mu\partial_\mu\psi'
+
+parameters:
+  - symbol: 'd'
+    description: Spacetime dimension.
+    range: '$d = 7, 8, 9, 10, 11$'
+
+family:
+  parameter: d
+  members:
+    - at: 7
+      note: '$\Delta_\psi = 3$; ${\rm Tr}\,\mathbb{1} = 8$; $C_T = \frac{1575}{64\pi^6}$ (24 times the free scalar).'
+    - at: 8
+      note: '$\Delta_\psi = \tfrac72$; ${\rm Tr}\,\mathbb{1} = 16$; $C_T = \frac{576}{\pi^8}$ (56 times the free scalar).'
+    - at: 9
+      note: '$\Delta_\psi = 4$; ${\rm Tr}\,\mathbb{1} = 16$; $C_T = \frac{99225}{128\pi^8}$ (64 times the free scalar).'
+    - at: 10
+      note: '$\Delta_\psi = \tfrac92$; ${\rm Tr}\,\mathbb{1} = 32$; $C_T = \frac{23040}{\pi^{10}}$ (144 times the free scalar).'
+    - at: 11
+      note: '$\Delta_\psi = 5$; ${\rm Tr}\,\mathbb{1} = 32$; $C_T = \frac{9823275}{256\pi^{10}}$ (160 times the free scalar).'
+  show: 5
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$U(1)$ fermion number (the manifest symmetry)'
+
+quantities:
+  - symbol: 'C_T'
+    description: 'Stress-tensor two-point coefficient of one Dirac fermion in the absolute Osborn–Petkou normalization, with $S_d = 2\pi^{d/2}/\Gamma(d/2)$'
+    value: '{\rm Tr}\,\mathbb{1}\,\frac{d}{2S_d^2},\quad {\rm Tr}\,\mathbb{1} = 2^{[d/2]}'
+    method: exact
+    refs: [osborn1994, diab2016, buchel2010]
+    note: 'Osborn–Petkou eq. (5.6) in the form quoted by Diab et al. (footnote 2), and the fermion term of Buchel et al. eq. (7.6) with $\tilde n_f = 2^{[d/2]}$. The member values are this formula at each $d$ (derived); the ratio to the free scalar is ${\rm Tr}\,\mathbb{1}\,\frac{d-1}{2}$.'
+
+operators:
+  - name: '\psi'
+    Delta: '\frac{d-1}{2}'
+    spin: '1/2'
+    rep: 'charge $1$'
+    method: exact
+    refs: [osborn1994]
+    note: 'Saturates the spinor unitarity bound.'
+  - name: '\bar\psi\psi'
+    Delta: 'd-1'
+    spin: 0
+    rep: neutral
+    method: exact
+    refs: [osborn1994]
+    note: 'Dirac mass term. Relevant.'
+  - name: 'J_\mu = \bar\psi\gamma_\mu\psi'
+    Delta: 'd-1'
+    spin: 1
+    rep: neutral
+    method: exact
+    note: 'Conserved $U(1)$ current.'
+  - name: 'T_{\mu\nu}'
+    Delta: 'd'
+    spin: 2
+    rep: neutral
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: free-scalar-d7plus
+    note: 'The other free fields above six dimensions.'
+
+references:
+  - key: osborn1994
+    title: Implications of conformal invariance in field theories for general dimensions
+    authors: Osborn, Petkou
+    year: 1994
+    journal: Annals Phys. 231, 311
+    arxiv: hep-th/9307010
+    doi: 10.1006/aphy.1994.1045
+  - key: diab2016
+    title: On $C_J$ and $C_T$ in the Gross-Neveu and $O(N)$ Models
+    authors: Diab, Fei, Giombi, Klebanov, Tarnopolsky
+    year: 2016
+    journal: J. Phys. A 49, 405402
+    arxiv: '1601.07198'
+    doi: 10.1088/1751-8113/49/40/405402
+    note: 'Footnote 2: $C_T$ of free scalars and fermions in general $d$, with ${\rm Tr}\,\mathbb{1}$ explicit.'
+  - key: buchel2010
+    title: Holographic GB gravity in arbitrary dimensions
+    authors: Buchel, Escobedo, Myers, Paulos, Sinha, Smolkin
+    year: 2010
+    arxiv: '0911.4257'
+    note: 'Eq. (7.6) and the text after eq. (3.39): $C_T$ of free fields in general $d$, with $\tilde n_f = 2^{[d/2]}$ for a Dirac fermion.'
+
+contributors: [Canonical111]

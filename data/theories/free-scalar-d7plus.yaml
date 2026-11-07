@@ -1,0 +1,135 @@
+id: free-scalar-d7plus
+name: Free massless scalar ($d > 6$)
+aliases:
+  - Gaussian fixed point in $d > 6$
+  - Free conformal scalar in high dimensions
+d: 7
+summary: >-
+  A single free massless real scalar in $d = 7, \dots, 11$ dimensions, filed under $d = 7$.
+  Above six dimensions free fields are the only known unitary CFTs, and there are no
+  superconformal theories at all.
+tags: [CFT, free, unitary, Lagrangian, exactly solvable, family]
+
+description: |
+  One page for the free scalar in every dimension above six; the members table lists the
+  values for each $d$. All correlators follow from Wick contractions of
+  $\langle \phi(x)\phi(0)\rangle \propto |x|^{-(d-2)}$, so $\Delta_\phi = \tfrac{d-2}{2}$ and
+  $\phi^n$ has $\Delta = \tfrac{n(d-2)}{2}$. Already $\phi^3$ is irrelevant for $d > 6$, so
+  no polynomial interaction of a single scalar is renormalizable there.
+
+  ### CFTs above six dimensions
+  Superconformal algebras exist only for $d \le 6$ (Nahm), so there are no SCFTs in
+  $d > 6$. The familiar interacting fixed points of statistical mechanics become Gaussian
+  above their upper critical dimension: 4 for the Ising and $O(N)$ classes, 6 for
+  $\phi^3$-type theories (Lee–Yang, percolation). No interacting unitary CFT is known in
+  $d > 6$, although there is no general theorem excluding one. Free scalars, free fermions
+  and, in even $d$, the free $(d/2-1)$-form gauge field are the known unitary examples. The
+  critical point of branched polymers is an interacting but non-unitary example in $d = 7$.
+
+lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi)^2'
+
+parameters:
+  - symbol: 'd'
+    description: Spacetime dimension.
+    range: '$d = 7, 8, 9, 10, 11$'
+
+family:
+  parameter: d
+  members:
+    - at: 7
+      note: '$\Delta_\phi = \tfrac52$; $C_T = \frac{525}{512\pi^6}$; $\tilde F \approx 7.97\times10^{-4}$.'
+    - at: 8
+      note: '$\Delta_\phi = 3$; $C_T = \frac{72}{7\pi^8}$.'
+    - at: 9
+      note: '$\Delta_\phi = \tfrac72$; $C_T = \frac{99225}{8192\pi^8}$; $\tilde F \approx 1.31\times10^{-4}$.'
+    - at: 10
+      note: '$\Delta_\phi = 4$; $C_T = \frac{160}{\pi^{10}}$.'
+    - at: 11
+      note: '$\Delta_\phi = \tfrac92$; $C_T = \frac{1964655}{8192\pi^{10}}$; $\tilde F \approx 2.37\times10^{-5}$.'
+  show: 5
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$\mathbb{Z}_2$ ($\phi\to-\phi$), plus shift symmetry $\phi \to \phi + \text{const}$'
+
+quantities:
+  - symbol: 'C_T'
+    description: 'Stress-tensor two-point coefficient in the absolute Osborn–Petkou normalization, $\langle T_{\mu\nu}(x)T_{\sigma\rho}(0)\rangle = C_T\,\mathcal{I}_{\mu\nu,\sigma\rho}(x)/x^{2d}$, with $S_d = 2\pi^{d/2}/\Gamma(d/2)$'
+    value: '\frac{d}{d-1}\,\frac{1}{S_d^2}'
+    method: exact
+    refs: [osborn1994, buchel2010]
+    note: 'Osborn–Petkou eq. (5.5); also the scalar term of Buchel et al. eq. (7.6). The member values are this formula at each $d$ (derived).'
+  - symbol: '\tilde F'
+    description: 'Sphere free energy (odd $d$) in the convention of Giombi and Klebanov, $\tilde F = \sin(\pi d/2)\log Z_{S^d} = (-1)^{(d+1)/2}F$ with $F = -\log Z_{S^d}$'
+    value: '7.97\times10^{-4}\ (d=7),\ 1.31\times10^{-4}\ (d=9),\ 2.37\times10^{-5}\ (d=11)'
+    method: exact (evaluated numerically)
+    refs: [klebanov2011, giombi2014]
+    note: 'Klebanov, Pufu and Safdi, Table 1, give $F \approx 7.97\times10^{-4}$, $-1.31\times10^{-4}$ and $2.37\times10^{-5}$ for $d = 7, 9, 11$ (exact in terms of $\log 2$ and odd zeta values). A numerical evaluation of the integral in Giombi–Klebanov eq. (2.5) reproduces all three; $\tilde F$ is positive in every $d$.'
+
+operators:
+  - name: '\phi'
+    Delta: '\frac{d-2}{2}'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-odd'
+    method: exact
+    refs: [osborn1994]
+    note: 'From the propagator $\langle\phi(x)\phi(0)\rangle = \frac{1}{(d-2)S_d\,x^{d-2}}$ (Osborn–Petkou eq. (5.3)); saturates the scalar unitarity bound.'
+  - name: '\phi^2'
+    Delta: 'd-2'
+    spin: 0
+    rep: '$\mathbb{Z}_2$-even'
+    method: exact
+    refs: [osborn1994]
+    note: 'The only relevant $\mathbb{Z}_2$-even scalar besides the identity.'
+  - name: 'T_{\mu\nu}'
+    Delta: 'd'
+    spin: 2
+    rep: '$\mathbb{Z}_2$-even'
+    method: exact
+    note: Stress tensor (conserved).
+
+relations:
+  - type: related_to
+    target: free-scalar-6d
+    note: 'The same free field in $d = 6$.'
+
+references:
+  - key: osborn1994
+    title: Implications of conformal invariance in field theories for general dimensions
+    authors: Osborn, Petkou
+    year: 1994
+    journal: Annals Phys. 231, 311
+    arxiv: hep-th/9307010
+    doi: 10.1006/aphy.1994.1045
+  - key: buchel2010
+    title: Holographic GB gravity in arbitrary dimensions
+    authors: Buchel, Escobedo, Myers, Paulos, Sinha, Smolkin
+    year: 2010
+    arxiv: '0911.4257'
+    note: 'Eq. (7.6): $C_T$ of free scalars, fermions and $(d/2-1)$-forms in general $d$.'
+  - key: klebanov2011
+    title: F-Theorem without Supersymmetry
+    authors: Klebanov, Pufu, Safdi
+    year: 2011
+    journal: JHEP 10 (2011) 038
+    arxiv: '1105.4598'
+    doi: 10.1007/JHEP10(2011)038
+    note: 'Table 1: $F$ of a free conformal scalar on $S^d$ for odd $d \le 11$.'
+  - key: giombi2014
+    title: Interpolating between $a$ and $F$
+    authors: Giombi, Klebanov
+    year: 2015
+    journal: JHEP 03 (2015) 117
+    arxiv: '1409.1937'
+    doi: 10.1007/JHEP03(2015)117
+    note: 'Definition of $\tilde F$ (eq. (1.5)) and its integral representation for a free scalar (eq. (2.5)).'
+  - key: nahm1978
+    title: Supersymmetries and their representations
+    authors: Nahm
+    year: 1978
+    journal: Nucl. Phys. B 135, 149
+    doi: 10.1016/0550-3213(78)90218-3
+    note: 'Superconformal algebras exist only for $d \le 6$.'
+
+contributors: [Canonical111]
