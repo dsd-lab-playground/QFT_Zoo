@@ -71,10 +71,11 @@
           "rational",
           "orbifold",
           "coset",
-          "family"
+          "family",
+          "RG flow"
         ]
       },
-      "description": "Controlled vocabulary used for filtering. To propose a new tag, add it to this list in the same pull request."
+      "description": "Controlled vocabulary used for filtering. To propose a new tag, add it to this list in the same pull request. 'RG flow' marks an entry that describes a famous RG flow (the deformed theory, often a family), linked from relations through `flow.page`."
     },
     "description": {
       "type": "string",
@@ -292,8 +293,7 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "type",
-        "target"
+        "type"
       ],
       "properties": {
         "type": {
@@ -306,12 +306,21 @@
             "product_of",
             "same_partition_function"
           ],
-          "description": "flows_to: this theory (UV) flows to the target (IR). member_of: this theory belongs to the target family (give `at`). orbifold_of: this theory is an orbifold (gauging of a finite symmetry) of the target. product_of: the target is a tensor factor of this theory. same_partition_function: equal torus partition functions. dual_to, related_to: symmetric."
+          "description": "flows_to: this theory (UV) flows to the target (IR). member_of: this theory belongs to the target family (give `at`). orbifold_of: this theory is an orbifold (gauging of a finite symmetry) of the target. product_of: the target is a tensor factor of this theory. same_partition_function: equal torus partition functions. dual_to, related_to: symmetric. Only flows_to relations may carry `id`, `flow` or `target_expr`."
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "flows_to only: a slug naming this flow, unique among the entry's flows_to relations. Required with `flow` or `target_expr`. Two flows between the same theories stay separate arrows."
         },
         "target": {
           "type": "string",
           "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
-          "description": "id of another entry."
+          "description": "id of another entry. Every relation needs `target`, except a flows_to relation with `target_expr` (give exactly one of the two)."
+        },
+        "target_expr": {
+          "$ref": "#/$defs/targetExpr",
+          "description": "flows_to only, instead of `target`: an IR theory built from entries, e.g. a direct sum or tensor product. Needs `id` and `flow`."
         },
         "note": {
           "type": "string",
@@ -327,6 +336,9 @@
         "variant": {
           "type": "string",
           "description": "For member_of: which variant, if the family has variants."
+        },
+        "flow": {
+          "$ref": "#/$defs/flow"
         }
       }
     },
@@ -522,6 +534,507 @@
           "maximum": 50,
           "default": 8,
           "description": "How many parameter values to list on the page."
+        }
+      }
+    },
+    "flow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identification"
+      ],
+      "description": "Structured description of a flows_to relation. Give `identification`, and `deformations`, `vevs` or both. Every item needs its own `refs` unless it is marked `standard: true` (textbook or exact by construction). A field that is absent is shown as 'not recorded', never as 'none'. Reference keys are always those of the UV entry.",
+      "properties": {
+        "identification": {
+          "$ref": "#/$defs/flowIdentification"
+        },
+        "deformations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/flowDeformation"
+          },
+          "description": "Relevant operators added to the UV action, each with its own coupling and sign."
+        },
+        "vevs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/flowVev"
+          },
+          "description": "Operators given a vacuum expectation value (a point on a moduli space, Higgs or Coulomb branch)."
+        },
+        "tuned": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/flowTuned"
+          },
+          "description": "Couplings that must be tuned for the flow to reach this IR (e.g. a mass tuned to criticality)."
+        },
+        "symmetry_changes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/flowSymmetryChange"
+          },
+          "description": "Ordered stages of symmetry breaking or enhancement along the flow. Absent means not recorded, not 'unbroken'."
+        },
+        "spectrum": {
+          "$ref": "#/$defs/flowSpectrum"
+        },
+        "integrability": {
+          "$ref": "#/$defs/flowIntegrability"
+        },
+        "page": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "id of an entry tagged 'RG flow' that describes this flow in detail (several flows may share one page)."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown] Assumptions, ranges of validity, retained symmetry, source locations."
+        }
+      }
+    },
+    "flowDeformation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operator",
+        "coupling"
+      ],
+      "properties": {
+        "operator": {
+          "type": "string",
+          "description": "[latex] The operator as named in the UV entry, e.g. '\\epsilon'. A display label, not a link to an operators row."
+        },
+        "coupling": {
+          "type": "string",
+          "description": "[latex] Its coupling, e.g. 't'."
+        },
+        "Delta": {
+          "$ref": "#/$defs/value",
+          "description": "[latex] Scaling dimension in the UV, if the cited source gives it."
+        },
+        "rep": {
+          "type": "string",
+          "description": "[markdown] Representation under the UV global symmetry."
+        },
+        "sign": {
+          "enum": [
+            "positive",
+            "negative",
+            "zero",
+            "either"
+          ],
+          "description": "Sign of the coupling that gives this flow. 'either' asserts that both signs give it (explain in `note`). Leave out if unknown."
+        },
+        "sign_convention": {
+          "type": "string",
+          "description": "[markdown] Required with `sign`: the action and normalization that fix the sign, e.g. '$S = S_{\\rm CFT} + t\\int \\epsilon$ with $\\lambda_{\\sigma\\sigma\\epsilon} > 0$'."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
+        },
+        "refs": {
+          "$ref": "#/$defs/refKeys",
+          "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
+        }
+      }
+    },
+    "flowVev": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operator",
+        "direction"
+      ],
+      "properties": {
+        "operator": {
+          "type": "string",
+          "description": "[latex] The operator that gets a vev, as named in the UV entry."
+        },
+        "direction": {
+          "type": "string",
+          "description": "[markdown] Which component or point of the moduli space, e.g. 'a generic point of the Coulomb branch'."
+        },
+        "branch": {
+          "type": "string",
+          "description": "[markdown] Moduli space, Higgs branch, Coulomb branch, ..."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
+        },
+        "refs": {
+          "$ref": "#/$defs/refKeys",
+          "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
+        }
+      }
+    },
+    "flowTuned": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operator",
+        "coupling",
+        "condition"
+      ],
+      "properties": {
+        "operator": {
+          "type": "string",
+          "description": "[latex]"
+        },
+        "coupling": {
+          "type": "string",
+          "description": "[latex]"
+        },
+        "condition": {
+          "type": "string",
+          "description": "[markdown] e.g. '$m^2 = m_c^2(t)$, the critical value'."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
+        },
+        "refs": {
+          "$ref": "#/$defs/refKeys",
+          "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
+        }
+      }
+    },
+    "flowSymmetryChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "from",
+        "to",
+        "kind"
+      ],
+      "properties": {
+        "from": {
+          "type": "string",
+          "description": "[markdown] Symmetry before this stage."
+        },
+        "to": {
+          "type": "string",
+          "description": "[markdown] Symmetry after it."
+        },
+        "kind": {
+          "enum": [
+            "explicit",
+            "spontaneous",
+            "emergent"
+          ],
+          "description": "explicit: broken by the deformation itself; spontaneous: broken by the choice of vacuum; emergent: enhanced in the IR."
+        },
+        "vacua": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of vacua, if finite and stated by the source."
+        },
+        "manifold": {
+          "type": "string",
+          "description": "[markdown] A continuous vacuum manifold, e.g. '$S^2$'."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
+        },
+        "refs": {
+          "$ref": "#/$defs/refKeys",
+          "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
+        }
+      }
+    },
+    "flowSpectrum": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "What is known about the massive spectrum when the IR is (partly) gapped. Needs `refs` (or `standard: true`); each particle row has its own.",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "[markdown] One line for the arrow's panel, e.g. '8 stable particles with masses in $E_8$ ratios'."
+        },
+        "particles": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/flowParticle"
+          },
+          "description": "One row per particle and method; repeated rows for one particle by different methods are allowed."
+        },
+        "vacua": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of vacua."
+        },
+        "kinks": {
+          "type": "string",
+          "description": "[markdown] Kinks or domain walls between the vacua."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown] e.g. how masses are normalized."
+        },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
+        },
+        "refs": {
+          "$ref": "#/$defs/refKeys",
+          "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
+        }
+      }
+    },
+    "flowParticle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "mass",
+        "method",
+        "refs"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "[latex] e.g. 'm_2'."
+        },
+        "mass": {
+          "$ref": "#/$defs/value",
+          "description": "[latex] A ratio to a named particle ('2\\cos\\frac{\\pi}{5}\\, m_1') or a value in a stated unit of the coupling."
+        },
+        "rep": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "stable": {
+          "type": "boolean",
+          "description": "Absent means not recorded."
+        },
+        "method": {
+          "type": "string",
+          "description": "exact, TCSA, lattice, Hamiltonian truncation, ..."
+        },
+        "refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "description": "Keys in the references list of the UV entry (the entry that lists this relation)."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
+        }
+      }
+    },
+    "flowIntegrability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "integrable",
+            "not_integrable",
+            "open"
+          ],
+          "description": "integrable and not_integrable need the evidence in `note` (conserved charges, an exact S-matrix; level statistics, particle decay). open means the cited literature calls the question open."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "standard": {
+          "type": "boolean",
+          "description": "true for a textbook statement or one exact by construction, which needs no specific reference. Otherwise give `refs`."
+        },
+        "refs": {
+          "$ref": "#/$defs/refKeys",
+          "description": "Keys in the references list of the UV entry. Required unless `standard: true`."
+        }
+      }
+    },
+    "targetExpr": {
+      "description": "An entry (`entry`, with `at`/`variant` for a family member) or an operation applied to terms. Terms keep their order; nothing is simplified.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "entry"
+          ],
+          "properties": {
+            "entry": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "description": "id of an entry."
+            },
+            "at": {
+              "type": [
+                "integer",
+                "string"
+              ],
+              "description": "Family member, if `entry` is a family."
+            },
+            "variant": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "operation",
+            "terms"
+          ],
+          "properties": {
+            "operation": {
+              "enum": [
+                "direct_sum",
+                "tensor_product"
+              ]
+            },
+            "terms": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "expr"
+                ],
+                "properties": {
+                  "expr": {
+                    "$ref": "#/$defs/targetExpr"
+                  },
+                  "multiplicity": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "default": 1
+                  }
+                }
+              }
+            },
+            "decoration": {
+              "type": "string",
+              "description": "[markdown] How the symmetry acts on the result, background couplings, ... Never inferred from the terms."
+            }
+          }
+        }
+      ]
+    },
+    "operationPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "summary",
+        "description",
+        "references"
+      ],
+      "description": "A page in data/operations/<id>.yaml explaining an operation that builds theories from others. The ids direct-sum and tensor-product are linked from target_expr operations direct_sum and tensor_product.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Must equal the filename without .yaml."
+        },
+        "name": {
+          "type": "string",
+          "description": "[markdown]"
+        },
+        "summary": {
+          "type": "string",
+          "maxLength": 300,
+          "description": "[markdown]"
+        },
+        "description": {
+          "type": "string",
+          "description": "[markdown] The definition and what it means for symmetries and data."
+        },
+        "references": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/reference"
+          }
+        },
+        "contributors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9-]+$"
+          }
+        }
+      }
+    },
+    "flowIdentification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "method",
+        "refs"
+      ],
+      "description": "Who established that this UV theory flows to this IR theory, and how. Separate from the sources of the deformation, spectrum, etc.",
+      "properties": {
+        "status": {
+          "enum": [
+            "established",
+            "conjectured",
+            "disputed"
+          ],
+          "description": "disputed needs `competing_refs`."
+        },
+        "method": {
+          "type": "string",
+          "description": "[markdown] The argument: anomaly matching, numerics, lattice, supersymmetry, a duality, ..."
+        },
+        "refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "description": "Keys in the references list of the UV entry: the papers that identified the flow."
+        },
+        "competing_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "description": "For a disputed or conjectured identification: papers that argue otherwise."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown]"
         }
       }
     }

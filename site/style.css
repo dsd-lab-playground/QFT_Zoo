@@ -341,7 +341,7 @@ table.spectrum td:last-child { white-space: normal; min-width: 14rem; }
 /* ------------------------------------------------------------- RG flows */
 
 .flow-graph {
-  position: relative; display: flex; flex-direction: column; gap: 36px; margin-bottom: 14px; padding: 18px 34px;
+  position: relative; display: flex; flex-direction: column; gap: 52px; margin-bottom: 14px; padding: 18px 34px;
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
 }
 .flow-graph::before, .flow-graph::after { position: absolute; left: 10px; font-size: 0.75rem; color: var(--muted); }
@@ -361,5 +361,39 @@ a.flow-node:hover, a.flow-node:focus-visible { background: var(--accent-soft); t
 .flow-node.current { background: var(--accent); color: var(--accent-text); }
 .flow-kind { display: block; font-size: 0.75rem; opacity: 0.8; }
 .flow-arrows { position: absolute; inset: 0; pointer-events: none; }
-.flow-arrows line { stroke: var(--accent); stroke-width: 1.5; }
-.flow-arrows polygon { fill: var(--accent); }
+.flow-arrows .flow-line { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+.flow-arrows .flow-head { fill: var(--accent); }
+.flow-arrows .flow-line.selected { stroke-width: 3; }
+/* A wide invisible copy of each arrow, so the line itself can be clicked or tapped. */
+.flow-arrows .flow-hit { fill: none; stroke: transparent; stroke-width: 16; pointer-events: stroke; cursor: pointer; }
+.flow-node.composite { color: var(--text); border-style: dashed; }
+.flow-node.composite a { color: var(--accent); }
+.flow-deco { display: block; font-size: 0.75rem; color: var(--muted); }
+.flow-op { padding: 0 2px; }
+/* The button on each arrow: its label names the operator and sign; it opens the details. */
+.flow-edge {
+  position: absolute; z-index: 2; left: 0; top: 0; min-width: 26px; min-height: 26px; padding: 1px 8px;
+  font: inherit; font-size: 0.8rem; line-height: 1.5; white-space: nowrap; color: var(--accent); cursor: pointer;
+  background: var(--surface); border: 1px solid var(--accent); border-radius: 13px;
+}
+.flow-edge:hover { background: var(--accent-soft); }
+.flow-edge:focus-visible, .flow-open:focus-visible, .flow-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.flow-edge[aria-expanded="true"] { background: var(--accent); color: var(--accent-text); }
+.flow-edge-i { font-style: italic; font-family: Georgia, serif; }
+.flow-edge-sign { margin-left: 0.35em; font-size: 0.9em; }
+/* On phones the arrow shows the operator and a bare sign; the convention is in the preview and the panel. */
+.flow-edge-sgn { display: none; margin-left: 2px; font-weight: 600; }
+@media (max-width: 640px) { .flow-edge-sign { display: none; } .flow-edge-sgn { display: inline; } }
+.flow-tip {
+  position: absolute; z-index: 3; max-width: 340px; padding: 6px 10px; font-size: 0.85rem; pointer-events: none;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+}
+.flow-hint { margin: -8px 0 10px; }
+.flow-panel { margin: 0 0 14px; padding: 10px 16px 14px; background: var(--surface); border: 1.5px solid var(--accent); border-radius: var(--radius); }
+.flow-panel:focus { outline: none; }
+.flow-panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.flow-panel-head h3 { margin: 4px 0 10px; font-size: 1.05rem; }
+.flow-panel .refs { margin: 0; padding-left: 1.4em; }
+.flow-open { margin-left: 4px; font-size: 0.85rem; }
+.flow-particles summary { cursor: pointer; color: var(--accent); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

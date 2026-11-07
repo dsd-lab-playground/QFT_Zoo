@@ -1,0 +1,9 @@
+# Synthetic test fixture: placeholder text, not the real explanation page.
+id: direct-sum
+name: 'Direct sum (fixture)'
+summary: 'Synthetic operation page used by the tests.'
+description: 'Placeholder text for the direct-sum explanation page.'
+references:
+  - key: src
+    title: 'Synthetic fixture source'
+    url: 'https://example.org/fixture-direct-sum'

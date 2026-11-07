@@ -51,6 +51,12 @@ relations:
   - type: flows_to                 # flows_to | dual_to | related_to
     target: ising-3d               # id of an existing entry
     note: 'Which deformation, and any subtleties.'
+    # Optional details for a flow (see CONTRIBUTING.md, "RG flows in detail"):
+    # id: my-flow
+    # flow:
+    #   identification: {status: established, method: 'numerics', refs: [author2025]}
+    #   deformations:
+    #     - {operator: '\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}
 
 references:
   - key: author2025                # short handle used in refs: [...] above

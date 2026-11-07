@@ -8,6 +8,7 @@
      #/flows            RG flows between the theories
      #/feedback         comments on the site, read live from GitHub issues
      #/theory/<id>      a theory (with its spectrum, if data/spectra has one)
+     #/operation/<id>   how composite theories are built (direct sum, ...)
      #/landscape        2d CFTs in the (c, gap) plane
      #/contribute       how to contribute                                   */
 
@@ -440,10 +441,11 @@ function viewTheory(id) {
   const { overview, topics } = splitDescription(t.description);
   if (overview.trim()) out.push(section("overview", "Overview", `<div class="prose">${md(overview)}</div>`));
 
-  const flows = theoryLinks(t).filter(isFlow);
-  if (flows.length) {
-    const cluster = flowClusters(allFlows()).find((c) => c.some((f) => f.uv === t.id || f.ir === t.id));
-    out.push(section("flows", "RG flows", `${flowDiagram(cluster, t.id)}${relationList(t, flows)}
+  const fs = theoryFlows(t);
+  const mine = [...fs.from, ...fs.to, ...fs.part, ...fs.page];
+  if (mine.length) {
+    const clusters = flowClusters(allFlows()).filter((c) => c.some((f) => mine.includes(f)));
+    out.push(section("flows", "RG flows", `${clusters.map((c) => flowDiagram(c, t.id)).join("")}${flowList(t, fs)}
       <p class="small"><a href="#/flows">All RG flows in the zoo →</a></p>`));
   }
 
@@ -585,18 +587,77 @@ function relationList(t, links) {
 
 /* ---------------------------------------------------------------- RG flows */
 
-/** Every recorded flow once, whichever side of the link it was read from. */
+// A flow is identified by its UV entry and the relation's `id` (or its position), as
+// build.py records in `flow_key`. Only flows_to relations are read, never the reverse
+// links, so two flows between the same theories stay two flows, and none is counted twice.
+let FLOWS = null;
+const FLOW_BY_KEY = new Map();
+
+/** Every recorded flow once, read from the UV side. A composite IR (`target_expr`) is a node
+ *  of its own, "expr:<flow key>", so expressions from different flows never merge. */
 function allFlows() {
-  const flows = new Map();
+  if (FLOWS) return FLOWS;
+  FLOWS = [];
   for (const t of DB.theories)
-    for (const l of theoryLinks(t).filter(isFlow)) {
-      if (!BY_ID.has(l.target)) continue;
-      const [uv, ir] = l.type === "flows_to" ? [t.id, l.target] : [l.target, t.id];
-      const key = [uv, ir, l.at ?? "", l.variant ?? ""].join("|");
-      if (!flows.has(key)) flows.set(key, { uv, ir, note: l.note, at: linkAt(t, l) });
-    }
-  return [...flows.values()];
+    (t.relations || []).forEach((l, i) => {
+      if (l.type !== "flows_to") return;
+      const key = l.flow_key ?? `${t.id}@${i}`;
+      let f;
+      if (l.target_expr) {
+        if (!exprLeaves(l.target_expr).every((x) => BY_ID.has(x.entry))) return;
+        f = { key, uv: t.id, ir: `expr:${key}`, expr: l.target_expr, note: l.note, at: "", rel: l, flow: l.flow };
+      } else {
+        if (!BY_ID.has(l.target)) return;
+        f = { key, uv: t.id, ir: l.target, note: l.note, at: linkAt(t, l), rel: l, flow: l.flow };
+      }
+      FLOWS.push(f);
+      FLOW_BY_KEY.set(key, f);
+    });
+  return FLOWS;
 }
+
+const isExprNode = (id) => id.startsWith("expr:");
+const exprLeaves = (x) => (x.entry ? [x] : x.terms.flatMap((term) => exprLeaves(term.expr)));
+const nodeDim = (id) => BY_ID.get(isExprNode(id) ? FLOW_BY_KEY.get(id.slice(5)).uv : id).d;
+
+const OPERATION = {
+  direct_sum: { symbol: "⊕", page: "direct-sum", name: "direct sum" },
+  tensor_product: { symbol: "⊗", page: "tensor-product", name: "tensor product" },
+};
+const operationPage = (op) => (DB.operations || []).find((o) => o.id === OPERATION[op].page);
+
+/** A composite IR as HTML: entry names linked, operations linked to their explanation pages. */
+function exprHtml(x, top = true) {
+  if (x.entry) {
+    const t = BY_ID.get(x.entry);
+    const at = x.at != null
+      ? ` <span class="muted">(${tex(`${paramTex(t.family?.parameter ?? "")}${t.family ? " = " : ""}${x.at}`)}${x.variant ? `, ${esc(x.variant)}` : ""})</span>`
+      : "";
+    return `<a href="#/theory/${encodeURIComponent(x.entry)}">${md(t.name, true)}</a>${at}`;
+  }
+  const op = OPERATION[x.operation];
+  const sym = operationPage(x.operation)
+    ? `<a class="flow-op" href="#/operation/${op.page}" title="${esc(op.name)}">${op.symbol}</a>`
+    : `<span class="flow-op" title="${esc(op.name)}">${op.symbol}</span>`;
+  const terms = x.terms.map((term) => {
+    const inner = exprHtml(term.expr, false);
+    return (term.multiplicity ?? 1) > 1 ? `${inner}<sup>${op.symbol}${term.multiplicity}</sup>` : inner;
+  });
+  const body = terms.join(` ${sym} `);
+  return top ? body : `(${body})`;
+}
+
+function exprPlain(x, top = true) {
+  if (x.entry) return plain(BY_ID.get(x.entry).name) + (x.at != null ? ` (${plain(String(x.at))})` : "");
+  const op = OPERATION[x.operation];
+  const body = x.terms
+    .map((term) => exprPlain(term.expr, false) + ((term.multiplicity ?? 1) > 1 ? ` ${op.symbol}${term.multiplicity}` : ""))
+    .join(` ${op.symbol} `);
+  return top ? body : `(${body})`;
+}
+
+const nodeName = (id) => (isExprNode(id) ? exprHtml(FLOW_BY_KEY.get(id.slice(5)).expr) : `<a href="#/theory/${encodeURIComponent(id)}">${md(BY_ID.get(id).name, true)}</a>`);
+const nodePlain = (id) => (isExprNode(id) ? exprPlain(FLOW_BY_KEY.get(id.slice(5)).expr) : plain(BY_ID.get(id).name));
 
 /** Flows grouped into connected networks. */
 function flowClusters(flows) {
@@ -617,9 +678,42 @@ function flowClusters(flows) {
   return [...clusters.values()];
 }
 
+const SIGN_REL = { positive: "> 0", negative: "< 0", zero: "= 0", either: "\\gtrless 0" };
+const SIGN_SHORT = { positive: "+", negative: "−", zero: "0", either: "±" };
+const SIGN_WORD = { positive: "positive", negative: "negative", zero: "zero", either: "either sign" };
+
+/** Short label drawn on an arrow: the first deformation and its sign, or the first vev. */
+function edgeLabel(f) {
+  const fl = f.flow;
+  if (!fl) return `<span class="flow-edge-i" aria-hidden="true">i</span>`;
+  const parts = [];
+  const d = fl.deformations?.[0];
+  if (d) parts.push(tex(d.operator) + (d.sign ? `<span class="flow-edge-sign">${tex(`${d.coupling} ${SIGN_REL[d.sign]}`)}</span><span class="flow-edge-sgn">${SIGN_SHORT[d.sign]}</span>` : ""));
+  const v = fl.vevs?.[0];
+  if (v) parts.push(tex(`\\langle ${v.operator} \\rangle`));
+  const extra = (fl.deformations?.length || 0) + (fl.vevs?.length || 0) - parts.length;
+  return parts.join(", ") + (extra > 0 ? ` <span class="muted">+${extra}</span>` : "");
+}
+
+/** Plain-text name of an arrow, for screen readers and the tooltip's heading. */
+function edgeName(f) {
+  const fl = f.flow;
+  const what = [];
+  for (const d of fl?.deformations || [])
+    what.push(`${plain(d.operator)}${d.sign ? `, ${plain(d.coupling)} ${SIGN_WORD[d.sign]}` : ""}`);
+  for (const v of fl?.vevs || []) what.push(`vev of ${plain(v.operator)}`);
+  const page = fl?.page && BY_ID.get(fl.page);
+  return `Flow from ${nodePlain(f.uv)} to ${nodePlain(f.ir)}${what.length ? `: ${what.join("; ")}` : ""}${
+    page ? `. Flow page: ${plain(page.name)}` : ""}`;
+}
+
+let FLOW_VIEWS = 0;
+
 /** One network, UV at the top and IR at the bottom. A theory's row is the longest chain
- *  of flows below it, so the vertical position shows order, not an energy scale. */
+ *  of flows below it, so the vertical position shows order, not an energy scale. Each
+ *  arrow has a button that opens the flow's details in the panel under the diagram. */
 function flowDiagram(cluster, current = null) {
+  const view = `flowview-${++FLOW_VIEWS}`;
   const ranks = new Map();
   const rank = (id, path) => {
     if (ranks.has(id)) return ranks.get(id);
@@ -633,8 +727,14 @@ function flowDiagram(cluster, current = null) {
   const ids = [...new Set(cluster.flatMap((f) => [f.uv, f.ir]))];
   ids.forEach((id) => rank(id, new Set()));
   const node = (id) => {
+    if (isExprNode(id)) {
+      const f = FLOW_BY_KEY.get(id.slice(5));
+      const deco = f.expr.decoration ? `<span class="flow-deco">${md(f.expr.decoration, true)}</span>` : "";
+      return `<div class="flow-node composite" data-flow-node="${esc(id)}">${exprHtml(f.expr)}${deco}<span class="flow-kind">composite</span></div>`;
+    }
     const t = BY_ID.get(id);
-    const kind = t.tags?.includes("CFT") ? "" : `<span class="flow-kind">not a CFT</span>`;
+    const tags = t.tags || [];
+    const kind = tags.includes("TQFT") ? `<span class="flow-kind">TQFT</span>` : tags.includes("CFT") ? "" : `<span class="flow-kind">not a CFT</span>`;
     return id === current
       ? `<span class="flow-node current" data-flow-node="${esc(id)}" aria-current="page">${md(t.name, true)}${kind}</span>`
       : `<a class="flow-node" data-flow-node="${esc(id)}" href="#/theory/${encodeURIComponent(id)}">${md(t.name, true)}${kind}</a>`;
@@ -644,52 +744,343 @@ function flowDiagram(cluster, current = null) {
     const row = ids.filter((id) => ranks.get(id) === r);
     rows.push(`<div class="flow-row" style="--n:${row.length}">${row.map(node).join("")}</div>`);
   }
-  const edges = cluster.map((f) => [f.uv, f.ir]);
-  return `<div class="flow-graph" data-edges="${esc(JSON.stringify(edges))}">${rows.join("")}</div>`;
+  // Parallel flows (same two nodes) get separate lanes, drawn as curves either side of the line.
+  const lanes = new Map();
+  cluster.forEach((f) => lanes.set(`${f.uv}|${f.ir}`, [...(lanes.get(`${f.uv}|${f.ir}`) || []), f.key]));
+  const edges = cluster.map((f) => {
+    const lane = lanes.get(`${f.uv}|${f.ir}`);
+    return [f.uv, f.ir, f.key, lane.indexOf(f.key), lane.length];
+  });
+  const buttons = cluster
+    .map((f) => `<button type="button" class="flow-edge" data-flow-open="${esc(f.key)}" aria-expanded="false"
+        aria-controls="${view}-panel" aria-label="${esc(edgeName(f))}">${edgeLabel(f)}</button>`)
+    .join("");
+  return `<div class="flow-view" id="${view}">
+    <div class="flow-graph" data-edges="${esc(JSON.stringify(edges))}">${rows.join("")}${buttons}
+      <div class="flow-tip" id="${view}-tip" role="tooltip" hidden></div></div>
+    <p class="small muted flow-hint">Select an arrow for the flow’s details.</p>
+    <section class="flow-panel" id="${view}-panel" aria-label="Flow details" tabindex="-1" hidden></section>
+    <p class="visually-hidden" aria-live="polite" data-flow-status></p></div>`;
 }
 
-/** The arrows are decoration: the links and lists next to each diagram carry the same content. */
+/** Draw the arrows and place their buttons. Called again on resize and when fonts load:
+ *  buttons are only moved, so focus and the open panel survive. */
 function drawFlowArrows() {
   app.querySelectorAll(".flow-graph").forEach((g) => {
     g.querySelector("svg")?.remove();
     const box = g.getBoundingClientRect();
+    const rel = (r) => ({ l: r.left - box.left, t: r.top - box.top, r: r.right - box.left, b: r.bottom - box.top });
+    const nodes = [...g.querySelectorAll("[data-flow-node]")].map((n) => rel(n.getBoundingClientRect()));
+    const placed = [];
+    const hit = (a, b) => a.l < b.r && b.l < a.r && a.t < b.b && b.t < a.b;
+    const selected = g.closest(".flow-view")?.dataset.selected;
     const svg = svgEl("svg", { class: "flow-arrows", width: box.width, height: box.height, "aria-hidden": "true" });
-    for (const [uv, ir] of JSON.parse(g.dataset.edges)) {
+    for (const [uv, ir, key, lane, n] of JSON.parse(g.dataset.edges)) {
       const a = g.querySelector(`[data-flow-node="${CSS.escape(uv)}"]`).getBoundingClientRect();
       const b = g.querySelector(`[data-flow-node="${CSS.escape(ir)}"]`).getBoundingClientRect();
       const [x1, y1] = [a.left + a.width / 2 - box.left, a.bottom - box.top];
       const [x2, y2] = [b.left + b.width / 2 - box.left, b.top - box.top - 2];
       const len = Math.hypot(x2 - x1, y2 - y1) || 1;
-      const [ux, uy] = [(x2 - x1) / len, (y2 - y1) / len];
+      // Control point offset sideways so that the curve's middle is `off` from the straight line.
+      const off = (lane - (n - 1) / 2) * 56;
+      const [cx, cy] = [(x1 + x2) / 2 - (2 * off * (y2 - y1)) / len, (y1 + y2) / 2 + (2 * off * (x2 - x1)) / len];
+      const tl = Math.hypot(x2 - cx, y2 - cy) || 1;
+      const [ux, uy] = [(x2 - cx) / tl, (y2 - cy) / tl];
       const [bx, by] = [x2 - 8 * ux, y2 - 8 * uy];
-      svgEl("line", { x1, y1, x2: bx, y2: by }, svg);
-      svgEl("polygon", { points: `${x2},${y2} ${bx - 4 * uy},${by + 4 * ux} ${bx + 4 * uy},${by - 4 * ux}` }, svg);
+      const d = `M${x1},${y1} Q${cx},${cy} ${bx},${by}`;
+      const on = key === selected ? " selected" : "";
+      svgEl("path", { d, class: `flow-line${on}`, "data-flow-line": key }, svg);
+      svgEl("polygon", { points: `${x2},${y2} ${bx - 4 * uy},${by + 4 * ux} ${bx + 4 * uy},${by - 4 * ux}`, class: `flow-head${on}`, "data-flow-line": key }, svg);
+      svgEl("path", { d, class: "flow-hit", "data-flow-open": key }, svg);
+      // The button sits on the curve: at the point nearest its middle that is clear of nodes and
+      // other buttons, or else where it covers the least (covering a node counts three times).
+      const btn = g.querySelector(`.flow-edge[data-flow-open="${CSS.escape(key)}"]`);
+      if (!btn) continue;
+      const [w, h] = [btn.offsetWidth, btn.offsetHeight];
+      const at = (s) => [(1 - s) ** 2 * x1 + 2 * (1 - s) * s * cx + s * s * bx, (1 - s) ** 2 * y1 + 2 * (1 - s) * s * cy + s * s * by];
+      const area = (a, b) => Math.max(0, Math.min(a.r, b.r) - Math.max(a.l, b.l)) * Math.max(0, Math.min(a.b, b.b) - Math.max(a.t, b.t));
+      let best = null;
+      for (let k = 0; k <= 20; k++) {
+        const s = 0.5 + (k % 2 ? 1 : -1) * Math.ceil(k / 2) * 0.04;
+        const [px, py] = at(s);
+        const r = { l: px - w / 2 - 3, t: py - h / 2 - 3, r: px + w / 2 + 3, b: py + h / 2 + 3 };
+        r.cost = 3 * nodes.reduce((c, x) => c + area(x, r), 0) + placed.reduce((c, x) => c + area(x, r), 0);
+        if (!best || r.cost < best.cost) best = r;
+        if (!r.cost) break;
+      }
+      placed.push(best);
+      btn.style.left = `${best.l + 3}px`;
+      btn.style.top = `${best.t + 3}px`;
     }
     g.prepend(svg);
   });
 }
 
+/* Flow details: the panel opened from an arrow or from the list next to the diagram. */
+
+/** The references a flow cites, numbered for the panel. Keys are always the UV entry's. */
+function flowSources(f) {
+  const uv = BY_ID.get(f.uv);
+  const fl = f.flow || {};
+  const keys = [];
+  const add = (ks) => (ks || []).forEach((k) => keys.includes(k) || keys.push(k));
+  add(fl.identification?.refs);
+  add(fl.identification?.competing_refs);
+  ["deformations", "vevs", "tuned", "symmetry_changes"].forEach((s) => (fl[s] || []).forEach((x) => add(x.refs)));
+  add(fl.spectrum?.refs);
+  (fl.spectrum?.particles || []).forEach((p) => add(p.refs));
+  add(fl.integrability?.refs);
+  const refs = keys.map((k) => (uv.references || []).find((r) => r.key === k)).filter(Boolean);
+  // An item's sources, or "standard" for a textbook statement.
+  const cite = (ks, x = {}) =>
+    (ks || []).map((k) => keys.indexOf(k)).filter((i) => i >= 0).map((i) => `<span class="cite">[${i + 1}]</span>`).join("") +
+    (x.standard ? ' <span class="muted small">(standard)</span>' : "");
+  return { refs, cite };
+}
+
+function spectrumSummary(sp) {
+  if (sp.summary) return md(sp.summary, true);
+  const parts = [];
+  const ps = sp.particles || [];
+  if (ps.length) {
+    const names = new Set(ps.map((p) => p.label));
+    const stable = new Set(ps.filter((p) => p.stable).map((p) => p.label));
+    parts.push(`${names.size} particle${names.size > 1 ? "s" : ""}${stable.size ? ` (${stable.size} recorded stable)` : ""}`);
+  }
+  if (sp.vacua) parts.push(`${sp.vacua} vacu${sp.vacua > 1 ? "a" : "um"}`);
+  if (sp.kinks) parts.push(`kinks: ${md(sp.kinks, true)}`);
+  return parts.join("; ");
+}
+
+const NOT_RECORDED = `<span class="muted">Not recorded</span>`;
+const INTEGRABILITY = { integrable: "Integrable", not_integrable: "Not integrable", open: "Open question" };
+const IDENT = { established: "Established", conjectured: "Conjectured", disputed: "Disputed" };
+
+function flowPanel(f) {
+  const fl = f.flow;
+  const uv = BY_ID.get(f.uv);
+  const { refs, cite } = flowSources(f);
+  const note = (x) => (x.note ? `<div class="sub">${md(x.note, true)}</div>` : "");
+  const rows = [];
+  const row = (k, v) => rows.push(`<dt>${k}</dt><dd>${v}</dd>`);
+  row("From (UV)", nodeName(f.uv) + f.at);
+  row("To (IR)", nodeName(f.ir) + (f.expr?.decoration ? `<div class="sub">${md(f.expr.decoration, true)}</div>` : ""));
+  if (f.note) row("Description", md(f.note, true));
+  if (!fl) {
+    row("Details", `${NOT_RECORDED}: this flow has no structured data yet (who identified it, operator, sign, symmetry, spectrum, integrability).`);
+  } else {
+    const id = fl.identification;
+    row("Identification", `${IDENT[id.status]}, by ${md(id.method, true)} ${cite(id.refs)}${
+      id.competing_refs ? `<div class="sub">Argued otherwise: ${cite(id.competing_refs)}</div>` : ""}${note(id)}`);
+    const kind = [fl.deformations?.length && "relevant deformation", fl.vevs?.length && "vacuum expectation value"].filter(Boolean);
+    row("Kind", kind.join(" and ").replace(/^./, (c) => c.toUpperCase()));
+    for (const d of fl.deformations || []) {
+      const dims = [d.Delta != null ? tex(`\\Delta = ${d.Delta}`) : "", d.rep ? md(d.rep, true) : ""].filter(Boolean).join(", ");
+      const sign = d.sign
+        ? `${tex(`${d.coupling} ${SIGN_REL[d.sign]}`)} <span class="muted">(${SIGN_WORD[d.sign]})</span><div class="sub">Convention: ${md(d.sign_convention, true)}</div>`
+        : `<div class="sub">Sign: ${NOT_RECORDED}</div>`;
+      row("Deformation", `${tex(d.operator)}${dims ? ` <span class="muted">(${dims})</span>` : ""}, coupling ${tex(d.coupling)} ${cite(d.refs, d)}<div>${sign}</div>${note(d)}`);
+    }
+    for (const v of fl.vevs || [])
+      row("Vev", `${tex(`\\langle ${v.operator} \\rangle \\neq 0`)}: ${md(v.direction, true)}${v.branch ? ` <span class="muted">(${md(v.branch, true)})</span>` : ""} ${cite(v.refs, v)}${note(v)}`);
+    row("Tuned", fl.tuned?.length
+      ? fl.tuned.map((x) => `<div>${tex(x.operator)}, coupling ${tex(x.coupling)}: ${md(x.condition, true)} ${cite(x.refs, x)}${note(x)}</div>`).join("")
+      : NOT_RECORDED);
+    row("Symmetry", fl.symmetry_changes?.length
+      ? fl.symmetry_changes.map((s) => `<div>${md(s.from, true)} → ${md(s.to, true)} <span class="muted">(${esc(s.kind)}${
+          s.vacua ? `, ${s.vacua} vacu${s.vacua > 1 ? "a" : "um"}` : ""})</span>${s.manifold ? `, vacuum manifold ${md(s.manifold, true)}` : ""} ${cite(s.refs, s)}${note(s)}</div>`).join("")
+      : NOT_RECORDED);
+    const sp = fl.spectrum;
+    let spec = NOT_RECORDED;
+    if (sp) {
+      spec = `${spectrumSummary(sp)} ${cite(sp.refs, sp)}${note(sp)}`;
+      // With a flow page, the full table lives there; otherwise it can be opened here.
+      if (sp.particles?.length && !fl.page)
+        spec += `<details class="flow-particles"><summary>Particles (${sp.particles.length} rows)</summary>${table(
+          ["Particle", "Mass", "Method", ""],
+          sp.particles.map((p) => [tex(p.label) + (p.rep ? ` <span class="muted">${md(p.rep, true)}</span>` : ""),
+            `<span class="value">${tex(p.mass)}</span>${p.stable === true ? ' <span class="muted">stable</span>' : p.stable === false ? ' <span class="muted">unstable</span>' : ""}`,
+            esc(p.method) + " " + cite(p.refs), p.note ? md(p.note, true) : ""]), "data")}</details>`;
+    }
+    row("Massive spectrum", spec);
+    const ig = fl.integrability;
+    row("Integrability", ig ? `${INTEGRABILITY[ig.status]} ${cite(ig.refs, ig)}${note(ig)}` : NOT_RECORDED);
+    if (fl.page && BY_ID.get(fl.page)) row("Flow page", `<a href="#/theory/${encodeURIComponent(fl.page)}">${md(BY_ID.get(fl.page).name, true)}</a>`);
+    if (fl.note) row("Notes", md(fl.note, true));
+  }
+  const srcList = refs.length
+    ? `<ol class="refs flow-refs">${refs.map(refItem).join("").replace(/ id="ref-[^"]*"/g, "")}</ol>`
+    : `<span class="muted">None recorded for this flow.</span>`;
+  row("Sources", `${srcList}<div class="sub">From the references of <a href="#/theory/${encodeURIComponent(f.uv)}">${md(uv.name, true)}</a>
+    (<a href="${gh.blob(uv.source)}" target="_blank" rel="noopener">source file</a>).</div>`);
+  return `<div class="flow-panel-head"><h3>${nodeName(f.uv)} → ${nodeName(f.ir)}</h3>
+      <button type="button" class="linkish flow-close" aria-label="Close flow details">Close ✕</button></div>
+    <dl class="kv flow-facts">${rows.join("")}</dl>`;
+}
+
+/** The short text shown on hover or keyboard focus. */
+function flowPreview(f) {
+  const fl = f.flow;
+  const bits = [];
+  for (const d of fl?.deformations || [])
+    bits.push(`${tex(d.operator)}, ${d.sign ? tex(`${d.coupling} ${SIGN_REL[d.sign]}`) : `coupling ${tex(d.coupling)}`}`);
+  for (const v of fl?.vevs || []) bits.push(`vev ${tex(`\\langle ${v.operator} \\rangle`)}`);
+  if (!bits.length && f.note) bits.push(md(f.note, true));
+  if (fl?.identification && fl.identification.status !== "established") bits.push(`<i>${IDENT[fl.identification.status].toLowerCase()}</i>`);
+  return `<b>${esc(nodePlain(f.uv))} → ${esc(nodePlain(f.ir))}</b>${bits.length ? `<div>${bits.join("; ")}</div>` : ""}
+    <div class="muted small">${fl ? "Click or tap for details" : "Click or tap for the description"}</div>`;
+}
+
+/** The diagram whose panel shows a control's flow: its own, or for a list button the one drawing that flow. */
+function viewOf(el) {
+  const own = el.closest(".flow-view");
+  if (own) return own;
+  const views = [...(el.closest("section")?.querySelectorAll(".flow-view") || [])];
+  const key = el.dataset.flowOpen;
+  return views.find((v) => v.querySelector(`.flow-edge[data-flow-open="${CSS.escape(key ?? "")}"]`)) ?? views[0];
+}
+
+/** Open the details of `key` in `view` (or close them if they are already open from this trigger). */
+function openFlow(view, key, trigger) {
+  const panel = view.querySelector(".flow-panel");
+  const f = FLOW_BY_KEY.get(key);
+  if (!f) return;
+  if (!panel.hidden && view.dataset.selected === key && panel._trigger === trigger) return closeFlow(view, false);
+  view.dataset.selected = key;
+  panel._trigger = trigger;
+  panel.innerHTML = flowPanel(f);
+  panel.hidden = false;
+  view.querySelector(".flow-tip").hidden = true;
+  markSelected(view);
+  view.querySelector("[data-flow-status]").textContent = `Showing details: ${edgeName(f)}`;
+  if (!trigger?.classList.contains("flow-edge")) panel.scrollIntoView({ block: "nearest" });
+}
+
+function closeFlow(view, restoreFocus) {
+  const panel = view.querySelector(".flow-panel");
+  const trigger = panel._trigger;
+  panel.hidden = true;
+  panel.innerHTML = "";
+  delete view.dataset.selected;
+  markSelected(view);
+  view.querySelector("[data-flow-status]").textContent = "Flow details closed";
+  if (restoreFocus && trigger?.isConnected) trigger.focus();
+}
+
+function markSelected(view) {
+  const key = view.dataset.selected;
+  // The list buttons may sit outside the view, in the same section.
+  const scope = view.closest("section.block") ?? view;
+  scope.querySelectorAll("[data-flow-open]").forEach((b) => {
+    if (b.tagName === "BUTTON") b.setAttribute("aria-expanded", b.dataset.flowOpen === key);
+  });
+  view.querySelectorAll("[data-flow-line]").forEach((p) => p.classList.toggle("selected", p.dataset.flowLine === key));
+}
+
+function showTip(el) {
+  const view = viewOf(el);
+  const g = el.closest(".flow-graph");
+  if (!view || !g) return;
+  const tip = view.querySelector(".flow-tip");
+  const f = FLOW_BY_KEY.get(el.dataset.flowOpen);
+  if (!f) return;
+  tip.innerHTML = flowPreview(f);
+  tip.hidden = false;
+  const box = g.getBoundingClientRect();
+  const r = (el.classList.contains("flow-edge") ? el : g.querySelector(`.flow-edge[data-flow-open="${CSS.escape(f.key)}"]`) ?? el).getBoundingClientRect();
+  const left = Math.max(4, Math.min(r.left - box.left, box.width - tip.offsetWidth - 4));
+  tip.style.left = `${left}px`;
+  tip.style.top = `${r.bottom - box.top + 6}px`;
+}
+
+function hideTip(el) {
+  const tip = viewOf(el)?.querySelector(".flow-tip");
+  if (tip) tip.hidden = true;
+}
+
+/** The list of flows next to a diagram, each with a button opening the same panel. */
+function flowItem(f, other, at = "", withSources = false) {
+  const desc = f.note ? md(f.note, true) : f.flow ? flowPreviewText(f) : "";
+  let ident = "";
+  if (withSources && f.flow) {
+    // On a flow's own page: who identified the flow, with the papers (from the UV entry's references).
+    const id = f.flow.identification;
+    const refs = BY_ID.get(f.uv).references || [];
+    const list = (ks) => ks.map((k) => refs.find((r) => r.key === k)).filter(Boolean).map((r) => refItem(r).replace(/ id="ref-[^"]*"/, "")).join("");
+    ident = `<div class="sub">Identification: ${IDENT[id.status]}, by ${md(id.method, true)}.</div><ol class="refs flow-refs">${list(id.refs)}</ol>${
+      id.competing_refs ? `<div class="sub">Argued otherwise:</div><ol class="refs flow-refs">${list(id.competing_refs)}</ol>` : ""}`;
+  }
+  return `<li>${nodeName(other)}${at}${desc ? ` <span class="muted">— ${desc}</span>` : ""}
+    <button type="button" class="linkish flow-open" data-flow-open="${esc(f.key)}" aria-expanded="false"
+      aria-label="Details of the ${esc(edgeName(f).replace(/^Flow/, "flow"))}">details</button>${ident}</li>`;
+}
+
+function flowPreviewText(f) {
+  const fl = f.flow;
+  return [...(fl.deformations || []).map((d) => `${tex(d.operator)}${d.sign ? `, ${tex(`${d.coupling} ${SIGN_REL[d.sign]}`)}` : ""}`),
+    ...(fl.vevs || []).map((v) => `vev ${tex(`\\langle ${v.operator} \\rangle`)}`)].join("; ");
+}
+
+/** The flows a theory page shows: from and to it, composite IRs it is part of, and flows its page describes. */
+function theoryFlows(t) {
+  const flows = allFlows();
+  return {
+    from: flows.filter((f) => f.ir === t.id),
+    to: flows.filter((f) => f.uv === t.id),
+    part: flows.filter((f) => f.expr && exprLeaves(f.expr).some((x) => x.entry === t.id)),
+    page: flows.filter((f) => f.flow?.page === t.id),
+  };
+}
+
+function flowList(t, fs) {
+  const groups = [
+    ["Flows from (UV)", fs.from.map((f) => flowItem(f, f.uv, linkAt(t, { target: f.uv, at: f.rel.at, variant: f.rel.variant })))],
+    ["Flows to (IR)", fs.to.map((f) => flowItem(f, f.ir, linkAt(t, f.rel)))],
+    ["Part of a composite IR", fs.part.map((f) => flowItem(f, f.ir, ` <span class="muted">(from ${nodeName(f.uv)})</span>`))],
+    ["Flows described on this page", fs.page.map((f) => flowItem(f, f.ir, ` <span class="muted">(from ${nodeName(f.uv)})</span>`, true))],
+  ].filter(([, items]) => items.length);
+  return `<dl class="kv relations">${groups.map(([title, items]) => `<dt>${title}</dt><dd><ul>${items.join("")}</ul></dd>`).join("")}</dl>`;
+}
+
 function viewFlows() {
   document.title = "RG Flows — QFT Zoo";
   const flows = allFlows();
-  const dimOf = (c) => Math.min(...c.flatMap((f) => [BY_ID.get(f.uv).d, BY_ID.get(f.ir).d]));
+  const dimOf = (c) => Math.min(...c.flatMap((f) => [nodeDim(f.uv), nodeDim(f.ir)]));
   const clusters = flowClusters(flows).sort((a, b) => dimOf(a) - dimOf(b));
-  const nTheories = new Set(flows.flatMap((f) => [f.uv, f.ir])).size;
-  const name = (id) => `<a href="#/theory/${encodeURIComponent(id)}">${md(BY_ID.get(id).name, true)}</a>`;
+  const nTheories = new Set(flows.flatMap((f) => [f.uv, ...(f.expr ? exprLeaves(f.expr).map((x) => x.entry) : [f.ir])])).size;
+  const details = (f) => `<button type="button" class="linkish flow-open" data-flow-open="${esc(f.key)}" aria-expanded="false"
+      aria-label="Details of the ${esc(edgeName(f).replace(/^Flow/, "flow"))}">details</button>`;
   app.innerHTML = `
     <header class="theory-head">
       <h1>RG Flows</h1>
       <p class="lede">Surf the zoo along its renormalization-group flows, from the UV at the top to the IR at the bottom.
         Open a theory and its page shows where it flows to and from.</p>
       <p class="small muted">${flows.length} flows among ${nTheories} theories so far. Height in a diagram shows the order of
-        the flows, not an energy scale. Know one that’s missing? Add a <code>flows_to</code> relation to the UV theory’s
-        entry: see <a href="#/contribute">Contribute</a>.</p>
+        the flows, not an energy scale. Select an arrow, or “details” in a table, to see what drives the flow. Know one that’s
+        missing? Add a <code>flows_to</code> relation to the UV theory’s entry: see <a href="#/contribute">Contribute</a>.</p>
     </header>
     ${clusters
       .map((c) => `<section class="block"><h2>${tex(`d = ${dimOf(c)}`)}</h2>${flowDiagram(c)}
-        ${table(["UV", "IR", "Deformation"], c.map((f) => [name(f.uv) + f.at, name(f.ir), f.note ? md(f.note, true) : ""]), "data")}</section>`)
+        ${table(["UV", "IR", "Deformation", ""], c.map((f) => [nodeName(f.uv) + f.at, nodeName(f.ir),
+          f.note ? md(f.note, true) : f.flow ? flowPreviewText(f) : "", details(f)]), "data")}</section>`)
       .join("")}`;
   drawFlowArrows();
+}
+
+/** A page explaining an operation used in composite flow targets (data/operations/). */
+function viewOperation(id) {
+  const o = (DB.operations || []).find((x) => x.id === id);
+  if (!o) return viewNotFound(`No operation page “${id}”.`);
+  document.title = `${plain(o.name)} — QFT Zoo`;
+  const op = Object.keys(OPERATION).find((k) => OPERATION[k].page === id);
+  const uses = op ? allFlows().filter((f) => f.expr && JSON.stringify(f.expr).includes(`"operation":"${op}"`)) : [];
+  app.innerHTML = `
+    <nav class="crumbs"><a href="#/flows">← RG flows</a></nav>
+    <header class="theory-head"><h1>${md(o.name, true)}</h1><p class="lede">${md(o.summary, true)}</p></header>
+    ${section("overview", "Definition", `<div class="prose">${md(o.description)}</div>`)}
+    ${uses.length ? section("uses", "Flows ending in such a theory", `<ul>${uses.map((f) => `<li>${nodeName(f.uv)} → ${nodeName(f.ir)}</li>`).join("")}</ul>`) : ""}
+    ${section("references", "References", `<ol class="refs">${o.references.map(refItem).join("")}</ol>`)}
+    <p class="muted small">Source: <a href="${gh.blob(o.source)}" target="_blank" rel="noopener"><code>${esc(o.source)}</code></a></p>`;
 }
 
 /** Contents line for a page built from section() blocks; omitted on short pages. */
@@ -1292,11 +1683,12 @@ function route() {
   else if (page === "flows") viewFlows();
   else if (page === "feedback") viewFeedback();
   else if (page === "theory" && arg) viewTheory(decodeURIComponent(arg));
+  else if (page === "operation" && arg) viewOperation(decodeURIComponent(arg));
   else if (page === "contribute") viewContribute();
   else if (page === "landscape") viewLandscape();
   else viewNotFound();
   document.querySelectorAll("[data-nav]").forEach((a) =>
-    a.classList.toggle("active", a.dataset.nav === (page === "theory" ? "catalogue" : page))
+    a.classList.toggle("active", a.dataset.nav === (page === "theory" ? "catalogue" : page === "operation" ? "flows" : page))
   );
   window.scrollTo(0, 0);
 }
@@ -1308,8 +1700,47 @@ app.addEventListener("change", (e) => {
   if (e.target.id === "spectrum-member" && SPEC_STATE.t) showSpectrum(SPEC_STATE.t, +e.target.value);
 });
 
+// Flow arrows: a preview on hover or keyboard focus; click, tap, Enter or Space opens the details.
+app.addEventListener("mouseover", (e) => {
+  const el = e.target.closest(".flow-graph [data-flow-open]");
+  if (el) showTip(el);
+});
+app.addEventListener("mouseout", (e) => {
+  const el = e.target.closest(".flow-graph [data-flow-open]");
+  if (el && !el.contains(e.relatedTarget)) hideTip(el);
+});
+app.addEventListener("focusin", (e) => {
+  if (e.target.matches(".flow-edge")) showTip(e.target);
+});
+app.addEventListener("focusout", (e) => {
+  if (e.target.matches(".flow-edge")) hideTip(e.target);
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") return;
+  const open = [...app.querySelectorAll(".flow-panel:not([hidden])")];
+  app.querySelectorAll(".flow-tip:not([hidden])").forEach((t) => (t.hidden = true));
+  if (!open.length) return;
+  // Close the panel the focus is in or came from, else every open one.
+  const here = open.filter((p) => p.contains(document.activeElement) || p._trigger === document.activeElement);
+  (here.length ? here : open).forEach((p) => closeFlow(p.closest(".flow-view"), p.contains(document.activeElement)));
+});
+
 // Clicks shared by all views: citation links, tag pills, "show more" members / rows.
 app.addEventListener("click", (e) => {
+  const flowOpen = e.target.closest("[data-flow-open]");
+  if (flowOpen) {
+    const view = viewOf(flowOpen);
+    // A click on an arrow's line acts like its button (the focus returns there on close).
+    const trigger = flowOpen.tagName === "BUTTON" ? flowOpen
+      : view?.querySelector(`.flow-edge[data-flow-open="${CSS.escape(flowOpen.dataset.flowOpen)}"]`);
+    if (view) openFlow(view, flowOpen.dataset.flowOpen, trigger);
+    return;
+  }
+  const flowClose = e.target.closest(".flow-close");
+  if (flowClose) {
+    closeFlow(flowClose.closest(".flow-view"), true);
+    return;
+  }
   const jump = e.target.closest("[data-jump]");
   if (jump) {
     document.getElementById(`sec-${jump.dataset.jump}`)?.scrollIntoView({ behavior: "smooth", block: "start" });

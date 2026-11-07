@@ -1,0 +1,128 @@
+# Synthetic test fixture: invented theories, couplings and sources. Not physics.
+id: fixture-uv
+name: 'Fixture UV CFT'
+d: 3
+summary: 'Synthetic UV theory with several flows, used to test structured flows.'
+tags: [CFT]
+symmetry:
+  global: '$G$'
+relations:
+  # Two flows with the same endpoints: they must stay two arrows.
+  - type: flows_to
+    id: positive-g
+    target: fixture-ir
+    note: 'Legacy description, kept beside the structured data.'
+    flow:
+      identification:
+        status: established
+        method: 'fixture numerics'
+        refs: [review]
+      deformations:
+        - operator: '\mathcal{O}'
+          coupling: 'g'
+          Delta: '1.5(1)'
+          rep: '$G$-singlet'
+          sign: positive
+          sign_convention: '$S = S_{\rm UV} + g\int \mathcal{O}$, with $\mathcal{O}$ normalized as in [fixture-a].'
+          refs: [fixture-a]
+      tuned:
+        - operator: '\mathcal{E}'
+          coupling: 't'
+          condition: '$t = t_c(g)$'
+          standard: true
+      symmetry_changes:
+        - from: '$G$'
+          to: '$H$'
+          kind: explicit
+          standard: true
+      integrability:
+        status: open
+        refs: [fixture-a]
+      note: 'Synthetic: the deformed action keeps $H$; background response conventions as in the fixture source.'
+  - type: flows_to
+    id: negative-g
+    target: fixture-ir
+    flow:
+      identification:
+        status: conjectured
+        method: 'fixture anomaly matching'
+        refs: [fixture-a]
+        competing_refs: [review]
+        note: 'Synthetic: the fixture review argues for another IR.'
+      deformations:
+        - operator: '\mathcal{O}'
+          coupling: 'g'
+          sign: negative
+          sign_convention: '$S = S_{\rm UV} + g\int \mathcal{O}$.'
+          refs: [review]
+      symmetry_changes:
+        - from: '$H$'
+          to: '$K$'
+          kind: spontaneous
+          vacua: 2
+          refs: [fixture-a]
+      integrability:
+        status: integrable
+        note: 'Synthetic: infinitely many fixture charges.'
+        refs: [fixture-a]
+      page: fixture-flow-page
+  # A legacy relation without metadata.
+  - type: flows_to
+    target: fixture-tqft
+    note: 'Legacy flow with only a note.'
+  # Composite IRs.
+  - type: flows_to
+    id: two-vacua
+    target_expr:
+      operation: direct_sum
+      terms:
+        - expr: {entry: fixture-tqft}
+          multiplicity: 2
+      decoration: 'The fixture symmetry exchanges the two summands.'
+    flow:
+      identification:
+        status: disputed
+        method: 'fixture lattice'
+        refs: [fixture-a]
+        competing_refs: [review]
+      deformations:
+        - operator: '\mathcal{E}'
+          coupling: 't'
+          sign: negative
+          sign_convention: '$S = S_{\rm UV} + t\int\mathcal{E}$.'
+          standard: true
+      spectrum:
+        vacua: 2
+        kinks: 'Domain walls between the two vacua.'
+        refs: [fixture-a]
+  - type: flows_to
+    id: branch
+    target_expr:
+      operation: tensor_product
+      terms:
+        - expr: {entry: fixture-ir}
+        - expr:
+            operation: direct_sum
+            terms:
+              - expr: {entry: fixture-both}
+              - expr: {entry: fixture-family, at: 2}
+    flow:
+      identification:
+        status: established
+        method: 'fixture supersymmetry'
+        refs: [fixture-a]
+      vevs:
+        - operator: '\Phi'
+          direction: 'a generic point of the fixture branch'
+          branch: 'Coulomb branch'
+          refs: [fixture-a]
+  - type: related_to
+    target: fixture-neither
+    note: 'An ordinary relation, unchanged.'
+references:
+  - key: review
+    title: 'Synthetic fixture source: the UV review'
+    url: 'https://example.org/fixture-uv-review'
+  - key: fixture-a
+    title: 'Synthetic fixture source A'
+    url: 'https://example.org/fixture-a'
