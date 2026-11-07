@@ -1,0 +1,161 @@
+id: super-liouville
+name: '$\mathcal{N}=1$ super-Liouville theory'
+aliases: ['$\mathcal{N}=1$ super Liouville CFT', 'Supersymmetric Liouville theory', 'Super-Liouville field theory']
+d: 2
+summary: 'The $\mathcal{N}=1$ supersymmetric extension of Liouville CFT, with $c=\frac32+3Q^2$. A fermionic theory of a boson and its superpartner fermion, with NS and R sectors, continuous spectra and exactly known three-point functions.'
+tags: [CFT, SCFT, interacting, supersymmetric, Lagrangian]
+
+description: |
+  $\mathcal{N}=1$ super-Liouville theory is the supersymmetric extension of Liouville CFT, first considered by Polyakov. Its superfield $\Phi=\phi+i\theta\psi+i\bar\theta\bar\psi+i\theta\bar\theta F$ contains a real boson $\phi$ with a linear dilaton and its fermionic superpartner $(\psi,\bar\psi)$. It arises from the quantisation of two-dimensional supergravity, and describes 2d supergravity induced by supersymmetric matter, as Liouville CFT does for gravity. Like Liouville it is non-compact, with continuous spectra. This page follows Fukuda and Hosomichi.
+
+  $$c=\tfrac32\hat c=\tfrac32+3Q^2,\qquad\hat c=1+2Q^2,\qquad Q=b+b^{-1}.$$
+
+  The interaction is normalised as $e^{b\phi}$, not $e^{2b\phi}$ as in Liouville CFT, and at the same $b$ the central charge is not the bosonic $1+6Q^2$.
+
+  It is a fermionic theory. The fermion $\psi$ and the supercurrent $T_F=i(\psi\partial\phi-Q\partial\psi)$, of weight $\frac32$, are local fields, and the primaries fall into a Neveu–Schwarz (NS) sector, local with respect to $T_F$, and a Ramond (R) sector, around which $T_F$ is double-valued. The NS primaries are $V_\alpha=e^{\alpha\phi}$, with superpartners at weight $h_\alpha+\frac12$, where
+
+  $$h_\alpha=\bar h_\alpha=\frac{\alpha(Q-\alpha)}{2}=\frac{Q^2}{8}+\frac{p^2}{2},\qquad\alpha=\frac{Q}{2}+ip,\quad p\in\mathbb{R}.$$
+
+  The R primaries are $\Theta^{\epsilon\bar\epsilon}_\alpha=\sigma^\epsilon\bar\sigma^{\bar\epsilon}e^{\alpha\phi}$ ($\epsilon,\bar\epsilon=\pm$), with spin fields $\sigma^\pm$ of weight $\frac{1}{16}$, so $h=h_\alpha+\frac{1}{16}=\frac{c}{24}+\frac{p^2}{2}$. As for a free fermion, locality and modular invariance restrict the four RR ground-state fields at each $\alpha$ to one combination. The continua start at $p=0$, with $h=\frac{Q^2}{8}=\frac{2c-3}{48}$ in the NS sector and $h=\frac{c}{24}$ in the R sector.
+
+  Degenerate representations sit at $\alpha_{r,s}=\frac12(Q-rb-sb^{-1})$, $r,s\geq1$, with a null vector at level $\frac{rs}{2}$; they are NS for $r+s$ even and R for $r+s$ odd. The simplest non-trivial one is the R field $\Theta_{-b/2}$.
+
+  Reflection $\alpha\to Q-\alpha$ identifies $V_\alpha=D(\alpha)V_{Q-\alpha}$ (likewise for the superpartners) and $\epsilon\bar\epsilon\,\Theta^{\epsilon\bar\epsilon}_\alpha=\tilde D(\alpha)\,\Theta^{-\epsilon,-\bar\epsilon}_{Q-\alpha}$, so the reflection of an R field also flips $\epsilon,\bar\epsilon$. With $\lambda=\mu\pi\gamma(\frac{bQ}{2})\,b^{1-b^2}$ and $\gamma(x)=\Gamma(x)/\Gamma(1-x)$,
+
+  $$D(\alpha)=\lambda^{\frac{Q-2\alpha}{b}}\frac{\Upsilon_{\rm NS}(2\alpha)}{\Upsilon_{\rm NS}(2Q-2\alpha)},\qquad\tilde D(\alpha)=\lambda^{\frac{Q-2\alpha}{b}}\frac{\Upsilon_{\rm R}(2\alpha)}{\Upsilon_{\rm R}(2Q-2\alpha)},$$
+
+  $$\Upsilon_{\rm NS}(x)=\Upsilon\big(\tfrac{x}{2}\big)\Upsilon\big(\tfrac{x+Q}{2}\big),\qquad\Upsilon_{\rm R}(x)=\Upsilon\big(\tfrac{x+b}{2}\big)\Upsilon\big(\tfrac{x+b^{-1}}{2}\big),$$
+
+  where $\Upsilon$ is the function of the DOZZ formula. They satisfy $D(\alpha)D(Q-\alpha)=\tilde D(\alpha)\tilde D(Q-\alpha)=1$. In terms of gamma functions, $D(\alpha)=-\big(\mu\pi\gamma(\frac{bQ}{2})\big)^{\frac{Q-2\alpha}{b}}\frac{\Gamma(bx)\Gamma(b^{-1}x)}{\Gamma(-bx)\Gamma(-b^{-1}x)}$ with $x=\alpha-\frac{Q}{2}$.
+
+  ### Three-point functions
+
+  The three-point function of NS primaries is, up to the standard coordinate dependence,
+
+  $$\langle V_{\alpha_1}V_{\alpha_2}V_{\alpha_3}\rangle=\lambda^{\frac{Q-\sum_i\alpha_i}{b}}\,\frac{\Upsilon_{\rm NS}'(0)\,\Upsilon_{\rm NS}(2\alpha_1)\Upsilon_{\rm NS}(2\alpha_2)\Upsilon_{\rm NS}(2\alpha_3)}{\Upsilon_{\rm NS}(\alpha_1+\alpha_2+\alpha_3-Q)\,\Upsilon_{\rm NS}(\alpha_1+\alpha_2-\alpha_3)\,\Upsilon_{\rm NS}(\alpha_2+\alpha_3-\alpha_1)\,\Upsilon_{\rm NS}(\alpha_3+\alpha_1-\alpha_2)}.$$
+
+  Superconformal symmetry gives all other NS three-point functions from this one and from $\langle\psi\bar\psi V_{\alpha_1}V_{\alpha_2}V_{\alpha_3}\rangle$, whose denominator is built from $\Upsilon_{\rm R}$ (Fukuda–Hosomichi, eq. (2.58)). Three-point functions with two R fields are given in their eq. (2.64). The NS function has poles where $\sum_i(\alpha_i\ \text{or}\ Q-\alpha_i)=Q-mb-nb^{-1}$ with $m,n\geq0$ and $m+n$ even, reflecting the fermionic screening operator $\psi\bar\psi e^{b\phi}$.
+
+  The structure constants were proposed by Rashkov and Stanishkov from their pole structure, and derived by Poghossian, in both sectors, from four-point functions with the degenerate R field $\Theta_{-b/2}$ (the method Teschner used for Liouville). Fukuda and Hosomichi rederived them in the form above.
+
+  ### Related theories
+
+  At $b=1$ ($\hat c=9$, $c=\frac{27}{2}$), super-Liouville theory together with a free $\hat c=1$ superfield $(X,\chi)$ is the worldsheet theory of the two-dimensional type 0A and 0B strings (Nakayama, section 7.3). As $c\to\frac32$ ($b\to i$) its NS three-point functions have a limit, which coincides with the limit of the $\mathcal{N}=1$ superconformal minimal models (Fredenhagen and Wellig): a non-rational theory at $c=\frac32$, the supersymmetric analogue of the Runkel–Watts theory.
+
+lagrangian: 'S=\frac{1}{2\pi}\int\mathrm{d}^2z\,\Big(\partial\phi\bar\partial\phi+\frac{QR\phi}{4}+\psi\bar\partial\psi+\bar\psi\partial\bar\psi-F^2\Big)+2i\mu\int\mathrm{d}^2z\,\big(ibF+b^2\psi\bar\psi\big)e^{b\phi}'
+
+parameters:
+  - symbol: 'b'
+    description: 'Super-Liouville coupling. $c$ is invariant under $b\to b^{-1}$.'
+    range: 'real $b>0$'
+  - symbol: '\mu'
+    description: 'Cosmological constant.'
+    range: '$\mu>0$'
+
+symmetry:
+  spacetime: '$\mathcal{N}=(1,1)$ superconformal'
+  supercharges: 2
+  notes: 'The chiral algebra is the $\mathcal{N}=1$ super-Virasoro algebra, with NS and R sectors. The theory is fermionic: $\psi$ and $T_F$ are local fields. Reflection $\alpha\to Q-\alpha$ is an identification, not a symmetry.'
+
+quantities:
+  - key: c
+    symbol: c
+    description: 'Central charge ($c_L = c_R$)'
+    value: '\frac{3}{2}+3Q^2'
+    method: exact
+    note: 'Equal to $\frac32\hat c$ with $\hat c=1+2Q^2$ and $Q=b+b^{-1}$. At $b=1$, $c=\frac{27}{2}$ (derived).'
+    refs: [fh2002, nakayama2004, fw2007, poghossian1997, rs1996]
+  - symbol: '\Delta^{\rm NS}_{\min}'
+    description: 'Lower edge of the NS continuum, $h+\bar h$ at $p=0$'
+    value: '\frac{Q^2}{4}=\frac{2c-3}{24}'
+    method: exact
+    note: 'From $h_\alpha=\frac{Q^2}{8}+\frac{p^2}{2}$. There is no gap above it.'
+    refs: [fw2007, fh2002]
+  - symbol: '\Delta^{\rm R}_{\min}'
+    description: 'Lower edge of the R continuum, $h+\bar h$ at $p=0$'
+    value: '\frac{c}{12}'
+    method: exact
+    note: 'From $h=\frac{c}{24}+\frac{p^2}{2}$.'
+    refs: [fw2007]
+  - symbol: 'D(\alpha)'
+    description: 'NS reflection amplitude'
+    value: '\lambda^{\frac{Q-2\alpha}{b}}\frac{\Upsilon_{\rm NS}(2\alpha)}{\Upsilon_{\rm NS}(2Q-2\alpha)}'
+    method: exact
+    note: 'With $\lambda=\mu\pi\gamma(\frac{bQ}{2})b^{1-b^2}$. Agrees with the gamma-function form, eq. (2.35) of Fukuda–Hosomichi, by the shift relations of $\Upsilon$.'
+    refs: [fh2002, poghossian1997]
+  - symbol: 'C^{\rm NS}(\alpha_1,\alpha_2,\alpha_3)'
+    description: 'Three-point function of NS primaries'
+    value: '\lambda^{\frac{Q-\sum_i\alpha_i}{b}}\frac{\Upsilon_{\rm NS}''(0)\prod_{i=1}^3\Upsilon_{\rm NS}(2\alpha_i)}{\Upsilon_{\rm NS}(\alpha_1+\alpha_2+\alpha_3-Q)\Upsilon_{\rm NS}(\alpha_1+\alpha_2-\alpha_3)\Upsilon_{\rm NS}(\alpha_2+\alpha_3-\alpha_1)\Upsilon_{\rm NS}(\alpha_3+\alpha_1-\alpha_2)}'
+    method: exact
+    refs: [rs1996, poghossian1997, fh2002, fw2007]
+
+operators:
+  - name: 'V_\alpha'
+    Delta: '\frac{Q^2}{4}+p^2'
+    spin: 0
+    weights: '(h_\alpha,h_\alpha)'
+    rep: 'NS sector, $\alpha=\frac{Q}{2}+ip$, $p\geq0$'
+    method: exact
+    refs: [fh2002, fw2007]
+    note: 'NS spectrum; reflection relates $p$ and $-p$.'
+  - name: '\Theta^{\epsilon\bar\epsilon}_\alpha'
+    Delta: '\frac{c}{12}+p^2'
+    spin: 0
+    weights: '(h_\alpha+\tfrac{1}{16},h_\alpha+\tfrac{1}{16})'
+    rep: 'R sector, $\alpha=\frac{Q}{2}+ip$, $p\geq0$'
+    method: exact
+    refs: [fh2002, fw2007]
+    note: 'R spectrum. Locality and modular invariance keep one combination of the four $\epsilon,\bar\epsilon$ at each $\alpha$.'
+
+relations:
+  - type: related_to
+    target: liouville-cft
+    note: 'Its $\mathcal{N}=1$ supersymmetric extension. The structure constants are built from the $\Upsilon$ function of the DOZZ formula, combined into $\Upsilon_{\rm NS}$ and $\Upsilon_{\rm R}$.'
+
+references:
+  - key: rs1996
+    title: Three-point correlation functions in N=1 super Liouville theory
+    authors: Rashkov, Stanishkov
+    year: 1996
+    journal: Phys. Lett. B380, 49
+    arxiv: hep-th/9602148
+    doi: '10.1016/0370-2693(96)00474-1'
+  - key: poghossian1997
+    title: Structure constants in the N=1 super-Liouville field theory
+    authors: Poghossian
+    year: 1997
+    journal: Nucl. Phys. B496, 451
+    arxiv: hep-th/9607120
+    doi: '10.1016/S0550-3213(97)00218-6'
+  - key: fh2002
+    title: Super Liouville theory with boundary
+    authors: Fukuda, Hosomichi
+    year: 2002
+    journal: Nucl. Phys. B635, 215
+    arxiv: hep-th/0202032
+    doi: '10.1016/S0550-3213(02)00357-7'
+    note: 'Action (2.3)–(2.4), central charge (2.7), spectrum and reflection (2.13)–(2.36), degenerate fields (2.22), three-point functions (2.58), (2.64).'
+  - key: nakayama2004
+    title: 'Liouville field theory: a decade after the revolution'
+    authors: Nakayama
+    year: 2004
+    journal: Int. J. Mod. Phys. A19, 2771
+    arxiv: hep-th/0402009
+    doi: '10.1142/S0217751X04019500'
+    note: 'Review; super-Liouville theory in section 7.'
+  - key: fw2007
+    title: A common limit of super Liouville theory and minimal models
+    authors: Fredenhagen, Wellig
+    year: 2007
+    journal: JHEP 09 (2007) 098
+    arxiv: '0706.1650'
+    doi: '10.1088/1126-6708/2007/09/098'
+    note: 'Spectrum, eqs. (38)–(42).'
+  - key: polyakov1981
+    title: Quantum geometry of fermionic strings
+    authors: Polyakov
+    year: 1981
+    journal: Phys. Lett. B103, 211
+    doi: '10.1016/0370-2693(81)90744-9'
+
+contributors: [Canonical111]

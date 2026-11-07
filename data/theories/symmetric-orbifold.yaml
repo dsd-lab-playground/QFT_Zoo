@@ -1,0 +1,140 @@
+id: symmetric-orbifold
+name: Symmetric orbifold CFTs
+aliases: ['$\mathrm{Sym}^N(X)$', Symmetric product orbifolds, 'Permutation orbifolds by $S_N$', '$\mathrm{Sym}^N(T^4)$', '$\mathrm{Sym}^N(\mathrm{K3})$', 'D1–D5 CFT at the orbifold point']
+d: 2
+summary: 'The orbifold $X^{\otimes N}/S_N$ of $N$ copies of a seed CFT $X$, with $c = N c_X$. Its spectrum follows from that of $X$ (DMVV) and is universal at large $N$; $\mathrm{Sym}^N(T^4)$ and $\mathrm{Sym}^N(\mathrm{K3})$ are believed to lie on the moduli spaces of the D1–D5 CFTs dual to $AdS_3$.'
+tags: [CFT, unitary, orbifold, holographic, large N, family]
+
+description: |
+  $\mathrm{Sym}^N(X)$ is the tensor product of $N$ copies of a seed CFT $X$, orbifolded by the symmetric group $S_N$ that permutes them, so $c = N c_X$. Its Hilbert space is a sum of twisted sectors labelled by conjugacy classes of $S_N$, i.e. by cycle types $(1)^{N_1}(2)^{N_2}\cdots$ with $\sum_n nN_n = N$; each sector keeps the states invariant under the centralizer $\prod_n S_{N_n}\ltimes\mathbb{Z}_n^{N_n}$ (Dijkgraaf, Moore, Verlinde and Verlinde (DMVV), eqs. (2.1)–(2.4)). A cycle of length $n$ joins $n$ copies of $X$ into one copy on an $n$ times longer circle, a "long string". For a bosonic seed with a unique vacuum, the lightest state of the $n$-cycle sector has $h = \bar h = \frac{c_X}{24}(n - \frac1n)$ (derived). If $X$ is fermionic, as for $T^4$ and K3, so is $\mathrm{Sym}^N(X)$. The members listed below take a seed with $c_X = 6$, $X = T^4$ or K3.
+
+  **Generating functions.** If the elliptic genus of $X$ is $\chi(X;q,y) = \sum_{m,\ell}c(m,\ell)\,q^my^\ell$, then (DMVV, eq. (1.3))
+  $$\sum_{N\geq0}p^N\chi(\mathrm{Sym}^NX;q,y) = \prod_{n>0,\,m\geq0,\,\ell}\frac{1}{(1-p^nq^my^\ell)^{c(nm,\ell)}}.$$
+  The right side is the partition function of a second-quantized string on $X\times S^1$, and the generating function is (almost) an automorphic form for $O(3,2;\mathbb{Z})$ (DMVV). For $X = $ K3 at $y = 1$ it reduces to $\prod_{n}(1-p^n)^{-24}$, the generating function of orbifold Euler numbers (derived). The torus partition functions obey an analogous product formula (Keller, eq. (2.3); Hartman, Keller and Stoica (HKS), eq. (5.4)).
+
+  ### Universality at large N
+  As $N\to\infty$ the free energy per copy becomes universal, depending only on $c_X$, with a first-order phase transition at $\beta = 2\pi$, the analogue of the Hawking–Page transition. The number of states grows as $e^{4\pi\sqrt{m\bar m}}$ (Keller). HKS show that every 2d CFT with large $c$ and a sparse light spectrum, $\rho(E)\lesssim e^{2\pi(E + c/12)}$ for light states with $E = \Delta - \frac{c}{12}$ below a small positive cutoff, has a universal free energy and Cardy growth for $\Delta \geq \frac{c}{6}$. Symmetric orbifolds satisfy this, and their light spectrum saturates the bound,
+  $$S(E) \simeq \frac{\pi c}{6} + 2\pi E,\qquad 0 < E < \frac{c}{12},$$
+  so in this sense they have the densest spectrum compatible with 3d gravity (HKS).
+
+  ### D1–D5 system and AdS$_3$
+  The D1–D5 system on $X = T^4$ or K3 has near-horizon geometry $AdS_3\times S^3\times X$, and its boundary CFT has $c = 6Q_1Q_5$ (Seiberg–Witten). This CFT is believed to lie on the moduli space of $\mathrm{Sym}^N(X)$ with $N = Q_1Q_5$, but it is not known where on that moduli space, if anywhere, the orbifold point sits; at the loci where the branes can separate the CFT is singular (Seiberg–Witten). The orbifold point is a weak-coupling limit without a good geometric description (HKS). The moduli space of $\mathrm{Sym}^N(T^4)$ has 20 parameters, and away from the orbifold point the theory is interacting (Eberhardt, Gaberdiel and Gopakumar (EGG)).
+
+  EGG proposed a worldsheet dual of the large-$N$ orbifold point. Superstring theory on $AdS_3\times S^3\times T^4$ with one unit of NS–NS flux ($k = 1$), defined in the hybrid formalism with a $\mathfrak{psu}(1,1|2)_1$ WZW model, has no long-string continuum. Its spectrum matches the large-$N$ limit of $\mathrm{Sym}^N(T^4)$, and the worldsheet reproduces the fusion rules of the orbifold (EGG, following Gaberdiel–Gopakumar).
+
+parameters:
+- symbol: N
+  description: 'Number of copies of the seed $X$; $N = 1$ is $X$ itself. The members listed have $c_X = 6$ ($X = T^4$ or K3).'
+  range: 'integer $N \geq 1$'
+
+family:
+  parameter: N
+  start: 1
+  formulas:
+    c: '6*N'
+  show: 6
+
+symmetry:
+  spacetime: 'conformal; $\mathcal{N}=(4,4)$ superconformal for $X = T^4$ or K3'
+  notes: 'The permutation group $S_N$ is gauged.'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: 'N\,c_X'
+  method: exact
+  refs: [hks2014]
+  note: '$c = 6N$ for $X = T^4$ or K3.'
+- symbol: 'Z_{\rm gen}(p)'
+  description: 'Generating function of torus partition functions, for a seed with $Z_X = \sum d(h,\bar h)\,q^{h-c_X/24}\bar q^{\bar h-c_X/24}$'
+  value: '\sum_{N\geq0}p^NZ_N = \prod_{n>0}\prod_{h,\bar h}\left(1-p^n q^{\frac{h-c_X/24}{n}}\bar q^{\frac{\bar h-c_X/24}{n}}\right)^{-d(h,\bar h)\,\delta^{(n)}_{h-\bar h}}'
+  method: exact
+  refs: [hks2014, keller2011]
+  note: '$\delta^{(n)}_{h-\bar h} = 1$ if $h-\bar h \equiv 0 \bmod n$ and 0 otherwise.'
+- symbol: 'S(E)'
+  description: 'Large-$N$ entropy for $0 < E < \frac{c}{12}$, where $E = \Delta - \frac{c}{12}$'
+  value: '\frac{\pi c}{6} + 2\pi E \quad (0 < E < \tfrac{c}{12})'
+  method: exact (large-N asymptotics)
+  refs: [hks2014]
+- symbol: 'T_H'
+  description: 'Hagedorn (Hawking–Page) temperature at $N = \infty$'
+  value: '\frac{1}{2\pi}'
+  method: exact
+  refs: [keller2011]
+
+operators:
+- name: '\sigma_n'
+  Delta: '\frac{c_X}{12}\left(n-\frac{1}{n}\right)'
+  spin: 0
+  weights: '\left(\tfrac{c_X}{24}(n-\tfrac1n),\ \tfrac{c_X}{24}(n-\tfrac1n)\right)'
+  method: derived
+  refs: [hks2014]
+  note: 'Twist field: the lightest state of the sector of an $n$-cycle, for a bosonic seed with a unique vacuum. From the $n$-th factor of the generating function above with $h = \bar h = 0$.'
+
+relations:
+- type: related_to
+  target: k3-sigma-models
+  note: 'The K3 sigma model is a seed: $\mathrm{Sym}^N(\mathrm{K3})$, with $c = 6N$.'
+- type: related_to
+  target: narain-cft
+  note: 'The $T^4$ seed is the supersymmetric sigma model on $T^4$: four free bosons at a point of the $d = 4$ Narain moduli space and four free Majorana fermions on each side.'
+- type: related_to
+  target: tim-sym2
+  note: '$\mathrm{Sym}^2(\mathrm{TIM})$ is the $N = 2$ symmetric orbifold of the tricritical Ising model, with $c = 2\cdot\frac{7}{10} = \frac75$.'
+
+references:
+- key: dmvv1997
+  title: Elliptic genera of symmetric products and second quantized strings
+  authors: Dijkgraaf, Moore, Verlinde, Verlinde
+  year: 1997
+  journal: Commun. Math. Phys. 185, 197
+  arxiv: hep-th/9608096
+- key: keller2011
+  title: Phase transitions in symmetric orbifold CFTs and universality
+  authors: Keller
+  year: 2011
+  journal: JHEP 03 (2011) 114
+  arxiv: '1101.4937'
+  note: 'Generating function, eq. (2.3); universal growth and phase transition, Section 2.2.'
+- key: hks2014
+  title: Universal spectrum of 2d conformal field theory in the large c limit
+  authors: Hartman, Keller, Stoica
+  year: 2014
+  journal: JHEP 09 (2014) 118
+  arxiv: '1405.5137'
+  note: 'Sparseness condition, eq. (1.10); symmetric orbifolds, Section 5, eqs. (5.4)–(5.8).'
+- key: sw1999
+  title: The D1/D5 system and singular CFT
+  authors: Seiberg, Witten
+  year: 1999
+  journal: JHEP 04 (1999) 017
+  arxiv: hep-th/9903224
+  note: 'Section 2, "Comparison to symmetric product".'
+- key: maldacena1998
+  title: The large N limit of superconformal field theories and supergravity
+  authors: Maldacena
+  year: 1998
+  journal: Adv. Theor. Math. Phys. 2, 231
+  arxiv: hep-th/9711200
+- key: gg2018
+  title: Tensionless string spectra on AdS3
+  authors: Gaberdiel, Gopakumar
+  year: 2018
+  journal: JHEP 05 (2018) 085
+  arxiv: '1803.04423'
+- key: egg2019
+  title: The worldsheet dual of the symmetric product CFT
+  authors: Eberhardt, Gaberdiel, Gopakumar
+  year: 2019
+  journal: JHEP 04 (2019) 103
+  arxiv: '1812.01007'
+- key: gtvw2014
+  title: 'A K3 sigma model with $\mathbb{Z}_2^8:\mathbb{M}_{20}$ symmetry'
+  authors: Gaberdiel, Taormina, Volpato, Wendland
+  year: 2014
+  journal: JHEP 02 (2014) 022
+  arxiv: '1309.4127'
+  note: 'The supersymmetric $T^4$ theory as four bosons and four free fermions, Section 1.'
+
+contributors: [Canonical111]

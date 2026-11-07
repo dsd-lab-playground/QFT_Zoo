@@ -1,0 +1,142 @@
+id: noncompact-boson-2d
+name: 'Non-compact free boson (2d)'
+aliases:
+  - Free boson on the real line
+  - Uncompactified free boson
+  - Free massless scalar in two dimensions
+  - Gaussian free field
+d: 2
+summary: >-
+  A free massless scalar valued in $\mathbb{R}$: a $c = 1$ CFT with a continuous spectrum of vertex
+  operators $e^{ipX}$, $\Delta = p^2$, starting at $\Delta = 0$. It is the $R \to \infty$ limit of the
+  compact boson and has no normalizable $SL(2,\mathbb{C})$-invariant vacuum.
+tags: [CFT, free, unitary, Lagrangian, exactly solvable]
+
+description: |
+  Convention: the same field normalization as the compact-boson entry,
+  $\mathcal{L} = \frac{1}{8\pi}(\partial X)^2$, which is Tong's $\frac{1}{4\pi\alpha'}(\partial X)^2$ at
+  $\alpha' = 2$. The vertex operators $V_p = {:}e^{ipX}{:}$, $p \in \mathbb{R}$, are primary with
+  $h = \bar h = \alpha' p^2/4 = p^2/2$ (Tong, section 4.3), so $\Delta = p^2$ and the spin is 0. With the
+  currents $\partial X$, $\bar\partial X$ they generate the theory. The state space is a direct integral
+  $\int dp\, \mathcal{V}_p \otimes \bar{\mathcal{V}}_p$ of Fock modules over the continuous momentum
+  (Schomerus, eq. (2.9)), and the OPE coefficients are $\delta(p_1 + p_2 - p_3)$ (Schomerus, eq. (2.10)).
+
+  **Relation to the compact boson.** In the compact-boson entry $V_{n,0}$ has $h = \bar h = n^2/(2R^2)$;
+  with $p = n/R$ this is $p^2/2$, and as $R \to \infty$ the momenta fill $\mathbb{R}$ while all winding
+  states become infinitely heavy. Ribault describes this large-$R$ limit as a continuous, diagonal
+  spectrum, and notes that the compact boson at real radius and this infinite-radius limit are the only
+  unitary free bosonic theories (Ribault, section 4.1.3). Conversely, gauging the $\mathbb{Z}$ generated
+  by the translation $X \to X + 2\pi R$ gives back the compact boson of radius $R$ (Robbins and
+  Vandermeulen, section 3.4).
+
+  **No normalizable vacuum.** The primaries are only delta-function normalizable,
+  $\langle V_{p_1}V_{p_2}\rangle \propto \delta(p_1 + p_2)$ (Agia and Jafferis, eq. (3.1)). The identity
+  is the point $p = 0$ of this continuum, so the $SL(2,\mathbb{C})$-invariant vacuum is not a normalizable
+  state, and the spectrum has no gap: it starts at $\Delta = 0$. Agia and Jafferis note that, strictly
+  speaking, the non-compact boson is singular as a CFT, and call its continuous spectrum pathological.
+
+  **Torus partition function.** Summing over the continuous momentum gives a result proportional to the
+  (infinite) length $V$ of the target,
+  $$Z(\tau) = \frac{V}{2\pi}\,\frac{1}{|\eta(\tau)|^2}\int_{-\infty}^{\infty}dp\,(q\bar q)^{p^2/2} = \frac{V}{2\pi\sqrt{2\tau_2}\,|\eta(\tau)|^2},$$
+  and the combination $1/(\sqrt{\tau_2}\,|\eta|^2)$ is modular invariant (Robbins and Vandermeulen, eq.
+  (3.30), in their normalization $h = p^2/4$). With $V = 2\pi R$ this is $R/(\sqrt{2\tau_2}\,|\eta|^2)$:
+  the contribution of the compact-boson path integral without winding around either cycle, which dominates
+  as $R \to \infty$ (Ginsparg, eqs. (8.3) and (8.5); eq. (8.5) reads $\sqrt{2/\tau_2}\,r/|\eta|^2$ with
+  $r = R/2$).
+
+  With a background charge $Q$ the same field gives the linear dilaton theory, with $c = 1 + 6Q^2$; it is
+  not unitary for $Q \neq 0$ (Ribault, section 4.1).
+
+lagrangian: '\mathcal{L} = \frac{1}{8\pi}\,\partial_\mu X\,\partial^\mu X, \qquad X \in \mathbb{R}'
+
+symmetry:
+  spacetime: 'conformal (Virasoro $\times$ Virasoro, $c = \bar c = 1$)'
+  supercharges: 0
+  global: 'Shifts $X \to X + a$, $a \in \mathbb{R}$ (the momentum $p$ is the charge), and the reflection $X \to -X$'
+
+quantities:
+  - key: c
+    symbol: c
+    description: 'Central charge ($c_L = c_R$)'
+    value: '1'
+    method: exact
+    refs: [tong2009, ribault2014]
+  - symbol: '\Delta_{\min}'
+    description: 'Bottom of the continuous spectrum of primaries $V_p$, $\Delta = p^2$, $p\in\mathbb{R}$'
+    value: '0'
+    method: exact
+    refs: [tong2009]
+    note: 'Reached only at $p = 0$, the non-normalizable identity; there is no gap.'
+  - symbol: 'Z(\tau)'
+    description: 'Torus partition function, $V$ the length of the target'
+    value: '\frac{V}{2\pi\sqrt{2\tau_2}\,|\eta(\tau)|^2}'
+    method: derived
+    refs: [rv2020, ginsparg-lectures]
+    note: 'Robbins–Vandermeulen eq. (3.30) converted to $h = p^2/2$; agrees with the large-$R$ limit $R/(\sqrt{2\tau_2}|\eta|^2)$ of the compact boson, Ginsparg eq. (8.5) with $r = R/2$.'
+
+operators:
+  - name: 'V_p = {:}e^{ipX}{:}'
+    Delta: 'p^2'
+    spin: 0
+    weights: '(\tfrac{p^2}{2}, \tfrac{p^2}{2})'
+    rep: 'shift charge $p \in \mathbb{R}$'
+    method: exact
+    refs: [tong2009]
+    note: 'Continuous family, delta-function normalizable. Tong gives $h = \alpha'' p^2/4$; here $\alpha'' = 2$.'
+  - name: '\partial X,\ \bar\partial X'
+    Delta: 1
+    spin: 1
+    method: exact
+    note: 'Shift currents.'
+  - name: 'T'
+    Delta: 2
+    spin: 2
+    method: exact
+    note: Stress tensor.
+
+relations:
+  - type: related_to
+    target: compact-boson
+    note: 'The $R \to \infty$ limit of the compact boson; conversely, gauging the $\mathbb{Z}$ of translations $X \to X + 2\pi R$ gives the compact boson at radius $R$ (Robbins and Vandermeulen).'
+
+references:
+  - key: tong2009
+    title: Lectures on String Theory
+    authors: Tong
+    year: 2009
+    arxiv: '0908.0333'
+    note: 'Free scalar with $S = \frac{1}{4\pi\alpha''}\int (\partial X)^2$ and $e^{ikX}$ of weight $\alpha'' k^2/4$ (section 4.3).'
+  - key: ginsparg-lectures
+    title: Applied Conformal Field Theory
+    authors: Ginsparg
+    year: 1988
+    journal: 'Les Houches Summer School 1988, Fields, Strings and Critical Phenomena, pp. 1–168'
+    arxiv: hep-th/9108028
+    note: 'Circle partition function, eqs. (8.3)–(8.7); radius $r = R/2$.'
+  - key: schomerus2006
+    title: Non-compact String Backgrounds and Non-rational CFT
+    authors: Schomerus
+    year: 2006
+    journal: Phys. Rept. 431, 39
+    arxiv: hep-th/0509155
+    doi: '10.1016/j.physrep.2006.05.001'
+  - key: ribault2014
+    title: Conformal field theory on the plane
+    authors: Ribault
+    year: 2014
+    arxiv: '1406.4290'
+    note: 'Free bosonic theories, section 4.1.'
+  - key: rv2020
+    title: Orbifolds from Modular Orbits
+    authors: Robbins, Vandermeulen
+    year: 2020
+    journal: Phys. Rev. D 101, 106021
+    arxiv: '1911.05172'
+    doi: '10.1103/PhysRevD.101.106021'
+  - key: aj2022
+    title: Angular Quantization in CFT
+    authors: Agia, Jafferis
+    year: 2022
+    arxiv: '2204.11872'
+
+contributors: [Canonical111]

@@ -1,0 +1,216 @@
+id: potts-2d
+name: '2d Potts CFT at generic $Q$'
+aliases:
+  - 'Critical $Q$-state Potts model (2d)'
+  - Potts conformal field theory
+  - 'Critical Fortuin–Kasteleyn random-cluster model (2d)'
+d: 2
+summary: >-
+  The critical 2d $Q$-state Potts model, continued to real $0 \le Q \le 4$ through Fortuin–Kasteleyn
+  clusters: a non-rational, non-unitary, logarithmic CFT with $c = 1 - 6/(m(m+1))$,
+  $\sqrt{Q} = 2\cos\frac{\pi}{m+1}$. Percolation is $Q = 1$.
+tags: [CFT, interacting, non-unitary, critical phenomena, family]
+
+description: |
+  The $Q$-state Potts model has spins $\sigma_i \in \{1, \dots, Q\}$ with interaction
+  $-K\delta_{\sigma_i,\sigma_j}$ and $S_Q$ symmetry. Fortuin and Kasteleyn rewrote its partition function as a
+  sum over subsets $A$ of edges, $Z = \sum_A v^{|A|} Q^{k(A)}$ with $v = e^K - 1$ and $k(A)$ the number of
+  clusters, which makes sense for any real $Q$. On the square lattice the critical point is $v_c = \sqrt{Q}$,
+  and the boundaries of the clusters form completely packed loops on the medial lattice with weight $\sqrt{Q}$
+  per loop (see Jacobsen and Saleur). The transition is continuous for $Q \le 4$. For $Q > 4$ it is first order,
+  weakly so just above $4$, which Gorbenko, Rychkov and Zan relate to complex CFTs.
+
+  Following Jacobsen and Saleur, the critical theory is parametrized by
+  $$\sqrt{Q} = 2\cos\frac{\pi}{m+1}, \quad m \in [1, \infty], \qquad c = 1 - \frac{6}{m(m+1)}, \qquad h_{r,s} = \frac{[(m+1)r - ms]^2 - 1}{4m(m+1)},$$
+  with $m$ and the Kac labels $r, s$ not restricted to integers; the Coulomb-gas coupling is $g = m/(m+1)$.
+  Equivalently (Nivesvivat) $Q = 4\cos^2(\pi\beta^2)$ with $\tfrac12 \le \beta^2 \le 1$ and
+  $c = 13 - 6\beta^2 - 6\beta^{-2}$, where $\beta^2 = m/(m+1)$. The order parameter (spin field) has weights
+  $h_{1/2,0}$ and the energy field $h_{2,1}$; the energy field is degenerate for generic $Q$.
+
+  At $Q = 2, 3, 4$ the critical point, as seen by local spin observables, is a unitary CFT: a minimal model for
+  $Q = 2, 3$ and an orbifold of the compact boson for $Q = 4$. For non-integer $Q$, and for $Q = 1$, the theory
+  is real but non-unitary (Gorbenko, Rychkov and Zan). Even at integer $Q$, the CFT of cluster observables is
+  larger than the minimal model: at $Q = 2$ the Potts CFT describes Fortuin–Kasteleyn clusters and is not the
+  Ising minimal model (Nivesvivat). The Potts CFT is defined by continuation in $c$ to a double cover of the
+  half-plane $\mathrm{Re}\, c < 13$ (Picco, Ribault and Santachiara; Nivesvivat).
+
+  ### Spectrum
+  The torus partition function goes back to Di Francesco, Saleur and Zuber, and Jacobsen, Ribault and Saleur
+  determine the space of states with the action of $S_Q$. In their notation,
+  $P_{(r,s)} = \frac12(\beta r - \beta^{-1}s)$ and $\Delta_{(r,s)} = P_{(r,s)}^2 - P_{(1,1)}^2$ (so their
+  $\Delta_{(r,s)}$ is $h_{s,r}$ above), it consists of diagonal degenerate fields with $\Delta_{(1,s)}$,
+  $s \in \mathbb{N}^*$ ($S_Q$ singlets); diagonal fields with $\Delta_{(0,s)}$, $s \in \mathbb{N} + \tfrac12$,
+  in the standard representation of $S_Q$ (the spin field is $s = \tfrac12$); and non-diagonal fields with
+  weights $(\Delta_{(r,s)}, \Delta_{(r,-s)})$, $r \ge 2$ an integer and $s \in \tfrac1r\mathbb{Z}$, in
+  representations $\Xi_{(r,s)}$ of $S_Q$. Grans-Samuelsson, Liu, He, Jacobsen and Saleur showed that the
+  diagonal degenerate fields come in simple modules, while non-diagonal fields with integer labels form
+  indecomposable "diamond" representations with rank-2 Jordan cells for $L_0$ and $\bar L_0$: the Potts CFT is
+  logarithmic for generic $Q$.
+
+  ### Status
+  The spectrum is exactly known for $0 < Q \le 4$, but not all OPE coefficients are, so the theory has not been
+  exactly solved (Gorbenko, Rychkov and Zan). Most work concerns four-point connectivities, the probabilities
+  that four points lie in given clusters. Picco, Ribault and Santachiara proposed a spectrum and bootstrapped
+  connectivities in agreement with Monte Carlo data; later, comparing with a CFT that interpolates between
+  D-series minimal models, they argued that the agreement is exact only at $Q = 0, 3, 4$. Jacobsen and Saleur
+  found, with lattice algebra and transfer-matrix numerics, that the spectra in the fusion channels are much
+  richer than proposed. He, Jacobsen and Saleur solved the bootstrap numerically with interchiral conformal
+  blocks, and Nivesvivat and Ribault computed connectivities to arbitrary precision with logarithmic blocks,
+  confirming the Delfino–Viti conjecture for the three-point connectivity (built from the $c \le 1$ Liouville
+  structure constant). Nivesvivat found extra crossing-symmetric solutions whose interpretation is unknown, and
+  Nivesvivat, Ribault and Jacobsen conjecture that all structure constants of critical loop models are a
+  universal function, built from Barnes' double Gamma function, times a polynomial in the loop weights. These
+  are numerical results and conjectures.
+
+parameters:
+  - symbol: 'Q'
+    description: 'Number of states, continued to real values through Fortuin–Kasteleyn clusters.'
+    range: '$0 \le Q \le 4$ (continuous transition); $\sqrt{Q} = 2\cos\frac{\pi}{m+1}$, $m \in [1, \infty]$'
+
+family:
+  parameter: Q
+  members:
+    - at: 0
+      label: 'Spanning trees ($m = 1$)'
+      c: '-2'
+    - at: 1
+      label: 'Percolation ($m = 2$)'
+      c: '0'
+    - at: 2
+      label: 'Ising, Fortuin–Kasteleyn clusters ($m = 3$)'
+      c: '1/2'
+      note: 'Local spin observables: the Ising minimal model.'
+    - at: 3
+      label: 'Three-state Potts ($m = 5$)'
+      c: '4/5'
+      note: 'Local spin observables: the D-series minimal model, the 3-state Potts CFT.'
+    - at: 4
+      label: '4-state Potts ($m \to \infty$)'
+      c: '1'
+      note: 'An orbifold of the compact boson (Gorbenko, Rychkov and Zan, App. C).'
+
+symmetry:
+  spacetime: conformal
+  supercharges: 0
+  global: '$S_Q$, for non-integer $Q$ in the sense of tensor categories'
+
+quantities:
+  - key: c
+    symbol: 'c'
+    description: 'Virasoro central charge ($c_L = c_R$)'
+    value: '1 - \frac{6}{m(m+1)}, \quad \sqrt{Q} = 2\cos\frac{\pi}{m+1}'
+    method: exact
+    refs: [jacobsensaleur2019, nivesvivat2023, prs2019]
+    note: '$c = -2, 0, \tfrac12$ at $Q = 0, 1, 2$ (Nivesvivat, Table (1.3)) and $\tfrac45$ at $Q = 3$ (Picco, Ribault and Santachiara 2019); $c \to 1$ as $Q \to 4$.'
+  - symbol: '\nu'
+    description: 'Correlation-length exponent, $1/(2 - \Delta_\epsilon)$'
+    value: '\frac{2m}{3(m-1)}'
+    method: derived
+    refs: [jacobsensaleur2019, delfinoviti2011]
+    note: 'From $\Delta_\epsilon = 2h_{2,1}$. Gives $\tfrac43, 1, \tfrac56$ at $Q = 1, 2, 3$ and $\tfrac23$ as $Q \to 4$.'
+
+operators:
+  - name: '\sigma'
+    Delta: '\frac{(m-1)(m+3)}{8m(m+1)}'
+    spin: 0
+    weights: '(h_{1/2,0}, h_{1/2,0})'
+    rep: 'standard representation of $S_Q$ (order parameter)'
+    method: derived
+    refs: [jacobsensaleur2019, jrs2023]
+    note: '$2h_{1/2,0}$: $\tfrac{5}{48}, \tfrac18, \tfrac{2}{15}$ at $Q = 1, 2, 3$, $\to \tfrac18$ as $Q \to 4$.'
+  - name: '\epsilon'
+    Delta: '\frac{m+3}{2m}'
+    spin: 0
+    weights: '(h_{2,1}, h_{2,1})'
+    rep: '$S_Q$ singlet (energy), degenerate'
+    method: derived
+    refs: [jacobsensaleur2019, delfinoviti2011]
+    note: '$2h_{2,1}$: $\tfrac54, 1, \tfrac45$ at $Q = 1, 2, 3$, $\to \tfrac12$ as $Q \to 4$.'
+
+relations:
+  - type: related_to
+    target: ising-2d
+    note: 'At the member $Q = 2$, local spin observables are described by the Ising minimal model; Fortuin–Kasteleyn cluster observables need the larger Potts CFT.'
+  - type: related_to
+    target: potts-3-state
+    note: 'At the member $Q = 3$, local spin observables are described by the 3-state Potts minimal model.'
+  - type: related_to
+    target: compact-boson-orbifold
+    note: 'The member $Q = 4$ is the 4-state Potts model, the orbifold-branch member at $R = 2\sqrt2$ in this zoo''s convention.'
+
+references:
+  - key: jacobsensaleur2019
+    title: 'Bootstrap approach to geometrical four-point functions in the two-dimensional critical $Q$-state Potts model: A study of the $s$-channel spectra'
+    authors: Jacobsen, Saleur
+    year: 2019
+    journal: JHEP 01 (2019) 084
+    arxiv: '1809.02191'
+  - key: nivesvivat2023
+    title: Global symmetry and conformal bootstrap in the two-dimensional $Q$-state Potts model
+    authors: Nivesvivat
+    year: 2023
+    journal: SciPost Phys. 14, 155
+    arxiv: '2205.09349'
+  - key: grz2018
+    title: 'Walking, weak first-order transitions, and complex CFTs II. Two-dimensional Potts model at $Q>4$'
+    authors: Gorbenko, Rychkov, Zan
+    year: 2018
+    journal: SciPost Phys. 5, 050
+    arxiv: '1808.04380'
+  - key: dfsz1987
+    title: Relations between the Coulomb gas picture and conformal invariance of two-dimensional critical models
+    authors: Di Francesco, Saleur, Zuber
+    year: 1987
+    journal: J. Stat. Phys. 49, 57
+    doi: '10.1007/BF01009954'
+    note: 'Torus partition functions (as cited by Jacobsen, Ribault and Saleur).'
+  - key: jrs2023
+    title: Spaces of states of the two-dimensional $O(n)$ and Potts models
+    authors: Jacobsen, Ribault, Saleur
+    year: 2023
+    journal: SciPost Phys. 14, 092
+    arxiv: '2208.14298'
+  - key: granssamuelsson2020
+    title: The action of the Virasoro algebra in the two-dimensional Potts and loop models at generic $Q$
+    authors: Grans-Samuelsson, Liu, He, Jacobsen, Saleur
+    year: 2020
+    journal: JHEP 10 (2020) 109
+    arxiv: '2007.11539'
+  - key: prs2016
+    title: A conformal bootstrap approach to critical percolation in two dimensions
+    authors: Picco, Ribault, Santachiara
+    year: 2016
+    journal: SciPost Phys. 1, 009
+    arxiv: '1607.07224'
+  - key: prs2019
+    title: On four-point connectivities in the critical 2d Potts model
+    authors: Picco, Ribault, Santachiara
+    year: 2019
+    journal: SciPost Phys. 7, 044
+    arxiv: '1906.02566'
+  - key: hjs2020
+    title: 'Geometrical four-point functions in the two-dimensional critical $Q$-state Potts model: The interchiral conformal bootstrap'
+    authors: He, Jacobsen, Saleur
+    year: 2020
+    journal: JHEP 12 (2020) 019
+    arxiv: '2005.07258'
+  - key: nivesvivatribault2021
+    title: 'Logarithmic CFT at generic central charge: from Liouville theory to the $Q$-state Potts model'
+    authors: Nivesvivat, Ribault
+    year: 2021
+    journal: SciPost Phys. 10, 021
+    arxiv: '2007.04190'
+  - key: delfinoviti2011
+    title: On three-point connectivity in two-dimensional percolation
+    authors: Delfino, Viti
+    year: 2011
+    journal: J. Phys. A 44, 032001
+    arxiv: '1009.1314'
+  - key: nrj2024
+    title: Critical loop models are exactly solvable
+    authors: Nivesvivat, Ribault, Jacobsen
+    year: 2024
+    journal: SciPost Phys. 17, 029
+    arxiv: '2311.17558'
+
+contributors: [Canonical111]

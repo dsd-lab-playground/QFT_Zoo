@@ -1,0 +1,161 @@
+id: k3-sigma-models
+name: K3 sigma models
+aliases: ['Nonlinear sigma models on K3', '$\mathcal{N}=(4,4)$ SCFTs with $c = 6$ (K3 component)', K3 CFTs, 'Worldsheet theory of type II strings on K3']
+d: 2
+summary: 'The $\mathcal{N}=(4,4)$ superconformal sigma models with a K3 surface as target, $c = 6$: an 80-dimensional moduli space, elliptic genus $2\phi_{0,1}$ with Mathieu moonshine, and symmetry groups inside Conway''s group. Fermionic theories.'
+tags: [CFT, SCFT, interacting, unitary, supersymmetric, Lagrangian]
+
+description: |
+  The supersymmetric sigma model on a K3 surface with a Ricci-flat metric and a $B$-field is conformal. Because the metric is hyperkähler, its superconformal symmetry is $\mathcal{N}=(4,4)$ with $c = 6$: the $\mathcal{N}=(2,2)$ algebra extended by an $su(2)\oplus su(2)$ current algebra at level 1 (Nahm–Wendland). These are fermionic theories, with Neveu–Schwarz and Ramond sectors. The $\mathcal{N}=(4,4)$ theories with $c = 6$ form two components, associated with $T^4$ (16-dimensional) and with K3 (80-dimensional) (Nahm–Wendland).
+
+  **Moduli space.** Its real dimension is 80: 40 for complex structures, 20 for Kähler forms and 22 for the $B$-field, minus 2 because each Ricci-flat metric has a sphere of complex structures (Aspinwall–Morrison). Aspinwall and Morrison determined the global form
+  $$\mathcal{M}_{\rm K3} = O(\Gamma^{4,20})\backslash O(4,20)/(O(4)\times O(20)).$$
+  A point is a positive-definite four-plane $\Pi\subset\mathbb{R}^{4,20}\cong H^{\rm even}(\mathrm{K3},\mathbb{R})$, and $\Gamma^{4,20}$ is the even unimodular lattice $H^{\rm even}(\mathrm{K3},\mathbb{Z})$ of D-brane charges (Gaberdiel–Hohenegger–Volpato (GHV)). Nahm and Wendland treat worldsheet parity as a symmetry rather than an identification and write the moduli space with $O^+(H^{\rm even}(\mathrm{K3},\mathbb{Z}))$ acting on $O^+(4,20)/(SO(4)\times O(20))$. The theory is expected to be singular where $\Pi$ is orthogonal to a vector of norm $-2$ (GHV).
+
+  **Elliptic genus.** The elliptic genus $\mathrm{Tr}_{\rm RR}(-1)^{F_L+F_R}q^{L_0}\bar q^{\bar L_0}e^{4\pi izJ^3_0}$ is the same at every point of the moduli space, because the weak Jacobi forms of weight 0 and index 1 form a one-dimensional space (Eguchi, Ooguri and Tachikawa (EOT); Gannon):
+  $$\phi_{\rm K3}(\tau,z) = 8\sum_{i=2}^{4}\frac{\theta_i(\tau,z)^2}{\theta_i(\tau,0)^2} = 2\phi_{0,1}(\tau,z) = 2y + 20 + 2y^{-1} + O(q),\qquad y = e^{2\pi iz}.$$
+  At $z = 0$ it is the Euler number 24 of K3, and at $z = \frac12$ it is $16 + O(q)$, the signature (EOT). The 24 Ramond ground states have $h = \bar h = \frac14$ and split as $(\mathbf2,\mathbf2) + 20$ singlets under $SU(2)_L\times SU(2)_R$ (GHV).
+
+  ### Mathieu moonshine
+  In terms of $\mathcal{N}=4$ characters (EOT, eq. (1.11)),
+  $$\phi_{\rm K3} = 20\,\mathrm{ch}_{\frac14,0} - 2\,\mathrm{ch}_{\frac14,\frac12} + 2\sum_{n\geq1}A_n\,q^{n-\frac18}\,\frac{\theta_1(\tau,z)^2}{\eta(\tau)^3},$$
+  with $A_n = 45, 231, 770, 2277, 5796, 13915, 30843, \dots$. EOT observed that $A_1,\dots,A_5$ are dimensions of irreducible representations of the Mathieu group $M_{24}$, and $A_6$, $A_7$ sums of such dimensions. Twined elliptic genera were then proposed for every element of $M_{24}$, and Gannon proved that the resulting multiplicities are those of true $M_{24}$ representations. By the theorem below, the symmetry groups of individual K3 sigma models are not all subgroups of $M_{24}$, so the explanation of this $M_{24}$ structure must be more subtle (GHV).
+
+  ### Symmetries and Conway's group
+  GHV classified the symmetries that preserve the $\mathcal{N}=(4,4)$ algebra and the spectral flow operators. At any non-singular point they form a subgroup of $\mathrm{Co}_0 = \mathrm{Aut}(\Lambda)$, the automorphism group of the Leech lattice, that fixes pointwise a sublattice of $\Lambda$ of rank at least 4; it does not contain $-1$, so it is also a subgroup of $\mathrm{Co}_1$. This is the stringy analogue of the Mukai–Kondo theorem, which puts the symplectic automorphisms of a K3 surface in $M_{23}$. The theorem allows four cases, one of which is a subgroup of $\mathbb{Z}_2^{11}$ extended by a subgroup of $M_{24}$ with at least four orbits; the other three are not subgroups of $M_{24}$.
+
+  ### Special loci and rational points
+  - **$T^4/\mathbb{Z}_2$ orbifolds.** The $\mathbb{Z}_2$ orbifold embeds the 16-dimensional moduli space of torus theories in $\mathcal{M}_{\rm K3}$, with $B$-field $\frac12$ on the exceptional divisors (Nahm–Wendland). The torus moduli vary continuously along it, so the theory is rational only at special points (for tori, see Gukov–Vafa). GHV find symmetries outside $M_{24}$ already at the orbifold of the self-dual torus.
+  - **Gepner model $(2)^4$.** Rational. Nahm and Wendland prove that it is the $\mathbb{Z}_4$ orbifold of the torus theory with lattice $\mathbb{Z}^4$ and has a geometric interpretation on the Fermat quartic, and that the $\mathbb{Z}_2$ and $\mathbb{Z}_4$ orbifold loci do not meet there, contrary to an earlier conjecture.
+  - **Gepner model $(1)^6$.** Rational, with symmetry group $\mathbb{Z}_3^4\rtimes A_6$, not a subgroup of $M_{24}$ (GHV).
+  - **The $\mathbb{Z}_2^8:\mathbb{M}_{20}$ model.** The $\mathbb{Z}_2$ orbifold of the $D_4$-torus theory, whose bosonic part has $so(8)_1$ currents on each side, i.e. the sigma model on the tetrahedral Kummer surface. It is also a theory of twelve free Majorana fermions on each side, a rational theory based on $su(2)_1^{\oplus 6}$, and a $\mathbb{Z}_2\times\mathbb{Z}_2$ orbifold of the Gepner model $(2)^4$. Its symmetry group $\mathbb{Z}_2^8:\mathbb{M}_{20}$ is one of the largest maximal symmetry groups of K3 sigma models (Gaberdiel, Taormina, Volpato and Wendland).
+
+symmetry:
+  spacetime: '$\mathcal{N}=(4,4)$ superconformal (small $\mathcal{N}=4$ algebra at $c = 6$ on each side)'
+  supercharges: 8
+  global: '$SU(2)_L\times SU(2)_R$ R-symmetry; at special points, finite symmetry groups (subgroups of $\mathrm{Co}_0$)'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '6'
+  method: exact
+  refs: [nw2001, ghv2012]
+- symbol: '\dim_{\mathbb{R}}\mathcal{M}_{\rm K3}'
+  description: 'Dimension of the moduli space'
+  value: '80'
+  method: exact
+  refs: [am1996, nw2001]
+- symbol: '\phi_{\rm K3}(\tau,z)'
+  description: 'Elliptic genus'
+  value: '2\phi_{0,1}(\tau,z) = 8\sum_{i=2}^{4}\frac{\theta_i(\tau,z)^2}{\theta_i(\tau,0)^2} = 2y + 20 + 2y^{-1} + O(q)'
+  method: exact
+  refs: [eoty1989, eot2011, ghv2010, ghv2012]
+  note: 'The $q^1$ term, $20y^{\pm2} - 128y^{\pm1} + 216$, was checked numerically (derived).'
+- symbol: '\phi_{\rm K3}(\tau,0)'
+  description: 'Elliptic genus at $z = 0$: the Euler number of K3'
+  value: '24'
+  method: exact
+  refs: [eot2011]
+  note: 'Checked numerically at several $\tau$ (derived).'
+- symbol: 'A_1,\ \dots,\ A_5'
+  description: 'First coefficients of the massive $\mathcal{N}=4$ characters in the elliptic genus, divided by 2'
+  value: '45,\ 231,\ 770,\ 2277,\ 5796'
+  method: exact
+  refs: [eot2011]
+  note: 'Dimensions of irreducible $M_{24}$ representations. Recomputed numerically from EOT eqs. (1.2)–(1.11) up to $A_8 = 65550$ (derived).'
+
+operators:
+- name: '\Phi^{\rm RR}_{a}'
+  Delta: '1/2'
+  spin: 0
+  weights: '(\tfrac14, \tfrac14)'
+  degeneracy: 24
+  method: exact
+  refs: [ghv2012]
+  note: 'Ramond ground states, $(\mathbf2,\mathbf2) + 20$ singlets of $SU(2)_L\times SU(2)_R$; they correspond to $H^{\rm even}(\mathrm{K3},\mathbb{R})$.'
+- name: 'J^a'
+  Delta: 1
+  spin: 1
+  weights: '(1, 0)'
+  degeneracy: 3
+  method: exact
+  note: '$su(2)$ R-currents at level 1 of the $\mathcal{N}=4$ algebra (and $\bar J^a$).'
+- name: 'G^{\pm},\ G''^{\pm}'
+  Delta: '3/2'
+  spin: '3/2'
+  weights: '(\tfrac32, 0)'
+  degeneracy: 4
+  method: exact
+  note: 'Supercurrents of the $\mathcal{N}=4$ algebra (and their right-moving partners); fermionic.'
+
+relations:
+- type: related_to
+  target: conway-module
+  note: 'GHV place the symmetry groups of K3 sigma models in $\mathrm{Co}_0$, the symmetry group of the Conway module; Duncan and Mack-Crane recover twined K3 elliptic genera from its canonically twisted module (see that entry).'
+
+references:
+- key: am1996
+  title: String theory on K3 surfaces
+  authors: Aspinwall, Morrison
+  year: 1996
+  journal: 'Mirror Symmetry II, AMS/IP Stud. Adv. Math. 1, 703'
+  arxiv: hep-th/9404151
+  note: 'Moduli space, eq. (14); dimension count, footnote 1.'
+- key: nw2001
+  title: 'A hiker''s guide to K3: aspects of N=(4,4) superconformal field theory with central charge c=6'
+  authors: Nahm, Wendland
+  year: 2001
+  journal: Commun. Math. Phys. 216, 85
+  arxiv: hep-th/9912067
+  note: 'Moduli space, Section 1 and eq. (1.7); orbifold loci, Section 2; the Gepner model $(2)^4$, Section 3.'
+- key: eoty1989
+  title: Superconformal algebras and string compactification on manifolds with SU(N) holonomy
+  authors: Eguchi, Ooguri, Taormina, Yang
+  year: 1989
+  journal: Nucl. Phys. B315, 193
+  doi: '10.1016/0550-3213(89)90454-9'
+  note: 'First computation of the K3 elliptic genus (as cited by EOT).'
+- key: eot2011
+  title: Notes on the K3 surface and the Mathieu group M24
+  authors: Eguchi, Ooguri, Tachikawa
+  year: 2011
+  journal: Exper. Math. 20, 91
+  arxiv: '1004.0956'
+  note: 'Elliptic genus, eq. (1.2); $\mathcal{N}=4$ decomposition, eqs. (1.7)–(1.12).'
+- key: ghv2010
+  title: Mathieu moonshine in the elliptic genus of K3
+  authors: Gaberdiel, Hohenegger, Volpato
+  year: 2010
+  journal: JHEP 10 (2010) 062
+  arxiv: '1008.3778'
+  note: 'Twining genera; $\phi_{\rm K3} = 2\phi_{0,1}$, eq. (A.7).'
+- key: gannon2016
+  title: Much ado about Mathieu
+  authors: Gannon
+  year: 2016
+  journal: Adv. Math. 301, 322
+  arxiv: '1211.5531'
+- key: ghv2012
+  title: Symmetries of K3 sigma models
+  authors: Gaberdiel, Hohenegger, Volpato
+  year: 2012
+  journal: Commun. Num. Theor. Phys. 6, 1
+  arxiv: '1106.4315'
+  doi: '10.4310/CNTP.2012.v6.n1.a1'
+  note: 'Theorem, Section 1; Proposition, Section 2; examples $T^4/\mathbb{Z}_2$, $(1)^6$, $(2)^4$, Sections 3–5.'
+- key: gtvw2014
+  title: 'A K3 sigma model with $\mathbb{Z}_2^8:\mathbb{M}_{20}$ symmetry'
+  authors: Gaberdiel, Taormina, Volpato, Wendland
+  year: 2014
+  journal: JHEP 02 (2014) 022
+  arxiv: '1309.4127'
+- key: gv2004
+  title: Rational conformal field theories and complex multiplication
+  authors: Gukov, Vafa
+  year: 2004
+  journal: Commun. Math. Phys. 246, 181
+  arxiv: hep-th/0203213
+
+contributors: [Canonical111]

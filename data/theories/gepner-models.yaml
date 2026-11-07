@@ -1,0 +1,151 @@
+id: gepner-models
+name: Gepner models
+aliases: [Gepner points, 'Orbifolds of tensor products of $\mathcal{N}=2$ minimal models', '$(k_1,\dots,k_r)$ Gepner model', 'Exactly solvable Calabi–Yau sigma models']
+d: 2
+summary: 'Orbifolds of tensor products of $\mathcal{N}=2$ minimal models onto integral $U(1)$ charges: exactly solvable $\mathcal{N}=(2,2)$ SCFTs with $c = 3, 6, 9$ at special points of the moduli spaces of sigma models on $T^2$, K3 and Calabi–Yau threefolds. Fermionic theories.'
+tags: [CFT, SCFT, interacting, unitary, supersymmetric, rational, exactly solvable, orbifold, family]
+
+description: |
+  A Gepner model starts from the tensor product $(k_1)\cdots(k_r)$ of $\mathcal{N}=2$ minimal models at levels $k_i$, with
+  $$c = \sum_{i=1}^{r}\frac{3k_i}{k_i+2}.$$
+  It keeps only the states with integral total $U(1)$ charge, which is an orbifold by $e^{2\pi iJ_0}$ (Greene, §5.3), and aligns the Neveu–Schwarz and Ramond sectors of the factors. For $c = 6$, GHV (App. C) write it as a $\mathbb{Z}_H$ orbifold with $H = \mathrm{lcm}(k_i+2)$, whose spectrum obeys the charge-integrality and spin-alignment conditions. With $c = 9$, these models give space-time supersymmetric, tachyon-free, modular invariant string compactifications with no free parameters (Gepner 1988). They are fermionic $\mathcal{N}=(2,2)$ theories; the $c = 6$ members have $\mathcal{N}=(4,4)$ symmetry, as K3 sigma models. This entry uses the diagonal (A-type) invariant of every factor.
+
+  **Geometry.** Gepner solved heterotic compactifications on K3, on manifolds of $SU(3)$ holonomy and beyond, working out the quintic hypersurface in $\mathbb{CP}^4$ in detail. He conjectured that any supersymmetric compactification with an $\mathcal{N}=2$ superconformal theory is a compactification on a manifold of $SU(N)$ holonomy, and that every such model with $c = 9$ is a Calabi–Yau compactification (Gepner 1987). For $(3,3,3,3,3)$ he found the symmetries and massless spectrum of the quintic $z_1^5+\dots+z_5^5 = 0$, up to extra massless states expected to become massive under small perturbations, and the Yukawa couplings were later found to agree as well (Greene, §5.2).
+
+  **Landau–Ginzburg and Calabi–Yau.** The minimal model at level $k$ is the infrared limit of the Landau–Ginzburg model $W = X^{k+2}$, so the tensor product is the Landau–Ginzburg model $W = \sum_j X_j^{k_j+2}$. For $r = d+2$ factors, $c = 3d$ is equivalent to $\sum_j \frac{1}{k_j+2} = 1$: $W$ is then homogeneous with degree equal to the sum of the weights, and $W = 0$ is a Calabi–Yau hypersurface in a weighted projective space. The identification of the $X_j$ as homogeneous coordinates is exactly the Gepner quotient by $e^{2\pi iJ_0}$ (Greene, §5.3). Greene, Vafa and Warner showed in this way that all of Gepner's models correspond to strings on algebraic varieties in weighted projective spaces. In Witten's gauged linear sigma model, a $U(1)$ gauge theory with Fayet–Iliopoulos parameter $r$, the theory flows to the Calabi–Yau sigma model for $r \gg 0$ and to a Landau–Ginzburg orbifold for $r \ll 0$. The Landau–Ginzburg description looks like the analytic continuation of the Calabi–Yau sigma model to negative Kähler class (Witten).
+
+  Gepner models typically describe Calabi–Yau manifolds of small volume (Mizoguchi–Tani). Gukov and Vafa note that for the quintic the Gepner point is the only point of the moduli space where the CFT is known exactly.
+
+parameters:
+- symbol: '(k_1,\dots,k_r)'
+  description: 'Levels of the $\mathcal{N}=2$ minimal-model factors.'
+  range: 'positive integers; this entry lists models with $c = 3d$ for target complex dimension $d = 1, 2, 3$'
+
+family:
+  parameter: k
+  show: 5
+  members:
+  - at: '(1,1,1)'
+    label: '$T^2$ at the $SU(3)$ point'
+    c: '3'
+    note: 'Describes a flat 2-torus with $G_{11} = G_{22} = 1$, $G_{12} = B_{12} = \frac12$, the $SU(3)$ torus (Mizoguchi–Tani). By the Landau–Ginzburg rule it is the Fermat cubic curve $x_1^3+x_2^3+x_3^3 = 0$ in $\mathbb{CP}^2$ (derived).'
+  - at: '(2,2)'
+    label: '$T^2$ at the $SU(2)^2$ point'
+    c: '3'
+    note: 'Its boundary states reproduce D-branes on the $SU(2)^2$ torus, $G = 1$, $B = 0$ (Mizoguchi–Tani).'
+  - at: '(2,2,2,2)'
+    label: 'K3, Fermat quartic point'
+    c: '6'
+    note: 'Isomorphic to the $\mathbb{Z}_4$ orbifold of the torus theory with lattice $\mathbb{Z}^4$, with geometric interpretation on the Fermat quartic in $\mathbb{CP}^3$ (Nahm–Wendland). Its symmetry group is not a subgroup of $M_{24}$ (GHV).'
+  - at: '(1,1,1,1,1,1)'
+    label: 'K3'
+    c: '6'
+    note: 'Symmetry group $\mathbb{Z}_3^4\rtimes A_6$ (GHV).'
+  - at: '(3,3,3,3,3)'
+    label: 'Quintic threefold, Fermat point'
+    c: '9'
+    note: 'The Fermat quintic $z_1^5+\dots+z_5^5 = 0$ in $\mathbb{CP}^4$ (Gepner 1987; Greene).'
+
+symmetry:
+  spacetime: '$\mathcal{N}=(2,2)$ superconformal ($\mathcal{N}=(4,4)$ for the K3 members)'
+  supercharges: 4
+  global: '$U(1)$ R-symmetry on each side; discrete phase symmetries of the factors (including the quantum symmetry of the orbifold) and permutations of equal factors'
+
+quantities:
+- key: c
+  symbol: c
+  description: 'Central charge ($c_L = c_R$)'
+  value: '\sum_{i=1}^{r}\frac{3k_i}{k_i+2}'
+  method: exact
+  refs: [greene1997, ghv2012]
+  note: 'Equal to 3, 6 or 9 for the members listed (checked).'
+
+operators:
+- name: 'J'
+  Delta: 1
+  spin: 1
+  weights: '(1, 0)'
+  method: exact
+  note: '$U(1)$ R-current, the sum of the currents of the factors.'
+- name: 'G^{\pm}'
+  Delta: '3/2'
+  spin: '3/2'
+  weights: '(\tfrac32, 0)'
+  method: exact
+  note: '$\mathcal{N}=2$ supercurrents; fermionic.'
+
+relations:
+- type: related_to
+  target: n2-minimal-models
+  note: 'Gepner models are orbifolds of tensor products of the $\mathcal{N}=2$ minimal models at levels $k_i$ (the A-series models in the members listed here).'
+- type: related_to
+  target: k3-sigma-models
+  note: 'The members $(2,2,2,2)$ and $(1,1,1,1,1,1)$ are rational points of the K3 moduli space. The $\mathbb{Z}_2^8:\mathbb{M}_{20}$ model is a $\mathbb{Z}_2\times\mathbb{Z}_2$ orbifold of $(2,2,2,2)$ (Gaberdiel–Taormina–Volpato–Wendland).'
+
+references:
+- key: gepner1987
+  title: Exactly solvable string compactifications on manifolds of SU(N) holonomy
+  authors: Gepner
+  year: 1987
+  journal: Phys. Lett. B199, 380
+  doi: '10.1016/0370-2693(87)90938-5'
+- key: gepner1988
+  title: Space-time supersymmetry in compactified string theory and superconformal models
+  authors: Gepner
+  year: 1988
+  journal: Nucl. Phys. B296, 757
+  doi: '10.1016/0550-3213(88)90397-5'
+- key: gvw1989
+  title: Calabi-Yau manifolds and renormalization group flows
+  authors: Greene, Vafa, Warner
+  year: 1989
+  journal: Nucl. Phys. B324, 371
+  doi: '10.1016/0550-3213(89)90471-9'
+- key: witten1993
+  title: Phases of N=2 theories in two dimensions
+  authors: Witten
+  year: 1993
+  journal: Nucl. Phys. B403, 159
+  arxiv: hep-th/9301042
+  note: 'Calabi–Yau and Landau–Ginzburg phases, Section 3.1.'
+- key: greene1997
+  title: String theory on Calabi-Yau manifolds
+  authors: Greene
+  year: 1997
+  journal: TASI 96 lectures
+  arxiv: hep-th/9702155
+  note: 'Gepner models and the Landau–Ginzburg/Calabi–Yau correspondence, Sections 5.1–5.3.'
+- key: ghv2012
+  title: Symmetries of K3 sigma models
+  authors: Gaberdiel, Hohenegger, Volpato
+  year: 2012
+  journal: Commun. Num. Theor. Phys. 6, 1
+  arxiv: '1106.4315'
+  note: 'Gepner models at $c = 6$, App. C.1, eqs. (C.10)–(C.14); the $(1)^6$ and $(2)^4$ models, Sections 4–5.'
+- key: nw2001
+  title: 'A hiker''s guide to K3: aspects of N=(4,4) superconformal field theory with central charge c=6'
+  authors: Nahm, Wendland
+  year: 2001
+  journal: Commun. Math. Phys. 216, 85
+  arxiv: hep-th/9912067
+- key: mt2001
+  title: Wound D-branes in Gepner models
+  authors: Mizoguchi, Tani
+  year: 2001
+  journal: Nucl. Phys. B611, 253
+  arxiv: hep-th/0105174
+  note: 'The $(1)^3$ and $(2)^2$ models and their tori, Sections 1 and 3–5.'
+- key: gv2004
+  title: Rational conformal field theories and complex multiplication
+  authors: Gukov, Vafa
+  year: 2004
+  journal: Commun. Math. Phys. 246, 181
+  arxiv: hep-th/0203213
+- key: gtvw2014
+  title: 'A K3 sigma model with $\mathbb{Z}_2^8:\mathbb{M}_{20}$ symmetry'
+  authors: Gaberdiel, Taormina, Volpato, Wendland
+  year: 2014
+  journal: JHEP 02 (2014) 022
+  arxiv: '1309.4127'
+
+contributors: [Canonical111]
