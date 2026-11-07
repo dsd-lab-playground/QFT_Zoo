@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07 19:46 UTC",
+ "generated": "2026-11-07 19:48 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
  "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math,\n#     and cite as [@key] or [@key, Sec. 2] (never a direct link; see CONTRIBUTING.md, Citations).\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: '$O(4,1)$ — 3d conformal group with parity'   # group — colloquial name; see CONTRIBUTING.md, Spacetime symmetry\n  supercharges: 0                  # real Poincaré supercharges Q; for SUSY theories also state Q and S in spacetime\n  global: '$O(N)$'\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: 'CB, rigorous'         # an abbreviation from data/methods.yaml, then an optional qualifier (CONTRIBUTING.md, Methods)\n    refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    rep: 'vector'\n    method: CB\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
@@ -3391,6 +3391,10 @@
     },
     "show": 8
    },
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = 1 - \\tfrac{6}{m(m+1)}$ — 2d conformal group with parity",
+    "global": "$\\mathbb{Z}_2$, dual to the spin flip of the A-series model of which the D-series model is the orbifold; $S_3$ for the two $D_4$ invariants, $m = 5$ (3-state Potts) and $m = 6$ (tricritical 3-state Potts)"
+   },
    "quantities": [
     {
      "key": "c",
@@ -4331,6 +4335,10 @@
      }
     ],
     "show": 6
+   },
+   "symmetry": {
+    "spacetime": "$O(3,1)$ for the $E_6$ and $E_8$ invariants, $SO(3,1)$ for $E_7$, extended to two Virasoro algebras, $c = \\bar c = 1 - \\tfrac{6}{m(m+1)}$ — 2d conformal group with parity for $E_6$ and $E_8$ (diagonal invariants of the extended chiral algebra); parity not recorded for the $E_7$ permutation invariant",
+    "global": "$\\mathbb{Z}_2$ for the $E_6$ models ($m = 11, 12$), $-1$ on the fields whose $E_6$ label is 4 or 8; not recorded for $E_7$ and $E_8$"
    },
    "quantities": [
     {
@@ -7129,6 +7137,10 @@
     "orbifold"
    ],
    "description": "The $C$-twisted sectors have weights $h = \\frac{k-2+(k-2s)^2}{16(k+2)}$; for $k=5$ the lightest is $h = \\frac{1}{28}$.",
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac87$ — 2d conformal group with parity",
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sectors"
+   },
    "quantities": [
     {
      "key": "c",
@@ -7232,6 +7244,11 @@
      "gap": "3/(m*(m+2))"
     },
     "show": 8
+   },
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac32 - \\tfrac{12}{m(m+2)}$ — 2d conformal group with parity",
+    "global": "Contains $\\mathbb{Z}_2$, $-1$ on the Ramond fields ($r - s$ odd); at $m = 3$ this is the spin flip of the tricritical Ising model",
+    "notes": "Bosonic theory: the $\\mathcal{N}=(1,1)$ supercurrents $G$, $\\bar G$ have spin $\\tfrac32$ and are not local operators here, so the $\\mathcal{N}=1$ super-Virasoro symmetry ($OSp(1|2)\\times OSp(1|2)$ globally, 2 $Q$ + 2 $S$ supercharges) acts on the fermionic minimal model, not on this bosonization."
    },
    "quantities": [
     {
@@ -7665,6 +7682,10 @@
       "note": "Ising $\\times$ TIM. Same torus partition function as $\\mathcal{W}_3(5,6)/S_3$."
      }
     ]
+   },
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac32 - \\tfrac{6}{m(m+1)}$ — 2d conformal group with parity",
+    "global": "$\\mathbb{Z}_2 \\times \\mathbb{Z}_2$ (the spin flip of each factor)"
    },
    "quantities": [
     {
@@ -8105,6 +8126,10 @@
       "note": "(Ising $\\times$ TIM)$/\\mathbb{Z}_2$, $\\Delta_{\\rm gap} = \\frac15$. Same torus partition function as the D-type invariant $\\mathcal{W}_3(5,6)^D$."
      }
     ]
+   },
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac32 - \\tfrac{6}{m(m+1)}$ — 2d conformal group with parity",
+    "global": "Contains $\\mathbb{Z}_2 \\times \\mathbb{Z}_2$: the spin flip of one factor (equivalent to that of the other once their product is gauged) and the dual $\\mathbb{Z}_2$ of the orbifold, odd on the twisted sector"
    },
    "quantities": [
     {
@@ -8626,6 +8651,10 @@
     "rational",
     "orbifold"
    ],
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac65$ — 2d conformal group with parity",
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sector"
+   },
    "quantities": [
     {
      "key": "c",
@@ -8745,6 +8774,10 @@
       "note": "Same partition function as $\\mathrm{PF}_6/D_3$."
      }
     ]
+   },
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac32 - \\tfrac{12}{m(m+2)}$ — 2d conformal group; parity not recorded",
+    "notes": "Bosonic theory: the $\\mathcal{N}=(1,1)$ supercurrents $G$, $\\bar G$ have spin $\\tfrac32$ and are not local operators here, so the $\\mathcal{N}=1$ super-Virasoro symmetry ($OSp(1|2)\\times OSp(1|2)$ globally, 2 $Q$ + 2 $S$ supercharges) acts on the fermionic minimal model, not on this bosonization."
    },
    "quantities": [
     {
@@ -9667,6 +9700,10 @@
       "note": "Same partition function as $\\mathrm{PF}_6/\\mathbb{Z}_2$."
      }
     ]
+   },
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac32 - \\tfrac{12}{m(m+2)}$ — 2d conformal group; parity not recorded",
+    "notes": "Bosonic theory: the $\\mathcal{N}=(1,1)$ supercurrents $G$, $\\bar G$ have spin $\\tfrac32$ and are not local operators here, so the $\\mathcal{N}=1$ super-Virasoro symmetry ($OSp(1|2)\\times OSp(1|2)$ globally, 2 $Q$ + 2 $S$ supercharges) acts on the fermionic minimal model, not on this bosonization."
    },
    "quantities": [
     {
@@ -11154,6 +11191,9 @@
     "rational",
     "coset"
    ],
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{14}{11}$ — 2d conformal group with parity"
+   },
    "quantities": [
     {
      "key": "c",
@@ -11237,6 +11277,10 @@
     "coset"
    ],
    "description": "The fixed points of field identification require resolution; the resolved components differ by Lee–Yang characters.",
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{14}{11}$ — 2d conformal group with parity",
+    "global": "Contains $\\mathbb{Z}_5$, from the simple currents of $SU(5)_1$ (non-anomalous; gauged in the $\\mathbb{Z}_5$ orbifold)"
+   },
    "quantities": [
     {
      "key": "c",
@@ -11325,6 +11369,10 @@
     "coset",
     "orbifold"
    ],
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{14}{11}$ — 2d conformal group with parity",
+    "global": "Contains the dual $\\mathbb{Z}_5$ of the orbifold, acting with phases on the twisted sectors"
+   },
    "quantities": [
     {
      "key": "c",
@@ -11432,6 +11480,10 @@
       "note": "Ising $\\times$ 3-state Potts: the Ising spin field ($\\Delta = \\frac18$) is lighter than $\\phi_{3,3}$."
      }
     ]
+   },
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac32 - \\tfrac{6}{m(m+1)}$ — 2d conformal group with parity",
+    "global": "$\\mathbb{Z}_2 \\times \\mathbb{Z}_2$ (the Ising spin flip and the $\\mathbb{Z}_2$ of the D-series factor); $\\mathbb{Z}_2 \\times S_3$ at $m = 5, 6$, where the D-series factor is the 3-state Potts or tricritical 3-state Potts model"
    },
    "quantities": [
     {
@@ -11838,6 +11890,9 @@
     "coset"
    ],
    "description": "Weights $h = \\frac{|p^\\prime(\\lambda+\\rho) - p(\\mu+\\rho)|^2 - \\rho^2}{2pp^\\prime}$ at $(p, p^\\prime) = (20, 21)$; the gap comes from the $\\mathbf{56}$. The $E_7$ simple current has weight $\\tfrac92$ and fixes every field it could move, so its orbifold is the same theory.",
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{13}{10}$ — 2d conformal group with parity"
+   },
    "quantities": [
     {
      "key": "c",
@@ -12021,6 +12076,10 @@
     "rational",
     "orbifold"
    ],
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac43$ — 2d conformal group with parity",
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sectors"
+   },
    "quantities": [
     {
      "key": "c",
@@ -12105,6 +12164,9 @@
     "rational",
     "coset"
    ],
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{252}{185}$ — 2d conformal group with parity"
+   },
    "quantities": [
     {
      "key": "c",
@@ -12181,6 +12243,9 @@
     "coset"
    ],
    "description": "Weights $h = \\frac{|p^\\prime(\\lambda+\\rho) - p(\\mu+\\rho)|^2 - \\rho^2}{2pp^\\prime}$ at $(p, p^\\prime) = (33, 34)$; the gap comes from the $\\mathbf{248}$.",
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{256}{187}$ — 2d conformal group with parity"
+   },
    "quantities": [
     {
      "key": "c",
@@ -12276,6 +12341,9 @@
     "coset"
    ],
    "description": "The exceptional automorphism invariant of $(E_8)_4$ exchanges the modules $\\mathbf{248}$ and $\\mathbf{6696000}$ (Gannon–Ruelle–Walton: the only automorphism invariant of an affine algebra not explained by simple currents, conjugations or Galois symmetries). Equivalently, the asymmetric coset $E_{8,3}/Spin(16)_3$ with the two spinor classes exchanged. The diagonal light scalars of the $\\mathcal{W}(E_8)$ model are paired with spin-2 and spin-4 partners instead, and the gap comes from $(\\mathbf{3875};\\mathbf{3875})$.",
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{256}{187}$ — 2d conformal group; parity not recorded"
+   },
    "quantities": [
     {
      "key": "c",
@@ -12481,6 +12549,10 @@
     "orbifold"
    ],
    "description": "For even $k$ the reflections of the dihedral group form two classes, $C$ and $Cr$ ($r$ the $\\mathbb{Z}_k$ generator). $\\mathrm{PF}_8/C$ is $\\mathrm{Sym}^2(\\mathrm{TIM})$; this is the orbifold by the other class.",
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac75$ — 2d conformal group with parity",
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $Cr$-twisted sectors, and the rotation $r^4$, which commutes with $Cr$"
+   },
    "quantities": [
     {
      "key": "c",
@@ -12680,6 +12752,10 @@
     "orbifold"
    ],
    "description": "The symmetry of TIM$^2$ is the dihedral group $D_4$ of order 8 generated by the spin flips $f_1, f_2$ and the exchange $s$. $\\mathrm{TIM}^2/D_4$ gives term-by-term the same partition function, and so does the charge-conjugation orbifold $\\mathrm{PF}_8/C$.",
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac75$ — 2d conformal group with parity",
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $s$-twisted sector, and the diagonal spin flip $f_1 f_2$, which commutes with $s$"
+   },
    "quantities": [
     {
      "key": "c",
@@ -12779,6 +12855,9 @@
     "orbifold"
    ],
    "description": "The symmetry of TIM$^2$ is the dihedral group $D_4$ of order 8 generated by the spin flips $f_1, f_2$ and the exchange $s$. This theory is also $(\\mathrm{TIM}^2/\\mathbb{Z}_4)/\\mathbb{Z}_2$ and $\\mathrm{PF}_8/\\langle r^4, Cr\\rangle^{\\rm tors}$.",
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac75$ — 2d conformal group; parity not recorded"
+   },
    "quantities": [
     {
      "key": "c",
@@ -12879,6 +12958,9 @@
     "rational"
    ],
    "description": "The modular data of TIM factorise as Fibonacci $\\boxtimes$ a braided Ising category. Exchanging only the Fibonacci labels, $(f_1 i_1, f_2 i_2) \\mapsto (f_2 i_1, f_1 i_2)$, is a braided autoequivalence of Rep(TIM$^2$) and therefore defines a full CFT. Its torus partition function equals that of the orbifold of $\\mathrm{PF}_8$ by $\\langle r^4, Cr\\rangle \\cong \\mathbb{Z}_2^2$.",
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac75$ — 2d conformal group; parity not recorded"
+   },
    "quantities": [
     {
      "key": "c",
@@ -12971,6 +13053,10 @@
     "orbifold"
    ],
    "description": "The symmetry of TIM$^2$ is the dihedral group $D_4$ of order 8 generated by the spin flips $f_1, f_2$ and the exchange $s$. Same torus partition function as $\\mathcal{N}_{10}^{(D,E_6)}$ and $\\mathrm{PF}_8/\\mathbb{Z}_2$.",
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac75$ — 2d conformal group with parity",
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold and the images of $f_1$ ($\\simeq f_2$) and $s$ ($f_1 f_2$ is central in $D_4$)"
+   },
    "quantities": [
     {
      "key": "c",
@@ -13062,6 +13148,10 @@
     "orbifold"
    ],
    "description": "The symmetry of TIM$^2$ is the dihedral group $D_4$ of order 8 generated by the spin flips $f_1, f_2$ and the exchange $s$. The orbifolds by $\\mathbb{Z}_4$ and by $\\langle f_1f_2, s\\rangle$ with discrete torsion coincide and give this theory, which is also the block-diagonal bosonized $\\mathcal{N}=1$ minimal model $\\mathcal{N}_{10}^{(A,E_6)}$.\n\n$X_E$ and $X_O$ have the same chiral algebra and the same torus partition function, but glue left- and right-moving modules differently, so they are not isomorphic as full CFTs.\n",
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac75$ — 2d conformal group with parity",
+    "global": "Contains the dual $\\mathbb{Z}_4$ of the orbifold and the image of $f_1$ ($\\simeq s$), since $\\mathbb{Z}_4$ is normal in $D_4$"
+   },
    "quantities": [
     {
      "key": "c",
@@ -13172,6 +13262,10 @@
     "minimal model"
    ],
    "description": "Same torus partition function as the $S_3$ orbifold $\\mathcal{W}_3(6,7)/S_3$.",
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{10}{7}$ — 2d conformal group; parity not recorded",
+    "notes": "Bosonic theory: the $\\mathcal{N}=(1,1)$ supercurrents $G$, $\\bar G$ have spin $\\tfrac32$ and are not local operators here, so the $\\mathcal{N}=1$ super-Virasoro symmetry ($OSp(1|2)\\times OSp(1|2)$ globally, 2 $Q$ + 2 $S$ supercharges) acts on the fermionic minimal model, not on this bosonization."
+   },
    "quantities": [
     {
      "key": "c",
@@ -13273,6 +13367,10 @@
     "minimal model"
    ],
    "description": "Same torus partition function as the D-type ($\\mathbb{Z}_3$-extended) invariant $\\mathcal{W}_3(6,7)^D$.",
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{10}{7}$ — 2d conformal group; parity not recorded",
+    "notes": "Bosonic theory: the $\\mathcal{N}=(1,1)$ supercurrents $G$, $\\bar G$ have spin $\\tfrac32$ and are not local operators here, so the $\\mathcal{N}=1$ super-Virasoro symmetry ($OSp(1|2)\\times OSp(1|2)$ globally, 2 $Q$ + 2 $S$ supercharges) acts on the fermionic minimal model, not on this bosonization."
+   },
    "quantities": [
     {
      "key": "c",
@@ -13488,6 +13586,10 @@
     "rational",
     "orbifold"
    ],
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{10}{7}$ — 2d conformal group with parity",
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sector"
+   },
    "quantities": [
     {
      "key": "c",
@@ -13573,6 +13675,10 @@
     "coset"
    ],
    "description": "$\\mathcal{W}_3(6,7) = SU(3)_3\\times SU(3)_1/SU(3)_4$.",
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{10}{7}$ — 2d conformal group; parity not recorded",
+    "global": "Contains charge conjugation $C: W \\to -W$ (gauged in the $C$ orbifold)"
+   },
    "quantities": [
     {
      "key": "c",
@@ -13661,6 +13767,10 @@
     "orbifold"
    ],
    "description": "It has the same gap as $\\mathcal{N}_{12}^{(E_6,A)}$ but a different partition function.",
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{10}{7}$ — 2d conformal group; parity not recorded",
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sector"
+   },
    "quantities": [
     {
      "key": "c",
@@ -13743,6 +13853,10 @@
     "unitary",
     "rational"
    ],
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{16}{11}$ — 2d conformal group with parity",
+    "global": "Contains $\\mathbb{Z}_2 \\times \\mathbb{Z}_2$: the Ising spin flip and the $\\mathbb{Z}_2$ of the $E_6$ minimal model"
+   },
    "quantities": [
     {
      "key": "c",
@@ -13839,6 +13953,10 @@
     "orbifold"
    ],
    "description": "Same torus partition function as the dihedral orbifold $\\mathrm{PF}_9/D_3$.",
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{16}{11}$ — 2d conformal group with parity",
+    "global": "Contains $\\mathbb{Z}_2 \\times \\mathbb{Z}_2$: the spin flip of one factor (equivalent to that of the other once their product is gauged) and the dual $\\mathbb{Z}_2$ of the orbifold, odd on the twisted sector"
+   },
    "quantities": [
     {
      "key": "c",
@@ -14040,6 +14158,10 @@
     "rational",
     "orbifold"
    ],
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{16}{11}$ — 2d conformal group with parity",
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sectors"
+   },
    "quantities": [
     {
      "key": "c",
@@ -14125,6 +14247,10 @@
     "orbifold"
    ],
    "description": "$\\mathrm{PF}_k/\\mathbb{Z}_d$ and $\\mathrm{PF}_k/\\mathbb{Z}_{k/d}$ have the same partition function. For $k=9$, $d=3$ this is the extension of $\\mathrm{PF}_9$ by its weight-2, order-three parafermion currents.",
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{16}{11}$ — 2d conformal group with parity",
+    "global": "Contains the dual $\\mathbb{Z}_3$ of the orbifold and the action of $D_9/\\mathbb{Z}_3 \\cong S_3$ (images of $r$ and $C$)"
+   },
    "quantities": [
     {
      "key": "c",
@@ -14215,6 +14341,10 @@
     "minimal model"
    ],
    "description": "The $(A, E_7)$ and $(D, E_7)$ invariants have identical invariant matrices on the coset fields. The gap comes from the NS field $(5,5)$.",
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{35}{24}$ — 2d conformal group; parity not recorded",
+    "notes": "Bosonic theory: the $\\mathcal{N}=(1,1)$ supercurrents $G$, $\\bar G$ have spin $\\tfrac32$ and are not local operators here, so the $\\mathcal{N}=1$ super-Virasoro symmetry ($OSp(1|2)\\times OSp(1|2)$ globally, 2 $Q$ + 2 $S$ supercharges) acts on the fermionic minimal model, not on this bosonization."
+   },
    "quantities": [
     {
      "key": "c",
@@ -14308,6 +14438,10 @@
     "minimal model"
    ],
    "description": "The $(A, E_7)$ and $(D, E_7)$ invariants have identical invariant matrices on the coset fields. The gap comes from the NS field $(5,5)$.",
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{35}{24}$ — 2d conformal group; parity not recorded",
+    "notes": "Bosonic theory: the $\\mathcal{N}=(1,1)$ supercurrents $G$, $\\bar G$ have spin $\\tfrac32$ and are not local operators here, so the $\\mathcal{N}=1$ super-Virasoro symmetry ($OSp(1|2)\\times OSp(1|2)$ globally, 2 $Q$ + 2 $S$ supercharges) acts on the fermionic minimal model, not on this bosonization."
+   },
    "quantities": [
     {
      "key": "c",
@@ -14395,6 +14529,10 @@
     "unitary",
     "rational"
    ],
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{19}{13}$ — 2d conformal group with parity",
+    "global": "Contains $\\mathbb{Z}_2 \\times \\mathbb{Z}_2$: the Ising spin flip and the $\\mathbb{Z}_2$ of the $E_6$ minimal model"
+   },
    "quantities": [
     {
      "key": "c",
@@ -14492,6 +14630,10 @@
     "rational",
     "orbifold"
    ],
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{19}{13}$ — 2d conformal group with parity",
+    "global": "Contains $\\mathbb{Z}_2 \\times \\mathbb{Z}_2$: the spin flip of one factor (equivalent to that of the other once their product is gauged) and the dual $\\mathbb{Z}_2$ of the orbifold, odd on the twisted sector"
+   },
    "quantities": [
     {
      "key": "c",
@@ -14575,6 +14717,9 @@
     "rational"
    ],
    "description": "The chiral algebra is $\\mathrm{Vir}_{1/2}\\otimes\\mathcal{W}$, with $\\mathcal{W}$ the $E_6$-extended $\\mathcal{M}_{12}$. Rep $\\mathcal{W}$ contains a second braided Ising category, generated by $\\phi_{5,1}$ ($h=\\tfrac92$) and $\\phi_{4,1}$ ($h=\\tfrac{41}{16}$). Exchanging the two Ising factors is a braided autoequivalence of the representation category, and its graph algebra is a full CFT, with $Z = \\sum_i \\chi_i \\overline{\\chi_{\\Phi(i)}}$.",
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{19}{13}$ — 2d conformal group; parity not recorded"
+   },
    "quantities": [
     {
      "key": "c",
@@ -14666,6 +14811,9 @@
     "rational",
     "coset"
    ],
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{22}{15}$ — 2d conformal group with parity"
+   },
    "quantities": [
     {
      "key": "c",
@@ -14752,6 +14900,10 @@
     "minimal model"
    ],
    "description": "The $(E_7, A)$ and $(E_7, D)$ invariants have identical invariant matrices on the coset fields. The gap comes from the NS field $(5,5)$.",
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{22}{15}$ — 2d conformal group; parity not recorded",
+    "notes": "Bosonic theory: the $\\mathcal{N}=(1,1)$ supercurrents $G$, $\\bar G$ have spin $\\tfrac32$ and are not local operators here, so the $\\mathcal{N}=1$ super-Virasoro symmetry ($OSp(1|2)\\times OSp(1|2)$ globally, 2 $Q$ + 2 $S$ supercharges) acts on the fermionic minimal model, not on this bosonization."
+   },
    "quantities": [
     {
      "key": "c",
@@ -14845,6 +14997,10 @@
     "minimal model"
    ],
    "description": "The $(E_7, A)$ and $(E_7, D)$ invariants have identical invariant matrices on the coset fields. The gap comes from the NS field $(5,5)$.",
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{22}{15}$ — 2d conformal group; parity not recorded",
+    "notes": "Bosonic theory: the $\\mathcal{N}=(1,1)$ supercurrents $G$, $\\bar G$ have spin $\\tfrac32$ and are not local operators here, so the $\\mathcal{N}=1$ super-Virasoro symmetry ($OSp(1|2)\\times OSp(1|2)$ globally, 2 $Q$ + 2 $S$ supercharges) acts on the fermionic minimal model, not on this bosonization."
+   },
    "quantities": [
     {
      "key": "c",
@@ -14933,6 +15089,9 @@
     "rational",
     "coset"
    ],
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{22}{15}$ — 2d conformal group with parity"
+   },
    "quantities": [
     {
      "key": "c",
@@ -15015,6 +15174,9 @@
     "coset"
    ],
    "description": "The conformal embedding $SU(2)_4 \\subset SU(3)_1$ extends the numerator; this removes the $\\Delta = \\frac1{12}$ field of the diagonal coset and leaves three fields at $h = \\frac{1}{15}$.",
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{22}{15}$ — 2d conformal group with parity"
+   },
    "quantities": [
     {
      "key": "c",
@@ -15097,6 +15259,10 @@
     "unitary",
     "rational"
    ],
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{151}{102}$ — 2d conformal group; parity not recorded",
+    "global": "Contains the $\\mathbb{Z}_2$ spin flip of the Ising factor"
+   },
    "quantities": [
     {
      "key": "c",
@@ -15182,6 +15348,10 @@
     "unitary",
     "rational"
    ],
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{169}{114}$ — 2d conformal group; parity not recorded",
+    "global": "Contains the $\\mathbb{Z}_2$ spin flip of the Ising factor"
+   },
    "quantities": [
     {
      "key": "c",
@@ -15273,6 +15443,10 @@
     "minimal model"
    ],
    "description": "The $(A, E_8)$ and $(D, E_8)$ (respectively $(E_8, A)$ and $(E_8, D)$) invariants coincide on the coset fields. The gap comes from the NS field $(7,7)$.",
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{52}{35}$ — 2d conformal group; parity not recorded",
+    "notes": "Bosonic theory: the $\\mathcal{N}=(1,1)$ supercurrents $G$, $\\bar G$ have spin $\\tfrac32$ and are not local operators here, so the $\\mathcal{N}=1$ super-Virasoro symmetry ($OSp(1|2)\\times OSp(1|2)$ globally, 2 $Q$ + 2 $S$ supercharges) acts on the fermionic minimal model, not on this bosonization."
+   },
    "quantities": [
     {
      "key": "c",
@@ -15361,6 +15535,10 @@
     "minimal model"
    ],
    "description": "The $(A, E_8)$ and $(D, E_8)$ (respectively $(E_8, A)$ and $(E_8, D)$) invariants coincide on the coset fields. The gap comes from the NS field $(7,7)$.",
+   "symmetry": {
+    "spacetime": "$SO(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{119}{80}$ — 2d conformal group; parity not recorded",
+    "notes": "Bosonic theory: the $\\mathcal{N}=(1,1)$ supercurrents $G$, $\\bar G$ have spin $\\tfrac32$ and are not local operators here, so the $\\mathcal{N}=1$ super-Virasoro symmetry ($OSp(1|2)\\times OSp(1|2)$ globally, 2 $Q$ + 2 $S$ supercharges) acts on the fermionic minimal model, not on this bosonization."
+   },
    "quantities": [
     {
      "key": "c",
@@ -15443,6 +15621,10 @@
     "unitary",
     "rational"
    ],
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{433}{290}$ — 2d conformal group with parity",
+    "global": "Contains the $\\mathbb{Z}_2$ spin flip of the Ising factor"
+   },
    "quantities": [
     {
      "key": "c",
@@ -15528,6 +15710,10 @@
     "unitary",
     "rational"
    ],
+   "symmetry": {
+    "spacetime": "$O(3,1)$, extended to two Virasoro algebras, $c = \\bar c = \\tfrac{463}{310}$ — 2d conformal group with parity",
+    "global": "Contains the $\\mathbb{Z}_2$ spin flip of the Ising factor"
+   },
    "quantities": [
     {
      "key": "c",
