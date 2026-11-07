@@ -54,35 +54,35 @@ quantities:
   - symbol: '\sigma'
     description: 'Edge exponent, $\sigma = \Delta_\phi/(3-\Delta_\phi)$'
     value: '0.075(11)'
-    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
     refs: [borinsky2021]
     note: 'Combination of all resummations (Table 4); constrained resummations alone give $0.075(7)$.'
   - symbol: '\sigma'
     description: 'Edge exponent, from the dimer density on the simple cubic lattice'
     value: '0.077(2)'
-    method: series expansion
+    method: series
     refs: [butera2012]
     note: 'Body-centred cubic lattice: $0.076(2)$.'
   - symbol: '\sigma'
     description: Edge exponent
     value: '0.0742(56)'
-    method: functional renormalization group
+    method: FRG
     refs: [an2016]
   - symbol: '\sigma'
     description: Edge exponent
     value: '0.085(1)'
-    method: truncated conformal bootstrap (non-rigorous)
+    method: CB-trunc
     refs: [gliozzi2014]
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 1$'
     value: '-0.57(2)'
-    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
     refs: [borinsky2021]
     note: 'Table 1. Functional renormalization group: $-0.586(29)$ (An et al.).'
   - symbol: '|C_{\phi\phi\phi}|'
     description: OPE coefficient (absolute value)
     value: '1.9696(31)'
-    method: fuzzy sphere
+    method: FS
     refs: [arguellocruz2025]
     note: 'From matrix elements of the fuzzy-sphere observable $Z_\ell$; from $X_\ell$, $1.969(5)$. The truncated bootstrap gives $C_{\phi\phi\phi}^2 = -3.88(1)$ (Gliozzi and Rago): the coefficient is imaginary.'
 
@@ -91,7 +91,7 @@ operators:
     Delta: '0.214(2)'
     spin: 0
     rep: the only relevant primary
-    method: fuzzy sphere
+    method: FS
     refs: [arguellocruz2025]
     note: 'Below the unitarity bound. The same paper lists $0.215(10)$ from the five-loop $\eta$ and $0.214(6)$ from the series $\sigma$. The fuzzy-sphere study of Fan et al. gives $0.29$ (no error quoted).'
   - name: 'T_{\mu\nu}'
@@ -102,13 +102,13 @@ operators:
   - name: '\phi^3'
     Delta: '4.613(6)'
     spin: 0
-    method: fuzzy sphere
+    method: FS
     refs: [arguellocruz2025]
     note: 'Leading irrelevant scalar. Five-loop $\omega = 1.5(2)$ gives $3 + \omega = 4.5(2)$ (Borinsky et al.); truncated bootstrap: $5.0(1)$ (Gliozzi and Rago); Fan et al.: $4.71$.'
   - name: 'Q_{\mu\nu\rho\sigma}'
     Delta: '4.9(1)'
     spin: 4
-    method: fuzzy sphere
+    method: FS
     refs: [arguellocruz2025]
     note: 'Lightest spin-4 primary. Truncated bootstrap: $4.75(1)$ (Gliozzi and Rago); Fan et al.: $4.90$.'
 

@@ -69,25 +69,25 @@ quantities:
   - symbol: '\eta_{\rm N\acute eel},\ \eta_{\rm VBS}'
     description: 'Order-parameter anomalous dimensions, $\Delta = (1+\eta)/2$: classical loop model, from correlators at $r \ll L$'
     value: '0.259(6),\ 0.25(3)'
-    method: Monte Carlo
+    method: MC
     refs: [nahum2015a]
     note: 'Finite-size scaling of susceptibilities instead drifts, e.g. $\eta_{\rm VBS}$ from $0.164(13)$ to $-0.35(10)$.'
   - symbol: '\nu'
     description: 'Correlation-length exponent: classical loop model, sizes $L \ge 256$'
     value: '0.476(18)'
-    method: Monte Carlo
+    method: MC
     refs: [nahum2015a]
     note: 'Sizes $L \le 64$ give $0.62(1)$.'
   - symbol: '\nu'
     description: 'Correlation-length exponent: $J$–$Q$ model'
     value: '0.78(3)'
-    method: quantum Monte Carlo
+    method: QMC
     refs: [sandvik2007]
     note: 'Same study: $\eta = 0.26(3)$.'
   - symbol: '\nu'
     description: 'Correlation-length exponent: fuzzy sphere, $\nu = 1/(3-\Delta_T)$ at $N_{\rm orb} = 10$'
     value: '0.647'
-    method: fuzzy sphere (derived from Δ_T)
+    method: FS, derived from Δ_T
     refs: [zhou2024]
 
 operators:
@@ -95,28 +95,28 @@ operators:
     Delta: '0.583(7)'
     spin: 0
     rep: '$SO(5)$ vector (Néel $\oplus$ VBS)'
-    method: fuzzy sphere (exact diagonalization)
+    method: FS, exact diagonalization
     refs: [zhou2024, chester2024]
     note: 'Fit to the flow, in the walking region. Loop model: $\Delta = (1+\eta)/2 \approx 0.63$ (above). Large-$N$ monopole formula at $N=2$: $0.630$.'
   - name: 'T'
     Delta: '1.456(12)'
     spin: 0
     rep: '$SO(5)$ rank-2 symmetric traceless (contains $|z|^2$ and the charge-2 monopole)'
-    method: fuzzy sphere (exact diagonalization)
+    method: FS, exact diagonalization
     refs: [zhou2024, sreejith2015]
     note: 'Cubic dimer model, charge-2 monopole: $\Delta = 3 - y_2 = 1.52(7)$ (Sreejith–Powell).'
   - name: 'M_{3/2}'
     Delta: '2.569(19)'
     spin: 0
     rep: '$SO(5)$ rank-3 symmetric traceless (contains the $6\pi$-flux monopole)'
-    method: fuzzy sphere (exact diagonalization)
+    method: FS, exact diagonalization
     refs: [zhou2024, sreejith2015]
     note: 'Cubic dimer model: $\Delta = 3 - y_3 = 2.80(3)$. Relevant, so on the honeycomb lattice, where this monopole is allowed by symmetry, it destabilizes the proposed $SO(5)$ fixed point: the Néel–VBS transition there cannot be described by the $SO(5)$ DQCP (Zhou et al.).'
   - name: 'S'
     Delta: '2.90(6)'
     spin: 0
     rep: '$SO(5)$ singlet'
-    method: fuzzy sphere (exact diagonalization)
+    method: FS, exact diagonalization
     refs: [zhou2024, chester2024]
     note: 'Fit to the flow; at $N_{\rm orb} = 10$ the level is $2.831$ and decreases with size. Tricritical scenario: $\approx 2.36$ (Chester–Su).'
 

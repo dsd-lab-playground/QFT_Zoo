@@ -55,35 +55,35 @@ quantities:
   - symbol: '\sigma'
     description: 'Edge exponent, $\sigma = \Delta_\phi/(4-\Delta_\phi)$'
     value: '0.259(5)'
-    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
     refs: [borinsky2021]
     note: 'Combination of all resummations (Table 4); constrained resummations alone give $0.259(3)$.'
   - symbol: '\sigma'
     description: 'Edge exponent, from the dimer density on the hypersimple-cubic lattice'
     value: '0.258(5)'
-    method: series expansion
+    method: series
     refs: [butera2012]
     note: 'Hyper-body-centred-cubic lattice: $0.261(4)$ (Table VI).'
   - symbol: '\sigma'
     description: Edge exponent
     value: '0.2667(32)'
-    method: functional renormalization group
+    method: FRG
     refs: [an2016]
   - symbol: '\sigma'
     description: Edge exponent
     value: '0.2685(1)'
-    method: truncated conformal bootstrap (non-rigorous)
+    method: CB-trunc
     refs: [gliozzi2014]
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 2$'
     value: '-0.347(12)'
-    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
     refs: [borinsky2021, an2016]
     note: 'Table 1. Functional renormalization group: $-0.316(16)$ (An et al.).'
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent, $\omega = \Delta_{\phi^3} - 4$'
     value: '1.15(7)'
-    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
     refs: [borinsky2021]
     note: 'Table 6. Only unconstrained resummations are available, and the authors caution that no definite conclusions should be drawn for $\omega$.'
 

@@ -87,7 +87,7 @@ quantities:
   - symbol: '[I_8]_{c_2(R)^2}'
     description: 'Coefficient of $c_2(R)^2$ in the anomaly polynomial, pure-gauge members ($n\neq7$)'
     value: '\frac{(h^\vee_G)^2}{2w_G} - \frac{d_G-1}{24}'
-    method: anomaly matching on the tensor branch
+    method: anomaly, tensor branch
     refs: [ohmori2014b]
     note: 'Ohmori et al. eq. (1.11). $d_G$ is the dimension of $G$ and $\mathrm{tr}_{\rm adj}F^4 = \tfrac34 w_G(\mathrm{Tr}F^2)^2$; their Table 3 gives $w_G = 3, 5, 6, 8, 12$ for $\mathfrak{su}(3)$, $\mathfrak{f}_4$, $\mathfrak{e}_6$, $\mathfrak{e}_7$, $\mathfrak{e}_8$, and Table 2 gives $w = 4$ for $\mathfrak{so}(8)$ (where $t_G = 0$, $u_G = 4$); in each case $w_G = n$. This coefficient is $\alpha/24$.'
   - symbol: '(\alpha,\beta,\gamma,\delta)'

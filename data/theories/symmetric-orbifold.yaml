@@ -55,7 +55,7 @@ quantities:
 - symbol: 'S(E)'
   description: 'Large-$N$ entropy for $0 < E < \frac{c}{12}$, where $E = \Delta - \frac{c}{12}$'
   value: '\frac{\pi c}{6} + 2\pi E \quad (0 < E < \tfrac{c}{12})'
-  method: exact (large-N asymptotics)
+  method: exact, large-N asymptotics
   refs: [hks2014]
 - symbol: 'T_H'
   description: 'Hagedorn (Hawking–Page) temperature at $N = \infty$'

@@ -64,9 +64,35 @@ match the filename. See the existing entries for worked examples, e.g.
   `Delta: '0.518148806(24)'` (the digits in parentheses are the uncertainty in the
   last digits).
 - Exact values are LaTeX: `value: '\frac{1}{2}'`.
-- Give a `method` (`exact`, `conformal bootstrap`, `Monte Carlo`,
-  `epsilon-expansion`, `perturbation theory`, `derived`, …) and `refs: [key]`
-  pointing to an entry in the theory's `references` list.
+- Give a `method` (an abbreviation such as `exact`, `CB`, `MC`, `ε-exp`, `derived`; see
+  *Methods* below) and `refs: [key]` pointing to an entry in the theory's `references` list.
+
+### Methods
+
+How a number was obtained is named by an abbreviation from
+[`data/methods.yaml`](data/methods.yaml), listed with explanations and links on the site's
+[Methods page](https://nathansbenjamin.github.io/QFT_Zoo/#/methods). A short qualifier may follow
+after a comma, for the model, order or kind of error that the method's name does not already say:
+
+```yaml
+method: CB                                   # numerical conformal bootstrap
+method: 'CB, rigorous'
+method: 'MC-BC, isotropic'                   # Monte Carlo, improved Blume–Capel model
+method: 'ε-exp, 6 − ε, five loops, resummed'
+method: 'exact, planar limit'
+```
+
+- The abbreviation is the text before the first comma. The build rejects one that is not in
+  `data/methods.yaml`; write the qualifier in words, and put anything longer (assumptions,
+  lattice sizes, where in the paper) in the row's `note`.
+- If no method fits, add one to `data/methods.yaml`: `abbr` (short, no spaces; an established
+  abbreviation if there is one), `name`, a one-to-three-sentence `description`, optionally a
+  `parent` (`MC-BC` is a kind of `MC`) and `links` to its Wikipedia article (or, where Wikipedia
+  has none, a standard review or the paper that introduced it). Prefer a qualifier on an existing
+  method to a new method used by one row.
+- Older entries may still describe a method in free text (`semiclassical (monopole
+  quantization)`): text with a space before the first comma is accepted for now, shown as it is,
+  and counted by the build (`! N method(s) still free text`).
 
 ### Standard data keys (2d CFTs and the landscape plot)
 

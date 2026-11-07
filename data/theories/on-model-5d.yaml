@@ -99,7 +99,7 @@ quantities:
   - symbol: 'N_{\rm crit}'
     description: 'Smallest $N$ with a real IR fixed point of the cubic theory in $d = 6 - \epsilon$'
     value: '1038.266 - 609.840\,\epsilon - 364.173\,\epsilon^2 + O(\epsilon^3)'
-    method: 'epsilon-expansion (6 − ε, three loops)'
+    method: 'ε-exp, 6 − ε, three loops'
     refs: [fei2014b, gracey2015]
     note: 'The three terms give $64.253$ at $\epsilon = 1$. The four-loop term is large and positive; Padé approximants of the four-loop series give $421.76$ in $d = 5$ (Gracey, Table 10).'
   - symbol: 'C_T/C_T^{\rm free}'
@@ -111,7 +111,7 @@ quantities:
   - symbol: '\tilde F'
     description: 'Sphere free energy in the convention of Giombi and Klebanov, $\tilde F = \log Z_{S^5} = -F$, with $\tilde F_s = \frac{\log 2}{128} + \frac{\zeta(3)}{128\pi^2} - \frac{15\zeta(5)}{256\pi^4} \approx 0.00574$ for one free conformal scalar'
     value: 'N\tilde F_s + 0.001601 + O(1/N)'
-    method: large N
+    method: 1/N
     refs: [fei2014, giombi2014]
     note: 'Real part. The $O(N^0)$ term equals $\frac{3\zeta(5)+\pi^2\zeta(3)}{96\pi^4}$ (derived: it matches the general-$d$ integral of Giombi and Klebanov at $d = 5$; the arXiv text of Fei et al., eq. 6.11, prints $96\pi^2$, a misprint). It lies between 0 and $\tilde F_s$, as the $\tilde F$-theorem requires.'
 
@@ -120,21 +120,21 @@ operators:
     Delta: '\frac{3}{2}+\frac{32}{15\pi^2N}-\frac{1427456}{3375\pi^4N^2}+\left(\frac{275255197696}{759375\pi^6}-\frac{89735168}{2025\pi^4}+\frac{32768\ln 4}{9\pi^4}-\frac{229376\,\zeta(3)}{3\pi^6}\right)\frac{1}{N^3}+O(N^{-4})'
     spin: 0
     rep: vector
-    method: large N
+    method: 1/N
     refs: [fei2014]
     note: 'Numerically $\tfrac32 + 0.216152/N - 4.342/N^2 - 121.673/N^3$ (eq. 2.23). Unitarity bound $\tfrac32$.'
   - name: '\sigma'
     Delta: '2+\frac{512}{5\pi^2N}+\frac{2048\left(12625\pi^2-113552\right)}{1125\pi^4N^2}+O(N^{-3})'
     spin: 0
     rep: singlet
-    method: large N
+    method: 1/N
     refs: [fei2014]
     note: 'Numerically $2 + 10.3753/N + 206.542/N^2$ (eq. 2.24). Relevant; $\sigma \sim \phi_i\phi_i$.'
   - name: '\sigma^2'
     Delta: '4 - \frac{13.8337}{N} - \frac{1819.66}{N^2} + O(N^{-3})'
     spin: 0
     rep: singlet
-    method: large N
+    method: 1/N
     refs: [chester2014]
     note: 'Second relevant singlet (eq. 2.1c). The $1/N$ coefficient is $\frac{2048}{15\pi^2}$, from eq. 2.25 of Fei et al. with $k = 2$ (derived).'
   - name: 'J_\mu^{[ij]}'

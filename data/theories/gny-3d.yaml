@@ -80,17 +80,17 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N$ free Majorana fermions'
     value: '1 + \frac{8}{9\pi^2 N} + O(N^{-2})'
-    method: large N
+    method: 1/N
     refs: [diab2016, iliesiu2017]
   - symbol: 'C_J/C_J^{\rm free}'
     description: '$O(N)$ current two-point coefficient, relative to $N$ free Majorana fermions'
     value: '1 - \frac{64}{9\pi^2 N} + O(N^{-2})'
-    method: large N
+    method: 1/N
     refs: [diab2016, iliesiu2017]
   - symbol: 'F'
     description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$, with $F_f = \frac{\log 2}{8} + \frac{3\zeta(3)}{16\pi^2}$ the value for one free Majorana fermion'
     value: 'N F_f + \frac{\zeta(3)}{8\pi^2} + \frac{4}{9\pi^2 N} + O(N^{-2})'
-    method: large N
+    method: 1/N
     refs: [klebanov2011, tarnopolsky2016]
     note: 'The $O(N^0)$ term is from Klebanov et al. The $1/N$ term is a conjecture of Tarnopolsky, checked against the $4-\epsilon$ and $2+\epsilon$ expansions.'
 
@@ -99,26 +99,26 @@ operators:
     Delta: '1 + \frac{4}{3\pi^2 N} + \frac{896}{27\pi^4 N^2} + O(N^{-3})'
     spin: '1/2'
     rep: vector of $O(N)$
-    method: large N
+    method: 1/N
     refs: [erramilli2022, fei2016]
   - name: '\sigma'
     Delta: '1 - \frac{32}{3\pi^2 N} + \frac{32(304 - 27\pi^2)}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: singlet, parity odd ($\sim\phi\sim\bar\psi_i\psi_i$)
-    method: large N
+    method: 1/N
     refs: [erramilli2022, fei2016]
   - name: '\epsilon'
     Delta: '2 + \frac{32}{3\pi^2 N} - \frac{64(632 + 27\pi^2)}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: singlet, parity even ($\sim\phi^2$)
-    method: large N
+    method: 1/N
     refs: [erramilli2022, fei2016]
     note: 'The tuning parameter: $\nu^{-1} = 3 - \Delta_\epsilon$.'
   - name: '\sigma_T'
     Delta: '2 + \frac{32}{3\pi^2 N} + \frac{4096}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: 'rank-2 symmetric traceless, parity odd ($\sim\psi_{(i}\psi_{j)}$)'
-    method: large N
+    method: 1/N
     refs: [erramilli2022]
   - name: 'J_\mu^{[ij]}'
     Delta: 2
@@ -130,7 +130,7 @@ operators:
     Delta: '3 + \frac{64}{\pi^2 N} - \frac{128(770 - 9\pi^2)}{9\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: singlet, parity odd ($\sim\phi^3$)
-    method: large N
+    method: 1/N
     refs: [erramilli2022, iliesiu2017]
   - name: 'T_{\mu\nu}'
     Delta: 3
@@ -142,14 +142,14 @@ operators:
     Delta: '4 - \frac{64}{3\pi^2 N} + \frac{64(400 - 27\pi^2)}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: singlet, parity even (predominantly $\phi\,\partial^2\phi$)
-    method: large N
+    method: 1/N
     refs: [mitchell2024]
     note: 'Leading irrelevant singlet, $\omega = \Delta_{\epsilon^\prime} - 3$. At large $N$, $\phi\,\partial^2\phi$ and $\phi^4$ mix; $\epsilon^\prime$ is the lower eigenvalue (Mitchell and Poland, who note that this differs from the labelling in Erramilli et al.).'
   - name: "\\epsilon''"
     Delta: '4 + \frac{448}{3\pi^2 N} - \frac{256(3520 - 81\pi^2)}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
     rep: singlet, parity even (predominantly $\phi^4$)
-    method: large N
+    method: 1/N
     refs: [mitchell2024, erramilli2022]
     note: 'The upper eigenvalue of the $\phi\,\partial^2\phi$–$\phi^4$ mixing.'
 

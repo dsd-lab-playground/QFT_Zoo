@@ -392,3 +392,16 @@ a.flow-node:hover, a.flow-node:focus-visible { background: var(--accent-soft); t
 .flow-open { margin-left: 4px; font-size: 0.85rem; }
 .flow-particles summary { cursor: pointer; color: var(--accent); }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* --------------------------------------------------------------- methods */
+/* A row's method: the abbreviation links to #/methods (full name on hover), then the qualifier. */
+a.method { font-weight: 600; text-decoration: none; border-bottom: 1px dotted currentColor; white-space: nowrap; }
+a.method:hover { border-bottom-style: solid; }
+.method-q { color: var(--muted); }
+table.methods td.method-abbr { white-space: nowrap; }
+table.methods td:nth-child(3) { min-width: 260px; }
+table.methods tr.flash td { animation: flash 2.4s ease-out; }
+table.methods tr { scroll-margin-top: 80px; }
+.method-uses summary { cursor: pointer; white-space: nowrap; }
+.method-uses[open] { min-width: 200px; }
+.method-link + .method-link { margin-top: 6px; }

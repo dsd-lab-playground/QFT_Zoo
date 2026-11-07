@@ -67,13 +67,13 @@ quantities:
   - symbol: '\alpha_{1,\pm}^2'
     description: 'Fixed-point values of the double-trace coupling of $\mathrm{tr}(\phi_i^2)\,\mathrm{tr}(\phi_i^{\dagger2})$'
     value: '\pm\frac{i\xi^2}{2} - \frac{\xi^4}{2} \mp \frac{3i\xi^6}{4} + \xi^8 \pm \frac{65i\xi^{10}}{48} - \frac{19\xi^{12}}{10} + O(\xi^{14})'
-    method: perturbation theory (seven loops, planar)
+    method: PT, seven loops, planar
     refs: [grabner2018]
     note: 'Eq. (15). The beta function is quadratic in $\alpha_1^2$, so there are exactly two fixed points.'
   - symbol: '\alpha_2^2'
     description: 'Fixed-point value of the other double-trace couplings'
     value: '\xi^2'
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [grabner2018, gromov2019]
     note: 'The planar beta function is $2(\alpha_2^2 - \xi^2)^2$ (eq. 11), so the fixed point is a double zero.'
 
@@ -82,28 +82,28 @@ operators:
     Delta: '2 \mp i\sqrt{2\sqrt{1+4\xi^4}-2}'
     spin: 0
     rep: '$J_1 = 2$ (same for $\mathrm{tr}(\phi_2\phi_2)$)'
-    method: derived (exact relation)
+    method: derived, exact relation
     refs: [grabner2018]
     note: 'Root of $(\Delta-4)(\Delta-2)^2\Delta = 16\xi^4$ (eq. 6) that tends to 2 at $\xi = 0$; the sign labels the fixed point $\alpha_{1,\pm}^2$. Its expansion reproduces the seven-loop result $\Delta_\pm = 2 \mp 2i\xi^2 \pm i\xi^6 \mp \tfrac{7i}{4}\xi^{10} + O(\xi^{14})$ (eq. 16).'
   - name: '\text{twist-4 scalar},\ J_1 = 2'
     Delta: '2 + \sqrt{2 + 2\sqrt{1+4\xi^4}}'
     spin: 0
     rep: '$J_1 = 2$'
-    method: derived (exact relation)
+    method: derived, exact relation
     refs: [grabner2018]
     note: 'The root of eq. (6) that tends to 4; Grabner et al. give $4 + \xi^4 + O(\xi^8)$. Its shadow has $\Delta = -\xi^4 + O(\xi^8)$.'
   - name: '\text{twist-2, spin } S,\ J_1 = 2'
     Delta: 'S + 2 - \frac{2\xi^4}{S(S+1)} + O(\xi^8)'
     spin: 'S'
     rep: '$J_1 = 2$; even $S \geq 2$'
-    method: exact (planar limit), weak-coupling expansion
+    method: exact, planar limit, weak-coupling expansion
     refs: [grabner2018]
     note: 'Exact dimensions solve $(\Delta+S-2)(\Delta+S)(\Delta-S-2)(\Delta-S-4) = 16\xi^4$ (eqs. 28, 30). The twist-4 partners have $\Delta = S + 4 + \frac{2\xi^4}{(S+1)(S+2)} + O(\xi^8)$.'
   - name: '\mathrm{tr}(\phi_1\phi_2),\ \mathrm{tr}(\phi_1\phi_2^\dagger)'
     Delta: 2
     spin: 0
     rep: '$(J_1, J_2) = (1, 1)$ and $(1, -1)$'
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [grabner2018]
     note: 'Protected at the fixed point $\alpha_2^2 = \xi^2$.'
   - name: 'T_{\mu\nu}'

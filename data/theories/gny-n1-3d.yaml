@@ -34,27 +34,27 @@ quantities:
   - symbol: '\eta_\sigma = \eta_\psi'
     description: 'Anomalous dimensions, $\eta_\sigma = 2\Delta_\sigma - 1 = \eta_\psi$'
     value: '0.168887(17)'
-    method: conformal bootstrap (supersymmetric)
+    method: CB, supersymmetric
     refs: [atanasov2022]
   - symbol: '\nu^{-1}'
     description: 'Inverse correlation-length exponent, $3 - \Delta_\epsilon$'
     value: '1.415557(8)'
-    method: conformal bootstrap (supersymmetric)
+    method: CB, supersymmetric
     refs: [atanasov2022]
   - symbol: '\omega'
     description: 'Correction-to-scaling exponent, $\Delta_{\epsilon^\prime} - 3$'
     value: '0.8869(25)'
-    method: conformal bootstrap (supersymmetric)
+    method: CB, supersymmetric
     refs: [atanasov2022]
   - symbol: '\lambda_{\sigma\sigma\epsilon}'
     description: OPE coefficient
     value: '1.072125(9)'
-    method: conformal bootstrap (supersymmetric)
+    method: CB, supersymmetric
     refs: [atanasov2022]
   - symbol: '\lambda_{\epsilon\epsilon\epsilon}/\lambda_{\sigma\sigma\epsilon}'
     description: 'Fixed by supersymmetry in terms of $\Delta_\sigma$'
     value: '1.55775(36)'
-    method: conformal bootstrap (supersymmetric)
+    method: CB, supersymmetric
     refs: [atanasov2022]
 
 operators:
@@ -62,33 +62,33 @@ operators:
     Delta: '0.5844435(83)'
     spin: 0
     rep: parity odd; bottom of the scalar multiplet
-    method: conformal bootstrap
+    method: CB
     refs: [atanasov2022]
   - name: '\psi'
     Delta: '1.0844435(83)'
     spin: '1/2'
     rep: superpartner of $\sigma$
-    method: supersymmetry
+    method: derived, supersymmetry
     refs: [atanasov2022]
     note: '$\Delta_\psi = \Delta_\sigma + \tfrac12$.'
   - name: '\epsilon'
     Delta: '1.5844435(83)'
     spin: 0
     rep: parity even; top of the $\sigma$ multiplet
-    method: supersymmetry
+    method: derived, supersymmetry
     refs: [atanasov2022]
     note: '$\Delta_\epsilon = \Delta_\sigma + 1$. The only relevant parity-even scalar (the tuning parameter).'
   - name: '\sigma'''
     Delta: '2.8869(25)'
     spin: 0
     rep: parity odd
-    method: conformal bootstrap
+    method: CB
     refs: [atanasov2022]
   - name: '\epsilon'''
     Delta: '3.8869(25)'
     spin: 0
     rep: parity even; partner of $\sigma'$
-    method: supersymmetry
+    method: derived, supersymmetry
     refs: [atanasov2022]
   - name: 'S_{\mu\alpha}'
     Delta: '5/2'

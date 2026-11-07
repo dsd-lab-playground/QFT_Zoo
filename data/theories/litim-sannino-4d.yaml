@@ -77,49 +77,49 @@ quantities:
   - symbol: '\alpha_g^*'
     description: 'Gauge coupling at the fixed point'
     value: '\frac{26}{57}\,\epsilon + \frac{23(75245 - 13068\sqrt{23})}{370386}\,\epsilon^2 + O(\epsilon^3)'
-    method: perturbation theory (Veneziano limit)
+    method: PT, Veneziano limit
     refs: [litim2014, litim2023]
     note: 'Numerically $0.4561\,\epsilon + 0.7808\,\epsilon^2$. The four-loop analysis confirms both terms and gives $0.456\,\epsilon + 0.781\,\epsilon^2 + 6.610\,\epsilon^3$.'
   - symbol: '\alpha_y^*'
     description: 'Yukawa coupling at the fixed point'
     value: '\frac{4}{19}\,\epsilon + \Big(\frac{43549}{20577} - \frac{2300\sqrt{23}}{6859}\Big)\epsilon^2 + O(\epsilon^3)'
-    method: perturbation theory (Veneziano limit)
+    method: PT, Veneziano limit
     refs: [litim2014, litim2023]
     note: 'Numerically $0.2105\,\epsilon + 0.5082\,\epsilon^2$; four loops add $3.322\,\epsilon^3$.'
   - symbol: '\alpha_h^*'
     description: 'Single-trace quartic coupling at the fixed point'
     value: '\frac{\sqrt{23}-1}{19}\,\epsilon + O(\epsilon^2)'
-    method: perturbation theory (Veneziano limit)
+    method: PT, Veneziano limit
     refs: [litim2014, litim2023]
     note: 'Numerically $0.1998\,\epsilon$. Four loops: $0.200\,\epsilon + 0.440\,\epsilon^2 + 2.693\,\epsilon^3$ (called $\alpha_u$ there).'
   - symbol: '\alpha_v^*'
     description: 'Double-trace quartic coupling at the fixed point (stable potential)'
     value: '-\frac{2\sqrt{23} - \sqrt{20+6\sqrt{23}}}{19}\,\epsilon + O(\epsilon^2)'
-    method: perturbation theory (Veneziano limit)
+    method: PT, Veneziano limit
     refs: [litim2014, litim2023]
     note: 'Numerically $-0.1373\,\epsilon$, with $\alpha_h^* + \alpha_v^* > 0$. The other root, $-0.8723\,\epsilon$, gives a potential unbounded from below.'
   - symbol: '\vartheta_1'
     description: 'Relevant scaling exponent (mostly the gauge coupling)'
     value: '-\frac{104}{171}\,\epsilon^2 + \frac{2296}{3249}\,\epsilon^3 + O(\epsilon^4)'
-    method: perturbation theory (Veneziano limit)
+    method: PT, Veneziano limit
     refs: [litim2014, litim2023]
     note: 'Numerically $-0.608\,\epsilon^2 + 0.707\,\epsilon^3$; the four-loop analysis adds $6.947\,\epsilon^4$.'
   - symbol: '\vartheta_2'
     description: 'Leading irrelevant exponent of the gauge–Yukawa system'
     value: '\frac{52}{19}\,\epsilon + \frac{136601719 - 22783308\sqrt{23}}{4094823}\,\epsilon^2 + O(\epsilon^3)'
-    method: perturbation theory (Veneziano limit)
+    method: PT, Veneziano limit
     refs: [litim2014, litim2023]
     note: 'Numerically $2.737\,\epsilon + 6.676\,\epsilon^2$.'
   - symbol: '\vartheta_h'
     description: 'Irrelevant exponent of the single-trace quartic'
     value: '\frac{16\sqrt{23}}{19}\,\epsilon + O(\epsilon^2)'
-    method: perturbation theory (Veneziano limit)
+    method: PT, Veneziano limit
     refs: [litim2014, litim2023]
     note: 'Numerically $4.039\,\epsilon$. Called $\vartheta_3$ by Litim and Sannino and $\vartheta_4$ by Litim et al. (2023), who give $4.039\,\epsilon + 9.107\,\epsilon^2 + 38.646\,\epsilon^3$.'
   - symbol: '\vartheta_v'
     description: 'Irrelevant exponent of the double-trace quartic'
     value: '\frac{8}{19}\sqrt{20+6\sqrt{23}}\;\epsilon + O(\epsilon^2)'
-    method: perturbation theory (Veneziano limit)
+    method: PT, Veneziano limit
     refs: [litim2014, litim2023]
     note: 'Numerically $2.941\,\epsilon$. Called $\vartheta_4$ by Litim and Sannino and $\vartheta_3$ by Litim et al. (2023), who give $2.941\,\epsilon + 1.041\,\epsilon^2 + 5.137\,\epsilon^3$.'
 
@@ -128,7 +128,7 @@ operators:
     Delta: '1 + \frac{4}{19}\,\epsilon + \frac{14567 - 2376\sqrt{23}}{6859}\,\epsilon^2 + O(\epsilon^3)'
     spin: 0
     rep: 'gauge singlet; $(N_f, \bar N_f)$ bifundamental of the flavor group'
-    method: perturbation theory (Veneziano limit)
+    method: PT, Veneziano limit
     refs: [litim2014, litim2023]
     note: 'Numerically $1 + 0.2105\,\epsilon + 0.4625\,\epsilon^2$; four loops add $2.471\,\epsilon^3$.'
   - name: 'T_{\mu\nu}'

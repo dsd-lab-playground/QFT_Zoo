@@ -60,7 +60,7 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to one free real scalar'
     value: '0.946538675(42)'
-    method: conformal bootstrap
+    method: CB
     refs: [chang2024]
     note: 'Identical to the 3d Ising value, since $T_{\mu\nu}$ is gauge invariant.'
   - symbol: '\nu'
@@ -72,7 +72,7 @@ quantities:
   - symbol: '\lambda_{\epsilon\epsilon\epsilon}'
     description: OPE coefficient
     value: '1.53244304(58)'
-    method: conformal bootstrap
+    method: CB
     refs: [chang2024]
     note: Identical to the 3d Ising value.
 
@@ -81,7 +81,7 @@ operators:
     Delta: '1.41262528(29)'
     spin: 0
     rep: 'gauge invariant ($\mathbb{Z}_2$-even in Ising)'
-    method: conformal bootstrap
+    method: CB
     refs: [chang2024]
     note: 'The only relevant local scalar (the tuning parameter), since $\sigma$ is not gauge invariant.'
   - name: 'T_{\mu\nu}'
@@ -94,14 +94,14 @@ operators:
     Delta: '3.82968(23)'
     spin: 0
     rep: gauge invariant
-    method: conformal bootstrap
+    method: CB
     refs: [simmonsduffin2016]
     note: 'Leading irrelevant scalar, $\omega = \Delta_{\epsilon''} - 3$.'
   - name: 'C_{\mu\nu\rho\sigma}'
     Delta: '5.022665(28)'
     spin: 4
     rep: gauge invariant
-    method: conformal bootstrap
+    method: CB
     refs: [simmonsduffin2016]
     note: Lightest spin-4 operator.
 

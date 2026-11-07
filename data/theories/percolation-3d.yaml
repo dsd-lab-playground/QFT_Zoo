@@ -56,31 +56,31 @@ quantities:
   - symbol: '1/\nu'
     description: 'Thermal exponent $y_t = 1/\nu = 3 - \Delta_\epsilon$'
     value: '1.1410(15)'
-    method: Monte Carlo (bond and site, simple cubic)
+    method: MC, bond and site, simple cubic
     refs: [wang2013]
     note: 'Simultaneous fit of eight lattice models: $1.1413(15)$ (Xu et al.). Site percolation: $\nu = 0.8765(16)(2)$ (Ballesteros et al.).'
   - symbol: '\nu'
     description: Correlation-length exponent
     value: '0.89(3)'
-    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
     refs: [borinsky2021]
     note: 'Resummation of the series for $1/\nu$, all methods combined (Table 15).'
   - symbol: 'd_f'
     description: 'Fractal dimension of critical clusters, $d_f = y_h = 3 - \Delta_\sigma$'
     value: '2.52293(10)'
-    method: Monte Carlo (eight lattice models)
+    method: MC, eight lattice models
     refs: [xu2014]
     note: 'Simple cubic lattice alone: $2.52295(15)$ (Wang et al.).'
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 2 + d - 2d_f = 2\Delta_\sigma - 1$'
     value: '-0.04602(27)(7)'
-    method: Monte Carlo (site, simple cubic)
+    method: MC, site, simple cubic
     refs: [ballesteros1999]
     note: 'The second error comes from the uncertainty in $\omega$. From $d_f$ of Xu et al., $\eta = -0.04586(20)$ (derived). Five-loop $6-\epsilon$: $-0.06(10)$.'
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent'
     value: '1.62(13)'
-    method: Monte Carlo (site, simple cubic)
+    method: MC, site, simple cubic
     refs: [ballesteros1999]
     note: 'Wang et al. find the leading irrelevant exponent $y_i = -1.2(2)$, i.e. $\omega = 1.2(2)$. Five-loop $6-\epsilon$: $1.7(3)$ (Borinsky et al.).'
 
@@ -89,7 +89,7 @@ operators:
     Delta: '0.47705(15)'
     spin: 0
     rep: '$(q-1)$-dimensional representation of $S_q$ (order parameter)'
-    method: Monte Carlo
+    method: MC
     refs: [wang2013]
     note: 'Quoted as $\beta/\nu$. Below the unitarity bound $\tfrac12$. From $d_f$ of Xu et al.: $0.47707(10)$ (derived).'
   - name: '\epsilon'

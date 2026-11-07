@@ -68,22 +68,22 @@ quantities:
   - symbol: '\nu'
     description: 'Correlation-length exponent, $\xi \sim |p - p_c|^{-\nu}$'
     value: '\frac{4}{3}'
-    method: exact (proved on the triangular lattice)
+    method: exact, proved on the triangular lattice
     refs: [smirnovwerner2001]
   - symbol: '\beta'
     description: 'Order parameter, $\theta(p) = (p - p_c)^{\beta + o(1)}$'
     value: '\frac{5}{36}'
-    method: exact (proved on the triangular lattice)
+    method: exact, proved on the triangular lattice
     refs: [smirnovwerner2001]
   - symbol: '\gamma'
     description: 'Mean finite cluster size, $\chi(p) = |p - p_c|^{-\gamma + o(1)}$'
     value: '\frac{43}{18}'
-    method: exact (proved on the triangular lattice)
+    method: exact, proved on the triangular lattice
     refs: [smirnovwerner2001]
   - symbol: '\eta'
     description: 'Two-point connectivity at $p_c$, $\mathbb{P}(0 \leftrightarrow x) = |x|^{-\eta + o(1)}$'
     value: '\frac{5}{24}'
-    method: exact (proved on the triangular lattice)
+    method: exact, proved on the triangular lattice
     refs: [smirnovwerner2001, lsw2002]
   - symbol: 'd_f'
     description: 'Fractal dimension of critical clusters, $2 - \Delta_\sigma$'

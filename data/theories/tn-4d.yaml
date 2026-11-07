@@ -66,19 +66,19 @@ quantities:
   - symbol: 'a'
     description: 'Euler conformal anomaly (normalized so a free real scalar has $a = \tfrac{1}{360}$)'
     value: '\frac{N^3}{6} - \frac{5N^2}{16} - \frac{N}{16} + \frac{5}{24}'
-    method: exact (S-duality of class S quivers)
+    method: exact, S-duality of class S quivers
     refs: [gaiotto2009b, chacaltana2010]
     note: 'Chacaltana–Distler (section on the $T_N$ series); equals $(5n_v + n_h)/24$ with the $n_v$, $n_h$ below. $N = 2, 3, 4$: $\tfrac16$, $\tfrac{41}{24}$, $\tfrac{45}{8}$.'
   - symbol: 'c'
     description: 'Weyl conformal anomaly (normalized so a free real scalar has $c = \tfrac{1}{120}$)'
     value: '\frac{N^3}{6} - \frac{N^2}{4} - \frac{N}{12} + \frac{1}{6}'
-    method: exact (S-duality of class S quivers)
+    method: exact, S-duality of class S quivers
     refs: [gaiotto2009b, chacaltana2010, beem2013]
     note: 'Beem et al. eq. (6.1) and Chacaltana–Distler; equals $(2n_v + n_h)/12$. $N = 2, 3, 4$: $\tfrac13$, $\tfrac{13}{6}$, $\tfrac{13}{2}$.'
   - symbol: '(n_v,\ n_h)'
     description: 'Effective numbers of vector and hypermultiplets, defined by $a = (5n_v+n_h)/24$, $c = (2n_v+n_h)/12$'
     value: '\left(\frac{2N^3}{3} - \frac{3N^2}{2} - \frac{N}{6} + 1,\ \ \frac{2N^3}{3} - \frac{2N}{3}\right)'
-    method: exact (S-duality of class S quivers)
+    method: exact, S-duality of class S quivers
     refs: [gaiotto2009b]
     note: 'Gaiotto–Maldacena eq. (2.4). They are not numbers of fields; at $N=2$ they give $(0, 4)$, the four free hypermultiplets.'
   - symbol: 'k_{SU(N)}'
@@ -89,7 +89,7 @@ quantities:
   - symbol: 'd_k'
     description: 'Number of Coulomb-branch operators of dimension $k$, $k = 2,\dots,N$'
     value: 'k - 2'
-    method: exact (Seiberg–Witten curve)
+    method: exact, Seiberg–Witten curve
     refs: [chacaltana2010]
     note: 'Graded dimension $(d_2, d_3, \dots, d_N) = (0, 1, \dots, N-2)$, so the rank is $(N-1)(N-2)/2$ (derived). Consistent with $n_v = \sum_k (2k-1)d_k$ (Chacaltana–Distler eq. (9)).'
   - symbol: '\dim_{\mathbb{H}}\mathcal{M}_H'

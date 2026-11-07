@@ -64,19 +64,19 @@ quantities:
   - symbol: 'a = c'
     description: 'Conformal anomalies at leading order in $N$ (a free chiral multiplet has $a = \tfrac{1}{48}$)'
     value: '\frac{3p^2\big[3q^2 - 2p^2 + p\sqrt{4p^2-3q^2}\big]}{4q^2\big[2p + \sqrt{4p^2-3q^2}\big]}\,N^2'
-    method: a-maximization
+    method: a-max
     refs: [bfhms2005]
     note: 'Eq. (4.13) of BFHMS, $a = \pi^3/(4\,\mathrm{Vol}(Y^{p,q}))$ per $N^2$, with the volume (2.5) substituted (derived). BFHMS suppress factors of $N$.'
   - symbol: 'R_Y'
     description: '$R$-charge of the $p+q$ singlets $Y$'
     value: '\frac{1}{3q^2}\Big[-4p^2 + 2pq + 3q^2 + (2p-q)\sqrt{4p^2-3q^2}\Big]'
-    method: a-maximization
+    method: a-max
     refs: [bfhms2005]
     note: 'Eq. (4.12); equal to the geometric baryon charge $R[B_1]$ of eq. (2.8).'
   - symbol: 'R_Z'
     description: '$R$-charge of the $p-q$ singlets $Z$'
     value: '\frac{1}{3q^2}\Big[-4p^2 - 2pq + 3q^2 + (2p+q)\sqrt{4p^2-3q^2}\Big]'
-    method: a-maximization
+    method: a-max
     refs: [bfhms2005]
     note: 'Eq. (4.12); equal to $R[B_2]$ of eq. (2.8). The doublets have $R_U = 1 - \tfrac12(R_Y+R_Z)$ and $R_V = 1 + \tfrac12(R_Z-R_Y)$.'
 

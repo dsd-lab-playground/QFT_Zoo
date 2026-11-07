@@ -238,8 +238,7 @@
           "$ref": "#/$defs/value"
         },
         "method": {
-          "type": "string",
-          "description": "How it was obtained: exact, conformal bootstrap, Monte Carlo, epsilon-expansion, perturbation theory, derived, ..."
+          "$ref": "#/$defs/method"
         },
         "refs": {
           "$ref": "#/$defs/refKeys"
@@ -249,6 +248,11 @@
           "description": "[markdown]"
         }
       }
+    },
+    "method": {
+      "type": "string",
+      "minLength": 1,
+      "description": "How the value was obtained: an abbreviation from data/methods.yaml, optionally followed by a comma and a short qualifier, e.g. 'CB', 'MC-BC, isotropic', 'ε-exp, 6 − ε, five loops, resummed'. The build rejects an unknown abbreviation (text before the first comma, without spaces). Text with a space before the first comma (e.g. 'Monte Carlo (pivot algorithm)') is the legacy free-text form, still accepted and counted. See CONTRIBUTING.md, Methods."
     },
     "operator": {
       "type": "object",
@@ -278,7 +282,7 @@
           "description": "[markdown] Representation under the global symmetry, e.g. '$\\mathbb{Z}_2$-odd', '$\\mathbf{20}\\prime$'."
         },
         "method": {
-          "type": "string"
+          "$ref": "#/$defs/method"
         },
         "refs": {
           "$ref": "#/$defs/refKeys"

@@ -56,19 +56,19 @@ quantities:
   - symbol: '1/\nu'
     description: 'Thermal exponent $y_t = 1/\nu = 4 - \Delta_\epsilon$'
     value: '1.4610(12)'
-    method: Monte Carlo (bond, hypercubic)
+    method: MC, bond, hypercubic
     refs: [tan2020, zhang2021, koza2016, ballesteros1997]
     note: 'Other Monte Carlo values: $1.461(5)$ (bond, Zhang et al.); site percolation $\nu = 0.6852(28)$ (Koza and Poła) and $\nu = 0.689(10)$ (Ballesteros et al.).'
   - symbol: '\nu'
     description: Correlation-length exponent
     value: '0.689(5)'
-    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
     refs: [borinsky2021]
     note: 'Resummation of the series for $1/\nu$, all methods combined (Table 15).'
   - symbol: 'd_f'
     description: 'Fractal dimension of critical clusters, $d_f = y_h = 4 - \Delta_\sigma$'
     value: '3.0446(7)'
-    method: Monte Carlo (bond, hypercubic)
+    method: MC, bond, hypercubic
     refs: [zhang2021, xun2020]
     note: 'Consistent with the Fisher exponent $\tau = 1 + 4/d_f$: Xun and Ziff find $\tau = 2.3135(5)$ on four 4d lattices.'
   - symbol: '\eta'
@@ -80,7 +80,7 @@ quantities:
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent'
     value: '1.22(9)'
-    method: Monte Carlo (bond, four 4d lattices)
+    method: MC, bond, four 4d lattices
     refs: [xun2020, ballesteros1997, borinsky2021]
     note: 'Quoted as $\omega = \Omega d_f$ with the measured $\Omega = 0.40(3)$. Site percolation: $1.13(10)$ (Ballesteros et al.). Five-loop $6-\epsilon$: $1.31(9)$ (Borinsky et al., Table 19).'
 
@@ -96,7 +96,7 @@ operators:
     Delta: '2.5390(12)'
     spin: 0
     rep: '$S_q$ singlet (thermal)'
-    method: Monte Carlo (bond, hypercubic)
+    method: MC, bond, hypercubic
     refs: [tan2020]
     note: 'Measured as the two-cluster exponent $X_{2s}$, which equals $4 - y_t$.'
 

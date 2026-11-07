@@ -100,18 +100,18 @@ quantities:
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N$ free complex scalars ($2N$ free real scalars)'
     value: '\frac{\sin(\pi\lambda)}{\pi\lambda} + O(1/N)'
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [aharony2012]
     note: 'Independent of $\lambda_6$. This is $\tilde N/2N$.'
   - symbol: 'C_J/C_J^{\rm free}'
     description: '$U(1)$ current two-point coefficient, relative to $N$ free complex scalars'
     value: '\frac{\sin(\pi\lambda)}{\pi\lambda} + O(1/N)'
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [aharony2012]
   - symbol: '\tilde\lambda'
     description: 'Maldacena–Zhiboedov parity-violation parameter'
     value: '\tan\frac{\pi\lambda}{2}'
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [aharony2012]
 
 operators:
@@ -119,7 +119,7 @@ operators:
     Delta: '1 + O(1/N)'
     spin: 0
     rep: singlet
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [aharony2011, maldacena2012]
   - name: 'J_\mu'
     Delta: 2
@@ -137,7 +137,7 @@ operators:
     Delta: 's + 1 + O(1/N)'
     spin: s
     rep: singlet
-    method: exact (planar limit)
+    method: exact, planar limit
     refs: [aharony2011, maldacena2012]
     note: 'Higher-spin currents, conserved at $N=\infty$.'
 

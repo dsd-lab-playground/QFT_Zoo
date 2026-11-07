@@ -24,7 +24,7 @@ quantities:
   symbol: '\Delta_{\rm gap}'
   description: 'Spectral gap: scaling dimension of the lightest non-vacuum Virasoro primary'
   value: '1/18'
-  method: exact (twisted-sector ground state)
+  method: exact, twisted-sector ground state
   note: 'The lowest state of the modular-invariant partition function in the Spectrum section, built from the circle and orbifold partition functions of the subgroups.'
 
 operators:

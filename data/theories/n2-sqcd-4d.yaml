@@ -79,13 +79,13 @@ quantities:
   - symbol: 'a'
     description: 'Euler conformal anomaly (normalized so a free real scalar has $a = \tfrac{1}{360}$)'
     value: '\frac{7N^2-5}{24}'
-    method: exact (free-field counting; independent of the coupling)
+    method: exact, free-field counting; independent of the coupling
     refs: [shapere2008]
     note: 'Eq. (4.10) of Shapere and Tachikawa, who also rederive it from the Seiberg–Witten curve. It equals $(5n_v + n_h)/24$ with $n_v = N^2-1$, $n_h = 2N^2$, using $a = \tfrac{5}{24}$ per vector multiplet and $\tfrac{1}{24}$ per hypermultiplet (their eqs. (2.5), (2.6)). $SU(2)$: $\tfrac{23}{24}$.'
   - symbol: 'c'
     description: 'Weyl conformal anomaly (normalized so a free real scalar has $c = \tfrac{1}{120}$)'
     value: '\frac{2N^2-1}{6}'
-    method: exact (free-field counting; independent of the coupling)
+    method: exact, free-field counting; independent of the coupling
     refs: [shapere2008, beem2013]
     note: 'Eq. (4.10) of Shapere and Tachikawa; $(2n_v + n_h)/12$. $SU(2)$: $\tfrac76$ (Beem et al. 2013, eq. (5.2)).'
   - symbol: 'k_{SO(8)}'

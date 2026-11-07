@@ -32,19 +32,19 @@ quantities:
   - symbol: '\nu'
     description: 'Correlation-length exponent: projector QMC of the honeycomb Hubbard model (up to 10368 sites)'
     value: '1.11(9)'
-    method: quantum Monte Carlo
+    method: QMC
     refs: [wang2026]
     note: 'Same study: $\eta_\phi = 0.79(2)$, $\eta_\psi = 0.1888(40)$.'
   - symbol: '\nu'
     description: 'Correlation-length exponent: finite-temperature AFQMC of the honeycomb Hubbard model'
     value: '1.097(7)'
-    method: quantum Monte Carlo
+    method: QMC
     refs: [du2026]
     note: 'Same study: $\eta_\phi = 0.72(2)$, $\eta_\psi = 0.155(6)$.'
   - symbol: '\nu'
     description: 'Correlation-length exponent: Hubbard model with a single Dirac cone (SLAC fermions)'
     value: '1.02(3)'
-    method: quantum Monte Carlo
+    method: QMC
     refs: [lang2025]
     note: 'Same study: $\eta_\phi = 0.73(1)$, $\eta_\psi = 0.09(1)$.'
 
@@ -53,14 +53,14 @@ operators:
     Delta: '\approx 0.86\text{–}0.90'
     spin: 0
     rep: $SU(2)$ triplet (Néel order parameter)
-    method: quantum Monte Carlo
+    method: QMC
     refs: [wang2026, du2026, lang2025]
     note: '$\Delta = (1+\eta_\phi)/2$, from the spread of recent estimates $\eta_\phi = 0.72$–$0.79$.'
   - name: '\psi'
     Delta: '\approx 1.05\text{–}1.09'
     spin: '1/2'
     rep: fermion
-    method: quantum Monte Carlo
+    method: QMC
     refs: [wang2026, du2026, lang2025]
     note: '$\Delta = 1 + \eta_\psi/2$, from the spread of recent estimates $\eta_\psi = 0.09$–$0.19$.'
   - name: 'T_{\mu\nu}'

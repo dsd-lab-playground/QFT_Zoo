@@ -68,18 +68,18 @@ quantities:
   - symbol: 'F'
     description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$'
     value: 'N_f\log 2 + \log\frac{\sqrt{\pi}\,\Gamma\left(\frac{N_f+1}{2}\right)}{\Gamma\left(\frac{N_f}{2}\right)}'
-    method: exact (supersymmetric localization)
+    method: LOC
     refs: [klebanov2012]
     note: 'From $Z_{S^3} = \frac{2^{-N_f}\,\Gamma(N_f/2)}{\sqrt{\pi}\,\Gamma\left(\frac{N_f+1}{2}\right)}$. It gives $\log 2$ at $N_f=1$, the value for a free hypermultiplet.'
   - symbol: 'F'
     description: 'Large-$N_f$ expansion of the free energy (asymptotic)'
     value: 'N_f\log 2 + \frac12\log\frac{\pi N_f}{2} - \frac{1}{4N_f} + \frac{1}{24N_f^3} + \dots'
-    method: large-N_f expansion of the exact result
+    method: 1/Nf, expansion of the exact result
     refs: [klebanov2012]
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N_f$ free hypermultiplets'
     value: '\frac{2N_f^2\,\psi^{(1)}\!\left(\frac{N_f}{2}+1\right) + (\pi^2N_f + 4)N_f + 4}{\pi^2 N_f(N_f+1)}'
-    method: derived (supersymmetric localization)
+    method: derived, supersymmetric localization
     refs: [chang2019]
     note: 'Chang et al. give $C_T = 12\,[\cdots]/(\pi^2(N_f+1))$ for $N_f \ge 2$, in units where a free hypermultiplet has $C_T = 12$; divided here by $12N_f$. $\psi^{(1)}$ is the trigamma function. The expression also equals 1 at $N_f = 1$.'
 

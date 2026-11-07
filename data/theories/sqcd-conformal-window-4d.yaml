@@ -87,19 +87,19 @@ quantities:
   - symbol: 'a'
     description: 'Euler conformal anomaly (normalized so that a free chiral multiplet has $a = \tfrac{1}{48}$)'
     value: '\frac{3}{16}\Big(2N_c^2 - 1 - \frac{3N_c^4}{N_f^2}\Big)'
-    method: exact (anomaly matching)
+    method: exact, anomaly matching
     refs: [afgj1998, seiberg1995, iw2003]
     note: 'Eq. (4.23) of Anselmi et al., whose normalization gives $\tfrac{1}{48}$ per free chiral and $\tfrac{3}{16}$ per free vector multiplet. Equivalently $a = \tfrac{3}{32}(3\mathrm{Tr}R^3 - \mathrm{Tr}R)$ with $\mathrm{Tr}R = -N_c^2-1$ and $\mathrm{Tr}R^3 = N_c^2 - 1 - 2N_c^4/N_f^2$ (Seiberg eq. (3.4)).'
   - symbol: 'c'
     description: 'Weyl conformal anomaly (same normalization; a free chiral multiplet has $c = \tfrac{1}{24}$)'
     value: '\frac{1}{16}\Big(7N_c^2 - 2 - \frac{9N_c^4}{N_f^2}\Big)'
-    method: exact (anomaly matching)
+    method: exact, anomaly matching
     refs: [afgj1998, psd2010]
     note: 'Eq. (4.23) of Anselmi et al. and eq. (5.3) of Poland–Simmons-Duffin. Their eq. (4.22) gives $c - a = (N_c^2+1)/16$.'
   - symbol: '\tau_{SU(N_f)}'
     description: 'Two-point coefficient of the $SU(N_f)_L$ (or $SU(N_f)_R$) currents, $\tau^{IJ} = -3\,\mathrm{Tr}(R\,T^IT^J) = \tau\,\delta^{IJ}$ with $\mathrm{Tr}(T^IT^J) = \tfrac12\delta^{IJ}$ in the fundamental'
     value: '\frac{3N_c^2}{2N_f}'
-    method: exact (anomaly matching)
+    method: exact, anomaly matching
     refs: [psd2010, psdv2011]
     note: 'Eq. (5.1) of Poland–Simmons-Duffin. In this normalization one free chiral multiplet in the fundamental gives $\tfrac12$ (derived).'
 

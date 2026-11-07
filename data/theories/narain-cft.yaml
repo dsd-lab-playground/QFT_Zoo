@@ -85,13 +85,13 @@ quantities:
 - symbol: '\Delta_1^{\max}(d=2)'
   description: 'Largest gap $\Delta_1$ (lightest $U(1)^2\times U(1)^2$ primary) among Narain CFTs with $d = 2$'
   value: '2/3'
-  method: numerical conformal bootstrap
+  method: CB
   refs: [acht2021, cly2018]
   note: 'Bound $\Delta_1 < \frac23 + 2\times 10^{-11}$ at truncation order 19, saturated by the $SU(3)_1$ point; not proved analytically.'
 - symbol: '\langle Z\rangle'
   description: 'Torus partition function averaged over $\mathcal{M}_d$, for $d > 2$'
   value: '\frac{E_{d/2}(\tau)}{\tau_2^{d/2}\,|\eta(\tau)|^{2d}}'
-  method: exact (Siegel-Weil formula)
+  method: exact, Siegel-Weil formula
   refs: [mw2020, acht2021]
 
 operators:

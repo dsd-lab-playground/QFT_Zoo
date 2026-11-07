@@ -56,19 +56,19 @@ quantities:
   - symbol: '1/\nu'
     description: 'Thermal exponent $y_t = 1/\nu = 5 - \Delta_\epsilon$'
     value: '1.737(2)'
-    method: Monte Carlo (bond, hypercubic)
+    method: MC, bond, hypercubic
     refs: [tan2020, zhang2021, koza2016]
     note: 'Other Monte Carlo values: $1.743(10)$ (bond, Zhang et al.); site percolation $\nu = 0.5723(18)$ (Koza and Poła).'
   - symbol: '\nu'
     description: Correlation-length exponent
     value: '0.5741(6)'
-    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
     refs: [borinsky2021]
     note: 'Resummation of the series for $1/\nu$, all methods combined (Table 15).'
   - symbol: 'd_f'
     description: 'Fractal dimension of critical clusters, $d_f = y_h = 5 - \Delta_\sigma$'
     value: '3.5260(14)'
-    method: Monte Carlo (bond, hypercubic)
+    method: MC, bond, hypercubic
     refs: [zhang2021, mertens2018]
     note: 'Consistent with the site-percolation Fisher exponent $\tau = 1 + 5/d_f = 2.419(1)$ (Mertens and Moore).'
   - symbol: '\eta'
@@ -80,7 +80,7 @@ quantities:
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent'
     value: '0.746(11)'
-    method: 'epsilon-expansion (6 − ε, five loops, resummed)'
+    method: 'ε-exp, 6 − ε, five loops, resummed'
     refs: [borinsky2021]
     note: 'All methods combined (Table 19).'
 
@@ -96,7 +96,7 @@ operators:
     Delta: '3.263(2)'
     spin: 0
     rep: '$S_q$ singlet (thermal)'
-    method: Monte Carlo (bond, hypercubic)
+    method: MC, bond, hypercubic
     refs: [tan2020]
     note: 'Measured as the two-cluster exponent $X_{2s}$, which equals $5 - y_t$.'
 

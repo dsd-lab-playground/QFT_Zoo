@@ -81,25 +81,25 @@ quantities:
   - symbol: 'a'
     description: 'Euler conformal anomaly of $H_0$, $H_1$, $H_2$ (a free real scalar has $a = \tfrac{1}{360}$)'
     value: '\tfrac{43}{120},\ \tfrac{11}{24},\ \tfrac{7}{12}'
-    method: exact (Seiberg–Witten geometry; holography)
+    method: exact, Seiberg–Witten geometry; holography
     refs: [shapere2008, aharony2007, beem2014]
     note: 'Table 2 of Aharony–Tachikawa and Table 1 of Beem et al. (2014). $H_0$ is also eq. (4.32) of Shapere–Tachikawa.'
   - symbol: 'c'
     description: 'Weyl conformal anomaly of $H_0$, $H_1$, $H_2$ (a free real scalar has $c = \tfrac{1}{120}$)'
     value: '\tfrac{11}{30},\ \tfrac{1}{2},\ \tfrac{2}{3}'
-    method: exact (Seiberg–Witten geometry; holography)
+    method: exact, Seiberg–Witten geometry; holography
     refs: [shapere2008, aharony2007, beem2014]
     note: 'Same sources as $a$.'
   - symbol: 'k'
     description: 'Flavor central charge of $H_1$ ($SU(2)$) and $H_2$ ($SU(3)$)'
     value: '\tfrac{8}{3},\ 3'
-    method: exact (holography; saturates a chiral-algebra unitarity bound)
+    method: exact, holography; saturates a chiral-algebra unitarity bound
     refs: [aharony2007, beem2013, beem2014]
     note: 'The chiral algebra is conjectured to be the affine flavor algebra at level $k_{2d} = -k/2$ (Beem et al. 2014).'
   - symbol: '\lambda^2_{u^2}'
     description: 'Squared OPE coefficient of $u^2$ in $u\times u$ (unit-normalized two-point functions) for $H_1$ and $H_2$'
     value: '[2.216735,\ 2.35462],\ [2.299679,\ 2.69898]'
-    method: conformal bootstrap (rigorous bounds)
+    method: CB, rigorous bounds
     refs: [gimenezgrau2020]
     note: 'Lower and upper bounds at derivative order $\Lambda = 50$ (Table 7), with $\Delta_u$ and $c$ fixed to the values above. For $H_0$ see the minimal Argyres–Douglas entry.'
 

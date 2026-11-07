@@ -48,60 +48,60 @@ quantities:
   - symbol: '\nu'
     description: 'Correlation-length exponent, $\nu = 1/(3-\Delta_s)$'
     value: '0.67172(2)'
-    method: Monte Carlo (improved clock model)
+    method: MC, improved clock model
     refs: [hasenbusch2025]
     note: 'From $1/\nu = 1.48872(5)$. Conformal bootstrap: $0.67175(10)$ (rigorous; Chester et al.).'
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 1$'
     value: '0.03816(2)'
-    method: Monte Carlo (improved clock model)
+    method: MC, improved clock model
     refs: [hasenbusch2025]
     note: 'Conformal bootstrap: $0.038176(44)$ (rigorous; Chester et al.).'
   - symbol: '\alpha'
     description: 'Specific-heat exponent, $\alpha = 2 - 3\nu$ (theory)'
     value: '-0.01515(7)'
-    method: derived from ν
+    method: derived, from ν
     refs: [hasenbusch2025]
   - symbol: '\alpha_{\rm exp}'
     description: 'Specific-heat exponent measured at the λ point of helium-4 (Space Shuttle experiment)'
     value: '-0.0127(3)'
-    method: experiment
+    method: expt
     refs: [lipa2003]
     note: 'About $8\sigma$ from the theoretical value; unresolved.'
   - symbol: '\omega'
     description: 'Leading correction-to-scaling exponent, $\omega = \Delta_{s^\prime} - 3$'
     value: '0.789(4)'
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2019]
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to two free real scalars'
     value: '0.944056(15)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2019]
   - symbol: 'C_J/C_J^{\rm free}'
     description: 'Current two-point coefficient, relative to two free real scalars; it gives the zero-temperature conductivity, $2\pi\sigma_\infty = 0.355155(11)$'
     value: '0.904395(28)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2019]
   - symbol: '\lambda_{\phi\phi s}'
     description: OPE coefficient
     value: '0.687126(27)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2019]
   - symbol: '\lambda_{sss}'
     description: OPE coefficient
     value: '0.830914(32)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2019]
   - symbol: '\lambda_{tts}'
     description: OPE coefficient
     value: '1.25213(14)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2019]
   - symbol: '\lambda_{\phi\phi t}'
     description: OPE coefficient
     value: '1.213408(65)'
-    method: conformal bootstrap (non-rigorous error)
+    method: CB, non-rigorous error
     refs: [chester2019]
 
 operators:
@@ -109,21 +109,21 @@ operators:
     Delta: '0.51908(1)'
     spin: 0
     rep: charge 1 (order parameter)
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2025]
     note: 'Bootstrap: $0.519088(22)$ (rigorous).'
   - name: 't'
     Delta: '1.23629(11)'
     spin: 0
     rep: charge 2
-    method: conformal bootstrap
+    method: CB
     refs: [chester2019]
     note: 'Monte Carlo: $1.23630(12)$ (Hasenbusch, large charge). Relevant: a charge-2 anisotropy drives the flow to 3d Ising.'
   - name: 's'
     Delta: '1.51128(5)'
     spin: 0
     rep: charge 0 (thermal)
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2025]
     note: 'Bootstrap: $1.51136(22)$ (rigorous).'
   - name: 'J_\mu'
@@ -136,7 +136,7 @@ operators:
     Delta: '2.10833(23)'
     spin: 0
     rep: charge 3
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2025b]
     note: 'Relevant, so a $\mathbb{Z}_3$ clock anisotropy destabilizes the fixed point. Bootstrap estimate: $2.1086(3)$ (non-rigorous; Chester et al.).'
   - name: 'T_{\mu\nu}'
@@ -149,14 +149,14 @@ operators:
     Delta: '3.11203(34)'
     spin: 0
     rep: charge 4
-    method: Monte Carlo
+    method: MC
     refs: [hasenbusch2025b]
     note: 'Irrelevant: $O(2)$ symmetry emerges in $\mathbb{Z}_q$ clock models with $q \ge 4$.'
   - name: "s'"
     Delta: '3.789(4)'
     spin: 0
     rep: charge 0
-    method: Monte Carlo (3 + ω)
+    method: MC, 3 + ω
     refs: [hasenbusch2019]
     note: Leading irrelevant singlet; controls corrections to scaling.
 
