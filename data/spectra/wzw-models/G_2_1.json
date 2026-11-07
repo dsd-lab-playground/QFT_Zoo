@@ -1,0 +1,18 @@
+{
+  "theory": "wzw-models",
+  "member": {"at": "(G_2)_1"},
+  "c": "14/5",
+  "chiral_algebra": "(\\widehat{\\mathfrak{g}}_2)_1",
+  "irreducible": true,
+  "Z_tex": "Z = |\\chi_{\\mathbf{1}}|^2 + |\\chi_{\\mathbf{7}}|^2",
+  "character_tex": "Weyl-Kac characters at $z = 0$: $\\chi_\\lambda(q) = \\eta(q)^{-\\dim G}\\sum_{\\beta\\in Q^\\vee}\\prod_{\\alpha>0}\\frac{(\\alpha,\\lambda+\\rho+K\\beta)}{(\\alpha,\\rho)}\\,q^{|\\lambda+\\rho+K\\beta|^2/2K}$, $K = k + h^\\vee$, long roots of length$^2$ 2 (here $\\dim G = 14$, $h^\\vee = 4$, $K = 5$). One block per integrable highest weight, labelled by the $G_2$ irrep; $h_{\\mathbf{1}} = 0$, $h_{\\mathbf{7}} = \\tfrac{2}{5}$.",
+  "description": "Diagonal modular invariant of the $G_2$ WZW model at level 1, $c = k\\dim G/(k+h^\\vee) = \\tfrac{14}{5}$. Characters from the Weyl-Kac formula specialised to $z=0$ (the finite Weyl sum becomes the Weyl dimension factor and the denominator becomes $\\eta^{\\dim G}$ by the Macdonald identity), summed exactly over the coroot lattice. The generator checks the Macdonald identity, the leading terms $\\dim\\lambda\\, q^{h_\\lambda-c/24}$ and that the weight-1 space of the vacuum module has dimension $\\dim G = 14$, and compares with independent formulas: the conformal embedding $(G_2)_1\\times(F_4)_1\\subset(E_8)_1$: $\\chi_{\\mathbf{1}}\\chi_{\\mathbf{1}} + \\chi_{\\mathbf{7}}\\chi_{\\mathbf{26}} = \\chi^{(E_8)_1}$.",
+  "generator": "scripts/spectra/gen_wzw.py",
+  "blocks": [
+    {"label": "\\chi_{\\mathbf{1}}", "h": "0", "coeffs": [1, 14, 42, 140, 350, 840, 1827, 3858, 7637, 14756, 27419, 49826, 88109]},
+    {"label": "\\chi_{\\mathbf{7}}", "h": "2/5", "coeffs": [7, 34, 119, 322, 819, 1862, 4025, 8218, 16177, 30660, 56560, 101486]}
+  ],
+  "Z": [
+    [0, 0, 1], [1, 1, 1]
+  ]
+}

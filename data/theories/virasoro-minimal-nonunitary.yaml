@@ -1,0 +1,177 @@
+id: virasoro-minimal-nonunitary
+name: 'Non-unitary Virasoro minimal models $\mathcal{M}(p,q)$'
+aliases:
+  - 'Non-unitary minimal models'
+  - '$\mathcal{M}(p,q)$ with $q - p \geq 2$'
+  - 'Non-unitary diagonal minimal models (A-series)'
+d: 2
+summary: >-
+  The diagonal minimal models $\mathcal{M}(p,q)$ with coprime $2 \le p < q$ and $q - p \ge 2$:
+  rational, non-unitary, with $c = 1 - 6(p-q)^2/(pq)$ and a primary of negative weight. The
+  simplest is the Lee–Yang model $\mathcal{M}(2,5)$.
+tags: [CFT, interacting, non-unitary, rational, exactly solvable, minimal model, family]
+
+description: |
+  For coprime integers $2 \le p < q$, the minimal model $\mathcal{M}(p,q)$ (Belavin, Polyakov and
+  Zamolodchikov) has central charge $c = 1 - 6(p-q)^2/(pq)$ and finitely many Virasoro primaries
+  $\phi_{r,s}$, with weights given by the Kac formula
+  $$h_{r,s} = \frac{(qr - ps)^2 - (q-p)^2}{4pq}, \qquad 1 \le r \le p-1,\ 1 \le s \le q-1,$$
+  and $(r,s) \sim (p-r, q-s)$, so there are $\tfrac12(p-1)(q-1)$ primaries. The models with
+  $q = p+1$ are the unitary series of Friedan, Qiu and Shenker (a separate entry); this entry
+  collects the others, $q - p \ge 2$, which are all non-unitary. These are the formulas of
+  Itzykson, Saleur and Zuber and of Cappelli, Itzykson and Zuber, whose $(p, p')$ is our $(q, p)$;
+  in this labelling the Lee–Yang field of $\mathcal{M}(2,5)$ is $\phi_{1,2}$, with
+  $h_{1,2} = -\tfrac15$.
+
+  The irreducible characters (Rocha-Caridi) are, with $\mathsf{q} = e^{2\pi i\tau}$,
+  $$\chi_{r,s}(\tau) = \frac{1}{\eta(\tau)}\sum_{k\in\mathbb{Z}}\Big(\mathsf{q}^{(2kpq + qr - ps)^2/(4pq)} - \mathsf{q}^{(2kpq + qr + ps)^2/(4pq)}\Big),$$
+  and the diagonal (A-series) partition function
+  $$Z = \sum_{(r,s)/\sim}|\chi_{r,s}|^2 = \frac12\sum_{r=1}^{p-1}\sum_{s=1}^{q-1}|\chi_{r,s}|^2$$
+  is modular invariant for every pair. Cappelli, Itzykson and Zuber classified all modular
+  invariants: they are labelled by pairs of ADE Dynkin diagrams with Coxeter numbers $p$ and $q$,
+  and since one of $p, q$ is odd, one diagram of the pair is of type A. A D-type invariant exists
+  when the even one of $p, q$ is at least 6, and E-type ones when it is 12, 18 or 30. This entry is
+  the diagonal series $(A_{p-1}, A_{q-1})$.
+
+  ### Negative weights and the effective central charge
+  For $q - p \ge 2$ there is always a label $(r_0, s_0) \ne (1,1)$ with $|qr_0 - ps_0| = 1$, and
+  $\phi_{r_0,s_0}$ has the lowest weight,
+  $$h_{\min} = \frac{1 - (q-p)^2}{4pq} < 0 .$$
+  The vacuum is therefore not the lowest state on a circle. In finite-size scaling, for instance
+  the free energy of a long periodic strip, $c$ is replaced by the effective central charge
+  $$c_{\rm eff} = c - 24h_{\min} = 1 - \frac{6}{pq}$$
+  (Itzykson, Saleur and Zuber). Castro-Alvaredo, Doyon and Ravanini showed that, along
+  renormalization-group flows with unbroken $\mathcal{PT}$ symmetry, a function interpolating
+  between the ultraviolet and infrared values of $c_{\rm eff}$ decreases monotonically, which
+  generalizes Zamolodchikov's $c$-theorem.
+
+  ### The series $\mathcal{M}(2, 2n+3)$
+  For $p = 2$ the Kac table is a single row: $\mathcal{M}(2, 2n+3)$, $n \ge 1$, has $n+1$ primaries
+  $\phi_{1,s}$, $1 \le s \le n+1$, all of non-positive weight, and each character is an infinite
+  product (Andrews–Gordon identities), which for $\mathcal{M}(2,5)$ are the Rogers–Ramanujan
+  products (Milas). $\mathcal{M}(2,5)$ is the Lee–Yang edge singularity, and Lencsés, Miscioscia,
+  Mussardo and Takács conjecture that $\mathcal{M}(2, 2n+3)$ controls the $(n+1)$-th multicritical
+  Yang–Lee point, reached by imaginary magnetic perturbations of the unitary minimal models.
+
+parameters:
+  - symbol: '(p, q)'
+    description: 'Coprime integers labelling $\mathcal{M}(p,q)$.'
+    range: '$2 \le p < q$, $q - p \ge 2$, $\gcd(p, q) = 1$'
+
+family:
+  parameter: pq
+  members:
+    - at: '(2,5)'
+      label: 'Lee–Yang model'
+      c: '-22/5'
+      note: '$h_{\min} = h_{1,2} = -\tfrac15$, $c_{\rm eff} = \tfrac25$.'
+    - at: '(2,7)'
+      c: '-68/7'
+      note: '$h_{\min} = h_{1,3} = -\tfrac37$, $c_{\rm eff} = \tfrac47$ (derived). Argued to describe the tricritical Yang–Lee point (Lencsés et al.).'
+    - at: '(3,5)'
+      c: '-3/5'
+      note: '$h_{\min} = h_{1,2} = -\tfrac{1}{20}$, $c_{\rm eff} = \tfrac35$ (derived).'
+    - at: '(2,9)'
+      c: '-46/3'
+      note: '$h_{\min} = h_{1,4} = -\tfrac23$, $c_{\rm eff} = \tfrac23$ (derived).'
+    - at: '(3,7)'
+      c: '-25/7'
+      note: '$h_{\min} = h_{1,2} = -\tfrac{5}{28}$, $c_{\rm eff} = \tfrac57$ (derived).'
+    - at: '(3,8)'
+      c: '-21/4'
+      note: '$h_{\min} = h_{1,3} = -\tfrac14$, $c_{\rm eff} = \tfrac34$ (derived). Also has a D-type invariant ($D_5$ on the label $q = 8$; CIZ Table 2), not listed here.'
+    - at: '(4,7)'
+      c: '-13/14'
+      note: '$h_{\min} = h_{1,2} = -\tfrac{1}{14}$, $c_{\rm eff} = \tfrac{11}{14}$ (derived).'
+    - at: '(5,7)'
+      c: '11/35'
+      note: '$h_{\min} = h_{2,3} = -\tfrac{3}{140}$, $c_{\rm eff} = \tfrac{29}{35}$ (derived). Positive $c$, but non-unitary.'
+
+symmetry:
+  spacetime: 'conformal (Virasoro $\times$ Virasoro)'
+  supercharges: 0
+
+quantities:
+  - key: c
+    symbol: 'c'
+    description: 'Central charge ($c_L = c_R$)'
+    value: '1 - \frac{6(p-q)^2}{pq}'
+    method: exact
+    refs: [bpz1984, isz1986, ciz1987]
+  - symbol: 'h_{\min}'
+    description: 'Lowest conformal weight, of the primary with $|qr - ps| = 1$'
+    value: '\frac{1 - (q-p)^2}{4pq}'
+    method: exact
+    refs: [isz1986]
+  - symbol: 'c_{\rm eff}'
+    description: 'Effective central charge, $c - 24h_{\min}$'
+    value: '1 - \frac{6}{pq}'
+    method: exact
+    refs: [isz1986, castroalvaredo2017]
+
+operators:
+  - name: '\phi_{r_0,s_0}'
+    Delta: '\frac{1 - (q-p)^2}{2pq}'
+    spin: 0
+    weights: '(h_{\min}, h_{\min})'
+    rep: 'lowest-weight primary, $|qr_0 - ps_0| = 1$'
+    method: exact
+    refs: [isz1986]
+    note: 'Negative for all $q - p \ge 2$, so it, not the vacuum, dominates the torus partition function at low temperature.'
+
+relations:
+  - type: related_to
+    target: virasoro-minimal-a
+    note: 'Same Kac formulas: the unitary models $\mathcal{M}(m, m+1)$ are the case $q = p + 1$, the non-unitary ones $q - p \ge 2$.'
+
+references:
+  - key: bpz1984
+    title: Infinite conformal symmetry in two-dimensional quantum field theory
+    authors: Belavin, Polyakov, Zamolodchikov
+    year: 1984
+    journal: Nucl. Phys. B241, 333
+    doi: '10.1016/0550-3213(84)90052-X'
+  - key: fqs1984
+    title: Conformal Invariance, Unitarity, and Critical Exponents in Two Dimensions
+    authors: Friedan, Qiu, Shenker
+    year: 1984
+    journal: Phys. Rev. Lett. 52, 1575
+    doi: '10.1103/PhysRevLett.52.1575'
+  - key: rochacaridi1985
+    title: Vacuum Vector Representations of the Virasoro Algebra
+    authors: Rocha-Caridi
+    year: 1985
+    journal: 'in Vertex Operators in Mathematics and Physics, MSRI Publications (Springer), pp. 451–473'
+    doi: '10.1007/978-1-4613-9550-8_22'
+  - key: isz1986
+    title: Conformal Invariance of Nonunitary 2d-Models
+    authors: Itzykson, Saleur, Zuber
+    year: 1986
+    journal: Europhys. Lett. 2, 91
+    doi: '10.1209/0295-5075/2/2/004'
+  - key: ciz1987
+    title: 'The A-D-E classification of minimal and $A_1^{(1)}$ conformal invariant theories'
+    authors: Cappelli, Itzykson, Zuber
+    year: 1987
+    journal: Commun. Math. Phys. 113, 1
+    doi: '10.1007/BF01221394'
+  - key: milas2004
+    title: 'Ramanujan''s "Lost Notebook" and the Virasoro Algebra'
+    authors: Milas
+    year: 2004
+    journal: Commun. Math. Phys. 251, 567
+    arxiv: math/0309201
+  - key: castroalvaredo2017
+    title: Irreversibility of the renormalization group flow in non-unitary quantum field theory
+    authors: Castro-Alvaredo, Doyon, Ravanini
+    year: 2017
+    journal: J. Phys. A 50, 424002
+    arxiv: '1706.01871'
+  - key: lencses2023
+    title: Multicriticality in Yang-Lee edge singularity
+    authors: Lencsés, Miscioscia, Mussardo, Takács
+    year: 2023
+    journal: JHEP 02 (2023) 046
+    arxiv: '2211.01123'
+
+contributors: [Canonical111]

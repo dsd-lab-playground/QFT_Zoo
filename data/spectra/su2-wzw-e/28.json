@@ -1,0 +1,29 @@
+{
+  "theory": "su2-wzw-e",
+  "member": {"at": 28},
+  "c": "14/5",
+  "chiral_algebra": "\\widehat{su}(2)_{28}",
+  "irreducible": true,
+  "Z_tex": "Z = |\\chi_0+\\chi_{10}+\\chi_{18}+\\chi_{28}|^2 + |\\chi_6+\\chi_{12}+\\chi_{16}+\\chi_{22}|^2",
+  "character_tex": "Integrable characters of affine $SU(2)_k$ at $z=1$, labelled by $l = 2j = 0,\\dots,k$: $\\chi_l(\\tau) = \\frac{q^{h_l - c/24}}{\\prod_{n\\ge1}(1-q^n)^3}\\sum_{m\\in\\mathbb{Z}} \\big(l+1+2(k+2)m\\big)\\, q^{(k+2)m^2 + (l+1)m}$, $h_l = \\frac{l(l+2)}{4(k+2)}$, $c = \\frac{3k}{k+2}$; computed from the graded Weyl-Kac formula and summed over the $J^3_0$ grading.",
+  "description": "$E_8$ invariant of $SU(2)_{28}$ (Cappelli-Itzykson-Zuber). Blocks are $SU(2)_{28}$ characters and $Z$ gives their multiplicities. The two blocks are the characters of $(G_2)_1$ (conformal embedding $SU(2)_{28}\\subset (G_2)_1$), so $Z$ equals the diagonal $(G_2)_1$ partition function.",
+  "generator": "scripts/spectra/gen_su2_wzw.py",
+  "blocks": [
+    {"label": "\\chi_{0}", "h": "0", "coeffs": [1, 3, 9, 22, 51, 108, 221, 429, 810, 1479]},
+    {"label": "\\chi_{6}", "h": "2/5", "coeffs": [7, 21, 63, 154, 357, 756, 1547, 3003, 5670]},
+    {"label": "\\chi_{10}", "h": "1", "coeffs": [11, 33, 99, 242, 561, 1188, 2431, 4719, 8910]},
+    {"label": "\\chi_{12}", "h": "7/5", "coeffs": [13, 39, 117, 286, 663, 1404, 2873, 5577]},
+    {"label": "\\chi_{16}", "h": "12/5", "coeffs": [17, 51, 153, 374, 867, 1836, 3757]},
+    {"label": "\\chi_{18}", "h": "3", "coeffs": [19, 57, 171, 418, 969, 2052, 4199]},
+    {"label": "\\chi_{22}", "h": "22/5", "coeffs": [23, 69, 207, 506, 1173]},
+    {"label": "\\chi_{28}", "h": "7", "coeffs": [29, 56, 168]}
+  ],
+  "Z": [
+    [0, 0, 1], [0, 2, 1], [0, 5, 1], [0, 7, 1], [1, 1, 1], [1, 3, 1],
+    [1, 4, 1], [1, 6, 1], [2, 0, 1], [2, 2, 1], [2, 5, 1], [2, 7, 1],
+    [3, 1, 1], [3, 3, 1], [3, 4, 1], [3, 6, 1], [4, 1, 1], [4, 3, 1],
+    [4, 4, 1], [4, 6, 1], [5, 0, 1], [5, 2, 1], [5, 5, 1], [5, 7, 1],
+    [6, 1, 1], [6, 3, 1], [6, 4, 1], [6, 6, 1], [7, 0, 1], [7, 2, 1],
+    [7, 5, 1], [7, 7, 1]
+  ]
+}

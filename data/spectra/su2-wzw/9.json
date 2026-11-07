@@ -1,0 +1,27 @@
+{
+  "theory": "su2-wzw",
+  "member": {"at": 9},
+  "c": "27/11",
+  "chiral_algebra": "\\widehat{su}(2)_{9}",
+  "irreducible": true,
+  "Z_tex": "Z = \\sum_{l=0}^{9} |\\chi_l|^2",
+  "character_tex": "Integrable characters of affine $SU(2)_k$ at $z=1$, labelled by $l = 2j = 0,\\dots,k$: $\\chi_l(\\tau) = \\frac{q^{h_l - c/24}}{\\prod_{n\\ge1}(1-q^n)^3}\\sum_{m\\in\\mathbb{Z}} \\big(l+1+2(k+2)m\\big)\\, q^{(k+2)m^2 + (l+1)m}$, $h_l = \\frac{l(l+2)}{4(k+2)}$, $c = \\frac{3k}{k+2}$; computed from the graded Weyl-Kac formula and summed over the $J^3_0$ grading.",
+  "description": "Diagonal ($A_{10}$) invariant of the $SU(2)_{9}$ WZW model: each of the 10 integrable representations $l = 2j = 0,\\dots,9$ appears once as $(h_l, h_l)$. Blocks are $SU(2)_{9}$ characters and $Z$ gives their multiplicities.",
+  "generator": "scripts/spectra/gen_su2_wzw.py",
+  "blocks": [
+    {"label": "\\chi_{0}", "h": "0", "coeffs": [1, 3, 9, 22, 51, 108, 221, 429, 810, 1479]},
+    {"label": "\\chi_{1}", "h": "3/44", "coeffs": [2, 6, 18, 44, 102, 216, 442, 858, 1620]},
+    {"label": "\\chi_{2}", "h": "2/11", "coeffs": [3, 9, 27, 66, 153, 324, 663, 1287, 2411]},
+    {"label": "\\chi_{3}", "h": "15/44", "coeffs": [4, 12, 36, 88, 204, 432, 884, 1698, 3186]},
+    {"label": "\\chi_{4}", "h": "6/11", "coeffs": [5, 15, 45, 110, 255, 540, 1088, 2094, 3897]},
+    {"label": "\\chi_{5}", "h": "35/44", "coeffs": [6, 18, 54, 132, 306, 632, 1278, 2430, 4508]},
+    {"label": "\\chi_{6}", "h": "12/11", "coeffs": [7, 21, 63, 154, 342, 711, 1412, 2673]},
+    {"label": "\\chi_{7}", "h": "63/44", "coeffs": [8, 24, 72, 162, 366, 738, 1460, 2718]},
+    {"label": "\\chi_{8}", "h": "20/11", "coeffs": [9, 27, 68, 159, 342, 686, 1326, 2457]},
+    {"label": "\\chi_{9}", "h": "9/4", "coeffs": [10, 18, 54, 112, 246, 468, 914]}
+  ],
+  "Z": [
+    [0, 0, 1], [1, 1, 1], [2, 2, 1], [3, 3, 1], [4, 4, 1], [5, 5, 1],
+    [6, 6, 1], [7, 7, 1], [8, 8, 1], [9, 9, 1]
+  ]
+}

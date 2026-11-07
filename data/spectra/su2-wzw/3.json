@@ -1,0 +1,20 @@
+{
+  "theory": "su2-wzw",
+  "member": {"at": 3},
+  "c": "9/5",
+  "chiral_algebra": "\\widehat{su}(2)_{3}",
+  "irreducible": true,
+  "Z_tex": "Z = \\sum_{l=0}^{3} |\\chi_l|^2",
+  "character_tex": "Integrable characters of affine $SU(2)_k$ at $z=1$, labelled by $l = 2j = 0,\\dots,k$: $\\chi_l(\\tau) = \\frac{q^{h_l - c/24}}{\\prod_{n\\ge1}(1-q^n)^3}\\sum_{m\\in\\mathbb{Z}} \\big(l+1+2(k+2)m\\big)\\, q^{(k+2)m^2 + (l+1)m}$, $h_l = \\frac{l(l+2)}{4(k+2)}$, $c = \\frac{3k}{k+2}$; computed from the graded Weyl-Kac formula and summed over the $J^3_0$ grading.",
+  "description": "Diagonal ($A_{4}$) invariant of the $SU(2)_{3}$ WZW model: each of the 4 integrable representations $l = 2j = 0,\\dots,3$ appears once as $(h_l, h_l)$. Blocks are $SU(2)_{3}$ characters and $Z$ gives their multiplicities.",
+  "generator": "scripts/spectra/gen_su2_wzw.py",
+  "blocks": [
+    {"label": "\\chi_{0}", "h": "0", "coeffs": [1, 3, 9, 22, 42, 81, 151, 264, 450, 749]},
+    {"label": "\\chi_{1}", "h": "3/20", "coeffs": [2, 6, 18, 36, 78, 144, 266, 462, 792]},
+    {"label": "\\chi_{2}", "h": "2/5", "coeffs": [3, 9, 20, 45, 90, 170, 306, 531, 896]},
+    {"label": "\\chi_{3}", "h": "3/4", "coeffs": [4, 6, 18, 34, 72, 126, 236, 390, 666]}
+  ],
+  "Z": [
+    [0, 0, 1], [1, 1, 1], [2, 2, 1], [3, 3, 1]
+  ]
+}

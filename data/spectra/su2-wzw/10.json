@@ -1,0 +1,28 @@
+{
+  "theory": "su2-wzw",
+  "member": {"at": 10},
+  "c": "5/2",
+  "chiral_algebra": "\\widehat{su}(2)_{10}",
+  "irreducible": true,
+  "Z_tex": "Z = \\sum_{l=0}^{10} |\\chi_l|^2",
+  "character_tex": "Integrable characters of affine $SU(2)_k$ at $z=1$, labelled by $l = 2j = 0,\\dots,k$: $\\chi_l(\\tau) = \\frac{q^{h_l - c/24}}{\\prod_{n\\ge1}(1-q^n)^3}\\sum_{m\\in\\mathbb{Z}} \\big(l+1+2(k+2)m\\big)\\, q^{(k+2)m^2 + (l+1)m}$, $h_l = \\frac{l(l+2)}{4(k+2)}$, $c = \\frac{3k}{k+2}$; computed from the graded Weyl-Kac formula and summed over the $J^3_0$ grading.",
+  "description": "Diagonal ($A_{11}$) invariant of the $SU(2)_{10}$ WZW model: each of the 11 integrable representations $l = 2j = 0,\\dots,10$ appears once as $(h_l, h_l)$. Blocks are $SU(2)_{10}$ characters and $Z$ gives their multiplicities.",
+  "generator": "scripts/spectra/gen_su2_wzw.py",
+  "blocks": [
+    {"label": "\\chi_{0}", "h": "0", "coeffs": [1, 3, 9, 22, 51, 108, 221, 429, 810, 1479]},
+    {"label": "\\chi_{1}", "h": "1/16", "coeffs": [2, 6, 18, 44, 102, 216, 442, 858, 1620]},
+    {"label": "\\chi_{2}", "h": "1/6", "coeffs": [3, 9, 27, 66, 153, 324, 663, 1287, 2430]},
+    {"label": "\\chi_{3}", "h": "5/16", "coeffs": [4, 12, 36, 88, 204, 432, 884, 1716, 3220]},
+    {"label": "\\chi_{4}", "h": "1/2", "coeffs": [5, 15, 45, 110, 255, 540, 1105, 2126, 3993]},
+    {"label": "\\chi_{5}", "h": "35/48", "coeffs": [6, 18, 54, 132, 306, 648, 1308, 2520, 4698]},
+    {"label": "\\chi_{6}", "h": "1", "coeffs": [7, 21, 63, 154, 357, 739, 1496, 2850, 5296]},
+    {"label": "\\chi_{7}", "h": "21/16", "coeffs": [8, 24, 72, 176, 392, 816, 1624, 3080]},
+    {"label": "\\chi_{8}", "h": "5/3", "coeffs": [9, 27, 81, 183, 414, 837, 1659, 3096]},
+    {"label": "\\chi_{9}", "h": "33/16", "coeffs": [10, 30, 76, 178, 384, 772, 1496]},
+    {"label": "\\chi_{10}", "h": "5/2", "coeffs": [11, 20, 60, 125, 275, 525, 1027]}
+  ],
+  "Z": [
+    [0, 0, 1], [1, 1, 1], [2, 2, 1], [3, 3, 1], [4, 4, 1], [5, 5, 1],
+    [6, 6, 1], [7, 7, 1], [8, 8, 1], [9, 9, 1], [10, 10, 1]
+  ]
+}
