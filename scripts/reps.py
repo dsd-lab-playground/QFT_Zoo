@@ -375,6 +375,127 @@ def _label(g, t, s, params, G):
     raise RepError(f"unsupported group type {t}")
 
 
+# ------------------------------------------------------------------ extension: index symbols, SU(2) spins, parametric
+# S_n and D_n, SL(2,R), a generic simple group G (added with the migration of 2d entries, batch b)
+#
+# - A factor may declare `symbols`: names, other than the entry's parameters, that its labels may use: a running index
+#   of a family of operators listed in one row (`j` in Phi_j, `L` in the L-leg operator), or a formal group size
+#   (`n` in O(n) at n -> 0). They count as parameters for that factor only.
+# - SU(2) (and Sp(2)): `spin(j)`, j a half-integer (the same label as Dynkin(2j)) or an expression in the parameters
+#   and symbols (`spin(j)`, `spin(k/2)`).
+# - S_n with n a parameter (S_Q, for Q continued in the sense of Deligne's category Rep(S_t)): `trivial`, `standard`,
+#   `Y(l1,l2,...)` for the irrep [n - |l|, l1, l2, ...].
+# - D_n with n a parameter (dihedral of order 2n): A1, A2, B1, B2 (n even), E1, E2, ... (E_j: the rotation acts as
+#   e^{+-2 pi i j/n}).
+# - `SL(2,R)`: the universal cover of SL(2,R), with the unitary irreps that occur in the SL(2,R) WZW model and the
+#   adjoint: `trivial`, `adjoint`, `D+(j)`, `D-(j)`, `D±(j)` (discrete series, lowest/highest weight j; ± is a
+#   conjugate pair in one row, as for charges), `C(j, alpha)` (continuous series, Casimir -j(j-1), J^3_0 in alpha + Z).
+# - A group named by a parameter of the entry (`group: G`): a generic compact simple Lie group, with labels
+#   `singlet`, `adjoint`, `hw(lambda)` (highest weight lambda, a parameter or symbol) and `hw(lambda)bar` (its
+#   conjugate lambda^*).
+
+_parse_factor_base, _label_dispatch_base, _label_base = parse_factor, _label, label
+
+
+def _symbols(f: dict) -> set[str]:
+    return {norm_sym(s) for s in (f.get("symbols") or [])}
+
+
+def _expr(s: str, params: set[str]):
+    """A number or an expression in parameters and symbols (TeX names such as '\\alpha' allowed, `i` the imaginary
+    unit), returned as written. Raises RepError."""
+    s = s.strip()
+    if re.fullmatch(r"-?\d+(?:/\d+)?", s):
+        return Fraction(s)
+    names = re.findall(r"\\?[A-Za-z]+(?:_\{?[A-Za-z0-9]+\}?)?", s)
+    bad = [n for n in names if n != "i" and norm_sym(n) not in params]
+    if not names or bad or not re.fullmatch(r"[\\A-Za-z0-9_{}+\-*/() ]+", s):
+        raise RepError(f"'{s}' is neither a number nor an expression in the entry's parameters"
+                       f"{' (unknown: ' + ', '.join(bad) + ')' if bad else ''}; a running index goes in the factor's `symbols`")
+    return s
+
+
+def parse_factor(f: dict, params: set[str]) -> dict:
+    params = set(params) | _symbols(f)
+    group = norm_sym(f.get("group", ""))
+    base = {k: v for k, v in f.items() if k != "symbols"}
+    if (m := re.fullmatch(r"(S|D)_?([A-Za-z]\w*)", group)) and norm_sym(m.group(2)) in params:
+        g = {"type": m.group(1), "n": m.group(2), "id": str(f["id"])}
+        g["tex"] = f.get("tex") or f"{m.group(1)}_{{{m.group(2)}}}"
+    elif group in ("SL(2,R)", "SL(2,\\mathbbR)"):
+        g = {"type": "SL2R", "id": str(f["id"]), "tex": f.get("tex") or "SL(2,\\mathbb{R})"}
+    elif group in params and re.fullmatch(r"\\?[A-Za-z]+", group):
+        g = {"type": "Lie", "G": group, "id": str(f["id"]), "tex": f.get("tex") or group}
+    else:
+        g = _parse_factor_base(base, params)
+    if "irreps" in f and g["type"] != "finite":
+        raise RepError("`irreps` is only for `group: finite`")
+    g["symbols"] = _symbols(f)
+    return g
+
+
+def label(g: dict, value, params: set[str]) -> dict:
+    return _label_base(g, value, set(params) | g.get("symbols", set()))
+
+
+def _label(g, t, s, params, G):
+    if t in ("SU", "Sp") and g["N"] == 2 and (m := re.fullmatch(r"spin\((.+)\)", s)):
+        j = _expr(m.group(1), params)
+        if isinstance(j, Fraction):
+            if j < 0 or (2 * j).denominator != 1:
+                raise RepError(f"'{s}': the spin is a non-negative half-integer")
+            return _label_dispatch_base(g, t, f"Dynkin({int(2 * j)})", params, G)
+        return {"canon": f"spin({norm_sym(j)})", "short": f"spin ${j}$", "trivial": False, "sort": [BIG, 0]}
+    if t == "S" and not isinstance(g["n"], int):
+        n = g["n"]
+        if s == "trivial":
+            lam = []
+        elif s == "standard":
+            lam = [1]
+        elif (m := re.fullmatch(r"Y\(([\d,\s]*)\)", s)):
+            lam = _tuple(m.group(1))
+            if any(x < 1 for x in lam) or lam != sorted(lam, reverse=True):
+                raise RepError(f"'{s}': the rows below the first are positive and non-increasing")
+        else:
+            raise RepError(f"an S_{n} label (n a parameter) is trivial, standard or Y(l1,l2,...) for the irrep "
+                           f"[{n} - |l|, l1, l2, ...]; not '{s}'")
+        rows = ",".join(map(str, lam))
+        short = {(): "trivial", (1,): f"standard (${n}-1$-dimensional)"}.get(tuple(lam), f"irrep $[{n}-{sum(lam)},{rows}]$")
+        return {"canon": f"Y({rows})", "short": short, "trivial": not lam, "sort": [sum(lam), *(-x for x in lam)]}
+    if t == "D" and not isinstance(g["n"], int):
+        m = re.fullmatch(r"(A1|A2|B1|B2)|E(\d+)", s)
+        if not m or (m.group(2) and int(m.group(2)) < 1):
+            raise RepError(f"a D_{g['n']} label is A1, A2, B1, B2 (n even) or E1, E2, ...; not '{s}'")
+        order = ["A1", "A2", "B1", "B2"].index(s) if m.group(1) else 3 + int(m.group(2))
+        return {"canon": s, "short": f"${s[0]}_{{{s[1:]}}}$", "trivial": s == "A1", "sort": [order]}
+    if t == "SL2R":
+        if s in ("trivial", "adjoint"):
+            return {"canon": s, "short": s, "trivial": s == "trivial", "sort": [0 if s == "trivial" else 1]}
+        if (m := re.fullmatch(r"D(\+|-|±|\+-)\((.+)\)", s)):
+            sign = "±" if m.group(1) in ("±", "+-") else m.group(1)
+            j = _expr(m.group(2), params)
+            return {"canon": f"D{sign}({norm_sym(j)})", "short": f"discrete series $\\mathcal{{D}}^{{{sign}}}_{{{j}}}$",
+                    "trivial": False, "sort": [2, {"±": 0, "+": 1, "-": 2}[sign]]}
+        if (m := re.fullmatch(r"C\((.+),(.+)\)", s)):
+            j, a = _expr(m.group(1), params), _expr(m.group(2), params)
+            return {"canon": f"C({norm_sym(j)},{norm_sym(a)})", "short": f"continuous series $\\mathcal{{C}}^{{{a}}}_{{{j}}}$",
+                    "trivial": False, "sort": [3, 0]}
+        raise RepError(f"an SL(2,R) label is trivial, adjoint, D+(j), D-(j), D±(j) or C(j, alpha); not '{s}'")
+    if t == "Lie":
+        if s in ("singlet", "adjoint"):
+            return {"canon": s, "short": s, "trivial": s == "singlet", "sort": [0 if s == "singlet" else 1, 0]}
+        if (m := re.fullmatch(r"hw\((.+)\)(bar)?", s)):
+            lam = m.group(1).strip()
+            if norm_sym(lam) not in params:
+                raise RepError(f"'{s}': the highest weight '{lam}' is not a parameter or symbol of the entry")
+            conj = bool(m.group(2))
+            short = f"conjugate of highest weight ${lam}$ (${lam}^*$)" if conj else f"highest weight ${lam}$"
+            return {"canon": f"hw({norm_sym(lam)}){'bar' if conj else ''}", "short": short, "trivial": False,
+                    "sort": [2, int(conj)]}
+        raise RepError(f"a label of a generic group {g['G']} is singlet, adjoint, hw(lambda) or hw(lambda)bar; not '{s}'")
+    return _label_dispatch_base(g, t, s, params, G)
+
+
 # ------------------------------------------------------------------ spacetime
 
 def spin_value(v):
@@ -462,7 +583,7 @@ def check_entry_reps(data: dict, rel: str) -> list[str]:
     if len(set(ids)) != len(ids):
         errs.append(f"{rel}: symmetry/global_group: factor ids must be unique")
     if "parity" not in sym:
-        errs.append(f"{rel}: symmetry: a structured entry states `parity` (true, false or conditional)")
+        errs.append(f"{rel}: symmetry: a structured entry states `parity` (true, false, conditional or unknown)")
     has_p = sym.get("parity") in (True, "conditional")
     has_t = sym.get("time_reversal") == "independent"
     if errs:

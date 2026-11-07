@@ -7,6 +7,9 @@ tags: [CFT, interacting, unitary, rational, orbifold]
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{16}{11}$ — 2d conformal symmetry, with parity'
   global: 'Contains the dual $\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sectors'
+  parity: true
+  global_group:
+    - {id: Z2, group: Z2, tex: '\widehat{\mathbb{Z}}_2', note: 'The dual symmetry of the orbifold, odd on the $C$-twisted sectors; the rest of the symmetry is not recorded.'}
 
 quantities:
 - key: c
@@ -25,6 +28,8 @@ operators:
   Delta: '8/99'
   spin: 0
   weights: '(\tfrac{4}{99}, \tfrac{4}{99})'
+  parity: even
+  global: {Z2: even}
   note: Lightest non-vacuum Virasoro primary.
 
 relations:

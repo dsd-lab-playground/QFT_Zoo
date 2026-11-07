@@ -56,7 +56,8 @@ symmetry:
   in $\mathcal{N}=4$ SYM; operators then state their parity at those values). "Parity" means
   what CONTRIBUTING.md, *Spacetime symmetry*, says: a reflection, possibly combined with an
   internal symmetry. `spacetime` and `euclidean`/`lorentzian` keep saying it in words and
-  groups; this field is the machine-readable form, and the two must agree.
+  groups; this field is the machine-readable form, and the two must agree. `unknown` is for an
+  entry whose `spacetime` says "parity not recorded": operators then give no `parity`.
 - `time_reversal: independent` (new, rare): see 1.3.
 
 **What the factor list does not yet express.** The full internal group is not always a direct
@@ -165,6 +166,21 @@ Products of groups are lists of factors; each operator labels each factor. Group
 table (exceptional groups, $Spin(N)$ with spinor-tensor irreps, $\mathfrak{osp}$ R-symmetries)
 are added to the vocabulary in `scripts/reps.py` when a migrated entry first needs them; until
 then `finite` (for finite groups) or a legacy entry serves.
+
+Added with the migration of the 2d entries (`scripts/reps.py`, *extension: index symbols, ...*):
+
+- `symbols` on a factor: names other than the entry's parameters that its labels may use, a running
+  index of a family of operators in one row (`spin(j)` for $\Phi_j$, `sym(L)` for the $L$-leg
+  operator) or a formal group size (`O(n)` at $n \to 0$).
+- $SU(2)$: `spin(j)`, with $j$ a half-integer (the same label as `Dynkin(2j)`) or an expression
+  (`spin(k/2)`, `spin(j)`).
+- `S_n` and `D_n` with $n$ a parameter (`S_Q`, `D_k`): `trivial`, `standard`, `Y(l1,...)` for the
+  irrep $[n-|l|, l_1, \ldots]$; `A1`, `A2`, `B1`, `B2`, `E1`, `E2`, ... ($E_j$: rotations act as
+  $e^{\pm 2\pi i j/n}$).
+- `SL(2,R)` (universal cover): `trivial`, `adjoint`, `D+(j)`, `D-(j)`, `D±(j)` (discrete series),
+  `C(j, alpha)` (continuous series).
+- A group named by a parameter (`group: G`): a generic simple group, with `singlet`, `adjoint`,
+  `hw(lambda)` and its conjugate `hw(lambda)bar`.
 
 ### 1.5 Supersymmetric theories
 

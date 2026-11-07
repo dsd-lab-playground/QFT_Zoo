@@ -220,10 +220,10 @@
               "type": "boolean"
             },
             {
-              "const": "conditional"
+              "enum": ["conditional", "unknown"]
             }
           ],
-          "description": "Whether the theory has parity (a reflection symmetry, possibly combined with an internal symmetry; see CONTRIBUTING.md, Spacetime symmetry): true, false, or conditional (only at special values of the parameters, said in `spacetime`; operators then give their parity at those values). Required with `global_group`; then every operator gives `parity` when it is true or conditional."
+          "description": "Whether the theory has parity (a reflection symmetry, possibly combined with an internal symmetry; see CONTRIBUTING.md, Spacetime symmetry): true, false, conditional (only at special values of the parameters, said in `spacetime`; operators then give their parity at those values), or unknown (`spacetime` says 'parity not recorded'; operators give no parity). Required with `global_group`; then every operator gives `parity` when it is true or conditional."
         },
         "time_reversal": {
           "const": "independent",
@@ -1227,6 +1227,13 @@
         "note": {
           "type": "string",
           "description": "[markdown] e.g. how the factor sits in the full group (quotients, semidirect products)."
+        },
+        "symbols": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Names other than the entry's parameters that this factor's labels may use: a running index of a family of operators listed in one row (e.g. 'j' in spin(j), 'L' in sym(L)) or a formal group size (O(n) at n -> 0)."
         }
       }
     }
