@@ -16,7 +16,7 @@ description: |
 
   $$h_\alpha=\bar h_\alpha=\frac{\alpha(Q-\alpha)}{2}=\frac{Q^2}{8}+\frac{p^2}{2},\qquad\alpha=\frac{Q}{2}+ip,\quad p\in\mathbb{R}.$$
 
-  The R primaries are $\Theta^{\epsilon\bar\epsilon}_\alpha=\sigma^\epsilon\bar\sigma^{\bar\epsilon}e^{\alpha\phi}$ ($\epsilon,\bar\epsilon=\pm$), with spin fields $\sigma^\pm$ of weight $\frac{1}{16}$, so $h=h_\alpha+\frac{1}{16}=\frac{c}{24}+\frac{p^2}{2}$. As for a free fermion, locality and modular invariance restrict the four RR ground-state fields at each $\alpha$ to one combination. The continua start at $p=0$, with $h=\frac{Q^2}{8}=\frac{2c-3}{48}$ in the NS sector and $h=\frac{c}{24}$ in the R sector.
+  The R primaries are $\Theta^{\epsilon\bar\epsilon}_\alpha=\sigma^\epsilon\bar\sigma^{\bar\epsilon}e^{\alpha\phi}$ ($\epsilon,\bar\epsilon=\pm$), with spin fields $\sigma^\pm$ of weight $\frac{1}{16}$, so $h=h_\alpha+\frac{1}{16}=\frac{c}{24}+\frac{p^2}{2}$. In the fermionic theory the R-sector superprimaries come in a pair, $R^{(+)}_P \sim \mu\,e^{\alpha\phi}$ and $R^{(-)}_P \sim \sigma\,e^{\alpha\phi}$ with $\mu$, $\sigma$ the disorder and spin fields, of equal weights (Du, Liu and Yu, eqs. (2.15)–(2.16)); for $p \neq 0$, $G_0^2 = L_0 - \frac{c}{24} = \frac{p^2}{2}$ is invertible and $G_0$ reverses fermion parity, so the Ramond ground states form a doublet of opposite parity (derived). Keeping a single combination of the four fields $\Theta^{\epsilon\bar\epsilon}_\alpha$ at each $\alpha$, as Fredenhagen and Wellig do by analogy with the free fermion, describes a projected (bosonized) theory rather than the fermionic one. The continua start at $p=0$, with $h=\frac{Q^2}{8}=\frac{2c-3}{48}$ in the NS sector and $h=\frac{c}{24}$ in the R sector.
 
   Degenerate representations sit at $\alpha_{r,s}=\frac12(Q-rb-sb^{-1})$, $r,s\geq1$, with a null vector at level $\frac{rs}{2}$; they are NS for $r+s$ even and R for $r+s$ odd. The simplest non-trivial one is the R field $\Theta_{-b/2}$.
 
@@ -104,8 +104,8 @@ operators:
     weights: '(h_\alpha+\tfrac{1}{16},h_\alpha+\tfrac{1}{16})'
     rep: 'R sector, $\alpha=\frac{Q}{2}+ip$, $p\geq0$'
     method: exact
-    refs: [fh2002, fw2007]
-    note: 'R spectrum. Locality and modular invariance keep one combination of the four $\epsilon,\bar\epsilon$ at each $\alpha$.'
+    refs: [fh2002, fw2007, dly2025]
+    note: 'R spectrum. In the fermionic theory the superprimaries form a fermion-parity doublet $\mu e^{\alpha\phi}$, $\sigma e^{\alpha\phi}$ (Du, Liu and Yu); a single combination of the four $\epsilon,\bar\epsilon$ (Fredenhagen and Wellig) belongs to a projected theory.'
 
 relations:
   - type: related_to
@@ -151,6 +151,12 @@ references:
     arxiv: '0706.1650'
     doi: '10.1088/1126-6708/2007/09/098'
     note: 'Spectrum, eqs. (38)–(42).'
+  - key: dly2025
+    title: '$\mathcal{N}=1$ super complex Liouville string'
+    authors: Du, Liu, Yu
+    year: 2025
+    arxiv: '2510.19770'
+    note: 'R-sector superprimaries $R^{(\pm)}_P \sim \mu e^{\alpha\phi}, \sigma e^{\alpha\phi}$, eqs. (2.15)–(2.16).'
   - key: polyakov1981
     title: Quantum geometry of fermionic strings
     authors: Polyakov

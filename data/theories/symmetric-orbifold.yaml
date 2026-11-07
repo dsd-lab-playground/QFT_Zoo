@@ -10,7 +10,7 @@ description: |
 
   **Generating functions.** If the elliptic genus of $X$ is $\chi(X;q,y) = \sum_{m,\ell}c(m,\ell)\,q^my^\ell$, then (DMVV, eq. (1.3))
   $$\sum_{N\geq0}p^N\chi(\mathrm{Sym}^NX;q,y) = \prod_{n>0,\,m\geq0,\,\ell}\frac{1}{(1-p^nq^my^\ell)^{c(nm,\ell)}}.$$
-  The right side is the partition function of a second-quantized string on $X\times S^1$, and the generating function is (almost) an automorphic form for $O(3,2;\mathbb{Z})$ (DMVV). For $X = $ K3 at $y = 1$ it reduces to $\prod_{n}(1-p^n)^{-24}$, the generating function of orbifold Euler numbers (derived). The torus partition functions obey an analogous product formula (Keller, eq. (2.3); Hartman, Keller and Stoica (HKS), eq. (5.4)).
+  The right side is the partition function of a second-quantized string on $X\times S^1$, and the generating function is (almost) an automorphic form for $O(3,2;\mathbb{Z})$ (DMVV). For $X = $ K3 at $y = 1$ it reduces to $\prod_{n}(1-p^n)^{-24}$, the generating function of orbifold Euler numbers (derived). For a bosonic seed (all states of integer spin) the torus partition functions obey an analogous product formula (Keller, eq. (2.3); Hartman, Keller and Stoica (HKS), eq. (5.4)); it does not apply as written to fermionic seeds such as $T^4$ and K3, whose half-integer-spin states it would remove already at $N = 1$, so for those only the elliptic-genus formula above is quoted.
 
   ### Universality at large N
   As $N\to\infty$ the free energy per copy becomes universal, depending only on $c_X$, with a first-order phase transition at $\beta = 2\pi$, the analogue of the Hawking–Page transition. The number of states grows as $e^{4\pi\sqrt{m\bar m}}$ (Keller). HKS show that every 2d CFT with large $c$ and a sparse light spectrum, $\rho(E)\lesssim e^{2\pi(E + c/12)}$ for light states with $E = \Delta - \frac{c}{12}$ below a small positive cutoff, has a universal free energy and Cardy growth for $\Delta \geq \frac{c}{6}$. Symmetric orbifolds satisfy this, and their light spectrum saturates the bound,
@@ -18,7 +18,7 @@ description: |
   so in this sense they have the densest spectrum compatible with 3d gravity (HKS).
 
   ### D1–D5 system and AdS$_3$
-  The D1–D5 system on $X = T^4$ or K3 has near-horizon geometry $AdS_3\times S^3\times X$, and its boundary CFT has $c = 6Q_1Q_5$ (Seiberg–Witten). This CFT is believed to lie on the moduli space of $\mathrm{Sym}^N(X)$ with $N = Q_1Q_5$, but it is not known where on that moduli space, if anywhere, the orbifold point sits; at the loci where the branes can separate the CFT is singular (Seiberg–Witten). The orbifold point is a weak-coupling limit without a good geometric description (HKS). The moduli space of $\mathrm{Sym}^N(T^4)$ has 20 parameters, and away from the orbifold point the theory is interacting (Eberhardt, Gaberdiel and Gopakumar (EGG)).
+  The D1–D5 system on $X = T^4$ or K3 has near-horizon geometry $AdS_3\times S^3\times X$. For $X = T^4$ with $Q_1$ D1-branes and $Q_5$ D5-branes its boundary CFT has $c = 6Q_1Q_5$ (Seiberg–Witten). For $X = $ K3 with coprime $Q_1, Q_5 > 0$, the Mukai vector $v = (Q_5, 0, -Q_1)$ is primitive with $v\cdot v = 2Q_1Q_5$, and the moduli space of stable sheaves is smooth and deformation equivalent to the Hilbert scheme $\mathrm{K3}^{[Q_1Q_5+1]}$, whose orbifold limit is $\mathrm{Sym}^{Q_1Q_5+1}(\mathrm{K3})$; so $N = Q_1Q_5 + 1$ and $c = 6(Q_1Q_5+1)$ in this charge convention (Dijkgraaf, eqs. (3.8), (5.1), (7.7) and section 5.1; the shift is subleading at large charge). Non-primitive charges need separate treatment (Dijkgraaf). The CFT is believed to lie on the moduli space of $\mathrm{Sym}^N(X)$ with this $N$, but it is not known where on that moduli space, if anywhere, the orbifold point sits; at the loci where the branes can separate the CFT is singular (Seiberg–Witten). The orbifold point is a weak-coupling limit without a good geometric description (HKS). For $N \geq 2$ the moduli space of $\mathrm{Sym}^N(T^4)$ has 20 parameters (the 16 torus moduli plus 4 from the twist-2 sector), and generic twisted-sector deformations away from the orbifold point make the theory interacting; $N = 1$ is the free $T^4$ theory with 16 moduli (Eberhardt, Gaberdiel and Gopakumar (EGG)).
 
   EGG proposed a worldsheet dual of the large-$N$ orbifold point. Superstring theory on $AdS_3\times S^3\times T^4$ with one unit of NS–NS flux ($k = 1$), defined in the hybrid formalism with a $\mathfrak{psu}(1,1|2)_1$ WZW model, has no long-string continuum. Its spectrum matches the large-$N$ limit of $\mathrm{Sym}^N(T^4)$, and the worldsheet reproduces the fusion rules of the orbifold (EGG, following Gaberdiel–Gopakumar).
 
@@ -47,7 +47,7 @@ quantities:
   refs: [hks2014]
   note: '$c = 6N$ for $X = T^4$ or K3.'
 - symbol: 'Z_{\rm gen}(p)'
-  description: 'Generating function of torus partition functions, for a seed with $Z_X = \sum d(h,\bar h)\,q^{h-c_X/24}\bar q^{\bar h-c_X/24}$'
+  description: 'Generating function of torus partition functions, for a bosonic seed (integer spins only) with $Z_X = \sum d(h,\bar h)\,q^{h-c_X/24}\bar q^{\bar h-c_X/24}$; not valid as written for fermionic seeds such as $T^4$ or K3'
   value: '\sum_{N\geq0}p^NZ_N = \prod_{n>0}\prod_{h,\bar h}\left(1-p^n q^{\frac{h-c_X/24}{n}}\bar q^{\frac{\bar h-c_X/24}{n}}\right)^{-d(h,\bar h)\,\delta^{(n)}_{h-\bar h}}'
   method: exact
   refs: [hks2014, keller2011]
@@ -111,6 +111,14 @@ references:
   journal: JHEP 04 (1999) 017
   arxiv: hep-th/9903224
   note: 'Section 2, "Comparison to symmetric product".'
+- key: dijkgraaf1999
+  title: Instanton strings and hyperKähler geometry
+  authors: Dijkgraaf
+  year: 1999
+  journal: Nucl. Phys. B543, 545
+  arxiv: hep-th/9810210
+  doi: '10.1016/S0550-3213(98)00869-4'
+  note: 'Mukai pairing (3.8); $\dim_{\mathbb{H}}\mathcal{M}_v = \tfrac12 v^2 + 1$ (5.1); D-brane charge vector $v = (Q_5, Q_3, -Q_1)$ (7.7).'
 - key: maldacena1998
   title: The large N limit of superconformal field theories and supergravity
   authors: Maldacena

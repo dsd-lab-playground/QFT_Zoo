@@ -19,10 +19,10 @@ description: |
   written as $H_3^+/U(1)$ (Kazakov, Kostov and Kutasov). Gawedzki constructed it by gauging a one-parameter group of
   boosts in the $H_3^+$ model, which makes the Euclidean theory manifestly stable. The coset is defined for all $k>2$.
   For large $k$ it is the sigma model with metric and dilaton
-  $$ds^2=k\,(d\rho^2+\tanh^2\rho\,d\varphi^2),\qquad\Phi=\Phi_0-2\log\cosh\rho,\qquad\varphi\sim\varphi+2\pi,$$
-  in units $\alpha'=1$. The circle shrinks at the tip $\rho=0$, where the string coupling $e^\Phi$ is largest, so the
+  $$ds^2=k\,(d\rho^2+\tanh^2\rho\,d\varphi^2),\qquad\Phi=\Phi_0-\log\cosh\rho,\qquad\varphi\sim\varphi+2\pi,$$
+  in units $\alpha'=1$, with string coupling $e^\Phi$ (Giribet and Ranjbar, eqs. (1)–(2); Hori and Kapustin and Kazakov, Kostov and Kutasov write $\Phi_0-2\log\cosh\rho$, a different normalization of the dilaton). The asymptotic slope then gives $c \approx 2 + \frac6k$ at large $k$, consistent with the exact $c$ below. The circle shrinks at the tip $\rho=0$, where the string coupling $e^\Phi$ is largest, so the
   target is a semi-infinite cigar. As $\rho\to\infty$ it becomes a cylinder of radius $\sqrt k$ with a linear dilaton,
-  $\Phi\sim-2\rho$, and $e^\Phi\to0$ (Hori and Kapustin). The exact background charge of the linear dilaton is
+  $\Phi\sim-\rho$, and $e^\Phi\to0$ (Hori and Kapustin). The exact background charge of the linear dilaton is
   $Q=\frac{1}{\sqrt{k-2}}$ (Hikida and Schomerus), and a compact boson plus a linear dilaton with this $Q$ has
   $c=1+(1+6Q^2)=\frac{2(k+1)}{k-2}$.
 
@@ -131,6 +131,13 @@ references:
     year: 1991
     journal: Phys. Rev. D44, 314
     doi: '10.1103/PhysRevD.44.314'
+  - key: gr2015
+    title: Screening stringy horizons
+    authors: Giribet, Ranjbar
+    year: 2015
+    journal: Eur. Phys. J. C75, 490
+    arxiv: '1504.05044'
+    note: 'Cigar metric and dilaton $\Phi = \Phi_0 - \log\cosh r$, eqs. (1)–(2).'
   - key: dvv1992
     title: String propagation in a black hole geometry
     authors: Dijkgraaf, Verlinde, Verlinde

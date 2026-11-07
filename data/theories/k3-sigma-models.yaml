@@ -12,7 +12,7 @@ description: |
   $$\mathcal{M}_{\rm K3} = O(\Gamma^{4,20})\backslash O(4,20)/(O(4)\times O(20)).$$
   A point is a positive-definite four-plane $\Pi\subset\mathbb{R}^{4,20}\cong H^{\rm even}(\mathrm{K3},\mathbb{R})$, and $\Gamma^{4,20}$ is the even unimodular lattice $H^{\rm even}(\mathrm{K3},\mathbb{Z})$ of D-brane charges (Gaberdiel–Hohenegger–Volpato (GHV)). Nahm and Wendland treat worldsheet parity as a symmetry rather than an identification and write the moduli space with $O^+(H^{\rm even}(\mathrm{K3},\mathbb{Z}))$ acting on $O^+(4,20)/(SO(4)\times O(20))$. The theory is expected to be singular where $\Pi$ is orthogonal to a vector of norm $-2$ (GHV).
 
-  **Elliptic genus.** The elliptic genus $\mathrm{Tr}_{\rm RR}(-1)^{F_L+F_R}q^{L_0}\bar q^{\bar L_0}e^{4\pi izJ^3_0}$ is the same at every point of the moduli space, because the weak Jacobi forms of weight 0 and index 1 form a one-dimensional space (Eguchi, Ooguri and Tachikawa (EOT); Gannon):
+  **Elliptic genus.** The elliptic genus $\mathrm{Tr}_{\rm RR}(-1)^{F_L+F_R}q^{L_0-\frac{c}{24}}\bar q^{\bar L_0-\frac{c}{24}}e^{4\pi izJ^3_0}$, with $\frac{c}{24} = \frac14$, is the same at every point of the moduli space, because the weak Jacobi forms of weight 0 and index 1 form a one-dimensional space (Eguchi, Ooguri and Tachikawa (EOT); Gannon):
   $$\phi_{\rm K3}(\tau,z) = 8\sum_{i=2}^{4}\frac{\theta_i(\tau,z)^2}{\theta_i(\tau,0)^2} = 2\phi_{0,1}(\tau,z) = 2y + 20 + 2y^{-1} + O(q),\qquad y = e^{2\pi iz}.$$
   At $z = 0$ it is the Euler number 24 of K3, and at $z = \frac12$ it is $16 + O(q)$, the signature (EOT). The 24 Ramond ground states have $h = \bar h = \frac14$ and split as $(\mathbf2,\mathbf2) + 20$ singlets under $SU(2)_L\times SU(2)_R$ (GHV).
 
