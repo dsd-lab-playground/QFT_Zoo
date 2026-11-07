@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-07 17:59 UTC",
+ "generated": "2026-11-07 18:21 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
- "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math.\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: conformal\n  supercharges: 0\n  global: '$O(N)$'\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: conformal bootstrap\n    refs: [author2025]\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    rep: 'vector'\n    method: conformal bootstrap\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
+ "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math.\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: conformal\n  supercharges: 0\n  global: '$O(N)$'\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: conformal bootstrap\n    refs: [author2025]\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    rep: 'vector'\n    method: conformal bootstrap\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
  "theories": [
   {
    "id": "lee-yang-2d",
@@ -212,7 +212,11 @@
    ],
    "source": "data/theories/lee-yang-2d.yaml",
    "c_num": -4.4,
-   "backlinks": []
+   "backlinks": [],
+   "flow_height": {
+    "value": -4.4,
+    "estimated": false
+   }
   },
   {
    "id": "virasoro-minimal-nonunitary",
@@ -1231,7 +1235,11 @@
    ],
    "source": "data/theories/symplectic-fermions.yaml",
    "c_num": -2.0,
-   "backlinks": []
+   "backlinks": [],
+   "flow_height": {
+    "value": -2.0,
+    "estimated": false
+   }
   },
   {
    "id": "percolation-2d",
@@ -1469,7 +1477,11 @@
    ],
    "source": "data/theories/percolation-2d.yaml",
    "c_num": 0.0,
-   "backlinks": []
+   "backlinks": [],
+   "flow_height": {
+    "value": 0.0,
+    "estimated": false
+   }
   },
   {
    "id": "saw-2d",
@@ -1677,7 +1689,11 @@
    ],
    "source": "data/theories/saw-2d.yaml",
    "c_num": 0.0,
-   "backlinks": []
+   "backlinks": [],
+   "flow_height": {
+    "value": 0.0,
+    "estimated": false
+   }
   },
   {
    "id": "free-majorana-fermion-2d",
@@ -1806,7 +1822,11 @@
      "target": "free-dirac-fermion-2d",
      "note": "Two Majorana fermions with a common spin structure; with independent spin structures they bosonize to Ising $\\times$ Ising instead."
     }
-   ]
+   ],
+   "flow_height": {
+    "value": 0.5,
+    "estimated": false
+   }
   },
   {
    "id": "ising-2d",
@@ -2012,9 +2032,15 @@
     {
      "type": "flows_from",
      "target": "tricritical-ising",
-     "note": "Relevant $\\epsilon^\\prime = \\phi_{1,3}$ deformation with the sign that gives a massless flow."
+     "note": "Relevant $\\epsilon^\\prime = \\phi_{1,3}$ deformation with the sign that gives a massless flow.",
+     "flow_key": "tricritical-ising@1",
+     "source_entry": "tricritical-ising"
     }
    ],
+   "flow_height": {
+    "value": 0.5,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/ising-2d.json",
@@ -3109,7 +3135,8 @@
     {
      "type": "flows_to",
      "target": "ising-2d",
-     "note": "Relevant $\\epsilon^\\prime = \\phi_{1,3}$ deformation with the sign that gives a massless flow."
+     "note": "Relevant $\\epsilon^\\prime = \\phi_{1,3}$ deformation with the sign that gives a massless flow.",
+     "flow_key": "tricritical-ising@1"
     }
    ],
    "references": [
@@ -3155,6 +3182,10 @@
      "target": "tim-squared"
     }
    ],
+   "flow_height": {
+    "value": 0.7,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/tricritical-ising.json",
@@ -3305,6 +3336,10 @@
      "note": "At the member $Q = 3$, local spin observables are described by the 3-state Potts minimal model."
     }
    ],
+   "flow_height": {
+    "value": 0.8,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/potts-3-state.json",
@@ -4674,6 +4709,10 @@
      "note": "Member $k = 1$ is the compact boson at the self-dual radius $R = \\sqrt2$ (the same CFT)."
     }
    ],
+   "flow_height": {
+    "value": 1.0,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/compact-boson/sqrt2.json",
@@ -4883,6 +4922,10 @@
      "note": "The member $Q = 4$ is the 4-state Potts model, the orbifold-branch member at $R = 2\\sqrt2$ in this zoo's convention."
     }
    ],
+   "flow_height": {
+    "value": 1.0,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/compact-boson-orbifold/sqrt2.json",
@@ -5039,7 +5082,11 @@
    ],
    "source": "data/theories/free-dirac-fermion-2d.yaml",
    "c_num": 1.0,
-   "backlinks": []
+   "backlinks": [],
+   "flow_height": {
+    "value": 1.0,
+    "estimated": false
+   }
   },
   {
    "id": "n2-minimal-models",
@@ -6072,7 +6119,11 @@
    ],
    "source": "data/theories/noncompact-boson-2d.yaml",
    "c_num": 1.0,
-   "backlinks": []
+   "backlinks": [],
+   "flow_height": {
+    "value": 1.0,
+    "estimated": false
+   }
   },
   {
    "id": "su2-1-orbifold-i",
@@ -6161,6 +6212,10 @@
    "c_num": 1.0,
    "gap_num": 0.02,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.0,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/su2-1-orbifold-i.json",
@@ -6256,6 +6311,10 @@
    "c_num": 1.0,
    "gap_num": 0.03125,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.0,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/su2-1-orbifold-o.json",
@@ -6351,6 +6410,10 @@
    "c_num": 1.0,
    "gap_num": 0.05555555555555555,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.0,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/su2-1-orbifold-t.json",
@@ -7024,6 +7087,10 @@
      "note": "By charge conjugation $C$."
     }
    ],
+   "flow_height": {
+    "value": 1.1428571428571428,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/pf5.json",
@@ -7104,6 +7171,10 @@
    "c_num": 1.1428571428571428,
    "gap_num": 0.07142857142857142,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.1428571428571428,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/pf5-c.json",
@@ -8512,6 +8583,10 @@
      "note": "By $C: W \\to -W$."
     }
    ],
+   "flow_height": {
+    "value": 1.2,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/w3-5-6.json",
@@ -8591,6 +8666,10 @@
    "c_num": 1.2,
    "gap_num": 0.075,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.2,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/w3-5-6-c.json",
@@ -11112,6 +11191,10 @@
    "c_num": 1.2727272727272727,
    "gap_num": 0.06818181818181818,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.2727272727272727,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/so5-2-su2-20.json",
@@ -11195,6 +11278,10 @@
      "note": "By the $\\mathbb{Z}_5$ simple current."
     }
    ],
+   "flow_height": {
+    "value": 1.2727272727272727,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/su5-1-su2-20.json",
@@ -11275,6 +11362,10 @@
    "c_num": 1.2727272727272727,
    "gap_num": 0.10909090909090909,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.2727272727272727,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/su5-1-su2-20-z5.json",
@@ -11788,6 +11879,10 @@
      "note": "Member $(E_7)_1$ is the first numerator factor of the coset $(E_7)_1\\times(E_7)_2/(E_7)_3$."
     }
    ],
+   "flow_height": {
+    "value": 1.3,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/w-e7-coset.json",
@@ -11877,6 +11972,10 @@
      "note": "By charge conjugation $C$."
     }
    ],
+   "flow_height": {
+    "value": 1.3333333333333333,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/pf7.json",
@@ -11956,6 +12055,10 @@
    "c_num": 1.3333333333333333,
    "gap_num": 0.08333333333333333,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.3333333333333333,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/pf7-c.json",
@@ -12026,6 +12129,10 @@
    "c_num": 1.3621621621621622,
    "gap_num": 0.06486486486486487,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.3621621621621622,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/sp6-1-su2-35.json",
@@ -12116,6 +12223,10 @@
      "note": "Member $(E_8)_1$ is the first numerator factor of the coset $(E_8)_1\\times(E_8)_3/(E_8)_4$."
     }
    ],
+   "flow_height": {
+    "value": 1.3689839572192513,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/w-e8-coset.json",
@@ -12200,6 +12311,10 @@
    "c_num": 1.3689839572192513,
    "gap_num": 0.0855614973262032,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.3689839572192513,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/w-e8-coset-perm.json",
@@ -12308,6 +12423,10 @@
      "note": "$\\mathrm{PF}_8/\\langle r^4, Cr\\rangle$ has the same torus partition function."
     }
    ],
+   "flow_height": {
+    "value": 1.4,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/pf8.json",
@@ -12391,6 +12510,10 @@
    "c_num": 1.4,
    "gap_num": 0.0875,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/pf8-cr.json",
@@ -12496,6 +12619,10 @@
      "note": "By $\\mathbb{Z}_4 = \\langle f_1 s \\rangle$."
     }
    ],
+   "flow_height": {
+    "value": 1.4,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/tim-squared.json",
@@ -12591,6 +12718,10 @@
      "note": "$\\mathrm{Sym}^2(\\mathrm{TIM})$ is the $N = 2$ symmetric orbifold of the tricritical Ising model, with $c = 2\\cdot\\frac{7}{10} = \\frac75$."
     }
    ],
+   "flow_height": {
+    "value": 1.4,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/tim-sym2.json",
@@ -12686,6 +12817,10 @@
      "note": "Same chiral algebra and torus partition function; different gluing."
     }
    ],
+   "flow_height": {
+    "value": 1.4,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/tim2-d4tors-xo.json",
@@ -12772,6 +12907,10 @@
    "c_num": 1.4,
    "gap_num": 0.15,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/tim2-fib-swap.json",
@@ -12857,6 +12996,10 @@
    "c_num": 1.4,
    "gap_num": 0.15,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/tim2-z2-diag.json",
@@ -12963,6 +13106,10 @@
      "note": "By a $\\mathbb{Z}_2$."
     }
    ],
+   "flow_height": {
+    "value": 1.4,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/tim2-z4-xe.json",
@@ -13059,6 +13206,10 @@
    "c_num": 1.4285714285714286,
    "gap_num": 0.08928571428571429,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4285714285714286,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/n1-12-e6a.json",
@@ -13156,6 +13307,10 @@
    "c_num": 1.4285714285714286,
    "gap_num": 0.14285714285714285,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4285714285714286,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/n1-12-e6d.json",
@@ -13269,6 +13424,10 @@
      "note": "Same chiral algebra; partial charge conjugation."
     }
    ],
+   "flow_height": {
+    "value": 1.4285714285714286,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/w3-6-7.json",
@@ -13348,6 +13507,10 @@
    "c_num": 1.4285714285714286,
    "gap_num": 0.06349206349206349,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4285714285714286,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/w3-6-7-c.json",
@@ -13431,6 +13594,10 @@
      "note": "By charge conjugation."
     }
    ],
+   "flow_height": {
+    "value": 1.4285714285714286,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/w3-6-7-ca.json",
@@ -13510,6 +13677,10 @@
    "c_num": 1.4285714285714286,
    "gap_num": 0.08928571428571429,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4285714285714286,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/w3-6-7-ca-c.json",
@@ -13596,6 +13767,10 @@
      "note": "By the diagonal $\\mathbb{Z}_2$."
     }
    ],
+   "flow_height": {
+    "value": 1.4545454545454546,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/ising-x-m11-ae6.json",
@@ -13692,6 +13867,10 @@
    "c_num": 1.4545454545454546,
    "gap_num": 0.09090909090909091,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4545454545454546,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/ising-x-m11-ae6-z2.json",
@@ -13791,6 +13970,10 @@
      "note": "By $\\mathbb{Z}_3 \\subset \\mathbb{Z}_9$."
     }
    ],
+   "flow_height": {
+    "value": 1.4545454545454546,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/pf9.json",
@@ -13870,6 +14053,10 @@
    "c_num": 1.4545454545454546,
    "gap_num": 0.08080808080808081,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4545454545454546,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/pf9-c.json",
@@ -13951,6 +14138,10 @@
    "c_num": 1.4545454545454546,
    "gap_num": 0.18181818181818182,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4545454545454546,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/pf9-z3.json",
@@ -14039,6 +14230,10 @@
    "c_num": 1.4583333333333333,
    "gap_num": 0.08333333333333333,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4583333333333333,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/n1-16-ae7-minus.json",
@@ -14127,6 +14322,10 @@
    "c_num": 1.4583333333333333,
    "gap_num": 0.08333333333333333,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4583333333333333,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/n1-16-ae7-plus.json",
@@ -14218,6 +14417,10 @@
      "note": "Same chiral algebra; permutation invariant."
     }
    ],
+   "flow_height": {
+    "value": 1.4615384615384615,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/ising-x-m12-e6a.json",
@@ -14296,6 +14499,10 @@
    "c_num": 1.4615384615384615,
    "gap_num": 0.07692307692307693,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4615384615384615,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/ising-x-m12-e6a-z2.json",
@@ -14382,6 +14589,10 @@
    "c_num": 1.4615384615384615,
    "gap_num": 0.15384615384615385,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4615384615384615,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/x12.json",
@@ -14458,6 +14669,10 @@
      "note": "Member $(G_2)_1$ is the first numerator factor of the coset $(G_2)_1\\times(G_2)_2/(G_2)_3$."
     }
    ],
+   "flow_height": {
+    "value": 1.4666666666666666,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/g2-coset.json",
@@ -14546,6 +14761,10 @@
    "c_num": 1.4666666666666666,
    "gap_num": 0.06666666666666667,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4666666666666666,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/n1-18-e7a-minus.json",
@@ -14634,6 +14853,10 @@
    "c_num": 1.4666666666666666,
    "gap_num": 0.06666666666666667,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4666666666666666,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/n1-18-e7a-plus.json",
@@ -14710,6 +14933,10 @@
      "note": "Extension by the conformal embedding $SU(2)_4 \\subset SU(3)_1$."
     }
    ],
+   "flow_height": {
+    "value": 1.4666666666666666,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/su2-3-4-7-coset.json",
@@ -14789,6 +15016,10 @@
    "c_num": 1.4666666666666666,
    "gap_num": 0.13333333333333333,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4666666666666666,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/su2-3-su3-1-su2-7.json",
@@ -14869,6 +15100,10 @@
    "c_num": 1.4803921568627452,
    "gap_num": 0.0392156862745098,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4803921568627452,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/ising-x-m17-ae7.json",
@@ -14949,6 +15184,10 @@
    "c_num": 1.4824561403508771,
    "gap_num": 0.03508771929824561,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4824561403508771,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/ising-x-m18-e7a.json",
@@ -15032,6 +15271,10 @@
    "c_num": 1.4857142857142858,
    "gap_num": 0.05714285714285714,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4857142857142858,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/n1-28-ae8.json",
@@ -15115,6 +15358,10 @@
    "c_num": 1.4875,
    "gap_num": 0.05,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4875,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/n1-30-e8a.json",
@@ -15195,6 +15442,10 @@
    "c_num": 1.493103448275862,
    "gap_num": 0.027586206896551724,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.493103448275862,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/ising-x-m29-ae8.json",
@@ -15275,6 +15526,10 @@
    "c_num": 1.4935483870967743,
    "gap_num": 0.025806451612903226,
    "backlinks": [],
+   "flow_height": {
+    "value": 1.4935483870967743,
+    "estimated": false
+   },
    "spectra": [
     {
      "path": "data/spectra/ising-x-m30-e8a.json",
@@ -16994,7 +17249,11 @@
      "target": "symmetric-orbifold",
      "note": "The K3 sigma model is a seed: $\\mathrm{Sym}^N(\\mathrm{K3})$, with $c = 6N$."
     }
-   ]
+   ],
+   "flow_height": {
+    "value": 6.0,
+    "estimated": false
+   }
   },
   {
    "id": "symmetric-orbifold",
@@ -20464,6 +20723,7 @@
     "Cubic fixed point of three scalars"
    ],
    "d": 3,
+   "uv_dof": 3,
    "summary": "The fixed point of three real scalars with a cubic-symmetric quartic interaction. Cubic anisotropy is relevant at the $O(3)$ (Heisenberg) point, so for one sign of it cubic magnets flow here; the exponents differ from Heisenberg ones by less than $10^{-3}$.",
    "tags": [
     "CFT",
@@ -20638,9 +20898,15 @@
     {
      "type": "flows_from",
      "target": "o3-model-3d",
-     "note": "Cubic anisotropy (the cubic-invariant component of the rank-4 traceless symmetric operator), which is relevant at the $O(3)$ fixed point, with the mass tuned to criticality."
+     "note": "Cubic anisotropy (the cubic-invariant component of the rank-4 traceless symmetric operator), which is relevant at the $O(3)$ fixed point, with the mass tuned to criticality.",
+     "flow_key": "o3-model-3d@3",
+     "source_entry": "o3-model-3d"
     }
-   ]
+   ],
+   "flow_height": {
+    "value": 0.1914,
+    "estimated": true
+   }
   },
   {
    "id": "dqcp-3d",
@@ -21099,7 +21365,11 @@
      "target": "free-majorana-fermion-2d",
      "note": "The free massless Majorana fermion in three dimensions."
     }
-   ]
+   ],
+   "flow_height": {
+    "value": 0.11,
+    "estimated": false
+   }
   },
   {
    "id": "free-scalar-3d",
@@ -21164,7 +21434,8 @@
     {
      "type": "flows_to",
      "target": "ising-3d",
-     "note": "Relevant $\\phi^4$ deformation, with $m^2$ tuned to the critical point (Wilson–Fisher)."
+     "note": "Relevant $\\phi^4$ deformation, with $m^2$ tuned to the critical point (Wilson–Fisher).",
+     "flow_key": "free-scalar-3d@0"
     }
    ],
    "references": [
@@ -21191,7 +21462,11 @@
      "target": "free-scalar-4d",
      "note": "The free scalar in $d=3$ and $d=4$: $\\phi^4$ is relevant in $d=3$ (flowing to the 3d Ising CFT) and marginally irrelevant in $d=4$."
     }
-   ]
+   ],
+   "flow_height": {
+    "value": 0.0638,
+    "estimated": false
+   }
   },
   {
    "id": "gny-3d",
@@ -23634,7 +23909,8 @@
     {
      "type": "flows_to",
      "target": "trivial-tqft-3d",
-     "note": "Thermal deformation $S=S_{\\rm Ising}+t\\int d^3x\\,\\epsilon$ with $t>0$ the disordered side, $\\epsilon$ normalized so that $\\lambda_{\\sigma\\sigma\\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$. The global $\\mathbb Z_2$ remains unbroken, acting trivially in the infrared, with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary Ising normalization. No stacked invertible sector is included. [Caselle et al.](https://arxiv.org/abs/1605.05133), Eqs. (1), (4), the value of $C^{\\epsilon}_{\\sigma\\sigma}$ after Eq. (5) and the Monte Carlo convention $t_{\\rm lat}=\\beta_c-\\beta>0$ at high temperature; [Bhardwaj et al.](https://arxiv.org/abs/2408.05266), Sec. 4.1.1, Eqs. (4.8)-(4.10)."
+     "note": "Thermal deformation $S=S_{\\rm Ising}+t\\int d^3x\\,\\epsilon$ with $t>0$ the disordered side, $\\epsilon$ normalized so that $\\lambda_{\\sigma\\sigma\\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$. The global $\\mathbb Z_2$ remains unbroken, acting trivially in the infrared, with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary Ising normalization. No stacked invertible sector is included. [Caselle et al.](https://arxiv.org/abs/1605.05133), Eqs. (1), (4), the value of $C^{\\epsilon}_{\\sigma\\sigma}$ after Eq. (5) and the Monte Carlo convention $t_{\\rm lat}=\\beta_c-\\beta>0$ at high temperature; [Bhardwaj et al.](https://arxiv.org/abs/2408.05266), Sec. 4.1.1, Eqs. (4.8)-(4.10).",
+     "flow_key": "ising-3d@1"
     }
    ],
    "references": [
@@ -23765,7 +24041,9 @@
     {
      "type": "flows_from",
      "target": "free-scalar-3d",
-     "note": "Relevant $\\phi^4$ deformation, with $m^2$ tuned to the critical point (Wilson–Fisher)."
+     "note": "Relevant $\\phi^4$ deformation, with $m^2$ tuned to the critical point (Wilson–Fisher).",
+     "flow_key": "free-scalar-3d@0",
+     "source_entry": "free-scalar-3d"
     },
     {
      "type": "related_to",
@@ -23785,14 +24063,22 @@
     {
      "type": "flows_from",
      "target": "o2-model-3d",
-     "note": "Relevant charge-2 anisotropy $t \\propto \\phi_1^2 - \\phi_2^2$, with the mass tuned so that the lighter component is critical."
+     "note": "Relevant charge-2 anisotropy $t \\propto \\phi_1^2 - \\phi_2^2$, with the mass tuned so that the lighter component is critical.",
+     "flow_key": "o2-model-3d@0",
+     "source_entry": "o2-model-3d"
     },
     {
      "type": "flows_from",
      "target": "o3-model-3d",
-     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy axis, with the mass tuned to criticality."
+     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy axis, with the mass tuned to criticality.",
+     "flow_key": "o3-model-3d@0",
+     "source_entry": "o3-model-3d"
     }
-   ]
+   ],
+   "flow_height": {
+    "value": 0.0612,
+    "estimated": false
+   }
   },
   {
    "id": "ising-star-3d",
@@ -24315,7 +24601,11 @@
     "Canonical111"
    ],
    "source": "data/theories/minimal-n4-scft-3d.yaml",
-   "backlinks": []
+   "backlinks": [],
+   "flow_height": {
+    "value": 0.642965,
+    "estimated": false
+   }
   },
   {
    "id": "n2-super-ising-3d",
@@ -24558,7 +24848,11 @@
      "target": "xyz-model-3d",
      "note": "On the same conformal manifold: deforming $W = XYZ$ by $X^3+Y^3+Z^3$ connects the XYZ model to three decoupled copies of the $\\mathcal{N}=2$ super-Ising model."
     }
-   ]
+   ],
+   "flow_height": {
+    "value": 0.290791,
+    "estimated": false
+   }
   },
   {
    "id": "n4-sqed-3d",
@@ -24775,6 +25069,7 @@
     "Critical 3d XY model"
    ],
    "d": 3,
+   "uv_dof": 2,
    "summary": "The conformal field theory of the 3d XY universality class: the infrared fixed point of a complex scalar with a $|\\phi|^4$ interaction. It describes the superfluid transition of helium-4.",
    "tags": [
     "CFT",
@@ -24982,7 +25277,8 @@
     {
      "type": "flows_to",
      "target": "ising-3d",
-     "note": "Relevant charge-2 anisotropy $t \\propto \\phi_1^2 - \\phi_2^2$, with the mass tuned so that the lighter component is critical."
+     "note": "Relevant charge-2 anisotropy $t \\propto \\phi_1^2 - \\phi_2^2$, with the mass tuned so that the lighter component is critical.",
+     "flow_key": "o2-model-3d@0"
     },
     {
      "type": "member_of",
@@ -25083,14 +25379,20 @@
     {
      "type": "flows_from",
      "target": "o3-model-3d",
-     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy plane, with the mass tuned to criticality."
+     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy plane, with the mass tuned to criticality.",
+     "flow_key": "o3-model-3d@1",
+     "source_entry": "o3-model-3d"
     },
     {
      "type": "dual_to",
      "target": "scalar-qed3-3d",
      "note": "The $N=1$ member (particle–vortex duality)."
     }
-   ]
+   ],
+   "flow_height": {
+    "value": 0.1276,
+    "estimated": true
+   }
   },
   {
    "id": "o3-model-3d",
@@ -25101,6 +25403,7 @@
     "Critical 3d Heisenberg model"
    ],
    "d": 3,
+   "uv_dof": 3,
    "summary": "The conformal field theory of the 3d Heisenberg universality class: the infrared fixed point of three real scalars with an $O(3)$-invariant quartic interaction. It describes the Curie transition of isotropic magnets.",
    "tags": [
     "CFT",
@@ -25306,12 +25609,14 @@
     {
      "type": "flows_to",
      "target": "ising-3d",
-     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy axis, with the mass tuned to criticality."
+     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy axis, with the mass tuned to criticality.",
+     "flow_key": "o3-model-3d@0"
     },
     {
      "type": "flows_to",
      "target": "o2-model-3d",
-     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy plane, with the mass tuned to criticality."
+     "note": "Uniaxial anisotropy (the rank-2 operator $t$) favouring an easy plane, with the mass tuned to criticality.",
+     "flow_key": "o3-model-3d@1"
     },
     {
      "type": "member_of",
@@ -25321,7 +25626,8 @@
     {
      "type": "flows_to",
      "target": "cubic-3d",
-     "note": "Cubic anisotropy (the cubic-invariant component of the rank-4 traceless symmetric operator), which is relevant at the $O(3)$ fixed point, with the mass tuned to criticality."
+     "note": "Cubic anisotropy (the cubic-invariant component of the rank-4 traceless symmetric operator), which is relevant at the $O(3)$ fixed point, with the mass tuned to criticality.",
+     "flow_key": "o3-model-3d@3"
     }
    ],
    "references": [
@@ -25383,7 +25689,11 @@
      "target": "gny-heisenberg-3d",
      "note": "Same order parameter; the GNY coupling to Dirac fermions changes the universality class."
     }
-   ]
+   ],
+   "flow_height": {
+    "value": 0.1914,
+    "estimated": true
+   }
   },
   {
    "id": "o4-model-3d",
@@ -27030,7 +27340,9 @@
     {
      "type": "flows_from",
      "target": "qed3-gn-3d",
-     "note": "Mass deformation of $\\phi$ toward the $\\langle\\phi\\rangle = 0$ phase, at the same $N_f$ (when the QED$_3$ fixed point exists)."
+     "note": "Mass deformation of $\\phi$ toward the $\\langle\\phi\\rangle = 0$ phase, at the same $N_f$ (when the QED$_3$ fixed point exists).",
+     "flow_key": "qed3-gn-3d@1",
+     "source_entry": "qed3-gn-3d"
     }
    ]
   },
@@ -27162,7 +27474,8 @@
     {
      "type": "flows_to",
      "target": "qed3-3d",
-     "note": "Mass deformation of $\\phi$ toward the $\\langle\\phi\\rangle = 0$ phase, at the same $N_f$ (when the QED$_3$ fixed point exists)."
+     "note": "Mass deformation of $\\phi$ toward the $\\langle\\phi\\rangle = 0$ phase, at the same $N_f$ (when the QED$_3$ fixed point exists).",
+     "flow_key": "qed3-gn-3d@1"
     }
    ],
    "references": [
@@ -27963,6 +28276,7 @@
     "Trivial gapped infrared fixed point"
    ],
    "d": 3,
+   "uv_dof": 0,
    "summary": "The normalized trivial bosonic theory: one state on every closed spatial surface and partition function one. Symmetry actions and background responses must be specified when it is used as an RG-flow endpoint.",
    "tags": [
     "CFT",
@@ -28004,9 +28318,15 @@
     {
      "type": "flows_from",
      "target": "ising-3d",
-     "note": "Thermal deformation $S=S_{\\rm Ising}+t\\int d^3x\\,\\epsilon$ with $t>0$ the disordered side, $\\epsilon$ normalized so that $\\lambda_{\\sigma\\sigma\\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$. The global $\\mathbb Z_2$ remains unbroken, acting trivially in the infrared, with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary Ising normalization. No stacked invertible sector is included. [Caselle et al.](https://arxiv.org/abs/1605.05133), Eqs. (1), (4), the value of $C^{\\epsilon}_{\\sigma\\sigma}$ after Eq. (5) and the Monte Carlo convention $t_{\\rm lat}=\\beta_c-\\beta>0$ at high temperature; [Bhardwaj et al.](https://arxiv.org/abs/2408.05266), Sec. 4.1.1, Eqs. (4.8)-(4.10)."
+     "note": "Thermal deformation $S=S_{\\rm Ising}+t\\int d^3x\\,\\epsilon$ with $t>0$ the disordered side, $\\epsilon$ normalized so that $\\lambda_{\\sigma\\sigma\\epsilon}>0$ as in the 3d Ising entry, and magnetic coupling $h=0$. The global $\\mathbb Z_2$ remains unbroken, acting trivially in the infrared, with response $Z(M,A)=1$ for flat symmetry backgrounds in the ordinary Ising normalization. No stacked invertible sector is included. [Caselle et al.](https://arxiv.org/abs/1605.05133), Eqs. (1), (4), the value of $C^{\\epsilon}_{\\sigma\\sigma}$ after Eq. (5) and the Monte Carlo convention $t_{\\rm lat}=\\beta_c-\\beta>0$ at high temperature; [Bhardwaj et al.](https://arxiv.org/abs/2408.05266), Sec. 4.1.1, Eqs. (4.8)-(4.10).",
+     "flow_key": "ising-3d@1",
+     "source_entry": "ising-3d"
     }
-   ]
+   ],
+   "flow_height": {
+    "value": 0.0,
+    "estimated": true
+   }
   },
   {
    "id": "xyz-model-3d",
@@ -28174,7 +28494,11 @@
     "Canonical111"
    ],
    "source": "data/theories/xyz-model-3d.yaml",
-   "backlinks": []
+   "backlinks": [],
+   "flow_height": {
+    "value": 0.872,
+    "estimated": false
+   }
   },
   {
    "id": "adjoint-qcd-su2-4d",
@@ -29187,7 +29511,11 @@
      "target": "free-form-d8plus",
      "note": "The same construction in $d = 4$ ($n = 2$)."
     }
-   ]
+   ],
+   "flow_height": {
+    "value": 0.17222222222222222,
+    "estimated": false
+   }
   },
   {
    "id": "free-scalar-4d",
@@ -29313,7 +29641,11 @@
     "rodriguez-va"
    ],
    "source": "data/theories/free-scalar-4d.yaml",
-   "backlinks": []
+   "backlinks": [],
+   "flow_height": {
+    "value": 0.002777777777777778,
+    "estimated": false
+   }
   },
   {
    "id": "free-weyl-fermion-4d",
@@ -29445,7 +29777,11 @@
     "nathansbenjamin"
    ],
    "source": "data/theories/free-weyl-fermion-4d.yaml",
-   "backlinks": []
+   "backlinks": [],
+   "flow_height": {
+    "value": 0.015277777777777777,
+    "estimated": false
+   }
   },
   {
    "id": "klebanov-witten-4d",
@@ -29593,7 +29929,8 @@
     {
      "type": "flows_to",
      "target": "n4-sym",
-     "note": "On the branch where all $A_k$, $B_l$ are proportional to the identity (the D3-branes at a smooth point of the conifold), $SU(N)\\times SU(N)$ breaks to its diagonal $SU(N)$. Of the $4N^2$ chiral components, $N^2-1$ are eaten, leaving three adjoints and four gauge-singlet chiral multiplets: the low-energy theory is $\\mathcal{N}=4$ $SU(N)$ SYM together with a decoupled free singlet sector."
+     "note": "On the branch where all $A_k$, $B_l$ are proportional to the identity (the D3-branes at a smooth point of the conifold), $SU(N)\\times SU(N)$ breaks to its diagonal $SU(N)$. Of the $4N^2$ chiral components, $N^2-1$ are eaten, leaving three adjoints and four gauge-singlet chiral multiplets: the low-energy theory is $\\mathcal{N}=4$ $SU(N)$ SYM together with a decoupled free singlet sector.",
+     "flow_key": "klebanov-witten-4d@0"
     },
     {
      "type": "related_to",
@@ -30531,7 +30868,11 @@
     "Canonical111"
    ],
    "source": "data/theories/minimal-ad-4d.yaml",
-   "backlinks": []
+   "backlinks": [],
+   "flow_height": {
+    "value": 0.35833333333333334,
+    "estimated": false
+   }
   },
   {
    "id": "n2-sqcd-4d",
@@ -30982,7 +31323,11 @@
      "note": "$4a = 6N^2 - 5N$. $N = 2$: $\\mathcal{N}=4$ $G_2$ SYM."
     }
    ],
-   "backlinks": []
+   "backlinks": [],
+   "flow_height": {
+    "value": 1.25,
+    "estimated": false
+   }
   },
   {
    "id": "n4-sym",
@@ -31083,7 +31428,8 @@
     {
      "type": "flows_to",
      "target": "yang-mills-4d",
-     "note": "Give masses to all adjoint scalars and fermions (\"$\\mathcal{N}=0^*$\"); below the mass scale the theory is pure Yang–Mills."
+     "note": "Give masses to all adjoint scalars and fermions (\"$\\mathcal{N}=0^*$\"); below the mass scale the theory is pure Yang–Mills.",
+     "flow_key": "n4-sym@0"
     }
    ],
    "contributors": [
@@ -31119,7 +31465,9 @@
     {
      "type": "flows_from",
      "target": "klebanov-witten-4d",
-     "note": "On the branch where all $A_k$, $B_l$ are proportional to the identity (the D3-branes at a smooth point of the conifold), $SU(N)\\times SU(N)$ breaks to its diagonal $SU(N)$. Of the $4N^2$ chiral components, $N^2-1$ are eaten, leaving three adjoints and four gauge-singlet chiral multiplets: the low-energy theory is $\\mathcal{N}=4$ $SU(N)$ SYM together with a decoupled free singlet sector."
+     "note": "On the branch where all $A_k$, $B_l$ are proportional to the identity (the D3-branes at a smooth point of the conifold), $SU(N)\\times SU(N)$ breaks to its diagonal $SU(N)$. Of the $4N^2$ chiral components, $N^2-1$ are eaten, leaving three adjoints and four gauge-singlet chiral multiplets: the low-energy theory is $\\mathcal{N}=4$ $SU(N)$ SYM together with a decoupled free singlet sector.",
+     "flow_key": "klebanov-witten-4d@0",
+     "source_entry": "klebanov-witten-4d"
     },
     {
      "type": "related_to",
@@ -32258,7 +32606,9 @@
     {
      "type": "flows_from",
      "target": "n4-sym",
-     "note": "Give masses to all adjoint scalars and fermions (\"$\\mathcal{N}=0^*$\"); below the mass scale the theory is pure Yang–Mills."
+     "note": "Give masses to all adjoint scalars and fermions (\"$\\mathcal{N}=0^*$\"); below the mass scale the theory is pure Yang–Mills.",
+     "flow_key": "n4-sym@0",
+     "source_entry": "n4-sym"
     },
     {
      "type": "related_to",
@@ -35683,5 +36033,6 @@
    ],
    "backlinks": []
   }
- ]
+ ],
+ "operations": []
 }

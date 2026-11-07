@@ -341,7 +341,7 @@ table.spectrum td:last-child { white-space: normal; min-width: 14rem; }
 /* ------------------------------------------------------------- RG flows */
 
 .flow-graph {
-  position: relative; display: flex; flex-direction: column; gap: 36px; margin-bottom: 14px; padding: 18px 34px;
+  position: relative; display: flex; flex-direction: column; gap: 40px; margin-bottom: 14px; padding: 18px 34px;
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
 }
 .flow-graph::before, .flow-graph::after { position: absolute; left: 10px; font-size: 0.75rem; color: var(--muted); }
@@ -360,5 +360,26 @@ table.spectrum td:last-child { white-space: normal; min-width: 14rem; }
 a.flow-node:hover, a.flow-node:focus-visible { background: var(--accent-soft); text-decoration: none; }
 .flow-node.current { background: var(--accent); color: var(--accent-text); }
 .flow-arrows { position: absolute; inset: 0; pointer-events: none; }
-.flow-arrows line { stroke: var(--accent); stroke-width: 1.5; }
-.flow-arrows polygon { fill: var(--accent); }
+.flow-kind { display: block; font-size: 0.75rem; opacity: 0.8; }
+.flow-arrows .flow-line { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; }
+.flow-arrows .flow-head { fill: var(--accent); }
+/* A wide invisible copy of each arrow, drawn just before it, so the line itself can be hovered, clicked or tapped. */
+.flow-arrows .flow-hit { fill: none; stroke: transparent; stroke-width: 18; pointer-events: stroke; cursor: pointer; }
+.flow-arrows .flow-line.selected, .flow-arrows .flow-hit:hover + .flow-line { stroke-width: 4.5; }
+.flow-node.composite { color: var(--text); border-style: dashed; }
+.flow-node.composite a { color: var(--accent); }
+.flow-deco { display: block; font-size: 0.75rem; color: var(--muted); }
+.flow-op { padding: 0 2px; }
+.flow-tip {
+  position: absolute; z-index: 3; max-width: 260px; padding: 4px 9px; font-size: 0.8rem; pointer-events: none;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+}
+.flow-hint { margin: -8px 0 10px; }
+.flow-panel { margin: 0 0 14px; padding: 10px 16px 14px; background: var(--surface); border: 1.5px solid var(--accent); border-radius: var(--radius); }
+.flow-panel:focus { outline: none; }
+.flow-panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.flow-panel-head h3 { margin: 4px 0 10px; font-size: 1.05rem; }
+.flow-panel .refs { margin: 0; padding-left: 1.4em; }
+.flow-open { margin-left: 4px; font-size: 0.85rem; }
+.flow-particles summary { cursor: pointer; color: var(--accent); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
