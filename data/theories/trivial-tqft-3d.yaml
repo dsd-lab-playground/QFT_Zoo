@@ -2,6 +2,7 @@ id: trivial-tqft-3d
 name: '3d trivial theory'
 aliases: ['Trivial gapped infrared fixed point']
 d: 3
+uv_dof: 0
 summary: >-
   The normalized trivial bosonic theory: one state on every closed spatial
   surface and partition function one. Symmetry actions and background

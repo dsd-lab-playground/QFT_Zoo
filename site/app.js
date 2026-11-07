@@ -617,52 +617,122 @@ function flowClusters(flows) {
   return [...clusters.values()];
 }
 
-/** One network, UV at the top and IR at the bottom. A theory's row is the longest chain
- *  of flows below it, so the vertical position shows order, not an energy scale. */
-function flowDiagram(cluster, current = null) {
-  const ranks = new Map();
-  const rank = (id, path) => {
-    if (ranks.has(id)) return ranks.get(id);
-    if (path.has(id)) return 0; // a cycle would be a data error; don't hang on it
-    path.add(id);
-    const r = Math.max(0, ...cluster.filter((f) => f.uv === id).map((f) => 1 + rank(f.ir, path)));
-    path.delete(id);
-    ranks.set(id, r);
-    return r;
-  };
+const MONOTONE_SYM = { 2: "c", 3: "F", 4: "a", 5: "\\tilde F", 6: "a" };
+
+/** Rows of one network, UV at the top and IR at the bottom, as compact as the flows allow. Theories are taken
+ *  in order of the quantity that decreases along flows (c, F or a: build.py's flow_height; where none is
+ *  recorded, a rough count of UV degrees of freedom), always after their UV theories. A theory joins the
+ *  lowest row so far unless a flow joins it to that row or its value is well below the row's (factor 1.6),
+ *  so height follows the monotone roughly while unrelated theories sit side by side. */
+function flowRows(cluster) {
   const ids = [...new Set(cluster.flatMap((f) => [f.uv, f.ir]))];
-  ids.forEach((id) => rank(id, new Set()));
+  const h = (id) => BY_ID.get(id).flow_height?.value;
+  const parents = (id) => cluster.filter((f) => f.ir === id).map((f) => f.uv);
+  const placed = new Set();
+  const order = [];
+  while (order.length < ids.length) {
+    const ready = ids.filter((id) => !placed.has(id) && parents(id).every((p) => placed.has(p)));
+    if (!ready.length) { order.push(...ids.filter((id) => !placed.has(id))); break; } // a cycle would be a data error
+    ready.sort((a, b) => (h(b) ?? Infinity) - (h(a) ?? Infinity));
+    placed.add(ready[0]);
+    order.push(ready[0]);
+  }
+  const rows = [];
+  for (const id of order) {
+    const row = rows.at(-1);
+    const [x, top] = [h(id), row && Math.max(...row.map(h).filter((v) => v != null))];
+    const near = x == null || !isFinite(top) || x === top || (x > 0 && top / x <= 1.6);
+    if (row && near && !parents(id).some((p) => row.includes(p))) row.push(id);
+    else rows.push([id]);
+  }
+  // Within a row, order theories by where their UV theories sit, to keep arrows from crossing.
+  const pos = new Map();
+  rows.forEach((row) => {
+    const bary = (id) => { const ps = parents(id).map((p) => pos.get(p)); return ps.length ? ps.reduce((s, v) => s + v, 0) / ps.length : 0.5; };
+    row.sort((a, b) => bary(a) - bary(b));
+    row.forEach((id, i) => pos.set(id, (i + 0.5) / row.length));
+  });
+  return rows;
+}
+
+function flowDiagram(cluster, current = null) {
   const node = (id) => {
     const t = BY_ID.get(id);
+    const fh = t.flow_height;
+    const sym = MONOTONE_SYM[t.d];
+    const title = fh && sym
+      ? ` title="${esc(fh.estimated ? `${sym} not recorded; placed by a rough count of UV degrees of freedom` : `${sym} ≈ ${+fh.value.toPrecision(4)}`)}"`
+      : "";
     return id === current
-      ? `<span class="flow-node current" data-flow-node="${esc(id)}" aria-current="page">${md(t.name, true)}</span>`
-      : `<a class="flow-node" data-flow-node="${esc(id)}" href="#/theory/${encodeURIComponent(id)}">${md(t.name, true)}</a>`;
+      ? `<span class="flow-node current" data-flow-node="${esc(id)}" aria-current="page"${title}>${md(t.name, true)}</span>`
+      : `<a class="flow-node" data-flow-node="${esc(id)}" href="#/theory/${encodeURIComponent(id)}"${title}>${md(t.name, true)}</a>`;
   };
-  const rows = [];
-  for (let r = Math.max(...ranks.values()); r >= 0; r--) {
-    const row = ids.filter((id) => ranks.get(id) === r);
-    rows.push(`<div class="flow-row" style="--n:${row.length}">${row.map(node).join("")}</div>`);
-  }
+  const rows = flowRows(cluster).map(
+    (row) => `<div class="flow-row" style="--n:${row.length}">${row.map(node).join("")}</div>`);
   const edges = cluster.map((f) => [f.uv, f.ir]);
   return `<div class="flow-graph" data-edges="${esc(JSON.stringify(edges))}">${rows.join("")}</div>`;
 }
 
-/** The arrows are decoration: the links and lists next to each diagram carry the same content. */
+/** The arrows are decoration: the links and lists next to each diagram carry the same content.
+ *  Arrows are straight, from the bottom of the UV box to the top of the IR box, and may pass under other boxes.
+ *  Several arrows at one box spread along its edge, in the order of the boxes at their other ends. An arrow that
+ *  would run along another one, or pass under a box where that box's own arrows start or end (so they can't be
+ *  told apart), bends slightly; shorter arrows stay straight. */
 function drawFlowArrows() {
   app.querySelectorAll(".flow-graph").forEach((g) => {
     g.querySelector("svg")?.remove();
     const box = g.getBoundingClientRect();
     const svg = svgEl("svg", { class: "flow-arrows", width: box.width, height: box.height, "aria-hidden": "true" });
-    for (const [uv, ir] of JSON.parse(g.dataset.edges)) {
-      const a = g.querySelector(`[data-flow-node="${CSS.escape(uv)}"]`).getBoundingClientRect();
-      const b = g.querySelector(`[data-flow-node="${CSS.escape(ir)}"]`).getBoundingClientRect();
-      const [x1, y1] = [a.left + a.width / 2 - box.left, a.bottom - box.top];
-      const [x2, y2] = [b.left + b.width / 2 - box.left, b.top - box.top - 2];
-      const len = Math.hypot(x2 - x1, y2 - y1) || 1;
-      const [ux, uy] = [(x2 - x1) / len, (y2 - y1) / len];
-      const [bx, by] = [x2 - 8 * ux, y2 - 8 * uy];
-      svgEl("line", { x1, y1, x2: bx, y2: by }, svg);
-      svgEl("polygon", { points: `${x2},${y2} ${bx - 4 * uy},${by + 4 * ux} ${bx + 4 * uy},${by - 4 * ux}` }, svg);
+    const R = new Map([...g.querySelectorAll("[data-flow-node]")].map((n) => {
+      const r = n.getBoundingClientRect();
+      return [n.dataset.flowNode, { l: r.left - box.left, r: r.right - box.left, t: r.top - box.top, b: r.bottom - box.top }];
+    }));
+    const cx = (id) => (R.get(id).l + R.get(id).r) / 2;
+    const edges = JSON.parse(g.dataset.edges);
+    const port = (id, end, other) => {
+      const mine = edges.filter((e) => e[end] === id).map((e) => e[1 - end]).sort((a, b) => cx(a) - cx(b));
+      const r = R.get(id), w = Math.min(r.r - r.l - 16, 22 * (mine.length - 1));
+      return mine.length < 2 ? cx(id) : cx(id) - w / 2 + (w * mine.indexOf(other)) / (mine.length - 1);
+    };
+    const arrows = edges.map(([uv, ir]) => {
+      const [x1, y1, x2, y2] = [port(uv, 0, ir), R.get(uv).b, port(ir, 1, uv), R.get(ir).t - 2];
+      return { uv, ir, x1, y1, x2, y2, len: Math.hypot(x2 - x1, y2 - y1) || 1 };
+    });
+    // Where arrows meet boxes: an arrow passing under a box close to one of these would seem to start or end there.
+    const ends = arrows.flatMap((A) => [[A.x1, A.y1, A.uv], [A.x2, A.y2 + 2, A.ir]]);
+    const passesEnd = (A) => ends.some(([x, y, id]) => id !== A.uv && id !== A.ir &&
+      A.p.some(([px, py]) => Math.hypot(px - x, py - y) < 8));
+    // Points along an arrow bent by `off` (quadratic, control point off px to the side of the midpoint).
+    const pts = (A, off) => {
+      const [nx, ny] = [-(A.y2 - A.y1) / A.len, (A.x2 - A.x1) / A.len];
+      const [qx, qy] = [(A.x1 + A.x2) / 2 + off * nx, (A.y1 + A.y2) / 2 + off * ny];
+      const n = Math.ceil(A.len / 4);
+      return { qx, qy, p: [...Array(n + 1).keys()].map((i) => { const s = i / n;
+        return [(1 - s) ** 2 * A.x1 + 2 * (1 - s) * s * qx + s * s * A.x2, (1 - s) ** 2 * A.y1 + 2 * (1 - s) * s * qy + s * s * A.y2]; }) };
+    };
+    const runsAlong = (p, q) => { // p stays within 5px of q for 24px or more
+      let run = 0;
+      for (let i = 1; i < p.length; i++) {
+        const near = q.some(([x, y]) => Math.hypot(x - p[i][0], y - p[i][1]) < 5);
+        run = near ? run + Math.hypot(p[i][0] - p[i - 1][0], p[i][1] - p[i - 1][1]) : 0;
+        if (run >= 24) return true;
+      }
+      return false;
+    };
+    const done = [];
+    for (const A of [...arrows].sort((a, b) => a.len - b.len)) {
+      for (const off of [0, 24, -24, 40, -40, 60, -60]) {
+        Object.assign(A, pts(A, off));
+        if (!passesEnd(A) && !done.some((B) => runsAlong(A.p, B.p))) break;
+      }
+      done.push(A);
+    }
+    for (const A of arrows) {
+      const len = Math.hypot(A.x2 - A.qx, A.y2 - A.qy) || 1;
+      const [ux, uy] = [(A.x2 - A.qx) / len, (A.y2 - A.qy) / len];
+      const [bx, by] = [A.x2 - 8 * ux, A.y2 - 8 * uy];
+      svgEl("path", { d: `M${A.x1},${A.y1} Q${A.qx},${A.qy} ${bx},${by}` }, svg);
+      svgEl("polygon", { points: `${A.x2},${A.y2} ${bx - 4 * uy},${by + 4 * ux} ${bx + 4 * uy},${by - 4 * ux}` }, svg);
     }
     g.prepend(svg);
   });
@@ -680,8 +750,9 @@ function viewFlows() {
       <h1>RG Flows</h1>
       <p class="lede">Surf the zoo along its renormalization-group flows, from the UV at the top to the IR at the bottom.
         Open a theory and its page shows where it flows to and from.</p>
-      <p class="small muted">${flows.length} flows among ${nTheories} theories so far. Height in a diagram shows the order of
-        the flows, not an energy scale. Know one that’s missing? Add a <code>flows_to</code> relation to the UV theory’s
+      <p class="small muted">${flows.length} flows among ${nTheories} theories so far. Height in a diagram follows the quantity
+        that decreases along flows (${tex("c")} in 2d, ${tex("F")} in 3d, ${tex("a")} in 4d) where it is recorded, and otherwise a
+        rough count of UV degrees of freedom; it is not an energy scale. Know one that’s missing? Add a <code>flows_to</code> relation to the UV theory’s
         entry: see <a href="#/contribute">Contribute</a>.</p>
     </header>
     ${clusters

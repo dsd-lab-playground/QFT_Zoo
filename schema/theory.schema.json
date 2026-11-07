@@ -125,6 +125,11 @@
         "$ref": "#/$defs/reference"
       }
     },
+    "uv_dof": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Rough number of UV degrees of freedom, in units of one real free scalar (e.g. 3 for three interacting scalars). Used only to place the theory in RG-flow diagrams when no c, F or a value is recorded; not physical data."
+    },
     "contributors": {
       "type": "array",
       "items": {

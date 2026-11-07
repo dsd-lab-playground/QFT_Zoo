@@ -5,6 +5,7 @@ aliases:
   - '$O(3)$ Wilson–Fisher fixed point'
   - Critical 3d Heisenberg model
 d: 3
+uv_dof: 3
 summary: >-
   The conformal field theory of the 3d Heisenberg universality class: the
   infrared fixed point of three real scalars with an $O(3)$-invariant quartic

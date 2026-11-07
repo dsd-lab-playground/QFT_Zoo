@@ -5,6 +5,7 @@ aliases:
   - '$O(2)$ Wilson–Fisher fixed point'
   - Critical 3d XY model
 d: 3
+uv_dof: 2
 summary: >-
   The conformal field theory of the 3d XY universality class: the infrared
   fixed point of a complex scalar with a $|\phi|^4$ interaction. It describes the

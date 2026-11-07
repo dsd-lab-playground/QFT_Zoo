@@ -4,6 +4,7 @@ aliases:
   - Cubic universality class
   - 'Cubic fixed point of three scalars'
 d: 3
+uv_dof: 3
 summary: >-
   The fixed point of three real scalars with a cubic-symmetric quartic interaction.
   Cubic anisotropy is relevant at the $O(3)$ (Heisenberg) point, so for one sign of it

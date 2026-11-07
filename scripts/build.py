@@ -116,6 +116,37 @@ def parse_value(v) -> Fraction | float | None:
     return None
 
 
+# The quantity that decreases along RG flows in each dimension (c-, F-, a-theorems; F~ in odd d).
+MONOTONE = {2: ["c"], 3: ["F"], 4: ["a", "a = c"], 5: ["\\tilde F", "F"], 6: ["a", "\\tilde F"]}
+_APPROX = re.compile(r"\\approx\s*(-?\d+(?:\.\d+)?)\s*$")
+
+
+def monotone_value(e: dict) -> float | None:
+    """The entry's recorded c / F / a as a number, if one of its quantities states it numerically."""
+    syms = MONOTONE.get(e["d"], [])
+    for q in e.get("quantities", []):
+        if q.get("key") in syms or q.get("symbol", "").strip() in syms:
+            v = str(q.get("value", "")).strip()
+            num = parse_value(v)
+            if num is None and (m := _APPROX.search(v)):
+                num = float(m.group(1))
+            if num is not None:
+                return float(num)
+    return None
+
+
+def flow_heights(entries: list[dict]) -> None:
+    """flow_height: where a theory sits in RG-flow diagrams. Its c / F / a when recorded, otherwise its
+    uv_dof (free-scalar units) times the free scalar's value in that dimension: a rough ordering only."""
+    scalar = {e["d"]: monotone_value(e) for e in entries if e["id"].startswith("free-scalar-")}
+    for e in entries:
+        v = monotone_value(e)
+        if v is not None:
+            e["flow_height"] = {"value": v, "estimated": False}
+        elif "uv_dof" in e and scalar.get(e["d"]) is not None:
+            e["flow_height"] = {"value": e["uv_dof"] * scalar[e["d"]], "estimated": True}
+
+
 def fmt(x: Fraction) -> str:
     return str(x.numerator) if x.denominator == 1 else f"{x.numerator}/{x.denominator}"
 
@@ -317,6 +348,7 @@ def load_all() -> tuple[list[dict], list[str]]:
         return (e["d"], c if c is not None else 99, e["id"])
 
     entries.sort(key=sort_key)
+    flow_heights(entries)
     return entries, errors
 
 

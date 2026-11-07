@@ -360,5 +360,5 @@ table.spectrum td:last-child { white-space: normal; min-width: 14rem; }
 a.flow-node:hover, a.flow-node:focus-visible { background: var(--accent-soft); text-decoration: none; }
 .flow-node.current { background: var(--accent); color: var(--accent-text); }
 .flow-arrows { position: absolute; inset: 0; pointer-events: none; }
-.flow-arrows line { stroke: var(--accent); stroke-width: 1.5; }
+.flow-arrows path { fill: none; stroke: var(--accent); stroke-width: 1.5; }
 .flow-arrows polygon { fill: var(--accent); }
