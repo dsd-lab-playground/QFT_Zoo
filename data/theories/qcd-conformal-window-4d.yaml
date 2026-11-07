@@ -96,6 +96,11 @@ symmetry:
   lorentzian: '$O(4,2)$'
   supercharges: 0
   global: '$SU(N_f)_L\times SU(N_f)_R\times U(1)_V$ (the axial $U(1)$ is anomalous), charge conjugation, parity and time reversal'
+  parity: true
+  global_group:
+    - {id: SU(Nf)_L, group: SU(N_f), tex: 'SU(N_f)_L'}
+    - {id: SU(Nf)_R, group: SU(N_f), tex: 'SU(N_f)_R', note: 'Parity exchanges $SU(N_f)_L$ and $SU(N_f)_R$.'}
+    - {id: U(1)_V, group: U(1), tex: 'U(1)_V'}
   gauge: '$SU(N_c)$'
 
 quantities:
@@ -128,34 +133,39 @@ operators:
   - name: '\bar\psi\psi\ (N_f = 12)'
     Delta: '2.662'
     spin: 0
-    rep: '$SU(N_f)$ adjoint and singlet (same anomalous dimension)'
+    parity: pair
+    global: {SU(Nf)_L: fundamental, SU(Nf)_R: antifundamental, U(1)_V: 0}
     method: BZ, scheme-independent, fourth order, from γ
     refs: [ryttov2017, dipietro2020]
     note: '$3 - \gamma$ with $\gamma = 0.338$ from Table I. Resummed perturbation theory gives $|\gamma| = 0.345(47)$ [@dipietro2020].'
   - name: '\bar\psi\psi\ (N_f = 12)'
     Delta: '2.765(15)'
     spin: 0
-    rep: '$SU(N_f)$ adjoint and singlet'
+    parity: pair
+    global: {SU(Nf)_L: fundamental, SU(Nf)_R: antifundamental, U(1)_V: 0}
     method: LGT, finite-size scaling, from γ_m
     refs: [cheng2014, lombardo2014, aoki2012]
     note: '$3 - \gamma_m$ with $\gamma_m = 0.235(15)$ [@cheng2014]. Also $\gamma_m = 0.235(46)$ [@lombardo2014] and $\gamma_m \sim 0.4$–$0.5$ [@aoki2012].'
   - name: '\mathrm{Tr}\,F_{\mu\nu}F^{\mu\nu}\ (N_f = 12)'
     Delta: '4.228'
     spin: 0
-    rep: singlet
+    parity: even
+    global: {SU(Nf)_L: singlet, SU(Nf)_R: singlet, U(1)_V: 0}
     method: BZ, scheme-independent, fifth order, from β′
     refs: [ryttov2017, hasenfratz2018, dipietro2020]
     note: '$4 + \beta^\prime(\alpha_*)$ (eq. 4.2) with $\beta^\prime = 0.228$ from Table VIII. Lattice: leading irrelevant exponent $0.26(2)$ [@hasenfratz2018]; resummed perturbation theory $0.23(6)$.'
   - name: 'J_\mu^{L},\ J_\mu^{R},\ J_\mu^{V}'
     Delta: 3
     spin: 1
-    rep: '$SU(N_f)_L$ and $SU(N_f)_R$ adjoints, $U(1)_V$'
+    parity: unknown
+    global: {SU(Nf)_L: [singlet, adjoint], SU(Nf)_R: [singlet, adjoint], U(1)_V: 0}
     method: exact
     note: Conserved flavor currents.
   - name: 'T_{\mu\nu}'
     Delta: 4
     spin: 2
-    rep: singlet
+    parity: even
+    global: {SU(Nf)_L: singlet, SU(Nf)_R: singlet, U(1)_V: 0}
     method: exact
     note: Stress tensor (conserved).
 

@@ -73,6 +73,11 @@ symmetry:
   lorentzian: '$O(4,2)$'
   supercharges: 0
   global: '$SU(N_f)_L\times SU(N_f)_R$ flavor symmetry, under which $H$ is a bifundamental, and the $U(1)_V$ fermion number'
+  parity: true
+  global_group:
+    - {id: SU(Nf)_L, group: SU(N_f), tex: 'SU(N_f)_L'}
+    - {id: SU(Nf)_R, group: SU(N_f), tex: 'SU(N_f)_R', note: 'Parity exchanges $SU(N_f)_L$ and $SU(N_f)_R$.'}
+    - {id: U(1)_V, group: U(1), tex: 'U(1)_V'}
   gauge: '$SU(N_c)$; $H$ is a gauge singlet'
 
 quantities:
@@ -129,14 +134,16 @@ operators:
   - name: 'H'
     Delta: '1 + \frac{4}{19}\,\epsilon + \frac{14567 - 2376\sqrt{23}}{6859}\,\epsilon^2 + O(\epsilon^3)'
     spin: 0
-    rep: 'gauge singlet; $(N_f, \bar N_f)$ bifundamental of the flavor group'
+    parity: pair
+    global: {SU(Nf)_L: fundamental, SU(Nf)_R: antifundamental, U(1)_V: 0}
     method: PT, Veneziano limit
     refs: [litim2014, litim2023]
     note: 'Numerically $1 + 0.2105\,\epsilon + 0.4625\,\epsilon^2$; four loops add $2.471\,\epsilon^3$.'
   - name: 'T_{\mu\nu}'
     Delta: 4
     spin: 2
-    rep: singlet
+    parity: even
+    global: {SU(Nf)_L: singlet, SU(Nf)_R: singlet, U(1)_V: 0}
     method: exact
     note: Stress tensor (conserved).
 

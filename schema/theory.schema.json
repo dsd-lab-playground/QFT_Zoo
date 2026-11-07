@@ -1194,7 +1194,7 @@
         },
         "group": {
           "type": "string",
-          "description": "Group type: Z2, Z_n (Z3, ...), U(1), O(N), SO(N), SU(N), Sp(N) (N even: Sp(2) = SU(2)), S_n, D_n (dihedral, order 2n) or finite (with `irreps`). N may be an integer or a parameter symbol of the entry, e.g. 'SU(N_f)'."
+          "description": "Group type: Z2, Z_n (Z3, ...), U(1), O(N), SO(N), SU(N), Sp(N) (N even: Sp(2) = SU(2)), S_n, D_n (dihedral, order 2n), E_6, E_7, E_8, Lie(G) (a group that differs between family members; labels singlet, adjoint) or finite (with `irreps`). N may be an integer or a parameter symbol of the entry, e.g. 'SU(N_f)'."
         },
         "tex": {
           "type": "string",

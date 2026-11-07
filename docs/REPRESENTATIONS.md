@@ -166,6 +166,19 @@ table (exceptional groups, $Spin(N)$ with spinor-tensor irreps, $\mathfrak{osp}$
 are added to the vocabulary in `scripts/reps.py` when a migrated entry first needs them; until
 then `finite` (for finite groups) or a legacy entry serves.
 
+*Added for the $d \geq 4$ entries* (`scripts/reps.py`, extension blocks):
+
+| Group | Labels | Shown as |
+|---|---|---|
+| `E_6`, `E_7`, `E_8` | `singlet`, `adjoint` ($\mathbf{78}$, $\mathbf{133}$, $\mathbf{248}$); `fundamental` ($\mathbf{27}$ of $E_6$, $\mathbf{56}$ of $E_7$), `antifundamental` ($\overline{\mathbf{27}}$) | $E_8$ adjoint $\mathbf{248}$ |
+| `Lie(G)` | `singlet`, `adjoint` | $G_L$ adjoint |
+| `U(1)` | also a charge that is an expression in the entry's parameters, with an optional sign or `±`: `'2(N_f-N_c)/N_f'`, `'±N_c'` (after the numeric charges) | $U(1)_B$ charge $\pm N_c$ |
+
+`Lie(G)` is a continuous group that differs between the members of a family, so that no single group type fits:
+$G_L\times G_R$ of conformal matter, the $E_n$ of Seiberg's 5d theories, the flavor group of each Argyres–Douglas
+theory. `G` is its display name; only labels valid for every member are offered, and `adjoint` is the adjoint of its
+Lie algebra (reducible for a member whose group is not simple).
+
 ### 1.5 Supersymmetric theories
 
 The R-symmetry is a factor of `global_group` like any other (`SU(4)_R`, `SU(2)_R`, `U(1)_r`),
