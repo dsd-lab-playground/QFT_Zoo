@@ -1,0 +1,10 @@
+# Synthetic test fixture. Not physics.
+id: fixture-tqft
+name: 'Fixture TQFT'
+d: 3
+summary: 'Synthetic gapped endpoint tagged TQFT only.'
+tags: [TQFT, gapped]
+references:
+  - key: src
+    title: 'Synthetic fixture source'
+    url: 'https://example.org/fixture-tqft'
