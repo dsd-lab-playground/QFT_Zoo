@@ -7,7 +7,7 @@ aliases:
 d: 3
 summary: >-
   Status disputed: the Néel–VBS transition of spin-1/2 square-lattice magnets, described
-  by the $N=2$ Abelian Higgs (NCCP$^1$) model with emergent $SO(5)$. It may be a unitary
+  by scalar QED$_3$ with $N=2$ complex scalars (the NCCP$^1$ model) with emergent $SO(5)$. It may be a unitary
   CFT, a weakly first-order transition near complex fixed points, or a multicritical point.
 tags: [interacting, Lagrangian, gauge theory, critical phenomena]
 
@@ -121,7 +121,7 @@ operators:
 
 relations:
   - type: member_of
-    target: abelian-higgs-3d
+    target: scalar-qed3-3d
     at: 2
 
 references:
