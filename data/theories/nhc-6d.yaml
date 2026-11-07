@@ -15,7 +15,7 @@ tags: [CFT, SCFT, interacting, unitary, supersymmetric, non-Lagrangian, family]
 description: |
   In F-theory on an elliptically fibered Calabi–Yau threefold, a rational curve of
   self-intersection $-n$ with $n\ge3$ in the base forces a singular elliptic fiber over it, and
-  hence a gauge algebra that cannot be Higgsed (Morrison and Taylor). For an isolated curve the
+  hence a gauge algebra that cannot be Higgsed [@morrison2012]. For an isolated curve the
   algebra and matter are fixed by $n$: $\mathfrak{su}(3)$, $\mathfrak{so}(8)$, $\mathfrak{f}_4$,
   $\mathfrak{e}_6$ for $n=3,4,5,6$, $\mathfrak{e}_7$ with a half-hypermultiplet in the
   $\mathbf{56}$ for $n=7$, $\mathfrak{e}_7$ for $n=8$, and $\mathfrak{e}_8$ for $n=12$. Curves
@@ -30,19 +30,19 @@ description: |
   The non-Higgsable clusters and chains of $-2$ curves are the building blocks of the F-theory
   classification of 6d SCFTs: they are glued by $-1$ curves, and the algebras
   $\mathfrak{g}_L$, $\mathfrak{g}_R$ on the two curves meeting a $-1$ curve must satisfy
-  $\mathfrak{g}_L\times\mathfrak{g}_R\subset\mathfrak{e}_8$ (Heckman, Morrison, Rudelius and Vafa).
+  $\mathfrak{g}_L\times\mathfrak{g}_R\subset\mathfrak{e}_8$ [@heckman2015].
 
   ### Anomalies
-  Ohmori, Shimizu, Tachikawa and Yonekura obtain the anomaly polynomial of the SCFT on its tensor
+  Ohmori, Shimizu, Tachikawa and Yonekura [@ohmori2014b] obtain the anomaly polynomial of the SCFT on its tensor
   branch: the one-loop anomaly of the tensor, vector and hypermultiplets plus a Green–Schwarz
   term $\tfrac{n}{2}I^2$, fixed by the cancellation of gauge anomalies. In their conventions
   $I = \tfrac14\mathrm{Tr}F^2 + \tfrac{n-2}{4n}p_1(T) + \tfrac{h^\vee}{n}c_2(R)$, where Tr is the
-  adjoint trace divided by the dual Coxeter number $h^\vee$ (their eqs. (3.29)–(3.32) for one
+  adjoint trace divided by the dual Coxeter number $h^\vee$ ([@ohmori2014b, Eqs. (3.29)–(3.32)] for one
   curve). They give the $c_2(R)^2$ coefficient in closed form. The full coefficients and $a$ in
   the members table were computed here with the same procedure and are marked as derived. As
-  checks, the $c_2(R)^2$ coefficients agree with their eq. (1.11), and the same computation
-  reproduces their $(E_6,E_6)$ conformal-matter anomaly, eq. (3.12). The normalization is that
-  of Córdova, Dumitrescu and Intriligator,
+  checks, the $c_2(R)^2$ coefficients agree with [@ohmori2014b, Eq. (1.11)], and the same computation
+  reproduces their $(E_6,E_6)$ conformal-matter anomaly [@ohmori2014b, Eq. (3.12)]. The normalization is that
+  of Córdova, Dumitrescu and Intriligator [@cordova2015],
   $I_8 = \tfrac{1}{4!}\left(\alpha c_2(R)^2 + \beta c_2(R)p_1(T) + \gamma p_1(T)^2 + \delta p_2(T)\right)$,
   and $a = \tfrac{16}{7}(\alpha-\beta+\gamma)+\tfrac67\delta$, with $a=1$ for a free $(2,0)$
   tensor multiplet.
@@ -89,13 +89,13 @@ quantities:
     value: '\frac{(h^\vee_G)^2}{2w_G} - \frac{d_G-1}{24}'
     method: anomaly matching on the tensor branch
     refs: [ohmori2014b]
-    note: 'Ohmori et al. eq. (1.11). $d_G$ is the dimension of $G$ and $\mathrm{tr}_{\rm adj}F^4 = \tfrac34 w_G(\mathrm{Tr}F^2)^2$; their Table 3 gives $w_G = 3, 5, 6, 8, 12$ for $\mathfrak{su}(3)$, $\mathfrak{f}_4$, $\mathfrak{e}_6$, $\mathfrak{e}_7$, $\mathfrak{e}_8$, and Table 2 gives $w = 4$ for $\mathfrak{so}(8)$ (where $t_G = 0$, $u_G = 4$); in each case $w_G = n$. This coefficient is $\alpha/24$.'
+    note: '[@ohmori2014b, Eq. (1.11)]. $d_G$ is the dimension of $G$ and $\mathrm{tr}_{\rm adj}F^4 = \tfrac34 w_G(\mathrm{Tr}F^2)^2$; [@ohmori2014b, Table 3] gives $w_G = 3, 5, 6, 8, 12$ for $\mathfrak{su}(3)$, $\mathfrak{f}_4$, $\mathfrak{e}_6$, $\mathfrak{e}_7$, $\mathfrak{e}_8$, and [@ohmori2014b, Table 2] gives $w = 4$ for $\mathfrak{so}(8)$ (where $t_G = 0$, $u_G = 4$); in each case $w_G = n$. This coefficient is $\alpha/24$.'
   - symbol: '(\alpha,\beta,\gamma,\delta)'
-    description: '''t Hooft anomalies of the pure-gauge members ($n\neq7$), normalization of Córdova et al.'
+    description: '''t Hooft anomalies of the pure-gauge members ($n\neq7$), normalization of Córdova et al. [@cordova2015]'
     value: '\left(\tfrac{12(h^\vee)^2}{n}-(d_G-1),\ \tfrac{6h^\vee(n-2)}{n}-\tfrac{d_G-1}{2},\ \tfrac{3(n-2)^2}{4n}+\tfrac{23-7d_G}{240},\ \tfrac{d_G-29}{60}\right)'
     method: derived
     refs: [ohmori2014b, cordova2015]
-    note: 'Computed here from the one-loop anomalies of Ohmori et al. App. A and the Green–Schwarz term above. Anomaly cancellation for $p_1(T)\,\mathrm{Tr}F^2$ requires $h^\vee = 3(n-2)$, which holds for every pure-gauge member. $\delta = (n_V - n_H - 29n_T)/60$ counts multiplets.'
+    note: 'Computed here from the one-loop anomalies of Ohmori et al. [@ohmori2014b, App. A] and the Green–Schwarz term above. Anomaly cancellation for $p_1(T)\,\mathrm{Tr}F^2$ requires $h^\vee = 3(n-2)$, which holds for every pure-gauge member. $\delta = (n_V - n_H - 29n_T)/60$ counts multiplets.'
 
 operators:
   - name: 'T_{\mu\nu}'

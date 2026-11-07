@@ -8,20 +8,20 @@ aliases:
 d: 2
 summary: >-
   Chiral CFTs with $c = 24$ and a single module, with $Z = J(\tau) + N$, $N = \dim V_1$.
-  Schellekens found 71 possible weight-1 Lie algebras $V_1$; all 71 occur, and $V_1 \neq 0$ fixes the
+  Schellekens [@schellekens1993] found 71 possible weight-1 Lie algebras $V_1$; all 71 occur, and $V_1 \neq 0$ fixes the
   theory. Uniqueness for $V_1 = 0$ (the Monster CFT) is open.
 tags: [CFT, rational, family]
 
 description: |
   A holomorphic (meromorphic, self-dual) CFT has only one irreducible module, the vacuum module.
   Its character is invariant under $S$ and changes by a phase under $T$, so $c \in 8\mathbb{Z}$, and it is
-  a modular invariant partition function by itself when $c \in 24\mathbb{Z}$ (Schellekens, section 1).
+  a modular invariant partition function by itself when $c \in 24\mathbb{Z}$ [@schellekens1993, Sec. 1].
   For $c = 8$ and $16$ the only examples are the lattice theories of $E_8$, of $E_8\times E_8$, and of
   $D_{16}$ with a spinor weight added. At $c = 24$, with $c_L = 24$ and $c_R = 0$, modular invariance fixes
   $$Z(\tau) = J(\tau) + N = q^{-1} + N + 196884\,q + 21493760\,q^2 + \dots,\qquad N = \dim V_1,$$
-  so the theories differ already in their weight-1 currents (Witten, section 3.1).
+  so the theories differ already in their weight-1 currents [@witten2007, Sec. 3.1].
 
-  **Schellekens' list.** The weight-1 currents form a Lie algebra $V_1$. Schellekens showed, by
+  **Schellekens' list.** The weight-1 currents form a Lie algebra $V_1$. Schellekens [@schellekens1993, Sec. 2] showed, by
   trace identities for the character twisted by the zero modes of the currents, that either $N = 0$,
   or $N = 24$ and the theory is the Leech lattice CFT, or $N > 24$ and $V_1$ generates an affine
   (current) algebra $\bigoplus_i (\mathfrak{g}_i)_{k_i}$ of total central charge 24 with
@@ -36,25 +36,25 @@ description: |
   strings, through the embeddings of $D_{8,1}$.
 
   **Status.** For strongly rational holomorphic vertex operator algebras of central charge 24:
-  (a) $V_1$ is $0$, 24-dimensional abelian, or one of the 69 semisimple Lie algebras of Schellekens
-  (van Ekeren, Möller and Scheithauer made Schellekens' argument a theorem; van Ekeren, Lam, Möller
-  and Shimakura gave a simpler proof); (b) every Lie algebra on the list is realized; (c) for
+  (a) $V_1$ is $0$, 24-dimensional abelian, or one of the 69 semisimple Lie algebras of Schellekens [@schellekens1993]
+  (van Ekeren, Möller and Scheithauer [@ems2020] made Schellekens' argument a theorem; van Ekeren, Lam, Möller
+  and Shimakura [@elms2021] gave a simpler proof); (b) every Lie algebra on the list is realized; (c) for
   $V_1 \neq 0$, $V_1$ determines the theory up to isomorphism. Items (b) and (c) were proved case by
-  case by many authors, and Lam and Shimakura completed the uniqueness proof. Uniform proofs followed:
+  case by many authors, and Lam and Shimakura [@ls2020] completed the uniqueness proof. Uniform proofs followed:
   every theory with $V_1 \neq 0$ is a cyclic orbifold of the Leech lattice theory by a "generalised
-  deep hole" (Möller and Scheithauer), or of a Niemeier lattice theory (Höhn and Möller, who also
-  prove uniqueness systematically); Betsumiya, Lam and Shimakura give another uniqueness proof. The
+  deep hole" [@ms2023], or of a Niemeier lattice theory (Höhn and Möller [@hm2022], who also
+  prove uniqueness systematically); Betsumiya, Lam and Shimakura [@bls2023] give another uniqueness proof. The
   theories with $\mathrm{rank}\,V_1 = 24$ are exactly the Niemeier lattice theories. The remaining
-  open case is $V_1 = 0$: Frenkel, Lepowsky and Meurman conjectured that the Monster CFT is the only
+  open case is $V_1 = 0$: Frenkel, Lepowsky and Meurman [@flm1988] conjectured that the Monster CFT is the only
   such theory.
 
-  In Witten's proposal for three-dimensional gravity, the 70 theories with currents would be dual to
+  In Witten's proposal [@witten2007] for three-dimensional gravity, the 70 theories with currents would be dual to
   gravity coupled to Chern–Simons gauge fields, and the $V_1 = 0$ theory to pure gravity.
 
 parameters:
   - symbol: 'N'
     description: 'Number of weight-1 states, $N = \dim V_1$ (the constant term of $Z$). Several theories can share a value of $N$.'
-    range: '$N = 0$, $24$, or one of the values $36, \dots, 1128$ in Schellekens'' table'
+    range: '$N = 0$, $24$, or one of the values $36, \dots, 1128$ in Schellekens'' table [@schellekens1993, Table 1]'
 
 family:
   parameter: N

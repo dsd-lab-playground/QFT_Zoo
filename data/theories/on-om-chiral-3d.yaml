@@ -15,9 +15,9 @@ description: |
   The fields form a real $m\times n$ matrix $\phi_{ar}$: $m$ vectors $\vec\phi_a$ of $n$
   components each, with $O(m)$ acting on $a$ and $O(n)$ on $r$. Here $n$ is the number of
   spin components, and $m = 2$ for coplanar noncollinear order, as in stacked triangular
-  antiferromagnets (120° structure) and helimagnets (Kawamura). Conventions vary: Nakayama–Ohtsuki write
-  $O(n)\times O(2)$, Reehorst et al. $O(N)\times O(2)$ with $N = n$, Henriksson et al.
-  $O(2)\times O(n)$, and Kompaniets et al. $O(n)\times O(m)$, all with $n$ the number
+  antiferromagnets (120° structure) and helimagnets [@kawamura1988]. Conventions vary: Nakayama–Ohtsuki [@nakayama2015] write
+  $O(n)\times O(2)$, Reehorst et al. [@reehorst2024] $O(N)\times O(2)$ with $N = n$, Henriksson et al. [@henriksson2020]
+  $O(2)\times O(n)$, and Kompaniets et al. [@kompaniets2020] $O(n)\times O(m)$, all with $n$ the number
   of spin components.
 
   In the $\epsilon$-expansion the couplings $(u, v)$ have four fixed points for
@@ -30,24 +30,23 @@ description: |
 
   ### Status
   - **Against a fixed point at $n = 2, 3$.** The six-loop $\epsilon$-expansion, resummed,
-    gives $n^+(2) = 5.96(19)$ in $d=3$ (Kompaniets et al.). The functional RG finds
+    gives $n^+(2) = 5.96(19)$ in $d=3$ [@kompaniets2020]. The functional RG finds
     $n^+(2) \simeq 5.1$ in $d=3$ and explains the nonuniversal exponents seen in experiments by
-    a slow flow without a fixed point, i.e. weak first-order transitions (Delamotte,
-    Mouhanna and Tissier). Wang–Landau Monte Carlo finds first-order transitions in
-    the XY and Heisenberg stacked triangular antiferromagnets (Ngo and Diep).
+    a slow flow without a fixed point, i.e. weak first-order transitions [@delamotte2004]. Wang–Landau Monte Carlo finds first-order transitions in
+    the XY and Heisenberg stacked triangular antiferromagnets [@ngo2008a; @ngo2008b].
   - **For a fixed point.** Six-loop perturbation theory directly in $d=3$, resummed,
-    finds a stable chiral fixed point for $n = 2, 3$ (Pelissetto, Rossi and Vicari), of
-    focus type, with complex correction exponents (Calabrese, Parruccini and Sokolov).
-    Delamotte et al. (2010) argue that these fixed points are spurious, because the
+    finds a stable chiral fixed point for $n = 2, 3$ [@pelissetto2001], of
+    focus type, with complex correction exponents [@calabrese2002].
+    Delamotte et al. [@delamotte2010] argue that these fixed points are spurious, because the
     exponents depend strongly on the resummation parameters and the loop order; a
     complex correction exponent is also incompatible with a unitary fixed point
-    (Reehorst et al.). Monte Carlo of the Heisenberg antiferromagnet up to $384^3$
-    reports a continuous transition with $\nu = 0.52(1)$ (Nagano, Uematsu and Kawamura).
-  - **Bootstrap.** Nakayama and Ohtsuki found kinks for $n = 3, 4$ that they identified
-    with the chiral and collinear fixed points. Henriksson, Kousvos and Stergiou found
+    [@reehorst2024]. Monte Carlo of the Heisenberg antiferromagnet up to $384^3$
+    reports a continuous transition with $\nu = 0.52(1)$ [@nagano2019].
+  - **Bootstrap.** Nakayama and Ohtsuki [@nakayama2015] found kinks for $n = 3, 4$ that they identified
+    with the chiral and collinear fixed points. Henriksson, Kousvos and Stergiou [@henriksson2020] found
     islands for $O(2)\times O(3)$ under gap-saturation assumptions ($\nu = 0.639(7)$),
     but also that the kinks attributed to the large-$n$ chiral point fade between
-    $n = 5$ and $6$. Reehorst, Rychkov, Sirois and van Rees followed the island of the
+    $n = 5$ and $6$. Reehorst, Rychkov, Sirois and van Rees [@reehorst2024] followed the island of the
     chiral point continuously in $(d, n)$ and found that in $d = 3$ it disappears
     already at some $n > 3.78$, i.e. $n^+(2) > 3.78$, which favours first-order
     transitions at $n = 2, 3$.
@@ -65,10 +64,10 @@ family:
   members:
     - at: 2
       label: XY stacked triangular antiferromagnets
-      note: 'Existence disputed; the $\epsilon$-expansion, the functional RG and Monte Carlo (Ngo and Diep 2008) indicate a first-order transition.'
+      note: 'Existence disputed; the $\epsilon$-expansion, the functional RG and Monte Carlo [@ngo2008a] indicate a first-order transition.'
     - at: 3
       label: Heisenberg stacked triangular antiferromagnets
-      note: 'Existence disputed. Bootstrap islands (Henriksson et al. 2020) and Monte Carlo (Nagano et al. 2019) support a fixed point but give incompatible $\nu$; the bootstrap of Reehorst et al. (2024) gives $n^+(2) > 3.78$.'
+      note: 'Existence disputed. Bootstrap islands [@henriksson2020] and Monte Carlo [@nagano2019] support a fixed point but give incompatible $\nu$; the bootstrap of Reehorst et al. [@reehorst2024] gives $n^+(2) > 3.78$.'
     - at: '\infty'
       label: Large-$n$ limit
       note: 'The chiral fixed point exists and is stable; its data are computable in $1/n$.'

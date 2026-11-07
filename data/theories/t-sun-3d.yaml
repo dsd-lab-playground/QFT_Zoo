@@ -22,7 +22,7 @@ description: |
   masses with Fayet–Iliopoulos parameters. Both branches are the nilpotent cone of
   $SL(N,\mathbb{C})$, of complex dimension $N(N-1)$.
 
-  Gaiotto and Witten found $T[SU(N)]$ as the boundary theory obtained by S-duality from
+  Gaiotto and Witten [@gaiotto2008] found $T[SU(N)]$ as the boundary theory obtained by S-duality from
   Dirichlet boundary conditions of 4d $\mathcal{N}=4$ $U(N)$ super Yang–Mills. It is also the
   theory on the S-duality wall of $\mathcal{N}=4$ $SU(N)$ super Yang–Mills, and the building
   block of the star-shaped quivers that are mirror to class-$\mathcal{S}$ theories reduced to
@@ -31,9 +31,9 @@ description: |
   The $S^3$ partition function with masses $m$ and FI parameters $\zeta$ (each in the Cartan of
   $SU(N)$) has a closed form that is manifestly mirror symmetric:
   $$Z(m;\zeta) = \frac{\sum_{w\in S_N}(-1)^{w}\, e^{2\pi i\sum_j m_{w(j)}\zeta_j}}{i^{N(N-1)/2}\prod_{i<j}2\sinh\pi(m_i-m_j)\,\prod_{i<j}2\sinh\pi(\zeta_i-\zeta_j)}$$
-  (Benvenuti and Pasquetti; Nishioka, Tachikawa and Yamazaki give the same expression with a
+  ([@benvenuti2011]; Nishioka, Tachikawa and Yamazaki [@nishioka2011] give the same expression with a
   different overall normalization). The conformal point is the limit $m, \zeta \to 0$. At
-  large $N$, $F \simeq \tfrac12 N^2\log N$, which Assel, Estes and Yamazaki match with the type
+  large $N$, $F \simeq \tfrac12 N^2\log N$, which Assel, Estes and Yamazaki [@assel2012] match with the type
   IIB supergravity dual, an $AdS_4\times S^2\times S^2$ fibration over a Riemann surface.
 
 parameters:
@@ -66,7 +66,7 @@ quantities:
     value: '\frac{N(N-1)}{2}\log 2\pi + \log G(N+1)'
     method: exact (supersymmetric localization)
     refs: [assel2012]
-    note: '$G$ is the Barnes $G$-function, $G(N+1) = 1!\,2!\cdots(N-1)!$. From $Z = (2\pi)^{-N(N-1)/2}/G(N+1)$; Chang et al. give $Z = 1/(16\pi^3)$ at $N=3$, in agreement.'
+    note: '$G$ is the Barnes $G$-function, $G(N+1) = 1!\,2!\cdots(N-1)!$. From $Z = (2\pi)^{-N(N-1)/2}/G(N+1)$; Chang et al. [@chang2019] give $Z = 1/(16\pi^3)$ at $N=3$, in agreement.'
   - symbol: 'F'
     description: 'Large-$N$ expansion of the free energy'
     value: '\frac{N^2}{2}\log N + \left(-\frac34 - \frac12\log\frac{1}{2\pi}\right)N^2 + O(N\log N)'
@@ -78,7 +78,7 @@ quantities:
     value: '0.786801'
     method: derived (supersymmetric localization)
     refs: [chang2019]
-    note: 'Chang et al. give $C_T = 75.5329$ in units where a free hypermultiplet has $C_T = 12$; divided here by 96.'
+    note: 'Chang et al. [@chang2019] give $C_T = 75.5329$ in units where a free hypermultiplet has $C_T = 12$; divided here by 96.'
 
 operators:
   - name: '\mu_H'
@@ -114,7 +114,7 @@ relations:
     note: '$T[SU(2)]$ is $\mathcal{N}=4$ SQED with two flavours.'
   - type: related_to
     target: n4-sym
-    note: '$T[SU(N)]$ lives on the S-duality wall of 4d $\mathcal{N}=4$ super Yang–Mills (Gaiotto–Witten).'
+    note: '$T[SU(N)]$ lives on the S-duality wall of 4d $\mathcal{N}=4$ super Yang–Mills [@gaiotto2008].'
 
 references:
   - key: gaiotto2008

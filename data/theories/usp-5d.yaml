@@ -18,8 +18,7 @@ description: |
   with $N_f$ coincident D8-branes in type I$'$ string theory. At finite coupling their
   world-volume theory is 5d $\mathcal{N}=1$ $USp(2N)$ gauge theory with $N_f$ fundamental
   hypermultiplets and one hypermultiplet in the antisymmetric representation. For $N_f\le7$ the
-  infinite-coupling limit is expected to be an interacting SCFT (Intriligator, Morrison and
-  Seiberg). Its flavor symmetry $E_{N_f+1}\times SU(2)$ is enhanced from the
+  infinite-coupling limit is expected to be an interacting SCFT [@intriligator1997]. Its flavor symmetry $E_{N_f+1}\times SU(2)$ is enhanced from the
   $SO(2N_f)\times U(1)_I\times SU(2)$ of the gauge theory, where $U(1)_I$ counts instantons and
   $SU(2)$ acts on the antisymmetric hypermultiplet. The Higgs branch is expected to be the moduli
   space of $N$ $E_{N_f+1}$ instantons. At $N_f=0$ there are two fixed points, analogues of $E_1$
@@ -27,17 +26,17 @@ description: |
   At $N=1$ the antisymmetric representation of $USp(2)=SU(2)$ is trivial, the antisymmetric
   hypermultiplet is free and decoupled, and the extra $SU(2)$ acts only on it.
 
-  Brandhuber and Oz found the dual background as the near-horizon limit of the D4–D8 system in
+  Brandhuber and Oz [@brandhuber1999] found the dual background as the near-horizon limit of the D4–D8 system in
   massive type IIA supergravity: a warped product of AdS$_6$ with a hemisphere of $S^4$. Its
   boundary, at the O8-plane, has the form AdS$_6\times S^3$; there the dilaton diverges and the
   $E_{N_f+1}$ gauge fields live. The $SO(4) = SU(2)\times SU(2)$ isometry is the $SU(2)_R$
   R-symmetry times the $SU(2)$ flavor symmetry, and the superalgebra is $F(4)$. Supergravity is
   reliable at large $N$ away from the boundary, and its action scales as $N^{5/2}$.
 
-  Jafferis and Pufu evaluated the $S^5$ partition function of the gauge theory at large $N$ by
+  Jafferis and Pufu [@jafferis2012] evaluated the $S^5$ partition function of the gauge theory at large $N$ by
   supersymmetric localization. They argue that instanton contributions are exponentially
   suppressed there, and they reproduce the $N^{5/2}$ scaling. The free energy agrees with a
-  holographic computation of the entanglement entropy in the dual. Chang, Fluder, Lin and Wang
+  holographic computation of the entanglement entropy in the dual. Chang, Fluder, Lin and Wang [@chang2018]
   extracted $C_T$ from the squashed-sphere partition function and matched it to Romans $F(4)$
   gauged supergravity.
 
@@ -82,13 +81,13 @@ quantities:
     value: '-\frac{9\sqrt{2}\,\pi N^{5/2}}{5\sqrt{8-N_f}}'
     method: large-N localization (matrix model)
     refs: [jafferis2012]
-    note: 'Jafferis–Pufu eq. (3.6); eq. (1.1) at $n=1$ states the correction as $o(N^{5/2})$, and Chang et al. (2018) eq. (3.18) as $O(N^{3/2})$. In the convention $\tilde F = \log|Z_{S^5}|$, $\tilde F = -F$.'
+    note: 'Jafferis–Pufu [@jafferis2012, Eq. (3.6)]; [@jafferis2012, Eq. (1.1)] at $n=1$ states the correction as $o(N^{5/2})$, and Chang et al. [@chang2018, Eq. (3.18)] as $O(N^{3/2})$. In the convention $\tilde F = \log|Z_{S^5}|$, $\tilde F = -F$.'
   - symbol: 'C_T'
     description: 'Stress-tensor two-point coefficient, leading order at large $N$, normalized so that a free hypermultiplet has $C_T = 15$'
     value: '\frac{1152\sqrt{2}\,N^{5/2}}{\pi\sqrt{8-N_f}}'
     method: large-N localization (squashed sphere)
     refs: [chang2018, chang2017]
-    note: 'Chang et al. (2018) eq. (3.19), with corrections $O(N^{3/2})$. It uses the relation between $C_T$ and the squashed-sphere free energy of Chang et al. (2017), in which a free real scalar has $C_T = 5/4$.'
+    note: 'Chang et al. [@chang2018, Eq. (3.19)], with corrections $O(N^{3/2})$. It uses the relation between $C_T$ and the squashed-sphere free energy of Chang et al. [@chang2017], in which a free real scalar has $C_T = 5/4$.'
 
 operators:
   - name: 'J_\mu'

@@ -21,7 +21,7 @@ description: |
   Coulomb branch (with an $A_{N_f-1}$ singularity). The $SU(2)_H\times SU(2)_C$ R-symmetry
   fixes $\Delta_Q = \Delta_{\tilde Q} = 1/2$.
 
-  Mirror symmetry (Intriligator and Seiberg) identifies the same fixed point with the infrared
+  Mirror symmetry [@intriligator1996] identifies the same fixed point with the infrared
   limit of $U(1)^{N_f}/U(1)$ with $N_f$ bifundamental hypermultiplets $Q_i$ of neighbouring
   factors $U(1)_i\times U(1)_{i+1}$ ($i$ mod $N_f$), arranged in a necklace. It exchanges the
   Higgs and Coulomb branches, and masses with Fayet–Iliopoulos parameters. The hidden
@@ -29,7 +29,7 @@ description: |
   symmetry of SQED.
 
   The BPS monopole operators $V_\pm$ of magnetic charge $\pm1$ are chiral, with R-charge
-  and dimension $N_f/2$ (Borokhov, Kapustin and Wu; Gaiotto and Witten). At $N_f=1$ they have
+  and dimension $N_f/2$ [@borokhov2002; @gaiotto2008]. At $N_f=1$ they have
   $\Delta = 1/2$ and form a free twisted hypermultiplet, which is the content of the basic
   mirror pair. At $N_f=2$ they have $\Delta = 1$ and, together with the topological current,
   enhance the $U(1)_J$ symmetry of the Coulomb branch to $SU(2)$. For $N_f\ge3$ no monopole has
@@ -81,7 +81,7 @@ quantities:
     value: '\frac{2N_f^2\,\psi^{(1)}\!\left(\frac{N_f}{2}+1\right) + (\pi^2N_f + 4)N_f + 4}{\pi^2 N_f(N_f+1)}'
     method: derived (supersymmetric localization)
     refs: [chang2019]
-    note: 'Chang et al. give $C_T = 12\,[\cdots]/(\pi^2(N_f+1))$ for $N_f \ge 2$, in units where a free hypermultiplet has $C_T = 12$; divided here by $12N_f$. $\psi^{(1)}$ is the trigamma function. The expression also equals 1 at $N_f = 1$.'
+    note: 'Chang et al. [@chang2019] give $C_T = 12\,[\cdots]/(\pi^2(N_f+1))$ for $N_f \ge 2$, in units where a free hypermultiplet has $C_T = 12$; divided here by $12N_f$. $\psi^{(1)}$ is the trigamma function. The expression also equals 1 at $N_f = 1$.'
 
 operators:
   - name: '\tilde Q^a Q_b'

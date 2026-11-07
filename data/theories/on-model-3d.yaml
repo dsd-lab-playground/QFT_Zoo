@@ -15,7 +15,7 @@ tags: [CFT, interacting, unitary, Lagrangian, critical phenomena, large N, holog
 description: |
   $N$ counts real scalar components, $\vec\phi \in \mathbb{R}^N$. For each $N$ the
   critical point is reached from $N$ free scalars by the $O(N)$-invariant quartic
-  coupling, with the mass tuned to criticality (Wilson and Fisher). The order parameter
+  coupling, with the mass tuned to criticality [@wilson1972]. The order parameter
   is the vector $\phi_i$, and the singlet $s \sim \vec\phi^{\,2}$ is the thermal
   operator, with $\nu = 1/(3-\Delta_s)$ and $\eta = 2\Delta_\phi - 1$.
 
@@ -25,23 +25,23 @@ description: |
   $O(N)$-invariant perturbations. Whether it is stable against cubic anisotropy depends on $N$:
   the lightest rank-4 traceless symmetric scalar $t_4$ is irrelevant at $N=2$,
   relevant at $N=3$ (barely; see the $O(3)$ page) and clearly relevant at $N=4$
-  (Monte Carlo: $3-\Delta_{t_4} = -0.108(6)$, $0.013(4)$, $0.125(5)$ for $N=2,3,4$,
-  Hasenbusch and Vicari) and at large $N$, where $\Delta_{t_4} = 2 + O(1/N)$. So for
+  (Monte Carlo: $3-\Delta_{t_4} = -0.108(6)$, $0.013(4)$, $0.125(5)$ for $N=2,3,4$
+  [@hasenbusch2011]) and at large $N$, where $\Delta_{t_4} = 2 + O(1/N)$. So for
   $N \ge 3$ a cubic anisotropy drives the flow to the cubic fixed point or, for the
   other sign, to a first-order transition.
 
   The family continues to real $N$. At non-integer $N$ the theory is not unitary
-  (Binder and Rychkov). The limit $N \to 0$ describes self-avoiding walks (de Gennes)
+  [@binder2019]. The limit $N \to 0$ describes self-avoiding walks [@degennes1972]
   and is a logarithmic CFT.
 
   ### Large $N$
   Introducing a Hubbard–Stratonovich field, $\mathcal{L} = \tfrac12(\partial\vec\phi)^2 + \tfrac{1}{2\sqrt N}\,\sigma\,\vec\phi^{\,2}$,
   the fixed point is described in a $1/N$ expansion in which $\Delta_\phi = \tfrac12$ and
   $\Delta_\sigma = 2$ at $N=\infty$; $\sigma$ is the singlet $s$. The expansions below are
-  in $d=3$. Klebanov and Polyakov proposed that the singlet sector at large $N$ is dual to
+  in $d=3$. Klebanov and Polyakov [@klebanov2002] proposed that the singlet sector at large $N$ is dual to
   the minimal bosonic Vasiliev higher-spin theory in AdS$_4$, which contains massless
   gauge fields of even spin; the free and the critical model correspond to the two
-  possible boundary conditions on the bulk scalar dual to $\vec\phi^{\,2}$ (Klebanov and Polyakov).
+  possible boundary conditions on the bulk scalar dual to $\vec\phi^{\,2}$ [@klebanov2002].
 
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\vec\phi)^2 + \tfrac{1}{2} m^2 \vec\phi^{\,2} + \tfrac{\lambda}{4!}(\vec\phi^{\,2})^2, \quad \vec\phi\in\mathbb{R}^N \quad (m^2 \text{ tuned to criticality, flow to the IR})'
 
@@ -55,7 +55,7 @@ family:
   members:
     - at: 0
       label: Self-avoiding walks
-      note: 'Polymers in a good solvent (de Gennes). Non-unitary, logarithmic CFT.'
+      note: 'Polymers in a good solvent [@degennes1972]. Non-unitary, logarithmic CFT.'
     - at: 1
       label: 3d Ising
       note: 'Uniaxial magnets, liquid–gas critical points, binary mixtures.'
@@ -67,16 +67,16 @@ family:
       note: 'Isotropic magnets. Unstable to cubic anisotropy.'
     - at: 4
       label: '3d $O(4)$'
-      note: 'Expected class of the two-flavour QCD chiral transition, if second order. $\nu = 0.74817(20)$, $\eta = 0.03624(8)$ (Hasenbusch 2022).'
+      note: 'Expected class of the two-flavour QCD chiral transition, if second order. $\nu = 0.74817(20)$, $\eta = 0.03624(8)$ [@hasenbusch2022].'
     - at: 5
-      note: '$\nu = 0.7802(6)$, $\eta = 0.03397(9)$ (Monte Carlo, Hasenbusch 2022).'
+      note: '$\nu = 0.7802(6)$, $\eta = 0.03397(9)$ (Monte Carlo [@hasenbusch2022]).'
     - at: 6
-      note: '$1/\nu = 1.2375(9)$, $\eta = 0.03157(14)$ (Monte Carlo, Hasenbusch 2022).'
+      note: '$1/\nu = 1.2375(9)$, $\eta = 0.03157(14)$ (Monte Carlo [@hasenbusch2022]).'
     - at: 20
-      note: 'The bootstrap island is compatible with the $1/N$ expansion; $C_J/C_J^{\rm free} = 0.9674(8)$ (Kos et al. 2015).'
+      note: 'The bootstrap island is compatible with the $1/N$ expansion; $C_J/C_J^{\rm free} = 0.9674(8)$ [@kos2015].'
     - at: '\infty'
       label: Large-$N$ limit
-      note: '$\Delta_\phi = \tfrac12$, $\Delta_s = 2$. Singlet sector conjectured dual to the minimal bosonic Vasiliev theory in AdS$_4$ (Klebanov and Polyakov).'
+      note: '$\Delta_\phi = \tfrac12$, $\Delta_s = 2$. Singlet sector conjectured dual to the minimal bosonic Vasiliev theory in AdS$_4$ [@klebanov2002].'
 
 symmetry:
   spacetime: conformal
@@ -94,7 +94,7 @@ quantities:
     value: '1 - \frac{32}{3\pi^2 N} - \left(\frac{9\pi^2}{2} - \frac{56}{3}\right)\left(\frac{8}{3\pi^2}\right)^2\frac{1}{N^2} + O(N^{-3})'
     method: large N
     refs: [hasenbusch2022]
-    note: 'Series as collected in Appendix B of the reference; it agrees with $1/(3-\Delta_s)$ for $\Delta_s$ below.'
+    note: 'Series as collected in [@hasenbusch2022, App. B]; it agrees with $1/(3-\Delta_s)$ for $\Delta_s$ below.'
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N$ free real scalars'
     value: '1 - \frac{40}{9\pi^2 N} + O(N^{-2})'
@@ -105,13 +105,13 @@ quantities:
     value: '1 - \frac{64}{9\pi^2 N} + O(N^{-2})'
     method: large N
     refs: [henriksson2022]
-    note: 'At $N=20$ this gives $0.964$, against the bootstrap value $0.9674(8)$ (Kos et al.).'
+    note: 'At $N=20$ this gives $0.964$, against the bootstrap value $0.9674(8)$ [@kos2015].'
   - symbol: 'F'
     description: '$S^3$ free energy, $F = -\log|Z_{S^3}|$, with $F_s = \frac{\log 2}{8} - \frac{3\zeta(3)}{16\pi^2}$ the value for one free real scalar'
     value: 'N F_s - \frac{\zeta(3)}{8\pi^2} + O(1/N)'
     method: large N
     refs: [klebanov2011]
-    note: 'A conjectured formula for the next term, checked against the $\epsilon$-expansion, gives $+\frac{4}{9\pi^2 N}$ (Tarnopolsky).'
+    note: 'A conjectured formula for the next term, checked against the $\epsilon$-expansion, gives $+\frac{4}{9\pi^2 N}$ [@tarnopolsky2016].'
 
 operators:
   - name: '\phi_i'
@@ -157,7 +157,7 @@ operators:
     rep: singlet ($\sigma^2$ at large $N$)
     method: large N
     refs: [henriksson2022]
-    note: 'Leading irrelevant singlet; $\omega = \Delta_{s^\prime} - 3$ agrees with the large-$N$ series for $\omega$ in Hasenbusch (2022).'
+    note: 'Leading irrelevant singlet; $\omega = \Delta_{s^\prime} - 3$ agrees with the large-$N$ series for $\omega$ in [@hasenbusch2022].'
 
 references:
   - key: wilson1972
