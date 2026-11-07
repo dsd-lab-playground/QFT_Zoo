@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07 23:34 UTC",
+ "generated": "2026-11-07 23:38 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
  "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, role, ...) are Markdown: use $...$ for math,\n#     and cite as [@key] or [@key, Sec. 2] (never a direct link; see CONTRIBUTING.md, Citations).\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: '$O(4,1)$ — 3d conformal group with parity'   # group — colloquial name; see CONTRIBUTING.md, Spacetime symmetry\n  supercharges: 0                  # real Poincaré supercharges Q; for SUSY theories also state Q and S in spacetime\n  global: '$O(N)$'                 # the global symmetry in words (Markdown)\n  parity: true                     # true | false | conditional (docs/REPRESENTATIONS.md)\n  global_group:                    # the factors operators' representations refer to; [] if none\n    - {id: O(N), group: O(N)}      # group: Z2, Z_n, U(1), O(N), SO(N), SU(N), Sp(N), S_n, D_n, finite\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: 'CB, rigorous'         # an abbreviation from data/methods.yaml, then an optional qualifier (CONTRIBUTING.md, Methods)\n    refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    parity: even                   # even | odd | pair | unknown\n    global: {O(N): vector}         # a label per factor of global_group (docs/REPRESENTATIONS.md)\n    role: 'order parameter'        # optional remark; never part of the representation\n    method: CB\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
@@ -37428,6 +37428,13 @@
     "lorentzian": "$O(4,2)$",
     "supercharges": 0,
     "global": "$SU(4)$ acting on the four Majorana fermions (it contains $SU(2)_L\\times SU(2)_R\\times U(1)_V$ of the Dirac description)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "SU(4)",
+      "group": "SU(4)"
+     }
+    ],
     "gauge": "$SU(2)$"
    },
    "quantities": [
@@ -37485,7 +37492,11 @@
      "name": "\\bar\\psi\\psi",
      "Delta": "2.62\\text{–}2.80",
      "spin": 0,
-     "rep": "gauge singlet; the fermion mass operator",
+     "parity": "pair",
+     "global": {
+      "SU(4)": "sym(2)"
+     },
+     "role": "fermion mass operator",
      "method": "LGT, from γ*",
      "refs": [
       "patella2012",
@@ -37493,23 +37504,86 @@
       "degrand2011",
       "rantaharju2016"
      ],
-     "note": "Range $3 - \\gamma_*$ spanned by the lattice values above, without their scaling corrections."
+     "note": "Range $3 - \\gamma_*$ spanned by the lattice values above, without their scaling corrections.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(4)",
+        "canon": "Dynkin(2,0,0)",
+        "short": "$\\mathbf{10}$ $[2,0,0]$",
+        "trivial": false,
+        "sort": [
+         10,
+         0,
+         0,
+         2,
+         1
+        ],
+        "text": "$SU(4)$ $\\mathbf{10}$ $[2,0,0]$"
+       }
+      ],
+      "key": "SU(4)=Dynkin(2,0,0)"
+     }
     },
     {
      "name": "J_\\mu",
      "Delta": 3,
      "spin": 1,
-     "rep": "$SU(4)$ adjoint",
+     "parity": "unknown",
+     "global": {
+      "SU(4)": "adjoint"
+     },
      "method": "exact",
-     "note": "Conserved flavor currents."
+     "note": "Conserved flavor currents.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(4)",
+        "canon": "Dynkin(1,0,1)",
+        "short": "adjoint $\\mathbf{15}$",
+        "trivial": false,
+        "sort": [
+         15,
+         1,
+         0,
+         1,
+         0
+        ],
+        "text": "$SU(4)$ adjoint $\\mathbf{15}$"
+       }
+      ],
+      "key": "SU(4)=Dynkin(1,0,1)"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 4,
      "spin": 2,
-     "rep": "singlet",
+     "parity": "even",
+     "global": {
+      "SU(4)": "singlet"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(4)",
+        "canon": "Dynkin(0,0,0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0,
+         0,
+         0
+        ],
+        "text": "$SU(4)$ singlet"
+       }
+      ],
+      "key": "SU(4)=Dynkin(0,0,0)"
+     }
     }
    ],
    "relations": [
@@ -37580,6 +37654,13 @@
    "contributors": [
     "Canonical111"
    ],
+   "global_factors": [
+    {
+     "id": "SU(4)",
+     "type": "SU",
+     "tex": "SU(4)"
+    }
+   ],
    "source": "data/theories/adjoint-qcd-su2-4d.yaml",
    "backlinks": []
   },
@@ -37629,7 +37710,26 @@
     "lorentzian": "$SU(2,2|2)$",
     "supercharges": 8,
     "global": "Flavor symmetry: none ($H_0$), $SU(2)$ ($H_1$), $SU(3)$ ($H_2$); R-symmetry $SU(2)_R\\times U(1)_r$",
-    "notes": "Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$."
+    "parity": false,
+    "global_group": [
+     {
+      "id": "SU(2)_R",
+      "group": "SU(2)",
+      "tex": "SU(2)_R"
+     },
+     {
+      "id": "U(1)_r",
+      "group": "U(1)",
+      "tex": "U(1)_r",
+      "note": "Normalized as in Dolan–Osborn: a Coulomb-branch chiral primary, in an $\\mathcal{E}_{r(0,0)}$ multiplet, has $r = \\Delta$."
+     },
+     {
+      "id": "G_F",
+      "group": "Lie(G_F)",
+      "note": "Flavor symmetry: trivial for $H_0$, $SU(2)$ for $H_1$, $SU(3)$ for $H_2$."
+     }
+    ],
+    "notes": "Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$. Multiplet names follow Dolan and Osborn [@argyres-douglas-4d/dolan2002] as tabulated by Beem et al. [@argyres-douglas-4d/beem2013, Table 7]: $\\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\\hat{\\mathcal{B}}_R$ Higgs-branch half-BPS, $\\hat{\\mathcal{C}}_{0(0,0)}$ stress tensor, $\\mathcal{A}^{\\Delta}_{R,r(j,\\bar\\jmath)}$ long."
    },
    "quantities": [
     {
@@ -37684,34 +37784,178 @@
      "name": "u\\ (H_0)",
      "Delta": "\\frac{6}{5}",
      "spin": 0,
-     "rep": "$SU(2)_R$ singlet; Coulomb-branch generator",
+     "global": {
+      "SU(2)_R": "singlet",
+      "U(1)_r": "6/5",
+      "G_F": "singlet"
+     },
+     "role": "Coulomb-branch generator",
+     "multiplet": {
+      "name": "$u$",
+      "component": "primary",
+      "type": "$\\mathcal{E}_{\\frac65(0,0)}$"
+     },
      "method": "exact",
      "refs": [
       "argyres1995b",
       "aharony2007"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "6/5",
+        "short": "charge $\\tfrac{6}{5}$",
+        "trivial": false,
+        "sort": [
+         1.2,
+         1
+        ],
+        "text": "$U(1)_r$ charge $\\tfrac{6}{5}$"
+       },
+       {
+        "factor": "G_F",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$G_F$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|U(1)_r=6/5|G_F=singlet"
+     }
     },
     {
      "name": "u\\ (H_1)",
      "Delta": "\\frac{4}{3}",
      "spin": 0,
-     "rep": "$SU(2)_R$ and flavor singlet; Coulomb-branch generator",
+     "global": {
+      "SU(2)_R": "singlet",
+      "U(1)_r": "4/3",
+      "G_F": "singlet"
+     },
+     "role": "Coulomb-branch generator",
+     "multiplet": {
+      "name": "$u$",
+      "component": "primary",
+      "type": "$\\mathcal{E}_{\\frac43(0,0)}$"
+     },
      "method": "exact",
      "refs": [
       "argyres1995b",
       "aharony2007"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "4/3",
+        "short": "charge $\\tfrac{4}{3}$",
+        "trivial": false,
+        "sort": [
+         1.3333333333333333,
+         1
+        ],
+        "text": "$U(1)_r$ charge $\\tfrac{4}{3}$"
+       },
+       {
+        "factor": "G_F",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$G_F$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|U(1)_r=4/3|G_F=singlet"
+     }
     },
     {
      "name": "u\\ (H_2)",
      "Delta": "\\frac{3}{2}",
      "spin": 0,
-     "rep": "$SU(2)_R$ and flavor singlet; Coulomb-branch generator",
+     "global": {
+      "SU(2)_R": "singlet",
+      "U(1)_r": "3/2",
+      "G_F": "singlet"
+     },
+     "role": "Coulomb-branch generator",
+     "multiplet": {
+      "name": "$u$",
+      "component": "primary",
+      "type": "$\\mathcal{E}_{\\frac32(0,0)}$"
+     },
      "method": "exact",
      "refs": [
       "argyres1995b",
       "aharony2007"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "3/2",
+        "short": "charge $\\tfrac{3}{2}$",
+        "trivial": false,
+        "sort": [
+         1.5,
+         1
+        ],
+        "text": "$U(1)_r$ charge $\\tfrac{3}{2}$"
+       },
+       {
+        "factor": "G_F",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$G_F$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|U(1)_r=3/2|G_F=singlet"
+     }
     }
    ],
    "references": [
@@ -37786,10 +38030,36 @@
      "year": 2021,
      "journal": "JHEP 01 (2021) 175",
      "arxiv": "2006.01847"
+    },
+    {
+     "key": "dolan2002",
+     "title": "On Short and Semi-Short Representations for Four Dimensional Superconformal Symmetry",
+     "authors": "Dolan, Osborn",
+     "year": 2002,
+     "journal": "Annals Phys. 307 (2003) 41-89",
+     "arxiv": "hep-th/0209056",
+     "doi": "10.1016/S0003-4916(03)00074-5"
     }
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(2)_R",
+     "type": "SU",
+     "tex": "SU(2)_R"
+    },
+    {
+     "id": "U(1)_r",
+     "type": "U1",
+     "tex": "U(1)_r"
+    },
+    {
+     "id": "G_F",
+     "type": "Lie",
+     "tex": "G_F"
+    }
    ],
    "source": "data/theories/argyres-douglas-4d.yaml",
    "members": [
@@ -38080,6 +38350,19 @@
     "euclidean": "$O(5,1)$",
     "supercharges": 0,
     "global": "$U(1)\\times U(1)$ charges $J_1, J_2$ counting $\\phi_1$ and $\\phi_2$, and the global $SU(N_c)$ (operators are $SU(N_c)$ singlets)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "J1",
+      "group": "U(1)",
+      "tex": "U(1)_{J_1}"
+     },
+     {
+      "id": "J2",
+      "group": "U(1)",
+      "tex": "U(1)_{J_2}"
+     }
+    ],
     "notes": "Non-unitary: the action is not real."
    },
    "quantities": [
@@ -38110,53 +38393,213 @@
      "name": "\\mathrm{tr}(\\phi_1\\phi_1)",
      "Delta": "2 \\mp i\\sqrt{2\\sqrt{1+4\\xi^4}-2}",
      "spin": 0,
-     "rep": "$J_1 = 2$ (same for $\\mathrm{tr}(\\phi_2\\phi_2)$)",
+     "parity": "even",
+     "global": {
+      "J1": 2,
+      "J2": 0
+     },
      "method": "exact, root of the spectral relation",
      "refs": [
       "grabner2018"
      ],
-     "note": "Root of $(\\Delta-4)(\\Delta-2)^2\\Delta = 16\\xi^4$ [@fishnet-4d/grabner2018, Eq. (6)] that tends to 2 at $\\xi = 0$; the sign labels the fixed point $\\alpha_{1,\\pm}^2$. Its expansion reproduces the seven-loop result $\\Delta_\\pm = 2 \\mp 2i\\xi^2 \\pm i\\xi^6 \\mp \\tfrac{7i}{4}\\xi^{10} + O(\\xi^{14})$ [@fishnet-4d/grabner2018, Eq. (16)]."
+     "note": "Root of $(\\Delta-4)(\\Delta-2)^2\\Delta = 16\\xi^4$ [@fishnet-4d/grabner2018, Eq. (6)] that tends to 2 at $\\xi = 0$; the sign labels the fixed point $\\alpha_{1,\\pm}^2$. Its expansion reproduces the seven-loop result $\\Delta_\\pm = 2 \\mp 2i\\xi^2 \\pm i\\xi^6 \\mp \\tfrac{7i}{4}\\xi^{10} + O(\\xi^{14})$ [@fishnet-4d/grabner2018, Eq. (16)].",
+     "irrep": {
+      "global": [
+       {
+        "factor": "J1",
+        "canon": "2",
+        "short": "charge $2$",
+        "trivial": false,
+        "sort": [
+         2.0,
+         1
+        ],
+        "text": "$U(1)_{J_1}$ charge $2$"
+       },
+       {
+        "factor": "J2",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_{J_2}$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "J1=2|J2=0"
+     }
     },
     {
      "name": "\\text{twist-4 scalar},\\ J_1 = 2",
      "Delta": "2 + \\sqrt{2 + 2\\sqrt{1+4\\xi^4}}",
      "spin": 0,
-     "rep": "$J_1 = 2$",
+     "parity": "even",
+     "global": {
+      "J1": 2,
+      "J2": 0
+     },
      "method": "exact, root of the spectral relation",
      "refs": [
       "grabner2018"
      ],
-     "note": "The root of the relation [@fishnet-4d/grabner2018, Eq. (6)] that tends to 4; Grabner et al. [@fishnet-4d/grabner2018] give $4 + \\xi^4 + O(\\xi^8)$. Its shadow has $\\Delta = -\\xi^4 + O(\\xi^8)$."
+     "note": "The root of the relation [@fishnet-4d/grabner2018, Eq. (6)] that tends to 4; Grabner et al. [@fishnet-4d/grabner2018] give $4 + \\xi^4 + O(\\xi^8)$. Its shadow has $\\Delta = -\\xi^4 + O(\\xi^8)$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "J1",
+        "canon": "2",
+        "short": "charge $2$",
+        "trivial": false,
+        "sort": [
+         2.0,
+         1
+        ],
+        "text": "$U(1)_{J_1}$ charge $2$"
+       },
+       {
+        "factor": "J2",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_{J_2}$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "J1=2|J2=0"
+     }
     },
     {
      "name": "\\text{twist-2, spin } S,\\ J_1 = 2",
      "Delta": "S + 2 - \\frac{2\\xi^4}{S(S+1)} + O(\\xi^8)",
      "spin": "S",
-     "rep": "$J_1 = 2$; even $S \\geq 2$",
+     "parity": "even",
+     "global": {
+      "J1": 2,
+      "J2": 0
+     },
      "method": "exact, planar limit, weak-coupling expansion",
      "refs": [
       "grabner2018"
      ],
-     "note": "Exact dimensions solve $(\\Delta+S-2)(\\Delta+S)(\\Delta-S-2)(\\Delta-S-4) = 16\\xi^4$ [@fishnet-4d/grabner2018, Eqs. (28), (30)]. The twist-4 partners have $\\Delta = S + 4 + \\frac{2\\xi^4}{(S+1)(S+2)} + O(\\xi^8)$."
+     "note": "Exact dimensions solve $(\\Delta+S-2)(\\Delta+S)(\\Delta-S-2)(\\Delta-S-4) = 16\\xi^4$ [@fishnet-4d/grabner2018, Eqs. (28), (30)]. The twist-4 partners have $\\Delta = S + 4 + \\frac{2\\xi^4}{(S+1)(S+2)} + O(\\xi^8)$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "J1",
+        "canon": "2",
+        "short": "charge $2$",
+        "trivial": false,
+        "sort": [
+         2.0,
+         1
+        ],
+        "text": "$U(1)_{J_1}$ charge $2$"
+       },
+       {
+        "factor": "J2",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_{J_2}$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "J1=2|J2=0"
+     }
     },
     {
      "name": "\\mathrm{tr}(\\phi_1\\phi_2),\\ \\mathrm{tr}(\\phi_1\\phi_2^\\dagger)",
      "Delta": 2,
      "spin": 0,
-     "rep": "$(J_1, J_2) = (1, 1)$ and $(1, -1)$",
+     "parity": "even",
+     "global": {
+      "J1": 1,
+      "J2": [
+       1,
+       -1
+      ]
+     },
      "method": "exact, planar limit",
      "refs": [
       "grabner2018"
      ],
-     "note": "Protected at the fixed point $\\alpha_2^2 = \\xi^2$."
+     "note": "Protected at the fixed point $\\alpha_2^2 = \\xi^2$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "J1",
+        "canon": "1",
+        "short": "charge $1$",
+        "trivial": false,
+        "sort": [
+         1.0,
+         1
+        ],
+        "text": "$U(1)_{J_1}$ charge $1$"
+       },
+       {
+        "factor": "J2",
+        "canon": "1+-1",
+        "short": "charge $1$ $\\oplus$ charge $-1$",
+        "text": "$U(1)_{J_2}$ charge $1$ $\\oplus$ charge $-1$",
+        "trivial": false,
+        "sort": [
+         1.0,
+         1,
+         0.5
+        ],
+        "sum": true
+       }
+      ],
+      "key": "J1=1|J2=1+-1"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 4,
      "spin": 2,
-     "rep": "singlet",
+     "parity": "even",
+     "global": {
+      "J1": 0,
+      "J2": 0
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "J1",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_{J_1}$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "J2",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_{J_2}$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "J1=0|J2=0"
+     }
     }
    ],
    "relations": [
@@ -38232,6 +38675,18 @@
    "contributors": [
     "Canonical111"
    ],
+   "global_factors": [
+    {
+     "id": "J1",
+     "type": "U1",
+     "tex": "U(1)_{J_1}"
+    },
+    {
+     "id": "J2",
+     "type": "U1",
+     "tex": "U(1)_{J_2}"
+    }
+   ],
    "source": "data/theories/fishnet-4d.yaml",
    "members": [
     {
@@ -38279,6 +38734,15 @@
     "lorentzian": "$O(4,2)$",
     "supercharges": 0,
     "global": "$U(1)^{(1)}_e \\times U(1)^{(1)}_m$ one-form symmetries (with a mixed anomaly), and charge conjugation $\\mathbb{Z}_2^C$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "C",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^C",
+      "note": "Charge conjugation. The one-form symmetries act on line operators, not on local operators, and are not factors here."
+     }
+    ],
     "gauge": "$U(1)$"
    },
    "quantities": [
@@ -38320,33 +38784,106 @@
      "name": "F_{\\mu\\nu}",
      "Delta": 2,
      "spin": "(1,0)\\oplus(0,1)",
-     "rep": "$C$-odd",
+     "lorentz": "(1, 0)",
+     "parity": "pair",
+     "global": {
+      "C": "odd"
+     },
      "method": "exact",
-     "note": "Free field. $F$ and its dual $\\tilde F$ are the conserved two-form currents of the electric and magnetic one-form symmetries."
+     "note": "Free field. $F$ and its dual $\\tilde F$ are the conserved two-form currents of the electric and magnetic one-form symmetries.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "C",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2^C$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "C=odd"
+     }
     },
     {
      "name": "F_{\\mu\\nu}F^{\\mu\\nu}",
      "Delta": 4,
      "spin": 0,
-     "rep": "$C$-even",
+     "parity": "even",
+     "global": {
+      "C": "even"
+     },
      "method": "exact",
-     "note": "Exactly marginal: it shifts $1/e^2$."
+     "note": "Exactly marginal: it shifts $1/e^2$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "C",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2^C$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "C=even"
+     }
     },
     {
      "name": "F_{\\mu\\nu}\\tilde F^{\\mu\\nu}",
      "Delta": 4,
      "spin": 0,
-     "rep": "$C$-even, $P$-odd",
+     "parity": "odd",
+     "global": {
+      "C": "even"
+     },
      "method": "exact",
-     "note": "Locally a total derivative; its integral is the $\\theta$ term."
+     "note": "Locally a total derivative; its integral is the $\\theta$ term.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "C",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2^C$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "C=even"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 4,
      "spin": 2,
-     "rep": "$C$-even",
+     "parity": "even",
+     "global": {
+      "C": "even"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "C",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2^C$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "C=even"
+     }
     }
    ],
    "relations": [
@@ -38417,6 +38954,13 @@
    "contributors": [
     "nathansbenjamin"
    ],
+   "global_factors": [
+    {
+     "id": "C",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^C"
+    }
+   ],
    "source": "data/theories/free-maxwell-4d.yaml",
    "backlinks": [
     {
@@ -38453,7 +38997,14 @@
     "euclidean": "$O(5,1)$",
     "lorentzian": "$O(4,2)$",
     "supercharges": 0,
-    "global": "$\\mathbb{Z}_2$ ($\\phi\\to-\\phi$), plus shift symmetry $\\phi \\to \\phi + \\text{const}$"
+    "global": "$\\mathbb{Z}_2$ ($\\phi\\to-\\phi$), plus shift symmetry $\\phi \\to \\phi + \\text{const}$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2"
+     }
+    ]
    },
    "quantities": [
     {
@@ -38494,31 +39045,103 @@
      "name": "\\phi",
      "Delta": 1,
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-odd",
-     "method": "exact"
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
+     "method": "exact",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\phi^2",
      "Delta": 2,
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even",
-     "method": "exact"
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
+     "method": "exact",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\phi^4",
      "Delta": 4,
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "exact",
-     "note": "Marginal at the free point; the coupling is marginally irrelevant."
+     "note": "Marginal at the free point; the coupling is marginally irrelevant.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 4,
      "spin": 2,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     }
    ],
    "relations": [
@@ -38556,6 +39179,13 @@
    "contributors": [
     "rodriguez-va"
    ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2"
+    }
+   ],
    "source": "data/theories/free-scalar-4d.yaml",
    "backlinks": [],
    "flow_height": {
@@ -38587,7 +39217,15 @@
     "euclidean": "$O(5,1)$",
     "lorentzian": "$O(4,2)$",
     "supercharges": 0,
-    "global": "$U(1)$ ($\\psi\\to e^{i\\alpha}\\psi$), with $U(1)^3$ and $U(1)$–gravitational 't Hooft anomalies; it contains fermion parity $(-1)^F$"
+    "global": "$U(1)$ ($\\psi\\to e^{i\\alpha}\\psi$), with $U(1)^3$ and $U(1)$–gravitational 't Hooft anomalies; it contains fermion parity $(-1)^F$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "U(1)",
+      "group": "U(1)",
+      "note": "Parity ($CP$) maps charge $q$ to $-q$."
+     }
+    ]
    },
    "quantities": [
     {
@@ -38628,41 +39266,137 @@
      "name": "\\psi_\\alpha",
      "Delta": "\\frac{3}{2}",
      "spin": "(\\tfrac12, 0)",
-     "rep": "charge $1$",
+     "lorentz": "(1/2, 0)",
+     "parity": "pair",
+     "global": {
+      "U(1)": 1
+     },
      "method": "exact",
-     "note": "Saturates the unitarity bound $\\Delta \\ge j+1$ for $(j, 0)$, so it is free: $\\bar\\sigma^\\mu\\partial_\\mu\\psi = 0$."
+     "note": "Saturates the unitarity bound $\\Delta \\ge j+1$ for $(j, 0)$, so it is free: $\\bar\\sigma^\\mu\\partial_\\mu\\psi = 0$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "1",
+        "short": "charge $1$",
+        "trivial": false,
+        "sort": [
+         1.0,
+         1
+        ],
+        "text": "$U(1)$ charge $1$"
+       }
+      ],
+      "key": "U(1)=1"
+     }
     },
     {
      "name": "\\psi\\psi = \\epsilon^{\\alpha\\beta}\\psi_\\alpha\\psi_\\beta",
      "Delta": 3,
      "spin": 0,
-     "rep": "charge $2$",
+     "parity": "pair",
+     "global": {
+      "U(1)": 2
+     },
      "method": "exact",
-     "note": "Majorana mass operator (with its conjugate $\\bar\\psi\\bar\\psi$, of charge $-2$). Relevant; it breaks $U(1)$ to $(-1)^F$."
+     "note": "Majorana mass operator (with its conjugate $\\bar\\psi\\bar\\psi$, of charge $-2$). Relevant; it breaks $U(1)$ to $(-1)^F$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "2",
+        "short": "charge $2$",
+        "trivial": false,
+        "sort": [
+         2.0,
+         1
+        ],
+        "text": "$U(1)$ charge $2$"
+       }
+      ],
+      "key": "U(1)=2"
+     }
     },
     {
      "name": "J_\\mu = \\bar\\psi\\bar\\sigma_\\mu\\psi",
      "Delta": 3,
      "spin": 1,
-     "rep": "neutral",
+     "parity": "odd",
+     "global": {
+      "U(1)": 0
+     },
      "method": "exact",
-     "note": "Conserved $U(1)$ current."
+     "note": "Conserved $U(1)$ current.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)=0"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 4,
      "spin": 2,
-     "rep": "neutral",
+     "parity": "even",
+     "global": {
+      "U(1)": 0
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)=0"
+     }
     },
     {
      "name": "(\\psi\\psi)(\\bar\\psi\\bar\\psi)",
      "Delta": 6,
      "spin": 0,
-     "rep": "neutral",
+     "parity": "even",
+     "global": {
+      "U(1)": 0
+     },
      "method": "exact",
-     "note": "Lightest $U(1)$-invariant scalar deformation; irrelevant."
+     "note": "Lightest $U(1)$-invariant scalar deformation; irrelevant.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)=0"
+     }
     }
    ],
    "relations": [
@@ -38694,6 +39428,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "U(1)",
+     "type": "U1",
+     "tex": "U(1)"
+    }
    ],
    "source": "data/theories/free-weyl-fermion-4d.yaml",
    "backlinks": [],
@@ -38955,6 +39696,8 @@
     "euclidean": "$O(5,1)$",
     "supercharges": 0,
     "global": "None (the Ising $\\mathbb{Z}_2$ is broken by the imaginary field)",
+    "parity": true,
+    "global_group": [],
     "notes": "Not unitary. The action has a $\\mathcal{PT}$ symmetry, $\\phi \\to -\\phi$ combined with $i \\to -i$."
    },
    "quantities": [
@@ -39031,60 +39774,90 @@
      "name": "\\phi",
      "Delta": "0.8265(60)",
      "spin": 0,
-     "rep": "the only relevant primary",
+     "parity": "even",
+     "role": "the only relevant primary",
      "method": "ε-exp, 6 − ε, five loops, resummed, from η",
      "refs": [
       "borinsky2021, Table 1"
      ],
-     "note": "$(2+\\eta)/2$ with the five-loop $\\eta = -0.347(12)$, computed by this relation. Below the unitarity bound 1. 24-cell: $0.891$ at $h_x = 50$ [@lee-yang-4d/arguellocruz2025, Table 13]."
+     "note": "$(2+\\eta)/2$ with the five-loop $\\eta = -0.347(12)$, computed by this relation. Below the unitarity bound 1. 24-cell: $0.891$ at $h_x = 50$ [@lee-yang-4d/arguellocruz2025, Table 13].",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "\\phi",
      "Delta": "0.827",
      "spin": 0,
-     "rep": "the only relevant primary",
+     "parity": "even",
+     "role": "the only relevant primary",
      "method": "Padé, two-sided",
      "refs": [
       "arguellocruz2025, Table 2"
      ],
-     "note": "Two-sided Padé of the $6-\\epsilon$ series."
+     "note": "Two-sided Padé of the $6-\\epsilon$ series.",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 4,
      "spin": 2,
+     "parity": "even",
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "\\phi^3",
      "Delta": "5.15(7)",
      "spin": 0,
+     "parity": "even",
      "method": "ε-exp, 6 − ε, five loops, resummed, from ω",
      "refs": [
       "borinsky2021, Table 6"
      ],
-     "note": "Leading irrelevant scalar, $4 + \\omega$ with the five-loop $\\omega$, computed by this relation. 24-cell: $5.467$ at $h_x = 50$ [@lee-yang-4d/arguellocruz2025]."
+     "note": "Leading irrelevant scalar, $4 + \\omega$ with the five-loop $\\omega$, computed by this relation. 24-cell: $5.467$ at $h_x = 50$ [@lee-yang-4d/arguellocruz2025].",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "\\phi^3",
      "Delta": "5.206\\text{–}5.212",
      "spin": 0,
+     "parity": "even",
      "method": "Padé, two-sided",
      "refs": [
       "arguellocruz2025, Table 2"
      ],
-     "note": "Two two-sided Padé approximants, giving $5.206$ and $5.212$."
+     "note": "Two two-sided Padé approximants, giving $5.206$ and $5.212$.",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "\\phi^3",
      "Delta": "6.8(1)",
      "spin": 0,
+     "parity": "even",
      "method": "CB-trunc",
      "refs": [
       "gliozzi2014"
      ],
-     "note": "Far from the other estimates."
+     "note": "Far from the other estimates.",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     }
    ],
    "relations": [
@@ -39155,6 +39928,7 @@
    "contributors": [
     "Canonical111"
    ],
+   "global_factors": [],
    "source": "data/theories/lee-yang-4d.yaml",
    "backlinks": [
     {
@@ -39211,6 +39985,25 @@
     "lorentzian": "$O(4,2)$",
     "supercharges": 0,
     "global": "$SU(N_f)_L\\times SU(N_f)_R$ flavor symmetry, under which $H$ is a bifundamental, and the $U(1)_V$ fermion number",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "SU(Nf)_L",
+      "group": "SU(N_f)",
+      "tex": "SU(N_f)_L"
+     },
+     {
+      "id": "SU(Nf)_R",
+      "group": "SU(N_f)",
+      "tex": "SU(N_f)_R",
+      "note": "Parity exchanges $SU(N_f)_L$ and $SU(N_f)_R$."
+     },
+     {
+      "id": "U(1)_V",
+      "group": "U(1)",
+      "tex": "U(1)_V"
+     }
+    ],
     "gauge": "$SU(N_c)$; $H$ is a gauge singlet"
    },
    "quantities": [
@@ -39308,21 +40101,111 @@
      "name": "H",
      "Delta": "1 + \\frac{4}{19}\\,\\epsilon + \\frac{14567 - 2376\\sqrt{23}}{6859}\\,\\epsilon^2 + O(\\epsilon^3)",
      "spin": 0,
-     "rep": "gauge singlet; $(N_f, \\bar N_f)$ bifundamental of the flavor group",
+     "parity": "pair",
+     "global": {
+      "SU(Nf)_L": "fundamental",
+      "SU(Nf)_R": "antifundamental",
+      "U(1)_V": 0
+     },
      "method": "PT, Veneziano limit",
      "refs": [
       "litim2014",
       "litim2023"
      ],
-     "note": "Numerically $1 + 0.2105\\,\\epsilon + 0.4625\\,\\epsilon^2$; four loops add $2.471\\,\\epsilon^3$."
+     "note": "Numerically $1 + 0.2105\\,\\epsilon + 0.4625\\,\\epsilon^2$; four loops add $2.471\\,\\epsilon^3$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)_L",
+        "canon": "fundamental",
+        "short": "fundamental",
+        "trivial": false,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(N_f)_L$ fundamental"
+       },
+       {
+        "factor": "SU(Nf)_R",
+        "canon": "antifundamental",
+        "short": "antifundamental",
+        "trivial": false,
+        "sort": [
+         1,
+         0,
+         1
+        ],
+        "text": "$SU(N_f)_R$ antifundamental"
+       },
+       {
+        "factor": "U(1)_V",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_V$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(Nf)_L=fundamental|SU(Nf)_R=antifundamental|U(1)_V=0"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 4,
      "spin": 2,
-     "rep": "singlet",
+     "parity": "even",
+     "global": {
+      "SU(Nf)_L": "singlet",
+      "SU(Nf)_R": "singlet",
+      "U(1)_V": 0
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)_L",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0
+        ],
+        "text": "$SU(N_f)_L$ singlet"
+       },
+       {
+        "factor": "SU(Nf)_R",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0
+        ],
+        "text": "$SU(N_f)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_V",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_V$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(Nf)_L=singlet|SU(Nf)_R=singlet|U(1)_V=0"
+     }
     }
    ],
    "relations": [
@@ -39370,6 +40253,23 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(Nf)_L",
+     "type": "SU",
+     "tex": "SU(N_f)_L"
+    },
+    {
+     "id": "SU(Nf)_R",
+     "type": "SU",
+     "tex": "SU(N_f)_R"
+    },
+    {
+     "id": "U(1)_V",
+     "type": "U1",
+     "tex": "U(1)_V"
+    }
    ],
    "source": "data/theories/litim-sannino-4d.yaml",
    "backlinks": []
@@ -39420,7 +40320,26 @@
     "lorentzian": "$SU(2,2|2)$",
     "supercharges": 8,
     "global": "$E_6$, $E_7$ or $E_8$ flavor symmetry; R-symmetry $SU(2)_R\\times U(1)_r$",
-    "notes": "Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$, and gauging $G$ is conformal when the matter has $k_G = 4h^\\vee(G)$."
+    "parity": false,
+    "global_group": [
+     {
+      "id": "SU(2)_R",
+      "group": "SU(2)",
+      "tex": "SU(2)_R"
+     },
+     {
+      "id": "U(1)_r",
+      "group": "U(1)",
+      "tex": "U(1)_r",
+      "note": "Normalized as in Dolan–Osborn: a Coulomb-branch chiral primary, in an $\\mathcal{E}_{r(0,0)}$ multiplet, has $r = \\Delta$."
+     },
+     {
+      "id": "E_n",
+      "group": "Lie(E_n)",
+      "note": "$E_6$, $E_7$ or $E_8$: one theory each."
+     }
+    ],
+    "notes": "Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$, and gauging $G$ is conformal when the matter has $k_G = 4h^\\vee(G)$. Multiplet names follow Dolan and Osborn [@minahan-nemeschansky-4d/dolan2002] as tabulated by Beem et al. [@minahan-nemeschansky-4d/beem2013, Table 7]: $\\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\\hat{\\mathcal{B}}_R$ Higgs-branch half-BPS, $\\hat{\\mathcal{C}}_{0(0,0)}$ stress tensor, $\\mathcal{A}^{\\Delta}_{R,r(j,\\bar\\jmath)}$ long."
    },
    "quantities": [
     {
@@ -39475,53 +40394,291 @@
      "name": "u\\ (E_6)",
      "Delta": 3,
      "spin": 0,
-     "rep": "$E_6$ and $SU(2)_R$ singlet; Coulomb-branch generator",
+     "global": {
+      "SU(2)_R": "singlet",
+      "U(1)_r": 3,
+      "E_n": "singlet"
+     },
+     "role": "Coulomb-branch generator",
+     "multiplet": {
+      "name": "$u$",
+      "component": "primary",
+      "type": "$\\mathcal{E}_{3(0,0)}$"
+     },
      "method": "exact",
      "refs": [
       "minahan1996",
       "aharony2007"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "3",
+        "short": "charge $3$",
+        "trivial": false,
+        "sort": [
+         3.0,
+         1
+        ],
+        "text": "$U(1)_r$ charge $3$"
+       },
+       {
+        "factor": "E_n",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$E_n$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|U(1)_r=3|E_n=singlet"
+     }
     },
     {
      "name": "u\\ (E_7)",
      "Delta": 4,
      "spin": 0,
-     "rep": "$E_7$ and $SU(2)_R$ singlet; Coulomb-branch generator",
+     "global": {
+      "SU(2)_R": "singlet",
+      "U(1)_r": 4,
+      "E_n": "singlet"
+     },
+     "role": "Coulomb-branch generator",
+     "multiplet": {
+      "name": "$u$",
+      "component": "primary",
+      "type": "$\\mathcal{E}_{4(0,0)}$"
+     },
      "method": "exact",
      "refs": [
       "minahan1996b",
       "aharony2007"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "4",
+        "short": "charge $4$",
+        "trivial": false,
+        "sort": [
+         4.0,
+         1
+        ],
+        "text": "$U(1)_r$ charge $4$"
+       },
+       {
+        "factor": "E_n",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$E_n$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|U(1)_r=4|E_n=singlet"
+     }
     },
     {
      "name": "u\\ (E_8)",
      "Delta": 6,
      "spin": 0,
-     "rep": "$E_8$ and $SU(2)_R$ singlet; Coulomb-branch generator",
+     "global": {
+      "SU(2)_R": "singlet",
+      "U(1)_r": 6,
+      "E_n": "singlet"
+     },
+     "role": "Coulomb-branch generator",
+     "multiplet": {
+      "name": "$u$",
+      "component": "primary",
+      "type": "$\\mathcal{E}_{6(0,0)}$"
+     },
      "method": "exact",
      "refs": [
       "minahan1996b",
       "aharony2007"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "6",
+        "short": "charge $6$",
+        "trivial": false,
+        "sort": [
+         6.0,
+         1
+        ],
+        "text": "$U(1)_r$ charge $6$"
+       },
+       {
+        "factor": "E_n",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$E_n$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|U(1)_r=6|E_n=singlet"
+     }
     },
     {
      "name": "\\mu",
      "Delta": 2,
      "spin": 0,
-     "rep": "adjoint of $E_n$; $SU(2)_R$ triplet",
+     "global": {
+      "SU(2)_R": "adjoint",
+      "U(1)_r": 0,
+      "E_n": "adjoint"
+     },
+     "multiplet": {
+      "name": "flavor current",
+      "component": "primary",
+      "type": "$\\hat{\\mathcal{B}}_1$"
+     },
      "method": "exact",
      "refs": [
       "beem2014"
      ],
-     "note": "Moment map, the superconformal primary of the flavor-current multiplet; it generates the Higgs-branch chiral ring."
+     "note": "Moment map, the superconformal primary of the flavor-current multiplet; it generates the Higgs-branch chiral ring.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(2)",
+        "short": "triplet (adjoint) $\\mathbf{3}$",
+        "trivial": false,
+        "sort": [
+         3,
+         2,
+         0
+        ],
+        "text": "$SU(2)_R$ triplet (adjoint) $\\mathbf{3}$"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_r$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "E_n",
+        "canon": "adjoint",
+        "short": "adjoint",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$E_n$ adjoint"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(2)|U(1)_r=0|E_n=adjoint"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 4,
      "spin": 2,
-     "rep": "singlet",
+     "global": {
+      "SU(2)_R": "singlet",
+      "U(1)_r": 0,
+      "E_n": "singlet"
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "Q^2\\bar Q^2",
+      "type": "$\\hat{\\mathcal{C}}_{0(0,0)}$"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_r$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "E_n",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$E_n$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|U(1)_r=0|E_n=singlet"
+     }
     }
    ],
    "references": [
@@ -39588,6 +40745,15 @@
      "year": 2016,
      "journal": "JHEP 03 (2016) 183",
      "arxiv": "1412.7541"
+    },
+    {
+     "key": "dolan2002",
+     "title": "On Short and Semi-Short Representations for Four Dimensional Superconformal Symmetry",
+     "authors": "Dolan, Osborn",
+     "year": 2002,
+     "journal": "Annals Phys. 307 (2003) 41-89",
+     "arxiv": "hep-th/0209056",
+     "doi": "10.1016/S0003-4916(03)00074-5"
     }
    ],
    "relations": [
@@ -39604,6 +40770,23 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(2)_R",
+     "type": "SU",
+     "tex": "SU(2)_R"
+    },
+    {
+     "id": "U(1)_r",
+     "type": "U1",
+     "tex": "U(1)_r"
+    },
+    {
+     "id": "E_n",
+     "type": "Lie",
+     "tex": "E_n"
+    }
    ],
    "source": "data/theories/minahan-nemeschansky-4d.yaml",
    "members": [
@@ -39660,7 +40843,22 @@
     "euclidean": "$SO(5,1)$ (bosonic conformal part)",
     "lorentzian": "$SU(2,2|2)$",
     "supercharges": 8,
-    "global": "No flavor symmetry; R-symmetry $SU(2)_R\\times U(1)_r$"
+    "global": "No flavor symmetry; R-symmetry $SU(2)_R\\times U(1)_r$",
+    "parity": false,
+    "global_group": [
+     {
+      "id": "SU(2)_R",
+      "group": "SU(2)",
+      "tex": "SU(2)_R"
+     },
+     {
+      "id": "U(1)_r",
+      "group": "U(1)",
+      "tex": "U(1)_r",
+      "note": "Normalized as in Dolan–Osborn: a Coulomb-branch chiral primary, in an $\\mathcal{E}_{r(0,0)}$ multiplet, has $r = \\Delta$."
+     }
+    ],
+    "notes": "Multiplet names follow Dolan and Osborn [@minimal-ad-4d/dolan2002] as tabulated by Beem et al. [@minimal-ad-4d/beem2013, Table 7]: $\\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\\hat{\\mathcal{B}}_R$ Higgs-branch half-BPS, $\\hat{\\mathcal{C}}_{0(0,0)}$ stress tensor, $\\mathcal{A}^{\\Delta}_{R,r(j,\\bar\\jmath)}$ long."
    },
    "quantities": [
     {
@@ -39713,54 +40911,234 @@
      "name": "u",
      "Delta": "\\frac{6}{5}",
      "spin": 0,
-     "rep": "$SU(2)_R$ singlet",
+     "global": {
+      "SU(2)_R": "singlet",
+      "U(1)_r": "6/5"
+     },
+     "multiplet": {
+      "name": "$u$",
+      "component": "primary",
+      "type": "$\\mathcal{E}_{\\frac65(0,0)}$"
+     },
      "method": "exact",
      "refs": [
       "argyres1995b",
       "aharony2007"
      ],
-     "note": "Generator of the Coulomb-branch chiral ring."
+     "note": "Generator of the Coulomb-branch chiral ring.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "6/5",
+        "short": "charge $\\tfrac{6}{5}$",
+        "trivial": false,
+        "sort": [
+         1.2,
+         1
+        ],
+        "text": "$U(1)_r$ charge $\\tfrac{6}{5}$"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|U(1)_r=6/5"
+     }
     },
     {
      "name": "u^2",
      "Delta": "\\frac{12}{5}",
      "spin": 0,
-     "rep": "$SU(2)_R$ singlet",
+     "global": {
+      "SU(2)_R": "singlet",
+      "U(1)_r": "12/5"
+     },
+     "multiplet": {
+      "name": "$u^2$",
+      "component": "primary",
+      "type": "$\\mathcal{E}_{\\frac{12}{5}(0,0)}$"
+     },
      "method": "exact",
      "refs": [
       "cornagliotto2017"
      ],
-     "note": "Coulomb-branch chiral operator; dimensions add in the chiral ring."
+     "note": "Coulomb-branch chiral operator; dimensions add in the chiral ring.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "12/5",
+        "short": "charge $\\tfrac{12}{5}$",
+        "trivial": false,
+        "sort": [
+         2.4,
+         1
+        ],
+        "text": "$U(1)_r$ charge $\\tfrac{12}{5}$"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|U(1)_r=12/5"
+     }
     },
     {
      "name": "[u\\bar u]_{\\rm long}",
      "Delta": "\\approx 2.56\\text{–}2.68",
      "spin": 0,
-     "rep": "$SU(2)_R$ singlet, $U(1)_r$ neutral",
+     "global": {
+      "SU(2)_R": "singlet",
+      "U(1)_r": 0
+     },
+     "multiplet": {
+      "name": "$[u\\bar u]_{\\rm long}$",
+      "component": "primary",
+      "type": "$\\mathcal{A}^{\\Delta}_{0,0(0,0)}$"
+     },
      "method": "CB-EFM",
      "refs": [
       "cornagliotto2017"
      ],
-     "note": "Superconformal primary of the lightest long multiplet in $u\\times\\bar u$; relevant. Range from extrapolations to $\\Lambda\\to\\infty$ [@minimal-ad-4d/cornagliotto2017, Eq. (3.5)], not a rigorous bound."
+     "note": "Superconformal primary of the lightest long multiplet in $u\\times\\bar u$; relevant. Range from extrapolations to $\\Lambda\\to\\infty$ [@minimal-ad-4d/cornagliotto2017, Eq. (3.5)], not a rigorous bound.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_r$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|U(1)_r=0"
+     }
     },
     {
      "name": "[u\\bar u]_{\\rm long}",
      "Delta": "\\approx 2.7",
      "spin": 0,
-     "rep": "$SU(2)_R$ singlet, $U(1)_r$ neutral",
+     "global": {
+      "SU(2)_R": "singlet",
+      "U(1)_r": 0
+     },
+     "multiplet": {
+      "name": "$[u\\bar u]_{\\rm long}$",
+      "component": "primary",
+      "type": "$\\mathcal{A}^{\\Delta}_{0,0(0,0)}$"
+     },
      "method": "CB",
      "refs": [
       "gimenezgrau2020, Eq. (4.1)"
      ],
-     "note": "Estimate, not a rigorous bound."
+     "note": "Estimate, not a rigorous bound.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_r$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|U(1)_r=0"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 4,
      "spin": 2,
-     "rep": "singlet",
+     "global": {
+      "SU(2)_R": "singlet",
+      "U(1)_r": 0
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "Q^2\\bar Q^2",
+      "type": "$\\hat{\\mathcal{C}}_{0(0,0)}$"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_r$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|U(1)_r=0"
+     }
     }
    ],
    "references": [
@@ -39843,6 +41221,23 @@
      "year": 2021,
      "journal": "JHEP 01 (2021) 175",
      "arxiv": "2006.01847"
+    },
+    {
+     "key": "dolan2002",
+     "title": "On Short and Semi-Short Representations for Four Dimensional Superconformal Symmetry",
+     "authors": "Dolan, Osborn",
+     "year": 2002,
+     "journal": "Annals Phys. 307 (2003) 41-89",
+     "arxiv": "hep-th/0209056",
+     "doi": "10.1016/S0003-4916(03)00074-5"
+    },
+    {
+     "key": "beem2013",
+     "title": "Infinite Chiral Symmetry in Four Dimensions",
+     "authors": "Beem, Lemos, Liendo, Peelaers, Rastelli, van Rees",
+     "year": 2013,
+     "journal": "Commun. Math. Phys. 336 (2015) 1359-1433",
+     "arxiv": "1312.5344"
     }
    ],
    "relations": [
@@ -39860,6 +41255,18 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(2)_R",
+     "type": "SU",
+     "tex": "SU(2)_R"
+    },
+    {
+     "id": "U(1)_r",
+     "type": "U1",
+     "tex": "U(1)_r"
+    }
    ],
    "source": "data/theories/minimal-ad-4d.yaml",
    "backlinks": [],
@@ -39927,8 +41334,28 @@
     "lorentzian": "$SU(2,2|2)$",
     "supercharges": 8,
     "global": "$U(2N) = SU(2N)\\times U(1)$ flavor symmetry for $N\\geq3$, enhanced to $SO(8)$ for $N=2$; R-symmetry $SU(2)_R\\times U(1)_r$",
+    "parity": "conditional",
+    "global_group": [
+     {
+      "id": "SU(2)_R",
+      "group": "SU(2)",
+      "tex": "SU(2)_R"
+     },
+     {
+      "id": "U(1)_r",
+      "group": "U(1)",
+      "tex": "U(1)_r",
+      "note": "Normalized as in Dolan–Osborn: a Coulomb-branch chiral primary, in an $\\mathcal{E}_{r(0,0)}$ multiplet, has $r = \\Delta$."
+     },
+     {
+      "id": "G_F",
+      "group": "Lie(U(2N))",
+      "tex": "G_F",
+      "note": "Flavor symmetry $U(2N) = SU(2N)\\times U(1)$ for $N \\geq 3$, enhanced to $SO(8)$ for $N = 2$."
+     }
+    ],
     "gauge": "$SU(N)$",
-    "notes": "Flavor central charges $k$ are normalized so that gauging a group $G$ is conformal when the matter it couples to has $k_G = 4h^\\vee(G)$; a fundamental hypermultiplet of $SU(N)$ contributes 2 to $k_{SU(N)}$."
+    "notes": "Flavor central charges $k$ are normalized so that gauging a group $G$ is conformal when the matter it couples to has $k_G = 4h^\\vee(G)$; a fundamental hypermultiplet of $SU(N)$ contributes 2 to $k_{SU(N)}$. Multiplet names follow Dolan and Osborn [@n2-sqcd-4d/dolan2002] as tabulated by Beem et al. [@n2-sqcd-4d/beem2013, Table 7]: $\\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\\hat{\\mathcal{B}}_R$ Higgs-branch half-BPS, $\\hat{\\mathcal{C}}_{0(0,0)}$ stress tensor, $\\mathcal{A}^{\\Delta}_{R,r(j,\\bar\\jmath)}$ long."
    },
    "quantities": [
     {
@@ -39980,40 +41407,232 @@
      "name": "\\mathrm{Tr}\\,\\phi^k",
      "Delta": "k",
      "spin": 0,
-     "rep": "flavor and $SU(2)_R$ singlet; charged under $U(1)_r$",
+     "parity": "pair",
+     "global": {
+      "SU(2)_R": "singlet",
+      "U(1)_r": "unknown",
+      "G_F": "singlet"
+     },
+     "role": "Coulomb-branch generator",
+     "multiplet": {
+      "name": "$\\mathrm{Tr}\\,\\phi^k$",
+      "component": "primary",
+      "type": "$\\mathcal{E}_{k(0,0)}$"
+     },
      "method": "exact",
      "refs": [
       "shapere2008",
       "beem2014"
      ],
-     "note": "Coulomb-branch chiral ring generators, $k = 2,\\dots,N$. The top component of the $k=2$ multiplet is the exactly marginal operator."
+     "note": "Coulomb-branch chiral ring generators, $k = 2,\\dots,N$. The top component of the $k=2$ multiplet is the exactly marginal operator.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$U(1)_r$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       },
+       {
+        "factor": "G_F",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$G_F$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|U(1)_r=unknown|G_F=singlet"
+     }
     },
     {
      "name": "\\mu = \\tilde Q Q",
      "Delta": 2,
      "spin": 0,
-     "rep": "adjoint of the flavor group; $SU(2)_R$ triplet",
+     "parity": "unknown",
+     "global": {
+      "SU(2)_R": "adjoint",
+      "U(1)_r": 0,
+      "G_F": "adjoint"
+     },
+     "multiplet": {
+      "name": "flavor current",
+      "component": "primary",
+      "type": "$\\hat{\\mathcal{B}}_1$"
+     },
      "method": "exact",
      "refs": [
       "beem2013"
      ],
-     "note": "Moment map (Higgs-branch operator), the superconformal primary of the flavor-current multiplet."
+     "note": "Moment map (Higgs-branch operator), the superconformal primary of the flavor-current multiplet.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(2)",
+        "short": "triplet (adjoint) $\\mathbf{3}$",
+        "trivial": false,
+        "sort": [
+         3,
+         2,
+         0
+        ],
+        "text": "$SU(2)_R$ triplet (adjoint) $\\mathbf{3}$"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_r$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "G_F",
+        "canon": "adjoint",
+        "short": "adjoint",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$G_F$ adjoint"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(2)|U(1)_r=0|G_F=adjoint"
+     }
     },
     {
      "name": "J_\\mu",
      "Delta": 3,
      "spin": 1,
-     "rep": "adjoint of the flavor group",
+     "parity": "unknown",
+     "global": {
+      "SU(2)_R": "singlet",
+      "U(1)_r": 0,
+      "G_F": "adjoint"
+     },
+     "multiplet": {
+      "name": "flavor current",
+      "component": "Q\\bar Q",
+      "type": "$\\hat{\\mathcal{B}}_1$"
+     },
      "method": "exact",
-     "note": "Conserved flavor current."
+     "note": "Conserved flavor current.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_r$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "G_F",
+        "canon": "adjoint",
+        "short": "adjoint",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$G_F$ adjoint"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|U(1)_r=0|G_F=adjoint"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 4,
      "spin": 2,
-     "rep": "singlet",
+     "parity": "even",
+     "global": {
+      "SU(2)_R": "singlet",
+      "U(1)_r": 0,
+      "G_F": "singlet"
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "Q^2\\bar Q^2",
+      "type": "$\\hat{\\mathcal{C}}_{0(0,0)}$"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_r",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_r$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "G_F",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$G_F$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|U(1)_r=0|G_F=singlet"
+     }
     }
    ],
    "references": [
@@ -40080,6 +41699,15 @@
      "year": 2021,
      "journal": "JHEP 01 (2021) 175",
      "arxiv": "2006.01847"
+    },
+    {
+     "key": "dolan2002",
+     "title": "On Short and Semi-Short Representations for Four Dimensional Superconformal Symmetry",
+     "authors": "Dolan, Osborn",
+     "year": 2002,
+     "journal": "Annals Phys. 307 (2003) 41-89",
+     "arxiv": "hep-th/0209056",
+     "doi": "10.1016/S0003-4916(03)00074-5"
     }
    ],
    "relations": [
@@ -40091,6 +41719,23 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(2)_R",
+     "type": "SU",
+     "tex": "SU(2)_R"
+    },
+    {
+     "id": "U(1)_r",
+     "type": "U1",
+     "tex": "U(1)_r"
+    },
+    {
+     "id": "G_F",
+     "type": "Lie",
+     "tex": "G_F"
+    }
    ],
    "source": "data/theories/n2-sqcd-4d.yaml",
    "members": [
@@ -40193,7 +41838,20 @@
     "lorentzian": "$SU(2,2|3)$",
     "supercharges": 12,
     "global": "$R$-symmetry $SU(3)_R\\times U(1)_R$; no continuous flavour symmetry",
-    "notes": "For $\\ell < k$ the parent theory has a discrete $\\mathbb{Z}_{k/\\ell}$ global symmetry, and its gauging has a $\\mathbb{Z}_{k/\\ell}$ 2-form symmetry."
+    "parity": false,
+    "global_group": [
+     {
+      "id": "SU(3)_R",
+      "group": "SU(3)",
+      "tex": "SU(3)_R"
+     },
+     {
+      "id": "U(1)_R",
+      "group": "U(1)",
+      "tex": "U(1)_R"
+     }
+    ],
+    "notes": "For $\\ell < k$ the parent theory has a discrete $\\mathbb{Z}_{k/\\ell}$ global symmetry, and its gauging has a $\\mathbb{Z}_{k/\\ell}$ 2-form symmetry. Multiplet names follow Cordova, Dumitrescu and Intriligator [@n3-sfold-4d/cdi2016]."
    },
    "quantities": [
     {
@@ -40233,31 +41891,126 @@
      "name": "u_j,\\ j = 1, \\dots, N-1",
      "Delta": "jk",
      "spin": 0,
-     "rep": "Coulomb-branch chiral primary",
+     "global": {
+      "SU(3)_R": "unknown",
+      "U(1)_R": "unknown"
+     },
+     "role": "Coulomb-branch chiral primary",
      "method": "exact, moduli space",
      "refs": [
       "at2016"
      ],
-     "note": "Generators of the Coulomb-branch chiral ring: symmetric polynomials of $z_i^k$, where $z_i$ are the D3-brane positions."
+     "note": "Generators of the Coulomb-branch chiral ring: symmetric polynomials of $z_i^k$, where $z_i$ are the D3-brane positions.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(3)_R",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$SU(3)_R$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       },
+       {
+        "factor": "U(1)_R",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$U(1)_R$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "SU(3)_R=unknown|U(1)_R=unknown"
+     }
     },
     {
      "name": "u_N",
      "Delta": "N\\ell",
      "spin": 0,
-     "rep": "Coulomb-branch chiral primary",
+     "global": {
+      "SU(3)_R": "unknown",
+      "U(1)_R": "unknown"
+     },
+     "role": "Coulomb-branch chiral primary",
      "method": "exact, moduli space",
      "refs": [
       "at2016"
      ],
-     "note": "The generator $(z_1\\cdots z_N)^\\ell$ of the parent theory (replaced by $\\sum_i z_i^{Nk}$, of dimension $Nk$, after the discrete gauging). A Coulomb-branch operator of dimension 1 or 2 signals $\\mathcal{N}=4$ enhancement."
+     "note": "The generator $(z_1\\cdots z_N)^\\ell$ of the parent theory (replaced by $\\sum_i z_i^{Nk}$, of dimension $Nk$, after the discrete gauging). A Coulomb-branch operator of dimension 1 or 2 signals $\\mathcal{N}=4$ enhancement.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(3)_R",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$SU(3)_R$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       },
+       {
+        "factor": "U(1)_R",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$U(1)_R$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "SU(3)_R=unknown|U(1)_R=unknown"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 4,
      "spin": 2,
-     "rep": "singlet",
+     "global": {
+      "SU(3)_R": "singlet",
+      "U(1)_R": 0
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "Q^2\\bar Q^2",
+      "type": "$B_1\\bar B_1[0;0]^{(1,1;0)}_2$"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(3)_R",
+        "canon": "Dynkin(0,0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0,
+         0
+        ],
+        "text": "$SU(3)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_R",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_R$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(3)_R=Dynkin(0,0)|U(1)_R=0"
+     }
     }
    ],
    "relations": [
@@ -40299,10 +42052,29 @@
      "journal": "JHEP 06 (2016) 044",
      "arxiv": "1602.08638",
      "doi": "10.1007/JHEP06(2016)044"
+    },
+    {
+     "key": "cdi2016",
+     "title": "Multiplets of Superconformal Symmetry in Diverse Dimensions",
+     "authors": "Cordova, Dumitrescu, Intriligator",
+     "year": 2016,
+     "arxiv": "1612.00809"
     }
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(3)_R",
+     "type": "SU",
+     "tex": "SU(3)_R"
+    },
+    {
+     "id": "U(1)_R",
+     "type": "U1",
+     "tex": "U(1)_R"
+    }
    ],
    "source": "data/theories/n3-sfold-4d.yaml",
    "members": [
@@ -40582,6 +42354,26 @@
     "euclidean": "$O(5,1)$",
     "supercharges": 0,
     "global": "$S_q$ permutation symmetry of the Potts model, at $q \\to 1$ (formal)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "S_q",
+      "group": "finite",
+      "tex": "S_q",
+      "irreps": [
+       {
+        "label": "trivial",
+        "tex": "\\text{singlet}",
+        "dim": 1
+       },
+       {
+        "label": "standard",
+        "tex": "(q-1)\\text{-dimensional}"
+       }
+      ],
+      "note": "The permutation group of the $q$-state Potts model at $q \\to 1$ (formal); its standard representation has dimension $q - 1$."
+     }
+    ],
     "notes": "The $N+1$ vectors $e_\\alpha$ are the vertices of an $N$-dimensional tetrahedron, so $d_{ijk}$ is invariant under their permutations, the $S_{N+1} = S_q$ of the Potts model."
    },
    "quantities": [
@@ -40705,24 +42497,62 @@
      "name": "\\sigma",
      "Delta": "0.9554(7)",
      "spin": 0,
-     "rep": "$(q-1)$-dimensional representation of $S_q$ (order parameter)",
+     "parity": "even",
+     "global": {
+      "S_q": "standard"
+     },
+     "role": "order parameter",
      "method": "MC, from d_f",
      "refs": [
       "zhang2021",
       "tan2020"
      ],
-     "note": "$4 - d_f$ with $d_f = 3.0446(7)$, listed as the magnetic dimension $X_1$ in [@percolation-4d/tan2020, Table IV] Below the unitarity bound 1."
+     "note": "$4 - d_f$ with $d_f = 3.0446(7)$, listed as the magnetic dimension $X_1$ in [@percolation-4d/tan2020, Table IV] Below the unitarity bound 1.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "S_q",
+        "canon": "standard",
+        "short": "$(q-1)\\text{-dimensional}$",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$S_q$ $(q-1)\\text{-dimensional}$"
+       }
+      ],
+      "key": "S_q=standard"
+     }
     },
     {
      "name": "\\epsilon",
      "Delta": "2.5390(12)",
      "spin": 0,
-     "rep": "$S_q$ singlet (thermal)",
+     "parity": "even",
+     "global": {
+      "S_q": "trivial"
+     },
+     "role": "thermal",
      "method": "MC, bond, hypercubic",
      "refs": [
       "tan2020"
      ],
-     "note": "Measured as the two-cluster exponent $X_{2s}$, which equals $4 - y_t$."
+     "note": "Measured as the two-cluster exponent $X_{2s}$, which equals $4 - y_t$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "S_q",
+        "canon": "trivial",
+        "short": "$\\text{singlet}$",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$S_q$ $\\text{singlet}$"
+       }
+      ],
+      "key": "S_q=trivial"
+     }
     }
    ],
    "relations": [
@@ -40797,6 +42627,13 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "S_q",
+     "type": "finite",
+     "tex": "S_q"
+    }
    ],
    "source": "data/theories/percolation-4d.yaml",
    "backlinks": [
@@ -40884,6 +42721,25 @@
     "lorentzian": "$O(4,2)$",
     "supercharges": 0,
     "global": "$SU(N_f)_L\\times SU(N_f)_R\\times U(1)_V$ (the axial $U(1)$ is anomalous), charge conjugation, parity and time reversal",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "SU(Nf)_L",
+      "group": "SU(N_f)",
+      "tex": "SU(N_f)_L"
+     },
+     {
+      "id": "SU(Nf)_R",
+      "group": "SU(N_f)",
+      "tex": "SU(N_f)_R",
+      "note": "Parity exchanges $SU(N_f)_L$ and $SU(N_f)_R$."
+     },
+     {
+      "id": "U(1)_V",
+      "group": "U(1)",
+      "tex": "U(1)_V"
+     }
+    ],
     "gauge": "$SU(N_c)$"
    },
    "quantities": [
@@ -40936,55 +42792,290 @@
      "name": "\\bar\\psi\\psi\\ (N_f = 12)",
      "Delta": "2.662",
      "spin": 0,
-     "rep": "$SU(N_f)$ adjoint and singlet (same anomalous dimension)",
+     "parity": "pair",
+     "global": {
+      "SU(Nf)_L": "fundamental",
+      "SU(Nf)_R": "antifundamental",
+      "U(1)_V": 0
+     },
      "method": "BZ, scheme-independent, fourth order, from γ",
      "refs": [
       "ryttov2017",
       "dipietro2020"
      ],
-     "note": "$3 - \\gamma$ with $\\gamma = 0.338$ from Table I. Resummed perturbation theory gives $|\\gamma| = 0.345(47)$ [@qcd-conformal-window-4d/dipietro2020]."
+     "note": "$3 - \\gamma$ with $\\gamma = 0.338$ from Table I. Resummed perturbation theory gives $|\\gamma| = 0.345(47)$ [@qcd-conformal-window-4d/dipietro2020].",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)_L",
+        "canon": "fundamental",
+        "short": "fundamental",
+        "trivial": false,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(N_f)_L$ fundamental"
+       },
+       {
+        "factor": "SU(Nf)_R",
+        "canon": "antifundamental",
+        "short": "antifundamental",
+        "trivial": false,
+        "sort": [
+         1,
+         0,
+         1
+        ],
+        "text": "$SU(N_f)_R$ antifundamental"
+       },
+       {
+        "factor": "U(1)_V",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_V$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(Nf)_L=fundamental|SU(Nf)_R=antifundamental|U(1)_V=0"
+     }
     },
     {
      "name": "\\bar\\psi\\psi\\ (N_f = 12)",
      "Delta": "2.765(15)",
      "spin": 0,
-     "rep": "$SU(N_f)$ adjoint and singlet",
+     "parity": "pair",
+     "global": {
+      "SU(Nf)_L": "fundamental",
+      "SU(Nf)_R": "antifundamental",
+      "U(1)_V": 0
+     },
      "method": "LGT, finite-size scaling, from γ_m",
      "refs": [
       "cheng2014",
       "lombardo2014",
       "aoki2012"
      ],
-     "note": "$3 - \\gamma_m$ with $\\gamma_m = 0.235(15)$ [@qcd-conformal-window-4d/cheng2014]. Also $\\gamma_m = 0.235(46)$ [@qcd-conformal-window-4d/lombardo2014] and $\\gamma_m \\sim 0.4$–$0.5$ [@qcd-conformal-window-4d/aoki2012]."
+     "note": "$3 - \\gamma_m$ with $\\gamma_m = 0.235(15)$ [@qcd-conformal-window-4d/cheng2014]. Also $\\gamma_m = 0.235(46)$ [@qcd-conformal-window-4d/lombardo2014] and $\\gamma_m \\sim 0.4$–$0.5$ [@qcd-conformal-window-4d/aoki2012].",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)_L",
+        "canon": "fundamental",
+        "short": "fundamental",
+        "trivial": false,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(N_f)_L$ fundamental"
+       },
+       {
+        "factor": "SU(Nf)_R",
+        "canon": "antifundamental",
+        "short": "antifundamental",
+        "trivial": false,
+        "sort": [
+         1,
+         0,
+         1
+        ],
+        "text": "$SU(N_f)_R$ antifundamental"
+       },
+       {
+        "factor": "U(1)_V",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_V$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(Nf)_L=fundamental|SU(Nf)_R=antifundamental|U(1)_V=0"
+     }
     },
     {
      "name": "\\mathrm{Tr}\\,F_{\\mu\\nu}F^{\\mu\\nu}\\ (N_f = 12)",
      "Delta": "4.228",
      "spin": 0,
-     "rep": "singlet",
+     "parity": "even",
+     "global": {
+      "SU(Nf)_L": "singlet",
+      "SU(Nf)_R": "singlet",
+      "U(1)_V": 0
+     },
      "method": "BZ, scheme-independent, fifth order, from β′",
      "refs": [
       "ryttov2017",
       "hasenfratz2018",
       "dipietro2020"
      ],
-     "note": "$4 + \\beta^\\prime(\\alpha_*)$ (eq. 4.2) with $\\beta^\\prime = 0.228$ from Table VIII. Lattice: leading irrelevant exponent $0.26(2)$ [@qcd-conformal-window-4d/hasenfratz2018]; resummed perturbation theory $0.23(6)$."
+     "note": "$4 + \\beta^\\prime(\\alpha_*)$ (eq. 4.2) with $\\beta^\\prime = 0.228$ from Table VIII. Lattice: leading irrelevant exponent $0.26(2)$ [@qcd-conformal-window-4d/hasenfratz2018]; resummed perturbation theory $0.23(6)$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)_L",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0
+        ],
+        "text": "$SU(N_f)_L$ singlet"
+       },
+       {
+        "factor": "SU(Nf)_R",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0
+        ],
+        "text": "$SU(N_f)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_V",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_V$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(Nf)_L=singlet|SU(Nf)_R=singlet|U(1)_V=0"
+     }
     },
     {
      "name": "J_\\mu^{L},\\ J_\\mu^{R},\\ J_\\mu^{V}",
      "Delta": 3,
      "spin": 1,
-     "rep": "$SU(N_f)_L$ and $SU(N_f)_R$ adjoints, $U(1)_V$",
+     "parity": "unknown",
+     "global": {
+      "SU(Nf)_L": [
+       "singlet",
+       "adjoint"
+      ],
+      "SU(Nf)_R": [
+       "singlet",
+       "adjoint"
+      ],
+      "U(1)_V": 0
+     },
      "method": "exact",
-     "note": "Conserved flavor currents."
+     "note": "Conserved flavor currents.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)_L",
+        "canon": "singlet+adjoint",
+        "short": "singlet $\\oplus$ adjoint",
+        "text": "$SU(N_f)_L$ singlet $\\oplus$ adjoint",
+        "trivial": false,
+        "sort": [
+         0,
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       },
+       {
+        "factor": "SU(Nf)_R",
+        "canon": "singlet+adjoint",
+        "short": "singlet $\\oplus$ adjoint",
+        "text": "$SU(N_f)_R$ singlet $\\oplus$ adjoint",
+        "trivial": false,
+        "sort": [
+         0,
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       },
+       {
+        "factor": "U(1)_V",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_V$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(Nf)_L=singlet+adjoint|SU(Nf)_R=singlet+adjoint|U(1)_V=0"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 4,
      "spin": 2,
-     "rep": "singlet",
+     "parity": "even",
+     "global": {
+      "SU(Nf)_L": "singlet",
+      "SU(Nf)_R": "singlet",
+      "U(1)_V": 0
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)_L",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0
+        ],
+        "text": "$SU(N_f)_L$ singlet"
+       },
+       {
+        "factor": "SU(Nf)_R",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0
+        ],
+        "text": "$SU(N_f)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_V",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_V$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(Nf)_L=singlet|SU(Nf)_R=singlet|U(1)_V=0"
+     }
     }
    ],
    "relations": [
@@ -41129,6 +43220,23 @@
    "contributors": [
     "Canonical111"
    ],
+   "global_factors": [
+    {
+     "id": "SU(Nf)_L",
+     "type": "SU",
+     "tex": "SU(N_f)_L"
+    },
+    {
+     "id": "SU(Nf)_R",
+     "type": "SU",
+     "tex": "SU(N_f)_R"
+    },
+    {
+     "id": "U(1)_V",
+     "type": "U1",
+     "tex": "U(1)_V"
+    }
+   ],
    "source": "data/theories/qcd-conformal-window-4d.yaml",
    "members": [
     {
@@ -41244,7 +43352,32 @@
     "lorentzian": "$SU(2,2|1)$",
     "supercharges": 4,
     "global": "$SU(N_f)\\times SU(N_f)\\times U(1)_B$ flavour symmetry and $U(1)_R$",
-    "gauge": "$SU(N_c)$ (electric) or $SU(N_f-N_c)$ (magnetic)"
+    "parity": true,
+    "global_group": [
+     {
+      "id": "SU(Nf)_L",
+      "group": "SU(N_f)",
+      "tex": "SU(N_f)_L"
+     },
+     {
+      "id": "SU(Nf)_R",
+      "group": "SU(N_f)",
+      "tex": "SU(N_f)_R"
+     },
+     {
+      "id": "U(1)_B",
+      "group": "U(1)",
+      "tex": "U(1)_B"
+     },
+     {
+      "id": "U(1)_R",
+      "group": "U(1)",
+      "tex": "U(1)_R",
+      "note": "The superconformal R-symmetry: a chiral primary has $\\Delta = \\tfrac32 R$. Parity ($CP$) reverses it."
+     }
+    ],
+    "gauge": "$SU(N_c)$ (electric) or $SU(N_f-N_c)$ (magnetic)",
+    "notes": "Multiplet names follow Cordova, Dumitrescu and Intriligator [@sqcd-conformal-window-4d/cdi2016]."
    },
    "quantities": [
     {
@@ -41297,39 +43430,302 @@
      "name": "M^i_{\\ \\tilde\\jmath} = Q^i\\tilde Q_{\\tilde\\jmath}",
      "Delta": "3\\Big(1 - \\frac{N_c}{N_f}\\Big)",
      "spin": 0,
-     "rep": "$(\\mathbf{N_f}, \\overline{\\mathbf{N_f}})$ of $SU(N_f)\\times SU(N_f)$, $U(1)_B$ neutral",
+     "parity": "pair",
+     "global": {
+      "SU(Nf)_L": "fundamental",
+      "SU(Nf)_R": "antifundamental",
+      "U(1)_B": 0,
+      "U(1)_R": "2(N_f-N_c)/N_f"
+     },
+     "multiplet": {
+      "name": "$M$",
+      "component": "primary",
+      "type": "chiral, $L\\bar B_1[0;0]^{(r)}_{3r/2}$"
+     },
      "method": "exact",
      "refs": [
       "seiberg1995"
      ],
-     "note": "Chiral primary [@sqcd-conformal-window-4d/seiberg1995, Eq. (2.3)]. It equals 1 at $N_f = \\tfrac32 N_c$. In the magnetic description $M$ is an elementary field."
+     "note": "Chiral primary [@sqcd-conformal-window-4d/seiberg1995, Eq. (2.3)]. It equals 1 at $N_f = \\tfrac32 N_c$. In the magnetic description $M$ is an elementary field.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)_L",
+        "canon": "fundamental",
+        "short": "fundamental",
+        "trivial": false,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(N_f)_L$ fundamental"
+       },
+       {
+        "factor": "SU(Nf)_R",
+        "canon": "antifundamental",
+        "short": "antifundamental",
+        "trivial": false,
+        "sort": [
+         1,
+         0,
+         1
+        ],
+        "text": "$SU(N_f)_R$ antifundamental"
+       },
+       {
+        "factor": "U(1)_B",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_B$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "U(1)_R",
+        "canon": "2(N_f-N_c)/N_f",
+        "short": "charge $2(N_f-N_c)/N_f$",
+        "trivial": false,
+        "sort": [
+         1000000,
+         1
+        ],
+        "text": "$U(1)_R$ charge $2(N_f-N_c)/N_f$"
+       }
+      ],
+      "key": "SU(Nf)_L=fundamental|SU(Nf)_R=antifundamental|U(1)_B=0|U(1)_R=2(N_f-N_c)/N_f"
+     }
     },
     {
      "name": "B = Q^{N_c},\\ \\tilde B = \\tilde Q^{N_c}",
      "Delta": "\\frac{3N_c(N_f - N_c)}{2N_f}",
      "spin": 0,
-     "rep": "rank-$N_c$ antisymmetric tensor of $SU(N_f)_L$ (resp. $SU(N_f)_R$), $U(1)_B$ charge $\\pm N_c$",
+     "parity": "pair",
+     "global": {
+      "SU(Nf)_L": [
+       "singlet",
+       "anti(N_c)"
+      ],
+      "SU(Nf)_R": [
+       "singlet",
+       "anti(N_c)bar"
+      ],
+      "U(1)_B": "±N_c",
+      "U(1)_R": "N_c(N_f-N_c)/N_f"
+     },
+     "multiplet": {
+      "name": "$B$, $\\tilde B$",
+      "component": "primary",
+      "type": "chiral, $L\\bar B_1[0;0]^{(r)}_{3r/2}$"
+     },
      "method": "exact",
      "refs": [
       "seiberg1995"
      ],
-     "note": "Baryons [@sqcd-conformal-window-4d/seiberg1995, Eq. (2.4)]. In the magnetic description $B \\propto q^{N_f - N_c}$."
+     "note": "Baryons [@sqcd-conformal-window-4d/seiberg1995, Eq. (2.4)]. In the magnetic description $B \\propto q^{N_f - N_c}$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)_L",
+        "canon": "singlet+anti(N_c)",
+        "short": "singlet $\\oplus$ rank-$N_c$ antisymmetric",
+        "text": "$SU(N_f)_L$ singlet $\\oplus$ rank-$N_c$ antisymmetric",
+        "trivial": false,
+        "sort": [
+         0,
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       },
+       {
+        "factor": "SU(Nf)_R",
+        "canon": "singlet+anti(N_c)bar",
+        "short": "singlet $\\oplus$ rank-$N_c$ antisymmetric (conjugate)",
+        "text": "$SU(N_f)_R$ singlet $\\oplus$ rank-$N_c$ antisymmetric (conjugate)",
+        "trivial": false,
+        "sort": [
+         0,
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       },
+       {
+        "factor": "U(1)_B",
+        "canon": "±N_c",
+        "short": "charge $\\pm N_c$",
+        "trivial": false,
+        "sort": [
+         1000000,
+         0
+        ],
+        "text": "$U(1)_B$ charge $\\pm N_c$"
+       },
+       {
+        "factor": "U(1)_R",
+        "canon": "N_c(N_f-N_c)/N_f",
+        "short": "charge $N_c(N_f-N_c)/N_f$",
+        "trivial": false,
+        "sort": [
+         1000000,
+         1
+        ],
+        "text": "$U(1)_R$ charge $N_c(N_f-N_c)/N_f$"
+       }
+      ],
+      "key": "SU(Nf)_L=singlet+anti(N_c)|SU(Nf)_R=singlet+anti(N_c)bar|U(1)_B=±N_c|U(1)_R=N_c(N_f-N_c)/N_f"
+     }
     },
     {
      "name": "J_\\mu^{SU(N_f)_{L,R}},\\ J_\\mu^{B},\\ J_\\mu^{R}",
      "Delta": 3,
      "spin": 1,
-     "rep": "adjoints of $SU(N_f)_{L,R}$; singlets",
+     "parity": "unknown",
+     "global": {
+      "SU(Nf)_L": [
+       "singlet",
+       "adjoint"
+      ],
+      "SU(Nf)_R": [
+       "singlet",
+       "adjoint"
+      ],
+      "U(1)_B": 0,
+      "U(1)_R": 0
+     },
      "method": "exact",
-     "note": "Conserved currents."
+     "note": "Conserved currents.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)_L",
+        "canon": "singlet+adjoint",
+        "short": "singlet $\\oplus$ adjoint",
+        "text": "$SU(N_f)_L$ singlet $\\oplus$ adjoint",
+        "trivial": false,
+        "sort": [
+         0,
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       },
+       {
+        "factor": "SU(Nf)_R",
+        "canon": "singlet+adjoint",
+        "short": "singlet $\\oplus$ adjoint",
+        "text": "$SU(N_f)_R$ singlet $\\oplus$ adjoint",
+        "trivial": false,
+        "sort": [
+         0,
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       },
+       {
+        "factor": "U(1)_B",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_B$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "U(1)_R",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_R$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(Nf)_L=singlet+adjoint|SU(Nf)_R=singlet+adjoint|U(1)_B=0|U(1)_R=0"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 4,
      "spin": 2,
-     "rep": "singlet",
+     "parity": "even",
+     "global": {
+      "SU(Nf)_L": "singlet",
+      "SU(Nf)_R": "singlet",
+      "U(1)_B": 0,
+      "U(1)_R": 0
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "Q\\bar Q",
+      "type": "$A_1\\bar A_1[1;1]^{(0)}_3$"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)_L",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0
+        ],
+        "text": "$SU(N_f)_L$ singlet"
+       },
+       {
+        "factor": "SU(Nf)_R",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0
+        ],
+        "text": "$SU(N_f)_R$ singlet"
+       },
+       {
+        "factor": "U(1)_B",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_B$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "U(1)_R",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_R$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(Nf)_L=singlet|SU(Nf)_R=singlet|U(1)_B=0|U(1)_R=0"
+     }
     }
    ],
    "relations": [
@@ -41398,10 +43794,39 @@
      "journal": "JHEP 05 (2012) 110",
      "arxiv": "1109.5176",
      "doi": "10.1007/JHEP05(2012)110"
+    },
+    {
+     "key": "cdi2016",
+     "title": "Multiplets of Superconformal Symmetry in Diverse Dimensions",
+     "authors": "Cordova, Dumitrescu, Intriligator",
+     "year": 2016,
+     "arxiv": "1612.00809"
     }
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(Nf)_L",
+     "type": "SU",
+     "tex": "SU(N_f)_L"
+    },
+    {
+     "id": "SU(Nf)_R",
+     "type": "SU",
+     "tex": "SU(N_f)_R"
+    },
+    {
+     "id": "U(1)_B",
+     "type": "U1",
+     "tex": "U(1)_B"
+    },
+    {
+     "id": "U(1)_R",
+     "type": "U1",
+     "tex": "U(1)_R"
+    }
    ],
    "source": "data/theories/sqcd-conformal-window-4d.yaml",
    "members": [
@@ -41831,7 +44256,30 @@
     "lorentzian": "$SU(2,2|1)$",
     "supercharges": 4,
     "global": "$SU(2)\\times U(1)_F$ and $U(1)_R$ (together the isometries of $Y^{p,q}$), and the baryonic $U(1)_B$",
-    "gauge": "$SU(N)^{2p}$"
+    "parity": false,
+    "global_group": [
+     {
+      "id": "SU(2)",
+      "group": "SU(2)"
+     },
+     {
+      "id": "U(1)_F",
+      "group": "U(1)",
+      "tex": "U(1)_F"
+     },
+     {
+      "id": "U(1)_R",
+      "group": "U(1)",
+      "tex": "U(1)_R"
+     },
+     {
+      "id": "U(1)_B",
+      "group": "U(1)",
+      "tex": "U(1)_B"
+     }
+    ],
+    "gauge": "$SU(N)^{2p}$",
+    "notes": "Multiplet names follow Cordova, Dumitrescu and Intriligator [@ypq-quivers-4d/cdi2016]."
    },
    "quantities": [
     {
@@ -41870,17 +44318,137 @@
      "name": "J_\\mu^{SU(2)},\\ J_\\mu^{F},\\ J_\\mu^{B},\\ J_\\mu^{R}",
      "Delta": 3,
      "spin": 1,
-     "rep": "adjoint of $SU(2)$; singlets",
+     "global": {
+      "SU(2)": [
+       "singlet",
+       "adjoint"
+      ],
+      "U(1)_F": 0,
+      "U(1)_R": 0,
+      "U(1)_B": 0
+     },
      "method": "exact",
-     "note": "Conserved currents."
+     "note": "Conserved currents.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)",
+        "canon": "Dynkin(0)+Dynkin(2)",
+        "short": "singlet $\\oplus$ triplet (adjoint) $\\mathbf{3}$",
+        "text": "$SU(2)$ singlet $\\oplus$ triplet (adjoint) $\\mathbf{3}$",
+        "trivial": false,
+        "sort": [
+         1,
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       },
+       {
+        "factor": "U(1)_F",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_F$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "U(1)_R",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_R$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "U(1)_B",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_B$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(2)=Dynkin(0)+Dynkin(2)|U(1)_F=0|U(1)_R=0|U(1)_B=0"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 4,
      "spin": 2,
-     "rep": "singlet",
+     "global": {
+      "SU(2)": "singlet",
+      "U(1)_F": 0,
+      "U(1)_R": 0,
+      "U(1)_B": 0
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "Q\\bar Q",
+      "type": "$A_1\\bar A_1[1;1]^{(0)}_3$"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)$ singlet"
+       },
+       {
+        "factor": "U(1)_F",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_F$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "U(1)_R",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_R$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       },
+       {
+        "factor": "U(1)_B",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_B$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(2)=Dynkin(0)|U(1)_F=0|U(1)_R=0|U(1)_B=0"
+     }
     }
    ],
    "relations": [
@@ -41907,10 +44475,39 @@
      "year": 2004,
      "journal": "Adv. Theor. Math. Phys. 8, 711",
      "arxiv": "hep-th/0403002"
+    },
+    {
+     "key": "cdi2016",
+     "title": "Multiplets of Superconformal Symmetry in Diverse Dimensions",
+     "authors": "Cordova, Dumitrescu, Intriligator",
+     "year": 2016,
+     "arxiv": "1612.00809"
     }
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(2)",
+     "type": "SU",
+     "tex": "SU(2)"
+    },
+    {
+     "id": "U(1)_F",
+     "type": "U1",
+     "tex": "U(1)_F"
+    },
+    {
+     "id": "U(1)_R",
+     "type": "U1",
+     "tex": "U(1)_R"
+    },
+    {
+     "id": "U(1)_B",
+     "type": "U1",
+     "tex": "U(1)_B"
+    }
    ],
    "source": "data/theories/ypq-quivers-4d.yaml",
    "members": [
@@ -41961,6 +44558,13 @@
     "lorentzian": "$O(5,2)$",
     "supercharges": 0,
     "global": "$U(1)$ fermion number, $\\psi\\to e^{i\\alpha}\\psi$ (the manifest symmetry of the Dirac Lagrangian)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "U(1)",
+      "group": "U(1)"
+     }
+    ],
     "notes": "Reflections of one coordinate flip the sign of the Dirac mass term."
    },
    "quantities": [
@@ -42004,40 +44608,117 @@
      "name": "\\psi",
      "Delta": 2,
      "spin": "1/2",
-     "rep": "charge $1$",
+     "lorentz": "[1/2, 1/2]",
+     "parity": "unknown",
+     "global": {
+      "U(1)": 1
+     },
      "method": "exact",
      "refs": [
       "osborn1994",
       "giombi2014"
      ],
-     "note": "From $\\langle\\psi(x)\\bar\\psi(0)\\rangle = \\frac{1}{S_d}\\frac{\\gamma\\cdot x}{x^d}$ [@free-fermion-5d/osborn1994, Eq. (5.3)]; $\\Delta = (d-1)/2$."
+     "note": "From $\\langle\\psi(x)\\bar\\psi(0)\\rangle = \\frac{1}{S_d}\\frac{\\gamma\\cdot x}{x^d}$ [@free-fermion-5d/osborn1994, Eq. (5.3)]; $\\Delta = (d-1)/2$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "1",
+        "short": "charge $1$",
+        "trivial": false,
+        "sort": [
+         1.0,
+         1
+        ],
+        "text": "$U(1)$ charge $1$"
+       }
+      ],
+      "key": "U(1)=1"
+     }
     },
     {
      "name": "\\bar\\psi\\psi",
      "Delta": 4,
      "spin": 0,
-     "rep": "neutral; odd under reflections",
+     "parity": "odd",
+     "global": {
+      "U(1)": 0
+     },
      "method": "exact",
      "refs": [
       "osborn1994"
      ],
-     "note": "Dirac mass term. Relevant."
+     "note": "Dirac mass term. Relevant.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)=0"
+     }
     },
     {
      "name": "J_\\mu = \\bar\\psi\\gamma_\\mu\\psi",
      "Delta": 4,
      "spin": 1,
-     "rep": "neutral",
+     "parity": "even",
+     "global": {
+      "U(1)": 0
+     },
      "method": "exact",
-     "note": "Conserved $U(1)$ current."
+     "note": "Conserved $U(1)$ current.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)=0"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 5,
      "spin": 2,
-     "rep": "neutral",
+     "parity": "even",
+     "global": {
+      "U(1)": 0
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)=0"
+     }
     }
    ],
    "references": [
@@ -42093,6 +44774,13 @@
    "contributors": [
     "Canonical111"
    ],
+   "global_factors": [
+    {
+     "id": "U(1)",
+     "type": "U1",
+     "tex": "U(1)"
+    }
+   ],
    "source": "data/theories/free-fermion-5d.yaml",
    "backlinks": []
   },
@@ -42119,7 +44807,14 @@
     "euclidean": "$O(6,1)$",
     "lorentzian": "$O(5,2)$",
     "supercharges": 0,
-    "global": "$\\mathbb{Z}_2$ ($\\phi\\to-\\phi$), plus shift symmetry $\\phi \\to \\phi + \\text{const}$"
+    "global": "$\\mathbb{Z}_2$ ($\\phi\\to-\\phi$), plus shift symmetry $\\phi \\to \\phi + \\text{const}$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2"
+     }
+    ]
    },
    "quantities": [
     {
@@ -42149,52 +44844,142 @@
      "name": "\\phi",
      "Delta": "\\frac{3}{2}",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "exact",
      "refs": [
       "osborn1994"
      ],
-     "note": "From the propagator $\\langle\\phi(x)\\phi(0)\\rangle = \\frac{1}{(d-2)S_d\\,x^{d-2}}$ [@free-scalar-5d/osborn1994, Eq. (5.3)]."
+     "note": "From the propagator $\\langle\\phi(x)\\phi(0)\\rangle = \\frac{1}{(d-2)S_d\\,x^{d-2}}$ [@free-scalar-5d/osborn1994, Eq. (5.3)].",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\phi^2",
      "Delta": 3,
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "exact",
      "refs": [
       "osborn1994"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\phi^3",
      "Delta": "\\frac{9}{2}",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "exact",
      "refs": [
       "osborn1994"
      ],
-     "note": "Relevant."
+     "note": "Relevant.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\phi^4",
      "Delta": 6,
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "exact",
      "refs": [
       "osborn1994"
      ],
-     "note": "Irrelevant."
+     "note": "Irrelevant.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 5,
      "spin": 2,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     }
    ],
    "references": [
@@ -42240,6 +45025,13 @@
    "contributors": [
     "Canonical111"
    ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2"
+    }
+   ],
    "source": "data/theories/free-scalar-5d.yaml",
    "backlinks": [
     {
@@ -42273,6 +45065,8 @@
     "euclidean": "$O(6,1)$",
     "supercharges": 0,
     "global": "None (the Ising $\\mathbb{Z}_2$ is broken by the imaginary field)",
+    "parity": true,
+    "global_group": [],
     "notes": "Not unitary. The action has a $\\mathcal{PT}$ symmetry, $\\phi \\to -\\phi$ combined with $i \\to -i$."
    },
    "quantities": [
@@ -42349,59 +45143,89 @@
      "name": "\\phi",
      "Delta": "1.4245(10)",
      "spin": 0,
-     "rep": "the only relevant primary",
+     "parity": "even",
+     "role": "the only relevant primary",
      "method": "ε-exp, 6 − ε, five loops, resummed, from η",
      "refs": [
       "borinsky2021, Table 1"
      ],
-     "note": "$(3+\\eta)/2$ with the five-loop $\\eta = -0.151(2)$, computed by this relation. Below the unitarity bound $\\tfrac32$."
+     "note": "$(3+\\eta)/2$ with the five-loop $\\eta = -0.151(2)$, computed by this relation. Below the unitarity bound $\\tfrac32$.",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "\\phi",
      "Delta": "1.425",
      "spin": 0,
-     "rep": "the only relevant primary",
+     "parity": "even",
+     "role": "the only relevant primary",
      "method": "Padé, two-sided",
      "refs": [
       "arguellocruz2025, Table 2"
      ],
-     "note": "Two-sided Padé of the $6-\\epsilon$ series."
+     "note": "Two-sided Padé of the $6-\\epsilon$ series.",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 5,
      "spin": 2,
+     "parity": "even",
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "\\phi^3",
      "Delta": "5.691(8)",
      "spin": 0,
+     "parity": "even",
      "method": "ε-exp, 6 − ε, five loops, resummed, from ω",
      "refs": [
       "borinsky2021, Table 6"
      ],
-     "note": "Leading irrelevant scalar, $5 + \\omega$ with the five-loop $\\omega$, computed by this relation."
+     "note": "Leading irrelevant scalar, $5 + \\omega$ with the five-loop $\\omega$, computed by this relation.",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "\\phi^3",
      "Delta": "5.701\\text{–}5.702",
      "spin": 0,
+     "parity": "even",
      "method": "Padé, two-sided",
      "refs": [
       "arguellocruz2025, Table 2"
      ],
-     "note": "Two two-sided Padé approximants, giving $5.701$ and $5.702$."
+     "note": "Two two-sided Padé approximants, giving $5.701$ and $5.702$.",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "\\phi^3",
      "Delta": "6.4(1)",
      "spin": 0,
+     "parity": "even",
      "method": "CB-trunc",
      "refs": [
       "gliozzi2014"
-     ]
+     ],
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     }
    ],
    "relations": [
@@ -42472,6 +45296,7 @@
    "contributors": [
     "Canonical111"
    ],
+   "global_factors": [],
    "source": "data/theories/lee-yang-5d.yaml",
    "backlinks": [
     {
@@ -42546,6 +45371,13 @@
     "lorentzian": "$O(5,2)$",
     "supercharges": 0,
     "global": "$O(N)$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "O(N)",
+      "group": "O(N)"
+     }
+    ],
     "notes": "On $S^5$ or $\\mathbb{R}\\times S^4$ the conformal coupling makes the perturbative vacuum metastable; instantons make the CFT data complex at finite $N$."
    },
    "quantities": [
@@ -42587,50 +45419,155 @@
      "name": "\\phi_i",
      "Delta": "\\frac{3}{2}+\\frac{32}{15\\pi^2N}-\\frac{1427456}{3375\\pi^4N^2}+\\left(\\frac{275255197696}{759375\\pi^6}-\\frac{89735168}{2025\\pi^4}+\\frac{32768\\ln 4}{9\\pi^4}-\\frac{229376\\,\\zeta(3)}{3\\pi^6}\\right)\\frac{1}{N^3}+O(N^{-4})",
      "spin": 0,
-     "rep": "vector",
+     "parity": "even",
+     "global": {
+      "O(N)": "vector"
+     },
      "method": "1/N",
      "refs": [
       "fei2014"
      ],
-     "note": "Numerically $\\tfrac32 + 0.216152/N - 4.342/N^2 - 121.673/N^3$ [@on-model-5d/fei2014, Eq. (2.23)]. Unitarity bound $\\tfrac32$."
+     "note": "Numerically $\\tfrac32 + 0.216152/N - 4.342/N^2 - 121.673/N^3$ [@on-model-5d/fei2014, Eq. (2.23)]. Unitarity bound $\\tfrac32$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(N)",
+        "canon": "Y(1)",
+        "short": "vector",
+        "trivial": false,
+        "sort": [
+         1,
+         -1,
+         0,
+         0
+        ],
+        "text": "$O(N)$ vector"
+       }
+      ],
+      "key": "O(N)=Y(1)"
+     }
     },
     {
      "name": "\\sigma",
      "Delta": "2+\\frac{512}{5\\pi^2N}+\\frac{2048\\left(12625\\pi^2-113552\\right)}{1125\\pi^4N^2}+O(N^{-3})",
      "spin": 0,
-     "rep": "singlet",
+     "parity": "even",
+     "global": {
+      "O(N)": "singlet"
+     },
      "method": "1/N",
      "refs": [
       "fei2014"
      ],
-     "note": "Numerically $2 + 10.3753/N + 206.542/N^2$ [@on-model-5d/fei2014, Eq. (2.24)]. Relevant; $\\sigma \\sim \\phi_i\\phi_i$."
+     "note": "Numerically $2 + 10.3753/N + 206.542/N^2$ [@on-model-5d/fei2014, Eq. (2.24)]. Relevant; $\\sigma \\sim \\phi_i\\phi_i$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(N)",
+        "canon": "Y()",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "text": "$O(N)$ singlet"
+       }
+      ],
+      "key": "O(N)=Y()"
+     }
     },
     {
      "name": "\\sigma^2",
      "Delta": "4 - \\frac{13.8337}{N} - \\frac{1819.66}{N^2} + O(N^{-3})",
      "spin": 0,
-     "rep": "singlet",
+     "parity": "even",
+     "global": {
+      "O(N)": "singlet"
+     },
      "method": "1/N",
      "refs": [
       "chester2014"
      ],
-     "note": "Second relevant singlet [@on-model-5d/chester2014, Eq. (2.1c)]. The $1/N$ coefficient is $\\frac{2048}{15\\pi^2}$, from [@on-model-5d/fei2014, Eq. (2.25)] with $k = 2$ (derived)."
+     "note": "Second relevant singlet [@on-model-5d/chester2014, Eq. (2.1c)]. The $1/N$ coefficient is $\\frac{2048}{15\\pi^2}$, from [@on-model-5d/fei2014, Eq. (2.25)] with $k = 2$ (derived).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(N)",
+        "canon": "Y()",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "text": "$O(N)$ singlet"
+       }
+      ],
+      "key": "O(N)=Y()"
+     }
     },
     {
      "name": "J_\\mu^{[ij]}",
      "Delta": 4,
      "spin": 1,
-     "rep": "antisymmetric (adjoint)",
+     "parity": "even",
+     "global": {
+      "O(N)": "adjoint"
+     },
      "method": "exact",
-     "note": "Conserved $O(N)$ currents."
+     "note": "Conserved $O(N)$ currents.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(N)",
+        "canon": "Y(1,1)",
+        "short": "adjoint (rank-2 antisymmetric)",
+        "trivial": false,
+        "sort": [
+         2,
+         -1,
+         -1,
+         0
+        ],
+        "text": "$O(N)$ adjoint (rank-2 antisymmetric)"
+       }
+      ],
+      "key": "O(N)=Y(1,1)"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 5,
      "spin": 2,
-     "rep": "singlet",
+     "parity": "even",
+     "global": {
+      "O(N)": "singlet"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(N)",
+        "canon": "Y()",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "text": "$O(N)$ singlet"
+       }
+      ],
+      "key": "O(N)=Y()"
+     }
     }
    ],
    "relations": [
@@ -42727,6 +45664,13 @@
    "contributors": [
     "Canonical111"
    ],
+   "global_factors": [
+    {
+     "id": "O(N)",
+     "type": "O",
+     "tex": "O(N)"
+    }
+   ],
    "source": "data/theories/on-model-5d.yaml",
    "members": [
     {
@@ -42773,6 +45717,26 @@
     "euclidean": "$O(6,1)$",
     "supercharges": 0,
     "global": "$S_q$ permutation symmetry of the Potts model, at $q \\to 1$ (formal)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "S_q",
+      "group": "finite",
+      "tex": "S_q",
+      "irreps": [
+       {
+        "label": "trivial",
+        "tex": "\\text{singlet}",
+        "dim": 1
+       },
+       {
+        "label": "standard",
+        "tex": "(q-1)\\text{-dimensional}"
+       }
+      ],
+      "note": "The permutation group of the $q$-state Potts model at $q \\to 1$ (formal); its standard representation has dimension $q - 1$."
+     }
+    ],
     "notes": "The $N+1$ vectors $e_\\alpha$ are the vertices of an $N$-dimensional tetrahedron, so $d_{ijk}$ is invariant under their permutations, the $S_{N+1} = S_q$ of the Potts model."
    },
    "quantities": [
@@ -42859,24 +45823,62 @@
      "name": "\\sigma",
      "Delta": "1.4740(14)",
      "spin": 0,
-     "rep": "$(q-1)$-dimensional representation of $S_q$ (order parameter)",
+     "parity": "even",
+     "global": {
+      "S_q": "standard"
+     },
+     "role": "order parameter",
      "method": "MC, from d_f",
      "refs": [
       "zhang2021",
       "tan2020"
      ],
-     "note": "$5 - d_f$ with $d_f = 3.5260(14)$, listed as the magnetic dimension $X_1$ in [@percolation-5d/tan2020, Table IV]. Below the unitarity bound $\\tfrac32$."
+     "note": "$5 - d_f$ with $d_f = 3.5260(14)$, listed as the magnetic dimension $X_1$ in [@percolation-5d/tan2020, Table IV]. Below the unitarity bound $\\tfrac32$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "S_q",
+        "canon": "standard",
+        "short": "$(q-1)\\text{-dimensional}$",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$S_q$ $(q-1)\\text{-dimensional}$"
+       }
+      ],
+      "key": "S_q=standard"
+     }
     },
     {
      "name": "\\epsilon",
      "Delta": "3.263(2)",
      "spin": 0,
-     "rep": "$S_q$ singlet (thermal)",
+     "parity": "even",
+     "global": {
+      "S_q": "trivial"
+     },
+     "role": "thermal",
      "method": "MC, bond, hypercubic",
      "refs": [
       "tan2020"
      ],
-     "note": "Measured as the two-cluster exponent $X_{2s}$, which equals $5 - y_t$."
+     "note": "Measured as the two-cluster exponent $X_{2s}$, which equals $5 - y_t$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "S_q",
+        "canon": "trivial",
+        "short": "$\\text{singlet}$",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$S_q$ $\\text{singlet}$"
+       }
+      ],
+      "key": "S_q=trivial"
+     }
     }
    ],
    "relations": [
@@ -42943,6 +45945,13 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "S_q",
+     "type": "finite",
+     "tex": "S_q"
+    }
    ],
    "source": "data/theories/percolation-5d.yaml",
    "backlinks": []
@@ -43037,46 +46046,199 @@
     "lorentzian": "$F(4)$",
     "supercharges": 8,
     "global": "Flavor $E_n$ for $n\\ge1$, $U(1)$ for $\\tilde E_1$, none for $E_0$; R-symmetry $SU(2)_R$",
-    "notes": "In the infrared gauge theory only $SO(2N_f)\\times U(1)_I$ is manifest; the current of $U(1)_I$ is proportional to $*\\,\\mathrm{Tr}\\,F\\wedge F$."
+    "parity": false,
+    "global_group": [
+     {
+      "id": "SU(2)_R",
+      "group": "SU(2)",
+      "tex": "SU(2)_R"
+     },
+     {
+      "id": "E_n",
+      "group": "Lie(E_n)",
+      "note": "The flavor group: $E_n$; $U(1)$ for $\\tilde E_1$; none for $E_0$."
+     }
+    ],
+    "notes": "In the infrared gauge theory only $SO(2N_f)\\times U(1)_I$ is manifest; the current of $U(1)_I$ is proportional to $*\\,\\mathrm{Tr}\\,F\\wedge F$. Multiplet names follow Cordova, Dumitrescu and Intriligator [@seiberg-en-5d/cdi2016]."
    },
    "operators": [
     {
      "name": "\\mu^a_{(ij)}",
      "Delta": 3,
      "spin": 0,
-     "rep": "adjoint of the flavor group; triplet of $SU(2)_R$",
+     "global": {
+      "SU(2)_R": "adjoint",
+      "E_n": "adjoint"
+     },
+     "multiplet": {
+      "name": "flavor current",
+      "component": "primary",
+      "type": "$C_1[0,0]^{(2)}_3$"
+     },
      "method": "exact",
      "refs": [
       "chang2017"
      ],
-     "note": "Moment map: superconformal primary of the flavor current multiplet (absent for $E_0$). Its expectation values parametrize the Higgs branch."
+     "note": "Moment map: superconformal primary of the flavor current multiplet (absent for $E_0$). Its expectation values parametrize the Higgs branch.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(2)",
+        "short": "triplet (adjoint) $\\mathbf{3}$",
+        "trivial": false,
+        "sort": [
+         3,
+         2,
+         0
+        ],
+        "text": "$SU(2)_R$ triplet (adjoint) $\\mathbf{3}$"
+       },
+       {
+        "factor": "E_n",
+        "canon": "adjoint",
+        "short": "adjoint",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$E_n$ adjoint"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(2)|E_n=adjoint"
+     }
     },
     {
      "name": "N^a",
      "Delta": 4,
      "spin": 0,
-     "rep": "adjoint of the flavor group; $SU(2)_R$ singlet",
+     "global": {
+      "SU(2)_R": "singlet",
+      "E_n": "adjoint"
+     },
+     "multiplet": {
+      "name": "flavor current",
+      "component": "Q^2",
+      "type": "$C_1[0,0]^{(2)}_3$"
+     },
      "method": "exact",
      "refs": [
       "chang2017"
      ],
-     "note": "In the flavor current multiplet. The mass deformations, including $1/g^2$, couple to it."
+     "note": "In the flavor current multiplet. The mass deformations, including $1/g^2$, couple to it.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "E_n",
+        "canon": "adjoint",
+        "short": "adjoint",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$E_n$ adjoint"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|E_n=adjoint"
+     }
     },
     {
      "name": "J_\\mu^a",
      "Delta": 4,
      "spin": 1,
-     "rep": "adjoint of the flavor group",
+     "global": {
+      "SU(2)_R": "singlet",
+      "E_n": "adjoint"
+     },
+     "multiplet": {
+      "name": "flavor current",
+      "component": "Q^2",
+      "type": "$C_1[0,0]^{(2)}_3$"
+     },
      "method": "exact",
-     "note": "Conserved flavor currents."
+     "note": "Conserved flavor currents.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "E_n",
+        "canon": "adjoint",
+        "short": "adjoint",
+        "trivial": false,
+        "sort": [
+         1
+        ],
+        "text": "$E_n$ adjoint"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|E_n=adjoint"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 5,
      "spin": 2,
-     "rep": "singlet",
+     "global": {
+      "SU(2)_R": "singlet",
+      "E_n": "singlet"
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "Q^4",
+      "type": "$B_2[0,0]^{(0)}_3$"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "E_n",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$E_n$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|E_n=singlet"
+     }
     }
    ],
    "references": [
@@ -43135,10 +46297,29 @@
      "arxiv": "1105.4598",
      "doi": "10.1007/JHEP10(2011)038",
      "note": "Sec. 2: $\\tilde F = (-1)^{(d+1)/2}F$ with $F = -\\log|Z_{S^d}|$, i.e. $\\log|Z_{S^5}|$ in $d=5$."
+    },
+    {
+     "key": "cdi2016",
+     "title": "Multiplets of Superconformal Symmetry in Diverse Dimensions",
+     "authors": "Cordova, Dumitrescu, Intriligator",
+     "year": 2016,
+     "arxiv": "1612.00809"
     }
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(2)_R",
+     "type": "SU",
+     "tex": "SU(2)_R"
+    },
+    {
+     "id": "E_n",
+     "type": "Lie",
+     "tex": "E_n"
+    }
    ],
    "source": "data/theories/seiberg-en-5d.yaml",
    "members": [
@@ -43285,7 +46466,25 @@
     "lorentzian": "$F(4)$",
     "supercharges": 8,
     "global": "Flavor $E_{N_f+1}\\times SU(2)$ (the $SU(2)$ acts on the antisymmetric hypermultiplet and is absent at $N=1$); R-symmetry $SU(2)_R$",
-    "gauge": "$USp(2N)$ (infrared gauge theory description)"
+    "parity": false,
+    "global_group": [
+     {
+      "id": "SU(2)_R",
+      "group": "SU(2)",
+      "tex": "SU(2)_R"
+     },
+     {
+      "id": "E",
+      "group": "Lie(E_{N_f+1})"
+     },
+     {
+      "id": "SU(2)",
+      "group": "SU(2)",
+      "note": "Acts on the antisymmetric hypermultiplet; absent at $N = 1$."
+     }
+    ],
+    "gauge": "$USp(2N)$ (infrared gauge theory description)",
+    "notes": "Multiplet names follow Cordova, Dumitrescu and Intriligator [@usp-5d/cdi2016]."
    },
    "quantities": [
     {
@@ -43315,17 +46514,123 @@
      "name": "J_\\mu",
      "Delta": 4,
      "spin": 1,
-     "rep": "adjoint of $E_{N_f+1}\\times SU(2)$",
+     "global": {
+      "SU(2)_R": "singlet",
+      "E": [
+       "singlet",
+       "adjoint"
+      ],
+      "SU(2)": [
+       "singlet",
+       "adjoint"
+      ]
+     },
+     "multiplet": {
+      "name": "flavor current",
+      "component": "Q^2",
+      "type": "$C_1[0,0]^{(2)}_3$"
+     },
      "method": "exact",
-     "note": "Conserved flavor currents."
+     "note": "Conserved flavor currents.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "E",
+        "canon": "singlet+adjoint",
+        "short": "singlet $\\oplus$ adjoint",
+        "text": "$E_{N_f+1}$ singlet $\\oplus$ adjoint",
+        "trivial": false,
+        "sort": [
+         0,
+         0.5
+        ],
+        "sum": true
+       },
+       {
+        "factor": "SU(2)",
+        "canon": "Dynkin(0)+Dynkin(2)",
+        "short": "singlet $\\oplus$ triplet (adjoint) $\\mathbf{3}$",
+        "text": "$SU(2)$ singlet $\\oplus$ triplet (adjoint) $\\mathbf{3}$",
+        "trivial": false,
+        "sort": [
+         1,
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|E=singlet+adjoint|SU(2)=Dynkin(0)+Dynkin(2)"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 5,
      "spin": 2,
-     "rep": "singlet",
+     "global": {
+      "SU(2)_R": "singlet",
+      "E": "singlet",
+      "SU(2)": "singlet"
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "Q^4",
+      "type": "$B_2[0,0]^{(0)}_3$"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "E",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$E_{N_f+1}$ singlet"
+       },
+       {
+        "factor": "SU(2)",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|E=singlet|SU(2)=Dynkin(0)"
+     }
     }
    ],
    "relations": [
@@ -43381,10 +46686,34 @@
      "journal": "JHEP 05 (2018) 039",
      "arxiv": "1712.10313",
      "doi": "10.1007/JHEP05(2018)039"
+    },
+    {
+     "key": "cdi2016",
+     "title": "Multiplets of Superconformal Symmetry in Diverse Dimensions",
+     "authors": "Cordova, Dumitrescu, Intriligator",
+     "year": 2016,
+     "arxiv": "1612.00809"
     }
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(2)_R",
+     "type": "SU",
+     "tex": "SU(2)_R"
+    },
+    {
+     "id": "E",
+     "type": "Lie",
+     "tex": "E_{N_f+1}"
+    },
+    {
+     "id": "SU(2)",
+     "type": "SU",
+     "tex": "SU(2)"
+    }
    ],
    "source": "data/theories/usp-5d.yaml",
    "members": [
@@ -43491,7 +46820,26 @@
     "euclidean": "$SO(7,1)$ (bosonic conformal part)",
     "lorentzian": "$OSp(8^*|2)$",
     "supercharges": 8,
-    "global": "Flavor $G_L\\times G_R$; R-symmetry $SU(2)_R$"
+    "global": "Flavor $G_L\\times G_R$; R-symmetry $SU(2)_R$",
+    "parity": false,
+    "global_group": [
+     {
+      "id": "SU(2)_R",
+      "group": "SU(2)",
+      "tex": "SU(2)_R"
+     },
+     {
+      "id": "G_L",
+      "group": "Lie(G)",
+      "tex": "G_L"
+     },
+     {
+      "id": "G_R",
+      "group": "Lie(G)",
+      "tex": "G_R"
+     }
+    ],
+    "notes": "Multiplet names follow Cordova, Dumitrescu and Intriligator [@conformal-matter-6d/cdi2016]."
    },
    "quantities": [
     {
@@ -43510,17 +46858,119 @@
      "name": "J_\\mu",
      "Delta": 5,
      "spin": 1,
-     "rep": "adjoint of $G_L$ or $G_R$",
+     "global": {
+      "SU(2)_R": "singlet",
+      "G_L": [
+       "singlet",
+       "adjoint"
+      ],
+      "G_R": [
+       "singlet",
+       "adjoint"
+      ]
+     },
+     "multiplet": {
+      "name": "flavor current",
+      "component": "Q^2",
+      "type": "$D_1[0,0,0]^{(2)}_4$"
+     },
      "method": "exact",
-     "note": "Conserved flavor currents."
+     "note": "Conserved flavor currents.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "G_L",
+        "canon": "singlet+adjoint",
+        "short": "singlet $\\oplus$ adjoint",
+        "text": "$G_L$ singlet $\\oplus$ adjoint",
+        "trivial": false,
+        "sort": [
+         0,
+         0.5
+        ],
+        "sum": true
+       },
+       {
+        "factor": "G_R",
+        "canon": "singlet+adjoint",
+        "short": "singlet $\\oplus$ adjoint",
+        "text": "$G_R$ singlet $\\oplus$ adjoint",
+        "trivial": false,
+        "sort": [
+         0,
+         0.5
+        ],
+        "sum": true
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|G_L=singlet+adjoint|G_R=singlet+adjoint"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 6,
      "spin": 2,
-     "rep": "singlet",
+     "global": {
+      "SU(2)_R": "singlet",
+      "G_L": "singlet",
+      "G_R": "singlet"
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "Q^4",
+      "type": "$B_3[0,0,0]^{(0)}_4$"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "G_L",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$G_L$ singlet"
+       },
+       {
+        "factor": "G_R",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$G_R$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|G_L=singlet|G_R=singlet"
+     }
     }
    ],
    "relations": [
@@ -43563,10 +47013,34 @@
      "journal": "JHEP 10 (2016) 080",
      "arxiv": "1506.03807",
      "doi": "10.1007/JHEP10(2016)080"
+    },
+    {
+     "key": "cdi2016",
+     "title": "Multiplets of Superconformal Symmetry in Diverse Dimensions",
+     "authors": "Cordova, Dumitrescu, Intriligator",
+     "year": 2016,
+     "arxiv": "1612.00809"
     }
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(2)_R",
+     "type": "SU",
+     "tex": "SU(2)_R"
+    },
+    {
+     "id": "G_L",
+     "type": "Lie",
+     "tex": "G_L"
+    },
+    {
+     "id": "G_R",
+     "type": "Lie",
+     "tex": "G_R"
+    }
    ],
    "source": "data/theories/conformal-matter-6d.yaml",
    "members": [
@@ -43646,7 +47120,26 @@
     "euclidean": "$SO(7,1)$ (bosonic conformal part)",
     "lorentzian": "$OSp(8^*|2)$",
     "supercharges": 8,
-    "global": "Flavor $E_8$ for $Q=1$ and $E_8\\times SU(2)_L$ for $Q\\ge2$; R-symmetry $SU(2)_R$"
+    "global": "Flavor $E_8$ for $Q=1$ and $E_8\\times SU(2)_L$ for $Q\\ge2$; R-symmetry $SU(2)_R$",
+    "parity": false,
+    "global_group": [
+     {
+      "id": "SU(2)_R",
+      "group": "SU(2)",
+      "tex": "SU(2)_R"
+     },
+     {
+      "id": "E8",
+      "group": "E_8"
+     },
+     {
+      "id": "SU(2)_L",
+      "group": "SU(2)",
+      "tex": "SU(2)_L",
+      "note": "Present for $Q \\geq 2$."
+     }
+    ],
+    "notes": "Multiplet names follow Cordova, Dumitrescu and Intriligator [@e-string-6d/cdi2016]."
    },
    "quantities": [
     {
@@ -43706,28 +47199,175 @@
      "name": "\\mu^a_{(ij)}",
      "Delta": 4,
      "spin": 0,
-     "rep": "$\\mathbf{248}$ of $E_8$; triplet of $SU(2)_R$",
+     "global": {
+      "SU(2)_R": "adjoint",
+      "E8": "adjoint",
+      "SU(2)_L": "singlet"
+     },
+     "multiplet": {
+      "name": "$E_8$ flavor current",
+      "component": "primary",
+      "type": "$D_1[0,0,0]^{(2)}_4$"
+     },
      "method": "exact",
      "refs": [
       "chang2017b"
      ],
-     "note": "Moment map, superconformal primary of the $E_8$ current multiplet. For $Q = 1$, with the free centre-of-mass hypermultiplet removed, it generates the Higgs-branch chiral ring [@e-string-6d/chang2017b]; for $Q > 1$ the $SU(2)_L$ moment maps are further generators."
+     "note": "Moment map, superconformal primary of the $E_8$ current multiplet. For $Q = 1$, with the free centre-of-mass hypermultiplet removed, it generates the Higgs-branch chiral ring [@e-string-6d/chang2017b]; for $Q > 1$ the $SU(2)_L$ moment maps are further generators.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(2)",
+        "short": "triplet (adjoint) $\\mathbf{3}$",
+        "trivial": false,
+        "sort": [
+         3,
+         2,
+         0
+        ],
+        "text": "$SU(2)_R$ triplet (adjoint) $\\mathbf{3}$"
+       },
+       {
+        "factor": "E8",
+        "canon": "adjoint",
+        "short": "adjoint $\\mathbf{248}$",
+        "trivial": false,
+        "sort": [
+         248,
+         0
+        ],
+        "text": "$E_8$ adjoint $\\mathbf{248}$"
+       },
+       {
+        "factor": "SU(2)_L",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_L$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(2)|E8=adjoint|SU(2)_L=Dynkin(0)"
+     }
     },
     {
      "name": "J_\\mu^a",
      "Delta": 5,
      "spin": 1,
-     "rep": "$\\mathbf{248}$ of $E_8$",
+     "global": {
+      "SU(2)_R": "singlet",
+      "E8": "adjoint",
+      "SU(2)_L": "singlet"
+     },
+     "multiplet": {
+      "name": "$E_8$ flavor current",
+      "component": "Q^2",
+      "type": "$D_1[0,0,0]^{(2)}_4$"
+     },
      "method": "exact",
-     "note": "Conserved $E_8$ currents."
+     "note": "Conserved $E_8$ currents.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "E8",
+        "canon": "adjoint",
+        "short": "adjoint $\\mathbf{248}$",
+        "trivial": false,
+        "sort": [
+         248,
+         0
+        ],
+        "text": "$E_8$ adjoint $\\mathbf{248}$"
+       },
+       {
+        "factor": "SU(2)_L",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_L$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|E8=adjoint|SU(2)_L=Dynkin(0)"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 6,
      "spin": 2,
-     "rep": "singlet",
+     "global": {
+      "SU(2)_R": "singlet",
+      "E8": "singlet",
+      "SU(2)_L": "singlet"
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "Q^4",
+      "type": "$B_3[0,0,0]^{(0)}_4$"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       },
+       {
+        "factor": "E8",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0
+        ],
+        "text": "$E_8$ singlet"
+       },
+       {
+        "factor": "SU(2)_L",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_L$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)|E8=singlet|SU(2)_L=Dynkin(0)"
+     }
     }
    ],
    "relations": [
@@ -43849,10 +47489,34 @@
      "arxiv": "1705.00305",
      "doi": "10.1007/JHEP06(2017)002",
      "note": "Fixes the remaining parameter of the relation [@chang2017b, Eqs. (6.12)–(6.14)]."
+    },
+    {
+     "key": "cdi2016",
+     "title": "Multiplets of Superconformal Symmetry in Diverse Dimensions",
+     "authors": "Cordova, Dumitrescu, Intriligator",
+     "year": 2016,
+     "arxiv": "1612.00809"
     }
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(2)_R",
+     "type": "SU",
+     "tex": "SU(2)_R"
+    },
+    {
+     "id": "E8",
+     "type": "E",
+     "tex": "E_8"
+    },
+    {
+     "id": "SU(2)_L",
+     "type": "SU",
+     "tex": "SU(2)_L"
+    }
    ],
    "source": "data/theories/e-string-6d.yaml",
    "members": [
@@ -43903,7 +47567,14 @@
     "euclidean": "$O(7,1)$",
     "lorentzian": "$O(6,2)$",
     "supercharges": 0,
-    "global": "$\\mathbb{Z}_2$ ($\\phi\\to-\\phi$), plus shift symmetry $\\phi \\to \\phi + \\text{const}$"
+    "global": "$\\mathbb{Z}_2$ ($\\phi\\to-\\phi$), plus shift symmetry $\\phi \\to \\phi + \\text{const}$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2"
+     }
+    ]
    },
    "quantities": [
     {
@@ -43973,41 +47644,113 @@
      "name": "\\phi",
      "Delta": 2,
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "exact",
      "refs": [
       "osborn1994"
      ],
-     "note": "From the propagator $\\langle\\phi(x)\\phi(0)\\rangle = \\frac{1}{(d-2)S_d\\,x^{d-2}}$ [@free-scalar-6d/osborn1994, Eq. (5.3)]."
+     "note": "From the propagator $\\langle\\phi(x)\\phi(0)\\rangle = \\frac{1}{(d-2)S_d\\,x^{d-2}}$ [@free-scalar-6d/osborn1994, Eq. (5.3)].",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\phi^2",
      "Delta": 4,
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "exact",
      "refs": [
       "osborn1994"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\phi^3",
      "Delta": 6,
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "exact",
      "refs": [
       "osborn1994"
      ],
-     "note": "Classically marginal."
+     "note": "Classically marginal.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 6,
      "spin": 2,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     }
    ],
    "references": [
@@ -44052,6 +47795,13 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2"
+    }
    ],
    "source": "data/theories/free-scalar-6d.yaml",
    "backlinks": [
@@ -44270,6 +48020,13 @@
     "lorentzian": "$SO(6,2)$",
     "supercharges": 0,
     "global": "$U(1)$ fermion number, $\\psi\\to e^{i\\alpha}\\psi$ (the manifest symmetry of the Weyl Lagrangian)",
+    "parity": false,
+    "global_group": [
+     {
+      "id": "U(1)",
+      "group": "U(1)"
+     }
+    ],
     "notes": "Gravitational anomaly [@free-weyl-fermion-6d/agw1984]."
    },
    "quantities": [
@@ -44341,29 +48098,84 @@
      "name": "\\psi",
      "Delta": "\\frac{5}{2}",
      "spin": "1/2",
-     "rep": "charge $1$, one chirality",
+     "lorentz": "[1/2, 1/2, 1/2]",
+     "global": {
+      "U(1)": 1
+     },
      "method": "exact",
      "refs": [
       "osborn1994",
       "giombi2014"
      ],
-     "note": "From $\\langle\\psi(x)\\bar\\psi(0)\\rangle = \\frac{1}{S_d}\\frac{\\gamma\\cdot x}{x^d}$ [@free-weyl-fermion-6d/osborn1994, Eq. (5.3)]; $\\Delta = (d-1)/2$."
+     "note": "From $\\langle\\psi(x)\\bar\\psi(0)\\rangle = \\frac{1}{S_d}\\frac{\\gamma\\cdot x}{x^d}$ [@free-weyl-fermion-6d/osborn1994, Eq. (5.3)]; $\\Delta = (d-1)/2$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "1",
+        "short": "charge $1$",
+        "trivial": false,
+        "sort": [
+         1.0,
+         1
+        ],
+        "text": "$U(1)$ charge $1$"
+       }
+      ],
+      "key": "U(1)=1"
+     }
     },
     {
      "name": "J_\\mu = \\bar\\psi\\gamma_\\mu\\psi",
      "Delta": 5,
      "spin": 1,
-     "rep": "neutral",
+     "global": {
+      "U(1)": 0
+     },
      "method": "exact",
-     "note": "Conserved $U(1)$ current."
+     "note": "Conserved $U(1)$ current.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)=0"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 6,
      "spin": 2,
-     "rep": "neutral",
+     "global": {
+      "U(1)": 0
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)=0"
+     }
     }
    ],
    "references": [
@@ -44425,6 +48237,13 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "U(1)",
+     "type": "U1",
+     "tex": "U(1)"
+    }
    ],
    "source": "data/theories/free-weyl-fermion-6d.yaml",
    "backlinks": [
@@ -44508,7 +48327,16 @@
     "lorentzian": "$OSp(8^*|2)$",
     "supercharges": 8,
     "global": "R-symmetry $SU(2)_R$; no continuous flavor symmetry acts on the tensor-branch fields",
-    "gauge": "$\\mathfrak{su}(3)$, $\\mathfrak{so}(8)$, $\\mathfrak{f}_4$, $\\mathfrak{e}_6$, $\\mathfrak{e}_7$, $\\mathfrak{e}_7$, $\\mathfrak{e}_8$ on the tensor branch (not at the conformal point)"
+    "parity": false,
+    "global_group": [
+     {
+      "id": "SU(2)_R",
+      "group": "SU(2)",
+      "tex": "SU(2)_R"
+     }
+    ],
+    "gauge": "$\\mathfrak{su}(3)$, $\\mathfrak{so}(8)$, $\\mathfrak{f}_4$, $\\mathfrak{e}_6$, $\\mathfrak{e}_7$, $\\mathfrak{e}_7$, $\\mathfrak{e}_8$ on the tensor branch (not at the conformal point)",
+    "notes": "Multiplet names follow Cordova, Dumitrescu and Intriligator [@nhc-6d/cdi2016]."
    },
    "quantities": [
     {
@@ -44538,9 +48366,33 @@
      "name": "T_{\\mu\\nu}",
      "Delta": 6,
      "spin": 2,
-     "rep": "singlet",
+     "global": {
+      "SU(2)_R": "singlet"
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "Q^4",
+      "type": "$B_3[0,0,0]^{(0)}_4$"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(2)_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       }
+      ],
+      "key": "SU(2)_R=Dynkin(0)"
+     }
     }
    ],
    "relations": [
@@ -44606,10 +48458,24 @@
      "arxiv": "1805.06467",
      "doi": "10.1088/1751-8121/aafc81",
      "note": "Review: trivial Higgs branch of the clusters; $n=9,10,11$; Green–Schwarz term (eq. (9.6))."
+    },
+    {
+     "key": "cdi2016",
+     "title": "Multiplets of Superconformal Symmetry in Diverse Dimensions",
+     "authors": "Cordova, Dumitrescu, Intriligator",
+     "year": 2016,
+     "arxiv": "1612.00809"
     }
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(2)_R",
+     "type": "SU",
+     "tex": "SU(2)_R"
+    }
    ],
    "source": "data/theories/nhc-6d.yaml",
    "members": [
@@ -44848,7 +48714,14 @@
     "euclidean": "$O(d+1,1)$",
     "lorentzian": "$O(d,2)$",
     "supercharges": 0,
-    "global": "$U(1)$ fermion number (the manifest symmetry)"
+    "global": "$U(1)$ fermion number (the manifest symmetry)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "U(1)",
+      "group": "U(1)"
+     }
+    ]
    },
    "quantities": [
     {
@@ -44869,39 +48742,115 @@
      "name": "\\psi",
      "Delta": "\\frac{d-1}{2}",
      "spin": "1/2",
-     "rep": "charge $1$",
+     "parity": "unknown",
+     "global": {
+      "U(1)": 1
+     },
      "method": "exact",
      "refs": [
       "osborn1994"
      ],
-     "note": "Saturates the spinor unitarity bound."
+     "note": "Saturates the spinor unitarity bound.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "1",
+        "short": "charge $1$",
+        "trivial": false,
+        "sort": [
+         1.0,
+         1
+        ],
+        "text": "$U(1)$ charge $1$"
+       }
+      ],
+      "key": "U(1)=1"
+     }
     },
     {
      "name": "\\bar\\psi\\psi",
      "Delta": "d-1",
      "spin": 0,
-     "rep": "neutral",
+     "parity": "unknown",
+     "global": {
+      "U(1)": 0
+     },
      "method": "exact",
      "refs": [
       "osborn1994"
      ],
-     "note": "Dirac mass term. Relevant."
+     "note": "Dirac mass term. Relevant.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)=0"
+     }
     },
     {
      "name": "J_\\mu = \\bar\\psi\\gamma_\\mu\\psi",
      "Delta": "d-1",
      "spin": 1,
-     "rep": "neutral",
+     "parity": "even",
+     "global": {
+      "U(1)": 0
+     },
      "method": "exact",
-     "note": "Conserved $U(1)$ current."
+     "note": "Conserved $U(1)$ current.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)=0"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": "d",
      "spin": 2,
-     "rep": "neutral",
+     "parity": "even",
+     "global": {
+      "U(1)": 0
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "U(1)",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "U(1)=0"
+     }
     }
    ],
    "relations": [
@@ -44942,6 +48891,13 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "U(1)",
+     "type": "U1",
+     "tex": "U(1)"
+    }
    ],
    "source": "data/theories/free-fermion-d7plus.yaml",
    "members": [
@@ -45025,7 +48981,14 @@
     "euclidean": "$O(d+1,1)$",
     "lorentzian": "$O(d,2)$",
     "supercharges": 0,
-    "global": "$\\mathbb{Z}_2$ ($\\phi\\to-\\phi$), plus shift symmetry $\\phi \\to \\phi + \\text{const}$"
+    "global": "$\\mathbb{Z}_2$ ($\\phi\\to-\\phi$), plus shift symmetry $\\phi \\to \\phi + \\text{const}$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2"
+     }
+    ]
    },
    "quantities": [
     {
@@ -45056,31 +49019,85 @@
      "name": "\\phi",
      "Delta": "\\frac{d-2}{2}",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "exact",
      "refs": [
       "osborn1994"
      ],
-     "note": "From the propagator $\\langle\\phi(x)\\phi(0)\\rangle = \\frac{1}{(d-2)S_d\\,x^{d-2}}$ [@free-scalar-d7plus/osborn1994, Eq. (5.3)]; saturates the scalar unitarity bound."
+     "note": "From the propagator $\\langle\\phi(x)\\phi(0)\\rangle = \\frac{1}{(d-2)S_d\\,x^{d-2}}$ [@free-scalar-d7plus/osborn1994, Eq. (5.3)]; saturates the scalar unitarity bound.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\phi^2",
      "Delta": "d-2",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "exact",
      "refs": [
       "osborn1994"
      ],
-     "note": "The only relevant $\\mathbb{Z}_2$-even scalar besides the identity."
+     "note": "The only relevant $\\mathbb{Z}_2$-even scalar besides the identity.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": "d",
      "spin": 2,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     }
    ],
    "relations": [
@@ -45140,6 +49157,13 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2"
+    }
    ],
    "source": "data/theories/free-scalar-d7plus.yaml",
    "members": [
