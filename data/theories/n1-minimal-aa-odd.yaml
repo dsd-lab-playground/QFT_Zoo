@@ -26,6 +26,9 @@ family:
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac32 - \tfrac{12}{m(m+2)}$ — 2d conformal symmetry, with parity'
   global: 'Contains $\mathbb{Z}_2$, $-1$ on the Ramond fields ($r - s$ odd); at $m = 3$ this is the spin flip of the tricritical Ising model'
+  parity: true
+  global_group:
+    - {id: Z2, group: Z2, note: '$-1$ on the Ramond fields; the global symmetry contains the factors declared here; the full group is not recorded'}
   notes: 'Bosonic theory: the $\mathcal{N}=(1,1)$ supercurrents $G$, $\bar G$ have spin $\tfrac32$ and are not local operators here, so the $\mathcal{N}=1$ super-Virasoro symmetry ($OSp(1|2)\times OSp(1|2)$ globally, 2 $Q$ + 2 $S$ supercharges) acts on the fermionic minimal model, not on this bosonization.'
 
 quantities:
@@ -45,6 +48,8 @@ operators:
 - name: '\Phi_{2,2}'
   Delta: '\frac{3}{m(m+2)}'
   spin: 0
+  parity: even
+  global: {Z2: even}
   note: 'NS sector; lightest non-vacuum primary.'
 
 relations:

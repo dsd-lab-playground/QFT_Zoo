@@ -51,6 +51,10 @@ symmetry:
   spacetime: 'Two $\mathcal{N}=2$ super-Virasoro algebras at $c = \bar c = \tfrac{3k}{k+2}$ — 2d $\mathcal{N}=(2,2)$ superconformal symmetry (4 $Q$ + 4 $S$ supercharges), with parity'
   supercharges: 4
   global: '$U(1)$ R-symmetry on each side (currents $J$, $\bar J$)'
+  parity: true
+  global_group:
+    - {id: U(1)_R, group: U(1), tex: 'U(1)_R', note: 'left-moving R-symmetry (current $J$), normalized so that $G^\pm$ have charge $\pm1$ and NS chiral primaries have $h = q/2$'}
+    - {id: U(1)_Rbar, group: U(1), tex: '\overline{U(1)}_R', note: 'right-moving R-symmetry (current $\bar J$); parity exchanges the two factors'}
 
 quantities:
 - key: c
@@ -77,6 +81,9 @@ operators:
   Delta: '\frac{l}{k+2}'
   spin: 0
   weights: '\left(\tfrac{l}{2(k+2)}, \tfrac{l}{2(k+2)}\right)'
+  parity: even
+  global: {U(1)_R: 'l/(k+2)', U(1)_Rbar: 'l/(k+2)'}
+  multiplet: {name: '$\Phi^l_{l,0}$', component: primary, type: 'NS chiral primary, $(c,c)$ ring [@lvw1989]'}
   method: exact
   refs: [cordovarizi2025, chen2025]
   note: 'NS chiral primaries ($h = q/2$), $l = 1, \dots, k$ ($l = 0$ is the identity); $l = 1$ is the lightest non-vacuum primary for $k \geq 4$.'
@@ -84,6 +91,9 @@ operators:
   Delta: '\frac{k}{4(k+2)}'
   spin: 0
   weights: '\left(\tfrac{c}{24}, \tfrac{c}{24}\right)'
+  parity: unknown
+  global: {U(1)_R: unknown, U(1)_Rbar: unknown}
+  multiplet: {name: '$\Phi^l_{l+1,1}$', component: primary, type: 'Ramond ground state [@lvw1989]'}
   method: exact
   refs: [gray2012, cordovarizi2025]
   note: 'Ramond ground states, the spectral flows of the chiral primaries, $l = 0, \dots, k$; the lightest primaries for $k \leq 3$.'
@@ -91,6 +101,9 @@ operators:
   Delta: 1
   spin: 1
   weights: '(1, 0)'
+  parity: pair
+  global: {U(1)_R: 0, U(1)_Rbar: 0}
+  multiplet: {name: stress tensor, component: primary}
   method: exact
   note: '$U(1)$ R-current.'
 
@@ -193,5 +206,12 @@ references:
   year: 2020
   arxiv: '2004.05742'
   note: 'Branching identity, eq. (A.16), and string-function formula, eq. (A.18).'
+- key: lvw1989
+  title: 'Chiral rings in N = 2 superconformal theories'
+  authors: Lerche, Vafa, Warner
+  year: 1989
+  journal: Nucl. Phys. B324, 427
+  doi: '10.1016/0550-3213(89)90474-4'
+  note: 'Nomenclature of the operator multiplets: NS chiral primaries ($h = q/2$), the $(c,c)$ ring, Ramond ground states and spectral flow.'
 
 contributors: [Canonical111]
