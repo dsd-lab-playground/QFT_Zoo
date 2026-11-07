@@ -978,6 +978,8 @@ function parenGroups(s) {
 const cutParens = (s, groups) =>
   groups.reduceRight((acc, g) => acc.slice(0, g.start) + acc.slice(g.end), s).replace(/\s{2,}/g, " ").replace(/\s+([,;])/g, "$1").trim();
 
+// LEGACY PATH, for entries not yet migrated to structured representations (no symmetry.global_group; see
+// docs/REPRESENTATIONS.md and repTable below). Remove once every entry is migrated.
 // A rep string mixes three things: the internal-symmetry representation ("$\mathbb{Z}_2$-even", "adjoint of $O(N)$"),
 // spacetime parity / time reversal ("parity-odd", "odd under parity and time reversal", "$P$-odd") and remarks on
 // the operator's role ("thermal", "order parameter", "superpartner of $\sigma$"). Each part (split at top-level , and ;
@@ -1047,7 +1049,7 @@ function operatorItems(t, rows) {
   const pars = (t.parameters || []).map((p) => normTex(p.symbol)).filter(Boolean);
   const reEsc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const fixed = (o) => {
-    const s = normTex([o.name, o.note, o.rep].join(" "));
+    const s = normTex([o.name, o.note, o.rep, o.role].join(" "));
     return pars.map((p) => new RegExp(`(?<![A-Za-z\\\\{])${reEsc(p)}=(-?\\d+(?:\\.\\d+)?)`).exec(s)?.[1] ?? "").join(",");
   };
   const key = (o) => [o.name, o.spin, o.weights, o.degeneracy].map(normTex).join("|") + "|" + fixed(o);
@@ -1139,6 +1141,179 @@ function repWikiLinks(heading) {
   return parts.join("");
 }
 
+/* ------------------------------------- structured representations (docs/REPRESENTATIONS.md) */
+// An entry with symmetry.global_group gives each operator a representation of the full symmetry group: Δ, spin (or
+// `lorentz`, or 2d weights), `parity`, and a label per global factor (`global`), which the build has parsed into
+// o.irrep.global = [{ factor, canon, text, trivial, sort }]. This is the presentation policy applied to that data:
+// group by global irrep, then by parity; a level that is constant over the table is stated once above it; within a
+// group, order by spin, then Δ.
+
+const PARITY_RANK = { even: 0, odd: 1, pair: 2, unknown: 3 };
+const PARITY_TEXT = { even: "parity-even", odd: "parity-odd", pair: "parity-paired", unknown: "parity not recorded" };
+const PARITY_TIP = {
+  even: "parity even", odd: "parity odd", unknown: "parity not recorded",
+  pair: "no parity eigenvalue: parity maps the operator to a partner in another representation (spin s to −s in 2d, (j, j̄) to (j̄, j) in 4d, a charge q to −q)",
+};
+const PARITY_SIGN = { even: "+", odd: "−", pair: "↔", unknown: "?" };
+
+/** Compare sort keys: numbers, or arrays of them compared lexicographically (shorter first on a tie). */
+function cmpKey(x, y) {
+  if (!Array.isArray(x) || !Array.isArray(y)) return x === y ? 0 : x < y ? -1 : 1;
+  for (let i = 0; i < Math.min(x.length, y.length); i++) {
+    const c = cmpKey(x[i], y[i]);
+    if (c) return c;
+  }
+  return x.length - y.length;
+}
+
+/** Heading text of a global irrep: its non-trivial factors (a factor not named is in its trivial representation). */
+function globalText(t, labels) {
+  const fs = t.global_factors || [];
+  const non = labels.filter((v) => !v.trivial);
+  if (non.length) return non.map((v) => v.text).join(", ");
+  return fs.length === 1 ? labels[0]?.text ?? "" : `singlet of $${fs.map((f) => f.tex).join(" \\times ")}$`;
+}
+
+/** The grouping levels of a structured entry, in the policy's order; each gives a row's key, sort key and text. */
+function repLevels(t) {
+  const sym = t.symmetry || {};
+  const out = [];
+  if ((t.global_factors || []).length)
+    out.push({
+      id: "global", header: "Representation",
+      key: (r) => r.o.irrep?.key ?? "",
+      sort: (r) => (r.o.irrep?.global || []).map((v) => v.sort),
+      text: (r) => globalText(t, r.o.irrep?.global || []),
+    });
+  if (sym.parity === true || sym.parity === "conditional")
+    out.push({
+      id: "parity", header: `<span title="Parity: + even, − odd, ↔ paired with a partner, ? not recorded">P</span>`, narrow: true,
+      key: (r) => r.o.parity ?? "unknown",
+      sort: (r) => PARITY_RANK[r.o.parity ?? "unknown"],
+      text: (r) => PARITY_TEXT[r.o.parity ?? "unknown"],
+      cell: (r) => { const p = r.o.parity ?? "unknown"; return `<span title="${PARITY_TIP[p]}">${PARITY_SIGN[p]}</span>`; },
+    });
+  return out;
+}
+
+/** Operators of a structured entry as { groups, grouped, levels, constant }. Levels taking one value over the whole
+ *  table are `constant` (stated above it); the others group the table. Grouped is false when no group would have two
+ *  operators: then one group, the remaining levels become columns. */
+function repGroups(t) {
+  const rows = t.operators.map((o, i) => ({ o, i }));
+  const levels = repLevels(t);
+  const constant = levels.filter((L) => new Set(rows.map(L.key)).size === 1);
+  const active = levels.filter((L) => !constant.includes(L));
+  const groups = new Map();
+  for (const r of rows) {
+    const k = active.map((L) => L.key(r)).join("||");
+    if (!groups.has(k)) groups.set(k, { key: k, rows: [] });
+    groups.get(k).rows.push(r);
+  }
+  const list = [...groups.values()].sort((a, b) => {
+    for (const L of active) {
+      const c = cmpKey(L.sort(a.rows[0]), L.sort(b.rows[0]));
+      if (c) return c;
+    }
+    return a.rows[0].i - b.rows[0].i;
+  });
+  const num = (v) => { const x = leadingNumber(v); return Number.isFinite(x) ? x : Infinity; };
+  const spinOf = (o) => num(o.spin ?? 0);
+  for (const g of list) {
+    g.items = operatorItems(t, g.rows);
+    g.items.sort((a, b) => cmpKey([spinOf(a.rows[0].o), num(a.rows[0].o.Delta), a.first], [spinOf(b.rows[0].o), num(b.rows[0].o.Delta), b.first]));
+    g.heading = active.map((L) => L.text(g.rows[0])).filter(Boolean).join(", ");
+  }
+  const grouped = active.length > 0 && list.some((g) => g.items.length > 1);
+  return { groups: list, grouped, levels, constant, active };
+}
+
+/** Lorentz label for the Spin column: `lorentz` when given ('(1/2, 0)' -> (\tfrac12, 0)), else the spin. */
+function lorentzTex(o) {
+  if (o.lorentz == null) return o.spin != null ? tex(o.spin) : "";
+  return tex(String(o.lorentz).replace(/(\d+)\/(\d+)/g, "\\tfrac{$1}{$2}"));
+}
+
+function multipletHtml(m) {
+  if (!m) return "";
+  const comp = m.component === "primary" ? "primary" : tex(m.component);
+  return `${md(m.name, true)}, ${comp}${m.type ? ` <span class="op-role">(${md(m.type, true)})</span>` : ""}`;
+}
+
+/** The operators table of a structured entry (policy in docs/REPRESENTATIONS.md). */
+function repTable(t, source) {
+  const { groups, grouped, levels, constant, active } = repGroups(t);
+  const ops = t.operators;
+  const allRows = groups.flatMap((g) => g.items.flatMap((it) => it.rows));
+  const roleTag = (r) => (r.o.role ? ` <span class="op-role${r.o.role.length <= 24 ? " nowrap" : ""}">· ${md(r.o.role, true)}</span>` : "");
+  const differs = (f) => (r, it, g, head) => {
+    const v = f(r, it, g);
+    return head || v !== f(it.rows[0], it, g) ? v : "";
+  };
+  const spins = new Set(ops.map((o) => normTex(o.lorentz ?? o.spin ?? "")));
+  const spinConstant = spins.size === 1 && ops.every((o) => o.weights == null);
+  const T = t.symmetry?.time_reversal === "independent";
+  // Levels that group the table are in the headings; in an ungrouped table they are columns.
+  const levelCols = grouped ? [] : active.map((L) => [L.header, differs((r) => (L.cell ? L.cell(r) : md(L.text(r), true))), true, L.narrow]);
+  const cols = [
+    ["Operator", (r, it, g, head) => (head ? tex(r.o.name) + roleTag(r) : (r.o.role ?? "") !== (it.rows[0].o.role ?? "") ? roleTag(r).trim() : ""), true],
+    ["Δ", (r, it, g, head) => {
+      const v = `<span class="value">${tex(r.o.Delta)}</span>`;
+      const bad = (x) => disagreement(it.rows[0].o, x.o, (o) => o.Delta);
+      if (!head) return v + disagreeBadge(bad(r));
+      const n = it.rows.length - 1;
+      return v + (n ? detsButton(it.id, n, it.rows.filter((x) => bad(x)).length) : "");
+    }, true],
+    [tex("(h, \\bar h)"), differs((r) => (r.o.weights ? tex(r.o.weights) : "")), ops.some((o) => o.weights != null)],
+    ["Mult.", differs((r) => (r.o.degeneracy ? tex(r.o.degeneracy) : "")), ops.some((o) => o.degeneracy != null)],
+    [ops.some((o) => o.lorentz != null) && t.d === 4 ? tex("(j, \\bar\\jmath)") : "Spin", differs((r) => lorentzTex(r.o)),
+      ops.some((o) => o.spin != null || o.lorentz != null) && !spinConstant],
+    ...levelCols,
+    [`<span title="Time reversal: + even, − odd">T</span>`, differs((r) => (r.o.T ? `<span title="time reversal ${r.o.T}">${PARITY_SIGN[r.o.T]}</span>` : "")), T, true],
+    ["Multiplet", differs((r) => multipletHtml(r.o.multiplet)), ops.some((o) => o.multiplet)],
+    ["Notes", (r) => (r.o.note ? md(r.o.note, true) : ""), ops.some((o) => o.note != null)],
+    ["Source", (r) => source(r.o), ops.some((o) => o.method || o.refs?.length)],
+  ].filter(([, , shown]) => shown);
+  const narrow = new Set(cols.map((c, k) => (c[3] ? k : -1)).filter((k) => k >= 0));
+  const td = (c, k) => `<td${narrow.has(k) ? ` class="num"` : ""}>${c ?? ""}</td>`;
+  let seq = 0;
+  const body = groups
+    .map((g) => {
+      const gid = `opg-${++DET_SEQ}`;
+      const head = !grouped ? "" : `<tbody class="op-head"><tr class="op-group"><th colspan="${cols.length}" scope="rowgroup">
+        <button type="button" class="linkish op-fold" data-opgroup="${gid}" aria-expanded="true" title="Fold this group">▾</button>
+        ${md(repWikiLinks(g.heading), true)} <span class="op-count">${g.items.length}</span></th></tr></tbody>`;
+      return head + g.items
+        .map((it) => {
+          it.id = `det-${++DET_SEQ}`;
+          const [first, ...rest] = it.rows;
+          const tr = (r, isHead) => `<tr${isHead ? "" : ` class="det" data-det="${it.id}" hidden`}>${cols.map(([, f], k) => td(f(r, it, g, isHead), k)).join("")}</tr>`;
+          return `<tbody class="item${seq++ % 2 ? " alt" : ""}"${grouped ? ` data-ingroup="${gid}"` : ""}>${tr(first, true)}${rest.map((r) => tr(r, false)).join("")}</tbody>`;
+        })
+        .join("");
+    })
+    .join("");
+  // What every operator shares is said once, above the table.
+  const shared = [
+    ...constant.map((L) => L.text({ o: ops[0] })),
+    spinConstant && ops[0].spin != null ? (ops[0].lorentz == null ? `spin $${ops[0].spin}$` : `Lorentz representation $${ops[0].lorentz}$`) : "",
+  ].filter(Boolean);
+  const caption = shared.length ? `<p class="small muted intro">All operators listed: ${md(shared.join(", "), true)}.</p>` : "";
+  const btn = allRows.length > groups.reduce((n, g) => n + g.items.length, 0)
+    ? `<p class="small"><button type="button" class="linkish small" data-dets-all aria-expanded="false">Show all determinations</button></p>` : "";
+  return `${caption}${btn}<div class="table-wrap"><table class="ops"><thead><tr>${cols.map(([h], k) => `<th${narrow.has(k) ? ` class="num"` : ""}>${h}</th>`).join("")}</tr></thead>${body}</table></div>`;
+}
+
+app.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-opgroup]");
+  if (!b) return;
+  const open = b.getAttribute("aria-expanded") !== "true";
+  app.querySelectorAll(`[data-ingroup="${b.dataset.opgroup}"]`).forEach((tb) => (tb.hidden = !open));
+  b.setAttribute("aria-expanded", open);
+  b.textContent = open ? "▾" : "▸";
+  b.title = open ? "Fold this group" : "Show this group";
+});
+
 /** The operators table. One tbody per operator: the preferred determination shows (orderDets), the others fold under
  *  "+n more" in the same item. Parity (P) and time reversal (T) get their own columns, as + / −, where some operator
  *  states them. A grouped table has no Representation column: the sector heading carries the representation, and a
@@ -1146,6 +1321,7 @@ function repWikiLinks(heading) {
  *  its note. An ungrouped table keeps a Representation column of internal representations only. Remarks on an
  *  operator's role ("thermal", "order parameter") are a muted tag after its name, never a representation. */
 function operatorsTable(t, source) {
+  if (t.symmetry?.global_group) return repTable(t, source);
   const { groups, grouped } = operatorGroups(t);
   const allItems = groups.flatMap((g) => g.items);
   const sign = (s, what) => (s ? `<span title="${what} ${s}">${s === "odd" ? "−" : "+"}</span>` : "");

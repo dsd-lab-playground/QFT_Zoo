@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-07 21:17 UTC",
+ "generated": "2026-11-07 21:52 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
- "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, rep, ...) are Markdown: use $...$ for math,\n#     and cite as [@key] or [@key, Sec. 2] (never a direct link; see CONTRIBUTING.md, Citations).\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: '$O(4,1)$ — 3d conformal group with parity'   # group — colloquial name; see CONTRIBUTING.md, Spacetime symmetry\n  supercharges: 0                  # real Poincaré supercharges Q; for SUSY theories also state Q and S in spacetime\n  global: '$O(N)$'\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: 'CB, rigorous'         # an abbreviation from data/methods.yaml, then an optional qualifier (CONTRIBUTING.md, Methods)\n    refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    rep: 'vector'\n    method: CB\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
+ "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, role, ...) are Markdown: use $...$ for math,\n#     and cite as [@key] or [@key, Sec. 2] (never a direct link; see CONTRIBUTING.md, Citations).\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: '$O(4,1)$ — 3d conformal group with parity'   # group — colloquial name; see CONTRIBUTING.md, Spacetime symmetry\n  supercharges: 0                  # real Poincaré supercharges Q; for SUSY theories also state Q and S in spacetime\n  global: '$O(N)$'                 # the global symmetry in words (Markdown)\n  parity: true                     # true | false | conditional (docs/REPRESENTATIONS.md)\n  global_group:                    # the factors operators' representations refer to; [] if none\n    - {id: O(N), group: O(N)}      # group: Z2, Z_n, U(1), O(N), SO(N), SU(N), Sp(N), S_n, D_n, finite\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: 'CB, rigorous'         # an abbreviation from data/methods.yaml, then an optional qualifier (CONTRIBUTING.md, Methods)\n    refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    parity: even                   # even | odd | pair | unknown\n    global: {O(N): vector}         # a label per factor of global_group (docs/REPRESENTATIONS.md)\n    role: 'order parameter'        # optional remark; never part of the representation\n    method: CB\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
  "theories": [
   {
    "id": "lee-yang-2d",
@@ -3281,7 +3281,14 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac45$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "$S_3$"
+    "global": "$S_3$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "S3",
+      "group": "S_3"
+     }
+    ]
    },
    "quantities": [
     {
@@ -3312,14 +3319,52 @@
      "spin": 0,
      "weights": "(\\tfrac{1}{15}, \\tfrac{1}{15})",
      "degeneracy": 2,
-     "rep": "$\\mathbb{Z}_3$ charge $\\pm1$"
+     "parity": "even",
+     "global": {
+      "S3": "standard"
+     },
+     "irrep": {
+      "global": [
+       {
+        "factor": "S3",
+        "canon": "Y(2,1)",
+        "short": "standard (2-dimensional)",
+        "trivial": false,
+        "sort": [
+         2,
+         -2
+        ],
+        "text": "$S_3$ standard (2-dimensional)"
+       }
+      ],
+      "key": "S3=Y(2,1)"
+     }
     },
     {
      "name": "\\epsilon",
      "Delta": "4/5",
      "spin": 0,
      "weights": "(\\tfrac{2}{5}, \\tfrac{2}{5})",
-     "rep": "singlet"
+     "parity": "even",
+     "global": {
+      "S3": "trivial"
+     },
+     "irrep": {
+      "global": [
+       {
+        "factor": "S3",
+        "canon": "Y(3)",
+        "short": "trivial",
+        "trivial": true,
+        "sort": [
+         1,
+         -3
+        ],
+        "text": "$S_3$ trivial"
+       }
+      ],
+      "key": "S3=Y(3)"
+     }
     },
     {
      "name": "Z,\\ Z^\\dagger",
@@ -3327,21 +3372,78 @@
      "spin": 0,
      "weights": "(\\tfrac{2}{3}, \\tfrac{2}{3})",
      "degeneracy": 2,
-     "rep": "$\\mathbb{Z}_3$ charge $\\pm1$"
+     "parity": "even",
+     "global": {
+      "S3": "standard"
+     },
+     "irrep": {
+      "global": [
+       {
+        "factor": "S3",
+        "canon": "Y(2,1)",
+        "short": "standard (2-dimensional)",
+        "trivial": false,
+        "sort": [
+         2,
+         -2
+        ],
+        "text": "$S_3$ standard (2-dimensional)"
+       }
+      ],
+      "key": "S3=Y(2,1)"
+     }
     },
     {
      "name": "X",
      "Delta": "14/5",
      "spin": 0,
      "weights": "(\\tfrac{7}{5}, \\tfrac{7}{5})",
-     "rep": "singlet"
+     "parity": "even",
+     "global": {
+      "S3": "trivial"
+     },
+     "irrep": {
+      "global": [
+       {
+        "factor": "S3",
+        "canon": "Y(3)",
+        "short": "trivial",
+        "trivial": true,
+        "sort": [
+         1,
+         -3
+        ],
+        "text": "$S_3$ trivial"
+       }
+      ],
+      "key": "S3=Y(3)"
+     }
     },
     {
      "name": "W,\\ \\bar W",
      "Delta": 3,
      "spin": 3,
      "weights": "(3,0),\\ (0,3)",
-     "note": "Spin-3 currents of the extended chiral algebra."
+     "parity": "pair",
+     "global": {
+      "S3": "unknown"
+     },
+     "note": "Spin-3 currents of the extended chiral algebra.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "S3",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$S_3$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "S3=unknown"
+     }
     }
    ],
    "relations": [
@@ -3389,6 +3491,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "S3",
+     "type": "S",
+     "tex": "S_3"
+    }
    ],
    "source": "data/theories/potts-3-state.yaml",
    "c_num": 0.8,
@@ -22459,7 +22568,9 @@
     "euclidean": "$O(4,1)$ (bosonic conformal part)",
     "lorentzian": "$OSp(1|4)$",
     "supercharges": 2,
-    "global": "time reversal / parity ($\\sigma$ odd)"
+    "global": "time reversal / parity ($\\sigma$ odd)",
+    "parity": true,
+    "global_group": []
    },
    "quantities": [
     {
@@ -22513,69 +22624,126 @@
      "name": "\\sigma",
      "Delta": "0.5844435(83)",
      "spin": 0,
-     "rep": "parity odd; bottom of the scalar multiplet",
+     "parity": "odd",
+     "multiplet": {
+      "name": "$\\sigma$",
+      "component": "primary"
+     },
      "method": "CB",
      "refs": [
       "atanasov2022"
-     ]
+     ],
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "\\psi",
      "Delta": "1.0844435(83)",
      "spin": "1/2",
-     "rep": "superpartner of $\\sigma$",
+     "parity": "unknown",
+     "multiplet": {
+      "name": "$\\sigma$",
+      "component": "Q"
+     },
      "method": "CB, from Δσ",
      "refs": [
       "atanasov2022"
      ],
-     "note": "$\\Delta_\\psi = \\Delta_\\sigma + \\tfrac12$ by supersymmetry."
+     "note": "$\\Delta_\\psi = \\Delta_\\sigma + \\tfrac12$ by supersymmetry.",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "\\epsilon",
      "Delta": "1.5844435(83)",
      "spin": 0,
-     "rep": "parity even; top of the $\\sigma$ multiplet",
+     "parity": "even",
+     "multiplet": {
+      "name": "$\\sigma$",
+      "component": "Q^2"
+     },
      "method": "CB, from Δσ",
      "refs": [
       "atanasov2022"
      ],
-     "note": "$\\Delta_\\epsilon = \\Delta_\\sigma + 1$ by supersymmetry. The only relevant parity-even scalar (the tuning parameter)."
+     "note": "$\\Delta_\\epsilon = \\Delta_\\sigma + 1$ by supersymmetry. The only relevant parity-even scalar (the tuning parameter).",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "\\sigma'",
      "Delta": "2.8869(25)",
      "spin": 0,
-     "rep": "parity odd",
+     "parity": "odd",
+     "multiplet": {
+      "name": "$\\sigma'$",
+      "component": "primary"
+     },
      "method": "CB",
      "refs": [
       "atanasov2022"
-     ]
+     ],
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "\\epsilon'",
      "Delta": "3.8869(25)",
      "spin": 0,
-     "rep": "parity even; partner of $\\sigma'$",
+     "parity": "even",
+     "multiplet": {
+      "name": "$\\sigma'$",
+      "component": "Q^2"
+     },
      "method": "CB, from Δσ′",
      "refs": [
       "atanasov2022"
      ],
-     "note": "$\\Delta_{\\epsilon'} = \\Delta_{\\sigma'} + 1$ by supersymmetry."
+     "note": "$\\Delta_{\\epsilon'} = \\Delta_{\\sigma'} + 1$ by supersymmetry.",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "S_{\\mu\\alpha}",
      "Delta": "5/2",
      "spin": "3/2",
-     "rep": "supercurrent",
-     "method": "exact"
+     "parity": "unknown",
+     "role": "supercurrent",
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "primary"
+     },
+     "method": "exact",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 3,
      "spin": 2,
-     "rep": "singlet",
+     "parity": "even",
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "Q"
+     },
      "method": "exact",
-     "note": "Stress tensor, in the same multiplet as the supercurrent."
+     "note": "Stress tensor, in the same multiplet as the supercurrent.",
+     "irrep": {
+      "global": [],
+      "key": ""
+     }
     }
    ],
    "relations": [
@@ -22628,6 +22796,7 @@
    "contributors": [
     "nathansbenjamin"
    ],
+   "global_factors": [],
    "source": "data/theories/gny-n1-3d.yaml",
    "backlinks": [
     {
@@ -23580,7 +23749,14 @@
     "euclidean": "$O(4,1)$",
     "lorentzian": "$O(3,2)$",
     "supercharges": 0,
-    "global": "$\\mathbb{Z}_2$"
+    "global": "$\\mathbb{Z}_2$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2"
+     }
+    ]
    },
    "quantities": [
     {
@@ -23984,425 +24160,1127 @@
      "name": "\\sigma",
      "Delta": "0.518148806(24)",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "CB",
      "refs": [
       "chang2024"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\epsilon",
      "Delta": "1.41262528(29)",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB",
      "refs": [
       "chang2024"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 3,
      "spin": 2,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\epsilon",
      "Delta": "1.416(8)",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "FS",
      "refs": [
       "zhou2026"
      ],
-     "note": "[@ising-3d/zhou2026, Table 1, p. 4]. Energies are calibrated so that $\\Delta_\\sigma$ equals its bootstrap value [@ising-3d/zhou2026, p. 19]; the error is the r.m.s. difference between three finite-size extrapolation choices [@ising-3d/zhou2026, p. 21], not a statistical error."
+     "note": "[@ising-3d/zhou2026, Table 1, p. 4]. Energies are calibrated so that $\\Delta_\\sigma$ equals its bootstrap value [@ising-3d/zhou2026, p. 19]; the error is the r.m.s. difference between three finite-size extrapolation choices [@ising-3d/zhou2026, p. 21], not a statistical error.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\epsilon'",
      "Delta": "3.82968(23)",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72]. Error: standard deviation over 60 extremal spectra at $\\Lambda=43$, not rigorous [@ising-3d/simmonsduffin2016, App. A.3]. Leading irrelevant scalar: $\\omega = \\Delta_{\\epsilon'}-3$."
+     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72]. Error: standard deviation over 60 extremal spectra at $\\Lambda=43$, not rigorous [@ising-3d/simmonsduffin2016, App. A.3]. Leading irrelevant scalar: $\\omega = \\Delta_{\\epsilon'}-3$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\epsilon'",
      "Delta": "3.82951(61)",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB, rigorous",
      "refs": [
       "reehorst2021"
      ],
-     "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.1)], $\\Lambda=31$. Rigorous, assuming $\\Delta_{\\sigma'}>3$ and no third $\\mathbb{Z}_2$-even scalar below 6 [@ising-3d/reehorst2021, Sec. 4.1]."
+     "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.1)], $\\Lambda=31$. Rigorous, assuming $\\Delta_{\\sigma'}>3$ and no third $\\mathbb{Z}_2$-even scalar below 6 [@ising-3d/reehorst2021, Sec. 4.1].",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\epsilon'",
      "Delta": "3.86(3)",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "FS",
      "refs": [
       "zhou2026"
      ],
-     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; calibrated to bootstrap $\\Delta_\\sigma$; extrapolation error."
+     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; calibrated to bootstrap $\\Delta_\\sigma$; extrapolation error.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\epsilon''",
      "Delta": "6.8956(43)",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], third $\\mathbb{Z}_2$-even scalar in $\\sigma\\times\\sigma$ and $\\epsilon\\times\\epsilon$ (unnamed there). Error: standard deviation over 60 extremal spectra, not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], third $\\mathbb{Z}_2$-even scalar in $\\sigma\\times\\sigma$ and $\\epsilon\\times\\epsilon$ (unnamed there). Error: standard deviation over 60 extremal spectra, not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\epsilon''",
      "Delta": "6.96(5)",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "FS",
      "refs": [
       "zhou2026"
      ],
-     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; calibrated to bootstrap $\\Delta_\\sigma$; extrapolation error."
+     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; calibrated to bootstrap $\\Delta_\\sigma$; extrapolation error.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\epsilon'''",
      "Delta": "7.2535(51)",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], fourth $\\mathbb{Z}_2$-even scalar in $\\sigma\\times\\sigma$ and $\\epsilon\\times\\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], fourth $\\mathbb{Z}_2$-even scalar in $\\sigma\\times\\sigma$ and $\\epsilon\\times\\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\epsilon'''",
      "Delta": "7.1(2)",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "FS",
      "refs": [
       "zhou2026"
      ],
-     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; extrapolation error."
+     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; extrapolation error.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\sigma'",
      "Delta": "5.2906(11)",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72]. Error: standard deviation over 60 extremal spectra, not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72]. Error: standard deviation over 60 extremal spectra, not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\sigma'",
      "Delta": "5.262(89)",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "CB, rigorous",
      "refs": [
       "reehorst2021"
      ],
-     "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.2)], $\\Lambda=19$. Rigorous, assuming only two $\\mathbb{Z}_2$-odd scalars below 6 and $\\Delta_{\\epsilon'}>3$."
+     "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.2)], $\\Lambda=19$. Rigorous, assuming only two $\\mathbb{Z}_2$-odd scalars below 6 and $\\Delta_{\\epsilon'}>3$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\sigma'",
      "Delta": "5.34(4)",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "FS",
      "refs": [
       "zhou2026"
      ],
-     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; extrapolation error."
+     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; extrapolation error.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "T'_{\\mu\\nu}",
      "Delta": "5.50915(44)",
      "spin": 2,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72]. Error: standard deviation over 60 extremal spectra, not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72]. Error: standard deviation over 60 extremal spectra, not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "T'_{\\mu\\nu}",
      "Delta": "5.499(17)",
      "spin": 2,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB, rigorous",
      "refs": [
       "reehorst2021"
      ],
-     "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.4)], $\\Lambda=19$. Rigorous, assuming only two $\\mathbb{Z}_2$-even spin-2 operators below 6."
+     "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.4)], $\\Lambda=19$. Rigorous, assuming only two $\\mathbb{Z}_2$-even spin-2 operators below 6.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "T'_{\\mu\\nu}",
      "Delta": "5.549(13)",
      "spin": 2,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "FS",
      "refs": [
       "zhou2026"
      ],
-     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; extrapolation error. **Disagrees** with the rigorous interval $5.499(17)$ (upper end 5.516) and with the estimate $5.50915(44)$ (by about $3\\times$ its stated error)."
+     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; extrapolation error. **Disagrees** with the rigorous interval $5.499(17)$ (upper end 5.516) and with the estimate $5.50915(44)$ (by about $3\\times$ its stated error).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "T''_{\\mu\\nu}",
      "Delta": "7.0758(58)",
      "spin": 2,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], third $\\mathbb{Z}_2$-even spin-2 operator in these OPEs. Error: standard deviation over 60 extremal spectra, not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], third $\\mathbb{Z}_2$-even spin-2 operator in these OPEs. Error: standard deviation over 60 extremal spectra, not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "T''_{\\mu\\nu}",
      "Delta": "7.03(17)",
      "spin": 2,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "FS",
      "refs": [
       "zhou2026"
      ],
-     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; extrapolation error."
+     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; extrapolation error.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "C_{\\mu\\nu\\rho\\sigma}",
      "Delta": "5.022665(28)",
      "spin": 4,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72]. Lightest $\\mathbb{Z}_2$-even spin-4 operator; on a cubic lattice it gives the leading correction from broken rotation symmetry, $\\omega_{\\rm NR} = \\Delta_C - 3$ (Hasenbusch [@ising-3d/hasenbusch2021, p. 6]). Error: standard deviation over 60 extremal spectra, not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72]. Lightest $\\mathbb{Z}_2$-even spin-4 operator; on a cubic lattice it gives the leading correction from broken rotation symmetry, $\\omega_{\\rm NR} = \\Delta_C - 3$ (Hasenbusch [@ising-3d/hasenbusch2021, p. 6]). Error: standard deviation over 60 extremal spectra, not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "C'_{\\mu\\nu\\rho\\sigma}",
      "Delta": "6.42065(64)",
      "spin": 4,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], second $\\mathbb{Z}_2$-even spin-4 operator in these OPEs. Error: standard deviation over 60 extremal spectra, not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], second $\\mathbb{Z}_2$-even spin-4 operator in these OPEs. Error: standard deviation over 60 extremal spectra, not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "C''_{\\mu\\nu\\rho\\sigma}",
      "Delta": "7.38568(28)",
      "spin": 4,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], third $\\mathbb{Z}_2$-even spin-4 operator in these OPEs. Error: standard deviation over 60 extremal spectra, not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], third $\\mathbb{Z}_2$-even spin-4 operator in these OPEs. Error: standard deviation over 60 extremal spectra, not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "[\\sigma\\sigma]_{0,6}",
      "Delta": "7.028488(16)",
      "spin": 6,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 3, p. 73], also in [@ising-3d/simmonsduffin2016, Table 2]. Leading-twist $[\\sigma\\sigma]_0$ family; the last subscript is the spin. Error: standard deviation over 60 extremal spectra, not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 3, p. 73], also in [@ising-3d/simmonsduffin2016, Table 2]. Leading-twist $[\\sigma\\sigma]_0$ family; the last subscript is the spin. Error: standard deviation over 60 extremal spectra, not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "[\\sigma\\sigma]_{0,8}",
      "Delta": "9.031023(30)",
      "spin": 8,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 3, p. 73]; $[\\sigma\\sigma]_0$ family. Not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 3, p. 73]; $[\\sigma\\sigma]_0$ family. Not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "[\\sigma\\sigma]_{0,10}",
      "Delta": "11.0324141(99)",
      "spin": 10,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 3, p. 73]; $[\\sigma\\sigma]_0$ family. Not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 3, p. 73]; $[\\sigma\\sigma]_0$ family. Not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "[\\sigma\\sigma]_{0,12}",
      "Delta": "13.033286(12)",
      "spin": 12,
-     "rep": "$\\mathbb{Z}_2$-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 3, p. 73]; $[\\sigma\\sigma]_0$ family. Not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 3, p. 73]; $[\\sigma\\sigma]_0$ family. Not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\sigma_{\\mu\\nu}",
      "Delta": "4.180305(18)",
      "spin": 2,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], lightest $\\mathbb{Z}_2$-odd spin-2 operator in $\\sigma\\times\\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], lightest $\\mathbb{Z}_2$-odd spin-2 operator in $\\sigma\\times\\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\sigma_{\\mu\\nu}",
      "Delta": "4.197(10)",
      "spin": 2,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "FS",
      "refs": [
       "zhou2026"
      ],
-     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; extrapolation error. About $1.7\\times$ its error above the bootstrap estimate."
+     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; extrapolation error. About $1.7\\times$ its error above the bootstrap estimate.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\sigma'_{\\mu\\nu}",
      "Delta": "6.9873(53)",
      "spin": 2,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], second $\\mathbb{Z}_2$-odd spin-2 operator in $\\sigma\\times\\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], second $\\mathbb{Z}_2$-odd spin-2 operator in $\\sigma\\times\\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\sigma'_{\\mu\\nu}",
      "Delta": "7.058(15)",
      "spin": 2,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "FS",
      "refs": [
       "zhou2026"
      ],
-     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; extrapolation error. **Disagrees** with the bootstrap estimate $6.9873(53)$ by about $4.4\\times$ the combined stated errors."
+     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; extrapolation error. **Disagrees** with the bootstrap estimate $6.9873(53)$ by about $4.4\\times$ the combined stated errors.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\sigma_{\\mu\\nu\\rho}",
      "Delta": "4.63804(88)",
      "spin": 3,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], lightest $\\mathbb{Z}_2$-odd spin-3 operator in $\\sigma\\times\\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], lightest $\\mathbb{Z}_2$-odd spin-3 operator in $\\sigma\\times\\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\sigma_{\\mu\\nu\\rho\\sigma}",
      "Delta": "6.112674(19)",
      "spin": 4,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], lightest $\\mathbb{Z}_2$-odd spin-4 operator in $\\sigma\\times\\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], lightest $\\mathbb{Z}_2$-odd spin-4 operator in $\\sigma\\times\\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\sigma_{\\mu_1\\cdots\\mu_5}",
      "Delta": "6.709778(27)",
      "spin": 5,
-     "rep": "$\\mathbb{Z}_2$-odd",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "CB-EFM",
      "refs": [
       "simmonsduffin2016"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], lightest $\\mathbb{Z}_2$-odd spin-5 operator in $\\sigma\\times\\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous."
+     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], lightest $\\mathbb{Z}_2$-odd spin-5 operator in $\\sigma\\times\\epsilon$. Error: standard deviation over 60 extremal spectra, not rigorous.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\sigma_{\\mu}",
      "Delta": "9.1(4)",
      "spin": 1,
-     "rep": "$\\mathbb{Z}_2$-odd, parity-even",
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "FS",
      "refs": [
       "zhou2026"
      ],
-     "note": "[@ising-3d/zhou2026, Table 1, p. 4; @ising-3d/zhou2026, p. 23]; lightest $\\mathbb{Z}_2$-odd vector primary. Extrapolation error."
+     "note": "[@ising-3d/zhou2026, Table 1, p. 4; @ising-3d/zhou2026, p. 23]; lightest $\\mathbb{Z}_2$-odd vector primary. Extrapolation error.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "V_{\\mu}",
      "Delta": "10.8(5)",
      "spin": 1,
-     "rep": "$\\mathbb{Z}_2$-even, parity-even",
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
      "method": "FS",
      "refs": [
       "zhou2026"
      ],
-     "note": "[@ising-3d/zhou2026, Table 1, p. 4; @ising-3d/zhou2026, p. 23]; lightest $\\mathbb{Z}_2$-even vector primary seen; the paper relates it to the explanation of why the Ising fixed point is conformal and not only scale invariant. Extrapolation error."
+     "note": "[@ising-3d/zhou2026, Table 1, p. 4; @ising-3d/zhou2026, p. 23]; lightest $\\mathbb{Z}_2$-even vector primary seen; the paper relates it to the explanation of why the Ising fixed point is conformal and not only scale invariant. Extrapolation error.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "T^{-}_{\\mu\\nu}",
      "Delta": "7.4(2)",
      "spin": 2,
-     "rep": "$\\mathbb{Z}_2$-even, parity-odd",
+     "parity": "odd",
+     "global": {
+      "Z2": "even"
+     },
      "method": "FS",
      "refs": [
       "zhou2026"
      ],
-     "note": "[@ising-3d/zhou2026, Table 1, p. 4; @ising-3d/zhou2026, p. 23]; lightest parity-odd spin-2 primary. Extrapolation error."
+     "note": "[@ising-3d/zhou2026, Table 1, p. 4; @ising-3d/zhou2026, p. 23]; lightest parity-odd spin-2 primary. Extrapolation error.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\epsilon^{-}",
      "Delta": "\\leq 10.9293",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even, parity-odd",
+     "parity": "odd",
+     "global": {
+      "Z2": "even"
+     },
      "method": "CB, rigorous",
      "refs": [
       "chang2024"
      ],
-     "note": "[@ising-3d/chang2024, Eq. (5.5), p. 32]: rigorous upper bound at $\\Lambda=27$ under the gap assumptions of [@ising-3d/chang2024, Table 6], from an OPE scan at each gap value, computed at a few representative points of the $\\Lambda=43$ $(\\Delta_\\sigma,\\Delta_\\epsilon)$ island, which all give the same bound within the binary-search tolerance $10^{-4}$. With the extra assumption $\\Delta_{\\epsilon^{-\\prime}} \\geq 11.5$ (resp. $\\geq 11$) they find $\\Delta_{\\epsilon^-} \\geq 10.8790$ (resp. $\\geq 10.5432$). The text calls this the $\\mathbb{Z}_2$-even parity-odd scalar; the caption of [@ising-3d/chang2024, Fig. 9] says \"parity-even, $\\mathbb{Z}_2$-odd\", apparently a typo."
+     "note": "[@ising-3d/chang2024, Eq. (5.5), p. 32]: rigorous upper bound at $\\Lambda=27$ under the gap assumptions of [@ising-3d/chang2024, Table 6], from an OPE scan at each gap value, computed at a few representative points of the $\\Lambda=43$ $(\\Delta_\\sigma,\\Delta_\\epsilon)$ island, which all give the same bound within the binary-search tolerance $10^{-4}$. With the extra assumption $\\Delta_{\\epsilon^{-\\prime}} \\geq 11.5$ (resp. $\\geq 11$) they find $\\Delta_{\\epsilon^-} \\geq 10.8790$ (resp. $\\geq 10.5432$). The text calls this the $\\mathbb{Z}_2$-even parity-odd scalar; the caption of [@ising-3d/chang2024, Fig. 9] says \"parity-even, $\\mathbb{Z}_2$-odd\", apparently a typo.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\epsilon^{-}",
      "Delta": "11.0(4)",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-even, parity-odd",
+     "parity": "odd",
+     "global": {
+      "Z2": "even"
+     },
      "method": "FS",
      "refs": [
       "zhou2026"
      ],
-     "note": "[@ising-3d/zhou2026, Table 1, p. 4; @ising-3d/zhou2026, pp. 22–23]. Consistent with the bootstrap bound; the next such primary is at $13.3(6)$, supporting the bootstrap's assumption $\\Delta_{\\epsilon^{-\\prime}} > 11.5$. The earlier fuzzy-sphere value $\\approx 10.01$ [@ising-3d/zhu2022, Table I] was a descendant, not a primary."
+     "note": "[@ising-3d/zhou2026, Table 1, p. 4; @ising-3d/zhou2026, pp. 22–23]. Consistent with the bootstrap bound; the next such primary is at $13.3(6)$, supporting the bootstrap's assumption $\\Delta_{\\epsilon^{-\\prime}} > 11.5$. The earlier fuzzy-sphere value $\\approx 10.01$ [@ising-3d/zhu2022, Table I] was a descendant, not a primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\sigma^{-}",
      "Delta": "12.8(7)",
      "spin": 0,
-     "rep": "$\\mathbb{Z}_2$-odd, parity-odd",
+     "parity": "odd",
+     "global": {
+      "Z2": "odd"
+     },
      "method": "FS",
      "refs": [
       "zhou2026"
      ],
-     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; lightest $\\mathbb{Z}_2$-odd parity-odd scalar primary. The earlier value $\\approx 11.19$ [@ising-3d/zhu2022, Table I] was a descendant. Extrapolation error."
+     "note": "[@ising-3d/zhou2026, Table 1, p. 4]; lightest $\\mathbb{Z}_2$-odd parity-odd scalar primary. The earlier value $\\approx 11.19$ [@ising-3d/zhu2022, Table I] was a descendant. Extrapolation error.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     }
    ],
    "relations": [
@@ -24566,6 +25444,13 @@
    "contributors": [
     "nathansbenjamin",
     "davidsd"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2"
+    }
    ],
    "source": "data/theories/ising-3d.yaml",
    "backlinks": [
@@ -26149,7 +27034,14 @@
     "euclidean": "$O(4,1)$",
     "lorentzian": "$O(3,2)$",
     "supercharges": 0,
-    "global": "$O(3)$"
+    "global": "$O(3)$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "O(3)",
+      "group": "O(3)"
+     }
+    ]
    },
    "quantities": [
     {
@@ -26284,111 +27176,346 @@
      "name": "\\phi_i",
      "Delta": "0.51892(3)",
      "spin": 0,
-     "rep": "vector (order parameter)",
+     "parity": "even",
+     "global": {
+      "O(3)": "vector"
+     },
+     "role": "order parameter",
      "method": "MC",
      "refs": [
       "hasenbusch2020"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(3)",
+        "canon": "Y(1)",
+        "short": "vector",
+        "trivial": false,
+        "sort": [
+         1,
+         -1,
+         0,
+         0
+        ],
+        "text": "$O(3)$ vector"
+       }
+      ],
+      "key": "O(3)=Y(1)"
+     }
     },
     {
      "name": "\\phi_i",
      "Delta": "0.518936(67)",
      "spin": 0,
-     "rep": "vector (order parameter)",
+     "parity": "even",
+     "global": {
+      "O(3)": "vector"
+     },
+     "role": "order parameter",
      "method": "CB, rigorous",
      "refs": [
       "chester2020"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(3)",
+        "canon": "Y(1)",
+        "short": "vector",
+        "trivial": false,
+        "sort": [
+         1,
+         -1,
+         0,
+         0
+        ],
+        "text": "$O(3)$ vector"
+       }
+      ],
+      "key": "O(3)=Y(1)"
+     }
     },
     {
      "name": "t_{ij}",
      "Delta": "1.20954(32)",
      "spin": 0,
-     "rep": "rank-2 symmetric traceless",
+     "parity": "even",
+     "global": {
+      "O(3)": "sym(2)"
+     },
      "method": "CB",
      "refs": [
       "chester2020"
      ],
-     "note": "Uniaxial anisotropy; relevant."
+     "note": "Uniaxial anisotropy; relevant.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(3)",
+        "canon": "Y(2)",
+        "short": "rank-2 symmetric traceless",
+        "trivial": false,
+        "sort": [
+         2,
+         -2,
+         0,
+         0
+        ],
+        "text": "$O(3)$ rank-2 symmetric traceless"
+       }
+      ],
+      "key": "O(3)=Y(2)"
+     }
     },
     {
      "name": "t_{ij}",
      "Delta": "1.2094(3)",
      "spin": 0,
-     "rep": "rank-2 symmetric traceless",
+     "parity": "even",
+     "global": {
+      "O(3)": "sym(2)"
+     },
      "method": "MC",
      "refs": [
       "hasenbusch2011"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(3)",
+        "canon": "Y(2)",
+        "short": "rank-2 symmetric traceless",
+        "trivial": false,
+        "sort": [
+         2,
+         -2,
+         0,
+         0
+        ],
+        "text": "$O(3)$ rank-2 symmetric traceless"
+       }
+      ],
+      "key": "O(3)=Y(2)"
+     }
     },
     {
      "name": "s",
      "Delta": "1.5948(2)",
      "spin": 0,
-     "rep": "singlet (thermal)",
+     "parity": "even",
+     "global": {
+      "O(3)": "singlet"
+     },
+     "role": "thermal",
      "method": "MC",
      "refs": [
       "hasenbusch2020"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(3)",
+        "canon": "Y()",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "text": "$O(3)$ singlet"
+       }
+      ],
+      "key": "O(3)=Y()"
+     }
     },
     {
      "name": "s",
      "Delta": "1.59488(81)",
      "spin": 0,
-     "rep": "singlet (thermal)",
+     "parity": "even",
+     "global": {
+      "O(3)": "singlet"
+     },
+     "role": "thermal",
      "method": "CB, rigorous",
      "refs": [
       "chester2020"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(3)",
+        "canon": "Y()",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "text": "$O(3)$ singlet"
+       }
+      ],
+      "key": "O(3)=Y()"
+     }
     },
     {
      "name": "J_\\mu^{[ij]}",
      "Delta": 2,
      "spin": 1,
-     "rep": "antisymmetric (adjoint)",
+     "parity": "even",
+     "global": {
+      "O(3)": "adjoint"
+     },
      "method": "exact",
-     "note": "Conserved $O(3)$ currents."
+     "note": "Conserved $O(3)$ currents.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(3)",
+        "canon": "Y(1,1)",
+        "short": "adjoint (rank-2 antisymmetric)",
+        "trivial": false,
+        "sort": [
+         2,
+         -1,
+         -1,
+         0
+        ],
+        "text": "$O(3)$ adjoint (rank-2 antisymmetric)"
+       }
+      ],
+      "key": "O(3)=Y(1,1)"
+     }
     },
     {
      "name": "t_4",
      "Delta": "2.9858(6)",
      "spin": 0,
-     "rep": "rank-4 symmetric traceless",
+     "parity": "even",
+     "global": {
+      "O(3)": "sym(4)"
+     },
      "method": "MC",
      "refs": [
       "hasenbusch2023"
      ],
-     "note": "Relevant, so cubic anisotropy destabilizes the fixed point."
+     "note": "Relevant, so cubic anisotropy destabilizes the fixed point.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(3)",
+        "canon": "Y(4)",
+        "short": "rank-4 symmetric traceless",
+        "trivial": false,
+        "sort": [
+         4,
+         -4,
+         0,
+         0
+        ],
+        "text": "$O(3)$ rank-4 symmetric traceless"
+       }
+      ],
+      "key": "O(3)=Y(4)"
+     }
     },
     {
      "name": "t_4",
      "Delta": "< 2.99056",
      "spin": 0,
-     "rep": "rank-4 symmetric traceless",
+     "parity": "even",
+     "global": {
+      "O(3)": "sym(4)"
+     },
      "method": "CB, rigorous",
      "refs": [
       "chester2020"
      ],
-     "note": "Upper bound."
+     "note": "Upper bound.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(3)",
+        "canon": "Y(4)",
+        "short": "rank-4 symmetric traceless",
+        "trivial": false,
+        "sort": [
+         4,
+         -4,
+         0,
+         0
+        ],
+        "text": "$O(3)$ rank-4 symmetric traceless"
+       }
+      ],
+      "key": "O(3)=Y(4)"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 3,
      "spin": 2,
-     "rep": "singlet",
+     "parity": "even",
+     "global": {
+      "O(3)": "singlet"
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(3)",
+        "canon": "Y()",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "text": "$O(3)$ singlet"
+       }
+      ],
+      "key": "O(3)=Y()"
+     }
     },
     {
      "name": "s'",
      "Delta": "3.759(2)",
      "spin": 0,
-     "rep": "singlet",
+     "parity": "even",
+     "global": {
+      "O(3)": "singlet"
+     },
      "method": "MC, 3 + ω",
      "refs": [
       "hasenbusch2020"
      ],
-     "note": "Leading irrelevant singlet; controls corrections to scaling."
+     "note": "Leading irrelevant singlet; controls corrections to scaling.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(3)",
+        "canon": "Y()",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "text": "$O(3)$ singlet"
+       }
+      ],
+      "key": "O(3)=Y()"
+     }
     }
    ],
    "relations": [
@@ -26481,6 +27608,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "O(3)",
+     "type": "O",
+     "tex": "O(3)"
+    }
    ],
    "source": "data/theories/o3-model-3d.yaml",
    "backlinks": [
@@ -27934,6 +29068,18 @@
     "lorentzian": "$O(3,2)$",
     "supercharges": 0,
     "global": "$SU(N_f)$ flavor, $U(1)_{\\rm top}$ with current $j^{\\rm top} = \\star f/2\\pi$ (charged operators are monopoles), charge conjugation, parity and time reversal",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "SU(Nf)",
+      "group": "SU(N_f)"
+     },
+     {
+      "id": "U(1)_top",
+      "group": "U(1)",
+      "tex": "U(1)_{\\rm top}"
+     }
+    ],
     "gauge": "$U(1)$",
     "notes": "At $N_f = 2$ the continuous symmetry acting faithfully is $(SU(2)\\times U(1)_{\\rm top})/\\mathbb{Z}_2$, conjectured to enhance to $O(4)$."
    },
@@ -27987,7 +29133,11 @@
      "name": "M_{1/2}",
      "Delta": "0.265\\,N_f - 0.0383 + O(1/N_f)",
      "spin": 0,
-     "rep": "unit topological charge; $SU(N_f)$ rank-$N_f/2$ antisymmetric tensor",
+     "parity": "pair",
+     "global": {
+      "SU(Nf)": "anti(N_f/2)",
+      "U(1)_top": 1
+     },
      "method": "1/Nf",
      "refs": [
       "pufu2013",
@@ -27995,78 +29145,333 @@
       "borokhov2002",
       "karthik2019"
      ],
-     "note": "Minimal monopole; the $O(N_f)$ term is from Borokhov–Kapustin–Wu [@qed3-3d/borokhov2002]. Lattice (noncompact QED [@qed3-3d/karthik2019]): $3.24(24)$ at $N_f = 12$, and $\\Delta/N_f$ larger at $N_f = 2, 4$ than at $12$, opposite to the sign of the $O(N_f^0)$ term."
+     "note": "Minimal monopole; the $O(N_f)$ term is from Borokhov–Kapustin–Wu [@qed3-3d/borokhov2002]. Lattice (noncompact QED [@qed3-3d/karthik2019]): $3.24(24)$ at $N_f = 12$, and $\\Delta/N_f$ larger at $N_f = 2, 4$ than at $12$, opposite to the sign of the $O(N_f^0)$ term.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)",
+        "canon": "anti(N_f/2)",
+        "short": "rank-$N_f/2$ antisymmetric",
+        "trivial": false,
+        "sort": [
+         1000000,
+         3,
+         0
+        ],
+        "text": "$SU(N_f)$ rank-$N_f/2$ antisymmetric"
+       },
+       {
+        "factor": "U(1)_top",
+        "canon": "1",
+        "short": "charge $1$",
+        "trivial": false,
+        "sort": [
+         1.0,
+         1
+        ],
+        "text": "$U(1)_{\\rm top}$ charge $1$"
+       }
+      ],
+      "key": "SU(Nf)=anti(N_f/2)|U(1)_top=1"
+     }
     },
     {
      "name": "M_{1}",
      "Delta": "0.673\\,N_f - 0.194 + O(1/N_f)",
      "spin": 0,
-     "rep": "topological charge 2",
+     "parity": "pair",
+     "global": {
+      "SU(Nf)": "unknown",
+      "U(1)_top": 2
+     },
      "method": "1/Nf",
      "refs": [
       "dyer2013"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$SU(N_f)$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       },
+       {
+        "factor": "U(1)_top",
+        "canon": "2",
+        "short": "charge $2$",
+        "trivial": false,
+        "sort": [
+         2.0,
+         1
+        ],
+        "text": "$U(1)_{\\rm top}$ charge $2$"
+       }
+      ],
+      "key": "SU(Nf)=unknown|U(1)_top=2"
+     }
     },
     {
      "name": "\\bar\\psi_i\\psi^j - \\tfrac{1}{N_f}\\delta_i^j\\bar\\psi_k\\psi^k",
      "Delta": "2 - \\frac{64}{3\\pi^2 N_f} + O(N_f^{-2})",
      "spin": 0,
-     "rep": "$SU(N_f)$ adjoint",
+     "parity": "unknown",
+     "global": {
+      "SU(Nf)": "adjoint",
+      "U(1)_top": 0
+     },
      "method": "1/Nf",
      "refs": [
       "hermele2005",
       "chester2016b"
      ],
-     "note": "In the staggered-flux spin liquid ($N_f = 4$) this multiplet contains the Néel vector and the VBS order parameters."
+     "note": "In the staggered-flux spin liquid ($N_f = 4$) this multiplet contains the Néel vector and the VBS order parameters.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)",
+        "canon": "adjoint",
+        "short": "adjoint",
+        "trivial": false,
+        "sort": [
+         2,
+         1,
+         0
+        ],
+        "text": "$SU(N_f)$ adjoint"
+       },
+       {
+        "factor": "U(1)_top",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_{\\rm top}$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(Nf)=adjoint|U(1)_top=0"
+     }
     },
     {
      "name": "\\bar\\psi_k\\psi^k",
      "Delta": "2 + \\frac{128}{3\\pi^2 N_f} + O(N_f^{-2})",
      "spin": 0,
-     "rep": "singlet, parity odd",
+     "parity": "odd",
+     "global": {
+      "SU(Nf)": "singlet",
+      "U(1)_top": 0
+     },
      "method": "1/Nf",
      "refs": [
       "chester2016b"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0
+        ],
+        "text": "$SU(N_f)$ singlet"
+       },
+       {
+        "factor": "U(1)_top",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_{\\rm top}$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(Nf)=singlet|U(1)_top=0"
+     }
     },
     {
      "name": "(\\bar\\psi\\psi)^2,\\ f_{\\mu\\nu}f^{\\mu\\nu}\\ \\text{mixtures}",
      "Delta": "4 + \\frac{64(2 \\pm \\sqrt7)}{3\\pi^2 N_f} + O(N_f^{-2})",
      "spin": 0,
-     "rep": "singlet, parity even",
+     "parity": "even",
+     "global": {
+      "SU(Nf)": "singlet",
+      "U(1)_top": 0
+     },
      "method": "1/Nf",
      "refs": [
       "chester2016b"
      ],
      "degeneracy": 2,
-     "note": "Lowest parity-even singlets. At this order the lower one stays irrelevant for all $N_f > 1$; in the merger-and-annihilation scenario it reaches marginality at $N_f^*$."
+     "note": "Lowest parity-even singlets. At this order the lower one stays irrelevant for all $N_f > 1$; in the merger-and-annihilation scenario it reaches marginality at $N_f^*$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0
+        ],
+        "text": "$SU(N_f)$ singlet"
+       },
+       {
+        "factor": "U(1)_top",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_{\\rm top}$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(Nf)=singlet|U(1)_top=0"
+     }
     },
     {
      "name": "M_{1/2}\\ (N_f = 4)",
      "Delta": "1.00\\text{–}1.10",
      "spin": 0,
-     "rep": "unit topological charge, $SU(4)$ $\\mathbf{6}$",
+     "parity": "pair",
+     "global": {
+      "SU(Nf)": "anti(N_f/2)",
+      "U(1)_top": 1
+     },
      "method": "CB, with gap assumptions",
      "refs": [
       "albayrak2022"
      ],
-     "note": "Island with $\\Delta_{M_1} \\le 2.50$ at $\\Lambda = 39$; same island gives $1.03 \\le \\Delta \\le 1.61$ for the adjoint bilinear. Large $N_f$: $1.022$."
+     "note": "Island with $\\Delta_{M_1} \\le 2.50$ at $\\Lambda = 39$; same island gives $1.03 \\le \\Delta \\le 1.61$ for the adjoint bilinear. Large $N_f$: $1.022$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)",
+        "canon": "anti(N_f/2)",
+        "short": "rank-$N_f/2$ antisymmetric",
+        "trivial": false,
+        "sort": [
+         1000000,
+         3,
+         0
+        ],
+        "text": "$SU(N_f)$ rank-$N_f/2$ antisymmetric"
+       },
+       {
+        "factor": "U(1)_top",
+        "canon": "1",
+        "short": "charge $1$",
+        "trivial": false,
+        "sort": [
+         1.0,
+         1
+        ],
+        "text": "$U(1)_{\\rm top}$ charge $1$"
+       }
+      ],
+      "key": "SU(Nf)=anti(N_f/2)|U(1)_top=1"
+     }
     },
     {
      "name": "J_\\mu^{\\rm top},\\ J_\\mu^{SU(N_f)}",
      "Delta": 2,
      "spin": 1,
-     "rep": "singlet; $SU(N_f)$ adjoint",
+     "parity": "unknown",
+     "global": {
+      "SU(Nf)": [
+       "singlet",
+       "adjoint"
+      ],
+      "U(1)_top": 0
+     },
      "method": "exact",
-     "note": "Conserved currents."
+     "note": "Conserved currents.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)",
+        "canon": "singlet+adjoint",
+        "short": "singlet $\\oplus$ adjoint",
+        "text": "$SU(N_f)$ singlet $\\oplus$ adjoint",
+        "trivial": false,
+        "sort": [
+         0,
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       },
+       {
+        "factor": "U(1)_top",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_{\\rm top}$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(Nf)=singlet+adjoint|U(1)_top=0"
+     }
     },
     {
      "name": "T_{\\mu\\nu}",
      "Delta": 3,
      "spin": 2,
-     "rep": "singlet",
+     "parity": "even",
+     "global": {
+      "SU(Nf)": "singlet",
+      "U(1)_top": 0
+     },
      "method": "exact",
-     "note": "Stress tensor (conserved)."
+     "note": "Stress tensor (conserved).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(Nf)",
+        "canon": "singlet",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0
+        ],
+        "text": "$SU(N_f)$ singlet"
+       },
+       {
+        "factor": "U(1)_top",
+        "canon": "0",
+        "short": "neutral",
+        "text": "$U(1)_{\\rm top}$-neutral",
+        "trivial": true,
+        "sort": [
+         0,
+         0
+        ]
+       }
+      ],
+      "key": "SU(Nf)=singlet|U(1)_top=0"
+     }
     }
    ],
    "references": [
@@ -28216,6 +29621,18 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(Nf)",
+     "type": "SU",
+     "tex": "SU(N_f)"
+    },
+    {
+     "id": "U(1)_top",
+     "type": "U1",
+     "tex": "U(1)_{\\rm top}"
+    }
    ],
    "source": "data/theories/qed3-3d.yaml",
    "members": [
@@ -32470,6 +33887,14 @@
     "lorentzian": "$PSU(2,2|4)$",
     "supercharges": 16,
     "global": "$SU(4)_R$ R-symmetry",
+    "parity": "conditional",
+    "global_group": [
+     {
+      "id": "SU(4)_R",
+      "group": "SU(4)",
+      "tex": "SU(4)_R"
+     }
+    ],
     "gauge": "$SU(N)$"
    },
    "quantities": [
@@ -32486,20 +33911,74 @@
      "name": "\\mathcal{O}_{\\mathbf{20}^\\prime} = \\mathrm{Tr}\\,\\phi^{\\{I}\\phi^{J\\}}",
      "Delta": 2,
      "spin": 0,
-     "rep": "$\\mathbf{20}^\\prime$ of $SU(4)_R$",
+     "parity": "even",
+     "global": {
+      "SU(4)_R": "Dynkin(0,2,0)"
+     },
+     "multiplet": {
+      "name": "stress tensor",
+      "component": "primary",
+      "type": "half-BPS"
+     },
      "method": "exact",
-     "note": "Half-BPS superconformal primary of the stress-tensor multiplet; protected."
+     "note": "Half-BPS superconformal primary of the stress-tensor multiplet; protected.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(4)_R",
+        "canon": "Dynkin(0,2,0)",
+        "short": "$\\mathbf{20}'$ $[0,2,0]$",
+        "trivial": false,
+        "sort": [
+         20,
+         0,
+         2,
+         0,
+         0
+        ],
+        "text": "$SU(4)_R$ $\\mathbf{20}'$ $[0,2,0]$"
+       }
+      ],
+      "key": "SU(4)_R=Dynkin(0,2,0)"
+     }
     },
     {
      "name": "\\mathcal{K} = \\mathrm{Tr}\\,\\phi^I\\phi^I",
      "Delta": "2 + \\frac{3\\lambda}{4\\pi^2} + O(\\lambda^2)",
      "spin": 0,
-     "rep": "singlet",
+     "parity": "even",
+     "global": {
+      "SU(4)_R": "singlet"
+     },
+     "multiplet": {
+      "name": "Konishi",
+      "component": "primary",
+      "type": "long"
+     },
      "method": "PT",
      "note": "Konishi operator, the lightest unprotected operator; $\\lambda = g^2_{\\rm YM}N$, planar.",
      "refs": [
       "beisert2010"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(4)_R",
+        "canon": "Dynkin(0,0,0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0,
+         0,
+         0
+        ],
+        "text": "$SU(4)_R$ singlet"
+       }
+      ],
+      "key": "SU(4)_R=Dynkin(0,0,0)"
+     }
     }
    ],
    "references": [
@@ -32536,6 +34015,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "SU(4)_R",
+     "type": "SU",
+     "tex": "SU(4)_R"
+    }
    ],
    "source": "data/theories/n4-sym.yaml",
    "backlinks": [

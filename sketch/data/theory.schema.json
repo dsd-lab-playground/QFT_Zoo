@@ -214,9 +214,31 @@
           "minimum": 0,
           "description": "Number of real Poincaré supercharges (0 if not supersymmetric). Used for sorting and the catalogue; the page shows supercharges only through `spacetime`."
         },
+        "parity": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "const": "conditional"
+            }
+          ],
+          "description": "Whether the theory has parity (a reflection symmetry, possibly combined with an internal symmetry; see CONTRIBUTING.md, Spacetime symmetry): true, false, or conditional (only at special values of the parameters, said in `spacetime`; operators then give their parity at those values). Required with `global_group`; then every operator gives `parity` when it is true or conditional."
+        },
+        "time_reversal": {
+          "const": "independent",
+          "description": "Set only when time reversal is an independent label of operators, i.e. not fixed by parity, spin and the declared global labels through CRT (docs/REPRESENTATIONS.md). Operators then give `T`."
+        },
         "global": {
           "type": "string",
-          "description": "[markdown] Internal global symmetry, including higher-form and discrete symmetries."
+          "description": "[markdown] Internal global symmetry in words, including higher-form and discrete symmetries, quotients and anomalies; shown on the page. The group that operators' representations refer to is declared separately, factor by factor, in `global_group`."
+        },
+        "global_group": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/globalFactor"
+          },
+          "description": "The global symmetry group as a list of factors, in the order used for grouping tables. Every operator gives a label for each factor in its `global` mapping. Use [] for a theory with no internal global symmetry. Declaring it marks the entry as using structured representations (docs/REPRESENTATIONS.md): operators then give `global` and `parity` instead of the free-text `rep`."
         },
         "gauge": {
           "type": "string",
@@ -311,9 +333,81 @@
           ],
           "description": "Spin / Lorentz representation, e.g. 0, 2, '1/2', '(h,\\bar h)'."
         },
+        "lorentz": {
+          "type": "string",
+          "description": "Lorentz (rotation) representation when it is not symmetric traceless spin `spin`: in 4d '(j, jbar)', e.g. '(1/2, 0)'; in d >= 5 an SO(d) highest weight '[l1, l2, ...]' (Young diagram rows for tensors, half-integers for spinors). Not used in 2d and 3d."
+        },
+        "parity": {
+          "enum": [
+            "even",
+            "odd",
+            "pair",
+            "unknown"
+          ],
+          "description": "Parity, on par with spin and Delta: even, odd, pair (parity maps the operator to a partner in a different representation, e.g. spin s to -s in 2d, (j,jbar) to (jbar,j) in 4d, a monopole of charge q to -q), or unknown. Required when symmetry.parity is true or conditional."
+        },
+        "T": {
+          "enum": [
+            "even",
+            "odd",
+            "unknown"
+          ],
+          "description": "Time reversal, only when symmetry.time_reversal is `independent`."
+        },
+        "global": {
+          "type": "object",
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": [
+                  "string",
+                  "integer"
+                ]
+              },
+              {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": [
+                    "string",
+                    "integer"
+                  ]
+                }
+              }
+            ]
+          },
+          "description": "Irrep label for each factor of symmetry.global_group, e.g. {Z2: odd}, {O(3): vector}, {'SU(Nf)': adjoint, 'U(1)_top': 0}; `unknown` if not known; a list for a row that lists several irreps (a direct sum). Vocabulary in docs/REPRESENTATIONS.md."
+        },
+        "role": {
+          "type": "string",
+          "description": "[markdown] What the operator is or does, e.g. 'order parameter', 'thermal', 'Coulomb-branch generator'. Never part of the representation."
+        },
+        "multiplet": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "component"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "[markdown] The supermultiplet, named by its superconformal primary or its standard name, e.g. '$\\sigma$', 'stress tensor', 'Konishi'. Components of one multiplet use the same name."
+            },
+            "component": {
+              "type": "string",
+              "description": "'primary' or the [latex] supercharges acting on the primary, e.g. 'Q', 'Q^2', 'Q\\bar Q'."
+            },
+            "type": {
+              "type": "string",
+              "description": "[markdown] Shortening or standard symbol, e.g. 'half-BPS', 'long', '$A_1\\bar A_1$'."
+            }
+          },
+          "description": "Supersymmetric theories: the supermultiplet the operator belongs to and which component it is."
+        },
         "rep": {
           "type": "string",
-          "description": "[markdown] Representation under the global symmetry, e.g. '$\\mathbb{Z}_2$-odd', '$\\mathbf{20}\\prime$'."
+          "description": "[markdown] Legacy free-text representation, e.g. '$\\mathbb{Z}_2$-odd'. Accepted for entries without `symmetry.global_group` until they are migrated (the build counts them); structured entries give `global`, `parity` and `role` instead."
         },
         "method": {
           "$ref": "#/$defs/method"
@@ -1082,6 +1176,57 @@
         "note": {
           "type": "string",
           "description": "[markdown]"
+        }
+      }
+    },
+    "globalFactor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "group"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[^$\\s]+$",
+          "description": "Key operators use in `global`, e.g. 'Z2', 'O(3)', 'SU(Nf)', 'U(1)_top'."
+        },
+        "group": {
+          "type": "string",
+          "description": "Group type: Z2, Z_n (Z3, ...), U(1), O(N), SO(N), SU(N), Sp(N) (N even: Sp(2) = SU(2)), S_n, D_n (dihedral, order 2n) or finite (with `irreps`). N may be an integer or a parameter symbol of the entry, e.g. 'SU(N_f)'."
+        },
+        "tex": {
+          "type": "string",
+          "description": "[latex] Display name, if not the group's own, e.g. 'U(1)_{\\rm top}' or 'SU(4)_R'."
+        },
+        "irreps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "label"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "tex": {
+                "type": "string",
+                "description": "[latex]"
+              },
+              "dim": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          },
+          "description": "For `group: finite`: the irreps, the trivial one first, in the order tables use."
+        },
+        "note": {
+          "type": "string",
+          "description": "[markdown] e.g. how the factor sits in the full group (quotients, semidirect products)."
         }
       }
     }
