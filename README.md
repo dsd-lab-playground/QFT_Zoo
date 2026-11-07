@@ -47,7 +47,7 @@ scripts/build.py          validates the data and builds the site into _site/
 scripts/zoo_spectrum.py   the checks run on every spectrum file
 scripts/spectra/          the scripts that generated the spectrum files
 site/                     the website (static HTML/CSS/JS; KaTeX for math)
-tests/                    tests of the build checks (python tests/test_flows.py, tests/test_reps.py, tests/test_ope.py)
+tests/                    tests of the build checks (python tests/test_flows.py, tests/test_reps.py, tests/test_ope.py, tests/test_opfam.py)
 docs/REPRESENTATIONS.md   how operators record their symmetry representations, and how tables are grouped
 docs/OPE.md               how OPE coefficients record their operators and structures, and how they are shown
 data/ope_structures.yaml  the standard three-point structures that OPE values may name

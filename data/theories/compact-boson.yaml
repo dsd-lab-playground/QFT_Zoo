@@ -65,6 +65,11 @@ operators:
   parity: unknown
   global: {U(1)_m: n, U(1)_w: w}
   note: 'Momentum $n$, winding $w$.'
+  family:
+    id: vertex
+    parameters:
+    - {symbol: n}
+    - {symbol: w}
 - name: '\partial X,\ \bar\partial X'
   Delta: 1
   spin: 1

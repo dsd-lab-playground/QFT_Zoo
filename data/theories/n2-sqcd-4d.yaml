@@ -119,6 +119,10 @@ operators:
     method: exact
     refs: [shapere2008, beem2014]
     note: 'Coulomb-branch chiral ring generators, $k = 2,\dots,N$. The top component of the $k=2$ multiplet is the exactly marginal operator.'
+    family:
+      id: coulomb-branch
+      parameters:
+        - {symbol: k, from: 2, to: N}
   - name: '\mu = \tilde Q Q'
     Delta: 2
     spin: 0

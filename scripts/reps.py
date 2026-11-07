@@ -764,8 +764,9 @@ def check_entry_reps(data: dict, rel: str) -> list[str]:
         if missing:
             errs.append(f"{where}/global: no label for {missing} (write `unknown` if it is not known)")
         view = []
+        family = "family" in o     # a family row's labels may be expressions in its parameters: scripts/opfam.py
         for f in factors:
-            if f["id"] not in g:
+            if f["id"] not in g or family:
                 continue
             try:
                 view.append({"factor": f["id"], **label(f, g[f["id"]], params)})
@@ -792,7 +793,8 @@ def check_entry_reps(data: dict, rel: str) -> list[str]:
             errs.append(f"{where}: `T` (time reversal) is recorded only when symmetry.time_reversal is `independent`")
         if "multiplet" in o and not sym.get("supercharges"):
             errs.append(f"{where}: `multiplet` is for supersymmetric theories (symmetry.supercharges > 0)")
-        o["irrep"] = {"global": view, "key": "|".join(f"{v['factor']}={v['canon']}" for v in view)}
+        if not family:
+            o["irrep"] = {"global": view, "key": "|".join(f"{v['factor']}={v['canon']}" for v in view)}
     return errs
 
 

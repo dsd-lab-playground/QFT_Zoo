@@ -32,6 +32,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from zoo_spectrum import SPECTRA, SPECTRUM_SCHEMA, check as check_spectrum, expected_path  # noqa: E402
 from reps import check_entry_reps, direct_sums, legacy_reps  # noqa: E402
 from ope import STANDARD, check_entry_ope, labelled_operators, set_standard  # noqa: E402
+from opfam import check_families, count as count_families  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 THEORIES = ROOT / "data" / "theories"
@@ -372,6 +373,7 @@ def check_entry(data: dict, rel: str) -> list[str]:
     errs += check_methods(data, rel)
     errs += check_entry_reps(data, rel)
     errs += check_entry_ope(data, rel)
+    errs += check_families(data, rel)
     return errs
 
 
@@ -874,6 +876,10 @@ def main() -> int:
     print(f"✓ {n_ope} OPE values in {n_ope_e} entries, each labelled by its structure ({len(STANDARD)} standard structures; docs/OPE.md)")
     if (n := labelled_operators(entries)):
         print(f"! {n} OPE operator(s) named by a label instead of an operator of the entry's table (docs/OPE.md)")
+    n_opfam, n_mem = count_families(entries)
+    if n_opfam:
+        print(f"✓ {n_opfam} operator famil{'y' if n_opfam == 1 else 'ies'} (one row for a tower of operators), "
+              f"{n_mem} member row(s) listed under them (docs/REPRESENTATIONS.md, 1.7)")
     if (n := direct_sums(entries)):
         print(f"! {n} operator row(s) list several irreps at once (a direct sum); one row per irrep is clearer")
 
