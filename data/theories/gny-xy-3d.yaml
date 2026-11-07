@@ -97,6 +97,12 @@ quantities:
     method: quantum Monte Carlo
     refs: [li2017]
     note: 'Same work: $\eta = 0.71(3)$ for the order parameter. Zerf et al. (Table II) list this value under $1/\nu$; Li et al. (Table I) give it as $\nu$.'
+  - symbol: '\tilde c'
+    description: 'Thermal free energy density on $S^1_\beta\times\mathbb{R}^{2}$, $f = -\tilde c\,\frac{\zeta(3)}{2\pi}\,T^{3}$ ($\tilde c = 1$ for one free real scalar)'
+    value: '\frac{3}{4}N - 0.140094 + O(1/N)'
+    method: large N
+    refs: [diatlyk2023, sachdev1993]
+    note: 'Diatlyk, Popov and Wang eq. (1.12): $f_{\rm NJL} = -\frac{3\zeta(3)}{4\pi}N_D - 0.02680198 + O(N_D^{-1})$ (units of $T^3$) for $N_D$ two-component Dirac fermions, $N_D = N/2$ in this entry''s Majorana count; divided by $-\zeta(3)/(2\pi)$. The leading term is that of $N$ free Majorana fermions ($\tfrac34$ each). Their NJL model (Sec. 3.7) is the four-fermion completion of the chiral XY GNY model, with $N_f$ four-component Dirac fermions and $N_D = 2N_f$.'
 
 operators:
   - name: '\psi_j'
@@ -170,5 +176,18 @@ references:
     year: 2017
     journal: Phys. Rev. D 96, 025017
     arxiv: '1609.09113'
+  - key: sachdev1993
+    title: Polylogarithm identities in a conformal field theory in three dimensions
+    authors: Sachdev
+    year: 1993
+    journal: Phys. Lett. B 309, 285
+    arxiv: hep-th/9305131
+    note: 'Defines the thermal coefficient $\tilde c$ (eq. 1) and proves $\tilde c/N = 4/5$ for the $O(N)$ model at $N=\infty$.'
+  - key: diatlyk2023
+    title: Beyond $N=\infty$ in Large $N$ Conformal Vector Models at Finite Temperature
+    authors: Diatlyk, Popov, Wang
+    year: 2024
+    journal: JHEP 08 (2024) 219
+    arxiv: '2309.02347'
 
-contributors: [Canonical111]
+contributors: [Canonical111, davidsd]

@@ -59,7 +59,8 @@ quantities:
     value: '-22/5'
     method: exact
     refs: [isz1986, arguellocruz2025]
-  - symbol: 'c_{\rm eff}'
+  - key: c_tilde
+    symbol: 'c_{\rm eff}'
     description: 'Effective central charge, $c - 24h_{\min}$ with $h_{\min} = h_\phi$'
     value: '\frac{2}{5}'
     method: exact
@@ -171,4 +172,4 @@ references:
     journal: Phys. Rev. X 16, 011022
     arxiv: '2505.06369'
 
-contributors: [Canonical111]
+contributors: [Canonical111, davidsd]

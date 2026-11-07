@@ -93,6 +93,12 @@ quantities:
     method: large N
     refs: [klebanov2011, tarnopolsky2016]
     note: 'The $O(N^0)$ term is from Klebanov et al. The $1/N$ term is a conjecture of Tarnopolsky, checked against the $4-\epsilon$ and $2+\epsilon$ expansions.'
+  - symbol: '\tilde c'
+    description: 'Thermal free energy density on $S^1_\beta\times\mathbb{R}^{2}$, $f = -\tilde c\,\frac{\zeta(3)}{2\pi}\,T^{3}$ ($\tilde c = 1$ for one free real scalar)'
+    value: '\frac{3}{4}N - 0.070047 + O(1/N)'
+    method: large N
+    refs: [diatlyk2023, sachdev1993]
+    note: 'Diatlyk, Popov and Wang eq. (1.12): $f_{\rm GN} = -\frac{3\zeta(3)}{4\pi}N_D - 0.01340099 + O(N_D^{-1})$ (units of $T^3$) for $N_D$ two-component Dirac fermions, $N_D = N/2$ in this entry''s Majorana count; divided by $-\zeta(3)/(2\pi)$. The leading term is that of $N$ free Majorana fermions ($\tfrac34$ each). Their GN model has $O(2N_D)$ symmetry, as here; the chiral Ising variant (cGN) has the same $f$ to this order. They take the parity-preserving saddle $\phi = 0$, which describes the CFT (Sec. 3.1, eq. (3.16)).'
 
 operators:
   - name: '\psi_i'
@@ -216,5 +222,18 @@ references:
     year: 2024
     arxiv: '2406.12974'
     note: 'Table 1: large-$N$ dimensions of $\epsilon^\prime$ and $\epsilon^{\prime\prime}$ and their identification.'
+  - key: sachdev1993
+    title: Polylogarithm identities in a conformal field theory in three dimensions
+    authors: Sachdev
+    year: 1993
+    journal: Phys. Lett. B 309, 285
+    arxiv: hep-th/9305131
+    note: 'Defines the thermal coefficient $\tilde c$ (eq. 1) and proves $\tilde c/N = 4/5$ for the $O(N)$ model at $N=\infty$.'
+  - key: diatlyk2023
+    title: Beyond $N=\infty$ in Large $N$ Conformal Vector Models at Finite Temperature
+    authors: Diatlyk, Popov, Wang
+    year: 2024
+    journal: JHEP 08 (2024) 219
+    arxiv: '2309.02347'
 
-contributors: [Canonical111]
+contributors: [Canonical111, davidsd]
