@@ -43,6 +43,11 @@ symmetry:
   lorentzian: '$OSp(4|4)$'
   supercharges: 8
   global: 'No flavor symmetry; the UV $U(1)_R\times U(1)_{\rm top}$ is conjectured to become part of the $SO(4)$ R-symmetry'
+  parity: true
+  global_group:
+    - {id: U(1)_R, group: U(1), tex: 'U(1)_R', note: 'The manifest $\mathcal{N}=2$ R-symmetry; with $U(1)_{\rm top}$ conjectured to become part of the $SO(4)$ R-symmetry.'}
+    - {id: U(1)_top, group: U(1), tex: 'U(1)_{\rm top}'}
+  notes: 'Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@cordova2016, Sec. 2.1.4]: $X[j]^{(R;R'')}_\Delta$, with $j$ twice the spin and $(R;R'')$ the Dynkin labels of the conjectured $SO(4)_R \simeq SU(2)\times SU(2)$ R-symmetry.'
   gauge: '$U(1)_{-3/2}$ (UV description)'
 
 quantities:
@@ -69,14 +74,17 @@ operators:
   - name: '\hat\phi\hat\phi|{+1}\rangle,\ \ \hat\psi^*|{-1}\rangle'
     Delta: 2
     spin: 1
-    rep: '$U(1)_{\rm top}$ charge $\mp1$, $U(1)_R$ charge 1'
+    parity: unknown
+    global: {U(1)_R: 1, U(1)_top: ±1}
     method: semiclassical (monopole quantization)
     refs: [gang2018, gang2021]
     note: 'Dressed monopole operators; components of the two extra supercurrent multiplets, whose top components ($\Delta = 5/2$, spin $3/2$) are the extra supersymmetry currents.'
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: singlet
+    parity: even
+    global: {U(1)_R: 0, U(1)_top: 0}
+    multiplet: {name: stress tensor, component: 'Q^4', type: '$A_2[0]^{(0;0)}_1$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -98,5 +106,10 @@ references:
     year: 2021
     journal: JHEP 08 (2021) 158
     arxiv: '2103.09283'
+  - key: cordova2016
+    title: Multiplets of superconformal symmetry in diverse dimensions
+    authors: Cordova, Dumitrescu, Intriligator
+    year: 2016
+    arxiv: '1612.00809'
 
 contributors: [Canonical111]
