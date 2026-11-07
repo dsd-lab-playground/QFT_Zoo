@@ -9,6 +9,10 @@ description: '$\mathrm{PF}_k/\mathbb{Z}_d$ and $\mathrm{PF}_k/\mathbb{Z}_{k/d}$ 
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{16}{11}$ — 2d conformal symmetry, with parity'
   global: 'Contains the dual $\mathbb{Z}_3$ of the orbifold and the action of $D_9/\mathbb{Z}_3 \cong S_3$ (images of $r$ and $C$)'
+  parity: true
+  global_group:
+    - {id: Z3, group: Z3, tex: '\widehat{\mathbb{Z}}_3', note: 'The dual symmetry of the orbifold.'}
+    - {id: S3, group: S_3, note: 'The image of $D_9$, $D_9/\mathbb{Z}_3 \cong S_3$; how it combines with the dual $\mathbb{Z}_3$ is not recorded.'}
 
 quantities:
 - key: c
@@ -28,6 +32,8 @@ operators:
   spin: 0
   weights: '(\tfrac{1}{11}, \tfrac{1}{11})'
   degeneracy: 4
+  parity: unknown
+  global: {Z3: unknown, S3: unknown}
   note: Lightest non-vacuum Virasoro primary.
 
 relations:

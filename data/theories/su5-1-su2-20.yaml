@@ -9,6 +9,9 @@ description: 'The fixed points of field identification require resolution; the r
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{14}{11}$ — 2d conformal symmetry, with parity'
   global: 'Contains $\mathbb{Z}_5$, from the simple currents of $SU(5)_1$ (non-anomalous; gauged in the $\mathbb{Z}_5$ orbifold)'
+  parity: true
+  global_group:
+    - {id: Z5, group: Z5, note: 'From the simple currents of $SU(5)_1$; the rest of the symmetry is not recorded.'}
 
 quantities:
 - key: c
@@ -28,6 +31,8 @@ operators:
   spin: 0
   weights: '(\tfrac{2}{55}, \tfrac{2}{55})'
   degeneracy: 2
+  parity: even
+  global: {Z5: unknown}
   note: Lightest non-vacuum Virasoro primary.
 
 references:

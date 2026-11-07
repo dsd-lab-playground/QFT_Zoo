@@ -13,6 +13,10 @@ description: |
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac75$ — 2d conformal symmetry, with parity'
   global: 'Contains the dual $\mathbb{Z}_4$ of the orbifold and the image of $f_1$ ($\simeq s$), since $\mathbb{Z}_4$ is normal in $D_4$'
+  parity: true
+  global_group:
+    - {id: Z4, group: Z4, tex: '\widehat{\mathbb{Z}}_4', note: 'The dual symmetry of the orbifold.'}
+    - {id: Z2_f, group: Z2, tex: '\mathbb{Z}_2^{f_1}', note: 'The image of $f_1$ ($\simeq s$); how it combines with the dual $\mathbb{Z}_4$ is not recorded.'}
 
 quantities:
 - key: c
@@ -32,6 +36,8 @@ operators:
   spin: 0
   weights: '(\tfrac{1}{16}, \tfrac{1}{16})'
   degeneracy: 2
+  parity: unknown
+  global: {Z4: unknown, Z2_f: unknown}
   note: Lightest non-vacuum Virasoro primary.
 
 relations:

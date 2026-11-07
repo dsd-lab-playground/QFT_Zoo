@@ -1227,6 +1227,13 @@
         "note": {
           "type": "string",
           "description": "[markdown] e.g. how the factor sits in the full group (quotients, semidirect products)."
+        },
+        "symbols": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Names other than the entry's parameters that this factor's labels may use: a running index of a family of operators listed in one row (e.g. 'j' in spin(j), 'L' in sym(L)) or a formal group size (O(n) at n -> 0)."
         }
       }
     }

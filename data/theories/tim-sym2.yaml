@@ -10,6 +10,10 @@ description: 'The symmetry of TIM$^2$ is the dihedral group $D_4$ of order 8 gen
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac75$ — 2d conformal symmetry, with parity'
   global: 'Contains the dual $\mathbb{Z}_2$ of the orbifold, odd on the $s$-twisted sector, and the diagonal spin flip $f_1 f_2$, which commutes with $s$'
+  parity: true
+  global_group:
+    - {id: Z2, group: Z2, tex: '\widehat{\mathbb{Z}}_2', note: 'The dual symmetry of the orbifold, odd on the $s$-twisted sector.'}
+    - {id: Z2_f, group: Z2, tex: '\mathbb{Z}_2^{f_1 f_2}', note: 'The diagonal spin flip $f_1 f_2$; the rest of the symmetry is not recorded.'}
 
 quantities:
 - key: c
@@ -28,6 +32,8 @@ operators:
   Delta: '3/40'
   spin: 0
   weights: '(\tfrac{3}{80}, \tfrac{3}{80})'
+  parity: even
+  global: {Z2: even, Z2_f: odd}
   note: Lightest non-vacuum Virasoro primary.
 
 relations:

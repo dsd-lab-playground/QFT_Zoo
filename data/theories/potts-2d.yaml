@@ -93,6 +93,9 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = 1 - \tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity; Euclidean only (non-unitary statistical model)'
   supercharges: 0
   global: '$S_Q$, for non-integer $Q$ in the sense of tensor categories'
+  parity: true
+  global_group:
+    - {id: S_Q, group: S_Q, note: 'For non-integer $Q$, in the sense of tensor categories (Deligne''s $\mathrm{Rep}(S_Q)$).'}
 
 quantities:
   - key: c
@@ -114,7 +117,9 @@ operators:
     Delta: '\frac{(m-1)(m+3)}{8m(m+1)}'
     spin: 0
     weights: '(h_{1/2,0}, h_{1/2,0})'
-    rep: 'standard representation of $S_Q$ (order parameter)'
+    parity: even
+    global: {S_Q: standard}
+    role: order parameter
     method: exact
     refs: [jacobsensaleur2019, jrs2023]
     note: '$2h_{1/2,0}$: $\tfrac{5}{48}, \tfrac18, \tfrac{2}{15}$ at $Q = 1, 2, 3$, $\to \tfrac18$ as $Q \to 4$.'
@@ -122,7 +127,9 @@ operators:
     Delta: '\frac{m+3}{2m}'
     spin: 0
     weights: '(h_{2,1}, h_{2,1})'
-    rep: '$S_Q$ singlet (energy), degenerate'
+    parity: even
+    global: {S_Q: trivial}
+    role: 'energy (degenerate field)'
     method: exact
     refs: [jacobsensaleur2019, delfinoviti2011]
     note: '$2h_{2,1}$: $\tfrac54, 1, \tfrac45$ at $Q = 1, 2, 3$, $\to \tfrac12$ as $Q \to 4$.'

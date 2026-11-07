@@ -9,6 +9,9 @@ description: '$\mathcal{W}_3(6,7) = SU(3)_3\times SU(3)_1/SU(3)_4$.'
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{10}{7}$ — 2d conformal symmetry; parity not recorded'
   global: 'Contains charge conjugation $C: W \to -W$ (gauged in the $C$ orbifold)'
+  parity: false
+  global_group:
+    - {id: C, group: Z2, tex: '\mathbb{Z}_2^C', note: 'Charge conjugation $C: W \to -W$; the rest of the symmetry is not recorded.'}
 
 quantities:
 - key: c
@@ -27,6 +30,7 @@ operators:
   Delta: '1/7'
   spin: 0
   weights: '(\tfrac{1}{14}, \tfrac{1}{14})'
+  global: {C: unknown}
   note: Lightest non-vacuum Virasoro primary.
 
 relations:

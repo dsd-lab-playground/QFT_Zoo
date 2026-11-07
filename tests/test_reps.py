@@ -175,6 +175,30 @@ expect([v for v in sorted([-1, "N_c", 0, "-N_c", 1], key=lambda v: lab("U(1)", v
 expect(lab("U(1)", "3/2", params=U)["canon"] == "3/2", "numeric U(1) charges unchanged")
 # A charge that is not an entry parameter is a symbolic family charge (2d batch rule), shown as such.
 expect(lab("U(1)", "q")["canon"] == "q(q)", "non-parameter symbol is a symbolic family charge")
+# Extension (2d batch b): symbols, SU(2) spins, parametric S_n and D_n, SL(2,R), generic G.
+P = {"k", "Q", "G"}
+L = lambda group, value, **kw: label(parse_factor({"id": "X", "group": group, **kw}, P), value, P)
+expect(L("SU(2)", "spin(1/2)")["canon"] == L("SU(2)", "fundamental")["canon"] == "Dynkin(1)", "SU(2) spin(1/2) = doublet")
+expect(L("SU(2)", "spin(3/2)")["canon"] == "Dynkin(3)", "SU(2) spin(3/2)")
+expect(L("SU(2)", "spin(k/2)")["canon"] == "spin(k/2)", "SU(2) parametric spin")
+expect(L("SU(2)", "spin(j)", symbols=["j"])["text"] == "$SU(2)$ spin $j$", "SU(2) spin from a symbol")
+expect(L("O(n)", "sym(L)", symbols=["n", "L"])["canon"] == "sym(L)", "O(n) with formal n and running L")
+expect(L("S_Q", "standard")["canon"] == "Y(1)" and L("S_Q", "trivial")["trivial"], "S_Q labels")
+expect("Q-1" in L("S_Q", "standard")["text"], "S_Q standard dimension")
+expect(L("D_k", "E1")["canon"] == "E1" and L("D_k", "A1")["trivial"], "D_k labels")
+expect(L("SL(2,R)", "D±(j)", symbols=["j"])["canon"] == L("SL(2,R)", "D+-(j)", symbols=["j"])["canon"], "SL(2,R) D±")
+expect(L("SL(2,R)", "C(1/2+i s, \\alpha)", symbols=["s", "\\alpha"])["canon"] == "C(1/2+is,\\alpha)", "SL(2,R) continuous")
+expect(L("G", "hw(\\lambda)bar", symbols=["\\lambda"])["canon"] == "hw(\\lambda)bar", "generic G conjugate weight")
+expect(L("G", ["singlet", "adjoint"])["canon"] == "singlet+adjoint", "generic G direct sum")
+for group, value, needle, kw in [("SU(2)", "spin(j)", "symbols", {}), ("SU(2)", "spin(1/3)", "half-integer", {}),
+                                 ("S_Q", "sign", "S_Q label", {}), ("D_k", "E0", "D_k label", {}),
+                                 ("SL(2,R)", "D(j)", "SL(2,R) label", {"symbols": ["j"]}),
+                                 ("G", "hw(\\mu)", "highest weight", {})]:
+    try:
+        L(group, value, **kw)
+        FAILS.append(f"{group} {value!r} was accepted")
+    except RepError as exc:
+        expect(needle in str(exc), f"{group} {value!r}: message {exc} lacks {needle!r}")
 
 if FAILS:
     print(f"✗ {len(FAILS)} failure(s):")
