@@ -61,6 +61,10 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac12$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: 'Fermion parity $(-1)^F$, and chiral fermion parity $\psi \to \psi$, $\bar\psi \to -\bar\psi$ (the discrete chiral symmetry, which flips the sign of the mass)'
+  parity: true
+  global_group:
+    - {id: Z2_F, group: Z2, tex: '(-1)^F'}
+    - {id: Z2_chi, group: Z2, tex: '\mathbb{Z}_2^{\chi}', note: 'chiral fermion parity $\psi \to \psi$, $\bar\psi \to -\bar\psi$'}
   notes: 'The chiral symmetry has a mod 2 anomaly: it shifts the action by $i\pi\,\mathrm{Arf}$ of the spin structure [@ktt2019, Eq. (2.3)].'
 
 quantities:
@@ -76,7 +80,8 @@ operators:
     Delta: '\frac{1}{2}'
     spin: '1/2'
     weights: '(\tfrac12, 0)'
-    rep: '$(-1)^F$-odd'
+    parity: pair
+    global: {Z2_F: odd, Z2_chi: even}
     method: exact
     refs: [ginsparg-lectures]
     note: 'Holomorphic fermion; $\bar\psi$ has weights $(0, \tfrac12)$.'
@@ -84,13 +89,16 @@ operators:
     Delta: 1
     spin: 0
     weights: '(\tfrac12, \tfrac12)'
-    rep: '$(-1)^F$-even, odd under the chiral symmetry'
+    parity: unknown
+    global: {Z2_F: even, Z2_chi: odd}
     method: exact
     refs: [ginsparg-lectures]
     note: 'Mass term; the Ising energy operator $\varepsilon$ after bosonization [@ginsparg-lectures, Sec. 5.1].'
   - name: 'T'
     Delta: 2
     spin: 2
+    parity: pair
+    global: {Z2_F: even, Z2_chi: even}
     method: exact
     note: 'Stress tensor, $T = \tfrac12{:}\psi\partial\psi{:}$ in the normalization of the Lagrangian above [@ginsparg-lectures, Sec. 3.2].'
   - name: '\sigma,\ \mu'
@@ -98,6 +106,8 @@ operators:
     spin: 0
     weights: '(\tfrac{1}{16}, \tfrac{1}{16})'
     degeneracy: 2
+    parity: unknown
+    global: {Z2_F: [even, odd], Z2_chi: unknown}
     method: exact
     refs: [ginsparg-lectures, ktt2019]
     note: 'Ramond-sector ground states, with opposite $(-1)^F$. They are not local operators of the fermionic theory (they end a $(-1)^F$ line); in the Ising model one of them becomes the spin field $\sigma$.'

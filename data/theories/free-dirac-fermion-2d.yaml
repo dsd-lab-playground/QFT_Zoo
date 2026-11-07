@@ -53,6 +53,10 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = 1$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$U(1)_L \times U(1)_R = (U(1)_V \times U(1)_A)/\mathbb{Z}_2$, with $\mathbb{Z}_2 = (-1)^F$; charge conjugation'
+  parity: true
+  global_group:
+    - {id: U(1)_V, group: U(1), tex: 'U(1)_V'}
+    - {id: U(1)_A, group: U(1), tex: 'U(1)_A', note: 'normalized so that $\psi_L$ has charges $(1, 1)$ and $\psi_R$ $(1, -1)$ under $U(1)_V\times U(1)_A$; $U(1)_L\times U(1)_R = (U(1)_V\times U(1)_A)/\mathbb{Z}_2$; charge conjugation is said in `global`'}
   notes: 'Mixed $U(1)_V$–$U(1)_A$ anomaly (the chiral anomaly). The discrete chiral transformation of one Majorana component exchanges $U(1)_V$ and $U(1)_A$ and becomes $T$-duality after bosonization [@ktt2019].'
 
 quantities:
@@ -68,13 +72,16 @@ operators:
     Delta: '\frac{1}{2}'
     spin: '1/2'
     weights: '(\tfrac12, 0)'
-    rep: 'charge $\pm1$ under $U(1)_L$'
+    parity: pair
+    global: {U(1)_V: '±1', U(1)_A: '±1'}
     method: exact
     refs: [ginsparg-lectures, ktt2019]
     note: 'Left-moving fermion; $\psi_R$, $\psi_R^\dagger$ have weights $(0, \tfrac12)$ and charge $\pm1$ under $U(1)_R$.'
   - name: 'J,\ \bar J'
     Delta: 1
     spin: 1
+    parity: pair
+    global: {U(1)_V: 0, U(1)_A: 0}
     method: exact
     note: '$U(1)_L$ and $U(1)_R$ currents; $J \pm \bar J$ are the vector and axial currents.'
   - name: '\psi_L^\dagger\psi_R,\ \psi_R^\dagger\psi_L'
@@ -82,7 +89,8 @@ operators:
     spin: 0
     weights: '(\tfrac12, \tfrac12)'
     degeneracy: 2
-    rep: 'neutral under $U(1)_V$, charged under $U(1)_A$'
+    parity: pair
+    global: {U(1)_V: 0, U(1)_A: '±2'}
     method: exact
     refs: [ktt2019]
     note: 'Mass terms; $\bar\psi\psi \leftrightarrow -\cos\tilde\theta$ in the dual boson.'
@@ -90,12 +98,16 @@ operators:
     Delta: 2
     spin: 0
     weights: '(1, 1)'
+    parity: even
+    global: {U(1)_V: 0, U(1)_A: 0}
     method: exact
     refs: [ktt2019]
     note: 'Thirring operator, proportional to $(\bar\psi\gamma^\mu\psi)^2$; exactly marginal.'
   - name: 'T'
     Delta: 2
     spin: 2
+    parity: pair
+    global: {U(1)_V: 0, U(1)_A: 0}
     method: exact
     note: Stress tensor.
 

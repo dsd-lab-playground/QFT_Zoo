@@ -76,6 +76,9 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{3k}{k-2} - 1$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$U(1)$ momentum around the cigar; winding is not conserved'
+  parity: true
+  global_group:
+    - {id: U(1)_mom, group: U(1), tex: 'U(1)_{\rm mom}', note: 'momentum around the cigar; winding is not conserved'}
 
 quantities:
   - key: c
@@ -97,19 +100,25 @@ operators:
     Delta: '\frac{2s^2+\frac12}{k-2}+\frac{n^2}{2k}+\frac{kw^2}{2}'
     spin: '-nw'
     weights: '(\tfrac{s^2+1/4}{k-2}+\tfrac{(n-kw)^2}{4k},\ \tfrac{s^2+1/4}{k-2}+\tfrac{(n+kw)^2}{4k})'
-    rep: 'Continuum, $s\in\mathbb{R}_{\geq0}$; momentum $n$, winding $w$'
+    parity: unknown
+    global: {U(1)_mom: n}
+    role: 'Continuum, $s\in\mathbb{R}_{\geq0}$; winding $w$'
     method: exact
     refs: [hpt2002]
     note: 'Spin $h-\bar h=-nw$ in these conventions.'
   - name: 'V_{j;n,w}\ (\text{discrete})'
     Delta: '-\frac{2j(j-1)}{k-2}+\frac{n^2}{2k}+\frac{kw^2}{2}'
     spin: '-nw'
-    rep: 'Discrete, $\frac12<j<\frac{k-1}{2}$, with $j$ fixed by $J^3_0+\bar J^3_0=-kw$'
+    parity: unknown
+    global: {U(1)_mom: n}
+    role: 'Discrete, $\frac12<j<\frac{k-1}{2}$, with $j$ fixed by $J^3_0+\bar J^3_0=-kw$'
     method: exact
     refs: [hpt2002]
   - name: 'T'
     Delta: 2
     spin: 2
+    parity: pair
+    global: {U(1)_mom: 0}
     method: exact
     note: 'Stress tensor.'
 

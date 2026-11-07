@@ -42,6 +42,9 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = 1$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$D_4$ at generic radius'
+  parity: true
+  global_group:
+    - {id: D4, group: D_4, note: 'at generic radius; larger at special radii'}
 
 quantities:
 - key: c
@@ -62,12 +65,16 @@ operators:
   spin: 0
   weights: '(\tfrac{1}{16}, \tfrac{1}{16})'
   degeneracy: 2
+  parity: unknown
+  global: {D4: E1}
   note: Twist fields.
 - name: '\tau_1,\ \tau_2'
   Delta: '9/8'
   spin: 0
   weights: '(\tfrac{9}{16}, \tfrac{9}{16})'
   degeneracy: 2
+  parity: unknown
+  global: {D4: E1}
   note: Excited twist fields.
 
 relations:
