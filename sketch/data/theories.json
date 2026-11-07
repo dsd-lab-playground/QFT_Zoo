@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-07 23:38 UTC",
+ "generated": "2026-11-07 23:48 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
- "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, role, ...) are Markdown: use $...$ for math,\n#     and cite as [@key] or [@key, Sec. 2] (never a direct link; see CONTRIBUTING.md, Citations).\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: '$O(4,1)$ — 3d conformal group with parity'   # group — colloquial name; see CONTRIBUTING.md, Spacetime symmetry\n  supercharges: 0                  # real Poincaré supercharges Q; for SUSY theories also state Q and S in spacetime\n  global: '$O(N)$'                 # the global symmetry in words (Markdown)\n  parity: true                     # true | false | conditional (docs/REPRESENTATIONS.md)\n  global_group:                    # the factors operators' representations refer to; [] if none\n    - {id: O(N), group: O(N)}      # group: Z2, Z_n, U(1), O(N), SO(N), SU(N), Sp(N), S_n, D_n, finite\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: 'CB, rigorous'         # an abbreviation from data/methods.yaml, then an optional qualifier (CONTRIBUTING.md, Methods)\n    refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    parity: even                   # even | odd | pair | unknown\n    global: {O(N): vector}         # a label per factor of global_group (docs/REPRESENTATIONS.md)\n    role: 'order parameter'        # optional remark; never part of the representation\n    method: CB\n    refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
+ "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, role, ...) are Markdown: use $...$ for math,\n#     and cite as [@key] or [@key, Sec. 2] (never a direct link; see CONTRIBUTING.md, Citations).\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: '$O(4,1)$ — 3d conformal group with parity'   # group — colloquial name; see CONTRIBUTING.md, Spacetime symmetry\n  supercharges: 0                  # real Poincaré supercharges Q; for SUSY theories also state Q and S in spacetime\n  global: '$O(N)$'                 # the global symmetry in words (Markdown)\n  parity: true                     # true | false | conditional (docs/REPRESENTATIONS.md)\n  global_group:                    # the factors operators' representations refer to; [] if none\n    - {id: O(N), group: O(N)}      # group: Z2, Z_n, U(1), O(N), SO(N), SU(N), Sp(N), S_n, D_n, finite\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: 'CB, rigorous'         # an abbreviation from data/methods.yaml, then an optional qualifier (CONTRIBUTING.md, Methods)\n    refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    parity: even                   # even | odd | pair | unknown\n    global: {O(N): vector}         # a label per factor of global_group (docs/REPRESENTATIONS.md)\n    role: 'order parameter'        # optional remark; never part of the representation\n    method: CB\n    refs: [author2025]\n\n# OPE coefficients: one item per triplet of operators, each value naming the structure it multiplies (docs/OPE.md).\n# ope_coefficients:\n#   - operators: ['\\phi', '\\phi', 's']        # `name`s from the operators table\n#     values:\n#       - structure: vector-vector-singlet     # a standard structure (data/ope_structures.yaml), or an id of ope_structures\n#         symbol: '\\lambda_{\\phi\\phi s}'\n#         value: '0.52(1)'\n#         method: CB\n#         refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
  "theories": [
   {
    "id": "lee-yang-2d",
@@ -72,17 +72,28 @@
      "refs": [
       "isz1986"
      ]
-    },
+    }
+   ],
+   "ope_coefficients": [
     {
-     "symbol": "C_{\\phi\\phi\\phi}",
-     "description": "OPE coefficient, normalized by $\\langle\\phi(x)\\phi(0)\\rangle = |x|^{4/5}$",
-     "value": "i\\left(\\frac{\\Gamma(6/5)^2\\,\\Gamma(1/5)\\,\\Gamma(2/5)}{\\Gamma(3/5)\\,\\Gamma(4/5)^3}\\right)^{1/2}",
-     "method": "exact",
-     "refs": [
-      "arguellocruz2025",
-      "cardy2023"
+     "operators": [
+      "\\phi = \\phi_{1,2}",
+      "\\phi = \\phi_{1,2}",
+      "\\phi = \\phi_{1,2}"
      ],
-     "note": "$\\approx 1.911312699\\,i$ [@lee-yang-2d/arguellocruz2025, Eq. (2.2)], defined by $\\phi(x)\\times\\phi(0) = |x|^{4/5}\\,1 + C_{\\phi\\phi\\phi}\\,|x|^{2/5}\\,\\phi$. Purely imaginary; its sign flips under $\\phi \\to -\\phi$."
+     "values": [
+      {
+       "structure": "scalar",
+       "symbol": "C_{\\phi\\phi\\phi}",
+       "value": "i\\left(\\frac{\\Gamma(6/5)^2\\,\\Gamma(1/5)\\,\\Gamma(2/5)}{\\Gamma(3/5)\\,\\Gamma(4/5)^3}\\right)^{1/2}",
+       "method": "exact",
+       "refs": [
+        "arguellocruz2025",
+        "cardy2023"
+       ],
+       "note": "$\\approx 1.911312699\\,i$ [@lee-yang-2d/arguellocruz2025, Eq. (2.2)], defined by $\\phi(x)\\times\\phi(0) = |x|^{4/5}\\,1 + C_{\\phi\\phi\\phi}\\,|x|^{2/5}\\,\\phi$. Purely imaginary; its sign flips under $\\phi \\to -\\phi$."
+      }
+     ]
     }
    ],
    "operators": [
@@ -946,7 +957,15 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = 1 - \\tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity; Euclidean only (non-unitary statistical model)",
     "supercharges": 0,
-    "global": "$S_Q$, for non-integer $Q$ in the sense of tensor categories"
+    "global": "$S_Q$, for non-integer $Q$ in the sense of tensor categories",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "S_Q",
+      "group": "S_Q",
+      "note": "For non-integer $Q$, in the sense of tensor categories (Deligne's $\\mathrm{Rep}(S_Q)$)."
+     }
+    ]
    },
    "quantities": [
     {
@@ -980,26 +999,65 @@
      "Delta": "\\frac{(m-1)(m+3)}{8m(m+1)}",
      "spin": 0,
      "weights": "(h_{1/2,0}, h_{1/2,0})",
-     "rep": "standard representation of $S_Q$ (order parameter)",
+     "parity": "even",
+     "global": {
+      "S_Q": "standard"
+     },
+     "role": "order parameter",
      "method": "exact",
      "refs": [
       "jacobsensaleur2019",
       "jrs2023"
      ],
-     "note": "$2h_{1/2,0}$: $\\tfrac{5}{48}, \\tfrac18, \\tfrac{2}{15}$ at $Q = 1, 2, 3$, $\\to \\tfrac18$ as $Q \\to 4$."
+     "note": "$2h_{1/2,0}$: $\\tfrac{5}{48}, \\tfrac18, \\tfrac{2}{15}$ at $Q = 1, 2, 3$, $\\to \\tfrac18$ as $Q \\to 4$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "S_Q",
+        "canon": "Y(1)",
+        "short": "standard ($Q-1$-dimensional)",
+        "trivial": false,
+        "sort": [
+         1,
+         -1
+        ],
+        "text": "$S_{Q}$ standard ($Q-1$-dimensional)"
+       }
+      ],
+      "key": "S_Q=Y(1)"
+     }
     },
     {
      "name": "\\epsilon",
      "Delta": "\\frac{m+3}{2m}",
      "spin": 0,
      "weights": "(h_{2,1}, h_{2,1})",
-     "rep": "$S_Q$ singlet (energy), degenerate",
+     "parity": "even",
+     "global": {
+      "S_Q": "trivial"
+     },
+     "role": "energy (degenerate field)",
      "method": "exact",
      "refs": [
       "jacobsensaleur2019",
       "delfinoviti2011"
      ],
-     "note": "$2h_{2,1}$: $\\tfrac54, 1, \\tfrac45$ at $Q = 1, 2, 3$, $\\to \\tfrac12$ as $Q \\to 4$."
+     "note": "$2h_{2,1}$: $\\tfrac54, 1, \\tfrac45$ at $Q = 1, 2, 3$, $\\to \\tfrac12$ as $Q \\to 4$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "S_Q",
+        "canon": "Y()",
+        "short": "trivial",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$S_{Q}$ trivial"
+       }
+      ],
+      "key": "S_Q=Y()"
+     }
     }
    ],
    "relations": [
@@ -1130,6 +1188,13 @@
    "contributors": [
     "Canonical111"
    ],
+   "global_factors": [
+    {
+     "id": "S_Q",
+     "type": "S",
+     "tex": "S_{Q}"
+    }
+   ],
    "source": "data/theories/potts-2d.yaml",
    "members": [
     {
@@ -1205,7 +1270,16 @@
     "spacetime": "Two Virasoro algebras, $c = \\bar c = -2$ — 2d conformal symmetry, with parity; Euclidean only (non-unitary)",
     "supercharges": 0,
     "global": "$SL(2,\\mathbb{C})$, with $\\theta^\\alpha$ and $\\chi^\\alpha$ in the fundamental",
-    "notes": "Non-unitary ($c < 0$). Logarithmic: $L_0$ is not diagonalizable on the vacuum module."
+    "notes": "Non-unitary ($c < 0$). Logarithmic: $L_0$ is not diagonalizable on the vacuum module.",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "SL2C",
+      "group": "SU(2)",
+      "tex": "SL(2,\\mathbb{C})",
+      "note": "Its finite-dimensional representations are labelled as those of $SU(2)$, its compact real form (doublet = fundamental)."
+     }
+    ]
    },
    "quantities": [
     {
@@ -1226,23 +1300,65 @@
      "spin": 1,
      "weights": "(1, 0)",
      "degeneracy": 2,
-     "rep": "$SL(2,\\mathbb{C})$ doublet, fermionic",
+     "parity": "pair",
+     "global": {
+      "SL2C": "fundamental"
+     },
+     "role": "fermionic",
      "method": "exact",
      "refs": [
       "kausch2000"
      ],
-     "note": "The symplectic fermions; $\\bar\\chi^\\alpha$ has weights $(0, 1)$."
+     "note": "The symplectic fermions; $\\bar\\chi^\\alpha$ has weights $(0, 1)$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SL2C",
+        "canon": "Dynkin(1)",
+        "short": "doublet $\\mathbf{2}$",
+        "trivial": false,
+        "sort": [
+         2,
+         1,
+         0
+        ],
+        "text": "$SL(2,\\mathbb{C})$ doublet $\\mathbf{2}$"
+       }
+      ],
+      "key": "SL2C=Dynkin(1)"
+     }
     },
     {
      "name": "\\omega",
      "Delta": 0,
      "spin": 0,
+     "parity": "even",
+     "global": {
+      "SL2C": "singlet"
+     },
      "method": "exact",
      "refs": [
       "kausch2000",
       "gk1999"
      ],
-     "note": "Logarithmic partner of the identity $\\Omega$: $L_0\\omega = \\bar L_0\\omega = \\Omega$, $\\langle\\omega\\rangle = 1$, $\\langle\\Omega\\rangle = 0$."
+     "note": "Logarithmic partner of the identity $\\Omega$: $L_0\\omega = \\bar L_0\\omega = \\Omega$, $\\langle\\omega\\rangle = 1$, $\\langle\\Omega\\rangle = 0$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SL2C",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SL(2,\\mathbb{C})$ singlet"
+       }
+      ],
+      "key": "SL2C=Dynkin(0)"
+     }
     },
     {
      "name": "W^a",
@@ -1250,25 +1366,66 @@
      "spin": 3,
      "weights": "(3, 0)",
      "degeneracy": 3,
-     "rep": "$su(2)$ triplet",
+     "parity": "pair",
+     "global": {
+      "SL2C": "adjoint"
+     },
      "method": "exact",
      "refs": [
       "gk1996",
       "kausch2000"
      ],
-     "note": "Triplet-algebra generators, bilinear in $\\chi^\\alpha$ (bosonic orbifold)."
+     "note": "Triplet-algebra generators, bilinear in $\\chi^\\alpha$ (bosonic orbifold).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SL2C",
+        "canon": "Dynkin(2)",
+        "short": "triplet (adjoint) $\\mathbf{3}$",
+        "trivial": false,
+        "sort": [
+         3,
+         2,
+         0
+        ],
+        "text": "$SL(2,\\mathbb{C})$ triplet (adjoint) $\\mathbf{3}$"
+       }
+      ],
+      "key": "SL2C=Dynkin(2)"
+     }
     },
     {
      "name": "\\mu",
      "Delta": "-\\frac{1}{4}",
      "spin": 0,
      "weights": "(-\\tfrac18, -\\tfrac18)",
+     "parity": "unknown",
+     "global": {
+      "SL2C": "singlet"
+     },
      "method": "exact",
      "refs": [
       "gk1999",
       "kausch2000"
      ],
-     "note": "$su(2)$ singlet; ground state of the $\\mathbb{C}_2$-twisted sector, a local field of the bosonic orbifold."
+     "note": "$su(2)$ singlet; ground state of the $\\mathbb{C}_2$-twisted sector, a local field of the bosonic orbifold.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SL2C",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SL(2,\\mathbb{C})$ singlet"
+       }
+      ],
+      "key": "SL2C=Dynkin(0)"
+     }
     },
     {
      "name": "\\nu^{\\alpha\\bar\\alpha}",
@@ -1276,12 +1433,38 @@
      "spin": 0,
      "weights": "(\\tfrac38, \\tfrac38)",
      "degeneracy": 4,
+     "parity": "unknown",
+     "global": {
+      "SL2C": [
+       "singlet",
+       "adjoint"
+      ]
+     },
      "method": "exact",
      "refs": [
       "gk1999",
       "kausch2000"
      ],
-     "note": "Twisted sector, $\\nu^{\\alpha\\bar\\alpha} = \\chi^\\alpha_{-1/2}\\bar\\chi^{\\bar\\alpha}_{-1/2}\\mu$ ($su(2)$ doublet on each side)."
+     "note": "Twisted sector, $\\nu^{\\alpha\\bar\\alpha} = \\chi^\\alpha_{-1/2}\\bar\\chi^{\\bar\\alpha}_{-1/2}\\mu$ ($su(2)$ doublet on each side).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SL2C",
+        "canon": "Dynkin(0)+Dynkin(2)",
+        "short": "singlet $\\oplus$ triplet (adjoint) $\\mathbf{3}$",
+        "text": "$SL(2,\\mathbb{C})$ singlet $\\oplus$ triplet (adjoint) $\\mathbf{3}$",
+        "trivial": false,
+        "sort": [
+         1,
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       }
+      ],
+      "key": "SL2C=Dynkin(0)+Dynkin(2)"
+     }
     }
    ],
    "relations": [
@@ -1348,6 +1531,13 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SL2C",
+     "type": "SU",
+     "tex": "SL(2,\\mathbb{C})"
+    }
    ],
    "source": "data/theories/symplectic-fermions.yaml",
    "c_num": -2.0,
@@ -1704,7 +1894,19 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = 0$ — 2d conformal symmetry, with parity; Euclidean only (non-unitary statistical model)",
     "supercharges": 0,
-    "global": "$O(n)$ at $n \\to 0$ (formal, defined through the loop model)"
+    "global": "$O(n)$ at $n \\to 0$ (formal, defined through the loop model)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "O(n)",
+      "group": "O(n)",
+      "symbols": [
+       "n",
+       "L"
+      ],
+      "note": "Formal, at $n \\to 0$, defined through the loop model; $L$ labels the $L$-leg operators."
+     }
+    ]
    },
    "quantities": [
     {
@@ -1778,46 +1980,138 @@
      "Delta": "\\frac{5}{48}",
      "spin": 0,
      "weights": "(\\tfrac{5}{96}, \\tfrac{5}{96})",
-     "rep": "vector (1-leg operator, end point of a walk)",
+     "parity": "even",
+     "global": {
+      "O(n)": "vector"
+     },
+     "role": "1-leg operator, end point of a walk",
      "method": "exact",
      "refs": [
       "saleur1992"
      ],
-     "note": "$h_L$ at $L = 1$; the same dimension as the percolation spin field."
+     "note": "$h_L$ at $L = 1$; the same dimension as the percolation spin field.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(n)",
+        "canon": "Y(1)",
+        "short": "vector",
+        "trivial": false,
+        "sort": [
+         1,
+         -1,
+         0,
+         0
+        ],
+        "text": "$O(n)$ vector"
+       }
+      ],
+      "key": "O(n)=Y(1)"
+     }
     },
     {
      "name": "\\epsilon,\\ \\Phi_2",
      "Delta": "\\frac{2}{3}",
      "spin": 0,
      "weights": "(\\tfrac13, \\tfrac13)",
-     "rep": "singlet (energy) and 2-leg operator, degenerate at $n = 0$",
+     "parity": "even",
+     "global": {
+      "O(n)": [
+       "singlet",
+       "sym(2)"
+      ]
+     },
+     "role": "energy and 2-leg operator, degenerate at $n = 0$",
      "method": "exact",
      "refs": [
       "saleur1992",
       "lsw2004"
      ],
-     "note": "$h_L$ at $L = 2$, equal to $2 - 1/\\nu$."
+     "note": "$h_L$ at $L = 2$, equal to $2 - 1/\\nu$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(n)",
+        "canon": "Y()+Y(2)",
+        "short": "singlet $\\oplus$ rank-2 symmetric traceless",
+        "text": "$O(n)$ singlet $\\oplus$ rank-2 symmetric traceless",
+        "trivial": false,
+        "sort": [
+         0,
+         0,
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       }
+      ],
+      "key": "O(n)=Y()+Y(2)"
+     }
     },
     {
      "name": "\\Phi_L",
      "Delta": "\\frac{9L^2 - 4}{48}",
      "spin": 0,
      "weights": "(h_L, h_L)",
-     "rep": "$L$-leg (watermelon) operator",
+     "parity": "even",
+     "global": {
+      "O(n)": "sym(L)"
+     },
+     "role": "$L$-leg (watermelon) operator",
      "method": "exact",
      "refs": [
       "saleur1992"
-     ]
+     ],
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(n)",
+        "canon": "sym(L)",
+        "short": "rank-$L$ symmetric traceless",
+        "trivial": false,
+        "sort": [
+         1000000,
+         -1000000,
+         0
+        ],
+        "text": "$O(n)$ rank-$L$ symmetric traceless"
+       }
+      ],
+      "key": "O(n)=sym(L)"
+     }
     },
     {
      "name": "T",
      "Delta": 2,
      "spin": 2,
+     "parity": "pair",
+     "global": {
+      "O(n)": "singlet"
+     },
      "method": "exact",
      "refs": [
       "vasseur2012"
      ],
-     "note": "Stress tensor. At $c = 0$ it is expected to have a logarithmic partner."
+     "note": "Stress tensor. At $c = 0$ it is expected to have a logarithmic partner.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "O(n)",
+        "canon": "Y()",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "text": "$O(n)$ singlet"
+       }
+      ],
+      "key": "O(n)=Y()"
+     }
     }
    ],
    "relations": [
@@ -1896,6 +2190,13 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "O(n)",
+     "type": "O",
+     "tex": "O(n)"
+    }
    ],
    "source": "data/theories/saw-2d.yaml",
    "c_num": 0.0,
@@ -2237,15 +2538,6 @@
      ]
     },
     {
-     "symbol": "C_{\\sigma\\sigma\\epsilon}",
-     "description": "OPE coefficient",
-     "value": "\\frac{1}{2}",
-     "method": "exact",
-     "refs": [
-      "bpz1984"
-     ]
-    },
-    {
      "symbol": "\\eta",
      "description": "Critical exponent",
      "value": "\\frac{1}{4}",
@@ -2261,6 +2553,26 @@
      "method": "exact",
      "refs": [
       "onsager1944"
+     ]
+    }
+   ],
+   "ope_coefficients": [
+    {
+     "operators": [
+      "\\sigma",
+      "\\sigma",
+      "\\epsilon"
+     ],
+     "values": [
+      {
+       "structure": "scalar",
+       "symbol": "C_{\\sigma\\sigma\\epsilon}",
+       "value": "\\frac{1}{2}",
+       "method": "exact",
+       "refs": [
+        "bpz1984"
+       ]
+      }
      ]
     }
    ],
@@ -2449,7 +2761,14 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = 1 - \\tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "$\\mathbb{Z}_2$ (for $m \\geq 3$)"
+    "global": "$\\mathbb{Z}_2$ (for $m \\geq 3$)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2"
+     }
+    ]
    },
    "quantities": [
     {
@@ -2480,7 +2799,26 @@
      "Delta": "\\frac{3}{2m(m+1)}",
      "spin": 0,
      "weights": "(h_{2,2}, h_{2,2})",
-     "note": "Lightest non-vacuum primary."
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
+     "note": "Lightest non-vacuum primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     }
    ],
    "references": [
@@ -2511,6 +2849,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2"
+    }
    ],
    "source": "data/theories/virasoro-minimal-a.yaml",
    "members": [
@@ -2927,7 +3272,15 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{2(k-1)}{k+2}$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "Dihedral $D_k$ ($\\mathbb{Z}_k$ rotations and charge conjugation)"
+    "global": "Dihedral $D_k$ ($\\mathbb{Z}_k$ rotations and charge conjugation)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "D_k",
+      "group": "D_k",
+      "note": "$\\mathbb{Z}_k$ rotations and charge conjugation."
+     }
+    ]
    },
    "quantities": [
     {
@@ -2957,7 +3310,26 @@
      "Delta": "\\frac{k-1}{k(k+2)}",
      "spin": 0,
      "degeneracy": 2,
-     "note": "Lightest primaries ($k \\geq 3$)."
+     "parity": "even",
+     "global": {
+      "D_k": "E1"
+     },
+     "note": "Lightest primaries ($k \\geq 3$).",
+     "irrep": {
+      "global": [
+       {
+        "factor": "D_k",
+        "canon": "E1",
+        "short": "$E_{1}$",
+        "trivial": false,
+        "sort": [
+         4
+        ],
+        "text": "$D_{k}$ $E_{1}$"
+       }
+      ],
+      "key": "D_k=E1"
+     }
     }
    ],
    "references": [
@@ -2988,6 +3360,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "D_k",
+     "type": "D",
+     "tex": "D_{k}"
+    }
    ],
    "source": "data/theories/zk-parafermions.yaml",
    "members": [
@@ -3427,7 +3806,14 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{7}{10}$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "$\\mathbb{Z}_2$"
+    "global": "$\\mathbb{Z}_2$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2"
+     }
+    ]
    },
    "quantities": [
     {
@@ -3457,36 +3843,126 @@
      "Delta": "3/40",
      "spin": 0,
      "weights": "(\\tfrac{3}{80}, \\tfrac{3}{80})",
-     "rep": "$\\mathbb{Z}_2$-odd"
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\epsilon",
      "Delta": "1/5",
      "spin": 0,
      "weights": "(\\tfrac{1}{10}, \\tfrac{1}{10})",
-     "rep": "$\\mathbb{Z}_2$-even"
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\sigma^\\prime",
      "Delta": "7/8",
      "spin": 0,
      "weights": "(\\tfrac{7}{16}, \\tfrac{7}{16})",
-     "rep": "$\\mathbb{Z}_2$-odd"
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     },
     {
      "name": "\\epsilon^\\prime",
      "Delta": "6/5",
      "spin": 0,
      "weights": "(\\tfrac{3}{5}, \\tfrac{3}{5})",
-     "rep": "$\\mathbb{Z}_2$-even",
-     "note": "$\\phi_{1,3}$"
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
+     "note": "$\\phi_{1,3}$",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     },
     {
      "name": "\\epsilon^{\\prime\\prime}",
      "Delta": 3,
      "spin": 0,
      "weights": "(\\tfrac{3}{2}, \\tfrac{3}{2})",
-     "rep": "$\\mathbb{Z}_2$-even"
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\mathbb{Z}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     }
    ],
    "relations": [
@@ -3530,6 +4006,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2"
+    }
    ],
    "source": "data/theories/tricritical-ising.yaml",
    "c_num": 0.7,
@@ -3858,7 +4341,15 @@
    },
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = 1 - \\tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity",
-    "global": "$\\mathbb{Z}_2$, dual to the spin flip of the A-series model of which the D-series model is the orbifold; $S_3$ for the two $D_4$ invariants, $m = 5$ (3-state Potts) and $m = 6$ (tricritical 3-state Potts)"
+    "global": "$\\mathbb{Z}_2$, dual to the spin flip of the A-series model of which the D-series model is the orbifold; $S_3$ for the two $D_4$ invariants, $m = 5$ (3-state Potts) and $m = 6$ (tricritical 3-state Potts)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2",
+      "note": "Dual to the spin flip of the A-series model; part of $S_3$ for $m = 5, 6$."
+     }
+    ]
    },
    "quantities": [
     {
@@ -3885,7 +4376,26 @@
      "Delta": "\\frac{4}{m(m+1)}",
      "spin": 0,
      "weights": "(h_{3,3}, h_{3,3})",
-     "note": "Lightest non-vacuum primary."
+     "parity": "even",
+     "global": {
+      "Z2": "unknown"
+     },
+     "note": "Lightest non-vacuum primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\mathbb{Z}_2$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "Z2=unknown"
+     }
     }
    ],
    "references": [
@@ -3908,6 +4418,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2"
+    }
    ],
    "source": "data/theories/virasoro-minimal-d.yaml",
    "members": [
@@ -4295,7 +4812,14 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = 2\\big(1 - \\tfrac{12}{p(p+1)}\\big)$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "$S_3$"
+    "global": "$S_3$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "S3",
+      "group": "S_3"
+     }
+    ]
    },
    "quantities": [
     {
@@ -4323,7 +4847,27 @@
      "Delta": "\\frac{8}{3p(p+1)}",
      "spin": 0,
      "degeneracy": 2,
-     "note": "Lightest primaries."
+     "parity": "even",
+     "global": {
+      "S3": "standard"
+     },
+     "note": "Lightest primaries.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "S3",
+        "canon": "Y(2,1)",
+        "short": "standard (2-dimensional)",
+        "trivial": false,
+        "sort": [
+         2,
+         -2
+        ],
+        "text": "$S_3$ standard (2-dimensional)"
+       }
+      ],
+      "key": "S3=Y(2,1)"
+     }
     }
    ],
    "references": [
@@ -4368,6 +4912,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "S3",
+     "type": "S",
+     "tex": "S_3"
+    }
    ],
    "source": "data/theories/w3-minimal-models.yaml",
    "members": [
@@ -4803,7 +5354,15 @@
    },
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = 1 - \\tfrac{6}{m(m+1)}$ — 2d conformal symmetry, with parity for the $E_6$ and $E_8$ invariants (diagonal invariants of the extended chiral algebra); parity not recorded for the $E_7$ permutation invariant",
-    "global": "$\\mathbb{Z}_2$ for the $E_6$ models ($m = 11, 12$), $-1$ on the fields whose $E_6$ label is 4 or 8; not recorded for $E_7$ and $E_8$"
+    "global": "$\\mathbb{Z}_2$ for the $E_6$ models ($m = 11, 12$), $-1$ on the fields whose $E_6$ label is 4 or 8; not recorded for $E_7$ and $E_8$",
+    "parity": "conditional",
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2",
+      "note": "For the $E_6$ models ($m = 11, 12$); not recorded for $E_7$ and $E_8$."
+     }
+    ]
    },
    "quantities": [
     {
@@ -4830,7 +5389,26 @@
      "name": "\\phi_{k,k}",
      "Delta": "\\frac{k^2-1}{2m(m+1)}",
      "spin": 0,
-     "note": "Lightest non-vacuum primary; $k$ is the smallest exponent of the E diagram above 1."
+     "parity": "even",
+     "global": {
+      "Z2": "odd"
+     },
+     "note": "Lightest non-vacuum primary; $k$ is the smallest exponent of the E diagram above 1.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     }
    ],
    "references": [
@@ -4853,6 +5431,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2"
+    }
    ],
    "source": "data/theories/virasoro-minimal-e.yaml",
    "members": [
@@ -5088,32 +5673,60 @@
       "U(1)_w": "w"
      },
      "note": "Momentum $n$, winding $w$.",
+     "family": {
+      "id": "vertex",
+      "parameters": [
+       {
+        "symbol": "n"
+       },
+       {
+        "symbol": "w"
+       }
+      ]
+     },
+     "family_view": {
+      "id": "vertex",
+      "range": "n, w \\in \\mathbb{Z}",
+      "first": {
+       "n": "0",
+       "w": "0"
+      },
+      "sort": {
+       "Delta": null,
+       "spin": 0.0
+      },
+      "members": 0
+     },
      "irrep": {
       "global": [
        {
         "factor": "U(1)_m",
-        "canon": "q(n)",
+        "canon": "n",
         "short": "charge $n$",
+        "text": "$U(1)_{\\rm momentum}$ charge $n$",
         "trivial": false,
         "sort": [
-         1000000,
-         0
+         0,
+         0,
+         0.5
         ],
-        "text": "$U(1)_{\\rm momentum}$ charge $n$"
+        "family": true
        },
        {
         "factor": "U(1)_w",
-        "canon": "q(w)",
+        "canon": "w",
         "short": "charge $w$",
+        "text": "$U(1)_{\\rm winding}$ charge $w$",
         "trivial": false,
         "sort": [
-         1000000,
-         0
+         0,
+         0,
+         0.5
         ],
-        "text": "$U(1)_{\\rm winding}$ charge $w$"
+        "family": true
        }
       ],
-      "key": "U(1)_m=q(n)|U(1)_w=q(w)"
+      "key": "U(1)_m=n|U(1)_w=w"
      }
     },
     {
@@ -7630,7 +8243,26 @@
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{3k}{k+2}$ — 2d conformal symmetry, with parity (combined with $g \\to g^{-1}$)",
     "supercharges": 0,
     "global": "$SU(2) \\times SU(2)$ acting as $g \\to h_L\\, g\\, h_R^{-1}$, part of the affine $\\widehat{su}(2)_k \\times \\widehat{su}(2)_k$ symmetry",
-    "notes": "The centre $\\mathbb{Z}_2$ acts as $(-1)^{2j}$ on $\\Phi_j$. It has a mixed anomaly for odd $k$; for even $k$ it can be gauged, and the orbifold is the D-series theory."
+    "notes": "The centre $\\mathbb{Z}_2$ acts as $(-1)^{2j}$ on $\\Phi_j$. It has a mixed anomaly for odd $k$; for even $k$ it can be gauged, and the orbifold is the D-series theory.",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "SU2_L",
+      "group": "SU(2)",
+      "tex": "SU(2)_L",
+      "symbols": [
+       "j"
+      ]
+     },
+     {
+      "id": "SU2_R",
+      "group": "SU(2)",
+      "tex": "SU(2)_R",
+      "symbols": [
+       "j"
+      ]
+     }
+    ]
    },
    "quantities": [
     {
@@ -7661,39 +8293,181 @@
      "Delta": "\\frac{3}{2(k+2)}",
      "spin": 0,
      "weights": "(\\tfrac{3}{4(k+2)}, \\tfrac{3}{4(k+2)})",
-     "rep": "$(\\mathbf{2}, \\mathbf{2})$ of $SU(2) \\times SU(2)$",
+     "parity": "unknown",
+     "global": {
+      "SU2_L": "spin(1/2)",
+      "SU2_R": "spin(1/2)"
+     },
      "method": "exact",
      "refs": [
       "ginsparg-lectures"
      ],
-     "note": "Lightest non-vacuum primary."
+     "note": "Lightest non-vacuum primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU2_L",
+        "canon": "Dynkin(1)",
+        "short": "doublet $\\mathbf{2}$",
+        "trivial": false,
+        "sort": [
+         2,
+         1,
+         0
+        ],
+        "text": "$SU(2)_L$ doublet $\\mathbf{2}$"
+       },
+       {
+        "factor": "SU2_R",
+        "canon": "Dynkin(1)",
+        "short": "doublet $\\mathbf{2}$",
+        "trivial": false,
+        "sort": [
+         2,
+         1,
+         0
+        ],
+        "text": "$SU(2)_R$ doublet $\\mathbf{2}$"
+       }
+      ],
+      "key": "SU2_L=Dynkin(1)|SU2_R=Dynkin(1)"
+     }
     },
     {
      "name": "\\Phi_j",
      "Delta": "\\frac{2j(j+1)}{k+2}",
      "spin": 0,
      "weights": "(h_j, h_j)",
-     "rep": "$(\\mathbf{2j+1}, \\mathbf{2j+1})$",
+     "parity": "unknown",
+     "global": {
+      "SU2_L": "spin(j)",
+      "SU2_R": "spin(j)"
+     },
      "method": "exact",
      "refs": [
       "ginsparg-lectures"
      ],
-     "note": "$h_j = \\frac{j(j+1)}{k+2}$ for $j = 0, \\frac12, \\dots, \\frac k2$."
+     "note": "$h_j = \\frac{j(j+1)}{k+2}$ for $j = 0, \\frac12, \\dots, \\frac k2$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU2_L",
+        "canon": "spin(j)",
+        "short": "spin $j$",
+        "trivial": false,
+        "sort": [
+         1000000,
+         0
+        ],
+        "text": "$SU(2)_L$ spin $j$"
+       },
+       {
+        "factor": "SU2_R",
+        "canon": "spin(j)",
+        "short": "spin $j$",
+        "trivial": false,
+        "sort": [
+         1000000,
+         0
+        ],
+        "text": "$SU(2)_R$ spin $j$"
+       }
+      ],
+      "key": "SU2_L=spin(j)|SU2_R=spin(j)"
+     }
     },
     {
      "name": "J^a,\\ \\bar J^a",
      "Delta": 1,
      "spin": 1,
      "weights": "(1, 0),\\ (0, 1)",
+     "parity": "pair",
+     "global": {
+      "SU2_L": [
+       "singlet",
+       "adjoint"
+      ],
+      "SU2_R": [
+       "singlet",
+       "adjoint"
+      ]
+     },
      "method": "exact",
-     "note": "Affine $\\widehat{su}(2)_k$ currents, in the adjoint."
+     "note": "Affine $\\widehat{su}(2)_k$ currents, in the adjoint.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU2_L",
+        "canon": "Dynkin(0)+Dynkin(2)",
+        "short": "singlet $\\oplus$ triplet (adjoint) $\\mathbf{3}$",
+        "text": "$SU(2)_L$ singlet $\\oplus$ triplet (adjoint) $\\mathbf{3}$",
+        "trivial": false,
+        "sort": [
+         1,
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       },
+       {
+        "factor": "SU2_R",
+        "canon": "Dynkin(0)+Dynkin(2)",
+        "short": "singlet $\\oplus$ triplet (adjoint) $\\mathbf{3}$",
+        "text": "$SU(2)_R$ singlet $\\oplus$ triplet (adjoint) $\\mathbf{3}$",
+        "trivial": false,
+        "sort": [
+         1,
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       }
+      ],
+      "key": "SU2_L=Dynkin(0)+Dynkin(2)|SU2_R=Dynkin(0)+Dynkin(2)"
+     }
     },
     {
      "name": "T",
      "Delta": 2,
      "spin": 2,
+     "parity": "pair",
+     "global": {
+      "SU2_L": "singlet",
+      "SU2_R": "singlet"
+     },
      "method": "exact",
-     "note": "Sugawara stress tensor."
+     "note": "Sugawara stress tensor.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU2_L",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_L$ singlet"
+       },
+       {
+        "factor": "SU2_R",
+        "canon": "Dynkin(0)",
+        "short": "singlet",
+        "trivial": true,
+        "sort": [
+         1,
+         0,
+         0
+        ],
+        "text": "$SU(2)_R$ singlet"
+       }
+      ],
+      "key": "SU2_L=Dynkin(0)|SU2_R=Dynkin(0)"
+     }
     }
    ],
    "relations": [
@@ -7787,6 +8561,18 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SU2_L",
+     "type": "SU",
+     "tex": "SU(2)_L"
+    },
+    {
+     "id": "SU2_R",
+     "type": "SU",
+     "tex": "SU(2)_R"
+    }
    ],
    "source": "data/theories/su2-wzw.yaml",
    "members": [
@@ -9834,7 +10620,15 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac65$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "$S_3$ ($\\mathbb{Z}_3$ and $C: W \\to -W$)"
+    "global": "$S_3$ ($\\mathbb{Z}_3$ and $C: W \\to -W$)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "S3",
+      "group": "S_3",
+      "note": "$\\mathbb{Z}_3$ and $C: W \\to -W$."
+     }
+    ]
    },
    "quantities": [
     {
@@ -9859,7 +10653,27 @@
      "spin": 0,
      "weights": "(\\tfrac{2}{45}, \\tfrac{2}{45})",
      "degeneracy": 2,
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "even",
+     "global": {
+      "S3": "standard"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "S3",
+        "canon": "Y(2,1)",
+        "short": "standard (2-dimensional)",
+        "trivial": false,
+        "sort": [
+         2,
+         -2
+        ],
+        "text": "$S_3$ standard (2-dimensional)"
+       }
+      ],
+      "key": "S3=Y(2,1)"
+     }
     }
    ],
    "relations": [
@@ -9909,6 +10723,13 @@
    "contributors": [
     "nathansbenjamin"
    ],
+   "global_factors": [
+    {
+     "id": "S3",
+     "type": "S",
+     "tex": "S_3"
+    }
+   ],
    "source": "data/theories/w3-5-6.yaml",
    "c_num": 1.2,
    "gap_num": 0.08888888888888889,
@@ -9946,7 +10767,16 @@
    ],
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac65$ — 2d conformal symmetry, with parity",
-    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sector"
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sector",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2",
+      "tex": "\\widehat{\\mathbb{Z}}_2",
+      "note": "The dual symmetry of the orbifold, odd on the $C$-twisted sector; the rest of the symmetry is not recorded."
+     }
+    ]
    },
    "quantities": [
     {
@@ -9970,7 +10800,26 @@
      "Delta": "3/40",
      "spin": 0,
      "weights": "(\\tfrac{3}{80}, \\tfrac{3}{80})",
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "unknown",
+     "global": {
+      "Z2": "odd"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\widehat{\\mathbb{Z}}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     }
    ],
    "relations": [
@@ -10002,6 +10851,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\widehat{\\mathbb{Z}}_2"
+    }
    ],
    "source": "data/theories/w3-5-6-c.yaml",
    "c_num": 1.2,
@@ -12572,7 +13428,15 @@
    "description": "The fixed points of field identification require resolution; the resolved components differ by Lee–Yang characters.",
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{14}{11}$ — 2d conformal symmetry, with parity",
-    "global": "Contains $\\mathbb{Z}_5$, from the simple currents of $SU(5)_1$ (non-anomalous; gauged in the $\\mathbb{Z}_5$ orbifold)"
+    "global": "Contains $\\mathbb{Z}_5$, from the simple currents of $SU(5)_1$ (non-anomalous; gauged in the $\\mathbb{Z}_5$ orbifold)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z5",
+      "group": "Z5",
+      "note": "From the simple currents of $SU(5)_1$; the rest of the symmetry is not recorded."
+     }
+    ]
    },
    "quantities": [
     {
@@ -12597,7 +13461,26 @@
      "spin": 0,
      "weights": "(\\tfrac{2}{55}, \\tfrac{2}{55})",
      "degeneracy": 2,
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "even",
+     "global": {
+      "Z5": "unknown"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z5",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\mathbb{Z}_5$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "Z5=unknown"
+     }
     }
    ],
    "references": [
@@ -12620,6 +13503,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z5",
+     "type": "Zn",
+     "tex": "\\mathbb{Z}_5"
+    }
    ],
    "source": "data/theories/su5-1-su2-20.yaml",
    "c_num": 1.2727272727272727,
@@ -12664,7 +13554,16 @@
    ],
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{14}{11}$ — 2d conformal symmetry, with parity",
-    "global": "Contains the dual $\\mathbb{Z}_5$ of the orbifold, acting with phases on the twisted sectors"
+    "global": "Contains the dual $\\mathbb{Z}_5$ of the orbifold, acting with phases on the twisted sectors",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z5",
+      "group": "Z5",
+      "tex": "\\widehat{\\mathbb{Z}}_5",
+      "note": "The dual symmetry of the orbifold; the rest of the symmetry is not recorded."
+     }
+    ]
    },
    "quantities": [
     {
@@ -12689,7 +13588,26 @@
      "spin": 0,
      "weights": "(\\tfrac{3}{55}, \\tfrac{3}{55})",
      "degeneracy": 2,
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "unknown",
+     "global": {
+      "Z5": "unknown"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z5",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\widehat{\\mathbb{Z}}_5$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "Z5=unknown"
+     }
     }
    ],
    "relations": [
@@ -12720,6 +13638,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z5",
+     "type": "Zn",
+     "tex": "\\widehat{\\mathbb{Z}}_5"
+    }
    ],
    "source": "data/theories/su5-1-su2-20-z5.yaml",
    "c_num": 1.2727272727272727,
@@ -14150,7 +15075,15 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac75$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "$D_4$: spin flips $f_1, f_2$ and exchange $s$"
+    "global": "$D_4$: spin flips $f_1, f_2$ and exchange $s$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "D4",
+      "group": "D_4",
+      "note": "Generated by the spin flips $f_1, f_2$ and the exchange $s$."
+     }
+    ]
    },
    "quantities": [
     {
@@ -14175,7 +15108,26 @@
      "spin": 0,
      "weights": "(\\tfrac{3}{80}, \\tfrac{3}{80})",
      "degeneracy": 2,
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "even",
+     "global": {
+      "D4": "E1"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "D4",
+        "canon": "E1",
+        "short": "$E_{1}$",
+        "trivial": false,
+        "sort": [
+         4
+        ],
+        "text": "$D_4$ $E_{1}$"
+       }
+      ],
+      "key": "D4=E1"
+     }
     }
    ],
    "relations": [
@@ -14196,6 +15148,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "D4",
+     "type": "D",
+     "tex": "D_4"
+    }
    ],
    "source": "data/theories/tim-squared.yaml",
    "c_num": 1.4,
@@ -14264,7 +15223,22 @@
    "description": "The symmetry of TIM$^2$ is the dihedral group $D_4$ of order 8 generated by the spin flips $f_1, f_2$ and the exchange $s$. $\\mathrm{TIM}^2/D_4$ gives term-by-term the same partition function, and so does the charge-conjugation orbifold $\\mathrm{PF}_8/C$.",
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac75$ — 2d conformal symmetry, with parity",
-    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $s$-twisted sector, and the diagonal spin flip $f_1 f_2$, which commutes with $s$"
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $s$-twisted sector, and the diagonal spin flip $f_1 f_2$, which commutes with $s$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2",
+      "tex": "\\widehat{\\mathbb{Z}}_2",
+      "note": "The dual symmetry of the orbifold, odd on the $s$-twisted sector."
+     },
+     {
+      "id": "Z2_f",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{f_1 f_2}",
+      "note": "The diagonal spin flip $f_1 f_2$; the rest of the symmetry is not recorded."
+     }
+    ]
    },
    "quantities": [
     {
@@ -14288,7 +15262,37 @@
      "Delta": "3/40",
      "spin": 0,
      "weights": "(\\tfrac{3}{80}, \\tfrac{3}{80})",
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "even",
+     "global": {
+      "Z2": "even",
+      "Z2_f": "odd"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\widehat{\\mathbb{Z}}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       },
+       {
+        "factor": "Z2_f",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\mathbb{Z}_2^{f_1 f_2}$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=even|Z2_f=odd"
+     }
     }
    ],
    "relations": [
@@ -14325,6 +15329,18 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\widehat{\\mathbb{Z}}_2"
+    },
+    {
+     "id": "Z2_f",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{f_1 f_2}"
+    }
    ],
    "source": "data/theories/tim-sym2.yaml",
    "c_num": 1.4,
@@ -14565,7 +15581,28 @@
    "description": "The symmetry of TIM$^2$ is the dihedral group $D_4$ of order 8 generated by the spin flips $f_1, f_2$ and the exchange $s$. Same torus partition function as $\\mathcal{N}_{10}^{(D,E_6)}$ and $\\mathrm{PF}_8/\\mathbb{Z}_2$.",
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac75$ — 2d conformal symmetry, with parity",
-    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold and the images of $f_1$ ($\\simeq f_2$) and $s$ ($f_1 f_2$ is central in $D_4$)"
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold and the images of $f_1$ ($\\simeq f_2$) and $s$ ($f_1 f_2$ is central in $D_4$)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2",
+      "tex": "\\widehat{\\mathbb{Z}}_2",
+      "note": "The dual symmetry of the orbifold."
+     },
+     {
+      "id": "Z2_f",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{f_1}",
+      "note": "The image of $f_1$ ($\\simeq f_2$)."
+     },
+     {
+      "id": "Z2_s",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{s}",
+      "note": "The image of $s$; how these combine with the dual $\\mathbb{Z}_2$ is not recorded."
+     }
+    ]
    },
    "quantities": [
     {
@@ -14590,7 +15627,48 @@
      "spin": 0,
      "weights": "(\\tfrac{3}{40}, \\tfrac{3}{40})",
      "degeneracy": 2,
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "unknown",
+     "global": {
+      "Z2": "unknown",
+      "Z2_f": "unknown",
+      "Z2_s": "unknown"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\widehat{\\mathbb{Z}}_2$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       },
+       {
+        "factor": "Z2_f",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\mathbb{Z}_2^{f_1}$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       },
+       {
+        "factor": "Z2_s",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\mathbb{Z}_2^{s}$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "Z2=unknown|Z2_f=unknown|Z2_s=unknown"
+     }
     }
    ],
    "relations": [
@@ -14622,6 +15700,23 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\widehat{\\mathbb{Z}}_2"
+    },
+    {
+     "id": "Z2_f",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{f_1}"
+    },
+    {
+     "id": "Z2_s",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{s}"
+    }
    ],
    "source": "data/theories/tim2-z2-diag.yaml",
    "c_num": 1.4,
@@ -14660,7 +15755,22 @@
    "description": "The symmetry of TIM$^2$ is the dihedral group $D_4$ of order 8 generated by the spin flips $f_1, f_2$ and the exchange $s$. The orbifolds by $\\mathbb{Z}_4$ and by $\\langle f_1f_2, s\\rangle$ with discrete torsion coincide and give this theory, which is also the block-diagonal bosonized $\\mathcal{N}=1$ minimal model $\\mathcal{N}_{10}^{(A,E_6)}$.\n\n$X_E$ and $X_O$ have the same chiral algebra and the same torus partition function, but glue left- and right-moving modules differently, so they are not isomorphic as full CFTs.\n",
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac75$ — 2d conformal symmetry, with parity",
-    "global": "Contains the dual $\\mathbb{Z}_4$ of the orbifold and the image of $f_1$ ($\\simeq s$), since $\\mathbb{Z}_4$ is normal in $D_4$"
+    "global": "Contains the dual $\\mathbb{Z}_4$ of the orbifold and the image of $f_1$ ($\\simeq s$), since $\\mathbb{Z}_4$ is normal in $D_4$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z4",
+      "group": "Z4",
+      "tex": "\\widehat{\\mathbb{Z}}_4",
+      "note": "The dual symmetry of the orbifold."
+     },
+     {
+      "id": "Z2_f",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^{f_1}",
+      "note": "The image of $f_1$ ($\\simeq s$); how it combines with the dual $\\mathbb{Z}_4$ is not recorded."
+     }
+    ]
    },
    "quantities": [
     {
@@ -14685,7 +15795,37 @@
      "spin": 0,
      "weights": "(\\tfrac{1}{16}, \\tfrac{1}{16})",
      "degeneracy": 2,
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "unknown",
+     "global": {
+      "Z4": "unknown",
+      "Z2_f": "unknown"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z4",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\widehat{\\mathbb{Z}}_4$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       },
+       {
+        "factor": "Z2_f",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\mathbb{Z}_2^{f_1}$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "Z4=unknown|Z2_f=unknown"
+     }
     }
    ],
    "relations": [
@@ -14731,6 +15871,18 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z4",
+     "type": "Zn",
+     "tex": "\\widehat{\\mathbb{Z}}_4"
+    },
+    {
+     "id": "Z2_f",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^{f_1}"
+    }
    ],
    "source": "data/theories/tim2-z4-xe.yaml",
    "c_num": 1.4,
@@ -14983,7 +16135,15 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{10}{7}$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "$S_3$ ($\\mathbb{Z}_3$ and $C: W \\to -W$)"
+    "global": "$S_3$ ($\\mathbb{Z}_3$ and $C: W \\to -W$)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "S3",
+      "group": "S_3",
+      "note": "$\\mathbb{Z}_3$ and $C: W \\to -W$."
+     }
+    ]
    },
    "quantities": [
     {
@@ -15008,7 +16168,27 @@
      "spin": 0,
      "weights": "(\\tfrac{2}{63}, \\tfrac{2}{63})",
      "degeneracy": 2,
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "even",
+     "global": {
+      "S3": "standard"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "S3",
+        "canon": "Y(2,1)",
+        "short": "standard (2-dimensional)",
+        "trivial": false,
+        "sort": [
+         2,
+         -2
+        ],
+        "text": "$S_3$ standard (2-dimensional)"
+       }
+      ],
+      "key": "S3=Y(2,1)"
+     }
     }
    ],
    "relations": [
@@ -15045,6 +16225,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "S3",
+     "type": "S",
+     "tex": "S_3"
+    }
    ],
    "source": "data/theories/w3-6-7.yaml",
    "c_num": 1.4285714285714286,
@@ -15098,7 +16285,16 @@
    ],
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{10}{7}$ — 2d conformal symmetry, with parity",
-    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sector"
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sector",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2",
+      "tex": "\\widehat{\\mathbb{Z}}_2",
+      "note": "The dual symmetry of the orbifold, odd on the $C$-twisted sector; the rest of the symmetry is not recorded."
+     }
+    ]
    },
    "quantities": [
     {
@@ -15122,7 +16318,26 @@
      "Delta": "4/63",
      "spin": 0,
      "weights": "(\\tfrac{2}{63}, \\tfrac{2}{63})",
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "unknown",
+     "global": {
+      "Z2": "unknown"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\widehat{\\mathbb{Z}}_2$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "Z2=unknown"
+     }
     }
    ],
    "relations": [
@@ -15154,6 +16369,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\widehat{\\mathbb{Z}}_2"
+    }
    ],
    "source": "data/theories/w3-6-7-c.yaml",
    "c_num": 1.4285714285714286,
@@ -15187,7 +16409,16 @@
    "description": "$\\mathcal{W}_3(6,7) = SU(3)_3\\times SU(3)_1/SU(3)_4$.",
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{10}{7}$ — 2d conformal symmetry; parity not recorded",
-    "global": "Contains charge conjugation $C: W \\to -W$ (gauged in the $C$ orbifold)"
+    "global": "Contains charge conjugation $C: W \\to -W$ (gauged in the $C$ orbifold)",
+    "parity": false,
+    "global_group": [
+     {
+      "id": "C",
+      "group": "Z2",
+      "tex": "\\mathbb{Z}_2^C",
+      "note": "Charge conjugation $C: W \\to -W$; the rest of the symmetry is not recorded."
+     }
+    ]
    },
    "quantities": [
     {
@@ -15211,7 +16442,25 @@
      "Delta": "1/7",
      "spin": 0,
      "weights": "(\\tfrac{1}{14}, \\tfrac{1}{14})",
-     "note": "Lightest non-vacuum Virasoro primary."
+     "global": {
+      "C": "unknown"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "C",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\mathbb{Z}_2^C$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "C=unknown"
+     }
     }
    ],
    "relations": [
@@ -15240,6 +16489,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "C",
+     "type": "Z2",
+     "tex": "\\mathbb{Z}_2^C"
+    }
    ],
    "source": "data/theories/w3-6-7-ca.yaml",
    "c_num": 1.4285714285714286,
@@ -15279,7 +16535,16 @@
    "description": "It has the same gap as $\\mathcal{N}_{12}^{(E_6,A)}$ but a different partition function.",
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{10}{7}$ — 2d conformal symmetry; parity not recorded",
-    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sector"
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sector",
+    "parity": false,
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2",
+      "tex": "\\widehat{\\mathbb{Z}}_2",
+      "note": "The dual symmetry of the orbifold, odd on the $C$-twisted sector; the rest of the symmetry is not recorded."
+     }
+    ]
    },
    "quantities": [
     {
@@ -15303,7 +16568,25 @@
      "Delta": "5/56",
      "spin": 0,
      "weights": "(\\tfrac{5}{112}, \\tfrac{5}{112})",
-     "note": "Twisted-sector ground state; lightest non-vacuum primary."
+     "global": {
+      "Z2": "odd"
+     },
+     "note": "Twisted-sector ground state; lightest non-vacuum primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "odd",
+        "short": "odd",
+        "text": "$\\widehat{\\mathbb{Z}}_2$-odd",
+        "trivial": false,
+        "sort": [
+         1
+        ]
+       }
+      ],
+      "key": "Z2=odd"
+     }
     }
    ],
    "relations": [
@@ -15334,6 +16617,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\widehat{\\mathbb{Z}}_2"
+    }
    ],
    "source": "data/theories/w3-6-7-ca-c.yaml",
    "c_num": 1.4285714285714286,
@@ -15681,7 +16971,14 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{16}{11}$ — 2d conformal symmetry, with parity",
     "supercharges": 0,
-    "global": "Dihedral $D_{9}$: $\\mathbb{Z}_{9}$ rotations $r$ and charge conjugation $C$"
+    "global": "Dihedral $D_{9}$: $\\mathbb{Z}_{9}$ rotations $r$ and charge conjugation $C$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "D9",
+      "group": "D_9"
+     }
+    ]
    },
    "quantities": [
     {
@@ -15706,7 +17003,26 @@
      "spin": 0,
      "weights": "(\\tfrac{4}{99}, \\tfrac{4}{99})",
      "degeneracy": 2,
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "even",
+     "global": {
+      "D9": "E1"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "D9",
+        "canon": "E1",
+        "short": "$E_{1}$",
+        "trivial": false,
+        "sort": [
+         2
+        ],
+        "text": "$D_9$ $E_{1}$"
+       }
+      ],
+      "key": "D9=E1"
+     }
     }
    ],
    "relations": [
@@ -15736,6 +17052,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "D9",
+     "type": "D",
+     "tex": "D_9"
+    }
    ],
    "source": "data/theories/pf9.yaml",
    "c_num": 1.4545454545454546,
@@ -15784,7 +17107,16 @@
    ],
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{16}{11}$ — 2d conformal symmetry, with parity",
-    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sectors"
+    "global": "Contains the dual $\\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sectors",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z2",
+      "group": "Z2",
+      "tex": "\\widehat{\\mathbb{Z}}_2",
+      "note": "The dual symmetry of the orbifold, odd on the $C$-twisted sectors; the rest of the symmetry is not recorded."
+     }
+    ]
    },
    "quantities": [
     {
@@ -15808,7 +17140,26 @@
      "Delta": "8/99",
      "spin": 0,
      "weights": "(\\tfrac{4}{99}, \\tfrac{4}{99})",
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "even",
+     "global": {
+      "Z2": "even"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z2",
+        "canon": "even",
+        "short": "even",
+        "text": "$\\widehat{\\mathbb{Z}}_2$-even",
+        "trivial": true,
+        "sort": [
+         0
+        ]
+       }
+      ],
+      "key": "Z2=even"
+     }
     }
    ],
    "relations": [
@@ -15840,6 +17191,13 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z2",
+     "type": "Z2",
+     "tex": "\\widehat{\\mathbb{Z}}_2"
+    }
    ],
    "source": "data/theories/pf9-c.yaml",
    "c_num": 1.4545454545454546,
@@ -15873,7 +17231,21 @@
    "description": "$\\mathrm{PF}_k/\\mathbb{Z}_d$ and $\\mathrm{PF}_k/\\mathbb{Z}_{k/d}$ have the same partition function. For $k=9$, $d=3$ this is the extension of $\\mathrm{PF}_9$ by its weight-2, order-three parafermion currents.",
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{16}{11}$ — 2d conformal symmetry, with parity",
-    "global": "Contains the dual $\\mathbb{Z}_3$ of the orbifold and the action of $D_9/\\mathbb{Z}_3 \\cong S_3$ (images of $r$ and $C$)"
+    "global": "Contains the dual $\\mathbb{Z}_3$ of the orbifold and the action of $D_9/\\mathbb{Z}_3 \\cong S_3$ (images of $r$ and $C$)",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "Z3",
+      "group": "Z3",
+      "tex": "\\widehat{\\mathbb{Z}}_3",
+      "note": "The dual symmetry of the orbifold."
+     },
+     {
+      "id": "S3",
+      "group": "S_3",
+      "note": "The image of $D_9$, $D_9/\\mathbb{Z}_3 \\cong S_3$; how it combines with the dual $\\mathbb{Z}_3$ is not recorded."
+     }
+    ]
    },
    "quantities": [
     {
@@ -15898,7 +17270,37 @@
      "spin": 0,
      "weights": "(\\tfrac{1}{11}, \\tfrac{1}{11})",
      "degeneracy": 4,
-     "note": "Lightest non-vacuum Virasoro primary."
+     "parity": "unknown",
+     "global": {
+      "Z3": "unknown",
+      "S3": "unknown"
+     },
+     "note": "Lightest non-vacuum Virasoro primary.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "Z3",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$\\widehat{\\mathbb{Z}}_3$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       },
+       {
+        "factor": "S3",
+        "canon": "unknown",
+        "short": "representation not recorded",
+        "text": "$S_3$ representation not recorded",
+        "trivial": false,
+        "sort": [
+         1000000000
+        ]
+       }
+      ],
+      "key": "Z3=unknown|S3=unknown"
+     }
     }
    ],
    "relations": [
@@ -15930,6 +17332,18 @@
    ],
    "contributors": [
     "nathansbenjamin"
+   ],
+   "global_factors": [
+    {
+     "id": "Z3",
+     "type": "Zn",
+     "tex": "\\widehat{\\mathbb{Z}}_3"
+    },
+    {
+     "id": "S3",
+     "type": "S",
+     "tex": "S_3"
+    }
    ],
    "source": "data/theories/pf9-z3.yaml",
    "c_num": 1.4545454545454546,
@@ -18311,7 +19725,26 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{k\\dim G}{k+h^\\vee}$ — 2d conformal symmetry, with parity (combined with $g \\to g^{-1}$)",
     "supercharges": 0,
-    "global": "Left and right multiplication of $g$ ($G_L \\times G_R$), part of the chiral current algebras $\\hat{\\mathfrak g}_k \\times \\hat{\\mathfrak g}_k$"
+    "global": "Left and right multiplication of $g$ ($G_L \\times G_R$), part of the chiral current algebras $\\hat{\\mathfrak g}_k \\times \\hat{\\mathfrak g}_k$",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "G_L",
+      "group": "G",
+      "tex": "G_L",
+      "symbols": [
+       "\\lambda"
+      ]
+     },
+     {
+      "id": "G_R",
+      "group": "G",
+      "tex": "G_R",
+      "symbols": [
+       "\\lambda"
+      ]
+     }
+    ]
    },
    "quantities": [
     {
@@ -18361,21 +19794,94 @@
      "Delta": 1,
      "spin": 1,
      "weights": "(1, 0),\\ (0, 1)",
-     "rep": "adjoint of $G_L$, $G_R$",
+     "parity": "pair",
+     "global": {
+      "G_L": [
+       "singlet",
+       "adjoint"
+      ],
+      "G_R": [
+       "singlet",
+       "adjoint"
+      ]
+     },
      "method": "exact",
-     "note": "Chiral currents, $\\dim G$ of each; Virasoro primaries."
+     "note": "Chiral currents, $\\dim G$ of each; Virasoro primaries.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "G_L",
+        "canon": "singlet+adjoint",
+        "short": "singlet $\\oplus$ adjoint",
+        "text": "$G_L$ singlet $\\oplus$ adjoint",
+        "trivial": false,
+        "sort": [
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       },
+       {
+        "factor": "G_R",
+        "canon": "singlet+adjoint",
+        "short": "singlet $\\oplus$ adjoint",
+        "text": "$G_R$ singlet $\\oplus$ adjoint",
+        "trivial": false,
+        "sort": [
+         0,
+         0,
+         0.5
+        ],
+        "sum": true
+       }
+      ],
+      "key": "G_L=singlet+adjoint|G_R=singlet+adjoint"
+     }
     },
     {
      "name": "\\Phi_\\lambda",
      "Delta": "\\frac{(\\lambda,\\lambda+2\\rho)}{k+h^\\vee}",
      "spin": 0,
      "weights": "(h_\\lambda, h_\\lambda)",
+     "parity": "unknown",
+     "global": {
+      "G_L": "hw(\\lambda)",
+      "G_R": "hw(\\lambda)bar"
+     },
      "method": "exact",
      "refs": [
       "walton1999",
       "gepnerwitten1986"
      ],
-     "note": "One affine primary for each integrable highest weight $\\lambda$, $(\\lambda,\\theta)\\le k$."
+     "note": "One affine primary for each integrable highest weight $\\lambda$, $(\\lambda,\\theta)\\le k$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "G_L",
+        "canon": "hw(\\lambda)",
+        "short": "highest weight $\\lambda$",
+        "trivial": false,
+        "sort": [
+         2,
+         0
+        ],
+        "text": "$G_L$ highest weight $\\lambda$"
+       },
+       {
+        "factor": "G_R",
+        "canon": "hw(\\lambda)bar",
+        "short": "conjugate of highest weight $\\lambda$ ($\\lambda^*$)",
+        "trivial": false,
+        "sort": [
+         2,
+         1
+        ],
+        "text": "$G_R$ conjugate of highest weight $\\lambda$ ($\\lambda^*$)"
+       }
+      ],
+      "key": "G_L=hw(\\lambda)|G_R=hw(\\lambda)bar"
+     }
     }
    ],
    "relations": [
@@ -18495,6 +20001,18 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "G_L",
+     "type": "LieParam",
+     "tex": "G_L"
+    },
+    {
+     "id": "G_R",
+     "type": "LieParam",
+     "tex": "G_R"
+    }
    ],
    "source": "data/theories/wzw-models.yaml",
    "members": [
@@ -20635,7 +22153,8 @@
       "rt2005",
       "teschner1999"
      ],
-     "note": "In the $\\mu$ basis [@h3-wzw/rt2005, Eq. (2.31)]. The coefficient $B^H(j)$ of $|x_{21}|^{4j_1}$ in the $x$-basis two-point function is $R^H(j)/(\\pi\\gamma(2j+1))$ [@h3-wzw/rt2005, Eq. (A.6)]."
+     "note": "In the $\\mu$ basis [@h3-wzw/rt2005, Eq. (2.31)]. The coefficient $B^H(j)$ of $|x_{21}|^{4j_1}$ in the $x$-basis two-point function is $R^H(j)/(\\pi\\gamma(2j+1))$ [@h3-wzw/rt2005, Eq. (A.6)].",
+     "category": "ope"
     },
     {
      "symbol": "C^H(j_3,j_2,j_1)",
@@ -20647,7 +22166,8 @@
       "teschner1997",
       "teschner1999"
      ],
-     "note": "[@h3-wzw/rt2005, Eq. (2.28)], with the normalization discussed by Teschner [@h3-wzw/teschner1999]. In the $x$ basis the three-point function is $C^H$ times $|x_{21}|^{2j^3_{21}}|x_{31}|^{2j^2_{31}}|x_{32}|^{2j^1_{32}}$ and the powers of $|z_{ij}|$ [@h3-wzw/rt2005, Eq. (A.4)]."
+     "note": "[@h3-wzw/rt2005, Eq. (2.28)], with the normalization discussed by Teschner [@h3-wzw/teschner1999]. In the $x$ basis the three-point function is $C^H$ times $|x_{21}|^{2j^3_{21}}|x_{31}|^{2j^2_{31}}|x_{32}|^{2j^1_{32}}$ and the powers of $|z_{ij}|$ [@h3-wzw/rt2005, Eq. (A.4)].",
+     "category": "ope"
     }
    ],
    "operators": [
@@ -21454,7 +22974,8 @@
      "refs": [
       "cemr2024",
       "cmmt2020"
-     ]
+     ],
+     "category": "ope"
     },
     {
      "symbol": "C_b(P_1,P_2,P_3)",
@@ -21466,7 +22987,8 @@
       "zz1996",
       "teschner1995",
       "cemr2024"
-     ]
+     ],
+     "category": "ope"
     }
    ],
    "operators": [
@@ -21994,7 +23516,32 @@
    "symmetry": {
     "spacetime": "Two Virasoro algebras, $c = \\bar c = \\tfrac{3k}{k-2}$ — 2d conformal symmetry, with parity (combined with $g \\to g^{-1}$)",
     "supercharges": 0,
-    "global": "$SL(2,\\mathbb{R})_L\\times SL(2,\\mathbb{R})_R$ (universal cover), the isometries of $AdS_3$, generated by the zero modes of the currents"
+    "global": "$SL(2,\\mathbb{R})_L\\times SL(2,\\mathbb{R})_R$ (universal cover), the isometries of $AdS_3$, generated by the zero modes of the currents",
+    "parity": true,
+    "global_group": [
+     {
+      "id": "SL2R_L",
+      "group": "SL(2,R)",
+      "tex": "SL(2,\\mathbb{R})_L",
+      "symbols": [
+       "j",
+       "s",
+       "\\alpha"
+      ],
+      "note": "Universal cover; $j$, $s$, $\\alpha$ label the representations of a row."
+     },
+     {
+      "id": "SL2R_R",
+      "group": "SL(2,R)",
+      "tex": "SL(2,\\mathbb{R})_R",
+      "symbols": [
+       "j",
+       "s",
+       "\\alpha"
+      ],
+      "note": "Universal cover."
+     }
+    ]
    },
    "quantities": [
     {
@@ -22036,39 +23583,172 @@
      "name": "\\Phi_j\\ (\\hat{\\mathcal{D}}^\\pm_j)",
      "Delta": "-\\frac{2j(j-1)}{k-2}",
      "spin": 0,
-     "rep": "Discrete, $\\frac12<j<\\frac{k-1}{2}$",
+     "parity": "unknown",
+     "global": {
+      "SL2R_L": "D±(j)",
+      "SL2R_R": "D±(j)"
+     },
+     "role": "discrete series, $\\frac12<j<\\frac{k-1}{2}$",
      "method": "exact",
      "refs": [
       "mo2001a"
      ],
-     "note": "Unflowed ($w=0$) primaries; their weight is negative for $j>1$."
+     "note": "Unflowed ($w=0$) primaries; their weight is negative for $j>1$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SL2R_L",
+        "canon": "D±(j)",
+        "short": "discrete series $\\mathcal{D}^{±}_{j}$",
+        "trivial": false,
+        "sort": [
+         2,
+         0
+        ],
+        "text": "$SL(2,\\mathbb{R})_L$ discrete series $\\mathcal{D}^{±}_{j}$"
+       },
+       {
+        "factor": "SL2R_R",
+        "canon": "D±(j)",
+        "short": "discrete series $\\mathcal{D}^{±}_{j}$",
+        "trivial": false,
+        "sort": [
+         2,
+         0
+        ],
+        "text": "$SL(2,\\mathbb{R})_R$ discrete series $\\mathcal{D}^{±}_{j}$"
+       }
+      ],
+      "key": "SL2R_L=D±(j)|SL2R_R=D±(j)"
+     }
     },
     {
      "name": "\\Phi_{j,\\alpha}\\ (\\hat{\\mathcal{C}}^\\alpha_j)",
      "Delta": "\\frac{2(s^2+\\frac14)}{k-2}",
      "spin": 0,
-     "rep": "Continuous, $j=\\frac12+is$",
+     "parity": "unknown",
+     "global": {
+      "SL2R_L": "C(1/2+i s, \\alpha)",
+      "SL2R_R": "C(1/2+i s, \\alpha)"
+     },
      "method": "exact",
      "refs": [
       "mo2001a",
       "mo2002"
      ],
-     "note": "Unflowed ($w=0$) primaries."
+     "note": "Unflowed ($w=0$) primaries.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SL2R_L",
+        "canon": "C(1/2+is,\\alpha)",
+        "short": "continuous series $\\mathcal{C}^{\\alpha}_{1/2+i s}$",
+        "trivial": false,
+        "sort": [
+         3,
+         0
+        ],
+        "text": "$SL(2,\\mathbb{R})_L$ continuous series $\\mathcal{C}^{\\alpha}_{1/2+i s}$"
+       },
+       {
+        "factor": "SL2R_R",
+        "canon": "C(1/2+is,\\alpha)",
+        "short": "continuous series $\\mathcal{C}^{\\alpha}_{1/2+i s}$",
+        "trivial": false,
+        "sort": [
+         3,
+         0
+        ],
+        "text": "$SL(2,\\mathbb{R})_R$ continuous series $\\mathcal{C}^{\\alpha}_{1/2+i s}$"
+       }
+      ],
+      "key": "SL2R_L=C(1/2+is,\\alpha)|SL2R_R=C(1/2+is,\\alpha)"
+     }
     },
     {
      "name": "J^a,\\ \\bar J^a",
      "Delta": 1,
      "spin": 1,
      "weights": "(1,0),\\ (0,1)",
+     "parity": "pair",
+     "global": {
+      "SL2R_L": [
+       "trivial",
+       "adjoint"
+      ],
+      "SL2R_R": [
+       "trivial",
+       "adjoint"
+      ]
+     },
      "method": "exact",
-     "note": "$\\widehat{sl}(2,\\mathbb{R})_k$ currents, $a=\\pm,3$."
+     "note": "$\\widehat{sl}(2,\\mathbb{R})_k$ currents, $a=\\pm,3$.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SL2R_L",
+        "canon": "trivial+adjoint",
+        "short": "trivial $\\oplus$ adjoint",
+        "text": "$SL(2,\\mathbb{R})_L$ trivial $\\oplus$ adjoint",
+        "trivial": false,
+        "sort": [
+         0,
+         0.5
+        ],
+        "sum": true
+       },
+       {
+        "factor": "SL2R_R",
+        "canon": "trivial+adjoint",
+        "short": "trivial $\\oplus$ adjoint",
+        "text": "$SL(2,\\mathbb{R})_R$ trivial $\\oplus$ adjoint",
+        "trivial": false,
+        "sort": [
+         0,
+         0.5
+        ],
+        "sum": true
+       }
+      ],
+      "key": "SL2R_L=trivial+adjoint|SL2R_R=trivial+adjoint"
+     }
     },
     {
      "name": "T",
      "Delta": 2,
      "spin": 2,
+     "parity": "pair",
+     "global": {
+      "SL2R_L": "trivial",
+      "SL2R_R": "trivial"
+     },
      "method": "exact",
-     "note": "Sugawara stress tensor."
+     "note": "Sugawara stress tensor.",
+     "irrep": {
+      "global": [
+       {
+        "factor": "SL2R_L",
+        "canon": "trivial",
+        "short": "trivial",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$SL(2,\\mathbb{R})_L$ trivial"
+       },
+       {
+        "factor": "SL2R_R",
+        "canon": "trivial",
+        "short": "trivial",
+        "trivial": true,
+        "sort": [
+         0
+        ],
+        "text": "$SL(2,\\mathbb{R})_R$ trivial"
+       }
+      ],
+      "key": "SL2R_L=trivial|SL2R_R=trivial"
+     }
     }
    ],
    "relations": [
@@ -22135,6 +23815,18 @@
    ],
    "contributors": [
     "Canonical111"
+   ],
+   "global_factors": [
+    {
+     "id": "SL2R_L",
+     "type": "SL2R",
+     "tex": "SL(2,\\mathbb{R})_L"
+    },
+    {
+     "id": "SL2R_R",
+     "type": "SL2R",
+     "tex": "SL(2,\\mathbb{R})_R"
+    }
    ],
    "source": "data/theories/sl2r-wzw.yaml",
    "backlinks": [
@@ -22227,7 +23919,8 @@
      "refs": [
       "fh2002",
       "poghossian1997"
-     ]
+     ],
+     "category": "ope"
     },
     {
      "symbol": "C^{\\rm NS}(\\alpha_1,\\alpha_2,\\alpha_3)",
@@ -22239,7 +23932,8 @@
       "poghossian1997",
       "fh2002",
       "fw2007"
-     ]
+     ],
+     "category": "ope"
     }
    ],
    "operators": [
@@ -22433,7 +24127,8 @@
      "refs": [
       "fl2007",
       "fl2009"
-     ]
+     ],
+     "category": "ope"
     }
    ],
    "operators": [
@@ -26054,21 +27749,33 @@
      ]
     },
     {
-     "symbol": "\\lambda_{\\sigma\\sigma\\epsilon}",
-     "description": "OPE coefficient",
-     "value": "1.072125(9)",
-     "method": "CB, supersymmetric",
-     "refs": [
-      "atanasov2022"
-     ]
-    },
-    {
      "symbol": "\\lambda_{\\epsilon\\epsilon\\epsilon}/\\lambda_{\\sigma\\sigma\\epsilon}",
      "description": "Fixed by supersymmetry in terms of $\\Delta_\\sigma$",
      "value": "1.55775(36)",
      "method": "CB, supersymmetric",
      "refs": [
       "atanasov2022"
+     ],
+     "category": "ope"
+    }
+   ],
+   "ope_coefficients": [
+    {
+     "operators": [
+      "\\sigma",
+      "\\sigma",
+      "\\epsilon"
+     ],
+     "values": [
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\sigma\\sigma\\epsilon}",
+       "value": "1.072125(9)",
+       "method": "CB, supersymmetric",
+       "refs": [
+        "atanasov2022"
+       ]
+      }
      ]
     }
    ],
@@ -27937,24 +29644,6 @@
    },
    "quantities": [
     {
-     "symbol": "\\lambda_{\\sigma\\sigma\\epsilon}",
-     "description": "OPE coefficient",
-     "value": "1.0518537(41)",
-     "method": "CB",
-     "refs": [
-      "kos2016"
-     ]
-    },
-    {
-     "symbol": "\\lambda_{\\epsilon\\epsilon\\epsilon}",
-     "description": "OPE coefficient",
-     "value": "1.532435(19)",
-     "method": "CB",
-     "refs": [
-      "kos2016"
-     ]
-    },
-    {
      "symbol": "\\eta",
      "description": "Critical exponent, $\\eta = 2\\Delta_\\sigma - 1$",
      "value": "0.036297612(48)",
@@ -27973,26 +29662,6 @@
      ]
     },
     {
-     "symbol": "\\lambda_{\\sigma\\sigma\\epsilon}",
-     "description": "OPE coefficient",
-     "value": "1.05185373(11)",
-     "method": "CB, non-rigorous error",
-     "refs": [
-      "chang2024"
-     ],
-     "note": "[@ising-3d/chang2024, Table 1, p. 2], derivative order $\\Lambda=43$. The error is not bold in the table, so it is not rigorous. Agrees with the $\\sigma\\epsilon$ island value $1.0518537(41)$ above."
-    },
-    {
-     "symbol": "\\lambda_{\\epsilon\\epsilon\\epsilon}",
-     "description": "OPE coefficient",
-     "value": "1.53244304(58)",
-     "method": "CB, non-rigorous error",
-     "refs": [
-      "chang2024"
-     ],
-     "note": "[@ising-3d/chang2024, Table 1, p. 2], $\\Lambda=43$; error not bold, so not rigorous. Agrees with $1.532435(19)$ above."
-    },
-    {
      "symbol": "C_T/C_T^{\\rm free}",
      "description": "Stress-tensor two-point coefficient, relative to one free real scalar",
      "value": "0.946538675(42)",
@@ -28003,36 +29672,6 @@
      "note": "[@ising-3d/chang2024, Table 1, p. 2], where it is written $c_T/c_B$ with $c_B = 3/(2(4\\pi)^2)$ the free real scalar value in their normalization [@ising-3d/chang2024, Eq. (2.8)]; the ratio is normalization independent. Error not bold, so not rigorous."
     },
     {
-     "symbol": "\\lambda_{TT\\epsilon}",
-     "description": "OPE coefficient of $\\epsilon$ in $T\\times T$, unit-normalized $T$, in the convention of [@ising-3d/chang2024, Eq. (2.2)]",
-     "value": "0.95331513(42)",
-     "method": "CB, non-rigorous error",
-     "refs": [
-      "chang2024"
-     ],
-     "note": "[@ising-3d/chang2024, Table 1, p. 2]; defined in [@ising-3d/chang2024, Eq. (2.2), p. 5], with $\\hat T = T/\\sqrt{c_T}$ [@ising-3d/chang2024, Eq. (2.9)], chosen to match the five-point-bootstrap convention of Poland, Prilepina and Tadić [@ising-3d/poland2023]. Other normalizations of this structure differ. Error not bold, so not rigorous."
-    },
-    {
-     "symbol": "n_B",
-     "description": "Free-boson coefficient of $\\langle TTT\\rangle = n_B\\langle TTT\\rangle_B + n_F\\langle TTT\\rangle_F$ (free real scalar and free Majorana fermion structures); $n_B + n_F = C_T/C_T^{\\rm free}$",
-     "value": "0.933444559(75)",
-     "method": "CB, non-rigorous error",
-     "refs": [
-      "chang2024"
-     ],
-     "note": "[@ising-3d/chang2024, Table 1, p. 2]; definition [@ising-3d/chang2024, Eqs. (2.7)–(2.8), p. 6]. Error not bold, so not rigorous."
-    },
-    {
-     "symbol": "n_F",
-     "description": "Free-Majorana-fermion coefficient of $\\langle TTT\\rangle$; see $n_B$",
-     "value": "0.013094116(33)",
-     "method": "CB, non-rigorous error",
-     "refs": [
-      "chang2024"
-     ],
-     "note": "[@ising-3d/chang2024, Table 1, p. 2]. The conclusion of [@ising-3d/chang2024, p. 33] states $n_F/(n_F+n_B) = 1.3833683(35)\\%$. Error not bold, so not rigorous."
-    },
-    {
      "symbol": "C_T/C_T^{\\rm free}",
      "description": "Stress-tensor two-point coefficient, relative to one free real scalar",
      "value": "0.946543(42)",
@@ -28041,86 +29680,6 @@
       "reehorst2021"
      ],
      "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.4)], $\\Lambda=19$. Rigorous interval assuming only two $\\mathbb{Z}_2$-even spin-2 operators ($T$, $T'$) below $\\Delta=6$, together with $\\Delta_{\\epsilon'}\\geq 3$ and $\\Delta_{\\sigma'}>3$ [@ising-3d/reehorst2021, Sec. 4.3, App. A.7]. Consistent with $0.946538675(42)$."
-    },
-    {
-     "symbol": "\\lambda_{\\sigma\\sigma\\epsilon'}",
-     "description": "OPE coefficient",
-     "value": "0.05304(16)",
-     "method": "CB, rigorous",
-     "refs": [
-      "reehorst2021"
-     ],
-     "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Table 4], $\\Lambda=19$. Rigorous, assuming $\\Delta_{\\sigma'}>3$, $\\Delta_{\\epsilon''}>6$ and no degeneracy at $\\Delta_{\\epsilon'}$."
-    },
-    {
-     "symbol": "\\lambda_{\\epsilon\\epsilon\\epsilon'}",
-     "description": "OPE coefficient",
-     "value": "1.5362(12)",
-     "method": "CB, rigorous",
-     "refs": [
-      "reehorst2021"
-     ],
-     "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Table 4], $\\Lambda=19$. Same assumptions as $\\lambda_{\\sigma\\sigma\\epsilon'}$."
-    },
-    {
-     "symbol": "\\lambda_{\\sigma\\epsilon\\sigma'}",
-     "description": "OPE coefficient",
-     "value": "0.0565(15)",
-     "method": "CB, rigorous",
-     "refs": [
-      "reehorst2021"
-     ],
-     "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.3)], $\\Lambda=19$. Rigorous, assuming only two $\\mathbb{Z}_2$-odd scalars below $\\Delta=6$ and $\\Delta_{\\epsilon'}>3$ [@ising-3d/reehorst2021, Sec. 4.2]."
-    },
-    {
-     "symbol": "\\lambda_{\\sigma\\sigma\\epsilon'}",
-     "description": "OPE coefficient",
-     "value": "0.053012(55)",
-     "method": "CB-EFM",
-     "refs": [
-      "simmonsduffin2016"
-     ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], where it is written $f_{\\sigma\\sigma\\epsilon'}$; for scalars this is the same normalization as $\\lambda$ here (the same table gives $f_{\\sigma\\sigma\\epsilon} = 1.0518537(41)$). Error: standard deviation over 60 extremal spectra at $\\Lambda=43$, not rigorous [@ising-3d/simmonsduffin2016, App. A.3, p. 71]."
-    },
-    {
-     "symbol": "\\lambda_{\\epsilon\\epsilon\\epsilon'}",
-     "description": "OPE coefficient",
-     "value": "1.5360(16)",
-     "method": "CB-EFM",
-     "refs": [
-      "simmonsduffin2016"
-     ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], written $f_{\\epsilon\\epsilon\\epsilon'}$. Error: standard deviation over 60 extremal spectra, not rigorous."
-    },
-    {
-     "symbol": "\\lambda_{\\sigma\\epsilon\\sigma'}",
-     "description": "OPE coefficient",
-     "value": "0.057235(20)",
-     "method": "CB-EFM",
-     "refs": [
-      "simmonsduffin2016"
-     ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $\\sigma'$ row, $f_{\\sigma O}$ column (the $\\sigma\\times\\epsilon$ OPE). Error: standard deviation over 60 extremal spectra, not rigorous."
-    },
-    {
-     "symbol": "\\lambda_{\\sigma\\sigma\\epsilon}",
-     "description": "OPE coefficient",
-     "value": "1.051(1)",
-     "method": "MC-BC",
-     "refs": [
-      "hasenbusch2017"
-     ],
-     "note": "[@ising-3d/hasenbusch2017, Eq. (37), p. 18], written $f_{\\sigma\\sigma\\epsilon}$ in the bootstrap normalization [@ising-3d/hasenbusch2017, Eqs. (2)–(3)]. Lattices up to $L=1600$. The analysis uses the bootstrap $\\Delta_\\sigma$, $\\Delta_\\epsilon$ as input, and the value is read off at distances $x\\approx 30$; the author notes that it is hard to quote a value not biased by knowledge of the bootstrap result [@ising-3d/hasenbusch2017, p. 18]."
-    },
-    {
-     "symbol": "\\lambda_{\\epsilon\\epsilon\\epsilon}",
-     "description": "OPE coefficient",
-     "value": "1.533(5)",
-     "method": "MC-BC",
-     "refs": [
-      "hasenbusch2017"
-     ],
-     "note": "[@ising-3d/hasenbusch2017, Eq. (38), p. 19], written $f_{\\epsilon\\epsilon\\epsilon}$; read off at distances $x\\approx 25$, with the bootstrap $\\Delta_\\epsilon$ as input (same caveat as $\\lambda_{\\sigma\\sigma\\epsilon}$)."
     },
     {
      "symbol": "\\nu",
@@ -28172,26 +29731,6 @@
      "note": "[@ising-3d/ferrenberg2018, Eq. (39), p. 7], also in the abstract. Lattices up to $1024^3$. The fits fix the correction exponents ($\\omega_1 = 0.83$, $\\omega_2 = 4$, and $\\omega_\\nu=1.6$ in some fits) rather than fitting them."
     },
     {
-     "symbol": "\\lambda_{\\sigma\\sigma\\epsilon}",
-     "description": "OPE coefficient",
-     "value": "1.0539(18)",
-     "method": "FS",
-     "refs": [
-      "hu2023"
-     ],
-     "note": "[@ising-3d/hu2023, Table I, p. 4], written $f_{\\sigma\\sigma\\epsilon}\\approx 1.0539(18)$, from a linear extrapolation in $1/N$ of the six largest sizes (exact diagonalization and DMRG, [@ising-3d/hu2023, Fig. 2]). The error is the difference between the leading-order and next-to-leading-order finite-size fits [@ising-3d/hu2023, Supplemental Material, Sec. IV], a systematic estimate, not a statistical error. About $1\\sigma$ above the bootstrap value."
-    },
-    {
-     "symbol": "\\lambda_{\\epsilon\\epsilon\\epsilon}",
-     "description": "OPE coefficient",
-     "value": "1.5441(23)",
-     "method": "FS",
-     "refs": [
-      "hu2023"
-     ],
-     "note": "[@ising-3d/hu2023, Table I, p. 4], written $f_{\\epsilon\\epsilon\\epsilon}\\approx 1.5441(23)$, finite-size extrapolation; error = difference between leading- and next-to-leading-order fits [@ising-3d/hu2023, Supplemental Material, Sec. IV]. **Disagrees** with the bootstrap value $1.53244304(58)$ by about $5\\times$ its stated error, so the stated error does not cover the extrapolation systematics."
-    },
-    {
      "symbol": "F",
      "description": "Sphere free energy ($F = -\\log Z_{S^3}$), from the entanglement entropy of a disk",
      "value": "0.0612(5)",
@@ -28230,106 +29769,433 @@
       "kompaniets2017, Eq. (42), p. 25",
       "kompaniets2017, Table XI ($n=1$)"
      ]
+    }
+   ],
+   "ope_structures": [
+    {
+     "id": "sd16",
+     "symbol": "f",
+     "ref": "simmonsduffin2016, Eq. (A.16)",
+     "description": "Scalar–scalar–spin-$\\ell$ structure $\\langle\\phi_1\\phi_2 O_{\\Delta,\\ell}\\rangle$, external scalars unit-normalized, with conformal blocks normalized as in [@ising-3d/simmonsduffin2016, Eq. (A.16)], so that they start as $z^{(\\Delta-\\ell)/2}\\bar z^{(\\Delta+\\ell)/2}$. At $\\ell = 0$ it is the three-scalar $\\lambda$. In this normalization the Ward identity gives $f_{\\sigma\\sigma T}/f_{\\epsilon\\epsilon T} = \\Delta_\\sigma/\\Delta_\\epsilon$ and $f_{\\phi\\phi T}^2 = \\frac{3}{8}\\Delta_\\phi^2\\, C_T^{\\rm free}/C_T$ (free scalar: $3/32$). The sign depends on the order of the two external operators: $f_{43O} = (-1)^\\ell f_{34O}$ [@ising-3d/simmonsduffin2016, p. 71].",
+     "relation": "Other papers normalize spinning blocks differently, by spin-dependent factors [@ising-3d/simmonsduffin2016, Eq. (A.17)]."
     },
     {
-     "symbol": "f_{\\sigma\\sigma T}",
-     "description": "OPE coefficient of the stress tensor, in the block normalization of [@ising-3d/simmonsduffin2016, Eq. (A.16)], in which blocks start as $z^{(\\Delta-\\ell)/2}\\bar z^{(\\Delta+\\ell)/2}$",
-     "value": "0.32613776(45)",
-     "method": "CB-EFM",
-     "refs": [
-      "simmonsduffin2016"
-     ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $T_{\\mu\\nu}$ row. Fixed by the Ward identity in terms of $\\Delta_\\sigma$ and $C_T$, so it calibrates this normalization: $f_{\\sigma\\sigma T}/f_{\\epsilon\\epsilon T} = \\Delta_\\sigma/\\Delta_\\epsilon$, and in this normalization $f_{\\phi\\phi T}^2 = \\frac{3}{8}\\Delta_\\phi^2\\, C_T^{\\rm free}/C_T$ (free scalar: $3/32$), which the tabulated values satisfy with $C_T/C_T^{\\rm free} = 0.946538675$. Other papers normalize spinning blocks differently, by spin-dependent factors [@ising-3d/simmonsduffin2016, Eq. (A.17)]. Error not rigorous."
+     "id": "reehorst2021",
+     "symbol": "\\lambda",
+     "ref": "reehorst2021, p. 6, fn. 3",
+     "description": "Scalar–scalar–spin-$\\ell$ structure, external scalars unit-normalized, with the conformal-block normalization of Reehorst [@ising-3d/reehorst2021, p. 6, fn. 3].",
+     "relation": "$\\lambda^2 = 2^\\ell f^2$ relative to the structure of [@ising-3d/simmonsduffin2016, Eq. (A.16)], so $\\lambda = 2f$ at spin 2: the paper notes a factor of 2 relative to the values of [@ising-3d/simmonsduffin2016] from the different block normalization [@ising-3d/reehorst2021, p. 16], and its generalized-free-field coefficients [@ising-3d/reehorst2021, Eq. (2.4)] are $2^\\ell$ times those in the normalization of [@ising-3d/simmonsduffin2016]."
     },
     {
-     "symbol": "f_{\\epsilon\\epsilon T}",
-     "description": "OPE coefficient of the stress tensor, normalization as for $f_{\\sigma\\sigma T}$",
-     "value": "0.8891471(40)",
-     "method": "CB-EFM",
-     "refs": [
-      "simmonsduffin2016"
+     "id": "chang2024-tte",
+     "symbol": "\\lambda",
+     "ref": "chang2024, Eq. (2.2)",
+     "description": "The parity-even structure of $\\langle TT\\epsilon\\rangle$ as normalized by [@ising-3d/chang2024, Eq. (2.2), p. 5], with the unit-normalized $\\hat T = T/\\sqrt{c_T}$ [@ising-3d/chang2024, Eq. (2.9)], chosen to match the five-point-bootstrap convention of Poland, Prilepina and Tadić [@ising-3d/poland2023]. A choice of these papers, not a standard normalization: other papers normalize this structure differently."
+    }
+   ],
+   "ope_coefficients": [
+    {
+     "operators": [
+      "\\sigma",
+      "\\sigma",
+      "\\epsilon"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $T_{\\mu\\nu}$ row. Error not rigorous."
+     "values": [
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\sigma\\sigma\\epsilon}",
+       "value": "1.0518537(41)",
+       "method": "CB",
+       "refs": [
+        "kos2016"
+       ]
+      },
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\sigma\\sigma\\epsilon}",
+       "value": "1.05185373(11)",
+       "method": "CB, non-rigorous error",
+       "refs": [
+        "chang2024"
+       ],
+       "note": "[@ising-3d/chang2024, Table 1, p. 2], derivative order $\\Lambda=43$. The error is not bold in the table, so it is not rigorous. Agrees with the $\\sigma\\epsilon$ island value $1.0518537(41)$ above."
+      },
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\sigma\\sigma\\epsilon}",
+       "value": "1.051(1)",
+       "method": "MC-BC",
+       "refs": [
+        "hasenbusch2017"
+       ],
+       "note": "[@ising-3d/hasenbusch2017, Eq. (37), p. 18], written $f_{\\sigma\\sigma\\epsilon}$ in the bootstrap normalization [@ising-3d/hasenbusch2017, Eqs. (2)–(3)]. Lattices up to $L=1600$. The analysis uses the bootstrap $\\Delta_\\sigma$, $\\Delta_\\epsilon$ as input, and the value is read off at distances $x\\approx 30$; the author notes that it is hard to quote a value not biased by knowledge of the bootstrap result [@ising-3d/hasenbusch2017, p. 18]."
+      },
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\sigma\\sigma\\epsilon}",
+       "value": "1.0539(18)",
+       "method": "FS",
+       "refs": [
+        "hu2023"
+       ],
+       "note": "[@ising-3d/hu2023, Table I, p. 4], written $f_{\\sigma\\sigma\\epsilon}\\approx 1.0539(18)$, from a linear extrapolation in $1/N$ of the six largest sizes (exact diagonalization and DMRG, [@ising-3d/hu2023, Fig. 2]). The error is the difference between the leading-order and next-to-leading-order finite-size fits [@ising-3d/hu2023, Supplemental Material, Sec. IV], a systematic estimate, not a statistical error. About $1\\sigma$ above the bootstrap value."
+      }
+     ]
     },
     {
-     "symbol": "f_{\\sigma\\sigma T'}",
-     "description": "Spinning OPE coefficient, normalization as for $f_{\\sigma\\sigma T}$",
-     "value": "0.0105745(42)",
-     "method": "CB-EFM",
-     "refs": [
-      "simmonsduffin2016"
+     "operators": [
+      "\\epsilon",
+      "\\epsilon",
+      "\\epsilon"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $T'_{\\mu\\nu}$ row. Error: standard deviation over 60 extremal spectra, not rigorous."
+     "values": [
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\epsilon\\epsilon\\epsilon}",
+       "value": "1.532435(19)",
+       "method": "CB",
+       "refs": [
+        "kos2016"
+       ]
+      },
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\epsilon\\epsilon\\epsilon}",
+       "value": "1.53244304(58)",
+       "method": "CB, non-rigorous error",
+       "refs": [
+        "chang2024"
+       ],
+       "note": "[@ising-3d/chang2024, Table 1, p. 2], $\\Lambda=43$; error not bold, so not rigorous. Agrees with $1.532435(19)$ above."
+      },
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\epsilon\\epsilon\\epsilon}",
+       "value": "1.533(5)",
+       "method": "MC-BC",
+       "refs": [
+        "hasenbusch2017"
+       ],
+       "note": "[@ising-3d/hasenbusch2017, Eq. (38), p. 19], written $f_{\\epsilon\\epsilon\\epsilon}$; read off at distances $x\\approx 25$, with the bootstrap $\\Delta_\\epsilon$ as input (same caveat as $\\lambda_{\\sigma\\sigma\\epsilon}$)."
+      },
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\epsilon\\epsilon\\epsilon}",
+       "value": "1.5441(23)",
+       "method": "FS",
+       "refs": [
+        "hu2023"
+       ],
+       "note": "[@ising-3d/hu2023, Table I, p. 4], written $f_{\\epsilon\\epsilon\\epsilon}\\approx 1.5441(23)$, finite-size extrapolation; error = difference between leading- and next-to-leading-order fits [@ising-3d/hu2023, Supplemental Material, Sec. IV]. **Disagrees** with the bootstrap value $1.53244304(58)$ by about $5\\times$ its stated error, so the stated error does not cover the extrapolation systematics."
+      }
+     ]
     },
     {
-     "symbol": "f_{\\epsilon\\epsilon T'}",
-     "description": "Spinning OPE coefficient, normalization as for $f_{\\sigma\\sigma T}$",
-     "value": "0.69023(49)",
-     "method": "CB-EFM",
-     "refs": [
-      "simmonsduffin2016"
+     "operators": [
+      "T_{\\mu\\nu}",
+      "T_{\\mu\\nu}",
+      "\\epsilon"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $T'_{\\mu\\nu}$ row. Not rigorous."
+     "values": [
+      {
+       "structure": "chang2024-tte",
+       "symbol": "\\lambda_{TT\\epsilon}",
+       "value": "0.95331513(42)",
+       "method": "CB, non-rigorous error",
+       "refs": [
+        "chang2024"
+       ],
+       "note": "[@ising-3d/chang2024, Table 1, p. 2]. Error not bold, so not rigorous."
+      }
+     ]
     },
     {
-     "symbol": "f_{\\sigma\\sigma C}",
-     "description": "Spinning OPE coefficient of $C_{\\mu\\nu\\rho\\sigma}$ (spin 4), normalization as for $f_{\\sigma\\sigma T}$",
-     "value": "0.069076(43)",
-     "method": "CB-EFM",
-     "refs": [
-      "simmonsduffin2016"
+     "operators": [
+      "T_{\\mu\\nu}",
+      "T_{\\mu\\nu}",
+      "T_{\\mu\\nu}"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $C_{\\mu\\nu\\rho\\sigma}$ row. Not rigorous."
+     "values": [
+      {
+       "structure": "ttt-free-boson-3d",
+       "symbol": "n_B",
+       "value": "0.933444559(75)",
+       "method": "CB, non-rigorous error",
+       "refs": [
+        "chang2024"
+       ],
+       "note": "[@ising-3d/chang2024, Table 1, p. 2]; definition [@ising-3d/chang2024, Eqs. (2.7)–(2.8), p. 6]. Error not bold, so not rigorous."
+      },
+      {
+       "structure": "ttt-free-fermion-3d",
+       "symbol": "n_F",
+       "value": "0.013094116(33)",
+       "method": "CB, non-rigorous error",
+       "refs": [
+        "chang2024"
+       ],
+       "note": "[@ising-3d/chang2024, Table 1, p. 2]. The conclusion of [@ising-3d/chang2024, p. 33] states $n_F/(n_F+n_B) = 1.3833683(35)\\%$. Error not bold, so not rigorous."
+      }
+     ]
     },
     {
-     "symbol": "f_{\\epsilon\\epsilon C}",
-     "description": "Spinning OPE coefficient of $C_{\\mu\\nu\\rho\\sigma}$, normalization as for $f_{\\sigma\\sigma T}$",
-     "value": "0.24792(20)",
-     "method": "CB-EFM",
-     "refs": [
-      "simmonsduffin2016"
+     "operators": [
+      "\\sigma",
+      "\\sigma",
+      "\\epsilon'"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $C_{\\mu\\nu\\rho\\sigma}$ row. Not rigorous."
+     "values": [
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\sigma\\sigma\\epsilon'}",
+       "value": "0.05304(16)",
+       "method": "CB, rigorous",
+       "refs": [
+        "reehorst2021"
+       ],
+       "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Table 4], $\\Lambda=19$. Rigorous, assuming $\\Delta_{\\sigma'}>3$, $\\Delta_{\\epsilon''}>6$ and no degeneracy at $\\Delta_{\\epsilon'}$."
+      },
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\sigma\\sigma\\epsilon'}",
+       "value": "0.053012(55)",
+       "method": "CB-EFM",
+       "refs": [
+        "simmonsduffin2016"
+       ],
+       "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], where it is written $f_{\\sigma\\sigma\\epsilon'}$; for scalars this is the same normalization as $\\lambda$ here (the same table gives $f_{\\sigma\\sigma\\epsilon} = 1.0518537(41)$). Error: standard deviation over 60 extremal spectra at $\\Lambda=43$, not rigorous [@ising-3d/simmonsduffin2016, App. A.3, p. 71]."
+      }
+     ]
     },
     {
-     "symbol": "f_{\\sigma\\epsilon\\sigma_{\\mu\\nu}}",
-     "description": "Spinning OPE coefficient of the lightest $\\mathbb{Z}_2$-odd spin-2 operator in $\\sigma\\times\\epsilon$, normalization as for $f_{\\sigma\\sigma T}$",
-     "value": "0.38915941(81)",
-     "method": "CB-EFM",
-     "refs": [
-      "simmonsduffin2016"
+     "operators": [
+      "\\epsilon",
+      "\\epsilon",
+      "\\epsilon'"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $\\ell=2$, $\\Delta = 4.180305(18)$ row, $f_{\\sigma\\epsilon O}$ column. Sign depends on the order of $\\sigma,\\epsilon$ ($f_{43O} = (-1)^\\ell f_{34O}$ [@ising-3d/simmonsduffin2016, p. 71]). Not rigorous."
+     "values": [
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\epsilon\\epsilon\\epsilon'}",
+       "value": "1.5362(12)",
+       "method": "CB, rigorous",
+       "refs": [
+        "reehorst2021"
+       ],
+       "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Table 4], $\\Lambda=19$. Same assumptions as $\\lambda_{\\sigma\\sigma\\epsilon'}$."
+      },
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\epsilon\\epsilon\\epsilon'}",
+       "value": "1.5360(16)",
+       "method": "CB-EFM",
+       "refs": [
+        "simmonsduffin2016"
+       ],
+       "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], written $f_{\\epsilon\\epsilon\\epsilon'}$. Error: standard deviation over 60 extremal spectra, not rigorous."
+      }
+     ]
     },
     {
-     "symbol": "f_{\\sigma\\epsilon\\sigma_{\\mu\\nu\\rho}}",
-     "description": "Spinning OPE coefficient of the lightest $\\mathbb{Z}_2$-odd spin-3 operator in $\\sigma\\times\\epsilon$, normalization as for $f_{\\sigma\\sigma T}$",
-     "value": "0.1385(34)",
-     "method": "CB-EFM",
-     "refs": [
-      "simmonsduffin2016"
+     "operators": [
+      "\\sigma",
+      "\\epsilon",
+      "\\sigma'"
      ],
-     "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $\\ell=3$ row. Odd spin, so the sign flips with the order of $\\sigma,\\epsilon$. Not rigorous."
+     "values": [
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\sigma\\epsilon\\sigma'}",
+       "value": "0.0565(15)",
+       "method": "CB, rigorous",
+       "refs": [
+        "reehorst2021"
+       ],
+       "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.3)], $\\Lambda=19$. Rigorous, assuming only two $\\mathbb{Z}_2$-odd scalars below $\\Delta=6$ and $\\Delta_{\\epsilon'}>3$ [@ising-3d/reehorst2021, Sec. 4.2]."
+      },
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\sigma\\epsilon\\sigma'}",
+       "value": "0.057235(20)",
+       "method": "CB-EFM",
+       "refs": [
+        "simmonsduffin2016"
+       ],
+       "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $\\sigma'$ row, $f_{\\sigma O}$ column (the $\\sigma\\times\\epsilon$ OPE). Error: standard deviation over 60 extremal spectra, not rigorous."
+      }
+     ]
     },
     {
-     "symbol": "\\lambda_{\\sigma\\sigma T'}",
-     "description": "Spinning OPE coefficient in the block normalization of Reehorst [@ising-3d/reehorst2021, p. 6, fn. 3], in which $\\lambda^2 = 2^\\ell f^2$ relative to the $f$ rows, so $\\lambda = 2f$ at spin 2",
-     "value": "0.02107(20)",
-     "method": "CB, rigorous",
-     "refs": [
-      "reehorst2021"
+     "operators": [
+      "\\sigma",
+      "\\sigma",
+      "T_{\\mu\\nu}"
      ],
-     "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.5), p. 16], $\\Lambda=19$. Rigorous, assuming only two $\\mathbb{Z}_2$-even spin-2 operators below 6. The paper notes a factor of 2 relative to the value of [@ising-3d/simmonsduffin2016] from a different block normalization [@ising-3d/reehorst2021, p. 16]; his generalized-free-field coefficients [@ising-3d/reehorst2021, Eq. (2.4)] are $2^\\ell$ times those in the normalization of [@ising-3d/simmonsduffin2016]. Compare $2 f_{\\sigma\\sigma T'} = 0.021149(8)$."
+     "values": [
+      {
+       "structure": "sd16",
+       "symbol": "f_{\\sigma\\sigma T}",
+       "value": "0.32613776(45)",
+       "method": "CB-EFM",
+       "refs": [
+        "simmonsduffin2016"
+       ],
+       "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $T_{\\mu\\nu}$ row. Fixed by the Ward identity in terms of $\\Delta_\\sigma$ and $C_T$, so it calibrates this normalization: the tabulated values satisfy the Ward-identity relations stated with the structure, with $C_T/C_T^{\\rm free} = 0.946538675$. Error not rigorous."
+      }
+     ]
     },
     {
-     "symbol": "\\lambda_{\\epsilon\\epsilon T'}",
-     "description": "Spinning OPE coefficient, normalization as for $\\lambda_{\\sigma\\sigma T'}$",
-     "value": "1.355(30)",
-     "method": "CB, rigorous",
-     "refs": [
-      "reehorst2021"
+     "operators": [
+      "\\epsilon",
+      "\\epsilon",
+      "T_{\\mu\\nu}"
      ],
-     "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.5), p. 16], $\\Lambda=19$. Same assumptions. Compare $2 f_{\\epsilon\\epsilon T'} = 1.3805(10)$, which lies inside this interval."
+     "values": [
+      {
+       "structure": "sd16",
+       "symbol": "f_{\\epsilon\\epsilon T}",
+       "value": "0.8891471(40)",
+       "method": "CB-EFM",
+       "refs": [
+        "simmonsduffin2016"
+       ],
+       "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $T_{\\mu\\nu}$ row. Error not rigorous."
+      }
+     ]
+    },
+    {
+     "operators": [
+      "\\sigma",
+      "\\sigma",
+      "T'_{\\mu\\nu}"
+     ],
+     "values": [
+      {
+       "structure": "sd16",
+       "symbol": "f_{\\sigma\\sigma T'}",
+       "value": "0.0105745(42)",
+       "method": "CB-EFM",
+       "refs": [
+        "simmonsduffin2016"
+       ],
+       "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $T'_{\\mu\\nu}$ row. Error: standard deviation over 60 extremal spectra, not rigorous."
+      },
+      {
+       "structure": "reehorst2021",
+       "symbol": "\\lambda_{\\sigma\\sigma T'}",
+       "value": "0.02107(20)",
+       "method": "CB, rigorous",
+       "refs": [
+        "reehorst2021"
+       ],
+       "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.5), p. 16], $\\Lambda=19$. Rigorous, assuming only two $\\mathbb{Z}_2$-even spin-2 operators below 6. Compare $2 f_{\\sigma\\sigma T'} = 0.021149(8)$."
+      }
+     ]
+    },
+    {
+     "operators": [
+      "\\epsilon",
+      "\\epsilon",
+      "T'_{\\mu\\nu}"
+     ],
+     "values": [
+      {
+       "structure": "sd16",
+       "symbol": "f_{\\epsilon\\epsilon T'}",
+       "value": "0.69023(49)",
+       "method": "CB-EFM",
+       "refs": [
+        "simmonsduffin2016"
+       ],
+       "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $T'_{\\mu\\nu}$ row. Not rigorous."
+      },
+      {
+       "structure": "reehorst2021",
+       "symbol": "\\lambda_{\\epsilon\\epsilon T'}",
+       "value": "1.355(30)",
+       "method": "CB, rigorous",
+       "refs": [
+        "reehorst2021"
+       ],
+       "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.5), p. 16], $\\Lambda=19$. Same assumptions. Compare $2 f_{\\epsilon\\epsilon T'} = 1.3805(10)$, which lies inside this interval."
+      }
+     ]
+    },
+    {
+     "operators": [
+      "\\sigma",
+      "\\sigma",
+      "C_{\\mu\\nu\\rho\\sigma}"
+     ],
+     "values": [
+      {
+       "structure": "sd16",
+       "symbol": "f_{\\sigma\\sigma C}",
+       "value": "0.069076(43)",
+       "method": "CB-EFM",
+       "refs": [
+        "simmonsduffin2016"
+       ],
+       "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $C_{\\mu\\nu\\rho\\sigma}$ row. Not rigorous."
+      }
+     ]
+    },
+    {
+     "operators": [
+      "\\epsilon",
+      "\\epsilon",
+      "C_{\\mu\\nu\\rho\\sigma}"
+     ],
+     "values": [
+      {
+       "structure": "sd16",
+       "symbol": "f_{\\epsilon\\epsilon C}",
+       "value": "0.24792(20)",
+       "method": "CB-EFM",
+       "refs": [
+        "simmonsduffin2016"
+       ],
+       "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $C_{\\mu\\nu\\rho\\sigma}$ row. Not rigorous."
+      }
+     ]
+    },
+    {
+     "operators": [
+      "\\sigma",
+      "\\epsilon",
+      "\\sigma_{\\mu\\nu}"
+     ],
+     "values": [
+      {
+       "structure": "sd16",
+       "symbol": "f_{\\sigma\\epsilon\\sigma_{\\mu\\nu}}",
+       "value": "0.38915941(81)",
+       "method": "CB-EFM",
+       "refs": [
+        "simmonsduffin2016"
+       ],
+       "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $\\ell=2$, $\\Delta = 4.180305(18)$ row, $f_{\\sigma\\epsilon O}$ column. Not rigorous."
+      }
+     ]
+    },
+    {
+     "operators": [
+      "\\sigma",
+      "\\epsilon",
+      "\\sigma_{\\mu\\nu\\rho}"
+     ],
+     "values": [
+      {
+       "structure": "sd16",
+       "symbol": "f_{\\sigma\\epsilon\\sigma_{\\mu\\nu\\rho}}",
+       "value": "0.1385(34)",
+       "method": "CB-EFM",
+       "refs": [
+        "simmonsduffin2016"
+       ],
+       "note": "[@ising-3d/simmonsduffin2016, Table 2, p. 72], $\\ell=3$ row. Odd spin, so the sign flips with the order of $\\sigma,\\epsilon$. Not rigorous."
+      }
+     ]
     }
    ],
    "operators": [
@@ -29728,16 +31594,27 @@
       "chang2024, Table 2"
      ],
      "note": "From $\\Delta_\\epsilon$ [@ising-star-3d/chang2024, Table 2]; identical to the 3d Ising value."
-    },
+    }
+   ],
+   "ope_coefficients": [
     {
-     "symbol": "\\lambda_{\\epsilon\\epsilon\\epsilon}",
-     "description": "OPE coefficient",
-     "value": "1.53244304(58)",
-     "method": "CB",
-     "refs": [
-      "chang2024"
+     "operators": [
+      "\\epsilon",
+      "\\epsilon",
+      "\\epsilon"
      ],
-     "note": "Identical to the 3d Ising value."
+     "values": [
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{\\epsilon\\epsilon\\epsilon}",
+       "value": "1.53244304(58)",
+       "method": "CB",
+       "refs": [
+        "chang2024"
+       ],
+       "note": "Identical to the 3d Ising value."
+      }
+     ]
     }
    ],
    "operators": [
@@ -29933,16 +31810,27 @@
      "refs": [
       "an2016"
      ]
-    },
+    }
+   ],
+   "ope_coefficients": [
     {
-     "symbol": "|C_{\\phi\\phi\\phi}|",
-     "description": "OPE coefficient (absolute value)",
-     "value": "1.9696(31)",
-     "method": "FS",
-     "refs": [
-      "arguellocruz2025"
+     "operators": [
+      "\\phi",
+      "\\phi",
+      "\\phi"
      ],
-     "note": "From matrix elements of the fuzzy-sphere observable $Z_\\ell$; from $X_\\ell$, $1.969(5)$. The truncated bootstrap gives $C_{\\phi\\phi\\phi}^2 = -3.88(1)$ [@lee-yang-3d/gliozzi2014]: the coefficient is imaginary."
+     "values": [
+      {
+       "structure": "scalar",
+       "symbol": "|C_{\\phi\\phi\\phi}|",
+       "value": "1.9696(31)",
+       "method": "FS",
+       "refs": [
+        "arguellocruz2025"
+       ],
+       "note": "From matrix elements of the fuzzy-sphere observable $Z_\\ell$; from $X_\\ell$, $1.969(5)$. The truncated bootstrap gives $C_{\\phi\\phi\\phi}^2 = -3.88(1)$ [@lee-yang-3d/gliozzi2014]: the coefficient is imaginary."
+      }
+     ]
     }
    ],
    "operators": [
@@ -31609,41 +33497,87 @@
      "refs": [
       "chester2019"
      ]
-    },
+    }
+   ],
+   "ope_structures": [
     {
-     "symbol": "\\lambda_{\\phi\\phi s}",
-     "description": "OPE coefficient",
-     "value": "0.687126(27)",
-     "method": "CB, non-rigorous error",
-     "refs": [
-      "chester2019"
+     "id": "chester2019",
+     "symbol": "\\lambda",
+     "ref": "chester2019",
+     "description": "$O(2)$ tensor structures of the three-point functions that involve the charge-2 scalar $t$, with the operators unit-normalized and the invariant tensors normalized as in [@o2-model-3d/chester2019]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator."
+    }
+   ],
+   "ope_coefficients": [
+    {
+     "operators": [
+      "\\phi",
+      "\\phi",
+      "s"
+     ],
+     "values": [
+      {
+       "structure": "vector-vector-singlet",
+       "symbol": "\\lambda_{\\phi\\phi s}",
+       "value": "0.687126(27)",
+       "method": "CB, non-rigorous error",
+       "refs": [
+        "chester2019"
+       ]
+      }
      ]
     },
     {
-     "symbol": "\\lambda_{sss}",
-     "description": "OPE coefficient",
-     "value": "0.830914(32)",
-     "method": "CB, non-rigorous error",
-     "refs": [
-      "chester2019"
+     "operators": [
+      "s",
+      "s",
+      "s"
+     ],
+     "values": [
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{sss}",
+       "value": "0.830914(32)",
+       "method": "CB, non-rigorous error",
+       "refs": [
+        "chester2019"
+       ]
+      }
      ]
     },
     {
-     "symbol": "\\lambda_{tts}",
-     "description": "OPE coefficient",
-     "value": "1.25213(14)",
-     "method": "CB, non-rigorous error",
-     "refs": [
-      "chester2019"
+     "operators": [
+      "t",
+      "t",
+      "s"
+     ],
+     "values": [
+      {
+       "structure": "chester2019",
+       "symbol": "\\lambda_{tts}",
+       "value": "1.25213(14)",
+       "method": "CB, non-rigorous error",
+       "refs": [
+        "chester2019"
+       ]
+      }
      ]
     },
     {
-     "symbol": "\\lambda_{\\phi\\phi t}",
-     "description": "OPE coefficient",
-     "value": "1.213408(65)",
-     "method": "CB, non-rigorous error",
-     "refs": [
-      "chester2019"
+     "operators": [
+      "\\phi",
+      "\\phi",
+      "t"
+     ],
+     "values": [
+      {
+       "structure": "chester2019",
+       "symbol": "\\lambda_{\\phi\\phi t}",
+       "value": "1.213408(65)",
+       "method": "CB, non-rigorous error",
+       "refs": [
+        "chester2019"
+       ]
+      }
      ]
     }
    ],
@@ -32019,50 +33953,105 @@
      "refs": [
       "chester2020"
      ]
-    },
+    }
+   ],
+   "ope_structures": [
     {
-     "symbol": "\\lambda_{\\phi\\phi s}",
-     "description": "OPE coefficient",
-     "value": "0.524261(59)",
-     "method": "CB, non-rigorous error",
-     "refs": [
-      "chester2020"
+     "id": "chester2020",
+     "symbol": "\\lambda",
+     "ref": "chester2020",
+     "description": "$O(3)$ tensor structures of the three-point functions that involve the symmetric traceless tensor $t_{ij}$, with the operators unit-normalized and the invariant tensors normalized as in [@o3-model-3d/chester2020]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator."
+    }
+   ],
+   "ope_coefficients": [
+    {
+     "operators": [
+      "\\phi_i",
+      "\\phi_i",
+      "s"
+     ],
+     "values": [
+      {
+       "structure": "vector-vector-singlet",
+       "symbol": "\\lambda_{\\phi\\phi s}",
+       "value": "0.524261(59)",
+       "method": "CB, non-rigorous error",
+       "refs": [
+        "chester2020"
+       ]
+      }
      ]
     },
     {
-     "symbol": "\\lambda_{sss}",
-     "description": "OPE coefficient",
-     "value": "0.5055(11)",
-     "method": "CB, non-rigorous error",
-     "refs": [
-      "chester2020"
+     "operators": [
+      "s",
+      "s",
+      "s"
+     ],
+     "values": [
+      {
+       "structure": "scalar",
+       "symbol": "\\lambda_{sss}",
+       "value": "0.5055(11)",
+       "method": "CB, non-rigorous error",
+       "refs": [
+        "chester2020"
+       ]
+      }
      ]
     },
     {
-     "symbol": "\\lambda_{tts}",
-     "description": "OPE coefficient",
-     "value": "0.98348(39)",
-     "method": "CB, non-rigorous error",
-     "refs": [
-      "chester2020"
+     "operators": [
+      "t_{ij}",
+      "t_{ij}",
+      "s"
+     ],
+     "values": [
+      {
+       "structure": "chester2020",
+       "symbol": "\\lambda_{tts}",
+       "value": "0.98348(39)",
+       "method": "CB, non-rigorous error",
+       "refs": [
+        "chester2020"
+       ]
+      }
      ]
     },
     {
-     "symbol": "\\lambda_{\\phi\\phi t}",
-     "description": "OPE coefficient",
-     "value": "0.87451(22)",
-     "method": "CB, non-rigorous error",
-     "refs": [
-      "chester2020"
+     "operators": [
+      "\\phi_i",
+      "\\phi_i",
+      "t_{ij}"
+     ],
+     "values": [
+      {
+       "structure": "chester2020",
+       "symbol": "\\lambda_{\\phi\\phi t}",
+       "value": "0.87451(22)",
+       "method": "CB, non-rigorous error",
+       "refs": [
+        "chester2020"
+       ]
+      }
      ]
     },
     {
-     "symbol": "\\lambda_{ttt}",
-     "description": "OPE coefficient",
-     "value": "1.49957(49)",
-     "method": "CB, non-rigorous error",
-     "refs": [
-      "chester2020"
+     "operators": [
+      "t_{ij}",
+      "t_{ij}",
+      "t_{ij}"
+     ],
+     "values": [
+      {
+       "structure": "chester2020",
+       "symbol": "\\lambda_{ttt}",
+       "value": "1.49957(49)",
+       "method": "CB, non-rigorous error",
+       "refs": [
+        "chester2020"
+       ]
+      }
      ]
     }
    ],
@@ -37776,7 +39765,8 @@
      "refs": [
       "gimenezgrau2020"
      ],
-     "note": "Lower and upper bounds at derivative order $\\Lambda = 50$ [@argyres-douglas-4d/gimenezgrau2020, Table 7], with $\\Delta_u$ and $c$ fixed to the values above. For $H_0$ see the minimal Argyres–Douglas entry."
+     "note": "Lower and upper bounds at derivative order $\\Lambda = 50$ [@argyres-douglas-4d/gimenezgrau2020, Table 7], with $\\Delta_u$ and $c$ fixed to the values above. For $H_0$ see the minimal Argyres–Douglas entry.",
+     "category": "ope"
     }
    ],
    "operators": [
@@ -40884,26 +42874,45 @@
       "liendo2015"
      ],
      "note": "Saturates the bound $c \\geq \\tfrac{11}{30}$ for interacting $\\mathcal{N}=2$ SCFTs [@minimal-ad-4d/liendo2015, Eq. (4.14)]."
-    },
+    }
+   ],
+   "ope_structures": [
     {
-     "symbol": "\\lambda^2_{u^2}",
-     "description": "Squared OPE coefficient of $u^2$ in $u\\times u$ (unit-normalized two-point functions)",
-     "value": "[2.142596,\\ 2.16509]",
-     "method": "CB, rigorous bounds",
-     "refs": [
-      "gimenezgrau2020"
-     ],
-     "note": "Bounds at derivative order $\\Lambda = 50$ [@minimal-ad-4d/gimenezgrau2020, Table 7]."
-    },
+     "id": "chiral",
+     "symbol": "\\lambda",
+     "name": "chiral, unit-normalized",
+     "description": "Coefficient of the Coulomb-branch chiral operator $u^2$ in the chiral OPE $u\\times u$, i.e. of the structure of $\\langle u\\,u\\,\\overline{u^2}\\rangle$, with unit-normalized two-point functions $\\langle u(x)\\bar u(0)\\rangle = |x|^{-2\\Delta_u}$ and $\\langle u^2(x)\\,\\overline{u^2}(0)\\rangle = |x|^{-2\\Delta_{u^2}}$."
+    }
+   ],
+   "ope_coefficients": [
     {
-     "symbol": "\\lambda^2_{u^2}",
-     "description": "Squared OPE coefficient of $u^2$ in $u\\times u$ (unit-normalized two-point functions)",
-     "value": "[2.1418,\\ 2.1672]",
-     "method": "CB, rigorous bounds",
-     "refs": [
-      "cornagliotto2017, Eq. (3.1)"
+     "operators": [
+      "u",
+      "u",
+      "u^2"
      ],
-     "note": "Bounds at $\\Lambda = 40$ (earlier study). Conservative extrapolation: $2.146 \\lesssim \\lambda^2 \\lesssim 2.159$ [@minimal-ad-4d/cornagliotto2017, Eq. (3.2)]."
+     "values": [
+      {
+       "structure": "chiral",
+       "symbol": "\\lambda^2_{u^2}",
+       "value": "[2.142596,\\ 2.16509]",
+       "method": "CB, rigorous bounds",
+       "refs": [
+        "gimenezgrau2020"
+       ],
+       "note": "Bounds at derivative order $\\Lambda = 50$ [@minimal-ad-4d/gimenezgrau2020, Table 7]."
+      },
+      {
+       "structure": "chiral",
+       "symbol": "\\lambda^2_{u^2}",
+       "value": "[2.1418,\\ 2.1672]",
+       "method": "CB, rigorous bounds",
+       "refs": [
+        "cornagliotto2017, Eq. (3.1)"
+       ],
+       "note": "Bounds at $\\Lambda = 40$ (earlier study). Conservative extrapolation: $2.146 \\lesssim \\lambda^2 \\lesssim 2.159$ [@minimal-ad-4d/cornagliotto2017, Eq. (3.2)]."
+      }
+     ]
     }
    ],
    "operators": [
@@ -41425,6 +43434,28 @@
       "beem2014"
      ],
      "note": "Coulomb-branch chiral ring generators, $k = 2,\\dots,N$. The top component of the $k=2$ multiplet is the exactly marginal operator.",
+     "family": {
+      "id": "coulomb-branch",
+      "parameters": [
+       {
+        "symbol": "k",
+        "from": 2,
+        "to": "N"
+       }
+      ]
+     },
+     "family_view": {
+      "id": "coulomb-branch",
+      "range": "k = 2, 3, \\dots, N",
+      "first": {
+       "k": "2"
+      },
+      "sort": {
+       "Delta": 2.0,
+       "spin": 0.0
+      },
+      "members": 0
+     },
      "irrep": {
       "global": [
        {
@@ -42164,7 +44195,73 @@
    ],
    "operators": [
     {
+     "name": "\\mathcal{O}_k = \\mathrm{Tr}\\,\\phi^{\\{I_1}\\cdots\\phi^{I_k\\}}",
+     "family": {
+      "id": "half-BPS",
+      "parameters": [
+       {
+        "symbol": "k",
+        "from": 2,
+        "to": "N"
+       }
+      ]
+     },
+     "Delta": "k",
+     "spin": 0,
+     "parity": "unknown",
+     "global": {
+      "SU(4)_R": "Dynkin(0,k,0)"
+     },
+     "multiplet": {
+      "name": "$\\mathcal{O}_k$",
+      "component": "primary",
+      "type": "half-BPS"
+     },
+     "method": "exact",
+     "refs": [
+      "maldacena1997"
+     ],
+     "note": "Single-trace half-BPS superconformal primaries (symmetric traceless products of the six scalars), dual to the Kaluza–Klein modes on $S^5$; $\\Delta = k$ is protected at every $\\tau$. For $SU(N)$ the traces with $k > N$ are products of these. Multi-trace half-BPS operators in the same representations (from $k = 4$) are not listed. Parity not recorded: it acts on the six scalars by a reflection in $O(6)$, not by a sign.",
+     "family_view": {
+      "id": "half-BPS",
+      "range": "k = 2, 3, \\dots, N",
+      "first": {
+       "k": "2"
+      },
+      "sort": {
+       "Delta": 2.0,
+       "spin": 0.0
+      },
+      "members": 1
+     },
+     "irrep": {
+      "global": [
+       {
+        "factor": "SU(4)_R",
+        "canon": "Dynkin(0,k,0)",
+        "short": "$[0,k,0]$",
+        "text": "$SU(4)_R$ $[0,k,0]$",
+        "trivial": false,
+        "sort": [
+         20,
+         0,
+         2,
+         0,
+         0,
+         0.5
+        ],
+        "family": true
+       }
+      ],
+      "key": "SU(4)_R=Dynkin(0,k,0)"
+     }
+    },
+    {
      "name": "\\mathcal{O}_{\\mathbf{20}^\\prime} = \\mathrm{Tr}\\,\\phi^{\\{I}\\phi^{J\\}}",
+     "member_of": "half-BPS",
+     "at": {
+      "k": 2
+     },
      "Delta": 2,
      "spin": 0,
      "parity": "even",
@@ -42196,6 +44293,14 @@
        }
       ],
       "key": "SU(4)_R=Dynkin(0,2,0)"
+     },
+     "member_view": {
+      "family": "half-BPS",
+      "index": 0,
+      "at": "k = 2",
+      "sort": [
+       2.0
+      ]
      }
     },
     {
@@ -49334,7 +51439,7 @@
    "abbr": "exact",
    "name": "Exact result",
    "description": "Known in closed form or to arbitrary precision: a solved model, a symmetry or a proof. The qualifier says how, e.g. `exact, planar limit`.",
-   "rows": 557,
+   "rows": 558,
    "entries": [
     "lee-yang-2d",
     "virasoro-minimal-nonunitary",
@@ -49937,6 +52042,60 @@
    "entries": [
     "o2-model-3d"
    ]
+  }
+ ],
+ "ope_structures": [
+  {
+   "id": "scalar",
+   "symbol": "\\lambda",
+   "name": "three scalars, unit-normalized",
+   "default": true,
+   "spins": [
+    0,
+    0,
+    0
+   ],
+   "description": "Three scalars $O_1, O_2, O_3$ that are singlets of any continuous global symmetry, with unit-normalized two-point functions $\\langle O_i(x) O_i(0)\\rangle = |x|^{-2\\Delta_i}$: $\\langle O_1(x_1) O_2(x_2) O_3(x_3)\\rangle = \\lambda_{123}\\, |x_{12}|^{\\Delta_3-\\Delta_1-\\Delta_2}|x_{13}|^{\\Delta_2-\\Delta_1-\\Delta_3}|x_{23}|^{\\Delta_1-\\Delta_2-\\Delta_3}$. In 2d it is often written $C_{123}$. The sign of $\\lambda$ depends on the signs chosen for the operators."
+  },
+  {
+   "id": "vector-vector-singlet",
+   "symbol": "\\lambda",
+   "name": "vector × vector → singlet, $\\delta_{ij}$",
+   "default": true,
+   "spins": [
+    0,
+    0,
+    0
+   ],
+   "description": "Two scalars $\\phi_i$ in the vector of $O(N)$ and a singlet scalar $s$, with $\\langle \\phi_i(x)\\phi_j(0)\\rangle = \\delta_{ij}|x|^{-2\\Delta_\\phi}$ and $s$ unit-normalized: $\\langle\\phi_i\\phi_j s\\rangle = \\lambda_{\\phi\\phi s}\\,\\delta_{ij}$ times the three-scalar structure."
+  },
+  {
+   "id": "ttt-free-boson-3d",
+   "symbol": "n_B",
+   "name": "free-boson structure",
+   "d": 3,
+   "spins": [
+    2,
+    2,
+    2
+   ],
+   "basis": "ttt-free-3d",
+   "description": "The parity-even stress-tensor three-point function of a 3d CFT is a combination of two structures, $\\langle TTT\\rangle = n_B\\langle TTT\\rangle_B + n_F\\langle TTT\\rangle_F$, where $\\langle TTT\\rangle_B$ is that of one free real scalar and $\\langle TTT\\rangle_F$ that of one free Majorana fermion (each with its own $T$ normalized by the Ward identity). $n_B$ is the coefficient of the free-scalar structure.",
+   "relation": "$n_B + n_F = C_T/C_T^{\\rm free}$, with $C_T^{\\rm free}$ that of one free real scalar (equal to that of one Majorana fermion in 3d)."
+  },
+  {
+   "id": "ttt-free-fermion-3d",
+   "symbol": "n_F",
+   "name": "free-fermion structure",
+   "d": 3,
+   "spins": [
+    2,
+    2,
+    2
+   ],
+   "basis": "ttt-free-3d",
+   "description": "The coefficient of the free-Majorana-fermion structure $\\langle TTT\\rangle_F$ in $\\langle TTT\\rangle = n_B\\langle TTT\\rangle_B + n_F\\langle TTT\\rangle_F$ (see the free-boson structure).",
+   "relation": "$n_B + n_F = C_T/C_T^{\\rm free}$."
   }
  ]
 }

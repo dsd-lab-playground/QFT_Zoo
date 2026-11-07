@@ -524,8 +524,9 @@ function applyFilters() {
 
 // A theory's quantities are shown by kind: central charges and free energies, anomalies, OPE
 // coefficients, critical exponents, other. A quantity's kind is its `category`, or else inferred
-// from its key, symbol and description (quantityCategory). Rows with the same symbol that describe
-// the same quantity (other papers or methods) are one item: the most precise first, the rest folded.
+// from its key, symbol and description (quantityCategory); `ope` is never inferred. Rows with the same
+// symbol that describe the same quantity (other papers or methods) are one item: the most precise first,
+// the rest folded. OPE coefficients are their own data (`ope_coefficients`, docs/OPE.md), shown by opeItems.
 const wiki = (page, text) => `<a href="https://en.wikipedia.org/wiki/${page}" target="_blank" rel="noopener">${text}</a>`;
 const QCATS = {
   central: {
@@ -541,10 +542,9 @@ const QCATS = {
   ope: {
     id: "ope",
     title: "OPE coefficients",
-    intro: (grouped) =>
+    intro: (triplets) =>
       `Coefficients of the ${wiki("Operator_product_expansion", "operator product expansion")}${
-        grouped ? ", grouped by the OPE they appear in and ordered by the dimension of the exchanged operator" : ""}. ` +
-      "Papers normalize operators and conformal blocks differently; a row states its convention where the entry records it.",
+        triplets ? ": one item per triplet of operators, those with the lightest operators first. Each value multiplies a three-point structure, defined below and named in the value's row (except a standard one marked as unlabelled); values in different structures are different numbers and are never compared" : ""}.`,
   },
   exponent: {
     id: "exponents",
@@ -566,12 +566,10 @@ function quantityCategory(q, t) {
   if (q.key === "gap") return "other";
   // a, c (4d) and a, c_i (6d) are Weyl-anomaly coefficients; in 2d, c is the Virasoro central charge.
   if (/\banomal(y|ies)\b/i.test(d) || (t.d >= 4 && /^(a|c|a\s*=\s*c|c_[1-3])$/.test(s)) || /^\[?I_\d/.test(s)) return "anomaly";
-  if (/OPE (coefficient|measure)|^(\S+\s)?three-point|structure constant|reflection amplitude|\\langle\s*TTT/i.test(d)) return "ope";
   if (/^(C_T|C_J|k(?![A-Za-z])|\\tau_|F(?![A-Za-z])|\\tilde\s*F|Z_\{?S|\(c_L|c_\{\\rm eff\}|c$)/.test(s) ||
       /central charge|two-point coefficient|free energy/i.test(d)) return "central";
   if (/exponent|anomalous dimension|fractal dimension|RG eigenvalue/i.test(d) ||
       /^(\\nu|\\eta|\\omega|\\beta|\\gamma|\\delta|\\theta|1\/\\nu|d_[fFH])(?![A-Za-z])/.test(s)) return "exponent";
-  if (/^\|?(\\lambda|f|C)(\^\{?[^_]*?\}?)?_\{/.test(s)) return "ope";
   return "other";
 }
 
@@ -582,84 +580,6 @@ const normTex = (s) =>
     .replace(/\^\{((?:\\prime)+)\}/g, (_, p) => "'".repeat(p.length / 6))
     .replace(/\^\\prime/g, "'")
     .replace(/\\varepsilon/g, "\\epsilon");
-
-/** Index just past the group that opens at s[j] ("{" or "["). */
-function groupEnd(s, j) {
-  const open = s[j], close = open === "{" ? "}" : "]";
-  let depth = 0;
-  for (let k = j; k < s.length; k++) {
-    if (s[k] === open) depth++;
-    else if (s[k] === close && --depth === 0) return k + 1;
-  }
-  return s.length;
-}
-
-/** Split a product of operator names ("\sigma\sigma\epsilon'", "TT\epsilon", "\phi\phi s") into names. */
-function texTokens(src) {
-  const s = String(src);
-  const atom = (j) => {
-    if (s[j] === "{" || s[j] === "[") return groupEnd(s, j);
-    if (s[j] !== "\\") return j + 1;
-    let k = j + 1;
-    while (k < s.length && /[a-zA-Z]/.test(s[k])) k++;
-    if (k === j + 1) return k + 1;
-    if (/^(mathcal|mathbb|mathrm|mathbf|bar|tilde|hat|rm)$/.test(s.slice(j + 1, k))) {
-      while (s[k] === " ") k++;
-      return atom(k);
-    }
-    return k;
-  };
-  const out = [];
-  for (let i = 0; i < s.length; ) {
-    if (/[\s,]/.test(s[i])) { i++; continue; }
-    let k = atom(i);
-    for (;;) {
-      if (s[k] === "'") k++;
-      else if (s[k] === "_" || s[k] === "^") k = atom(k + 1);
-      else break;
-    }
-    out.push(s.slice(i, k));
-    i = k;
-  }
-  return out;
-}
-
-/** The operators of an OPE coefficient [O1, O2, O3] (O3 exchanged in O1 × O2), from its symbol
- *  (\lambda_{O1 O2 O3}, f_{...}, C_{...}) or its description ("in $u\times u$", "<TTT>"); else null. */
-function opeOperators(q) {
-  const s = String(q.symbol).replace(/^\|/, "");
-  const d = q.description || "";
-  let toks = [];
-  const m = s.match(/^(?:\\lambda|f|C)(?:\^\{?[^_{}]*\}?)?_/);
-  if (m) {
-    const j = m[0].length;
-    toks = texTokens(s[j] === "{" ? s.slice(j + 1, groupEnd(s, j) - 1) : s[j]);
-  }
-  if (toks.length >= 3) return toks;
-  const x = d.match(/\$([^$]*?)\\times([^$]*?)\$/);
-  if (x) return [x[1].trim(), x[2].trim(), toks[0] ?? ""];
-  const y = d.match(/\\langle\s*([^$]*?)\s*\\rangle/);
-  if (y && texTokens(y[1]).length >= 3) return texTokens(y[1]);
-  return null;
-}
-
-/** Scaling dimension of a named operator in the theory's table (Infinity if not found). Names match
- *  loosely: "T" finds T_{\mu\nu}, "C" finds C_{\mu\nu\rho\sigma}. */
-function operatorDims(t) {
-  const exact = new Map(), loose = new Map();
-  const strip = (n) => n.replace(/_\{(?:\\(?:mu|nu|rho|sigma|lambda|kappa|alpha|beta)(?:_\d)?|\\[cl]dots|\d)+\}/g, "");
-  for (const o of t.operators || []) {
-    const v = parseFloat(o.Delta);
-    const D = Number.isFinite(v) ? v : Infinity;
-    const n = normTex(o.name);
-    if (!exact.has(n) || exact.get(n) > D) exact.set(n, D);
-    if (!loose.has(strip(n)) || loose.get(strip(n)) > D) loose.set(strip(n), D);
-  }
-  return (name) => {
-    const n = normTex(name);
-    return exact.get(n) ?? loose.get(n) ?? loose.get(strip(n)) ?? Infinity;
-  };
-}
 
 /** A value as a range: { x, e } (central value and stated error; e = 0 when exact), { hi } or { lo } (a one-sided
  *  bound), or null when it states no error ("1.41", "\approx 0.86", a series in 1/N). */
@@ -785,8 +705,91 @@ function exponentRelation(it) {
 
 let DET_SEQ = 0;
 
-/** One table of quantity items. With `cat`, the table is shaped for that kind: exponents get a
- *  relation column, OPE coefficients are grouped by OPE. */
+/* OPE coefficients (docs/OPE.md). Data: `ope_coefficients`, one item per triplet of operators, each value naming the
+   structure it multiplies: a standard one (data/ope_structures.yaml, DB.ope_structures) or one the entry defines in
+   `ope_structures`, by a citation of the formula that defines it. Presentation, by rule:
+   - one item per triplet, ordered by the dimensions of its operators (sorted, lightest first, compared in turn;
+     operators named by label sort last), ties in data order;
+   - in a triplet, each element of a basis of several structures (a structure with `basis`, e.g. n_B and n_F of
+     <TTT>) is a coefficient of its own, on its own line; all other values are one line (one coefficient, possibly
+     determined in different bases);
+   - in a line, values are grouped by structure (standard structures in the order of data/ope_structures.yaml, then
+     the entry's in its order), best first within a structure (orderDets); the first value shows, the rest fold;
+   - the disagreement badge compares a value only with the best value in the same structure;
+   - each value names its structure in its row, except a default standard structure (three scalars, unit-normalized),
+     which the section states once (OPE_LABEL_DEFAULTS = true labels those too);
+   - the structures used on the page are defined once, at the top of the section. */
+const OPE_LABEL_DEFAULTS = false;
+
+/** The structures an entry's values may name, id -> structure (with `own` for the entry's and `order`). */
+function opeStructures(t) {
+  const out = new Map();
+  for (const s of DB.ope_structures || []) out.set(s.id, { ...s, own: false, order: out.size });
+  for (const s of t.ope_structures || []) out.set(s.id, { ...s, own: true, order: out.size });
+  return out;
+}
+
+/** OPE items { cat: "ope", ope: true, lines: [[row, ...], ...], rows, ops }: one per triplet, in the order above.
+ *  A row is a value with its symbol resolved and _st (its structure) and _best (best value in its structure). */
+function opeItems(t) {
+  const sts = opeStructures(t);
+  const dim = new Map();
+  for (const o of t.operators || []) {
+    const v = leadingNumber(o.Delta);
+    const D = Number.isFinite(v) ? v : Infinity;
+    if (!dim.has(o.name) || dim.get(o.name) > D) dim.set(o.name, D);
+  }
+  const items = (t.ope_coefficients || []).map((c, i) => {
+    const lines = new Map();
+    for (const v of c.values) {
+      const st = sts.get(v.structure);
+      const k = st.basis ? `s:${st.id}` : "one";
+      if (!lines.has(k)) lines.set(k, []);
+      lines.get(k).push({ ...v, symbol: v.symbol ?? st.symbol, _st: st });
+    }
+    const ordered = [...lines.values()].map((vals) => {
+      const byst = new Map();
+      for (const r of vals) (byst.get(r._st) ?? byst.set(r._st, []).get(r._st)).push(r);
+      return [...byst.entries()].sort(([a], [b]) => a.order - b.order).flatMap(([, rs]) => {
+        const best = orderDets(rs, (q) => q.value);
+        best.forEach((r) => (r._best = best[0]));
+        return best;
+      });
+    }).sort((a, b) => a[0]._st.order - b[0]._st.order);
+    const key = c.operators.map((o) => (typeof o === "string" ? dim.get(o) ?? Infinity : Infinity)).sort((x, y) => x - y);
+    return { cat: "ope", ope: true, lines: ordered, rows: ordered.flat(), ops: c.operators, key, i };
+  });
+  return items.sort((a, b) => {
+    for (let j = 0; j < 3; j++) if (a.key[j] !== b.key[j]) return a.key[j] < b.key[j] ? -1 : 1;
+    return a.i - b.i;
+  });
+}
+
+/** The label of a structure in a row: its name, else the citation of the formula that defines it; "" for a default
+ *  standard structure (unless OPE_LABEL_DEFAULTS). Clicking it shows the structure's definition at the top. */
+function opeLabel(t, st) {
+  if (!st || (st.default && !OPE_LABEL_DEFAULTS)) return "";
+  return `<div class="sub ope-st"><button type="button" class="linkish" data-ope-st="${esc(st.id)}" title="Show the definition of this structure">${
+    st.name ? md(st.name, true) : "structure"}</button>${st.ref ? ` ${citeRefs(t.id, [st.ref])}` : ""}</div>`;
+}
+
+/** The definitions of the structures that the items use, once for the section, in structure order (the standard ones
+ *  first, a default one marked as carrying no label), each with its symbol, label, definition and stated relations. */
+function opeStructuresHtml(t, items, title = "Structures") {
+  const used = [...new Set(items.filter((it) => it.ope).flatMap((it) => it.rows.map((r) => r._st)))].sort((a, b) => a.order - b.order);
+  if (!used.length) return "";
+  const li = (st) => {
+    const label = [st.name ? `<b>${md(st.name, true)}</b>` : "", st.ref ? citeRefs(t.id, [st.ref]) : ""].filter(Boolean).join(" ");
+    const tag = st.own ? "" : st.default && !OPE_LABEL_DEFAULTS ? "standard; its values carry no label" : "standard";
+    return `<li id="ope-st-${esc(st.id)}">${st.symbol ? `${tex(st.symbol)}, ` : ""}${label}${tag ? ` <span class="muted">(${tag})</span>` : ""}${
+      st.description ? `: ${md(st.description, true)}` : ""}${st.relation ? ` ${md(st.relation, true)}` : ""}</li>`;
+  };
+  return `<div class="ope-structures small"><p class="ope-structures-title">${title}</p><ul>${used.map(li).join("")}</ul></div>`;
+}
+
+
+/** One table of quantity items (and OPE items). With `cat`, the table is shaped for that kind: exponents get a
+ *  relation column. An item's lines each show their first row; the other rows of a line fold below it. */
 function quantityTable(t, items, cat, source) {
   const rel = new Map(cat === "exponent" ? items.map((it) => [it, exponentRelation(it)]) : []);
   const hasRel = [...rel.values()].some(Boolean);
@@ -795,17 +798,21 @@ function quantityTable(t, items, cat, source) {
     const r = rel.get(it);
     if (r?.src) d = d.replace(r.src, "").replace(/\s*[,:;]?\s*$/, "").replace(/\s*,\s*,/, ",").replace(/^\s*[,:;]\s*/, "").replace(/\s+([,;.])/g, "$1").replace(/,\s*\(/, " (");
     if (cat === "exponent" && /^critical exponent\.?$/i.test(d.trim())) d = "";
-    if (cat === "ope" && /^(spinning\s+)?OPE coefficient\.?$/i.test(d.trim())) d = "";
+    // In the one-table layout (no OPE section), an OPE value says what it is.
+    if (!cat && it.ope && !d.trim()) d = "OPE coefficient";
     return d.trim();
   };
-  const row = (q, it, head) => {
+  // Disagreement: with the line's first row; for an OPE value, with the best value in its own structure.
+  const against = (it, line, r) => (it.ope ? r._best : line[0]);
+  const bad = (it, line, r) => (r === against(it, line, r) ? "" : disagreement(against(it, line, r), r, (x) => x.value));
+  const row = (q, it, line, head) => {
     const d = describe(q, it);
-    const desc = head || d !== describe(it.rows[0], it) ? md(d, true) : "";
-    const n = it.rows.length - 1;
-    const bad = (r) => disagreement(it.rows[0], r, (x) => x.value);
-    const more = head && n ? detsButton(it.id, n, it.rows.filter((r) => bad(r)).length) : head ? "" : disagreeBadge(bad(q));
+    const desc = head || d !== describe(line[0], it) ? md(d, true) : "";
+    const n = line.length - 1;
+    const more = head && n ? detsButton(it.id, n, line.filter((r) => bad(it, line, r)).length) : head ? "" : disagreeBadge(bad(it, line, q));
+    const sym = head || (it.ope && q.symbol !== line[0].symbol) ? tex(q.symbol) : "";
     return [
-      head ? tex(q.symbol) : "",
+      sym + (it.ope ? opeLabel(t, q._st) : ""),
       desc + (q.note ? `<div class="sub">${md(q.note, true)}</div>` : ""),
       ...(hasRel ? [head && rel.get(it) ? `<span class="rel">${tex(rel.get(it).tex)}</span>` : ""] : []),
       `<span class="value">${tex(q.value)}</span>${more}`,
@@ -813,42 +820,19 @@ function quantityTable(t, items, cat, source) {
     ];
   };
   const tr = (cells, attrs = "") => `<tr${attrs}>${cells.map((c) => `<td>${c ?? ""}</td>`).join("")}</tr>`;
-  const body = (it) => {
-    it.id = `det-${++DET_SEQ}`;
-    const [head, ...rest] = it.rows;
-    return `<tbody class="item">${tr(row(head, it, true))}${rest
-      .map((q) => tr(row(q, it, false), ` class="det" data-det="${it.id}" hidden`))
-      .join("")}</tbody>`;
-  };
+  const body = (it) =>
+    `<tbody class="item${it.ope ? " ope-item" : ""}">${(it.lines || [it.rows]).map((line, k) => {
+      const id = `det-${++DET_SEQ}`;
+      const [head, ...rest] = line;
+      const one = { ...it, id };
+      return tr(row(head, one, line, true), k ? ' class="ope-line"' : "") + rest.map((q) => tr(row(q, one, line, false), ` class="det" data-det="${id}" hidden`)).join("");
+    }).join("")}</tbody>`;
   const headers = [cat === "exponent" ? "Exponent" : cat === "ope" ? "Coefficient" : "Quantity", "Description",
     ...(hasRel ? ["Relation"] : []), "Value", "Source"];
-  let groups = [[null, items]];
-  if (cat === "ope") groups = opeGroups(t, items);
-  const ncol = headers.length;
-  const html = groups
-    .map(([label, its]) => (label ? `<tbody class="group"><tr><th colspan="${ncol}" scope="rowgroup">${label}</th></tr></tbody>` : "") + its.map(body).join(""))
-    .join("");
   return {
-    html: `<div class="table-wrap"><table class="qty"><thead><tr>${headers.map((h) => `<th>${h}</th>`).join("")}</tr></thead>${html}</table></div>`,
-    grouped: groups.length > 1,
+    html: `<div class="table-wrap"><table class="qty"><thead><tr>${headers.map((h) => `<th>${h}</th>`).join("")}</tr></thead>${items.map(body).join("")}</table></div>`,
     hasRel,
   };
-}
-
-/** OPE coefficients by OPE O1 × O2 (ordered by the dimensions of O1, O2), each ordered by the
- *  dimension of the exchanged operator. Labels only when there are several OPEs. */
-/** OPE coefficients in one list, without per-OPE headings (David: grouping by OPE didn't make sense), ordered
- *  by the operators involved: by their dimensions sorted from lightest, compared lexicographically, so
- *  λσσε, λσσε′, …, λεεε, … ; coefficients whose operators aren't recognized go last, in data order. */
-function opeGroups(t, items) {
-  const dim = operatorDims(t);
-  const key = (it) => { const ops = opeOperators(it.rows[0]); return ops ? ops.map(dim).sort((x, y) => x - y) : null; };
-  const order = items.map((it, i) => ({ it, i, k: key(it) })).sort((a, b) => {
-    if (!a.k || !b.k) return (!a.k) - (!b.k) || a.i - b.i;
-    for (let j = 0; j < 3; j++) if (a.k[j] !== b.k[j]) return (a.k[j] ?? Infinity) - (b.k[j] ?? Infinity);
-    return a.i - b.i;
-  });
-  return [[null, order.map((x) => x.it)]];
 }
 
 /** The page sections for a theory's quantities. A small entry (one kind, or under six items and
@@ -857,18 +841,20 @@ function opeGroups(t, items) {
  *  titled like "Anomalies" or "Weyl anomaly" is shown in the anomalies section (its index is added
  *  to `used`). */
 function dataSections(t, source, topics, used) {
-  const items = quantityItems(t);
+  const quants = quantityItems(t);
+  // OPE data: the triplets (opeItems), then quantities set to `category: ope` (data that is not one triplet's).
+  const items = [...quants.filter((it) => it.cat !== "ope"), ...opeItems(t), ...quants.filter((it) => it.cat === "ope")];
   const cats = QCAT_ORDER.filter((c) => items.some((it) => it.cat === c));
   const conv = t.conventions || {};
   const convLine = (c) => (conv[c] ? `<p class="small conv">${md(conv[c], true)}</p>` : "");
-  const allBtn = (its) => its.some((it) => it.rows.length > 1)
+  const allBtn = (its) => its.some((it) => (it.lines || [it.rows]).some((l) => l.length > 1))
     ? ` <button type="button" class="linkish small" data-dets-all aria-expanded="false">Show all determinations</button>` : "";
   const most = Math.max(...cats.filter((c) => c !== "other").map((c) => items.filter((it) => it.cat === c).length));
   if (cats.length > 1 && items.length < 6 && most < 3) {
     const tb = quantityTable(t, items, null, source);
     const notes = QCAT_ORDER.filter((c) => conv[c]).map((c) => `<p class="small conv"><b>${QCATS[c].title}.</b> ${md(conv[c], true)}</p>`).join("");
     const btn = allBtn(items);
-    return [section("data", "Data", `${notes}${btn ? `<p class="small">${btn}</p>` : ""}${tb.html}`)];
+    return [section("data", "Data", `${notes}${opeStructuresHtml(t, items, "Structures of the OPE coefficients")}${btn ? `<p class="small">${btn}</p>` : ""}${tb.html}`)];
   }
   return cats.map((c) => {
     const its = items.filter((it) => it.cat === c);
@@ -882,7 +868,8 @@ function dataSections(t, source, topics, used) {
           prose += `<div class="prose">${md(tp.body)}</div>`;
         }
       });
-    const intro = meta.intro(c === "ope" ? tb.grouped : tb.hasRel) + allBtn(its);
+    const intro = meta.intro(c === "ope" ? its.some((it) => it.ope) : tb.hasRel) + allBtn(its);
+    if (c === "ope") prose += opeStructuresHtml(t, its);
     const id = cats.length === 1 && c === "other" ? "data" : meta.id;
     const title = cats.length === 1 && c === "other" ? "Data" : meta.title;
     return section(id, title, `${intro.trim() ? `<p class="small muted intro">${intro}</p>` : ""}${convLine(c)}${prose}${tb.html}`);
@@ -896,6 +883,18 @@ function setDets(btn, open) {
 }
 
 app.addEventListener("click", (e) => {
+  const stl = e.target.closest("[data-ope-st]");
+  if (stl) {
+    e.preventDefault();
+    const li = document.getElementById(`ope-st-${stl.dataset.opeSt}`);
+    if (li) {
+      li.scrollIntoView({ block: "center", behavior: "smooth" });
+      li.classList.remove("flash");
+      void li.offsetWidth;
+      li.classList.add("flash");
+    }
+    return;
+  }
   const one = e.target.closest("[data-dets]");
   if (one) return setDets(one, one.getAttribute("aria-expanded") !== "true");
   const all = e.target.closest("[data-dets-all]");
@@ -1052,7 +1051,7 @@ function operatorItems(t, rows) {
     const s = normTex([o.name, o.note, o.rep, o.role].join(" "));
     return pars.map((p) => new RegExp(`(?<![A-Za-z\\\\{])${reEsc(p)}=(-?\\d+(?:\\.\\d+)?)`).exec(s)?.[1] ?? "").join(",");
   };
-  const key = (o) => [o.name, o.spin, o.weights, o.degeneracy].map(normTex).join("|") + "|" + fixed(o);
+  const key = (o) => [o.name, o.spin, o.weights, o.degeneracy].map(normTex).join("|") + "|" + fixed(o) + "|" + (o.family_view?.id ?? "");
   const items = new Map();
   for (const r of rows) {
     const k = key(r.o);
@@ -1068,7 +1067,8 @@ function operatorItems(t, rows) {
  *  preferred determination). Returns { groups, grouped }; grouped is false when sectors would add nothing (no reps, or
  *  one rep): then one group, in data order. */
 function operatorGroups(t) {
-  const rows = operatorRows(t.operators);
+  const all = operatorRows(t.operators);
+  const rows = all.filter((r) => !isMember(r));
   // In a theory with parity whose entry marks some operators parity-odd, an operator with no parity stated is
   // parity-even: say so (P column "+", heading "parity-even") rather than leave it blank.
   const sym = t.symmetry || {};
@@ -1084,6 +1084,7 @@ function operatorGroups(t) {
   if (named.length < 2 || named.every((g) => g.rows.length < 2)) {
     // Ungrouped: still one item per operator, though only rows of the same sector fold together.
     const items = [...groups.values()].flatMap((g) => operatorItems(t, g.rows)).sort((a, b) => a.first - b.first);
+    attachMembers(items, all);
     return { grouped: false, groups: [{ key: "", heading: null, base: null, items }] };
   }
 
@@ -1109,12 +1110,13 @@ function operatorGroups(t) {
       g.heading = [g.base, showParity || !g.base ? h.parityText : ""].filter(Boolean).join(", ");
     } else [g.heading, g.base] = [null, null];
     g.items = operatorItems(t, g.rows);
-    const sk = (it) => [num(it.rows[0].o.spin), num(it.rows[0].o.Delta), it.first];
+    const sk = (it) => [...placeKey(it.rows[0].o), it.first];
     g.items.sort((a, b) => {
       const [x, y] = [sk(a), sk(b)];
       for (let k = 0; k < 3; k++) if (x[k] !== y[k]) return x[k] < y[k] ? -1 : 1;
       return 0;
     });
+    attachMembers(g.items, all);
   }
   return { grouped: true, groups: list };
 }
@@ -1200,7 +1202,8 @@ function repLevels(t) {
  *  table are `constant` (stated above it); the others group the table. Grouped is false when no group would have two
  *  operators: then one group, the remaining levels become columns. */
 function repGroups(t) {
-  const rows = t.operators.map((o, i) => ({ o, i }));
+  const all = t.operators.map((o, i) => ({ o, i }));
+  const rows = all.filter((r) => !isMember(r));
   const levels = repLevels(t);
   const constant = levels.filter((L) => new Set(rows.map(L.key)).size === 1);
   const active = levels.filter((L) => !constant.includes(L));
@@ -1217,16 +1220,85 @@ function repGroups(t) {
     }
     return a.rows[0].i - b.rows[0].i;
   });
-  const num = (v) => { const x = leadingNumber(v); return Number.isFinite(x) ? x : Infinity; };
-  const spinOf = (o) => num(o.spin ?? 0);
   for (const g of list) {
     g.items = operatorItems(t, g.rows);
-    g.items.sort((a, b) => cmpKey([spinOf(a.rows[0].o), num(a.rows[0].o.Delta), a.first], [spinOf(b.rows[0].o), num(b.rows[0].o.Delta), b.first]));
+    g.items.sort((a, b) => cmpKey([...placeKey(a.rows[0].o, 0), a.first], [...placeKey(b.rows[0].o, 0), b.first]));
+    attachMembers(g.items, all);
     g.heading = active.map((L) => L.text(g.rows[0])).filter(Boolean).join(", ");
   }
   const grouped = active.length > 0 && list.some((g) => g.items.length > 1);
   return { groups: list, grouped, levels, constant, active };
 }
+
+/* ------------------------------------- operator families (docs/REPRESENTATIONS.md, 1.7 and 2.7) */
+// A family row (o.family_view, from the build) stands for a whole tower of operators: it is one operator of the table,
+// grouped by its representation pattern ("[0,k,0] of SU(4)_R") and placed by its first member. Rows that record one
+// member separately (o.member_view) are listed under their family, never as operators of their own.
+
+const isMember = (r) => r.o.member_view != null;
+
+/** Spin and Δ that place an operator within its group (a family by its first member, as computed by the build). */
+function placeKey(o, spinDefault) {
+  const num = (v) => { const x = leadingNumber(v); return Number.isFinite(x) ? x : Infinity; };
+  const f = o.family_view?.sort;
+  if (f) return [f.spin ?? Infinity, f.Delta ?? Infinity];
+  return [num(o.spin ?? spinDefault), num(o.Delta)];
+}
+
+/** Give each family item its members: one item per member (its determinations fold together), in parameter order. */
+function attachMembers(items, all) {
+  for (const it of items) {
+    const fam = it.rows[0].o.family_view;
+    if (!fam) continue;
+    const byAt = new Map();
+    for (const r of all.filter((x) => isMember(x) && x.o.member_view.family === fam.id)) {
+      const k = r.o.member_view.at;
+      if (!byAt.has(k)) byAt.set(k, { rows: [], first: r.i, sort: r.o.member_view.sort });
+      byAt.get(k).rows.push(r);
+    }
+    it.members = [...byAt.values()].sort((a, b) => cmpKey(a.sort, b.sort) || a.first - b.first);
+    for (const m of it.members) m.rows = orderDets(m.rows, (r) => r.o.Delta, (r) => r.o.method);
+  }
+}
+
+/** Under a family's name: its parameter range and, when members are listed, the button that folds them. */
+function familyLine(it) {
+  const f = it.rows[0].o.family_view;
+  if (!f) return "";
+  const n = it.members?.length ?? 0;
+  const btn = n ? ` · <button type="button" class="linkish op-members" data-members="${it.id}" aria-expanded="true"
+    title="Fold the members listed separately">${n === 1 ? "1 member listed" : `${n} members listed`} ▾</button>` : "";
+  return `<div class="sub op-family" title="One row for the whole family: its Δ, spin and labels are functions of the parameters">family, <span class="op-range">${tex(f.range)}</span>${btn}</div>`;
+}
+
+/** Before a member's name: its parameter values. */
+const memberAt = (r) => (r.o.member_view ? `<span class="op-at">${tex(r.o.member_view.at)}:</span> ` : "");
+
+/** A family's member rows, after the family's own row in its tbody: each member's preferred determination, the others
+ *  folded under it ("+n more"). */
+function memberRows(it, cols, td, g) {
+  return (it.members || []).map((m) => {
+    m.id = `det-${++DET_SEQ}`;
+    const [first, ...rest] = m.rows;
+    const tr = (r, isHead) => `<tr class="op-member${isHead ? "" : " det"}" data-memberof="${it.id}"${isHead ? "" : ` data-det="${m.id}" hidden`}>${
+      cols.map(([, f], k) => td(f(r, m, g, isHead), k)).join("")}</tr>`;
+    return tr(first, true) + rest.map((r) => tr(r, false)).join("");
+  }).join("");
+}
+
+app.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-members]");
+  if (!b) return;
+  const open = b.getAttribute("aria-expanded") !== "true";
+  app.querySelectorAll(`[data-memberof="${b.dataset.members}"]`).forEach((tr) => {
+    if (!tr.classList.contains("det")) tr.hidden = !open;
+    else if (!open) tr.hidden = true;
+  });
+  if (open) app.querySelectorAll(`[data-memberof="${b.dataset.members}"] [data-dets]`).forEach((x) => setDets(x, false));
+  b.setAttribute("aria-expanded", open);
+  b.innerHTML = b.innerHTML.replace(/[▾▸]$/, open ? "▾" : "▸");
+  b.title = open ? "Fold the members listed separately" : "Show the members listed separately";
+});
 
 /** Lorentz label for the Spin column: `lorentz` when given ('(1/2, 0)' -> (\tfrac12, 0)), else the spin. */
 function lorentzTex(o) {
@@ -1244,7 +1316,8 @@ function multipletHtml(m) {
 function repTable(t, source) {
   const { groups, grouped, levels, constant, active } = repGroups(t);
   const ops = t.operators;
-  const allRows = groups.flatMap((g) => g.items.flatMap((it) => it.rows));
+  const allItems = groups.flatMap((g) => g.items.flatMap((it) => [it, ...(it.members || [])]));
+  const allRows = allItems.flatMap((it) => it.rows);
   const roleTag = (r) => (r.o.role ? ` <span class="op-role${r.o.role.length <= 24 ? " nowrap" : ""}">· ${md(r.o.role, true)}</span>` : "");
   const differs = (f) => (r, it, g, head) => {
     const v = f(r, it, g);
@@ -1256,7 +1329,7 @@ function repTable(t, source) {
   // Levels that group the table are in the headings; in an ungrouped table they are columns.
   const levelCols = grouped ? [] : active.map((L) => [L.header, differs((r) => (L.cell ? L.cell(r) : md(L.text(r), true))), true, L.narrow]);
   const cols = [
-    ["Operator", (r, it, g, head) => (head ? tex(r.o.name) + roleTag(r) : (r.o.role ?? "") !== (it.rows[0].o.role ?? "") ? roleTag(r).trim() : ""), true],
+    ["Operator", (r, it, g, head) => (head ? memberAt(r) + tex(r.o.name) + roleTag(r) + familyLine(it) : (r.o.role ?? "") !== (it.rows[0].o.role ?? "") ? roleTag(r).trim() : ""), true],
     ["Δ", (r, it, g, head) => {
       const v = `<span class="value">${tex(r.o.Delta)}</span>`;
       const bad = (x) => disagreement(it.rows[0].o, x.o, (o) => o.Delta);
@@ -1288,18 +1361,18 @@ function repTable(t, source) {
           it.id = `det-${++DET_SEQ}`;
           const [first, ...rest] = it.rows;
           const tr = (r, isHead) => `<tr${isHead ? "" : ` class="det" data-det="${it.id}" hidden`}>${cols.map(([, f], k) => td(f(r, it, g, isHead), k)).join("")}</tr>`;
-          return `<tbody class="item${seq++ % 2 ? " alt" : ""}"${grouped ? ` data-ingroup="${gid}"` : ""}>${tr(first, true)}${rest.map((r) => tr(r, false)).join("")}</tbody>`;
+          return `<tbody class="item${seq++ % 2 ? " alt" : ""}"${grouped ? ` data-ingroup="${gid}"` : ""}>${tr(first, true)}${rest.map((r) => tr(r, false)).join("")}${memberRows(it, cols, td, g)}</tbody>`;
         })
         .join("");
     })
     .join("");
   // What every operator shares is said once, above the table.
   const shared = [
-    ...constant.map((L) => L.text({ o: ops[0] })),
+    ...constant.map((L) => L.text({ o: ops.find((o) => !o.member_view) })),
     spinConstant && ops[0].spin != null ? (ops[0].lorentz == null ? `spin $${ops[0].spin}$` : `Lorentz representation $${ops[0].lorentz}$`) : "",
   ].filter(Boolean);
   const caption = shared.length ? `<p class="small muted intro">All operators listed: ${md(shared.join(", "), true)}.</p>` : "";
-  const btn = allRows.length > groups.reduce((n, g) => n + g.items.length, 0)
+  const btn = allRows.length > allItems.length
     ? `<p class="small"><button type="button" class="linkish small" data-dets-all aria-expanded="false">Show all determinations</button></p>` : "";
   return `${caption}${btn}<div class="table-wrap"><table class="ops"><thead><tr>${cols.map(([h], k) => `<th${narrow.has(k) ? ` class="num"` : ""}>${h}</th>`).join("")}</tr></thead>${body}</table></div>`;
 }
@@ -1323,7 +1396,7 @@ app.addEventListener("click", (e) => {
 function operatorsTable(t, source) {
   if (t.symmetry?.global_group) return repTable(t, source);
   const { groups, grouped } = operatorGroups(t);
-  const allItems = groups.flatMap((g) => g.items);
+  const allItems = groups.flatMap((g) => g.items.flatMap((it) => [it, ...(it.members || [])]));
   const sign = (s, what) => (s ? `<span title="${what} ${s}">${s === "odd" ? "−" : "+"}</span>` : "");
   const repOf = (g, r) => {
     const x = r.parts?.internal ?? "";
@@ -1339,7 +1412,7 @@ function operatorsTable(t, source) {
   };
   const extraRep = (r, it, g) => (grouped && repOf(g, r) ? `<div class="op-rep">Representation: ${md(repOf(g, r), true)}</div>` : "");
   const cols = [
-    ["Operator", (r, it, g, head) => (head ? tex(r.o.name) + roleTag(r) : (r.parts?.role ?? "") !== (it.rows[0].parts?.role ?? "") ? roleTag(r).trim() : ""), true],
+    ["Operator", (r, it, g, head) => (head ? memberAt(r) + tex(r.o.name) + roleTag(r) + familyLine(it) : (r.parts?.role ?? "") !== (it.rows[0].parts?.role ?? "") ? roleTag(r).trim() : ""), true],
     ["Δ", (r, it, g, head) => {
       const v = `<span class="value">${tex(r.o.Delta)}</span>`;
       const bad = (x) => disagreement(it.rows[0].o, x.o, (o) => o.Delta);
@@ -1368,7 +1441,7 @@ function operatorsTable(t, source) {
           it.id = `det-${++DET_SEQ}`;
           const [first, ...rest] = it.rows;
           const tr = (r, isHead) => `<tr${isHead ? "" : ` class="det" data-det="${it.id}" hidden`}>${cols.map(([, f], k) => td(f(r, it, g, isHead), k)).join("")}</tr>`;
-          return `<tbody class="item${j % 2 ? " alt" : ""}">${tr(first, true)}${rest.map((r) => tr(r, false)).join("")}</tbody>`;
+          return `<tbody class="item${j % 2 ? " alt" : ""}">${tr(first, true)}${rest.map((r) => tr(r, false)).join("")}${memberRows(it, cols, td, g)}</tbody>`;
         })
         .join("");
     })
@@ -1432,7 +1505,7 @@ function viewTheory(id) {
   if (t.operators?.length) out.push(section("operators", "Operators", operatorsTable(t, source)));
 
   const usedTopics = new Set();
-  if (t.quantities?.length) out.push(...dataSections(t, source, topics, usedTopics));
+  if (t.quantities?.length || t.ope_coefficients?.length) out.push(...dataSections(t, source, topics, usedTopics));
 
   if (t.spectra?.length) out.push(section("spectrum", "Spectrum", spectrumShell(t)));
 
@@ -2622,7 +2695,7 @@ function viewMethods(focus = null) {
       <td class="small">${usage}</td></tr>`;
   });
   const legacy = DB.theories.reduce((k, t) =>
-    k + [...(t.quantities || []), ...(t.operators || [])].filter((x) => x.method && !METHODS.has(String(x.method).split(",")[0].trim())).length, 0);
+    k + [...(t.quantities || []), ...(t.operators || []), ...(t.ope_coefficients || []).flatMap((c) => c.values)].filter((x) => x.method && !METHODS.has(String(x.method).split(",")[0].trim())).length, 0);
   app.innerHTML = `
     <header class="theory-head"><h1>Methods</h1>
       <p class="lede">How the numbers in the zoo were obtained. Data rows name a method by its abbreviation,
