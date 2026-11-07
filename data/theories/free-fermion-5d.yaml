@@ -43,6 +43,9 @@ symmetry:
   lorentzian: '$O(5,2)$'
   supercharges: 0
   global: '$U(1)$ fermion number, $\psi\to e^{i\alpha}\psi$ (the manifest symmetry of the Dirac Lagrangian)'
+  parity: true
+  global_group:
+    - {id: U(1), group: U(1)}
   notes: 'Reflections of one coordinate flip the sign of the Dirac mass term.'
 
 quantities:
@@ -69,27 +72,32 @@ operators:
   - name: '\psi'
     Delta: 2
     spin: '1/2'
-    rep: 'charge $1$'
+    lorentz: '[1/2, 1/2]'
+    parity: unknown
+    global: {U(1): 1}
     method: exact
     refs: [osborn1994, giombi2014]
     note: 'From $\langle\psi(x)\bar\psi(0)\rangle = \frac{1}{S_d}\frac{\gamma\cdot x}{x^d}$ [@osborn1994, Eq. (5.3)]; $\Delta = (d-1)/2$.'
   - name: '\bar\psi\psi'
     Delta: 4
     spin: 0
-    rep: 'neutral; odd under reflections'
+    parity: odd
+    global: {U(1): 0}
     method: exact
     refs: [osborn1994]
     note: 'Dirac mass term. Relevant.'
   - name: 'J_\mu = \bar\psi\gamma_\mu\psi'
     Delta: 4
     spin: 1
-    rep: neutral
+    parity: even
+    global: {U(1): 0}
     method: exact
     note: 'Conserved $U(1)$ current.'
   - name: 'T_{\mu\nu}'
     Delta: 5
     spin: 2
-    rep: neutral
+    parity: even
+    global: {U(1): 0}
     method: exact
     note: Stress tensor (conserved).
 

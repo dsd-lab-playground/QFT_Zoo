@@ -47,6 +47,9 @@ symmetry:
   lorentzian: '$O(6,2)$'
   supercharges: 0
   global: '$\mathbb{Z}_2$ ($\phi\to-\phi$), plus shift symmetry $\phi \to \phi + \text{const}$'
+  parity: true
+  global_group:
+    - {id: Z2, group: Z2}
 
 quantities:
   - symbol: 'a'
@@ -90,27 +93,31 @@ operators:
   - name: '\phi'
     Delta: 2
     spin: 0
-    rep: '$\mathbb{Z}_2$-odd'
+    parity: even
+    global: {Z2: odd}
     method: exact
     refs: [osborn1994]
     note: 'From the propagator $\langle\phi(x)\phi(0)\rangle = \frac{1}{(d-2)S_d\,x^{d-2}}$ [@osborn1994, Eq. (5.3)].'
   - name: '\phi^2'
     Delta: 4
     spin: 0
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: exact
     refs: [osborn1994]
   - name: '\phi^3'
     Delta: 6
     spin: 0
-    rep: '$\mathbb{Z}_2$-odd'
+    parity: even
+    global: {Z2: odd}
     method: exact
     refs: [osborn1994]
     note: 'Classically marginal.'
   - name: 'T_{\mu\nu}'
     Delta: 6
     spin: 2
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: exact
     note: Stress tensor (conserved).
 

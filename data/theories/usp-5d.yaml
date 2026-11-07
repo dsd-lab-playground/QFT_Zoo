@@ -75,7 +75,13 @@ symmetry:
   lorentzian: '$F(4)$'
   supercharges: 8
   global: 'Flavor $E_{N_f+1}\times SU(2)$ (the $SU(2)$ acts on the antisymmetric hypermultiplet and is absent at $N=1$); R-symmetry $SU(2)_R$'
+  parity: false
+  global_group:
+    - {id: SU(2)_R, group: SU(2), tex: 'SU(2)_R'}
+    - {id: E, group: 'Lie(E_{N_f+1})'}
+    - {id: SU(2), group: SU(2), note: 'Acts on the antisymmetric hypermultiplet; absent at $N = 1$.'}
   gauge: '$USp(2N)$ (infrared gauge theory description)'
+  notes: 'Multiplet names follow Cordova, Dumitrescu and Intriligator [@cdi2016].'
 
 quantities:
   - symbol: 'F'
@@ -95,13 +101,15 @@ operators:
   - name: 'J_\mu'
     Delta: 4
     spin: 1
-    rep: 'adjoint of $E_{N_f+1}\times SU(2)$'
+    global: {SU(2)_R: singlet, E: [singlet, adjoint], SU(2): [singlet, adjoint]}
+    multiplet: {name: flavor current, component: 'Q^2', type: '$C_1[0,0]^{(2)}_3$'}
     method: exact
     note: Conserved flavor currents.
   - name: 'T_{\mu\nu}'
     Delta: 5
     spin: 2
-    rep: singlet
+    global: {SU(2)_R: singlet, E: singlet, SU(2): singlet}
+    multiplet: {name: stress tensor, component: 'Q^4', type: '$B_2[0,0]^{(0)}_3$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -147,5 +155,10 @@ references:
     journal: JHEP 05 (2018) 039
     arxiv: '1712.10313'
     doi: 10.1007/JHEP05(2018)039
+  - key: cdi2016
+    title: Multiplets of Superconformal Symmetry in Diverse Dimensions
+    authors: Cordova, Dumitrescu, Intriligator
+    year: 2016
+    arxiv: '1612.00809'
 
 contributors: [Canonical111]

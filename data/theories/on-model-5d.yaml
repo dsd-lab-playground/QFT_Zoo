@@ -94,6 +94,9 @@ symmetry:
   lorentzian: '$O(5,2)$'
   supercharges: 0
   global: '$O(N)$'
+  parity: true
+  global_group:
+    - {id: O(N), group: O(N)}
   notes: 'On $S^5$ or $\mathbb{R}\times S^4$ the conformal coupling makes the perturbative vacuum metastable; instantons make the CFT data complex at finite $N$.'
 
 quantities:
@@ -120,34 +123,39 @@ operators:
   - name: '\phi_i'
     Delta: '\frac{3}{2}+\frac{32}{15\pi^2N}-\frac{1427456}{3375\pi^4N^2}+\left(\frac{275255197696}{759375\pi^6}-\frac{89735168}{2025\pi^4}+\frac{32768\ln 4}{9\pi^4}-\frac{229376\,\zeta(3)}{3\pi^6}\right)\frac{1}{N^3}+O(N^{-4})'
     spin: 0
-    rep: vector
+    parity: even
+    global: {O(N): vector}
     method: 1/N
     refs: [fei2014]
     note: 'Numerically $\tfrac32 + 0.216152/N - 4.342/N^2 - 121.673/N^3$ [@fei2014, Eq. (2.23)]. Unitarity bound $\tfrac32$.'
   - name: '\sigma'
     Delta: '2+\frac{512}{5\pi^2N}+\frac{2048\left(12625\pi^2-113552\right)}{1125\pi^4N^2}+O(N^{-3})'
     spin: 0
-    rep: singlet
+    parity: even
+    global: {O(N): singlet}
     method: 1/N
     refs: [fei2014]
     note: 'Numerically $2 + 10.3753/N + 206.542/N^2$ [@fei2014, Eq. (2.24)]. Relevant; $\sigma \sim \phi_i\phi_i$.'
   - name: '\sigma^2'
     Delta: '4 - \frac{13.8337}{N} - \frac{1819.66}{N^2} + O(N^{-3})'
     spin: 0
-    rep: singlet
+    parity: even
+    global: {O(N): singlet}
     method: 1/N
     refs: [chester2014]
     note: 'Second relevant singlet [@chester2014, Eq. (2.1c)]. The $1/N$ coefficient is $\frac{2048}{15\pi^2}$, from [@fei2014, Eq. (2.25)] with $k = 2$ (derived).'
   - name: 'J_\mu^{[ij]}'
     Delta: 4
     spin: 1
-    rep: antisymmetric (adjoint)
+    parity: even
+    global: {O(N): adjoint}
     method: exact
     note: Conserved $O(N)$ currents.
   - name: 'T_{\mu\nu}'
     Delta: 5
     spin: 2
-    rep: singlet
+    parity: even
+    global: {O(N): singlet}
     method: exact
     note: Stress tensor (conserved).
 

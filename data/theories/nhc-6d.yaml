@@ -83,7 +83,11 @@ symmetry:
   lorentzian: '$OSp(8^*|2)$'
   supercharges: 8
   global: 'R-symmetry $SU(2)_R$; no continuous flavor symmetry acts on the tensor-branch fields'
+  parity: false
+  global_group:
+    - {id: SU(2)_R, group: SU(2), tex: 'SU(2)_R'}
   gauge: '$\mathfrak{su}(3)$, $\mathfrak{so}(8)$, $\mathfrak{f}_4$, $\mathfrak{e}_6$, $\mathfrak{e}_7$, $\mathfrak{e}_7$, $\mathfrak{e}_8$ on the tensor branch (not at the conformal point)'
+  notes: 'Multiplet names follow Cordova, Dumitrescu and Intriligator [@cdi2016].'
 
 quantities:
   - symbol: '[I_8]_{c_2(R)^2}'
@@ -103,7 +107,8 @@ operators:
   - name: 'T_{\mu\nu}'
     Delta: 6
     spin: 2
-    rep: singlet
+    global: {SU(2)_R: singlet}
+    multiplet: {name: stress tensor, component: 'Q^4', type: '$B_3[0,0,0]^{(0)}_4$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -157,5 +162,10 @@ references:
     arxiv: '1805.06467'
     doi: 10.1088/1751-8121/aafc81
     note: 'Review: trivial Higgs branch of the clusters; $n=9,10,11$; Green–Schwarz term (eq. (9.6)).'
+  - key: cdi2016
+    title: Multiplets of Superconformal Symmetry in Diverse Dimensions
+    authors: Cordova, Dumitrescu, Intriligator
+    year: 2016
+    arxiv: '1612.00809'
 
 contributors: [Canonical111]

@@ -54,6 +54,12 @@ symmetry:
   lorentzian: '$OSp(8^*|2)$'
   supercharges: 8
   global: 'Flavor $E_8$ for $Q=1$ and $E_8\times SU(2)_L$ for $Q\ge2$; R-symmetry $SU(2)_R$'
+  parity: false
+  global_group:
+    - {id: SU(2)_R, group: SU(2), tex: 'SU(2)_R'}
+    - {id: E8, group: E_8}
+    - {id: SU(2)_L, group: SU(2), tex: 'SU(2)_L', note: 'Present for $Q \geq 2$.'}
+  notes: 'Multiplet names follow Cordova, Dumitrescu and Intriligator [@cdi2016].'
 
 quantities:
   - symbol: 'I_8'
@@ -91,20 +97,23 @@ operators:
   - name: '\mu^a_{(ij)}'
     Delta: 4
     spin: 0
-    rep: '$\mathbf{248}$ of $E_8$; triplet of $SU(2)_R$'
+    global: {SU(2)_R: adjoint, E8: adjoint, SU(2)_L: singlet}
+    multiplet: {name: '$E_8$ flavor current', component: primary, type: '$D_1[0,0,0]^{(2)}_4$'}
     method: exact
     refs: [chang2017b]
     note: 'Moment map, superconformal primary of the $E_8$ current multiplet. For $Q = 1$, with the free centre-of-mass hypermultiplet removed, it generates the Higgs-branch chiral ring [@chang2017b]; for $Q > 1$ the $SU(2)_L$ moment maps are further generators.'
   - name: 'J_\mu^a'
     Delta: 5
     spin: 1
-    rep: '$\mathbf{248}$ of $E_8$'
+    global: {SU(2)_R: singlet, E8: adjoint, SU(2)_L: singlet}
+    multiplet: {name: '$E_8$ flavor current', component: 'Q^2', type: '$D_1[0,0,0]^{(2)}_4$'}
     method: exact
     note: Conserved $E_8$ currents.
   - name: 'T_{\mu\nu}'
     Delta: 6
     spin: 2
-    rep: singlet
+    global: {SU(2)_R: singlet, E8: singlet, SU(2)_L: singlet}
+    multiplet: {name: stress tensor, component: 'Q^4', type: '$B_3[0,0,0]^{(0)}_4$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -200,5 +209,10 @@ references:
     arxiv: '1705.00305'
     doi: '10.1007/JHEP06(2017)002'
     note: 'Fixes the remaining parameter of the relation [@chang2017b, Eqs. (6.12)–(6.14)].'
+  - key: cdi2016
+    title: Multiplets of Superconformal Symmetry in Diverse Dimensions
+    authors: Cordova, Dumitrescu, Intriligator
+    year: 2016
+    arxiv: '1612.00809'
 
 contributors: [Canonical111]
