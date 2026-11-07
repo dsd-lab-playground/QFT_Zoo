@@ -42,6 +42,9 @@ symmetry:
   lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$O(4)$'
+  parity: true
+  global_group:
+    - {id: O(4), group: O(4)}
   notes: 'In the QCD application, $SO(4) \cong (SU(2)_L \times SU(2)_R)/\mathbb{Z}_2$.'
 
 quantities:
@@ -82,60 +85,71 @@ operators:
   - name: '\phi_i'
     Delta: '0.51812(4)'
     spin: 0
-    rep: vector (order parameter)
+    parity: even
+    global: {O(4): vector}
+    role: order parameter
     method: MC, from η
     refs: [hasenbusch2022]
     note: 'From $\Delta_\phi = (1+\eta)/2$.'
   - name: 't_{ij}'
     Delta: '1.1855(5)'
     spin: 0
-    rep: rank-2 symmetric traceless
+    parity: even
+    global: {O(4): sym(2)}
     method: MC, from Y₂
     refs: [hasenbusch2011]
     note: 'From $3 - Y_2$.'
   - name: 't_{ij}'
     Delta: '1.1864^{+0.0024}_{-0.0034}'
     spin: 0
-    rep: rank-2 symmetric traceless
+    parity: even
+    global: {O(4): sym(2)}
     method: CB, bound saturation
     refs: [kos2013]
   - name: 's'
     Delta: '1.6634(4)'
     spin: 0
-    rep: singlet (thermal)
+    parity: even
+    global: {O(4): singlet}
+    role: thermal
     method: MC, from ν
     refs: [hasenbusch2022]
     note: 'From $\Delta_s = 3 - 1/\nu$.'
   - name: 't_{ijk}'
     Delta: '1.9768(10)'
     spin: 0
-    rep: rank-3 symmetric traceless
+    parity: even
+    global: {O(4): sym(3)}
     method: MC, from Y₃
     refs: [hasenbusch2011]
     note: 'From $3 - Y_3$ with $Y_3 = 1.0232(10)$ (Monte Carlo).'
   - name: 'J_\mu^{[ij]}'
     Delta: 2
     spin: 1
-    rep: antisymmetric (adjoint)
+    parity: even
+    global: {O(4): adjoint}
     method: exact
     note: Conserved $O(4)$ currents.
   - name: 't_4'
     Delta: '2.875(5)'
     spin: 0
-    rep: rank-4 symmetric traceless
+    parity: even
+    global: {O(4): sym(4)}
     method: MC, from Y₄
     refs: [hasenbusch2011]
     note: 'From $3 - Y_4$. Relevant: cubic anisotropy destabilizes the fixed point.'
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: singlet
+    parity: even
+    global: {O(4): singlet}
     method: exact
     note: Stress tensor (conserved).
   - name: "s'"
     Delta: '3.755(5)'
     spin: 0
-    rep: singlet
+    parity: even
+    global: {O(4): singlet}
     method: MC, from ω
     refs: [hasenbusch2022]
     note: 'From $3 + \omega$. Leading irrelevant singlet.'

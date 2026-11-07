@@ -59,6 +59,10 @@ symmetry:
   lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$SU(N_f)$ flavor, $U(1)_{\rm top}$, charge conjugation, and parity / time reversal ($\phi$ odd)'
+  parity: true
+  global_group:
+    - {id: SU(Nf), group: SU(N_f)}
+    - {id: U(1)_top, group: U(1), tex: 'U(1)_{\rm top}'}
   gauge: '$U(1)$'
   notes: 'At $N_f = 2$ the conjectured duality implies an emergent, anomalously realized $SO(5)$.'
 
@@ -80,27 +84,31 @@ operators:
   - name: '\phi'
     Delta: '1 - \frac{48}{\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
-    rep: 'singlet, parity and time-reversal odd'
+    parity: odd
+    global: {SU(Nf): singlet, U(1)_top: 0}
     method: 1/Nf
     refs: [boyack2019, benvenuti2018]
     note: '$\eta_\phi = 1 - 96/(\pi^2 N_f)$.'
   - name: '\bar\psi_i\psi^j - \tfrac{1}{N_f}\delta_i^j\bar\psi_k\psi^k'
     Delta: '2 - \frac{16}{\pi^2 N_f} + O(N_f^{-2})'
     spin: 0
-    rep: '$SU(N_f)$ adjoint'
+    parity: unknown
+    global: {SU(Nf): adjoint, U(1)_top: 0}
     method: 1/Nf
     refs: [boyack2019, benvenuti2018]
     note: 'Resummed at $N_f = 2$: $3 - \Delta \approx 1.49$–$1.58$, to be compared with $1/\nu$ of the dual NCCP$^1$.'
   - name: 'J_\mu^{\rm top},\ J_\mu^{SU(N_f)}'
     Delta: 2
     spin: 1
-    rep: 'singlet; $SU(N_f)$ adjoint'
+    parity: unknown
+    global: {SU(Nf): [singlet, adjoint], U(1)_top: 0}
     method: exact
     note: Conserved currents.
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: singlet
+    parity: even
+    global: {SU(Nf): singlet, U(1)_top: 0}
     method: exact
     note: Stress tensor (conserved).
 

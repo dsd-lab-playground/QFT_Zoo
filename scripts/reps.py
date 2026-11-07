@@ -224,6 +224,8 @@ def label(g: dict, value, params: set[str]) -> dict:
 
 
 def _label(g, t, s, params, G):
+    if (ext := _label_ext(g, t, s, params, G)) is not None:   # separate blocks of added labels, below
+        return ext
     if t == "Z2":
         if s not in ("even", "odd"):
             raise RepError(f"a Z2 label is `even` or `odd`, not '{s}'")
@@ -407,6 +409,58 @@ def _label(g, t, s, params, G):  # noqa: F811 (extends the definition above)
     if t == "listed":
         return _label_base(g, "finite", s, params, G)
     return _label_base(g, t, s, params, G)
+
+
+# ------------------------------------------------------------------ labels: additions (3d migration batch)
+# Two self-contained additions, reached through the hook at the top of _label. Each returns None for labels it does
+# not handle, so the core vocabulary above is unchanged.
+#
+# (a) SO(8) triality names: 8v, 8s, 8c, 35v, 35s, 35c (also 28 = adjoint, 1 = singlet). They refer to a triality frame
+#     in which the supercharges of a 3d N=8 SCFT are in 8v, as in Cordova-Dumitrescu-Intriligator (arXiv:1612.00809,
+#     sec. 2.1.7: 8v = (1,0,0,0), 8s = (0,0,1,0), 8c = (0,0,0,1)) and in the N=8 bootstrap literature, where the
+#     stress-tensor multiplet's primary is a 35c. Which of the two spinors is called s and which c is a convention:
+#     use the source's name. 8v, 35v and 28 are the same irreps as vector, sym(2) and adjoint (same canonical form).
+# (b) SU(N), Sp(N) with numeric N: sym(k), anti(k) with k a parameter expression, e.g. the SU(2)_C spin N_f/2 of a
+#     Coulomb-branch operator of dimension N_f/2 in 3d N=4 SQED is sym(N_f) of SU(2).
+
+SO8_TENSOR_ALIAS = {"1": "singlet", "8v": "vector", "28": "adjoint", "35v": "sym(2)"}
+SO8_SPINORIAL = {"8s": ((0, 0, 1, 0), [BIG // 2, 0, 0, 0]), "8c": ((0, 0, 0, 1), [BIG // 2, 0, 0, 1]),
+                 "35s": ((0, 0, 2, 0), [4, -1, -1, -1, 0]), "35c": ((0, 0, 0, 2), [4, -1, -1, -1, 1])}
+
+
+def _so8_bold(name: str) -> str:
+    m = re.fullmatch(r"(\d+)([vsc]?)", name)
+    return f"\\mathbf{{{m.group(1)}}}" + (f"_{m.group(2)}" if m.group(2) else "")
+
+
+def _label_ext(g, t, s, params, G):
+    if t == "SO" and g.get("N") == 8:
+        name = s.replace("_", "")
+        if name in SO8_TENSOR_ALIAS:
+            out = _label(g, t, SO8_TENSOR_ALIAS[name], params, G)
+            out["short"] = f"{out['short']} ${_so8_bold(name)}$" if name != "1" else out["short"]
+            out.pop("text", None)
+            return out
+        if name in SO8_SPINORIAL:
+            dyn, sort = SO8_SPINORIAL[name]
+            return {"canon": "D4(" + ",".join(map(str, dyn)) + ")", "short": f"${_so8_bold(name)}$", "trivial": False,
+                    "sort": list(sort)}
+        return None
+    if t in ("SU", "Sp") and isinstance(g.get("N"), int):
+        m = re.fullmatch(r"(sym|anti)\((.+)\)(bar)?", s)
+        if not m or re.fullmatch(r"\s*\d+\s*", m.group(2)):
+            return None
+        if m.group(3) and t != "SU":
+            raise RepError("conjugate (bar) labels are for SU(N)")
+        k = _num(m.group(2), params)
+        kind, conj = m.group(1), bool(m.group(3))
+        if g["N"] == 2 and kind == "sym":
+            short = f"spin ${_ktex(k)}/2$ (rank-${_ktex(k)}$ symmetric)"
+        else:
+            short = f"rank-${_ktex(k)}$ {'antisymmetric' if kind == 'anti' else 'symmetric'}{' (conjugate)' if conj else ''}"
+        return {"canon": f"{kind}({k}){'bar' if conj else ''}", "short": short, "trivial": False,
+                "sort": [BIG, 2 if kind == "sym" else 3, int(conj)]}
+    return None
 
 
 # ------------------------------------------------------------------ spacetime

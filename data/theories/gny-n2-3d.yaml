@@ -33,6 +33,9 @@ symmetry:
   lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$O(2)$ and parity / time reversal ($\sigma$ odd)'
+  parity: true
+  global_group:
+    - {id: O(2), group: O(2)}
 
 quantities:
   - symbol: '\eta_\psi'
@@ -62,57 +65,67 @@ operators:
   - name: '\sigma'
     Delta: '0.6500(12)'
     spin: 0
-    rep: singlet, parity odd (order parameter)
+    parity: odd
+    global: {O(2): singlet}
+    role: order parameter
     method: CB
     refs: [erramilli2022]
   - name: '\psi_i'
     Delta: '1.06861(12)'
     spin: '1/2'
-    rep: vector of $O(2)$
+    parity: unknown
+    global: {O(2): vector}
     method: CB
     refs: [erramilli2022]
   - name: '\epsilon'
     Delta: '1.725(7)'
     spin: 0
-    rep: singlet, parity even
+    parity: even
+    global: {O(2): singlet}
     method: CB
     refs: [erramilli2022]
     note: The only relevant parity-even singlet (the tuning parameter).
   - name: 'J_\mu^{[ij]}'
     Delta: 2
     spin: 1
-    rep: adjoint of $O(2)$
+    parity: even
+    global: {O(2): adjoint}
     method: exact
     note: Conserved $O(2)$ currents.
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: singlet
+    parity: even
+    global: {O(2): singlet}
     method: exact
     note: Stress tensor (conserved).
   - name: '\sigma'''
     Delta: '3.1487(11)'
     spin: 0
-    rep: singlet, parity odd
+    parity: odd
+    global: {O(2): singlet}
     method: Padé, large N and N = 1
     refs: [mitchell2024]
   - name: '\sigma'''
     Delta: '[3.071,\ 3.328]'
     spin: 0
-    rep: singlet, parity odd
+    parity: odd
+    global: {O(2): singlet}
     method: CB, rigorous bounds
     refs: [mitchell2024]
     note: 'With mild gap assumptions.'
   - name: '\epsilon'''
     Delta: '3.5474(5)'
     spin: 0
-    rep: singlet, parity even
+    parity: even
+    global: {O(2): singlet}
     method: Padé, large N and N = 1
     refs: [mitchell2024]
   - name: '\epsilon'''
     Delta: '[3.169,\ 3.835]'
     spin: 0
-    rep: singlet, parity even
+    parity: even
+    global: {O(2): singlet}
     method: CB, rigorous bounds
     refs: [mitchell2024]
     note: 'With mild gap assumptions.'

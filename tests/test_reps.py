@@ -142,6 +142,23 @@ for bad, needle in [({"irreps": LISTED["irreps"]}, "needs `tex`"), ({"tex": "G"}
         FAILS.append(f"listed group without {needle} accepted")
     except RepError as exc:
         expect(needle in str(exc), f"listed: message {exc} lacks {needle!r}")
+# Additions of the 3d migration batch (scripts/reps.py, "labels: additions"): SO(8) triality names; symbolic rank with
+# numeric N.
+expect(lab("SO(8)", "8v")["canon"] == lab("SO(8)", "vector")["canon"] == "Y(1)", "SO(8) 8v = vector")
+expect(lab("SO(8)", "35v")["canon"] == lab("SO(8)", "sym(2)")["canon"], "SO(8) 35v = sym(2)")
+expect(lab("SO(8)", 28)["canon"] == lab("SO(8)", "adjoint")["canon"], "SO(8) 28 = adjoint")
+expect(lab("SO(8)", "35c")["canon"] == lab("SO(8)", "35_c")["canon"] == "D4(0,0,0,2)", "SO(8) 35c canonical")
+expect(lab("SO(8)", "35s")["canon"] != lab("SO(8)", "35c")["canon"], "SO(8) 35s and 35c differ")
+expect("\\mathbf{35}_c" in lab("SO(8)", "35c")["text"], "SO(8) 35c text")
+expect("\\mathbf{28}" in lab("SO(8)", "adjoint")["text"] or "adjoint" in lab("SO(8)", "adjoint")["text"], "SO(8) adjoint text")
+expect(order("SO(8)", ["35c", "singlet", "28", "8s", "35v"]) == ["singlet", "35v", "28", "35c", "8s"], "SO(8) order")
+expect(not lab("SO(8)", "35c")["trivial"], "35c is not trivial")
+rejects("SO(7)", "35c", "SO(N) label")
+rejects("O(8)", "35c", "O(N) label")
+expect(lab("SU(2)", "sym(N_f)")["canon"] == "sym(N_f)", "SU(2) symbolic spin")
+expect("spin $N_f/2$" in lab("SU(2)", "sym(N_f)")["text"], "SU(2) symbolic spin text")
+expect(lab("SU(2)", "sym(2)")["canon"] == "Dynkin(2)", "numeric rank unchanged")
+rejects("SU(2)", "sym(M)", "parameters")
 
 if FAILS:
     print(f"✗ {len(FAILS)} failure(s):")

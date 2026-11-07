@@ -84,6 +84,9 @@ symmetry:
   lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$O(N)$'
+  parity: true
+  global_group:
+    - {id: O(N), group: O(N)}
 
 quantities:
   - symbol: '\eta'
@@ -119,44 +122,54 @@ operators:
   - name: '\phi_i'
     Delta: '\frac{1}{2} + \frac{4}{3\pi^2 N} - \frac{256}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
-    rep: vector (order parameter)
+    parity: even
+    global: {O(N): vector}
+    role: order parameter
     method: 1/N
     refs: [henriksson2022]
   - name: 't_{ij}'
     Delta: '1 + \frac{32}{3\pi^2 N} - \frac{512}{27\pi^4 N^2} + O(N^{-3})'
     spin: 0
-    rep: rank-2 symmetric traceless
+    parity: even
+    global: {O(N): sym(2)}
     method: 1/N
     refs: [henriksson2022]
   - name: 's'
     Delta: '2 - \frac{32}{3\pi^2 N} - \left(\frac{32}{\pi^2} - \frac{512}{27\pi^4}\right)\frac{1}{N^2} + O(N^{-3})'
     spin: 0
-    rep: singlet (thermal; $\sigma$ at large $N$)
+    parity: even
+    global: {O(N): singlet}
+    role: 'thermal; $\sigma$ at large $N$'
     method: 1/N
     refs: [henriksson2022]
   - name: 'J_\mu^{[ij]}'
     Delta: 2
     spin: 1
-    rep: antisymmetric (adjoint)
+    parity: even
+    global: {O(N): adjoint}
     method: exact
     note: Conserved $O(N)$ currents.
   - name: 't_4'
     Delta: '2 + \frac{160}{3\pi^2 N} - \left(\frac{42496}{27\pi^4} - \frac{128}{\pi^2}\right)\frac{1}{N^2} + O(N^{-3})'
     spin: 0
-    rep: rank-4 symmetric traceless
+    parity: even
+    global: {O(N): sym(4)}
     method: 1/N
     refs: [henriksson2022]
     note: 'Relevant at large $N$, so cubic anisotropy destabilizes the fixed point.'
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: singlet
+    parity: even
+    global: {O(N): singlet}
     method: exact
     note: Stress tensor (conserved).
   - name: "s'"
     Delta: '4 - \frac{64}{3\pi^2 N} - \left(\frac{64}{\pi^2} - \frac{13312}{27\pi^4}\right)\frac{1}{N^2} + O(N^{-3})'
     spin: 0
-    rep: singlet ($\sigma^2$ at large $N$)
+    parity: even
+    global: {O(N): singlet}
+    role: '$\sigma^2$ at large $N$'
     method: 1/N
     refs: [henriksson2022]
     note: 'Leading irrelevant singlet; $\omega = \Delta_{s^\prime} - 3$ agrees with the large-$N$ series for $\omega$ in [@hasenbusch2022].'

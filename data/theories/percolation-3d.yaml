@@ -50,6 +50,9 @@ symmetry:
   euclidean: '$O(4,1)$'
   supercharges: 0
   global: '$S_q$ permutation symmetry of the Potts model, at $q \to 1$ (formal)'
+  parity: true
+  global_group:
+    - {id: S_q, group: finite, tex: 'S_q', note: 'The Potts $S_q$ at $q \to 1$, a formal (categorical) symmetry; only the irreps used here are listed.', irreps: [{label: trivial, tex: '\text{singlet}', dim: 1}, {label: standard, tex: '(q-1)\text{-dimensional}'}]}
   notes: 'The $N+1$ vectors $e_\alpha$ are the vertices of an $N$-dimensional tetrahedron, so $d_{ijk}$ is invariant under their permutations, the $S_{N+1} = S_q$ of the Potts model.'
 
 quantities:
@@ -124,21 +127,27 @@ operators:
   - name: '\sigma'
     Delta: '0.47705(15)'
     spin: 0
-    rep: '$(q-1)$-dimensional representation of $S_q$ (order parameter)'
+    parity: even
+    global: {S_q: standard}
+    role: order parameter
     method: MC
     refs: [wang2013]
     note: 'Quoted as $\beta/\nu$. Below the unitarity bound $\tfrac12$.'
   - name: '\sigma'
     Delta: '0.47707(10)'
     spin: 0
-    rep: '$(q-1)$-dimensional representation of $S_q$ (order parameter)'
+    parity: even
+    global: {S_q: standard}
+    role: order parameter
     method: MC, eight lattice models, from d_f
     refs: [xu2014]
     note: 'Computed as $3 - d_f$ from $d_f$ of Xu et al. [@xu2014].'
   - name: '\epsilon'
     Delta: '1.8590(15)'
     spin: 0
-    rep: '$S_q$ singlet (thermal)'
+    parity: even
+    global: {S_q: trivial}
+    role: thermal
     method: MC, from y_t
     refs: [wang2013]
     note: '$3 - y_t$ with $y_t = 1.1410(15)$.'

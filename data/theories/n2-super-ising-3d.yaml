@@ -45,6 +45,10 @@ symmetry:
   lorentzian: '$OSp(2|4)$'
   supercharges: 4
   global: '$U(1)_R$ (R-symmetry, $R_\Phi = 2/3$); no continuous flavor symmetry'
+  parity: true
+  global_group:
+    - {id: U(1)_R, group: U(1), tex: 'U(1)_R'}
+  notes: 'Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@cordova2016, Sec. 2.1.2]: $X\bar Y[j]^{(r)}_\Delta$, with $j$ twice the spin and $r$ the $U(1)_R$ charge; $Q$ has $r = -1$ and $\bar Q$ has $r = +1$, and chiral primaries are $L\bar B_1[0]^{(r)}_r$.'
 
 quantities:
   - key: F
@@ -87,61 +91,83 @@ operators:
   - name: '\phi'
     Delta: '\frac{2}{3}'
     spin: 0
-    rep: 'chiral primary, $R = 2/3$'
+    parity: unknown
+    global: {U(1)_R: 2/3}
+    multiplet: {name: '$\phi$', component: primary, type: '$L\bar B_1[0]^{(2/3)}_{2/3}$'}
     method: exact
     refs: [bobev2015b]
     note: '$\Delta = R$ for a chiral primary.'
   - name: '\psi'
     Delta: '\frac{7}{6}'
     spin: '1/2'
-    rep: 'superpartner of $\phi$, $R = -1/3$'
+    parity: unknown
+    global: {U(1)_R: -1/3}
+    multiplet: {name: '$\phi$', component: Q, type: '$L\bar B_1[0]^{(2/3)}_{2/3}$'}
     method: exact, supersymmetry
     refs: [fei2016]
     note: '$\Delta_\psi = \Delta_\phi + \tfrac12$.'
   - name: '\phi^2'
     Delta: '\frac{5}{3}'
     spin: 0
-    rep: '$R = 4/3$; superconformal descendant $Q^2\bar\Phi$'
+    parity: unknown
+    global: {U(1)_R: 4/3}
+    multiplet: {name: '$\bar\phi$', component: '\bar Q^2', type: '$B_1\bar L[0]^{(-2/3)}_{2/3}$'}
     method: exact, supersymmetry
     refs: [bobev2015, fei2016]
     note: 'Not a chiral primary, since $\Phi^2 = 0$ in the chiral ring; $\Delta = \Delta_\phi + 1$.'
   - name: '[\bar\Phi\Phi]'
     Delta: '1.9098(20)'
     spin: 0
-    rep: '$R = 0$; lowest unprotected superconformal primary'
+    parity: even
+    global: {U(1)_R: 0}
+    role: lowest unprotected superconformal primary
+    multiplet: {name: '$[\bar\Phi\Phi]$', component: primary, type: '$L\bar L[0]^{(0)}_\Delta$'}
     method: CB
     refs: [bobev2015]
     note: 'Its coupling is the tuning parameter of the non-supersymmetric description.'
   - name: '[\bar\Phi\Phi]'
     Delta: '\approx 1.909'
     spin: 0
-    rep: '$R = 0$; lowest unprotected superconformal primary'
+    parity: even
+    global: {U(1)_R: 0}
+    role: lowest unprotected superconformal primary
+    multiplet: {name: '$[\bar\Phi\Phi]$', component: primary, type: '$L\bar L[0]^{(0)}_\Delta$'}
     method: 'ε-exp, 4 − ε, Padé'
     refs: [fei2016]
     note: 'Padé estimate at $d=3$ of $2 - \tfrac13\epsilon^2 + \tfrac{1+12\zeta(3)}{18}\epsilon^3 + O(\epsilon^4)$ [@fei2016].'
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: '$R = 0$'
+    parity: even
+    global: {U(1)_R: 0}
+    multiplet: {name: stress tensor, component: 'Q\bar Q', type: '$A_1\bar A_1[2]^{(0)}_2$'}
     method: exact
     note: 'Stress tensor, in the multiplet whose bottom component is the $U(1)_R$ current.'
   - name: '[Q^4\bar\Phi\Phi]'
     Delta: '3.9098(20)'
     spin: 0
-    rep: '$R = 0$; top component of the $[\bar\Phi\Phi]$ multiplet'
+    parity: even
+    global: {U(1)_R: 0}
+    multiplet: {name: '$[\bar\Phi\Phi]$', component: 'Q^2\bar Q^2', type: '$L\bar L[0]^{(0)}_\Delta$'}
     method: CB
     refs: [bobev2015]
     note: '$\Delta = \Delta_{[\bar\Phi\Phi]} + 2$; the analogue of $\epsilon^\prime$ of the Ising model, $\omega = \Delta - 3$.'
   - name: 'J^\prime'
     Delta: '5.25(25)'
     spin: 1
-    rep: 'second spin-1 superconformal primary in $\Phi\times\bar\Phi$'
+    parity: unknown
+    global: {U(1)_R: 0}
+    role: 'second spin-1 superconformal primary in $\Phi\times\bar\Phi$'
+    multiplet: {name: '$J^\prime$', component: primary, type: '$L\bar L[2]^{(0)}_\Delta$'}
     method: CB
     refs: [bobev2015]
   - name: '[\bar\Phi\Phi]^\prime'
     Delta: '5.3(1)'
     spin: 0
-    rep: '$R = 0$; second scalar superconformal primary in $\Phi\times\bar\Phi$'
+    parity: unknown
+    global: {U(1)_R: 0}
+    role: 'second scalar superconformal primary in $\Phi\times\bar\Phi$'
+    multiplet: {name: '$[\bar\Phi\Phi]^\prime$', component: primary, type: '$L\bar L[0]^{(0)}_\Delta$'}
     method: CB
     refs: [bobev2015]
 
@@ -190,5 +216,10 @@ references:
     year: 2014
     journal: New J. Phys. 16, 013044
     arxiv: '1206.2340'
+  - key: cordova2016
+    title: Multiplets of superconformal symmetry in diverse dimensions
+    authors: Cordova, Dumitrescu, Intriligator
+    year: 2016
+    arxiv: '1612.00809'
 
 contributors: [Canonical111]

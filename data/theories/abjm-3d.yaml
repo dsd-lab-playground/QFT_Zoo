@@ -86,8 +86,12 @@ symmetry:
   lorentzian: '$OSp(6|4)$'
   supercharges: 12
   global: '$SO(6)_R \simeq SU(4)_R$ and a $U(1)$ (enhanced to $SO(8)_R$ at $k = 1, 2$); parity combined with exchange of the two gauge groups'
+  parity: true
+  global_group:
+    - {id: SU(4)_R, group: SU(4), tex: 'SU(4)_R', note: 'Enhanced to $SO(8)_R$ at $k = 1, 2$.'}
+    - {id: U(1), group: U(1), note: 'The $U(1)$ of `global`; its charge normalization is not recorded.'}
   gauge: '$U(N)_k \times U(N)_{-k}$'
-  notes: '12 real Poincaré supercharges for generic $k$ and 16 at $k = 1, 2$, where the enhancement is not manifest in the Lagrangian.'
+  notes: '12 real Poincaré supercharges for generic $k$ and 16 at $k = 1, 2$, where the enhancement is not manifest in the Lagrangian. Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@cordova2016, Secs. 2.1.6–2.1.7]: $X[j]^{(R)}_\Delta$, with $j$ twice the spin and $R$ the $\mathfrak{so}(6)_R$ Dynkin labels (at $k = 1, 2$, $\mathfrak{so}(8)_R$ labels in the triality frame where $Q$ is in $\mathbf{8}_v$, with $\mathbf{8}_c = (0,0,0,1)$). Under $SO(8)_R \supset SU(4)_R\times U(1)$ the $\mathbf{35}_c$ contains $\mathbf{15}\oplus\mathbf{10}\oplus\overline{\mathbf{10}}$; the $\mathbf{15}$ is the primary of the $\mathcal{N}=6$ stress-tensor multiplet $B_1[0]^{(0,1,1)}_1$.'
 
 quantities:
   - symbol: 'F'
@@ -124,19 +128,26 @@ operators:
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: singlet
+    parity: even
+    global: {SU(4)_R: singlet, U(1): 0}
+    multiplet: {name: stress tensor, component: 'Q^4', type: '$B_1[0]^{(0,1,1)}_1$'}
     method: exact
     note: Stress tensor (conserved).
   - name: 'J_\mu^R'
     Delta: 2
     spin: 1
-    rep: 'adjoint ($\mathbf{15}$) of $SU(4)_R$'
+    parity: unknown
+    global: {SU(4)_R: adjoint, U(1): 0}
+    multiplet: {name: stress tensor, component: 'Q^2', type: '$B_1[0]^{(0,1,1)}_1$'}
     method: exact
     note: 'Conserved R-symmetry currents. At $k = 1, 2$ further conserved currents built from monopole operators enhance the symmetry to $SO(8)_R$.'
   - name: '\mathcal{O}_{\mathbf{35}_c}'
     Delta: 1
     spin: 0
-    rep: '$\mathbf{35}_c$ of $SO(8)_R$ ($k = 1, 2$)'
+    parity: unknown
+    global: {SU(4)_R: [adjoint, 'Dynkin(2,0,0)', 'Dynkin(0,0,2)'], U(1): unknown}
+    role: '$\mathbf{35}_c$ of $SO(8)_R$ ($k = 1, 2$)'
+    multiplet: {name: stress tensor, component: primary, type: '$B_1[0]^{(0,0,0,2)}_1$ ($k = 1, 2$)'}
     method: exact
     refs: [chester2014]
     note: 'Superconformal primary of the half-BPS $\mathcal{N}=8$ stress-tensor multiplet; protected.'
@@ -190,5 +201,10 @@ references:
     year: 2018
     journal: JHEP 06 (2018) 159
     arxiv: '1711.07343'
+  - key: cordova2016
+    title: Multiplets of superconformal symmetry in diverse dimensions
+    authors: Cordova, Dumitrescu, Intriligator
+    year: 2016
+    arxiv: '1612.00809'
 
 contributors: [Canonical111]
