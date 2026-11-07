@@ -1,0 +1,57 @@
+id: trivial-tqft-3d
+name: 'Trivial 3d topological field theory'
+aliases: ['Trivial gapped infrared fixed point']
+d: 3
+summary: >-
+  The normalized trivial bosonic theory: one state on every closed spatial
+  surface and partition function one. Symmetry actions and background
+  responses must be specified when it is used as an RG-flow endpoint.
+tags: [TQFT, gapped, unitary, exactly solvable]
+description: |
+  This is the tensor unit of three-dimensional bosonic topological field theories,
+  normalized to $Z(M)=1$ and $\mathcal H(\Sigma)=\mathbb C$: Moore and Saxena,
+  section 9, define it by the state space $\mathbb C$ on every spatial manifold and
+  the identity map on every bordism, so it does not depend on the metric.
+  It has no intrinsic topological order or chiral gravitational response.
+  Its only local operator is the identity: the symmetry-TFT construction of this
+  phase produces no genuine topological defects (Bhardwaj et al., section 4.1.1,
+  Eqs. (4.8)-(4.10)).
+
+  ### Symmetry-equipped endpoints
+  This entry alone does not choose a global symmetry group. For the conventional
+  ungauged Ising disordered phase, equip it with an unbroken $\mathbb Z_2$
+  whose infrared action is trivial, with response $Z(M,A)=1$ for flat backgrounds
+  $A$: the trivial $\mathbb Z_2$ phase of Bhardwaj et al., section 4.1.1,
+  Eqs. (4.8)-(4.10). The flow relation must record this choice.
+  The nontrivial $\mathbb Z_2$ SPT phase has the same underlying theory but a
+  different realization of the symmetry (their Eqs. (3.5)-(3.6) and (4.11)-(4.13));
+  a flow to it must say so. Invertible theories that are
+  nontrivial even without symmetry, such as those with a chiral gravitational
+  response, are different theories and are not this entry.
+
+  ### Meaning of the infrared limit
+  A microscopic massive theory has finite correlation length. This entry retains
+  only its normalized topological infrared limit, not its massive particles.
+  Local metric rescalings act trivially; this is a conformal fixed point in a
+  broader sense than an interacting CFT with a nonzero stress tensor.
+symmetry:
+  spacetime: 'Topological; local metric rescalings act trivially.'
+  notes: >-
+    No global symmetry is fixed by this underlying entry. A flow may specify a
+    retained symmetry, how it is realized, and its background response.
+references:
+  - key: moore2025
+    title: TASI Lectures On Topological Field Theories And Differential Cohomology
+    authors: Gregory W. Moore and Vivek Saxena
+    year: 2025
+    arxiv: '2510.07408'
+    note: 'Section 9, printed p. 44: definition of the trivial theory and of invertible theories.'
+  - key: bhardwaj2024
+    title: 'Gapped Phases in (2+1)d with Non-Invertible Symmetries: Part I'
+    authors: Bhardwaj, Pajer, Schafer-Nameki, Tiwari, Warman, Wu
+    year: 2025
+    arxiv: '2408.05266'
+    doi: '10.21468/SciPostPhys.19.2.056'
+    journal: 'SciPost Physics 19, 056'
+    note: 'Section 4.1.1, Eqs. (4.8)-(4.13), arXiv v2 pp. 28-29: trivial and SPT phases with Z2 symmetry.'
+contributors: [davidsd]
