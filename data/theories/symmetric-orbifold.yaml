@@ -35,7 +35,7 @@ family:
   show: 6
 
 symmetry:
-  spacetime: 'conformal; $\mathcal{N}=(4,4)$ superconformal for $X = T^4$ or K3'
+  spacetime: '$SO(3,1)$, extended to two Virasoro algebras, $c = \bar c = N c_X$ — 2d conformal group, with parity ($O(3,1)$) when the seed $X$ has it; for $X = T^4$ or K3, $\mathcal{N}=(4,4)$ superconformal, $PSU(1,1|2)\times PSU(1,1|2)$ (8 $Q$ + 8 $S$ supercharges), at $c = \bar c = 6N$'
   notes: 'The permutation group $S_N$ is gauged.'
 
 quantities:

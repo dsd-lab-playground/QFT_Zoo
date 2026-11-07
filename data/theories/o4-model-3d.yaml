@@ -37,7 +37,7 @@ description: |
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\vec\phi)^2 + \tfrac{1}{2} m^2 \vec\phi^{\,2} + \tfrac{\lambda}{4!}(\vec\phi^{\,2})^2, \quad \vec\phi\in\mathbb{R}^4 \quad (m^2 \text{ tuned to criticality, flow to the IR})'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(4,1)$ — 3d conformal group with parity'
   supercharges: 0
   global: '$O(4)$'
   notes: 'In the QCD application, $SO(4) \cong (SU(2)_L \times SU(2)_R)/\mathbb{Z}_2$.'

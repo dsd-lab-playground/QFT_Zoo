@@ -72,7 +72,7 @@ family:
       note: 'Weakly coupled electric description, $N_c g_*^2 = \tfrac{8\pi^2}{3}\epsilon + O(\epsilon^2)$ with $\epsilon = 3 - N_f/N_c$.'
 
 symmetry:
-  spacetime: '$\mathcal{N}=1$ superconformal'
+  spacetime: '$SU(2,2|1)$ — 4d $\mathcal{N}=1$ superconformal group (4 $Q$ + 4 $S$ supercharges), with parity combined with charge conjugation ($\theta$ is unphysical with massless quarks)'
   supercharges: 4
   global: '$SU(N_f)\times SU(N_f)\times U(1)_B$ flavour symmetry and $U(1)_R$'
   gauge: '$SU(N_c)$ (electric) or $SU(N_f-N_c)$ (magnetic)'

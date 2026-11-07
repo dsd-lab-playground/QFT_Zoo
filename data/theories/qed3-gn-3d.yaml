@@ -54,7 +54,7 @@ family:
       note: 'Strict large-$N_f$ limit, where the $1/N_f$ expansion is controlled.'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(4,1)$ — 3d conformal group with parity'
   supercharges: 0
   global: '$SU(N_f)$ flavor, $U(1)_{\rm top}$, charge conjugation, and parity / time reversal ($\phi$ odd)'
   gauge: '$U(1)$'

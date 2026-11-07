@@ -58,7 +58,7 @@ family:
       note: 'Type IIB supergravity on $AdS_5\times T^{1,1}$ with $N$ units of five-form flux; $a = c = 27N^2/64$.'
 
 symmetry:
-  spacetime: '$\mathcal{N}=1$ superconformal'
+  spacetime: '$SU(2,2|1)$ — 4d $\mathcal{N}=1$ superconformal group (4 $Q$ + 4 $S$ supercharges); parity not recorded'
   supercharges: 4
   global: '$SU(2)\times SU(2)$ rotating $A_k$ and $B_l$ (on the mesonic operators $\mathrm{Tr}\,A_kB_l$ this is the $SO(4)$ isometry of the conifold), the non-anomalous baryonic $U(1)_B$ with $A_k \to e^{i\alpha}A_k$, $B_l \to e^{-i\alpha}B_l$, and $U(1)_R$'
   gauge: '$SU(N)\times SU(N)$'

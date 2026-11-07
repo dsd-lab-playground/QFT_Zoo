@@ -78,7 +78,7 @@ family:
       note: '$(\alpha,\beta,\gamma,\delta) = (653, \tfrac{53}{2}, -\tfrac{71}{80}, \tfrac{73}{20})$, $a = \tfrac{14331}{10}$ (derived).'
 
 symmetry:
-  spacetime: '6d $\mathcal{N}=(1,0)$ superconformal'
+  spacetime: '$OSp(8^*|2)$ — 6d $\mathcal{N}=(1,0)$ superconformal group (8 $Q$ + 8 $S$ supercharges); no parity (chiral)'
   supercharges: 8
   global: 'R-symmetry $SU(2)_R$; no continuous flavor symmetry acts on the tensor-branch fields'
   gauge: '$\mathfrak{su}(3)$, $\mathfrak{so}(8)$, $\mathfrak{f}_4$, $\mathfrak{e}_6$, $\mathfrak{e}_7$, $\mathfrak{e}_7$, $\mathfrak{e}_8$ on the tensor branch (not at the conformal point)'

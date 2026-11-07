@@ -84,7 +84,7 @@ family:
       note: 'Related to symplectic fermions and loop-erased random walks (Grans-Samuelsson et al.).'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = 1 - \tfrac{6(1-g)^2}{g}$ — 2d conformal group with parity'
   supercharges: 0
   global: '$O(n)$ for continuous $n$ (a categorical symmetry of the loop model)'
 

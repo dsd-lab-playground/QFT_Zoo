@@ -47,7 +47,7 @@ description: |
 lagrangian: '\mathcal{L} = \tfrac{1}{2}(\partial\phi_i)^2 + \tfrac{1}{2} m^2 \phi_i\phi_i + \tfrac{g}{3!}\, d_{ijk}\,\phi_i\phi_j\phi_k, \quad d_{ijk} = \sum_{\alpha=1}^{N+1} e^i_\alpha e^j_\alpha e^k_\alpha, \quad i = 1,\dots,N = q - 1 \to 0 \quad (m^2 \text{ tuned})'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(6,1)$ — 5d conformal group with parity'
   supercharges: 0
   global: '$S_q$ permutation symmetry of the Potts model, at $q \to 1$ (formal)'
   notes: 'The $N+1$ vectors $e_\alpha$ are the vertices of an $N$-dimensional tetrahedron, so $d_{ijk}$ is invariant under their permutations, the $S_{N+1} = S_q$ of the Potts model.'

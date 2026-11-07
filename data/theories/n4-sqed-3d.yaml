@@ -59,7 +59,7 @@ family:
       note: '$F = N_f\log 2 + \tfrac12\log\frac{\pi N_f}{2} + O(1/N_f)$.'
 
 symmetry:
-  spacetime: '$\mathcal{N}=4$ superconformal'
+  spacetime: '$OSp(4|4)$ — 3d $\mathcal{N}=4$ superconformal group (8 $Q$ + 8 $S$ supercharges), with parity'
   supercharges: 8
   global: '$SU(N_f)$ acting on the hypermultiplets, times the topological $U(1)_J$, which is enhanced to $SU(2)$ at $N_f=1$ (the free twisted hypermultiplet, whose moment maps are bilinears of the free monopole fields $V_\pm$) and at $N_f=2$; R-symmetry $SU(2)_H\times SU(2)_C$'
   gauge: '$U(1)$'

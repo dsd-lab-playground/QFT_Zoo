@@ -61,7 +61,7 @@ family:
       label: Large-$N$ limit
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(4,1)$ — 3d conformal group with parity'
   supercharges: 0
   global: '$U(1)$ chiral symmetry ($\phi$ has charge 2), and $U(N_f)$ flavour symmetry in the four-component notation'
   notes: '$\mathcal{N}=2$ supersymmetry emerges at $N=2$, where the $U(1)$ is the $R$-symmetry.'

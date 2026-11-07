@@ -40,7 +40,7 @@ description: |
 lagrangian: '\mathcal{L} = i\,\bar\psi\,\gamma^\mu\partial_\mu\psi, \qquad \gamma_7\psi = \psi'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$SO(7,1)$ — 6d conformal group, no parity (chiral)'
   supercharges: 0
   global: '$U(1)$ fermion number, $\psi\to e^{i\alpha}\psi$ (the manifest symmetry of the Weyl Lagrangian)'
   notes: 'Gravitational anomaly (Alvarez-Gaumé and Witten).'

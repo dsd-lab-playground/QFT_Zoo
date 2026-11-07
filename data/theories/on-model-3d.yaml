@@ -79,7 +79,7 @@ family:
       note: '$\Delta_\phi = \tfrac12$, $\Delta_s = 2$. Singlet sector conjectured dual to the minimal bosonic Vasiliev theory in AdS$_4$ (Klebanov and Polyakov).'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(4,1)$ — 3d conformal group with parity'
   supercharges: 0
   global: '$O(N)$'
 

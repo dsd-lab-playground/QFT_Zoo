@@ -38,7 +38,7 @@ description: |
   The minimality of $F$ and $C_T$ is a conjecture.
 
 symmetry:
-  spacetime: '$\mathcal{N}=4$ superconformal (conjectured emergent; $\mathcal{N}=2$ manifest)'
+  spacetime: '$OSp(4|4)$ — 3d $\mathcal{N}=4$ superconformal group (8 $Q$ + 8 $S$ supercharges), conjectured emergent ($\mathcal{N}=2$, $OSp(2|4)$, manifest); with parity, which maps the UV level $k=-\tfrac32$ to $+\tfrac32$, a dual description'
   supercharges: 8
   global: 'No flavor symmetry; the UV $U(1)_R\times U(1)_{\rm top}$ is conjectured to become part of the $SO(4)$ R-symmetry'
   gauge: '$U(1)_{-3/2}$ (UV description)'

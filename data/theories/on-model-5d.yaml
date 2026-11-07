@@ -90,7 +90,7 @@ family:
       note: '$\Delta_\phi = \tfrac32$, $\Delta_\sigma = 2$. Singlet sector conjectured dual to the Vasiliev theory in AdS$_6$ with alternate boundary conditions.'
 
 symmetry:
-  spacetime: conformal (order by order in $1/N$)
+  spacetime: '$O(6,1)$ — 5d conformal group with parity (order by order in $1/N$)'
   supercharges: 0
   global: '$O(N)$'
   notes: 'On $S^5$ or $\mathbb{R}\times S^4$ the conformal coupling makes the perturbative vacuum metastable; instantons make the CFT data complex at finite $N$.'

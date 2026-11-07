@@ -8,7 +8,7 @@ tags: [CFT, interacting, unitary, rational, exactly solvable, minimal model, cri
 description: 'The $(A_4, D_4)$ invariant of $\mathcal{M}(6,5)$. Its chiral algebra is extended by a spin-3 current $W$, making it the first $\mathcal{W}_3$ minimal model; it is also the $\mathbb{Z}_3$ parafermion theory $SU(2)_3/U(1)$.'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = \tfrac45$ — 2d conformal group with parity'
   supercharges: 0
   global: '$S_3$'
 

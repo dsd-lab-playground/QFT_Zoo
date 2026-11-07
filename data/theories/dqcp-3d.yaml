@@ -59,7 +59,7 @@ description: |
 lagrangian: '\mathcal{L} = \sum_{\alpha=1}^{2} |(\partial_\mu - i a_\mu) z_\alpha|^2 + m^2 |z|^2 + \frac{\lambda}{2}(|z|^2)^2 + \frac{1}{4e^2} f_{\mu\nu}f^{\mu\nu} \quad (m^2 \text{ tuned}, a_\mu \text{ noncompact})'
 
 symmetry:
-  spacetime: conformal if the transition is continuous (Lorentz invariance is emergent in lattice magnets)
+  spacetime: '$O(4,1)$ — 3d conformal group with parity, if the transition is continuous (Lorentz invariance is emergent in lattice magnets)'
   supercharges: 0
   global: '$SO(3)\times O(2)$ manifest (spin rotations; $U(1)_{\rm top}\rtimes\mathbb{Z}_2^C$), plus time reversal; emergent $SO(5)$ proposed'
   gauge: '$U(1)$'

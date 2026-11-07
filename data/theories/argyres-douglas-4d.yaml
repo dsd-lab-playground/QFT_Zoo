@@ -72,7 +72,7 @@ family:
       note: '$SU(3)$ flavor symmetry, $k = 3$; $\Delta_u = \tfrac32$, $a = \tfrac{7}{12}$, $c = \tfrac23$. The $N_f = 3$ point of $SU(2)$.'
 
 symmetry:
-  spacetime: '$\mathcal{N}=2$ superconformal, $SU(2,2|2)$'
+  spacetime: '$SU(2,2|2)$ — 4d $\mathcal{N}=2$ superconformal group (8 $Q$ + 8 $S$ supercharges); parity not recorded'
   supercharges: 8
   global: 'Flavor symmetry: none ($H_0$), $SU(2)$ ($H_1$), $SU(3)$ ($H_2$); R-symmetry $SU(2)_R\times U(1)_r$'
   notes: 'Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$.'

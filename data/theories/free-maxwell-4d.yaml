@@ -42,7 +42,7 @@ parameters:
     range: 'upper half-plane, modulo $SL(2,\mathbb{Z})$'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(5,1)$ — 4d conformal group with parity (on local operators, for any $\tau$; with line operators or on closed four-manifolds, parity maps $\tau \to -\bar\tau$, a symmetry when this is an $SL(2,\mathbb{Z})$ image of $\tau$, e.g. at $\theta = 0$)'
   supercharges: 0
   global: '$U(1)^{(1)}_e \times U(1)^{(1)}_m$ one-form symmetries (with a mixed anomaly), and charge conjugation $\mathbb{Z}_2^C$'
   gauge: '$U(1)$'

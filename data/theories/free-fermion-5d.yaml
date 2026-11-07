@@ -38,7 +38,7 @@ description: |
 lagrangian: '\mathcal{L} = \bar\psi\,\gamma^\mu\partial_\mu\psi'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(6,1)$ — 5d conformal group with parity'
   supercharges: 0
   global: '$U(1)$ fermion number, $\psi\to e^{i\alpha}\psi$ (the manifest symmetry of the Dirac Lagrangian)'
   notes: 'Reflections of one coordinate flip the sign of the Dirac mass term.'

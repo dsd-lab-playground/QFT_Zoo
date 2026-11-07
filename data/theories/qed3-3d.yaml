@@ -73,7 +73,7 @@ family:
       note: 'Strict large-$N_f$ limit, where the $1/N_f$ expansion is controlled.'
 
 symmetry:
-  spacetime: conformal (at large $N_f$)
+  spacetime: '$O(4,1)$ — 3d conformal group with parity (even $N_f$, no Chern–Simons term; conformal at large $N_f$)'
   supercharges: 0
   global: '$SU(N_f)$ flavor, $U(1)_{\rm top}$ with current $j^{\rm top} = \star f/2\pi$ (charged operators are monopoles), charge conjugation, parity and time reversal'
   gauge: '$U(1)$'

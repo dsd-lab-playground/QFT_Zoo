@@ -53,7 +53,7 @@ description: |
   functions at generic $Q$ are discussed in the 2d Potts CFT entry.
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = 0$ — 2d conformal group with parity'
   supercharges: 0
   global: '$S_Q$ permutation symmetry of the Potts model, at $Q \to 1$ (formal)'
 

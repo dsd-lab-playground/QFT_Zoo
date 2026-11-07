@@ -90,7 +90,7 @@ family:
       note: 'As $|\lambda|\to1$ the dual fermion is weakly coupled: the large-$N$ Gross–Neveu model with $N_f = |k| - N$.'
 
 symmetry:
-  spacetime: conformal
+  spacetime: '$SO(4,1)$ — 3d conformal group, no parity for $\lambda \neq 0$ (Chern–Simons level $k$; parity maps $\lambda \to -\lambda$)'
   supercharges: 0
   gauge: '$U(N)$, Chern–Simons level $k$'
   global: '$U(1)$ (baryon number for gauge group $SU(N)$; for $U(N)$ a combination with the topological $U(1)$). Higher-spin symmetry at $N=\infty$, broken at order $1/N$.'

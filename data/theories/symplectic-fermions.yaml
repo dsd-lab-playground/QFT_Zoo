@@ -68,7 +68,7 @@ description: |
 lagrangian: '\mathcal{L} = \frac{1}{4\pi}\,J_{\alpha\beta}\,\partial_\mu\theta^\alpha\,\partial^\mu\theta^\beta'
 
 symmetry:
-  spacetime: 'conformal (Virasoro $\times$ Virasoro, $c = \bar c = -2$)'
+  spacetime: '$O(3,1)$, extended to two Virasoro algebras, $c = \bar c = -2$ — 2d conformal group with parity'
   supercharges: 0
   global: '$SL(2,\mathbb{C})$, with $\theta^\alpha$ and $\chi^\alpha$ in the fundamental'
   notes: 'Non-unitary ($c < 0$). Logarithmic: $L_0$ is not diagonalizable on the vacuum module.'

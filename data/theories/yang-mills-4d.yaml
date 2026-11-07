@@ -30,7 +30,7 @@ parameters:
     range: '$\theta \sim \theta + 2\pi$'
 
 symmetry:
-  spacetime: Poincaré
+  spacetime: '$\mathbb{R}^4\rtimes O(4)$ — 4d Poincaré group with parity, at $\theta \in \{0, \pi\}$ (otherwise $\mathbb{R}^4\rtimes SO(4)$, no parity); not conformal (the coupling runs)'
   supercharges: 0
   global: '$\mathbb{Z}_N^{(1)}$ one-form (center) symmetry; charge conjugation $C$ ($N\ge 3$); $P$ and $T$ at $\theta \in \{0,\pi\}$'
   notes: 'Mixed anomaly between $T$ and $\mathbb{Z}_N^{(1)}$ at $\theta=\pi$.'

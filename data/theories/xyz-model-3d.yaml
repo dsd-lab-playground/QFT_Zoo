@@ -46,7 +46,7 @@ description: |
 lagrangian: '\mathcal{L} = \int d^4\theta\,\big(\bar XX + \bar YY + \bar ZZ\big) + \Big(\int d^2\theta\; h\,XYZ + \text{c.c.}\Big)'
 
 symmetry:
-  spacetime: '$\mathcal{N}=2$ superconformal'
+  spacetime: '$OSp(2|4)$ — 3d $\mathcal{N}=2$ superconformal group (4 $Q$ + 4 $S$ supercharges), with parity'
   supercharges: 4
   global: '$U(1)\times U(1)\rtimes S_3$ flavor symmetry ($S_3$ permutes $X, Y, Z$), and $U(1)_R$'
   notes: 'In the SQED description the $S_3$ is emergent; only $U(1)_A\times U(1)_J$ is manifest.'
