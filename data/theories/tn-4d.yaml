@@ -76,6 +76,7 @@ quantities:
     refs: [gaiotto2009b, chacaltana2010, beem2013]
     note: '[@beem2013, Eq. (6.1); @chacaltana2010]; equals $(2n_v + n_h)/12$. $N = 2, 3, 4$: $\tfrac13$, $\tfrac{13}{6}$, $\tfrac{13}{2}$.'
   - symbol: '(n_v,\ n_h)'
+    category: anomaly
     description: 'Effective numbers of vector and hypermultiplets, defined by $a = (5n_v+n_h)/24$, $c = (2n_v+n_h)/12$'
     value: '\left(\frac{2N^3}{3} - \frac{3N^2}{2} - \frac{N}{6} + 1,\ \ \frac{2N^3}{3} - \frac{2N}{3}\right)'
     method: exact, S-duality of class S quivers
