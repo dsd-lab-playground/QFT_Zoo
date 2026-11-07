@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nathansbenjamin/QFT_Zoo/schema/spectrum.schema.json",
+  "title": "QFT Zoo spectrum file (2d CFT torus partition function)",
+  "description": "Z(q, qbar) = sum over Z entries [i, j, coef] of coef * b_i(q) * conj(b_j(q)), where block b(q) = q^(h - c/24) * sum_n coeffs[n] q^(n*step). The build checks modular invariance, integrality, a unique vacuum and the spectral gap.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["theory", "c", "blocks", "Z"],
+  "properties": {
+    "theory": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "id of the theory (data/theories/<id>.yaml)"},
+    "member": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["at"],
+      "description": "For a family: which member this spectrum belongs to.",
+      "properties": {
+        "at": {"type": ["integer", "string"]},
+        "variant": {"type": "string"}
+      }
+    },
+    "c": {"$ref": "#/$defs/rational"},
+    "chiral_algebra": {"type": "string", "description": "LaTeX name of the chiral algebra whose characters the blocks are (if they are characters)."},
+    "irreducible": {"type": "boolean", "default": false, "description": "true if every block is an irreducible character of chiral_algebra and every Z coefficient is a multiplicity; the site then lists the primaries."},
+    "Z_tex": {"type": "string", "description": "The partition function in LaTeX (no surrounding $)."},
+    "character_tex": {"type": "string", "description": "Closed form of the blocks, Markdown with $...$ math."},
+    "description": {"type": "string", "description": "How the spectrum was obtained, Markdown with $...$ math."},
+    "generator": {"type": "string", "description": "Script in this repository that produced the file."},
+    "blocks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "h", "coeffs"],
+        "properties": {
+          "label": {"type": "string", "description": "LaTeX label, e.g. \\chi_{1,2}"},
+          "h": {"$ref": "#/$defs/rational"},
+          "step": {"$ref": "#/$defs/rational"},
+          "coeffs": {"type": "array", "minItems": 1, "items": {"type": "integer"}}
+        }
+      }
+    },
+    "Z": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "array",
+        "prefixItems": [{"type": "integer", "minimum": 0}, {"type": "integer", "minimum": 0}, {"$ref": "#/$defs/rational"}],
+        "items": false,
+        "minItems": 3
+      }
+    }
+  },
+  "$defs": {
+    "rational": {
+      "oneOf": [
+        {"type": "integer"},
+        {"type": "string", "pattern": "^-?[0-9]+(/[0-9]+)?$"}
+      ]
+    }
+  }
+}
