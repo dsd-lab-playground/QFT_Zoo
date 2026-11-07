@@ -162,6 +162,9 @@ operators:
 
 relations:
   - type: flows_to
+    target: trivial-tqft-3d
+    note: 'Singlet mass deformation $t\,\phi_a\phi_a$ on the disordered (high-temperature) side: gapped, with $O(2)$ unbroken. The other sign breaks $O(2)$ and leaves a Goldstone boson, not this theory. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.'
+  - type: flows_to
     target: ising-3d
     note: 'Relevant charge-2 anisotropy $t \propto \phi_1^2 - \phi_2^2$, with the mass tuned so that the lighter component is critical.'
   - type: member_of

@@ -775,74 +775,117 @@ function flowDiagram(cluster, current = null) {
 
 /** The arrows are decoration for keyboard and screen-reader users, who reach the same details from the
  *  list or table next to each diagram; for the mouse, each arrow is a thick line that shows a preview on hover
- *  and opens the details on click. Arrows are straight, from the bottom of the UV box to the top of the IR
- *  box, and may pass under other boxes. Several arrows at one box spread along its edge, in the order of the
- *  boxes at their other ends. Parallel flows between the same two theories take lanes either side of the line.
- *  An arrow that would run along another one, or pass under a box where that box's own arrows start or end
- *  (so they can't be told apart), bends slightly; shorter arrows stay straight. */
+ *  and opens the details on click. Every arrow from a theory starts at one point, marked by a dot, in the middle
+ *  of the bottom of its box; arrows into a box spread along its top edge in the order they arrive from. Each
+ *  arrow takes the gentlest bend (straight first) that keeps it from being mistaken for another: running along
+ *  another arrow, or passing near another box's dot or arrowheads. Passing under a box is allowed but costs a
+ *  little, so an arrow curves around boxes when that takes only a slight bend. Parallel flows between the same
+ *  two theories take lanes either side. */
 function drawFlowArrows() {
   app.querySelectorAll(".flow-graph").forEach((g) => {
-    g.querySelector("svg")?.remove();
+    g.querySelector("svg.flow-arrows:not(.flow-dots)")?.remove();
     const box = g.getBoundingClientRect();
     const rel = (r) => ({ l: r.left - box.left, t: r.top - box.top, r: r.right - box.left, b: r.bottom - box.top });
     const selected = g.closest(".flow-view")?.dataset.selected;
     const svg = svgEl("svg", { class: "flow-arrows", width: box.width, height: box.height, "aria-hidden": "true" });
-    const R = new Map([...g.querySelectorAll("[data-flow-node]")].map((n) => [n.dataset.flowNode, rel(n.getBoundingClientRect())]));
+    const els = new Map([...g.querySelectorAll("[data-flow-node]")].map((n) => [n.dataset.flowNode, n]));
+    els.forEach((n) => (n.style.transform = ""));
+    const R = new Map([...els].map(([id, n]) => [id, rel(n.getBoundingClientRect())]));
     const cx = (id) => (R.get(id).l + R.get(id).r) / 2;
-    const edges = JSON.parse(g.dataset.edges);
-    const port = (id, end, other) => {
-      // Ordered by the other ends' positions; on a tie the farther one goes left, the side a bent arrow takes.
-      const far = (o) => Math.abs(R.get(o).t - R.get(id).t);
-      const mine = [...new Set(edges.filter((e) => e[end] === id).map((e) => e[1 - end]))]
-        .sort((a, b) => cx(a) - cx(b) || far(b) - far(a));
-      const r = R.get(id), w = Math.min(r.r - r.l - 16, 22 * (mine.length - 1));
-      return mine.length < 2 ? cx(id) : cx(id) - w / 2 + (w * mine.indexOf(other)) / (mine.length - 1);
+    // Shift a box sideways (top row first) when that takes it out from under arrows that aren't its own,
+    // keeping clear of its neighbours and inside the diagram.
+    const E = JSON.parse(g.dataset.edges);
+    const shift = (id, dx) => { const r = R.get(id); return { ...r, l: r.l + dx, r: r.r + dx }; };
+    const crossing = (id, r) => E.filter(([u, v]) => u !== id && v !== id).filter(([u, v]) => {
+      const [a, b] = [R.get(u), R.get(v)];
+      const [x1, y1, x2, y2] = [(a.l + a.r) / 2, a.b, (b.l + b.r) / 2, b.t];
+      if (Math.min(y1, y2) > r.b || Math.max(y1, y2) < r.t) return false;
+      const x = (y) => x1 + ((x2 - x1) * (y - y1)) / (y2 - y1 || 1);
+      const [xa, xb] = [x(Math.max(r.t, Math.min(y1, y2))), x(Math.min(r.b, Math.max(y1, y2)))];
+      return Math.max(xa, xb) > r.l - 10 && Math.min(xa, xb) < r.r + 10;
+    }).length;
+    for (const [id] of [...R].sort((a, b) => a[1].t - b[1].t)) {
+      const r0 = R.get(id);
+      const row = [...R].filter(([o, r]) => o !== id && r.t < r0.b && r.b > r0.t).map(([, r]) => r);
+      let best = { cost: crossing(id, r0), dx: 0 };
+      for (const dx of [40, -40, 80, -80, 120, -120, 160, -160, 200, -200, 240, -240]) {
+        const r = shift(id, dx);
+        if (r.l < 30 || r.r > box.width - 30 || row.some((o) => r.l < o.r + 24 && o.l < r.r + 24)) continue;
+        const cost = crossing(id, r) + Math.abs(dx) / 400;
+        if (cost < best.cost - 0.2) best = { cost, dx };
+      }
+      if (best.dx) { R.set(id, shift(id, best.dx)); els.get(id).style.transform = `translateX(${best.dx}px)`; }
+    }
+    const arrows = E.map(([uv, ir, key, lane, n]) => ({ uv, ir, key,
+      lane: (lane - (n - 1) / 2) * 112, x1: cx(uv), y1: R.get(uv).b, x2: cx(ir), y2: R.get(ir).t - 2 }));
+    // A course bent `off` px sideways at its middle (quadratic), and points along it.
+    const course = (A, off) => {
+      const len = Math.hypot(A.x2 - A.x1, A.y2 - A.y1) || 1;
+      return [(A.x1 + A.x2) / 2 - (2 * off * (A.y2 - A.y1)) / len, (A.y1 + A.y2) / 2 + (2 * off * (A.x2 - A.x1)) / len];
     };
-    const arrows = edges.map(([uv, ir, key, lane, n]) => {
-      const [x1, y1, x2, y2] = [port(uv, 0, ir), R.get(uv).b, port(ir, 1, uv), R.get(ir).t - 2];
-      return { uv, ir, key, x1, y1, x2, y2, len: Math.hypot(x2 - x1, y2 - y1) || 1, lane: (lane - (n - 1) / 2) * 112 };
-    });
-    // Where arrows meet boxes: an arrow passing under a box close to one of these would seem to start or end there.
-    const ends = arrows.flatMap((A) => [[A.x1, A.y1, A.uv], [A.x2, A.y2 + 2, A.ir]]);
-    const passesEnd = (A) => ends.some(([x, y, id]) => id !== A.uv && id !== A.ir &&
-      A.p.some(([px, py]) => Math.hypot(px - x, py - y) < 8));
-    // Points along an arrow bent by `off` (quadratic, control point off px to the side of the midpoint).
-    const pts = (A, off) => {
-      const [nx, ny] = [-(A.y2 - A.y1) / A.len, (A.x2 - A.x1) / A.len];
-      const [qx, qy] = [(A.x1 + A.x2) / 2 + off * nx, (A.y1 + A.y2) / 2 + off * ny];
-      const n = Math.ceil(A.len / 4);
-      return { qx, qy, p: [...Array(n + 1).keys()].map((i) => { const s = i / n;
-        return [(1 - s) ** 2 * A.x1 + 2 * (1 - s) * s * qx + s * s * A.x2, (1 - s) ** 2 * A.y1 + 2 * (1 - s) * s * qy + s * s * A.y2]; }) };
-    };
-    const runsAlong = (p, q) => { // p stays within 5px of q for 24px or more
+    const sample = (A, [qx, qy]) => { const n = Math.ceil(Math.hypot(A.x2 - A.x1, A.y2 - A.y1) / 4);
+      return [...Array(n + 1).keys()].map((i) => { const s = i / n;
+        return [(1 - s) ** 2 * A.x1 + 2 * (1 - s) * s * qx + s * s * A.x2, (1 - s) ** 2 * A.y1 + 2 * (1 - s) * s * qy + s * s * A.y2]; }); };
+    const into = new Map();
+    arrows.forEach((A) => into.set(A.ir, [...(into.get(A.ir) || []), A]));
+    const dots = [...new Set(arrows.map((A) => A.uv))].map((id) => [cx(id), R.get(id).b, id]);
+    const confusable = (A, p) => [...dots, ...arrows.map((B) => [B.x2, B.y2, B.ir])].some(([x, y, id]) =>
+      id !== A.uv && id !== A.ir && p.some(([px, py]) => Math.hypot(px - x, py - y) < 14));
+    const runsAlong = (p, q) => { // p stays within 6px of q for 20px or more
       let run = 0;
       for (let i = 1; i < p.length; i++) {
-        const near = q.some(([x, y]) => Math.hypot(x - p[i][0], y - p[i][1]) < 5);
-        run = near ? run + Math.hypot(p[i][0] - p[i - 1][0], p[i][1] - p[i - 1][1]) : 0;
-        if (run >= 24) return true;
+        const close = q.some(([x, y]) => Math.hypot(x - p[i][0], y - p[i][1]) < 6);
+        run = close ? run + Math.hypot(p[i][0] - p[i - 1][0], p[i][1] - p[i - 1][1]) : 0;
+        if (run >= 20) return true;
       }
       return false;
     };
-    const done = [];
-    for (const A of [...arrows].sort((a, b) => a.len - b.len)) {
-      for (const off of [0, 24, -24, 40, -40, 60, -60]) {
-        Object.assign(A, pts(A, A.lane + off));
-        if (!passesEnd(A) && !done.some((B) => runsAlong(A.p, B.p))) break;
+    const under = (A, p) => [...R].filter(([id, o]) => id !== A.uv && id !== A.ir &&
+      p.some(([x, y]) => x > o.l - 4 && x < o.r + 4 && y > o.t - 4 && y < o.b + 4)).length;
+    const mid = box.width / 2;
+    const offs = [0, ...[10, 20, 30, 40, 55, 70, 85, 100].flatMap((d) => [d, -d])];
+    // Two passes: arrowheads ordered along each box's top by where the arrows come from (first the straight
+    // courses, then the bent ones), and bends chosen for that order.
+    for (let pass = 0; pass < 2; pass++) {
+      for (const [id, list] of into) {
+        const r = R.get(id), w = Math.min(r.r - r.l - 16, 22 * (list.length - 1));
+        const from = (A) => { const [qx] = A.q ?? course(A, A.lane); return 0.36 * A.x1 + 0.48 * qx + 0.16 * A.x2 - 1e-3 * A.y1; };
+        list.sort((a, b) => from(a) - from(b));
+        list.forEach((A, i) => { A.x2 = list.length > 1 ? cx(id) - w / 2 + (w * i) / (list.length - 1) : cx(id); });
       }
-      done.push(A);
+      const done = [];
+      for (const A of [...arrows].sort((a, b) => Math.hypot(a.x2 - a.x1, a.y2 - a.y1) - Math.hypot(b.x2 - b.x1, b.y2 - b.y1))) {
+        const outward = Math.sign((A.x1 + A.x2) / 2 - mid) || 1; // a tie bends away from the diagram's middle
+        let best = null;
+        for (const off of offs) {
+          const q = course(A, A.lane + off), p = sample(A, q);
+          const bad = confusable(A, p) || done.some((B) => runsAlong(p, B.p));
+          const side = off * (A.y2 > A.y1 ? -1 : 1); // > 0 bends right
+          const cost = (bad ? 1000 : 0) + 30 * under(A, p) + Math.abs(off) + (off && Math.sign(side) !== outward ? 0.5 : 0);
+          if (!best || cost < best.cost) best = { cost, q, p };
+        }
+        [A.q, A.p] = [best.q, best.p];
+        done.push(A);
+      }
     }
     for (const A of arrows) {
-      const len = Math.hypot(A.x2 - A.qx, A.y2 - A.qy) || 1;
-      const [ux, uy] = [(A.x2 - A.qx) / len, (A.y2 - A.qy) / len];
+      const [qx, qy] = A.q;
+      const t = Math.hypot(A.x2 - qx, A.y2 - qy) || 1;
+      const [ux, uy] = [(A.x2 - qx) / t, (A.y2 - qy) / t];
       const [bx, by] = [A.x2 - 10 * ux, A.y2 - 10 * uy];
-      const d = `M${A.x1},${A.y1} Q${A.qx},${A.qy} ${bx},${by}`;
+      const d = `M${A.x1},${A.y1} Q${qx},${qy} ${bx},${by}`;
       const on = A.key === selected ? " selected" : "";
       // The wide invisible copy comes first, so hovering it can thicken the visible line after it (CSS +).
       svgEl("path", { d, class: "flow-hit", "data-flow-open": A.key }, svg);
       svgEl("path", { d, class: `flow-line${on}`, "data-flow-line": A.key }, svg);
       svgEl("polygon", { points: `${A.x2},${A.y2} ${bx - 5 * uy},${by + 5 * ux} ${bx + 5 * uy},${by - 5 * ux}`, class: `flow-head${on}`, "data-flow-line": A.key }, svg);
     }
+    // Dots go on their own layer above the boxes.
+    g.querySelector(".flow-dots")?.remove();
+    const top = svgEl("svg", { class: "flow-arrows flow-dots", width: box.width, height: box.height, "aria-hidden": "true" });
+    for (const [x, y] of dots) svgEl("circle", { cx: x, cy: y, r: 4, class: "flow-dot" }, top);
     g.prepend(svg);
+    g.append(top);
   });
 }
 

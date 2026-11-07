@@ -2,7 +2,6 @@ id: trivial-tqft-3d
 name: '3d trivial theory'
 aliases: ['Trivial gapped infrared fixed point']
 d: 3
-uv_dof: 0
 summary: >-
   The normalized trivial bosonic theory: one state on every closed spatial
   surface and partition function one. Symmetry actions and background
@@ -40,6 +39,14 @@ symmetry:
   notes: >-
     No global symmetry is fixed by this underlying entry. A flow may specify a
     retained symmetry, how it is realized, and its background response.
+quantities:
+  - symbol: 'F'
+    key: F
+    description: '$S^3$ free energy, $F = -\log Z_{S^3}$'
+    value: '0'
+    method: exact
+    refs: [moore2025]
+    note: 'Immediate from the definition: $Z(M) = 1$ for every closed $M$, so $Z_{S^3} = 1$.'
 references:
   - key: moore2025
     title: TASI Lectures On Topological Field Theories And Differential Cohomology

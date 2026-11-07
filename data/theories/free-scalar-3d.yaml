@@ -50,6 +50,9 @@ operators:
 
 relations:
   - type: flows_to
+    target: trivial-tqft-3d
+    note: 'Mass term $\tfrac12 m^2\phi^2$ with $m^2>0$: a free massive scalar, with mass gap $m$, a unique vacuum, and $\phi\to-\phi$ unbroken.'
+  - type: flows_to
     target: ising-3d
     note: 'Relevant $\phi^4$ deformation, with $m^2$ tuned to the critical point (Wilson–Fisher).'
 

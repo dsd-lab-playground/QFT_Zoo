@@ -352,7 +352,9 @@ table.spectrum td:last-child { white-space: normal; min-width: 14rem; }
   position: relative; z-index: 1; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
   justify-items: center; align-items: center; column-gap: 36px;
   width: min(100%, calc(var(--n) * 320px)); margin: 0 auto;
+  pointer-events: none; /* the row strip lets the mouse reach arrows between boxes; the boxes take it back */
 }
+.flow-row > * { pointer-events: auto; }
 .flow-node {
   display: block; max-width: 260px; padding: 6px 12px; text-align: center; color: var(--accent);
   background: var(--surface); border: 1.5px solid var(--accent); border-radius: 4px;
@@ -360,9 +362,10 @@ table.spectrum td:last-child { white-space: normal; min-width: 14rem; }
 a.flow-node:hover, a.flow-node:focus-visible { background: var(--accent-soft); text-decoration: none; }
 .flow-node.current { background: var(--accent); color: var(--accent-text); }
 .flow-arrows { position: absolute; inset: 0; pointer-events: none; }
+.flow-dots { z-index: 2; }
 .flow-kind { display: block; font-size: 0.75rem; opacity: 0.8; }
 .flow-arrows .flow-line { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; }
-.flow-arrows .flow-head { fill: var(--accent); }
+.flow-arrows .flow-head, .flow-arrows .flow-dot { fill: var(--accent); }
 /* A wide invisible copy of each arrow, drawn just before it, so the line itself can be hovered, clicked or tapped. */
 .flow-arrows .flow-hit { fill: none; stroke: transparent; stroke-width: 18; pointer-events: stroke; cursor: pointer; }
 .flow-arrows .flow-line.selected, .flow-arrows .flow-hit:hover + .flow-line { stroke-width: 4.5; }

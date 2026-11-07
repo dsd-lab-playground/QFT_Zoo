@@ -1,6 +1,6 @@
 id: cubic-3d
 name: '3d cubic fixed point ($N=3$)'
-short_name: '3d cubic FP'
+short_name: '3d cubic fixed point'
 aliases:
   - Cubic universality class
   - 'Cubic fixed point of three scalars'
@@ -103,6 +103,9 @@ operators:
     note: 'From $3 + \omega_2$. Leading irrelevant singlet; conformal perturbation theory gives $\Delta_X \approx 3.01$ (Chester et al.).'
 
 relations:
+  - type: flows_to
+    target: trivial-tqft-3d
+    note: 'Singlet mass deformation $t\,\phi_a\phi_a$ on the disordered (high-temperature) side: gapped, with the cubic symmetry unbroken. [Pelissetto and Vicari](https://arxiv.org/abs/cond-mat/0012164) review the phases of these models.'
   - type: related_to
     target: ising-3d
     note: 'Three decoupled 3d Ising CFTs form another, unstable fixed point of the same Lagrangian. The coupling $\sum_{i \neq j}\epsilon_i\epsilon_j$ is relevant there, and with the mass tuned it drives the flow to the cubic fixed point (Binder).'
