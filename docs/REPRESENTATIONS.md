@@ -95,6 +95,8 @@ operators:
 | `multiplet` | supersymmetric theories: `{name, component, type?}` (1.5) |
 | `role` | what the operator is or does: `order parameter`, `thermal`, `supercurrent`, `Coulomb-branch generator` (Markdown). Never part of the representation |
 | `degeneracy`, `method`, `refs`, `note` | unchanged |
+| `family` | makes the row one record for a tower of operators: `{id, parameters: [{symbol, from, to, step, except}]}`, with Δ, spin and labels as expressions in the parameters (1.7) |
+| `member_of`, `at` | the row records one member of a family of the entry, at the parameter values `at`, e.g. `{k: 2}` (1.7) |
 
 ### 1.3 Parity and time reversal
 
@@ -206,6 +208,101 @@ The build adds a derived field `irrep` to every operator of a migrated entry in
 `theories.json` (canonical label, display text, whether it is trivial, sort key per factor), and
 `global_factors` to the entry, so that the site needs no knowledge of the vocabulary.
 
+### 1.7 Operator families
+
+Some towers of operators are known exactly as functions of a label: the half-BPS operators of a
+superconformal theory, Coulomb-branch operators, conserved higher-spin currents, the vertex
+operators of a free boson. Such a tower is **one operator record**, a *family*, not one record per
+member. Its representation is a pattern in a parameter: "$\Delta = k$, spin 0, $[0,k,0]$ of
+$SU(4)_R$, $k = 2, \dots, N$".
+
+```yaml
+  - name: '\mathcal{O}_k = \mathrm{Tr}\,\phi^{\{I_1}\cdots\phi^{I_k\}}'
+    family:
+      id: half-BPS                       # what member rows refer to; unique in the entry
+      parameters:
+        - {symbol: k, from: 2, to: N}    # k = 2, 3, ..., N
+    Delta: 'k'
+    spin: 0
+    parity: unknown
+    global: {SU(4)_R: 'Dynkin(0,k,0)'}
+    multiplet: {name: '$\mathcal{O}_k$', component: primary, type: half-BPS}
+    method: exact
+    refs: [maldacena1997]
+```
+
+- **Parameters.** `family.parameters` lists one or more parameters, each with a `symbol` (a letter
+  or command, optionally with a subscript: `k`, `\ell`, `n`) that is not a parameter of the entry,
+  and a range: `from` and `to` (a number, or an expression in the entry's parameters and the
+  family's earlier parameters, e.g. `to: N`, `to: N-1`, `to: '\ell'`), `step` (default 1), and
+  `except` (values left out). Leave out `to` for an unbounded range; leave out both `from` and `to`
+  for all integers. Examples: $k = 2, \dots, N$ is `{symbol: k, from: 2, to: N}`; even spins from
+  2 are `{symbol: '\ell', from: 2, step: 2}`; $n = 0, 1, \dots$ is `{symbol: n, from: 0}`;
+  momentum and winding $(n, w) \in \mathbb{Z}^2$ are `[{symbol: n}, {symbol: w}]`. The build
+  writes the range for the page ("$k = 2, 3, \dots, N$", "$n, w \in \mathbb{Z}$").
+- **Expressions.** `Delta`, `spin`, `weights`, `degeneracy` (here an expression is allowed:
+  `'k-2'`) and the global labels may be expressions in the family's parameters and the entry's:
+  `Delta: 'k(N-k)'`, `'\frac{n^2}{R^2} + \frac{w^2R^2}{4}'`, `spin: nw`, `global: {SU(4)_R:
+  'Dynkin(0,k,0)', U(1)_r: 'k'}`, `{O(N): 'sym(\ell)'}`. Expressions are TeX arithmetic: numbers,
+  the declared symbols, `+ - / ^`, implicit products (`2k`, `nw`), `\frac`, `\tfrac`, `\cdot`,
+  `\sqrt`, parentheses, and `O(...)` for an order term. Any other symbol is an error (so a typo, or
+  a symbol that should have been declared, is caught). Labels that can depend on a parameter:
+  Dynkin labels (numeric $N$), `sym(k)`/`anti(k)`, and $U(1)$ / $\mathbb{Z}_n$ charges. `parity`
+  is one value for the whole family (or `unknown`); `name` and `multiplet` are text, and every
+  family parameter must appear somewhere in the row (name, data or labels).
+- **What is a family.** Use one when every member's data is known as a function of the parameter,
+  exactly (protected or BPS operators, conserved currents, free fields, chiral rings) or to the
+  same order for all members (the planar higher-spin currents $J_s$, $\Delta = s + 1 + O(1/N)$).
+  Operators whose dimensions are known only individually, numerically, stay individual rows, even
+  when they lie on a known Regge trajectory: e.g. the double-twist operators $[\sigma\sigma]_{0,\ell}$
+  of the 3d Ising model, whose $\Delta$ and OPE coefficients are known only member by member. They
+  may say which double-twist family they belong to in `role` or `note`; they are not folded into a
+  family row (see *Not adopted* below).
+- **Members listed separately.** A row that records one member because it carries something of its
+  own (it is the stress-tensor multiplet, it has its own references or a note, an OPE coefficient
+  names it) stays an ordinary row and points to its family:
+
+  ```yaml
+  - name: '\mathcal{O}_{\mathbf{20}^\prime} = \mathrm{Tr}\,\phi^{\{I}\phi^{J\}}'
+    member_of: half-BPS
+    at: {k: 2}
+    Delta: 2
+    spin: 0
+    parity: even
+    global: {SU(4)_R: 'Dynkin(0,2,0)'}
+    multiplet: {name: stress tensor, component: primary, type: half-BPS}
+    method: exact
+    note: 'Half-BPS superconformal primary of the stress-tensor multiplet; protected.'
+  ```
+
+  It keeps its full data (so nothing has to be reconstructed to read it), and the build checks that
+  the data agree with the family's at `at`: the family must exist in the entry, `at` must give every
+  family parameter a value in its range, and wherever both are definite, $\Delta$, spin, global
+  labels, parity and multiplet `type` must be those of the family at those values. A row that is a
+  member is never also a family. Several rows with the same `at` are determinations of one member.
+  Do not add member rows that carry nothing of their own: the family row already says it.
+- **What the build adds.** `family_view` on a family row (the range as TeX, the first member, the
+  spin and $\Delta$ of that first member for sorting, the number of member rows), `member_view` on a
+  member row (the family, the values as TeX), and, in a structured entry, `irrep` for a family row
+  with its pattern labels (canonical form, e.g. `Dynkin(0,k,0)`, shown as $[0,k,0]$, never trivial,
+  sorted just after its first member's irrep).
+- **Families in unmigrated entries** are allowed: the range, expressions and members are checked
+  the same way, and the free-text `rep` stays until the entry is migrated.
+
+*Why one record, and members as pointers.* The data are the representation of each operator; a
+family is the compact form of infinitely many such representations, and it is the form in which the
+field states them ("the $\mathcal{B}_{[0,k,0]}$ multiplets have $\Delta = k$"). Writing out members
+would be arbitrary (which $k$ to stop at) and would bury the one row that matters. A member written
+separately is kept as a row, rather than as a sub-field of the family, so that it is an operator like
+any other (its own name, method, references, notes, and a name that OPE coefficients can cite), and
+the pointer makes it impossible to list it twice, as an unrelated operator and as part of the family.
+
+*Not adopted (possible extension).* Families known only asymptotically, e.g. double-twist
+$[\sigma\sigma]_{n,\ell}$ with $\Delta = 2\Delta_\sigma + 2n + \ell + \gamma_{n,\ell}$,
+$\gamma_{n,\ell} \to 0$ as $\ell \to \infty$, could be a family row with an `asymptotic` formula and
+numerically known members pointing to it with `member_of`. This is not used: their dimensions and OPE
+coefficients are known member by member, so for now they remain individual operators.
+
 ---
 
 ## 2. Presentation policy
@@ -270,6 +367,24 @@ label that makes each sector easier to read.
   SCFTs, or grouping by supermultiplet), declared by order in `global_group` as now.
 - Splitting very large groups (more than ~15 operators) by spin as a third heading level.
 
+### 2.7 Families
+
+- A family is **one row**, never one row per member. It is grouped by its representation
+  *pattern*: in a structured entry its global labels and parity, like any operator, so the
+  half-BPS family of $\mathcal{N}=4$ SYM falls under "$SU(4)_R$ $[0,k,0]$" (as a heading if the
+  table is grouped, in the *Representation* column if it is flat). A pattern is its own group,
+  never merged with the irrep of a member: $[0,k,0]$ is not $[0,2,0]$.
+- **Order.** A family is placed by its **first member** (each parameter at its `from`, or 0 when
+  unbounded): its pattern group sorts just after the group of that member's irrep, and within a
+  group the family sorts by that member's spin and $\Delta$. A family whose first member depends on
+  an entry parameter sorts last.
+- **The row** shows the name, $\Delta$, spin and labels as given (expressions), with "family,
+  $k = 2, 3, \dots, N$" under the name.
+- **Members listed separately** follow the family's row, indented, each led by its values
+  ("$k = 2$:"), with their own determinations folded as usual. "1 member listed ▾" under the
+  family's name folds them; they start shown. They are not operators of their own: they do not count
+  in group sizes, do not form groups, and do not decide which levels are constant.
+
 ---
 
 ## 3. Pilot
@@ -280,3 +395,9 @@ operator `rep` lines were replaced (by `parity`, `global`, `role`, `multiplet`) 
 Remarks that were part of `rep` ("order parameter", "thermal", "supercurrent") moved to `role`;
 multiplet remarks ("superpartner of $\sigma$", "top of the $\sigma$ multiplet") became
 `multiplet`.
+
+Families (1.7, 2.7): `n4-sym` has the half-BPS family $\mathcal{O}_k$, $k = 2, \dots, N$, and its
+$\mathbf{20}'$ row became the $k = 2$ member (unchanged otherwise); `n2-sqcd-4d` (Coulomb-branch
+operators $\mathrm{Tr}\,\phi^k$, $k = 2, \dots, N$) and `compact-boson` (vertex operators $V_{n,w}$,
+$(n, w) \in \mathbb{Z}^2$) already wrote their towers as one row, and only gained the `family`
+block. The 3d Ising double-twist rows stay individual operators.

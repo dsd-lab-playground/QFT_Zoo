@@ -47,7 +47,7 @@ scripts/build.py          validates the data and builds the site into _site/
 scripts/zoo_spectrum.py   the checks run on every spectrum file
 scripts/spectra/          the scripts that generated the spectrum files
 site/                     the website (static HTML/CSS/JS; KaTeX for math)
-tests/                    tests of the build checks (python tests/test_flows.py, python tests/test_reps.py)
+tests/                    tests of the build checks (python tests/test_flows.py, python tests/test_reps.py, python tests/test_opfam.py)
 docs/REPRESENTATIONS.md   how operators record their symmetry representations, and how tables are grouped
 .github/workflows/        validation on every PR; deploy to GitHub Pages on merge
 ```

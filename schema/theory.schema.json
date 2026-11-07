@@ -424,10 +424,44 @@
           "description": "[latex] 2d conformal weights, e.g. '(\\tfrac{1}{16}, \\tfrac{1}{16})'."
         },
         "degeneracy": {
-          "type": "integer",
-          "minimum": 1,
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "string",
+              "description": "[latex] Family rows only: an expression in the family's parameters, e.g. 'k-2'."
+            }
+          ],
           "description": "Number of primaries with these quantum numbers."
+        },
+        "family": {
+          "$ref": "#/$defs/operatorFamily"
+        },
+        "member_of": {
+          "type": "string",
+          "description": "This row records one member of a family row of the same entry (its `family.id`), at the parameter values `at`. It is listed under the family, not as a separate operator; its data must agree with the family's at those values. docs/REPRESENTATIONS.md, 1.7."
+        },
+        "at": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "description": "With `member_of`: the value of each family parameter for this member, e.g. {k: 2}."
         }
+      },
+      "dependentRequired": {
+        "member_of": [
+          "at"
+        ],
+        "at": [
+          "member_of"
+        ]
       }
     },
     "relation": {
@@ -1176,6 +1210,74 @@
         "note": {
           "type": "string",
           "description": "[markdown]"
+        }
+      }
+    },
+    "operatorFamily": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "parameters"
+      ],
+      "description": "Makes the row a family: one row for a tower of operators whose data is known as a function of the parameters (protected or BPS operators, conserved currents, free-field towers, Coulomb-branch operators). Delta, spin, weights, degeneracy and global labels are then expressions in the family's parameters (and the entry's), e.g. Delta 'k', global {SU(4)_R: 'Dynkin(0,k,0)'}. The site shows the family as one row with its range, never one row per member. docs/REPRESENTATIONS.md, 1.7.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "description": "Key that member rows give in `member_of`, unique in the entry, e.g. 'half-BPS'."
+        },
+        "parameters": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "symbol"
+            ],
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "[latex] The parameter as written in the row's expressions: a letter or command, optionally with a subscript, e.g. 'k', '\\ell', 'n'. Not a parameter of the entry."
+              },
+              "from": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
+                "description": "First value: a number, or an expression in the entry's parameters and earlier family parameters. Omit both `from` and `to` for all integers."
+              },
+              "to": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
+                "description": "Last value, e.g. 'N' or 'N-1'; omit for an unbounded range."
+              },
+              "step": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
+                "description": "Spacing of the values (default 1), e.g. 2 for even spins from 2: from 2, step 2."
+              },
+              "except": {
+                "type": "array",
+                "items": {
+                  "type": [
+                    "integer",
+                    "string"
+                  ]
+                },
+                "description": "Values left out of the range."
+              },
+              "description": {
+                "type": "string",
+                "description": "[markdown] What the parameter counts, if not evident from the name."
+              }
+            }
+          }
         }
       }
     },

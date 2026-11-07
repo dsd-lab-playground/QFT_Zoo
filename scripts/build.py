@@ -31,6 +31,7 @@ from jsonschema import Draft202012Validator
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from zoo_spectrum import SPECTRA, SPECTRUM_SCHEMA, check as check_spectrum, expected_path  # noqa: E402
 from reps import check_entry_reps, direct_sums, legacy_reps  # noqa: E402
+from opfam import check_families, count as count_families  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 THEORIES = ROOT / "data" / "theories"
@@ -364,6 +365,7 @@ def check_entry(data: dict, rel: str) -> list[str]:
     errs += check_citations(data, rel, keys)
     errs += check_methods(data, rel)
     errs += check_entry_reps(data, rel)
+    errs += check_families(data, rel)
     return errs
 
 
@@ -839,6 +841,10 @@ def main() -> int:
     if n_rep:
         print(f"! {n_rep} operator rep(s) in {n_rep_entries} entries still free text instead of structured "
               f"`global` / `parity` (docs/REPRESENTATIONS.md)")
+    n_opfam, n_mem = count_families(entries)
+    if n_opfam:
+        print(f"✓ {n_opfam} operator famil{'y' if n_opfam == 1 else 'ies'} (one row for a tower of operators), "
+              f"{n_mem} member row(s) listed under them (docs/REPRESENTATIONS.md, 1.7)")
     if (n := direct_sums(entries)):
         print(f"! {n} operator row(s) list several irreps at once (a direct sum); one row per irrep is clearer")
 

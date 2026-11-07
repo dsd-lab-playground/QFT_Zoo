@@ -42,7 +42,7 @@ match the filename. See the existing entries for worked examples, e.g.
 | `symmetry` | | `spacetime`, `euclidean`, `lorentzian` (the spacetime symmetry in both signatures, see *Spacetime symmetry* below), `supercharges` (number of real Poincaré supercharges $Q$; used for sorting, not shown on the page), `global` (in words), `parity` and `global_group` (structured; see *Operator representations*), `gauge`, `notes` |
 | `quantities` | | central charges, anomalies, OPE coefficients, exponents, …: `key`, `symbol`, `description`, `value`, `method`, `refs`, `note`, optional `category` and `relation` (see *How quantities are shown*) |
 | `conventions` | | normalizations shared by one category of quantities, e.g. `ope: 'Unit-normalized operators; blocks as in [@kos2016]'` |
-| `operators` | | `name`, `Delta`, `spin`, `weights` (2d: `(h, \bar h)`), `lorentz`, `parity`, `global`, `role`, `multiplet`, `degeneracy`, `method`, `refs`, `note` (see *Operator representations*; older entries still use a free-text `rep`) |
+| `operators` | | `name`, `Delta`, `spin`, `weights` (2d: `(h, \bar h)`), `lorentz`, `parity`, `global`, `role`, `multiplet`, `degeneracy`, `method`, `refs`, `note`; `family`, or `member_of` and `at`, for towers of operators (see *Operator representations*; older entries still use a free-text `rep`) |
 | `relations` | | `type`, `target`, `at`, `variant`, `note`; for flows also `id`, `flow`, `target_expr` (see below) |
 | `references` | yes | `key`, `title`, `authors`, `year`, `journal`, `note`, and at least one of `arxiv` / `doi` / `url` |
 | `contributors` | | GitHub usernames |
@@ -188,6 +188,15 @@ operators:
   in their declared order), then by parity (even first), and order each group by spin, then
   $\Delta$. A label shared by every operator is said once above the table; a table where no group
   would hold two operators is flat, with the labels as columns.
+- **Families.** A tower of operators known as a function of a label (half-BPS operators,
+  Coulomb-branch operators, conserved currents, free-field towers) is **one row**, not one row per
+  member: `family: {id: half-BPS, parameters: [{symbol: k, from: 2, to: N}]}`, with `Delta: 'k'`,
+  `global: {SU(4)_R: 'Dynkin(0,k,0)'}` and so on as expressions in `k` (and the entry's
+  parameters). Ranges: `from`, `to`, `step`, `except`; none for all integers. A member that needs a
+  row of its own (the stress-tensor multiplet, its own references) keeps its full data and adds
+  `member_of: half-BPS` and `at: {k: 2}`; it is listed under the family, and the build checks that
+  it agrees with the family there. Operators known only one by one (e.g. numerically determined
+  double-twist operators) stay individual rows. Details: `docs/REPRESENTATIONS.md`, 1.7 and 2.7.
 - **Older entries** still give a free-text `rep`; it is accepted and counted by the build
   (`! N operator rep(s) ... still free text`) until they are migrated.
 
