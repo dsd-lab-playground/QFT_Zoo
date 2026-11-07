@@ -77,7 +77,12 @@ symmetry:
   lorentzian: '$SU(2,2|2)$'
   supercharges: 8
   global: 'Flavor symmetry: none ($H_0$), $SU(2)$ ($H_1$), $SU(3)$ ($H_2$); R-symmetry $SU(2)_R\times U(1)_r$'
-  notes: 'Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$.'
+  parity: false
+  global_group:
+    - {id: SU(2)_R, group: SU(2), tex: 'SU(2)_R'}
+    - {id: U(1)_r, group: U(1), tex: 'U(1)_r', note: 'Normalized as in Dolan–Osborn: a Coulomb-branch chiral primary, in an $\mathcal{E}_{r(0,0)}$ multiplet, has $r = \Delta$.'}
+    - {id: G_F, group: 'Lie(G_F)', note: 'Flavor symmetry: trivial for $H_0$, $SU(2)$ for $H_1$, $SU(3)$ for $H_2$.'}
+  notes: 'Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$. Multiplet names follow Dolan and Osborn [@dolan2002] as tabulated by Beem et al. [@beem2013, Table 7]: $\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\hat{\mathcal{B}}_R$ Higgs-branch half-BPS, $\hat{\mathcal{C}}_{0(0,0)}$ stress tensor, $\mathcal{A}^{\Delta}_{R,r(j,\bar\jmath)}$ long.'
 
 quantities:
   - symbol: 'a'
@@ -109,19 +114,25 @@ operators:
   - name: 'u\ (H_0)'
     Delta: '\frac{6}{5}'
     spin: 0
-    rep: '$SU(2)_R$ singlet; Coulomb-branch generator'
+    global: {SU(2)_R: singlet, U(1)_r: 6/5, G_F: singlet}
+    role: Coulomb-branch generator
+    multiplet: {name: '$u$', component: primary, type: '$\mathcal{E}_{\frac65(0,0)}$'}
     method: exact
     refs: [argyres1995b, aharony2007]
   - name: 'u\ (H_1)'
     Delta: '\frac{4}{3}'
     spin: 0
-    rep: '$SU(2)_R$ and flavor singlet; Coulomb-branch generator'
+    global: {SU(2)_R: singlet, U(1)_r: 4/3, G_F: singlet}
+    role: Coulomb-branch generator
+    multiplet: {name: '$u$', component: primary, type: '$\mathcal{E}_{\frac43(0,0)}$'}
     method: exact
     refs: [argyres1995b, aharony2007]
   - name: 'u\ (H_2)'
     Delta: '\frac{3}{2}'
     spin: 0
-    rep: '$SU(2)_R$ and flavor singlet; Coulomb-branch generator'
+    global: {SU(2)_R: singlet, U(1)_r: 3/2, G_F: singlet}
+    role: Coulomb-branch generator
+    multiplet: {name: '$u$', component: primary, type: '$\mathcal{E}_{\frac32(0,0)}$'}
     method: exact
     refs: [argyres1995b, aharony2007]
 
@@ -180,5 +191,12 @@ references:
     year: 2021
     journal: JHEP 01 (2021) 175
     arxiv: '2006.01847'
+  - key: dolan2002
+    title: On Short and Semi-Short Representations for Four Dimensional Superconformal Symmetry
+    authors: Dolan, Osborn
+    year: 2002
+    journal: Annals Phys. 307 (2003) 41-89
+    arxiv: hep-th/0209056
+    doi: 10.1016/S0003-4916(03)00074-5
 
 contributors: [Canonical111]
