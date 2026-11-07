@@ -42,7 +42,8 @@ symmetry:
   global: '$\mathbb{Z}_2$ ($\phi\to-\phi$), plus shift symmetry $\phi \to \phi + \text{const}$'
 
 quantities:
-  - symbol: '\tilde F'
+  - key: F_tilde
+    symbol: '\tilde F'
     description: 'Sphere free energy in the convention of Giombi and Klebanov, $\tilde F = \sin(\pi d/2)\log Z_{S^d}$; at $d=5$, $\tilde F = \log Z_{S^5} = -F$'
     value: '\frac{1}{2^8}\left(2\log 2 + \frac{2\zeta(3)}{\pi^2} - \frac{15\zeta(5)}{\pi^4}\right) \approx 5.74\times 10^{-3}'
     method: derived
@@ -54,6 +55,13 @@ quantities:
     method: derived
     refs: [osborn1994]
     note: 'Osborn–Petkou eq. (5.5), $C_T = \frac{d}{d-1}\frac{1}{S_d^2}$ with $S_d = 2\pi^{d/2}/\Gamma(d/2)$, evaluated at $d=5$, where $S_5 = 8\pi^2/3$.'
+  - key: c_tilde
+    symbol: '\tilde c'
+    description: 'Thermal free energy density on $S^1_\beta\times\mathbb{R}^{4}$, $f = -\tilde c\,\frac{3\zeta(5)}{4\pi^2}\,T^{5}$ ($\tilde c = 1$ for one free real scalar)'
+    value: '1'
+    method: exact
+    refs: [sachdev1993, iliesiu2018]
+    note: 'Normalization of Sachdev eq. (1): $f = -\tilde c\,\Gamma(d/2)\zeta(d)\pi^{-d/2}T^d$. Iliesiu et al. (2018), Sec. 2.1.1: one free real scalar has $b_T = -2d\zeta(d)/S_d$ and $f = b_T/d$, i.e. $f = -\Gamma(d/2)\zeta(d)\pi^{-d/2}T^d$.'
 
 operators:
   - name: '\phi'
@@ -121,5 +129,18 @@ references:
     journal: Phys. Rev. D 90, 025018
     arxiv: '1404.1094'
     doi: 10.1103/PhysRevD.90.025018
+  - key: sachdev1993
+    title: Polylogarithm identities in a conformal field theory in three dimensions
+    authors: Sachdev
+    year: 1993
+    journal: Phys. Lett. B 309, 285
+    arxiv: hep-th/9305131
+    note: 'Defines the thermal coefficient $\tilde c$ (eq. 1) and proves $\tilde c/N = 4/5$ for the $O(N)$ model at $N=\infty$.'
+  - key: iliesiu2018
+    title: The Conformal Bootstrap at Finite Temperature
+    authors: Iliesiu, Koloğlu, Mahajan, Perlmutter, Simmons-Duffin
+    year: 2018
+    journal: JHEP 10 (2018) 070
+    arxiv: '1802.10266'
 
-contributors: [Canonical111]
+contributors: [Canonical111, davidsd]

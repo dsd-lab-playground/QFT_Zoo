@@ -144,6 +144,10 @@ def schema_errors(validator, data, rel) -> list[str]:
     return out
 
 
+# Universal-data keys whose every value must carry its own method and references (CONTRIBUTING.md).
+ATTRIBUTED_KEYS = {"F_tilde", "c_tilde", "C_J"}
+
+
 def check_entry(data: dict, rel: str) -> list[str]:
     """Consistency checks that JSON Schema cannot express (within one entry)."""
     errs = []
@@ -160,6 +164,13 @@ def check_entry(data: dict, rel: str) -> list[str]:
     qkeys = [q["key"] for q in data.get("quantities", []) if "key" in q]
     if len(qkeys) != len(set(qkeys)):
         errs.append(f"{rel}: quantities: each `key` may appear only once")
+    for i, q in enumerate(data.get("quantities", [])):
+        if q.get("key") in ATTRIBUTED_KEYS and not (q.get("method") and q.get("refs")):
+            errs.append(f"{rel}: quantities/{i}: key `{q['key']}` needs a `method` and `refs`")
+    if data.get("d") == 3 and "F_tilde" in qkeys:
+        errs.append(f"{rel}: quantities: in d = 3 use key `F` (F_tilde = F there)")
+    if data.get("d") != 3 and "F" in qkeys:
+        errs.append(f"{rel}: quantities: key `F` is the 3d sphere free energy; use `F_tilde` in d = {data.get('d')}")
     return errs
 
 

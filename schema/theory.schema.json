@@ -212,9 +212,12 @@
             "gap",
             "a",
             "C_T",
-            "F"
+            "F",
+            "F_tilde",
+            "c_tilde",
+            "C_J"
           ],
-          "description": "Machine-readable meaning, used for sorting and plots. c: 2d Virasoro central charge (c_L = c_R). gap: 2d spectral gap, the scaling dimension h+h̄ of the lightest non-vacuum Virasoro primary. a, C_T, F: conformal anomaly, stress-tensor two-point coefficient, sphere free energy."
+          "description": "Machine-readable meaning, used for sorting and plots. c: 2d Virasoro central charge (c_L = c_R). gap: 2d spectral gap, the scaling dimension h+h̄ of the lightest non-vacuum Virasoro primary. a, C_T: conformal anomaly, stress-tensor two-point coefficient. F: 3d sphere free energy -log Z(S^3). F_tilde: sin(pi d/2) log Z(S^d) for d != 3. c_tilde: thermal free energy density f = -c_tilde Gamma(d/2) zeta(d) pi^(-d/2) T^d (1 for a real free scalar). C_J: current two-point coefficient relative to the free theory named in the description. See CONTRIBUTING.md, 'Universal CFT data'."
         },
         "symbol": {
           "type": "string",

@@ -71,7 +71,8 @@ quantities:
     method: exact
     refs: [bastianelli2000]
     note: 'Eq. (2.17).'
-  - symbol: '\tilde F'
+  - key: F_tilde
+    symbol: '\tilde F'
     description: 'Sphere free energy continued in $d$, in the convention of Giombi and Klebanov, $\tilde F = \sin(\pi d/2)\log Z_{S^d}$'
     value: '\frac{\pi}{1512}'
     method: exact
@@ -83,6 +84,13 @@ quantities:
     method: derived
     refs: [osborn1994, bastianelli1999]
     note: 'Osborn–Petkou eq. (5.5), $C_T = \frac{d}{d-1}\frac{1}{S_d^2}$ with $S_d = 2\pi^{d/2}/\Gamma(d/2)$, evaluated at $d=6$, where $S_6 = \pi^3$. The same follows from eq. (3.22) of Bastianelli, Frolov and Tseytlin (1999) with one scalar.'
+  - key: c_tilde
+    symbol: '\tilde c'
+    description: 'Thermal free energy density on $S^1_\beta\times\mathbb{R}^{5}$, $f = -\tilde c\,\frac{2\pi^3}{945}\,T^{6}$ ($\tilde c = 1$ for one free real scalar)'
+    value: '1'
+    method: exact
+    refs: [sachdev1993, iliesiu2018]
+    note: 'Normalization of Sachdev eq. (1): $f = -\tilde c\,\Gamma(d/2)\zeta(d)\pi^{-d/2}T^d$. Iliesiu et al. (2018), Sec. 2.1.1: one free real scalar has $b_T = -2d\zeta(d)/S_d$ and $f = b_T/d$, i.e. $f = -\Gamma(d/2)\zeta(d)\pi^{-d/2}T^d$.'
 
 operators:
   - name: '\phi'
@@ -143,5 +151,18 @@ references:
     journal: JHEP 03 (2015) 117
     arxiv: '1409.1937'
     doi: 10.1007/JHEP03(2015)117
+  - key: sachdev1993
+    title: Polylogarithm identities in a conformal field theory in three dimensions
+    authors: Sachdev
+    year: 1993
+    journal: Phys. Lett. B 309, 285
+    arxiv: hep-th/9305131
+    note: 'Defines the thermal coefficient $\tilde c$ (eq. 1) and proves $\tilde c/N = 4/5$ for the $O(N)$ model at $N=\infty$.'
+  - key: iliesiu2018
+    title: The Conformal Bootstrap at Finite Temperature
+    authors: Iliesiu, Koloğlu, Mahajan, Perlmutter, Simmons-Duffin
+    year: 2018
+    journal: JHEP 10 (2018) 070
+    arxiv: '1802.10266'
 
-contributors: [Canonical111]
+contributors: [Canonical111, davidsd]
