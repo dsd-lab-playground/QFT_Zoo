@@ -8,13 +8,13 @@ tags: [CFT, SCFT, interacting, unitary, supersymmetric, rational, exactly solvab
 description: |
   A Gepner model starts from the tensor product $(k_1)\cdots(k_r)$ of $\mathcal{N}=2$ minimal models at levels $k_i$, with
   $$c = \sum_{i=1}^{r}\frac{3k_i}{k_i+2}.$$
-  It keeps only the states with integral total $U(1)$ charge, which is an orbifold by $e^{2\pi iJ_0}$ (Greene, §5.3), and aligns the Neveu–Schwarz and Ramond sectors of the factors. For $c = 6$, GHV (App. C) write it as a $\mathbb{Z}_H$ orbifold with $H = \mathrm{lcm}(k_i+2)$, whose spectrum obeys the charge-integrality and spin-alignment conditions. With $c = 9$, these models give space-time supersymmetric, tachyon-free, modular invariant string compactifications with no free parameters (Gepner 1988). They are fermionic $\mathcal{N}=(2,2)$ theories; the $c = 6$ members have $\mathcal{N}=(4,4)$ symmetry, as K3 sigma models. This entry uses the diagonal (A-type) invariant of every factor.
+  It keeps only the states with integral total $U(1)$ charge, which is an orbifold by $e^{2\pi iJ_0}$ [@greene1997, Sec. 5.3], and aligns the Neveu–Schwarz and Ramond sectors of the factors. For $c = 6$, GHV [@ghv2012, App. C] write it as a $\mathbb{Z}_H$ orbifold with $H = \mathrm{lcm}(k_i+2)$, whose spectrum obeys the charge-integrality and spin-alignment conditions. With $c = 9$, these models give space-time supersymmetric, tachyon-free, modular invariant string compactifications with no free parameters [@gepner1988]. They are fermionic $\mathcal{N}=(2,2)$ theories; the $c = 6$ members have $\mathcal{N}=(4,4)$ symmetry, as K3 sigma models. This entry uses the diagonal (A-type) invariant of every factor.
 
-  **Geometry.** Gepner solved heterotic compactifications on K3, on manifolds of $SU(3)$ holonomy and beyond, working out the quintic hypersurface in $\mathbb{CP}^4$ in detail. He conjectured that any supersymmetric compactification with an $\mathcal{N}=2$ superconformal theory is a compactification on a manifold of $SU(N)$ holonomy, and that every such model with $c = 9$ is a Calabi–Yau compactification (Gepner 1987). For $(3,3,3,3,3)$ he found the symmetries and massless spectrum of the quintic $z_1^5+\dots+z_5^5 = 0$, up to extra massless states expected to become massive under small perturbations, and the Yukawa couplings were later found to agree as well (Greene, §5.2).
+  **Geometry.** Gepner [@gepner1987] solved heterotic compactifications on K3, on manifolds of $SU(3)$ holonomy and beyond, working out the quintic hypersurface in $\mathbb{CP}^4$ in detail. He conjectured that any supersymmetric compactification with an $\mathcal{N}=2$ superconformal theory is a compactification on a manifold of $SU(N)$ holonomy, and that every such model with $c = 9$ is a Calabi–Yau compactification [@gepner1987]. For $(3,3,3,3,3)$ he found the symmetries and massless spectrum of the quintic $z_1^5+\dots+z_5^5 = 0$, up to extra massless states expected to become massive under small perturbations, and the Yukawa couplings were later found to agree as well [@greene1997, Sec. 5.2].
 
-  **Landau–Ginzburg and Calabi–Yau.** The minimal model at level $k$ is the infrared limit of the Landau–Ginzburg model $W = X^{k+2}$, so the tensor product is the Landau–Ginzburg model $W = \sum_j X_j^{k_j+2}$. For $r = d+2$ factors, $c = 3d$ is equivalent to $\sum_j \frac{1}{k_j+2} = 1$: $W$ is then homogeneous with degree equal to the sum of the weights, and $W = 0$ is a Calabi–Yau hypersurface in a weighted projective space. The identification of the $X_j$ as homogeneous coordinates is exactly the Gepner quotient by $e^{2\pi iJ_0}$ (Greene, §5.3). Greene, Vafa and Warner showed in this way that all of Gepner's models correspond to strings on algebraic varieties in weighted projective spaces. In Witten's gauged linear sigma model, a $U(1)$ gauge theory with Fayet–Iliopoulos parameter $r$, the theory flows to the Calabi–Yau sigma model for $r \gg 0$ and to a Landau–Ginzburg orbifold for $r \ll 0$. The Landau–Ginzburg description looks like the analytic continuation of the Calabi–Yau sigma model to negative Kähler class (Witten).
+  **Landau–Ginzburg and Calabi–Yau.** The minimal model at level $k$ is the infrared limit of the Landau–Ginzburg model $W = X^{k+2}$, so the tensor product is the Landau–Ginzburg model $W = \sum_j X_j^{k_j+2}$. For $r = d+2$ factors, $c = 3d$ is equivalent to $\sum_j \frac{1}{k_j+2} = 1$: $W$ is then homogeneous with degree equal to the sum of the weights, and $W = 0$ is a Calabi–Yau hypersurface in a weighted projective space. The identification of the $X_j$ as homogeneous coordinates is exactly the Gepner quotient by $e^{2\pi iJ_0}$ [@greene1997, Sec. 5.3]. Greene, Vafa and Warner [@gvw1989] showed in this way that all of Gepner's models correspond to strings on algebraic varieties in weighted projective spaces. In Witten's gauged linear sigma model, a $U(1)$ gauge theory with Fayet–Iliopoulos parameter $r$, the theory flows to the Calabi–Yau sigma model for $r \gg 0$ and to a Landau–Ginzburg orbifold for $r \ll 0$ [@witten1993, Sec. 3.1]. The Landau–Ginzburg description looks like the analytic continuation of the Calabi–Yau sigma model to negative Kähler class [@witten1993].
 
-  Gepner models typically describe Calabi–Yau manifolds of small volume (Mizoguchi–Tani). Gukov and Vafa note that for the quintic the Gepner point is the only point of the moduli space where the CFT is known exactly.
+  Gepner models typically describe Calabi–Yau manifolds of small volume [@mt2001]. Gukov and Vafa [@gv2004] note that for the quintic the Gepner point is the only point of the moduli space where the CFT is known exactly.
 
 parameters:
 - symbol: '(k_1,\dots,k_r)'
@@ -28,23 +28,23 @@ family:
   - at: '(1,1,1)'
     label: '$T^2$ at the $SU(3)$ point'
     c: '3'
-    note: 'Describes a flat 2-torus with $G_{11} = G_{22} = 1$, $G_{12} = B_{12} = \frac12$, the $SU(3)$ torus (Mizoguchi–Tani). By the Landau–Ginzburg rule it is the Fermat cubic curve $x_1^3+x_2^3+x_3^3 = 0$ in $\mathbb{CP}^2$ (derived).'
+    note: 'Describes a flat 2-torus with $G_{11} = G_{22} = 1$, $G_{12} = B_{12} = \frac12$, the $SU(3)$ torus [@mt2001]. By the Landau–Ginzburg rule it is the Fermat cubic curve $x_1^3+x_2^3+x_3^3 = 0$ in $\mathbb{CP}^2$ (derived).'
   - at: '(2,2)'
     label: '$T^2$ at the $SU(2)^2$ point'
     c: '3'
-    note: 'Its boundary states reproduce D-branes on the $SU(2)^2$ torus, $G = 1$, $B = 0$ (Mizoguchi–Tani).'
+    note: 'Its boundary states reproduce D-branes on the $SU(2)^2$ torus, $G = 1$, $B = 0$ [@mt2001].'
   - at: '(2,2,2,2)'
     label: 'K3, Fermat quartic point'
     c: '6'
-    note: 'Isomorphic to the $\mathbb{Z}_4$ orbifold of the torus theory with lattice $\mathbb{Z}^4$, with geometric interpretation on the Fermat quartic in $\mathbb{CP}^3$ (Nahm–Wendland). Its symmetry group is not a subgroup of $M_{24}$ (GHV).'
+    note: 'Isomorphic to the $\mathbb{Z}_4$ orbifold of the torus theory with lattice $\mathbb{Z}^4$, with geometric interpretation on the Fermat quartic in $\mathbb{CP}^3$ [@nw2001]. Its symmetry group is not a subgroup of $M_{24}$ [@ghv2012].'
   - at: '(1,1,1,1,1,1)'
     label: 'K3'
     c: '6'
-    note: 'Symmetry group $\mathbb{Z}_3^4\rtimes A_6$ (GHV).'
+    note: 'Symmetry group $\mathbb{Z}_3^4\rtimes A_6$ [@ghv2012].'
   - at: '(3,3,3,3,3)'
     label: 'Quintic threefold, Fermat point'
     c: '9'
-    note: 'The Fermat quintic $z_1^5+\dots+z_5^5 = 0$ in $\mathbb{CP}^4$ (Gepner 1987; Greene).'
+    note: 'The Fermat quintic $z_1^5+\dots+z_5^5 = 0$ in $\mathbb{CP}^4$ [@gepner1987; @greene1997].'
 
 symmetry:
   spacetime: '$\mathcal{N}=(2,2)$ superconformal ($\mathcal{N}=(4,4)$ for the K3 members)'
@@ -80,7 +80,7 @@ relations:
   note: 'Gepner models are orbifolds of tensor products of the $\mathcal{N}=2$ minimal models at levels $k_i$ (the A-series models in the members listed here).'
 - type: related_to
   target: k3-sigma-models
-  note: 'The members $(2,2,2,2)$ and $(1,1,1,1,1,1)$ are rational points of the K3 moduli space. The $\mathbb{Z}_2^8:\mathbb{M}_{20}$ model is a $\mathbb{Z}_2\times\mathbb{Z}_2$ orbifold of $(2,2,2,2)$ (Gaberdiel–Taormina–Volpato–Wendland).'
+  note: 'The members $(2,2,2,2)$ and $(1,1,1,1,1,1)$ are rational points of the K3 moduli space. The $\mathbb{Z}_2^8:\mathbb{M}_{20}$ model is a $\mathbb{Z}_2\times\mathbb{Z}_2$ orbifold of $(2,2,2,2)$ [@gtvw2014].'
 
 references:
 - key: gepner1987

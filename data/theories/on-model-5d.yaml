@@ -19,34 +19,33 @@ description: |
   $\Delta_\phi = \tfrac{d}{2} - 1 + O(1/N)$ and $\Delta_\sigma = 2 + O(1/N)$; since
   $\Delta_\sigma$ must exceed the unitarity bound $\tfrac{d}{2} - 1$, the interesting range
   is $4 < d < 6$. In $d = 4 + \epsilon$ the same fixed point sits at negative quartic
-  coupling. Fei, Giombi and Klebanov proposed that it is the IR fixed point of the cubic
+  coupling. Fei, Giombi and Klebanov [@fei2014] proposed that it is the IR fixed point of the cubic
   theory below, whose couplings are relevant for $d < 6$: near $d = 6$ the fixed point is
   at real couplings for $N$ above a critical value $N_{\rm crit}$, and its $6-\epsilon$
   expansions match the $1/N$ expansions of the quartic model.
 
   The fixed point has two relevant $O(N)$ singlets, $\sigma$ and $\sigma^2$, so on a
   lattice two couplings would have to be tuned, and even then only near-critical
-  behaviour in a long-lived metastable state is expected (Giombi, Huang, Klebanov, Pufu
-  and Tarnopolsky). Its $C_T$ is smaller than that of $N$ free
+  behaviour in a long-lived metastable state is expected [@giombi2019]. Its $C_T$ is smaller than that of $N$ free
   scalars, so the flow from it to $N$ free scalars violates a would-be $C_T$ theorem, while
-  the $\tilde F$-theorem holds for the flows from $N+1$ and to $N$ free scalars (Fei,
-  Giombi and Klebanov). At large $N$ the singlet sector is conjectured to be dual to the
+  the $\tilde F$-theorem holds for the flows from $N+1$ and to $N$ free scalars
+  [@fei2014]. At large $N$ the singlet sector is conjectured to be dual to the
   Vasiliev higher-spin theory in AdS$_6$ with the alternate ($\Delta = 2 + O(1/N)$)
-  boundary condition on the bulk scalar; Giombi et al. expect that choice to be
+  boundary condition on the bulk scalar; Giombi et al. [@giombi2019] expect that choice to be
   metastable in the bulk as well.
 
   ### Status
   **Perturbative evidence.** Perturbatively in $1/N$ the fixed point exists, with real
   dimensions above the unitarity bounds. How far it extends to finite $N$ is unclear.
   The one-loop $N_{\rm crit} \approx 1038$ near $d = 6$ drops to about 64 when the
-  three-loop series is evaluated at $\epsilon = 1$ (Fei, Giombi, Klebanov and
-  Tarnopolsky), but four-loop Padé approximants settle near 400 in $d = 5$ (Gracey). The
+  three-loop series is evaluated at $\epsilon = 1$ [@fei2014b], but four-loop Padé
+  approximants settle near 400 in $d = 5$ [@gracey2015]. The
   $1/N^3$ value of $\Delta_\phi$ crosses the unitarity bound at $N \approx 35$, a crude
   estimate.
 
   **Instability.** The cubic potential is unbounded below, and on $S^5$ or
   $\mathbb{R}\times S^4$ the conformal coupling makes the perturbative vacuum metastable.
-  Giombi et al. studied the instantons that mediate the decay, both near $d = 6$ and at
+  Giombi et al. [@giombi2019] studied the instantons that mediate the decay, both near $d = 6$ and at
   large $N$. They give the scaling dimensions, the sphere free energy, $C_J$ and OPE
   coefficients imaginary parts of order $e^{-Nf(d)}$, where $f(d)$ is the sphere free
   energy of a conformal scalar in $d - 2$ dimensions, with
@@ -57,15 +56,15 @@ description: |
   interacting $\phi^4$ theory has no true critical point in $d > 4$.
 
   **Bootstrap.** Unitarity-based bootstrap studies find features at the large-$N$ values
-  but disagree on small $N$. Nakayama and Ohtsuki find that the lower bound on $C_J$ has a
+  but disagree on small $N$. Nakayama and Ohtsuki [@nakayama2014] find that the lower bound on $C_J$ has a
   minimum at the large-$N$ $\Delta_\phi$ for $N = 500$ and $1000$; the minimum persists for
-  all $N$ they studied. Chester, Pufu and Yacoby find a kink at the large-$N$ values for
+  all $N$ they studied. Chester, Pufu and Yacoby [@chester2014] find a kink at the large-$N$ values for
   $N = 500$, which disappears between $N = 15$ and $22$ (assuming
-  $\Delta_{\sigma^2} \ge 3.8$). Bae and Rey, with a different two-gap approach, find
-  indications that the fixed point persists down to $N = 1$. Li and Su, with mixed
+  $\Delta_{\sigma^2} \ge 3.8$). Bae and Rey [@bae2014], with a different two-gap approach, find
+  indications that the fixed point persists down to $N = 1$. Li and Su [@li2016], with mixed
   correlators, find a closed island around the large-$N$ values at $N = 500$, but for
   $N \le 100$ their islands disappear as the number of derivatives grows, and they
-  conclude that the unitary range starts above $N = 100$. Giombi et al. note that their
+  conclude that the unitary range starts above $N = 100$. Giombi et al. [@giombi2019] note that their
   thresholds on $N$ are roughly commensurate with Li and Su's, and that the bootstrap
   cannot distinguish a complex CFT with tiny imaginary parts from a unitary one.
 
@@ -80,11 +79,11 @@ family:
   parameter: N
   members:
     - at: 100
-      note: 'Mixed-correlator bootstrap islands disappear at higher derivative order, which Li and Su read as non-unitarity.'
+      note: 'Mixed-correlator bootstrap islands disappear at higher derivative order, which Li and Su [@li2016] read as non-unitarity.'
     - at: 500
-      note: 'Large $N$: $(\Delta_\phi, \Delta_\sigma) = (1.500414, 2.02158)$. Bootstrap kink at $(1.500409, 2.027)$ (Chester et al.) and a closed island around the large-$N$ point (Li and Su).'
+      note: 'Large $N$: $(\Delta_\phi, \Delta_\sigma) = (1.500414, 2.02158)$. Bootstrap kink at $(1.500409, 2.027)$ [@chester2014] and a closed island around the large-$N$ point [@li2016].'
     - at: 1000
-      note: 'The minimum of the lower bound on $C_J$ sits at the large-$N$ $\Delta_\phi$ to within $2\times10^{-5}$ (Nakayama and Ohtsuki).'
+      note: 'The minimum of the lower bound on $C_J$ sits at the large-$N$ $\Delta_\phi$ to within $2\times10^{-5}$ [@nakayama2014].'
     - at: '\infty'
       label: Large-$N$ limit
       note: '$\Delta_\phi = \tfrac32$, $\Delta_\sigma = 2$. Singlet sector conjectured dual to the Vasiliev theory in AdS$_6$ with alternate boundary conditions.'
@@ -101,19 +100,19 @@ quantities:
     value: '1038.266 - 609.840\,\epsilon - 364.173\,\epsilon^2 + O(\epsilon^3)'
     method: 'epsilon-expansion (6 − ε, three loops)'
     refs: [fei2014b, gracey2015]
-    note: 'The three terms give $64.253$ at $\epsilon = 1$. The four-loop term is large and positive; Padé approximants of the four-loop series give $421.76$ in $d = 5$ (Gracey, Table 10).'
+    note: 'The three terms give $64.253$ at $\epsilon = 1$. The four-loop term is large and positive; Padé approximants of the four-loop series give $421.76$ in $d = 5$ [@gracey2015, Table 10].'
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to $N$ free real scalars'
     value: '1 - \frac{1408}{1575\pi^2 N} + O(N^{-2})'
     method: derived
     refs: [fei2014]
-    note: 'From the large-$N$ result $C_T = \frac{5}{4S_5^2}\left(N - \frac{1408}{1575\pi^2}\right)$ (Fei et al., eq. 6.6), divided by the free value $\frac{5N}{4S_5^2}$ given there.'
+    note: 'From the large-$N$ result $C_T = \frac{5}{4S_5^2}\left(N - \frac{1408}{1575\pi^2}\right)$ [@fei2014, Eq. (6.6)], divided by the free value $\frac{5N}{4S_5^2}$ given there.'
   - symbol: '\tilde F'
-    description: 'Sphere free energy in the convention of Giombi and Klebanov, $\tilde F = \log Z_{S^5} = -F$, with $\tilde F_s = \frac{\log 2}{128} + \frac{\zeta(3)}{128\pi^2} - \frac{15\zeta(5)}{256\pi^4} \approx 0.00574$ for one free conformal scalar'
+    description: 'Sphere free energy in the convention of Giombi and Klebanov [@giombi2014], $\tilde F = \log Z_{S^5} = -F$, with $\tilde F_s = \frac{\log 2}{128} + \frac{\zeta(3)}{128\pi^2} - \frac{15\zeta(5)}{256\pi^4} \approx 0.00574$ for one free conformal scalar'
     value: 'N\tilde F_s + 0.001601 + O(1/N)'
     method: large N
     refs: [fei2014, giombi2014]
-    note: 'Real part. The $O(N^0)$ term equals $\frac{3\zeta(5)+\pi^2\zeta(3)}{96\pi^4}$ (derived: it matches the general-$d$ integral of Giombi and Klebanov at $d = 5$; the arXiv text of Fei et al., eq. 6.11, prints $96\pi^2$, a misprint). It lies between 0 and $\tilde F_s$, as the $\tilde F$-theorem requires.'
+    note: 'Real part. The $O(N^0)$ term equals $\frac{3\zeta(5)+\pi^2\zeta(3)}{96\pi^4}$ (derived: it matches the general-$d$ integral of Giombi and Klebanov [@giombi2014] at $d = 5$; the arXiv text of Fei et al. [@fei2014, Eq. (6.11)] prints $96\pi^2$, a misprint). It lies between 0 and $\tilde F_s$, as the $\tilde F$-theorem requires.'
 
 operators:
   - name: '\phi_i'
@@ -122,21 +121,21 @@ operators:
     rep: vector
     method: large N
     refs: [fei2014]
-    note: 'Numerically $\tfrac32 + 0.216152/N - 4.342/N^2 - 121.673/N^3$ (eq. 2.23). Unitarity bound $\tfrac32$.'
+    note: 'Numerically $\tfrac32 + 0.216152/N - 4.342/N^2 - 121.673/N^3$ [@fei2014, Eq. (2.23)]. Unitarity bound $\tfrac32$.'
   - name: '\sigma'
     Delta: '2+\frac{512}{5\pi^2N}+\frac{2048\left(12625\pi^2-113552\right)}{1125\pi^4N^2}+O(N^{-3})'
     spin: 0
     rep: singlet
     method: large N
     refs: [fei2014]
-    note: 'Numerically $2 + 10.3753/N + 206.542/N^2$ (eq. 2.24). Relevant; $\sigma \sim \phi_i\phi_i$.'
+    note: 'Numerically $2 + 10.3753/N + 206.542/N^2$ [@fei2014, Eq. (2.24)]. Relevant; $\sigma \sim \phi_i\phi_i$.'
   - name: '\sigma^2'
     Delta: '4 - \frac{13.8337}{N} - \frac{1819.66}{N^2} + O(N^{-3})'
     spin: 0
     rep: singlet
     method: large N
     refs: [chester2014]
-    note: 'Second relevant singlet (eq. 2.1c). The $1/N$ coefficient is $\frac{2048}{15\pi^2}$, from eq. 2.25 of Fei et al. with $k = 2$ (derived).'
+    note: 'Second relevant singlet [@chester2014, Eq. (2.1c)]. The $1/N$ coefficient is $\frac{2048}{15\pi^2}$, from [@fei2014, Eq. (2.25)] with $k = 2$ (derived).'
   - name: 'J_\mu^{[ij]}'
     Delta: 4
     spin: 1
@@ -153,13 +152,13 @@ operators:
 relations:
   - type: related_to
     target: on-model-3d
-    note: 'The same large-$N$ family in another dimension. For $2 < d < 4$ the critical $O(N)$ model is the IR (Wilson–Fisher) fixed point of the quartic theory; for $4 < d < 6$ the $1/N$ expansion continues to a UV fixed point of the quartic theory, equivalently an IR fixed point of the cubic theory (Fei, Giombi and Klebanov).'
+    note: 'The same large-$N$ family in another dimension. For $2 < d < 4$ the critical $O(N)$ model is the IR (Wilson–Fisher) fixed point of the quartic theory; for $4 < d < 6$ the $1/N$ expansion continues to a UV fixed point of the quartic theory, equivalently an IR fixed point of the cubic theory [@fei2014].'
   - type: related_to
     target: free-scalar-5d
     note: 'The fixed point flows in the IR to $N$ free scalars and, in the cubic description, is reached from $N+1$ free scalars; the sphere free energy satisfies $N\tilde F_s < \tilde F < (N+1)\tilde F_s$.'
   - type: related_to
     target: lee-yang-5d
-    note: 'At $N = 0$ the cubic Lagrangian reduces to one scalar with a $\sigma^3$ coupling, Fisher''s Lee–Yang theory, whose fixed point sits at imaginary coupling (Fei, Giombi and Klebanov).'
+    note: 'At $N = 0$ the cubic Lagrangian reduces to one scalar with a $\sigma^3$ coupling, Fisher''s Lee–Yang theory, whose fixed point sits at imaginary coupling [@fei2014].'
 
 references:
   - key: fei2014

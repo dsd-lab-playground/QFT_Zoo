@@ -25,8 +25,8 @@ description: |
   and $\beta_y = \alpha_y\,[(13+2\epsilon)\alpha_y - 6\alpha_g]$. Without the Yukawa coupling the
   two-loop gauge term has the same sign as the one-loop term and no fixed point with $\alpha_g > 0$
   exists. The Yukawa coupling enters $\beta_g$ with the opposite sign and produces a zero at
-  couplings of order $\epsilon$, so gauge fields, fermions and scalars are all required (Litim
-  and Sannino). Only one fixed-point value of the single-trace quartic admits a fixed point of
+  couplings of order $\epsilon$, so gauge fields, fermions and scalars are all required
+  [@litim2014]. Only one fixed-point value of the single-trace quartic admits a fixed point of
   the double-trace quartic, which then has two; the values below are for the one where the
   potential is bounded from below (FP$_1$).
 
@@ -39,19 +39,19 @@ description: |
   $\vartheta$ are eigenvalues of $\partial\beta_i/\partial\alpha_j$ at the fixed point; the
   corresponding scaling operators have $\Delta = 4 + \vartheta$. At this weakly coupled fixed
   point scale invariance entails conformal invariance, and the unitarity bounds are satisfied in
-  perturbation theory (Litim et al. 2023).
+  perturbation theory [@litim2023].
 
   The fixed point exists only for $0 < \epsilon < \epsilon_{\max}$. Three-loop analyses put
-  $\epsilon_{\max} \approx 0.09$–$0.13$, limited mainly by vacuum stability (Bond et al.). At four
+  $\epsilon_{\max} \approx 0.09$–$0.13$, limited mainly by vacuum stability [@bond2018]. At four
   loops, vacuum stability is lost for $\epsilon_{\max} \approx 0.087$–$0.146$ and the relevant
-  exponent indicates a fixed-point merger for $\epsilon_{\max} \approx 0.091$–$0.249$ (Litim et al.
-  2023). Extrapolated to finite multiplicities, the smallest compatible $(N_c, N_f)$ moves from
+  exponent indicates a fixed-point merger for $\epsilon_{\max} \approx 0.091$–$0.249$
+  [@litim2023]. Extrapolated to finite multiplicities, the smallest compatible $(N_c, N_f)$ moves from
   $(3, 17)$ at the previous order to $(5, 28)$ at four loops. All statements here are for the Veneziano
   limit.
 
   The fermion mass operator $\bar Q Q$ mixes with other dimension-three operators, so the mass
   anomalous dimension computed without this mixing is not a scaling dimension beyond leading order;
-  Bednyakov and Mukhaeva compute the eigenvalues of the mixing matrix at four loops. Its dimension is
+  Bednyakov and Mukhaeva [@bednyakov2024] compute the eigenvalues of the mixing matrix at four loops. Its dimension is
   therefore not listed here.
 
 lagrangian: '\mathcal{L} = -\tfrac12\,\mathrm{Tr}\,F_{\mu\nu}F^{\mu\nu} + \mathrm{Tr}\,\bar Q\, i\gamma^\mu D_\mu Q + \mathrm{Tr}\,\partial_\mu H^\dagger\partial^\mu H + y\,\mathrm{Tr}\,(\bar Q_L H Q_R + \bar Q_R H^\dagger Q_L) - u\,\mathrm{Tr}\,(H^\dagger H)^2 - v\,(\mathrm{Tr}\,H^\dagger H)^2'
@@ -115,13 +115,13 @@ quantities:
     value: '\frac{16\sqrt{23}}{19}\,\epsilon + O(\epsilon^2)'
     method: perturbation theory (Veneziano limit)
     refs: [litim2014, litim2023]
-    note: 'Numerically $4.039\,\epsilon$. Called $\vartheta_3$ by Litim and Sannino and $\vartheta_4$ by Litim et al. (2023), who give $4.039\,\epsilon + 9.107\,\epsilon^2 + 38.646\,\epsilon^3$.'
+    note: 'Numerically $4.039\,\epsilon$. Called $\vartheta_3$ by Litim and Sannino [@litim2014] and $\vartheta_4$ by Litim et al. [@litim2023], who give $4.039\,\epsilon + 9.107\,\epsilon^2 + 38.646\,\epsilon^3$.'
   - symbol: '\vartheta_v'
     description: 'Irrelevant exponent of the double-trace quartic'
     value: '\frac{8}{19}\sqrt{20+6\sqrt{23}}\;\epsilon + O(\epsilon^2)'
     method: perturbation theory (Veneziano limit)
     refs: [litim2014, litim2023]
-    note: 'Numerically $2.941\,\epsilon$. Called $\vartheta_4$ by Litim and Sannino and $\vartheta_3$ by Litim et al. (2023), who give $2.941\,\epsilon + 1.041\,\epsilon^2 + 5.137\,\epsilon^3$.'
+    note: 'Numerically $2.941\,\epsilon$. Called $\vartheta_4$ by Litim and Sannino [@litim2014] and $\vartheta_3$ by Litim et al. [@litim2023], who give $2.941\,\epsilon + 1.041\,\epsilon^2 + 5.137\,\epsilon^3$.'
 
 operators:
   - name: 'H'

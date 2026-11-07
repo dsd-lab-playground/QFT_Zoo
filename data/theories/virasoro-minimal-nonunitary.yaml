@@ -12,22 +12,21 @@ summary: >-
 tags: [CFT, interacting, non-unitary, rational, exactly solvable, minimal model, family]
 
 description: |
-  For coprime integers $2 \le p < q$, the minimal model $\mathcal{M}(p,q)$ (Belavin, Polyakov and
-  Zamolodchikov) has central charge $c = 1 - 6(p-q)^2/(pq)$ and finitely many Virasoro primaries
+  For coprime integers $2 \le p < q$, the minimal model $\mathcal{M}(p,q)$ [@bpz1984] has central charge $c = 1 - 6(p-q)^2/(pq)$ and finitely many Virasoro primaries
   $\phi_{r,s}$, with weights given by the Kac formula
   $$h_{r,s} = \frac{(qr - ps)^2 - (q-p)^2}{4pq}, \qquad 1 \le r \le p-1,\ 1 \le s \le q-1,$$
   and $(r,s) \sim (p-r, q-s)$, so there are $\tfrac12(p-1)(q-1)$ primaries. The models with
-  $q = p+1$ are the unitary series of Friedan, Qiu and Shenker (a separate entry); this entry
+  $q = p+1$ are the unitary series of Friedan, Qiu and Shenker [@fqs1984] (a separate entry); this entry
   collects the others, $q - p \ge 2$, which are all non-unitary. These are the formulas of
-  Itzykson, Saleur and Zuber and of Cappelli, Itzykson and Zuber, whose $(p, p')$ is our $(q, p)$;
+  Itzykson, Saleur and Zuber [@isz1986] and of Cappelli, Itzykson and Zuber [@ciz1987], whose $(p, p')$ is our $(q, p)$;
   in this labelling the Lee–Yang field of $\mathcal{M}(2,5)$ is $\phi_{1,2}$, with
   $h_{1,2} = -\tfrac15$.
 
-  The irreducible characters (Rocha-Caridi) are, with $\mathsf{q} = e^{2\pi i\tau}$,
+  The irreducible characters [@rochacaridi1985] are, with $\mathsf{q} = e^{2\pi i\tau}$,
   $$\chi_{r,s}(\tau) = \frac{1}{\eta(\tau)}\sum_{k\in\mathbb{Z}}\Big(\mathsf{q}^{(2kpq + qr - ps)^2/(4pq)} - \mathsf{q}^{(2kpq + qr + ps)^2/(4pq)}\Big),$$
   and the diagonal (A-series) partition function
   $$Z = \sum_{(r,s)/\sim}|\chi_{r,s}|^2 = \frac12\sum_{r=1}^{p-1}\sum_{s=1}^{q-1}|\chi_{r,s}|^2$$
-  is modular invariant for every pair. Cappelli, Itzykson and Zuber classified all modular
+  is modular invariant for every pair. Cappelli, Itzykson and Zuber [@ciz1987] classified all modular
   invariants: they are labelled by pairs of ADE Dynkin diagrams with Coxeter numbers $p$ and $q$,
   and since one of $p, q$ is odd, one diagram of the pair is of type A. A D-type invariant exists
   when the even one of $p, q$ is at least 6, and E-type ones when it is 12, 18 or 30. This entry is
@@ -40,7 +39,7 @@ description: |
   The vacuum is therefore not the lowest state on a circle. In finite-size scaling, for instance
   the free energy of a long periodic strip, $c$ is replaced by the effective central charge
   $$c_{\rm eff} = c - 24h_{\min} = 1 - \frac{6}{pq}$$
-  (Itzykson, Saleur and Zuber). Castro-Alvaredo, Doyon and Ravanini showed that, along
+  [@isz1986]. Castro-Alvaredo, Doyon and Ravanini [@castroalvaredo2017] showed that, along
   renormalization-group flows with unbroken $\mathcal{PT}$ symmetry, a function interpolating
   between the ultraviolet and infrared values of $c_{\rm eff}$ decreases monotonically, which
   generalizes Zamolodchikov's $c$-theorem.
@@ -49,8 +48,8 @@ description: |
   For $p = 2$ the Kac table is a single row: $\mathcal{M}(2, 2n+3)$, $n \ge 1$, has $n+1$ primaries
   $\phi_{1,s}$, $1 \le s \le n+1$, all of non-positive weight, and each character is an infinite
   product (Andrews–Gordon identities), which for $\mathcal{M}(2,5)$ are the Rogers–Ramanujan
-  products (Milas). $\mathcal{M}(2,5)$ is the Lee–Yang edge singularity, and Lencsés, Miscioscia,
-  Mussardo and Takács conjecture that $\mathcal{M}(2, 2n+3)$ controls the $(n+1)$-th multicritical
+  products [@milas2004]. $\mathcal{M}(2,5)$ is the Lee–Yang edge singularity, and Lencsés, Miscioscia,
+  Mussardo and Takács [@lencses2023] conjecture that $\mathcal{M}(2, 2n+3)$ controls the $(n+1)$-th multicritical
   Yang–Lee point, reached by imaginary magnetic perturbations of the unitary minimal models.
 
 parameters:
@@ -67,7 +66,7 @@ family:
       note: '$h_{\min} = h_{1,2} = -\tfrac15$, $c_{\rm eff} = \tfrac25$.'
     - at: '(2,7)'
       c: '-68/7'
-      note: '$h_{\min} = h_{1,3} = -\tfrac37$, $c_{\rm eff} = \tfrac47$ (derived). Argued to describe the tricritical Yang–Lee point (Lencsés et al.).'
+      note: '$h_{\min} = h_{1,3} = -\tfrac37$, $c_{\rm eff} = \tfrac47$ (derived). Argued to describe the tricritical Yang–Lee point [@lencses2023].'
     - at: '(3,5)'
       c: '-3/5'
       note: '$h_{\min} = h_{1,2} = -\tfrac{1}{20}$, $c_{\rm eff} = \tfrac35$ (derived).'
@@ -79,7 +78,7 @@ family:
       note: '$h_{\min} = h_{1,2} = -\tfrac{5}{28}$, $c_{\rm eff} = \tfrac57$ (derived).'
     - at: '(3,8)'
       c: '-21/4'
-      note: '$h_{\min} = h_{1,3} = -\tfrac14$, $c_{\rm eff} = \tfrac34$ (derived). Also has a D-type invariant ($D_5$ on the label $q = 8$; CIZ Table 2), not listed here.'
+      note: '$h_{\min} = h_{1,3} = -\tfrac14$, $c_{\rm eff} = \tfrac34$ (derived). Also has a D-type invariant ($D_5$ on the label $q = 8$; [@ciz1987, Table 2]), not listed here.'
     - at: '(4,7)'
       c: '-13/14'
       note: '$h_{\min} = h_{1,2} = -\tfrac{1}{14}$, $c_{\rm eff} = \tfrac{11}{14}$ (derived).'

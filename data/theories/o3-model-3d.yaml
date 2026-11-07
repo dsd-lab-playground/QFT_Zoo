@@ -44,13 +44,13 @@ quantities:
     value: '0.71164(10)'
     method: Monte Carlo (improved icosahedral model)
     refs: [hasenbusch2020]
-    note: 'Conformal bootstrap: $0.71168(41)$ (rigorous; Chester et al.).'
+    note: 'Conformal bootstrap: $0.71168(41)$ (rigorous) [@chester2020].'
   - symbol: '\eta'
     description: 'Anomalous dimension, $\eta = 2\Delta_\phi - 1$'
     value: '0.03784(5)'
     method: Monte Carlo (improved icosahedral model)
     refs: [hasenbusch2020]
-    note: 'Conformal bootstrap: $0.03787(13)$ (rigorous; Chester et al.).'
+    note: 'Conformal bootstrap: $0.03787(13)$ (rigorous) [@chester2020].'
   - symbol: '\alpha'
     description: 'Specific-heat exponent, $\alpha = 2 - 3\nu$'
     value: '-0.1349(3)'
@@ -116,7 +116,7 @@ operators:
     rep: rank-2 symmetric traceless
     method: conformal bootstrap
     refs: [chester2020, hasenbusch2011]
-    note: 'Monte Carlo: $1.2094(3)$ (Hasenbusch and Vicari). Uniaxial anisotropy; relevant.'
+    note: 'Monte Carlo: $1.2094(3)$ [@hasenbusch2011]. Uniaxial anisotropy; relevant.'
   - name: 's'
     Delta: '1.5948(2)'
     spin: 0
@@ -136,7 +136,7 @@ operators:
     rep: rank-4 symmetric traceless
     method: Monte Carlo
     refs: [hasenbusch2023]
-    note: 'Bootstrap bound $\Delta_{t_4} < 2.99056$ (rigorous; Chester et al.). Relevant, so cubic anisotropy destabilizes the fixed point.'
+    note: 'Bootstrap bound $\Delta_{t_4} < 2.99056$ (rigorous) [@chester2020]. Relevant, so cubic anisotropy destabilizes the fixed point.'
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
