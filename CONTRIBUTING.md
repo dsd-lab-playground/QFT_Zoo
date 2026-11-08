@@ -1,5 +1,8 @@
 # Contributing to the QFT Zoo
 
+**Read [docs/PRINCIPLES.md](docs/PRINCIPLES.md) first**: the standards every contribution follows (structured data with derived presentation, the field's standard concepts and notation, one convention site-wide, numbered citations with locators, concise pages).
+
+
 Thank you for helping! There are three ways to contribute, from easiest to most
 flexible:
 
