@@ -792,6 +792,15 @@ def build(entries: list[dict], spectra: dict[str, dict], operations: list[dict],
     if OUT.exists():
         shutil.rmtree(OUT)
     shutil.copytree(SITE_SRC, OUT)
+    # Cache busting: stamp the page's script and stylesheet with a hash of their contents, so that browsers fetch
+    # the new ones after every change instead of serving a stale copy.
+    import hashlib
+    idx = OUT / "index.html"
+    html = idx.read_text(encoding="utf-8")
+    for asset in ("app.js", "style.css"):
+        v = hashlib.sha256((OUT / asset).read_bytes()).hexdigest()[:10]
+        html = html.replace(f'"{asset}"', f'"{asset}?v={v}"')
+    idx.write_text(html, encoding="utf-8")
     (OUT / "data").mkdir(exist_ok=True)
     payload = {
         "generated": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
