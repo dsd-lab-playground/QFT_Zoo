@@ -41,8 +41,8 @@ TEMPLATE = ROOT / "data" / "TEMPLATE.yaml"
 SCHEMA = ROOT / "schema" / "theory.schema.json"
 METHODS = ROOT / "data" / "methods.yaml"
 METHODS_SCHEMA = ROOT / "schema" / "methods.schema.json"
-OPE_STRUCTURES = ROOT / "data" / "ope_structures.yaml"
-OPE_SCHEMA = ROOT / "schema" / "ope_structures.schema.json"
+OPE_STRUCTURES = ROOT / "data" / "three_point_structures.yaml"
+OPE_SCHEMA = ROOT / "schema" / "three_point_structures.schema.json"
 SITE_SRC = ROOT / "site"
 OUT = ROOT / "_site"
 
@@ -310,15 +310,15 @@ def method_abbr(value: str) -> str | None:
 
 
 def method_rows(data: dict):
-    """(location, method) of every quantity, operator and OPE value row that has a method."""
+    """(location, method) of every quantity, operator and three-point value row that has a method."""
     for section in ("quantities", "operators"):
         for i, item in enumerate(data.get(section, []) or []):
             if "method" in item:
                 yield f"{section}/{i}", item["method"]
-    for i, item in enumerate(data.get("ope_coefficients", []) or []):
+    for i, item in enumerate(data.get("three_point_functions", []) or []):
         for k, v in enumerate(item["values"]):
             if "method" in v:
-                yield f"ope_coefficients/{i}/values/{k}", v["method"]
+                yield f"three_point_functions/{i}/values/{k}", v["method"]
 
 
 def check_methods(data: dict, rel: str) -> list[str]:
@@ -600,8 +600,8 @@ def load_operations(errors: list[str]) -> list[dict]:
     return out
 
 
-def load_ope_structures(errors: list[str]) -> list[dict]:
-    """The standard three-point structures (data/ope_structures.yaml), validated and installed for the entry checks."""
+def load_three_point_structures(errors: list[str]) -> list[dict]:
+    """The standard three-point structures (data/three_point_structures.yaml), validated and installed for the entry checks."""
     data = load_yaml(OPE_STRUCTURES, errors)
     if data is None:
         set_standard([])
@@ -619,7 +619,7 @@ def load_ope_structures(errors: list[str]) -> list[dict]:
 def load_all() -> tuple[list[dict], list[str]]:
     errors: list[str] = []
     load_methods(errors)  # before any entry: check_entry resolves method abbreviations
-    load_ope_structures(errors)  # before any entry: values may name a standard structure
+    load_three_point_structures(errors)  # before any entry: values may name a standard structure
     validator = Draft202012Validator(json.loads(SCHEMA.read_text(encoding="utf-8")))
 
     for stray in sorted(THEORIES.glob("*.yml")):
@@ -801,13 +801,13 @@ def build(entries: list[dict], spectra: dict[str, dict], operations: list[dict],
         "theories": entries,
         "operations": operations,
         "methods": methods,
-        "ope_structures": list(STANDARD.values()),
+        "three_point_structures": list(STANDARD.values()),
     }
     (OUT / "data" / "theories.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
     shutil.copy(SCHEMA, OUT / "data" / "theory.schema.json")
     shutil.copy(METHODS_SCHEMA, OUT / "data" / "methods.schema.json")
-    shutil.copy(OPE_SCHEMA, OUT / "data" / "ope_structures.schema.json")
+    shutil.copy(OPE_SCHEMA, OUT / "data" / "three_point_structures.schema.json")
     shutil.copy(SPECTRUM_SCHEMA, OUT / "data" / "spectrum.schema.json")
     for rel, summary in spectra.items():
         dest = OUT / rel
@@ -841,8 +841,8 @@ def main() -> int:
             TEMPLATE = data / "TEMPLATE.yaml"
         if (data / "methods.yaml").exists():
             METHODS = data / "methods.yaml"
-        if (data / "ope_structures.yaml").exists():
-            OPE_STRUCTURES = data / "ope_structures.yaml"
+        if (data / "three_point_structures.yaml").exists():
+            OPE_STRUCTURES = data / "three_point_structures.yaml"
     if args.out:
         OUT = args.out.resolve()
 
@@ -871,14 +871,16 @@ def main() -> int:
     if n_rep:
         print(f"! {n_rep} operator rep(s) in {n_rep_entries} entries still free text instead of structured "
               f"`global` / `parity` (docs/REPRESENTATIONS.md)")
-    n_ope = sum(len(it["values"]) for e in entries for it in e.get("ope_coefficients", []) or [])
-    n_ope_e = sum(bool(e.get("ope_coefficients")) for e in entries)
-    print(f"✓ {n_ope} OPE values in {n_ope_e} entries, each labelled by its structure ({len(STANDARD)} standard structures; docs/OPE.md)")
-    own_st = [s for e in entries for s in e.get("ope_structures", []) or []]
+    n_fn = sum(len(e.get("three_point_functions", []) or []) for e in entries)
+    n_ope = sum(len(it["values"]) for e in entries for it in e.get("three_point_functions", []) or [])
+    n_ope_e = sum(bool(e.get("three_point_functions")) for e in entries)
+    print(f"✓ {n_fn} three-point functions in {n_ope_e} entries, {n_ope} values, each the coefficient of a named structure "
+          f"({len(STANDARD)} standard structures; docs/THREE_POINT.md)")
+    own_st = [s for e in entries for s in e.get("three_point_structures", []) or []]
     n_emb = sum("embedding" in s for s in [*STANDARD.values(), *own_st])
-    print(f"✓ {n_emb} of {len(STANDARD) + len(own_st)} OPE structures give their embedding-space form (notation of Costa et al. 2011; docs/OPE.md 1.4)")
+    print(f"✓ {n_emb} of {len(STANDARD) + len(own_st)} three-point structures give their embedding-space form (notation of Costa et al. 2011; docs/THREE_POINT.md 1.4)")
     if (n := labelled_operators(entries)):
-        print(f"! {n} OPE operator(s) named by a label instead of an operator of the entry's table (docs/OPE.md)")
+        print(f"! {n} operator(s) of three-point functions named by a label instead of an operator of the entry's table (docs/THREE_POINT.md)")
     n_opfam, n_mem = count_families(entries)
     if n_opfam:
         print(f"✓ {n_opfam} operator famil{'y' if n_opfam == 1 else 'ies'} (one row for a tower of operators), "

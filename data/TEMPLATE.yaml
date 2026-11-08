@@ -53,21 +53,23 @@ operators:
     method: CB
     refs: [author2025]
 
-# OPE coefficients: one item per triplet of operators, each value naming the structure it multiplies (docs/OPE.md).
-# ope_structures:                             # only for a structure that is a choice of a paper, not a standard one
+# Three-point functions: one item per unordered triple of operators (lightest first); each value is the coefficient of
+# one structure (docs/THREE_POINT.md).
+# three_point_structures:                     # only for a structure that is a choice of a paper, not a standard one
 #   - id: author2025
-#     symbol: 'f'
+#     name: 'scalar–scalar–spin-$\ell$, ...'   # what it is, in a few words
+#     form: '\langle\phi_1(x_1)\,\phi_2(x_2)\,O(x_3,z)\rangle = \lambda\,\cdots'   # in the source's notation
 #     ref: 'author2025, Eq. (2.1)'             # the formula that defines it
-#     description: 'Scalar–scalar–spin-$\ell$ structure ..., in embedding space $V_{3,12}^\ell$ [@costa2011, Eq. (4.10)] ...'
-#     embedding: '\langle\phi_1(P_1)\,\phi_2(P_2)\,O(P_3,Z_3)\rangle = \lambda_{12O}\,\frac{V_{3,12}^{\,\ell}}{\cdots}'   # optional (docs/OPE.md 1.4)
-# ope_coefficients:
+#     description: 'Normalization of the operators and of the structure or blocks, the symbols of the form ...'
+# three_point_functions:
 #   - operators: ['\phi', '\phi', 's']        # `name`s from the operators table
 #     values:
-#       - structure: vector-vector-singlet     # a standard structure (data/ope_structures.yaml), or an id of ope_structures
-#         symbol: '\lambda_{\phi\phi s}'
+#       - structure: vector-vector-singlet     # a standard structure (data/three_point_structures.yaml), or an id of three_point_structures
 #         value: '0.52(1)'
 #         method: CB
 #         refs: [author2025]
+#         # order: ['s', '\phi', '\phi']      # only if the structure assumes another order of the operators
+#         # value_of: square                  # only if the number is the square (or `modulus`) of the coefficient
 
 relations:
   - type: flows_to                 # flows_to | dual_to | related_to

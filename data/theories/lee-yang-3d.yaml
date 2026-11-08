@@ -87,11 +87,12 @@ quantities:
     method: FRG
     refs: [an2016]
 
-ope_coefficients:
+three_point_functions:
   - operators: ['\phi', '\phi', '\phi']
     values:
       - structure: scalar
         symbol: '|C_{\phi\phi\phi}|'
+        value_of: modulus
         value: '1.9696(31)'
         method: FS
         refs: [arguellocruz2025]

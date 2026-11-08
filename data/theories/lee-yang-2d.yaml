@@ -75,7 +75,7 @@ quantities:
     method: exact
     refs: [isz1986]
 
-ope_coefficients:
+three_point_functions:
   - operators: ['\phi = \phi_{1,2}', '\phi = \phi_{1,2}', '\phi = \phi_{1,2}']
     values:
       - structure: scalar

@@ -76,24 +76,27 @@ quantities:
     refs: [shapere2008, aharony2007, liendo2015]
     note: 'Saturates the bound $c \geq \tfrac{11}{30}$ for interacting $\mathcal{N}=2$ SCFTs [@liendo2015, Eq. (4.14)].'
 
-ope_structures:
+three_point_structures:
   - id: chiral
     symbol: '\lambda'
     name: 'chiral, unit-normalized'
-    description: 'Coefficient of the Coulomb-branch chiral operator $u^2$ in the chiral OPE $u\times u$, i.e. of the structure of $\langle u\,u\,\overline{u^2}\rangle$, with unit-normalized two-point functions $\langle u(x)\bar u(0)\rangle = |x|^{-2\Delta_u}$ and $\langle u^2(x)\,\overline{u^2}(0)\rangle = |x|^{-2\Delta_{u^2}}$. In embedding space it is the scalar three-point function of [@costa2011, Eq. (2.8)], $P_{ij} \equiv -2P_i\cdot P_j$ [@costa2011, Eq. (2.9)], with $\lambda$ as its constant.'
-    embedding: '\langle u(P_1)\,u(P_2)\,\overline{u^2}(P_3)\rangle = \frac{\lambda}{P_{12}^{\frac{2\Delta_u-\Delta_{u^2}}{2}}\,(P_{23}P_{31})^{\frac{\Delta_{u^2}}{2}}}'
+    form: '\langle u(x_1)\,u(x_2)\,\overline{u^2}(x_3)\rangle = \frac{\lambda_{uu\overline{u^2}}}{x_{12}^{2\Delta_u-\Delta_{u^2}}\,x_{23}^{\Delta_{u^2}}\,x_{31}^{\Delta_{u^2}}}'
+    ref: 'gimenezgrau2020, Eq. (2.13)'
+    description: 'The three-scalar structure of the chiral OPE $u\times u \ni u^2$, with unit-normalized two-point functions $\langle u(x)\bar u(0)\rangle = |x|^{-2\Delta_u}$ and $\langle u^2(x)\,\overline{u^2}(0)\rangle = |x|^{-2\Delta_{u^2}}$. The sources write $u$ as the chiral primary $\phi_r$ and define the coefficient by the chiral-channel expansion $\langle\phi_r\phi_r\bar\phi_{-r}\bar\phi_{-r}\rangle = x_{12}^{-2\Delta_\phi}x_{34}^{-2\Delta_\phi}\sum_O|\lambda_{\phi\phi\bar O}|^2g_{\Delta,\ell}(z,\bar z)$ [@gimenezgrau2020, Eq. (2.13), Table 2; @cornagliotto2017, Eq. (2.8)], with blocks $g_{\Delta,\ell} = \frac{z\bar z}{z-\bar z}\big(k_{\Delta+\ell}(z)k_{\Delta-\ell-2}(\bar z) - (z\leftrightarrow\bar z)\big)$ [@gimenezgrau2020, Eqs. (2.10)–(2.11); @cornagliotto2017, Eq. (A.1)], so that $g_{\Delta,0} = (z\bar z)^{\Delta/2}+\dots$: the quoted $\lambda^2$ is the square of the coefficient of this unit-normalized structure (generalized free field: 2).'
 
-ope_coefficients:
+three_point_functions:
   - operators: ['u', 'u', 'u^2']
     values:
       - structure: chiral
         symbol: '\lambda^2_{u^2}'
+        value_of: square
         value: '[2.142596,\ 2.16509]'
         method: CB, rigorous bounds
         refs: [gimenezgrau2020]
         note: 'Bounds at derivative order $\Lambda = 50$ [@gimenezgrau2020, Table 7].'
       - structure: chiral
         symbol: '\lambda^2_{u^2}'
+        value_of: square
         value: '[2.1418,\ 2.1672]'
         method: CB, rigorous bounds
         refs: ['cornagliotto2017, Eq. (3.1)']

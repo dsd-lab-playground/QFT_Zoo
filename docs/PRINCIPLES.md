@@ -3,7 +3,7 @@
 The Zoo aims to be a reference that high-energy theorists can standardize around: principled in what it records,
 uniform in how it records it, and written in the best concepts and notation of the field. These principles come from
 David Simmons-Duffin's review of the site (November 2026). Every contributor, human or agent, follows them; the more
-specific documents (CONTRIBUTING.md, docs/REPRESENTATIONS.md, docs/OPE.md) apply them.
+specific documents (CONTRIBUTING.md, docs/REPRESENTATIONS.md, docs/THREE_POINT.md) apply them.
 
 ## 1. Data first, presentation derived
 
@@ -12,9 +12,10 @@ specific documents (CONTRIBUTING.md, docs/REPRESENTATIONS.md, docs/OPE.md) apply
 - An operator carries its representation of the full symmetry group: scaling dimension, Lorentz representation, parity
   (on par with spin), and an irrep of each factor of the global symmetry. Tables group by global irrep, then parity,
   then sort by spin and Δ (docs/REPRESENTATIONS.md).
-- The object is the three-point function: ⟨O₁O₂O₃⟩ is a linear combination of coefficients times structures. Each
-  recorded number is the coefficient of one structure, and the structure is taken from the same source as the number
-  (its basis, notation and normalization), so the two always belong together (docs/OPE.md).
+- The object is the three-point function: ⟨O₁O₂O₃⟩ of an unordered triple of operators is a linear combination of
+  coefficients times structures. Each recorded number is the coefficient of one structure, the structure is taken from
+  the same source as the number (its basis, notation and normalization), and the value records the operator order its
+  structure assumes (docs/THREE_POINT.md).
 - A tower of operators known exactly as a function of a label is one family record; operators known one by one stay
   individual.
 - What isn't known is recorded as unknown, never guessed. A claim inferred by argument says so.

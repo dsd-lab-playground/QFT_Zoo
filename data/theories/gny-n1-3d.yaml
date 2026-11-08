@@ -57,7 +57,7 @@ quantities:
     refs: [atanasov2022]
     category: ope
 
-ope_coefficients:
+three_point_functions:
   - operators: ['\sigma', '\sigma', '\epsilon']
     values:
       - structure: scalar

@@ -1,7 +1,7 @@
-# Standard three-point structures: the few that the literature agrees on, so that an OPE value may name one by id
-# (`structure: scalar`) without defining it in its entry. Anything a paper defines by its own choice (a block
-# normalization, a basis of spinning structures, a normalization of a tensor of the global symmetry) is not standard:
-# define it in the entry's `ope_structures`, by a citation of the formula that defines it. See docs/OPE.md.
+# Standard three-point structures: the few that the literature agrees on, so that a value of a three-point function may
+# name one by id (`structure: scalar`) without defining it in its entry. Anything a paper defines by its own choice (a
+# block normalization, a basis of spinning structures, a normalization of a tensor of the global symmetry) is not
+# standard: define it in the entry's `three_point_structures`, in the source's notation. See docs/THREE_POINT.md.
 #
 #   id           what values write in `structure:`
 #   symbol       the usual symbol of the coefficient
@@ -13,7 +13,7 @@
 #   basis        shared by the elements of one basis of several independent structures
 #   relation     [markdown] relations that follow from the definition
 #   embedding    [latex] the three-point function in embedding space, in the notation of Costa, Penedones, Poland and
-#                Rychkov, "Spinning Conformal Correlators" (key costa2011; docs/OPE.md 1.4), for a structure that is a
+#                Rychkov, "Spinning Conformal Correlators" (key costa2011; docs/THREE_POINT.md 1.4), for a structure that is a
 #                simple embedding-space structure. A standard structure that cites a reference key in any field needs
 #                that key in the references of every entry that uses it (the build checks it).
 
@@ -47,8 +47,7 @@ structures:
     embedding: '\langle \phi_i(P_1)\,\phi_j(P_2)\,s(P_3)\rangle = \frac{\lambda_{\phi\phi s}\,\delta_{ij}}{P_{12}^{\frac{2\Delta_\phi-\Delta_s}{2}}\,(P_{23}P_{31})^{\frac{\Delta_s}{2}}}'
 
   - id: ttt-free-boson-3d
-
-    form: 'n_B\,\langle TTT\rangle_{\text{free real scalar}}'
+    form: 'n_B\,\langle TTT\rangle_B'
     symbol: 'n_B'
     name: free-scalar ⟨TTT⟩
     d: 3
@@ -64,8 +63,7 @@ structures:
     # which the sources used here do not write out.
 
   - id: ttt-free-fermion-3d
-
-    form: 'n_F\,\langle TTT\rangle_{\text{free Majorana fermion}}'
+    form: 'n_F\,\langle TTT\rangle_F'
     symbol: 'n_F'
     name: free-Majorana ⟨TTT⟩
     d: 3

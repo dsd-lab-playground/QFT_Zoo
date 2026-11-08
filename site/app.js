@@ -526,7 +526,8 @@ function applyFilters() {
 // coefficients, critical exponents, other. A quantity's kind is its `category`, or else inferred
 // from its key, symbol and description (quantityCategory); `ope` is never inferred. Rows with the same
 // symbol that describe the same quantity (other papers or methods) are one item: the most precise first,
-// the rest folded. OPE coefficients are their own data (`ope_coefficients`, docs/OPE.md), shown by opeItems.
+// the rest folded. Three-point functions are their own data (`three_point_functions`, docs/THREE_POINT.md), shown by
+// opeItems in the `ope` section, "Three-point functions".
 const wiki = (page, text) => `<a href="https://en.wikipedia.org/wiki/${page}" target="_blank" rel="noopener">${text}</a>`;
 const QCATS = {
   central: {
@@ -540,11 +541,12 @@ const QCATS = {
     intro: () => `${wiki("Conformal_anomaly", "Conformal (Weyl) anomalies")} of the stress-tensor trace and ${wiki("%27t_Hooft_anomaly", "'t Hooft anomalies")} of global symmetries.`,
   },
   ope: {
-    id: "ope",
-    title: "OPE coefficients",
+    id: "three-point",
+    title: "Three-point functions",
     intro: (triplets) =>
-      `Coefficients of the ${wiki("Operator_product_expansion", "operator product expansion")}${
-        triplets ? ": one item per triplet of operators, those with the lightest operators first. Each value multiplies a three-point structure, defined below the table and named in the value's Structure column; values in different structures are different numbers and are never compared" : ""}.`,
+      triplets
+        ? `A ${wiki("Conformal_field_theory#Dependence_on_field_positions", "three-point function")} of primary operators is a sum of coefficients times structures fixed by conformal symmetry: each row is the coefficient of one structure, named in its Structure column and defined below the table. Lightest operators first; values in different structures are different numbers and are never compared.`
+        : `Three-point data: coefficients of ${wiki("Conformal_field_theory#Dependence_on_field_positions", "three-point functions")} and the ${wiki("Operator_product_expansion", "operator product expansion")}.`,
   },
   exponent: {
     id: "exponents",
@@ -705,17 +707,22 @@ function exponentRelation(it) {
 
 let DET_SEQ = 0;
 
-/* OPE coefficients (docs/OPE.md). Data: `ope_coefficients`, one item per triplet of operators, each value naming the
-   structure it multiplies: a standard one (data/ope_structures.yaml, DB.ope_structures) or one the entry defines in
-   `ope_structures`, by a citation of the formula that defines it. Presentation, by rule:
-   - one item per triplet, ordered by the dimensions of its operators (sorted, lightest first, compared in turn;
-     operators named by label sort last), ties in data order;
+/* Three-point functions (docs/THREE_POINT.md). Data: `three_point_functions`, one item per unordered triple of
+   operators, each value the coefficient of one structure: a standard one (data/three_point_structures.yaml,
+   DB.three_point_structures) or one the entry defines in `three_point_structures`, in its source's notation; a value
+   whose structure assumes another order of the operators gives it (`order`). Presentation, by rule:
+   - one item per triple, labelled <O1 O2 O3> with its operators lightest first (ties in data order), whatever order
+     the sources used; a value whose structure assumes another order says so in its Structure cell;
+   - items ordered by the dimensions of their operators (sorted, lightest first, compared in turn; operators named by
+     label sort last), ties in data order;
    - in a triplet, each element of a basis of several structures (a structure with `basis`, e.g. n_B and n_F of
      <TTT>) is a coefficient of its own, on its own line; all other values are one line (one coefficient, possibly
      determined in different bases);
-   - in a line, values are grouped by structure (standard structures in the order of data/ope_structures.yaml, then
-     the entry's in its order), best first within a structure (orderDets); the first value shows, the rest fold;
-   - the disagreement badge compares a value only with the best value in the same structure;
+   - in a line, values are grouped by structure (standard structures in the order of data/three_point_structures.yaml,
+     then the entry's in its order), best first within a structure (orderDets); the first value shows, the rest fold;
+   - the disagreement badge compares a value only with the best value in the same structure (and operator order);
+   - no per-row coefficient symbol: the three-point function and the structure say what the number is; a value that
+     is the square or the modulus of the coefficient (`value_of`) says so in its value cell;
    - each value names its structure in its row, except a default standard structure (three scalars, unit-normalized),
      which the section states once (OPE_LABEL_DEFAULTS = true labels those too);
    - the structures used on the page are defined once, at the top of the section. */
@@ -724,19 +731,15 @@ const OPE_LABEL_DEFAULTS = true; // David: every value shows its structure, the 
 /** The structures an entry's values may name, id -> structure (with `own` for the entry's and `order`). */
 function opeStructures(t) {
   const out = new Map();
-  for (const s of DB.ope_structures || []) out.set(s.id, { ...s, own: false, order: out.size });
-  for (const s of t.ope_structures || []) out.set(s.id, { ...s, own: true, order: out.size });
+  for (const s of DB.three_point_structures || []) out.set(s.id, { ...s, own: false, order: out.size });
+  for (const s of t.three_point_structures || []) out.set(s.id, { ...s, own: true, order: out.size });
   return out;
 }
 
-/** OPE items { cat: "ope", ope: true, lines: [[row, ...], ...], rows, ops }: one per triplet, in the order above.
- *  A row is a value with its symbol resolved and _st (its structure) and _best (best value in its structure). */
-/** λ with the three operators as subscripts; Lorentz indices dropped (λ_{σσT}, not λ_{σσT_{μν}}). */
-function opeLambda(ops) {
-  const short = (o) => (typeof o === "string" ? o : o.label || "")
-    .replace(/_\{\\(?:mu|nu|rho|sigma|alpha|beta|mu_1)[^}]*\}/g, "").replace(/\^\{\[ij\]\}/g, "").trim();
-  return `\\lambda_{${ops.map(short).join("\\,")}}`;
-}
+/** An operator of a three-point function as LaTeX: its name, or its label. */
+const opeOp = (o) => (typeof o === "string" ? o : o.label || "");
+/** ⟨O1 O2 O3⟩ for operators in the given order. */
+const opeBracket = (ops) => `\\langle ${ops.map(opeOp).join("\\,")}\\rangle`;
 
 function opeItems(t) {
   const sts = opeStructures(t);
@@ -746,28 +749,36 @@ function opeItems(t) {
     const D = Number.isFinite(v) ? v : Infinity;
     if (!dim.has(o.name) || dim.get(o.name) > D) dim.set(o.name, D);
   }
-  const items = (t.ope_coefficients || []).map((c, i) => {
+  const D = (o) => (typeof o === "string" ? dim.get(o) ?? Infinity : Infinity);
+  const items = (t.three_point_functions || []).map((c, i) => {
+    // The label: the operators lightest first, ties in data order, whatever order the sources used.
+    const canon = c.operators.map((o, j) => [o, j]).sort((a, b) => D(a[0]) - D(b[0]) || a[1] - b[1]).map(([o]) => o);
+    const ck = canon.map(opeOp).join("|");
     const lines = new Map();
     for (const v of c.values) {
       const st = sts.get(v.structure);
       const k = st.basis ? `s:${st.id}` : "one";
       if (!lines.has(k)) lines.set(k, []);
-      // One letter for every OPE coefficient (David: "f vs lambda is not really a thing" — papers just pick letters):
-      // λ with the triplet's operators as subscripts; the Structure column says what it multiplies. Only the elements
-      // of a basis with their own coefficient names (⟨TTT⟩'s n_B, n_F) keep them. A source's letter stays in the data.
-      lines.get(k).push({ ...v, symbol: st.basis && st.symbol ? st.symbol : opeLambda(c.operators), _st: st });
+      // The operator order this value's structure assumes; shown when it is not the label's (a sign can depend on it).
+      const ord = v.order || c.operators;
+      const ok = ord.map(opeOp).join("|");
+      // One letter for every coefficient (David: "f vs lambda is not really a thing"): λ, or a basis element's own
+      // name (⟨TTT⟩'s n_B, n_F). The page shows it only where a value is its square or modulus; the data keeps the
+      // source's letter (`symbol`).
+      lines.get(k).push({ ...v, symbol: st.basis && st.symbol ? st.symbol : "\\lambda", _st: st, _ord: ok === ck ? null : ord, _ok: ok });
     }
     const ordered = [...lines.values()].map((vals) => {
       const byst = new Map();
       for (const r of vals) (byst.get(r._st) ?? byst.set(r._st, []).get(r._st)).push(r);
       return [...byst.entries()].sort(([a], [b]) => a.order - b.order).flatMap(([, rs]) => {
         const best = orderDets(rs, (q) => q.value);
-        best.forEach((r) => (r._best = best[0]));
+        // Compared only with the best value in the same structure and operator order.
+        best.forEach((r) => (r._best = best.find((b) => b._ok === r._ok)));
         return best;
       });
     }).sort((a, b) => a[0]._st.order - b[0]._st.order);
-    const key = c.operators.map((o) => (typeof o === "string" ? dim.get(o) ?? Infinity : Infinity)).sort((x, y) => x - y);
-    return { cat: "ope", ope: true, lines: ordered, rows: ordered.flat(), ops: c.operators, key, i };
+    const key = canon.map(D);
+    return { cat: "ope", ope: true, lines: ordered, rows: ordered.flat(), ops: canon, label: opeBracket(canon), key, i };
   });
   return items.sort((a, b) => {
     for (let j = 0; j < 3; j++) if (a.key[j] !== b.key[j]) return a.key[j] < b.key[j] ? -1 : 1;
@@ -785,7 +796,7 @@ function opeLabel(t, st) {
 
 /** The definitions of the structures that the items use, once for the section, in structure order (the standard ones
  *  first, a default one marked as carrying no label), each with its symbol, label, definition, its embedding-space form
- *  (`embedding`, in the notation of Costa, Penedones, Poland and Rychkov; docs/OPE.md 1.4) and stated relations. */
+ *  (`embedding`, in the notation of Costa, Penedones, Poland and Rychkov; docs/THREE_POINT.md 1.4) and stated relations. */
 function opeStructuresHtml(t, items, title = "Structures") {
   const used = [...new Set(items.filter((it) => it.ope).flatMap((it) => it.rows.map((r) => r._st)))].sort((a, b) => a.order - b.order);
   if (!used.length) return "";
@@ -794,7 +805,9 @@ function opeStructuresHtml(t, items, title = "Structures") {
     // single-monomial `embedding`), then the citation as the source of the convention. Only prose folds.
     const math = st.form || st.embedding;
     const cite = st.ref ? ` ${citeRefs(t.id, [st.ref])}` : "";
-    const more = [st.description ? md(st.description, true) : "", st.relation ? md(st.relation, true) : ""].filter(Boolean).join(" ");
+    // An `embedding` that is not the line's formula (the structure has its source's own `form`) folds with the prose.
+    const emb = st.form && st.embedding ? `In embedding space: ${tex(st.embedding, true)}` : "";
+    const more = [st.description ? md(st.description, true) : "", emb, st.relation ? md(st.relation, true) : ""].filter(Boolean).join(" ");
     return `<li id="ope-st-${esc(st.id)}">${st.name ? `<b>${md(st.name, true)}</b>` : ""}${math ? `${st.name ? ": " : ""}${tex(math)}` : ""}${cite}${
       more ? ` <details class="ope-st-more"><summary>details</summary>${more}</details>` : ""}</li>`;
   };
@@ -815,7 +828,7 @@ function quantityTable(t, items, cat, source) {
     if (r?.src) d = d.replace(r.src, "").replace(/\s*[,:;]?\s*$/, "").replace(/\s*,\s*,/, ",").replace(/^\s*[,:;]\s*/, "").replace(/\s+([,;.])/g, "$1").replace(/,\s*\(/, " (");
     if (cat === "exponent" && /^critical exponent\.?$/i.test(d.trim())) d = "";
     // In the one-table layout (no OPE section), an OPE value says what it is.
-    if (!cat && it.ope && !d.trim()) d = "OPE coefficient";
+    if (!cat && it.ope && !d.trim()) d = "coefficient in a three-point function";
     return d.trim();
   };
   // Disagreement: with the line's first row; for an OPE value, with the best value in its own structure.
@@ -826,13 +839,19 @@ function quantityTable(t, items, cat, source) {
     const desc = head || d !== describe(line[0], it) ? md(d, true) : "";
     const n = line.length - 1;
     const more = head && n ? detsButton(it.id, n, line.filter((r) => bad(it, line, r)).length) : head ? "" : disagreeBadge(bad(it, line, q));
-    const sym = head || (it.ope && q.symbol !== line[0].symbol) ? tex(q.symbol) : "";
+    // A three-point function is labelled once, on its first row; other quantities show their symbol per line.
+    const sym = it.ope ? (head && line === it.lines[0] ? tex(it.label) : "") : head ? tex(q.symbol) : "";
+    // The structure, and the operator order it assumes when that is not the label's.
+    const stCell = !it.ope ? "" : `${head || q._st !== line[0]._st || q._ord ? opeLabel(t, q._st) : ""}${
+      q._ord ? `<div class="sub">in the order ${tex(opeBracket(q._ord))}</div>` : ""}`;
+    // A value that is the square or the modulus of the coefficient says so.
+    const of = it.ope && q.value_of ? `${tex(q.value_of === "square" ? `${q.symbol}^2` : `|${q.symbol}|`)} = ` : "";
     return [
       sym,
-      ...(hasOpe ? [it.ope && (head || q._st !== line[0]._st) ? opeLabel(t, q._st) : ""] : []),
+      ...(hasOpe ? [stCell] : []),
       desc + (q.note ? `<div class="sub">${md(q.note, true)}</div>` : ""),
       ...(hasRel ? [head && rel.get(it) ? `<span class="rel">${tex(rel.get(it).tex)}</span>` : ""] : []),
-      `<span class="value">${tex(q.value)}</span>${more}`,
+      `${of ? `<span class="value-of">${of}<span class="value">${tex(q.value)}</span></span>` : `<span class="value">${tex(q.value)}</span>`}${more}`,
       source(q),
     ];
   };
@@ -844,8 +863,9 @@ function quantityTable(t, items, cat, source) {
       const one = { ...it, id };
       return tr(row(head, one, line, true), k ? ' class="ope-line"' : "") + rest.map((q) => tr(row(q, one, line, false), ` class="det" data-det="${id}" hidden`)).join("");
     }).join("")}</tbody>`;
-  const headers = [cat === "exponent" ? "Exponent" : cat === "ope" ? "Coefficient" : "Quantity", ...(hasOpe ? ["Structure"] : []), "Description",
-    ...(hasRel ? ["Relation"] : []), "Value", "Source"];
+  const headers = cat === "ope"
+    ? ["Three-point function", ...(hasOpe ? ["Structure"] : []), "Notes", "Coefficient", "Source"]
+    : [cat === "exponent" ? "Exponent" : "Quantity", ...(hasOpe ? ["Structure"] : []), "Description", ...(hasRel ? ["Relation"] : []), "Value", "Source"];
   return {
     html: `<div class="table-wrap"><table class="qty"><thead><tr>${headers.map((h) => `<th>${h}</th>`).join("")}</tr></thead>${items.map(body).join("")}</table></div>`,
     hasRel,
@@ -859,7 +879,8 @@ function quantityTable(t, items, cat, source) {
  *  to `used`). */
 function dataSections(t, source, topics, used) {
   const quants = quantityItems(t);
-  // OPE data: the triplets (opeItems), then quantities set to `category: ope` (data that is not one triplet's).
+  // Three-point data: the three-point functions (opeItems), then quantities set to `category: ope` (data that is not
+  // a coefficient of one three-point function).
   const items = [...quants.filter((it) => it.cat !== "ope"), ...opeItems(t), ...quants.filter((it) => it.cat === "ope")];
   const cats = QCAT_ORDER.filter((c) => items.some((it) => it.cat === c));
   const conv = t.conventions || {};
@@ -871,7 +892,7 @@ function dataSections(t, source, topics, used) {
     const tb = quantityTable(t, items, null, source);
     const notes = QCAT_ORDER.filter((c) => conv[c]).map((c) => `<p class="small conv"><b>${QCATS[c].title}.</b> ${md(conv[c], true)}</p>`).join("");
     const btn = allBtn(items);
-    return [section("data", "Data", `${notes}${btn ? `<p class="small">${btn}</p>` : ""}${tb.html}${opeStructuresHtml(t, items, "Structures of the OPE coefficients")}`)];
+    return [section("data", "Data", `${notes}${btn ? `<p class="small">${btn}</p>` : ""}${tb.html}${opeStructuresHtml(t, items, "Structures of the three-point functions")}`)];
   }
   return cats.map((c) => {
     const its = items.filter((it) => it.cat === c);
@@ -1522,7 +1543,7 @@ function viewTheory(id) {
   if (t.operators?.length) out.push(section("operators", "Operators", operatorsTable(t, source)));
 
   const usedTopics = new Set();
-  if (t.quantities?.length || t.ope_coefficients?.length) out.push(...dataSections(t, source, topics, usedTopics));
+  if (t.quantities?.length || t.three_point_functions?.length) out.push(...dataSections(t, source, topics, usedTopics));
 
   if (t.spectra?.length) out.push(section("spectrum", "Spectrum", spectrumShell(t)));
 
@@ -2712,7 +2733,7 @@ function viewMethods(focus = null) {
       <td class="small">${usage}</td></tr>`;
   });
   const legacy = DB.theories.reduce((k, t) =>
-    k + [...(t.quantities || []), ...(t.operators || []), ...(t.ope_coefficients || []).flatMap((c) => c.values)].filter((x) => x.method && !METHODS.has(String(x.method).split(",")[0].trim())).length, 0);
+    k + [...(t.quantities || []), ...(t.operators || []), ...(t.three_point_functions || []).flatMap((c) => c.values)].filter((x) => x.method && !METHODS.has(String(x.method).split(",")[0].trim())).length, 0);
   app.innerHTML = `
     <header class="theory-head"><h1>Methods</h1>
       <p class="lede">How the numbers in the zoo were obtained. Data rows name a method by its abbreviation,

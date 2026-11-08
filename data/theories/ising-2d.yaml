@@ -49,7 +49,7 @@ quantities:
     method: exact
     refs: [onsager1944]
 
-ope_coefficients:
+three_point_functions:
   - operators: ['\sigma', '\sigma', '\epsilon']
     values:
       - structure: scalar

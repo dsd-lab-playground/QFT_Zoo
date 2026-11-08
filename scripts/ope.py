@@ -1,11 +1,12 @@
-"""OPE coefficients: the standard structures (data/ope_structures.yaml) and the checks of an entry's
-`ope_structures` and `ope_coefficients` that JSON Schema cannot express. See docs/OPE.md.
+"""Three-point functions: the standard structures (data/three_point_structures.yaml) and the checks of an entry's
+`three_point_structures` and `three_point_functions` that JSON Schema cannot express. See docs/THREE_POINT.md.
 
-An OPE coefficient item names its three operators (by their `name` in the entry's operators table, or by an
-explicit `label` for one that is not in the table) and lists values, each of which names the structure it
-multiplies: a standard one, or one the entry defines by a citation of the formula that defines it. A structure may
-also give its `embedding`: the three-point function in the embedding-space notation of Costa, Penedones, Poland and
-Rychkov (arXiv:1107.3554), as a LaTeX formula.
+A three-point function is a sum of coefficients times structures. An item of `three_point_functions` names its three
+operators, an unordered triple (by their `name` in the entry's operators table, or by an explicit `label` for one
+that is not in the table), and lists values, each the coefficient of one structure: a standard one, or one the entry
+defines in the notation of the source the value comes from. A value whose structure assumes another order of the
+operators than the item's says so (`order`). A structure may also give its `embedding`: the three-point function in
+the embedding-space notation of Costa, Penedones, Poland and Rychkov (arXiv:1107.3554), as a LaTeX formula.
 """
 
 from __future__ import annotations
@@ -13,7 +14,7 @@ from __future__ import annotations
 import re
 from fractions import Fraction
 
-STANDARD: dict[str, dict] = {}  # id -> standard structure (filled by build.py from data/ope_structures.yaml)
+STANDARD: dict[str, dict] = {}  # id -> standard structure (filled by build.py from data/three_point_structures.yaml)
 
 _CITE_KEYS = re.compile(r"\[(@[^\]]*)\]")
 
@@ -53,8 +54,8 @@ def set_standard(structures: list[dict]) -> list[str]:
     errs = []
     for i, s in enumerate(structures):
         if s["id"] in STANDARD:
-            errs.append(f"data/ope_structures.yaml: structures/{i}: duplicate id '{s['id']}'")
-        errs += _embedding_errs(s, f"data/ope_structures.yaml: structures/{i}")
+            errs.append(f"data/three_point_structures.yaml: structures/{i}: duplicate id '{s['id']}'")
+        errs += _embedding_errs(s, f"data/three_point_structures.yaml: structures/{i}")
         STANDARD[s["id"]] = s
     return errs
 
@@ -79,13 +80,13 @@ def op_key(o) -> tuple[str, str]:
 
 def structures_of(data: dict) -> dict[str, dict]:
     """All structures an entry's values may name: the standard ones and the entry's own."""
-    return {**STANDARD, **{s["id"]: s for s in data.get("ope_structures", []) or []}}
+    return {**STANDARD, **{s["id"]: s for s in data.get("three_point_structures", []) or []}}
 
 
 def check_entry_ope(data: dict, rel: str) -> list[str]:
     errs: list[str] = []
-    own = data.get("ope_structures", []) or []
-    items = data.get("ope_coefficients", []) or []
+    own = data.get("three_point_structures", []) or []
+    items = data.get("three_point_functions", []) or []
     keys = {r["key"] for r in data.get("references", [])}
     names: dict[str, list[dict]] = {}
     for o in data.get("operators", []) or []:
@@ -93,9 +94,9 @@ def check_entry_ope(data: dict, rel: str) -> list[str]:
 
     seen_ids: set[str] = set()
     for i, s in enumerate(own):
-        where = f"{rel}: ope_structures/{i}"
+        where = f"{rel}: three_point_structures/{i}"
         if s["id"] in STANDARD:
-            errs.append(f"{where}: id '{s['id']}' is a standard structure (data/ope_structures.yaml); use it, or pick another id")
+            errs.append(f"{where}: id '{s['id']}' is a standard structure (data/three_point_structures.yaml); use it, or pick another id")
         if s["id"] in seen_ids:
             errs.append(f"{where}: duplicate id '{s['id']}'")
         seen_ids.add(s["id"])
@@ -108,7 +109,7 @@ def check_entry_ope(data: dict, rel: str) -> list[str]:
     triplets: dict[tuple, int] = {}
     claims: dict[tuple, str] = {}
     for i, it in enumerate(items):
-        where = f"{rel}: ope_coefficients/{i}"
+        where = f"{rel}: three_point_functions/{i}"
         ops = it["operators"]
         for j, o in enumerate(ops):
             if not isinstance(o, dict) and o not in names:
@@ -116,7 +117,7 @@ def check_entry_ope(data: dict, rel: str) -> list[str]:
                             f"(write its `name` exactly, or {{label: '...'}} for an operator that is not in the table)")
         trip = tuple(sorted(op_key(o) for o in ops))
         if trip in triplets:
-            errs.append(f"{where}: the same three operators as ope_coefficients/{triplets[trip]}: "
+            errs.append(f"{where}: the same three operators (in any order) as three_point_functions/{triplets[trip]}: "
                         f"put all values of one three-point function in one item")
         triplets.setdefault(trip, i)
         for k, v in enumerate(it["values"]):
@@ -124,14 +125,24 @@ def check_entry_ope(data: dict, rel: str) -> list[str]:
             sid = v["structure"]
             st = allst.get(sid)
             if st is None:
-                errs.append(f"{w}: unknown structure '{sid}' (define it in ope_structures, or use one of "
-                            f"data/ope_structures.yaml: {', '.join(STANDARD)})")
+                errs.append(f"{w}: unknown structure '{sid}' (define it in three_point_structures, or use one of "
+                            f"data/three_point_structures.yaml: {', '.join(STANDARD)})")
                 continue
+            # The order of the operators that the structure assumes: the value's own `order`, else the item's.
+            vops = ops
+            if "order" in v:
+                if sorted(op_key(o) for o in v["order"]) != sorted(op_key(o) for o in ops):
+                    errs.append(f"{w}: order must list the three operators of this three-point function, in the order "
+                                f"its structure assumes")
+                elif list(map(op_key, v["order"])) == list(map(op_key, ops)):
+                    errs.append(f"{w}: order is the order of `operators`: leave it out")
+                else:
+                    vops = v["order"]
             used.add(sid)
             if "d" in st and st["d"] != data.get("d"):
                 errs.append(f"{w}: structure '{sid}' is defined in d = {st['d']}, not d = {data.get('d')}")
             if "spins" in st:
-                for j, (o, want) in enumerate(zip(ops, st["spins"])):
+                for j, (o, want) in enumerate(zip(vops, st["spins"])):
                     if isinstance(o, dict) or o not in names:
                         continue
                     got = {_spin(r["spin"]) for r in names[o] if "spin" in r}
@@ -151,14 +162,14 @@ def check_entry_ope(data: dict, rel: str) -> list[str]:
     for sid in sorted(used - own_ids):
         for k in _cited_keys(STANDARD[sid]):
             if k not in keys:
-                errs.append(f"{rel}: the standard structure '{sid}' (data/ope_structures.yaml) cites [@{k}]: "
+                errs.append(f"{rel}: the standard structure '{sid}' (data/three_point_structures.yaml) cites [@{k}]: "
                             f"add the reference '{k}' to the references list")
     for i, s in enumerate(own):
         if s["id"] not in used:
-            errs.append(f"{rel}: ope_structures/{i}: structure '{s['id']}' is not used by any value")
+            errs.append(f"{rel}: three_point_structures/{i}: structure '{s['id']}' is not used by any value")
     return errs
 
 
 def labelled_operators(entries: list[dict]) -> int:
-    """OPE operators named by an explicit label instead of the operators table (counted, not an error)."""
-    return sum(isinstance(o, dict) for e in entries for it in e.get("ope_coefficients", []) or [] for o in it["operators"])
+    """Operators of three-point functions named by an explicit label instead of the operators table (counted)."""
+    return sum(isinstance(o, dict) for e in entries for it in e.get("three_point_functions", []) or [] for o in it["operators"])
