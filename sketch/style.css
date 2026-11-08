@@ -470,3 +470,7 @@ table.methods tr { scroll-margin-top: 80px; }
 .method-uses summary { cursor: pointer; white-space: nowrap; }
 .method-uses[open] { min-width: 200px; }
 .method-link + .method-link { margin-top: 6px; }
+.ope-structures li { margin: 2px 0; }
+.ope-st-more { display: inline; }
+.ope-st-more summary { display: inline; cursor: pointer; color: var(--accent); font-size: 0.9em; }
+.ope-st-more[open] { display: block; margin: 2px 0 6px; color: var(--muted); }

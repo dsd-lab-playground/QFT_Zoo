@@ -779,13 +779,14 @@ function opeLabel(t, st) {
 function opeStructuresHtml(t, items, title = "Structures") {
   const used = [...new Set(items.filter((it) => it.ope).flatMap((it) => it.rows.map((r) => r._st)))].sort((a, b) => a.order - b.order);
   if (!used.length) return "";
+  // One line per structure: symbol, name or defining citation, and its embedding-space form when known. The longer
+  // description and stated relations stay in the data, folded behind "details".
   const li = (st) => {
-    const label = [st.name ? `<b>${md(st.name, true)}</b>` : "", st.ref ? citeRefs(t.id, [st.ref]) : ""].filter(Boolean).join(" ");
-    const tag = st.own ? "" : st.default && !OPE_LABEL_DEFAULTS ? "standard; its values carry no label" : "standard";
-    return `<li id="ope-st-${esc(st.id)}">${st.symbol ? `${tex(st.symbol)}, ` : ""}${label}${tag ? ` <span class="muted">(${tag})</span>` : ""}${
-      st.description ? `: ${md(st.description, true)}` : ""}${
-      st.embedding ? `<div class="ope-embedding" title="Embedding space: points P_i, polarizations Z_i, P_ij = −2 P_i·P_j">${tex(st.embedding, true)}</div>` : ""}${
-      st.relation ? `${st.embedding ? "" : " "}${md(st.relation, true)}` : ""}</li>`;
+    const label = [st.name ? md(st.name, true) : "", st.ref ? citeRefs(t.id, [st.ref]) : ""].filter(Boolean).join(" ");
+    const more = [st.description ? md(st.description, true) : "", st.relation ? md(st.relation, true) : ""].filter(Boolean).join(" ");
+    return `<li id="ope-st-${esc(st.id)}">${st.symbol ? `${tex(st.symbol)}: ` : ""}${label}${
+      st.embedding ? ` &nbsp;${tex(st.embedding)}` : ""}${
+      more ? ` <details class="ope-st-more"><summary>details</summary>${more}</details>` : ""}</li>`;
   };
   return `<div class="ope-structures small"><p class="ope-structures-title">${title}</p><ul>${used.map(li).join("")}</ul></div>`;
 }
