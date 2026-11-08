@@ -27,7 +27,8 @@
         "spins": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": "integer", "minimum": 0 }, "description": "Spins of the three operators that the structure is defined for; the build checks them against the operators table." },
         "d": { "type": "integer", "description": "The spacetime dimension it is defined in, if only one; the build checks it against the entry." },
         "basis": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "As for an entry's structures: an id shared by the elements of one basis of several independent structures." },
-        "relation": { "type": "string", "description": "[markdown] Relations that follow from the definition." }
+        "relation": { "type": "string", "description": "[markdown] Relations that follow from the definition." },
+        "embedding": { "type": "string", "minLength": 1, "description": "[latex] Optional: the three-point function in embedding space, in the notation of Costa, Penedones, Poland and Rychkov, Spinning Conformal Correlators (arXiv:1107.3554): points P_i, polarizations Z_i, P_{ij} = -2 P_i.P_j, V_{i,jk}, H_{ij}. A formula without $...$, shown in display math. Only for a structure that is a simple embedding-space structure. See docs/OPE.md." }
       }
     }
   }

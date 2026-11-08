@@ -774,7 +774,8 @@ function opeLabel(t, st) {
 }
 
 /** The definitions of the structures that the items use, once for the section, in structure order (the standard ones
- *  first, a default one marked as carrying no label), each with its symbol, label, definition and stated relations. */
+ *  first, a default one marked as carrying no label), each with its symbol, label, definition, its embedding-space form
+ *  (`embedding`, in the notation of Costa, Penedones, Poland and Rychkov; docs/OPE.md 1.4) and stated relations. */
 function opeStructuresHtml(t, items, title = "Structures") {
   const used = [...new Set(items.filter((it) => it.ope).flatMap((it) => it.rows.map((r) => r._st)))].sort((a, b) => a.order - b.order);
   if (!used.length) return "";
@@ -782,7 +783,9 @@ function opeStructuresHtml(t, items, title = "Structures") {
     const label = [st.name ? `<b>${md(st.name, true)}</b>` : "", st.ref ? citeRefs(t.id, [st.ref]) : ""].filter(Boolean).join(" ");
     const tag = st.own ? "" : st.default && !OPE_LABEL_DEFAULTS ? "standard; its values carry no label" : "standard";
     return `<li id="ope-st-${esc(st.id)}">${st.symbol ? `${tex(st.symbol)}, ` : ""}${label}${tag ? ` <span class="muted">(${tag})</span>` : ""}${
-      st.description ? `: ${md(st.description, true)}` : ""}${st.relation ? ` ${md(st.relation, true)}` : ""}</li>`;
+      st.description ? `: ${md(st.description, true)}` : ""}${
+      st.embedding ? `<div class="ope-embedding" title="Embedding space: points P_i, polarizations Z_i, P_ij = −2 P_i·P_j">${tex(st.embedding, true)}</div>` : ""}${
+      st.relation ? `${st.embedding ? "" : " "}${md(st.relation, true)}` : ""}</li>`;
   };
   return `<div class="ope-structures small"><p class="ope-structures-title">${title}</p><ul>${used.map(li).join("")}</ul></div>`;
 }
