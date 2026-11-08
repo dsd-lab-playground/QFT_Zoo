@@ -794,7 +794,9 @@ function opeStructuresHtml(t, items, title = "Structures") {
     // single-monomial `embedding`), then the citation as the source of the convention. Only prose folds.
     const math = st.form || st.embedding;
     const cite = st.ref ? ` ${citeRefs(t.id, [st.ref])}` : "";
-    const more = [st.description ? md(st.description, true) : "", st.relation ? md(st.relation, true) : ""].filter(Boolean).join(" ");
+    // An `embedding` that is not the line's formula (the structure has its source's own `form`) folds with the prose.
+    const emb = st.form && st.embedding ? `In embedding space: ${tex(st.embedding, true)}` : "";
+    const more = [st.description ? md(st.description, true) : "", emb, st.relation ? md(st.relation, true) : ""].filter(Boolean).join(" ");
     return `<li id="ope-st-${esc(st.id)}">${st.name ? `<b>${md(st.name, true)}</b>` : ""}${math ? `${st.name ? ": " : ""}${tex(math)}` : ""}${cite}${
       more ? ` <details class="ope-st-more"><summary>details</summary>${more}</details>` : ""}</li>`;
   };
