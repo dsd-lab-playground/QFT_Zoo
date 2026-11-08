@@ -84,7 +84,7 @@ symmetry:
     - {id: U(1)_B, group: U(1), tex: 'U(1)_B'}
     - {id: U(1)_R, group: U(1), tex: 'U(1)_R', note: 'The superconformal R-symmetry: a chiral primary has $\Delta = \tfrac32 R$. Parity ($CP$) reverses it.'}
   gauge: '$SU(N_c)$ (electric) or $SU(N_f-N_c)$ (magnetic)'
-  notes: 'Multiplet names follow Cordova, Dumitrescu and Intriligator [@cdi2016].'
+  notes: 'Multiplets are named descriptively (chiral, stress tensor), as is standard in 4d $\mathcal{N}=1$; the label of Cordova, Dumitrescu and Intriligator [@cdi2016] is shown on hover.'
 
 quantities:
   - symbol: 'R_Q = R_{\tilde Q}'
@@ -118,7 +118,7 @@ operators:
     spin: 0
     parity: pair
     global: {SU(Nf)_L: fundamental, SU(Nf)_R: antifundamental, U(1)_B: 0, U(1)_R: '2(N_f-N_c)/N_f'}
-    multiplet: {name: '$M$', component: primary, type: 'chiral, $L\bar B_1[0;0]^{(r)}_{3r/2}$'}
+    multiplet: {name: '$M$', component: primary, type: chiral, cdi: '$L\bar B_1[0;0]^{(r)}_{3r/2}$'}
     method: exact
     refs: [seiberg1995]
     note: 'Chiral primary [@seiberg1995, Eq. (2.3)]. It equals 1 at $N_f = \tfrac32 N_c$. In the magnetic description $M$ is an elementary field.'
@@ -127,7 +127,7 @@ operators:
     spin: 0
     parity: pair
     global: {SU(Nf)_L: [singlet, anti(N_c)], SU(Nf)_R: [singlet, anti(N_c)bar], U(1)_B: '±N_c', U(1)_R: 'N_c(N_f-N_c)/N_f'}
-    multiplet: {name: '$B$, $\tilde B$', component: primary, type: 'chiral, $L\bar B_1[0;0]^{(r)}_{3r/2}$'}
+    multiplet: {name: '$B$, $\tilde B$', component: primary, type: chiral, cdi: '$L\bar B_1[0;0]^{(r)}_{3r/2}$'}
     method: exact
     refs: [seiberg1995]
     note: 'Baryons [@seiberg1995, Eq. (2.4)]. In the magnetic description $B \propto q^{N_f - N_c}$.'
@@ -143,7 +143,7 @@ operators:
     spin: 2
     parity: even
     global: {SU(Nf)_L: singlet, SU(Nf)_R: singlet, U(1)_B: 0, U(1)_R: 0}
-    multiplet: {name: stress tensor, component: 'Q\bar Q', type: '$A_1\bar A_1[1;1]^{(0)}_3$'}
+    multiplet: {name: stress tensor, component: 'Q\bar Q', cdi: '$A_1\bar A_1[1;1]^{(0)}_3$'}
     method: exact
     note: Stress tensor (conserved).
 

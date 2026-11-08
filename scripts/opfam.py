@@ -562,9 +562,10 @@ def check_families(data: dict, rel: str) -> list[str]:
                 if want != mine["canon"]:
                     errs.append(f"{where}/global/{f['id']}: {mine['canon']}, but family '{fid}' at "
                                 f"{o['member_view']['at']} is {want}")
-        mt, ft = (o.get("multiplet") or {}).get("type"), (fam.get("multiplet") or {}).get("type")
-        if mt and ft and mt != ft:
-            errs.append(f"{where}/multiplet/type: '{mt}', but family '{fid}' is '{ft}'")
+        for k in ("type", "cdi"):   # the family's label with the parameters set to the member's values
+            mt, ft = (o.get("multiplet") or {}).get(k), (fam.get("multiplet") or {}).get(k)
+            if mt and ft and _squash(mt) != _squash(_at_values(ft, F["ps"], env)):
+                errs.append(f"{where}/multiplet/{k}: '{mt}', but family '{fid}' is '{ft}'")
     return errs
 
 
@@ -576,6 +577,19 @@ def _is_word(x: str, symbols: set[str]) -> bool:
         return not symbols_used(x, symbols)
     except FamError:
         return True
+
+
+def _at_values(text: str, ps: list[dict], env: dict) -> str:
+    """TeX text with each plain parameter symbol replaced by its value: '[0,k,0]' at k = 2 gives '[0,2,0]'."""
+    for p in ps:
+        sym = str(p["symbol"]).strip()
+        if re.fullmatch(r"[A-Za-z]+", sym):
+            text = re.sub(r"(?<![A-Za-z\\])" + re.escape(sym) + r"(?![A-Za-z])", lambda _m, v=_tex(env[norm_sym(sym)]): v, text)
+    return text
+
+
+def _squash(text: str) -> str:
+    return re.sub(r"\s+", "", str(text))
 
 
 def _mentions(text: str, symbol) -> bool:

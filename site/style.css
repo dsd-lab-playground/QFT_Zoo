@@ -160,6 +160,15 @@ table.ops .num { padding-left: 4px; padding-right: 4px; }
    the sector heading, at the top of the note. */
 .op-role { color: var(--muted); font-size: 0.88em; }
 .op-role.nowrap { white-space: nowrap; }
+/* A label with a second notation on hover (data-hover): dotted underline, instant tooltip. */
+.hover-label { border-bottom: 1px dotted currentColor; cursor: help; }
+.op-role .hover-label { display: inline-block; }
+.hover-label:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.hover-tip {
+  position: fixed; z-index: 20; max-width: 360px; padding: 4px 9px; font-size: 0.85rem; pointer-events: none;
+  background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+}
 .op-rep { color: var(--muted); font-size: 0.88em; }
 .op-rep:not(:last-child) { margin-bottom: 2px; }
 /* Structured entries: each group heading folds its group; the count of operators follows the heading. */

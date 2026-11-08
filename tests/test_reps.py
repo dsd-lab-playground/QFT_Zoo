@@ -107,6 +107,18 @@ broken(lambda d: d["symmetry"].update({"parity": False}), "`parity` is given")
 broken(lambda d: d["operators"][0].update({"T": "even"}), "time_reversal")
 broken(lambda d: d["operators"][0].update({"lorentz": "(1/2, 0)"}), "not used in 3d")
 broken(lambda d: d["operators"][0].update({"multiplet": {"name": "a", "component": "primary"}}), "supersymmetric")
+
+
+def susy(d, dim, **m):
+    d["d"], d["symmetry"]["supercharges"] = dim, 4
+    d["operators"][0]["multiplet"] = {"name": "a", "component": "primary", **m}
+
+
+broken(lambda d: susy(d, 3, type="chiral"), "give `cdi`")
+broken(lambda d: susy(d, 2, cdi="$L\\bar B_1[0]^{(1)}_1$"), "for d >= 3")
+data = copy.deepcopy(VALID)
+susy(data, 3, type="chiral", cdi="$L\\bar B_1[0]^{(1)}_1$")
+expect(not check_entry_reps(data, "x"), "multiplet with `cdi` in 3d rejected")
 broken(lambda d: d["symmetry"]["global_group"].append({"id": "Z2", "group": "Z_4"}), "unique")
 
 

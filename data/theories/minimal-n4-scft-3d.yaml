@@ -47,7 +47,7 @@ symmetry:
   global_group:
     - {id: U(1)_R, group: U(1), tex: 'U(1)_R', note: 'The manifest $\mathcal{N}=2$ R-symmetry; with $U(1)_{\rm top}$ conjectured to become part of the $SO(4)$ R-symmetry.'}
     - {id: U(1)_top, group: U(1), tex: 'U(1)_{\rm top}'}
-  notes: 'Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@cordova2016, Sec. 2.1.4]: $X[j]^{(R;R'')}_\Delta$, with $j$ twice the spin and $(R;R'')$ the Dynkin labels of the conjectured $SO(4)_R \simeq SU(2)\times SU(2)$ R-symmetry.'
+  notes: 'Multiplet names follow Dolan [@dolan2008] as used by Chester, Lee, Pufu and Yacoby [@clpy2014, Table 1]: $(B,+)$ and $(B,-)$ the half-BPS Higgs- and Coulomb-branch multiplets [@bpr2016, Sec. 2.1] (Dolan writes $(2,B,\pm)$), conserved the stress-tensor multiplet. Usage is split; the notation of Cordova, Dumitrescu and Intriligator [@cordova2016, Sec. 2.1.4] is shown on hover: $X[j]^{(R;R'')}_\Delta$, with $j$ twice the spin and $(R;R'')$ the Dynkin labels of the conjectured $SO(4)_R \simeq SU(2)\times SU(2)$ R-symmetry.'
   gauge: '$U(1)_{-3/2}$ (UV description)'
 
 quantities:
@@ -84,7 +84,7 @@ operators:
     spin: 2
     parity: even
     global: {U(1)_R: 0, U(1)_top: 0}
-    multiplet: {name: stress tensor, component: 'Q^4', type: '$A_2[0]^{(0;0)}_1$'}
+    multiplet: {name: stress tensor, component: 'Q^4', type: conserved, cdi: '$A_2[0]^{(0;0)}_1$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -111,5 +111,26 @@ references:
     authors: Cordova, Dumitrescu, Intriligator
     year: 2016
     arxiv: '1612.00809'
+  - key: dolan2008
+    title: On Superconformal Characters and Partition Functions in Three Dimensions
+    authors: Dolan
+    year: 2008
+    journal: J. Math. Phys. 51 (2010) 022301
+    arxiv: '0811.2740'
+    doi: 10.1063/1.3211091
+  - key: clpy2014
+    title: Exact Correlators of BPS Operators from the 3d Superconformal Bootstrap
+    authors: Chester, Lee, Pufu, Yacoby
+    year: 2014
+    journal: JHEP 03 (2015) 130
+    arxiv: '1412.0334'
+    doi: 10.1007/JHEP03(2015)130
+  - key: bpr2016
+    title: Deformation quantization and superconformal symmetry in three dimensions
+    authors: Beem, Peelaers, Rastelli
+    year: 2016
+    journal: Commun. Math. Phys. 354 (2017) 345
+    arxiv: '1601.05378'
+    doi: 10.1007/s00220-017-2845-6
 
 contributors: [Canonical111]

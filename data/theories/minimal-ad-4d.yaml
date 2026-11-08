@@ -59,7 +59,7 @@ symmetry:
   global_group:
     - {id: SU(2)_R, group: SU(2), tex: 'SU(2)_R'}
     - {id: U(1)_r, group: U(1), tex: 'U(1)_r', note: 'Normalized as in Dolan–Osborn: a Coulomb-branch chiral primary, in an $\mathcal{E}_{r(0,0)}$ multiplet, has $r = \Delta$.'}
-  notes: 'Multiplet names follow Dolan and Osborn [@dolan2002] as tabulated by Beem et al. [@beem2013, Table 7]: $\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\hat{\mathcal{B}}_R$ Higgs-branch half-BPS, $\hat{\mathcal{C}}_{0(0,0)}$ stress tensor, $\mathcal{A}^{\Delta}_{R,r(j,\bar\jmath)}$ long.'
+  notes: 'Multiplet names follow Dolan and Osborn [@dolan2002] as tabulated by Beem et al. [@beem2013, Table 7]: $\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\hat{\mathcal{B}}_R$ Higgs-branch half-BPS, $\hat{\mathcal{C}}_{0(0,0)}$ stress tensor, $\mathcal{A}^{\Delta}_{R,r(j,\bar\jmath)}$ long. The label of Cordova, Dumitrescu and Intriligator (arXiv:1612.00809) is shown on hover; its $u(1)_r$ charge is twice the one here.'
 
 quantities:
   - key: a
@@ -107,7 +107,7 @@ operators:
     Delta: '\frac{6}{5}'
     spin: 0
     global: {SU(2)_R: singlet, U(1)_r: 6/5}
-    multiplet: {name: '$u$', component: primary, type: '$\mathcal{E}_{\frac65(0,0)}$'}
+    multiplet: {name: '$u$', component: primary, type: '$\mathcal{E}_{\frac65(0,0)}$', cdi: '$L\bar B_1[0;0]^{(0;\frac{12}{5})}_{\frac65}$'}
     method: exact
     refs: [argyres1995b, aharony2007]
     note: 'Generator of the Coulomb-branch chiral ring.'
@@ -115,7 +115,7 @@ operators:
     Delta: '\frac{12}{5}'
     spin: 0
     global: {SU(2)_R: singlet, U(1)_r: 12/5}
-    multiplet: {name: '$u^2$', component: primary, type: '$\mathcal{E}_{\frac{12}{5}(0,0)}$'}
+    multiplet: {name: '$u^2$', component: primary, type: '$\mathcal{E}_{\frac{12}{5}(0,0)}$', cdi: '$L\bar B_1[0;0]^{(0;\frac{24}{5})}_{\frac{12}{5}}$'}
     method: exact
     refs: [cornagliotto2017]
     note: 'Coulomb-branch chiral operator; dimensions add in the chiral ring.'
@@ -123,7 +123,7 @@ operators:
     Delta: '\approx 2.56\text{–}2.68'
     spin: 0
     global: {SU(2)_R: singlet, U(1)_r: 0}
-    multiplet: {name: '$[u\bar u]_{\rm long}$', component: primary, type: '$\mathcal{A}^{\Delta}_{0,0(0,0)}$'}
+    multiplet: {name: '$[u\bar u]_{\rm long}$', component: primary, type: '$\mathcal{A}^{\Delta}_{0,0(0,0)}$', cdi: '$L\bar L[0;0]^{(0;0)}_\Delta$'}
     method: CB-EFM
     refs: [cornagliotto2017]
     note: 'Superconformal primary of the lightest long multiplet in $u\times\bar u$; relevant. Range from extrapolations to $\Lambda\to\infty$ [@cornagliotto2017, Eq. (3.5)], not a rigorous bound.'
@@ -131,7 +131,7 @@ operators:
     Delta: '\approx 2.7'
     spin: 0
     global: {SU(2)_R: singlet, U(1)_r: 0}
-    multiplet: {name: '$[u\bar u]_{\rm long}$', component: primary, type: '$\mathcal{A}^{\Delta}_{0,0(0,0)}$'}
+    multiplet: {name: '$[u\bar u]_{\rm long}$', component: primary, type: '$\mathcal{A}^{\Delta}_{0,0(0,0)}$', cdi: '$L\bar L[0;0]^{(0;0)}_\Delta$'}
     method: CB
     refs: ['gimenezgrau2020, Eq. (4.1)']
     note: 'Estimate, not a rigorous bound.'
@@ -139,7 +139,7 @@ operators:
     Delta: 4
     spin: 2
     global: {SU(2)_R: singlet, U(1)_r: 0}
-    multiplet: {name: stress tensor, component: 'Q^2\bar Q^2', type: '$\hat{\mathcal{C}}_{0(0,0)}$'}
+    multiplet: {name: stress tensor, component: 'Q^2\bar Q^2', type: '$\hat{\mathcal{C}}_{0(0,0)}$', cdi: '$A_2\bar A_2[0;0]^{(0;0)}_2$'}
     method: exact
     note: Stress tensor (conserved).
 

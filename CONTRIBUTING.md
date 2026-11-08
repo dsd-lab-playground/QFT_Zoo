@@ -188,7 +188,8 @@ operators:
   an $SO(d)$ highest weight `'[1, 1]'` in $d \ge 5$.
 - **Remarks** such as "order parameter", "thermal", "superpartner of $\sigma$" are never part of
   the representation: use `role`, or `multiplet: {name: '$\sigma$', component: Q}` in
-  supersymmetric theories.
+  supersymmetric theories, with `type` (the multiplet in its case's house notation) and `cdi` (its
+  Cordova–Dumitrescu–Intriligator label; docs/REPRESENTATIONS.md 1.5).
 - **Tables** group by global irrep (trivial first, then each group type's natural order, factors
   in their declared order), then by parity (even first), and order each group by spin, then
   $\Delta$. A label shared by every operator is said once above the table; a table where no group

@@ -424,7 +424,11 @@
             },
             "type": {
               "type": "string",
-              "description": "[markdown] Shortening or standard symbol, e.g. 'half-BPS', 'long', '$A_1\\bar A_1$'."
+              "description": "[markdown] The multiplet in the house notation of its dimension and supersymmetry (docs/REPRESENTATIONS.md 1.5), e.g. '$\\hat{\\mathcal{B}}_1$', '$(B,+)$', '$\\mathcal{D}[2]$', 'chiral', 'long'. Omitted when the house name is descriptive and `name` already says it (stress tensor)."
+            },
+            "cdi": {
+              "type": "string",
+              "description": "[markdown] The multiplet in the notation of Cordova, Dumitrescu and Intriligator (arXiv:1612.00809), e.g. '$B_1\\bar B_1[0;0]^{(2;0)}_2$'; required in d >= 3, `unknown` if it cannot be determined; not used in 2d."
             }
           },
           "description": "Supersymmetric theories: the supermultiplet the operator belongs to and which component it is."

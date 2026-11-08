@@ -1344,10 +1344,16 @@ function lorentzTex(o) {
   return tex(String(o.lorentz).replace(/(\d+)\/(\d+)/g, "\\tfrac{$1}{$2}"));
 }
 
+/** The Multiplet cell: name, component and the house name (`type`); the CDI label shows on hover over the house name,
+ *  or over the name when there is no house name (docs/REPRESENTATIONS.md 1.5). */
 function multipletHtml(m) {
   if (!m) return "";
   const comp = m.component === "primary" ? "primary" : tex(m.component);
-  return `${md(m.name, true)}, ${comp}${m.type ? ` <span class="op-role">(${md(m.type, true)})</span>` : ""}`;
+  const cdi = m.cdi && m.cdi !== "unknown"
+    ? ` class="hover-label" tabindex="0" data-hover="${esc(`<span class="muted">Cordova–Dumitrescu–Intriligator:</span> ${md(m.cdi, true)}`)}"` : "";
+  const name = m.type || !cdi ? md(m.name, true) : `<span${cdi}>${md(m.name, true)}</span>`;
+  const type = m.type ? ` <span class="op-role nowrap">(<span${cdi}>${md(m.type, true)}</span>)</span>` : "";
+  return `${name}, ${comp}${type}`;
 }
 
 /** The operators table of a structured entry (policy in docs/REPRESENTATIONS.md). */
@@ -2869,6 +2875,32 @@ app.addEventListener("change", (e) => {
   if (e.target.id === "spectrum-member" && SPEC_STATE.t) showSpectrum(SPEC_STATE.t, +e.target.value);
 });
 
+// Labels with a second notation (`data-hover`, e.g. a multiplet's CDI label): an instant tooltip on hover or focus.
+const HOVER_TIP = Object.assign(document.createElement("div"), { className: "hover-tip", role: "tooltip", hidden: true });
+document.body.append(HOVER_TIP);
+function showHover(el) {
+  HOVER_TIP.innerHTML = el.dataset.hover;
+  HOVER_TIP.hidden = false;
+  const r = el.getBoundingClientRect();
+  const left = Math.max(4, Math.min(r.left, document.documentElement.clientWidth - HOVER_TIP.offsetWidth - 4));
+  const below = r.bottom + 6 + HOVER_TIP.offsetHeight <= window.innerHeight;
+  HOVER_TIP.style.left = `${left}px`;
+  HOVER_TIP.style.top = `${below ? r.bottom + 6 : r.top - HOVER_TIP.offsetHeight - 6}px`;
+}
+const hideHover = () => (HOVER_TIP.hidden = true);
+for (const [on, off] of [["mouseover", "mouseout"], ["focusin", "focusout"]]) {
+  app.addEventListener(on, (e) => {
+    const el = e.target.closest("[data-hover]");
+    if (el) showHover(el);
+  });
+  app.addEventListener(off, (e) => {
+    const el = e.target.closest("[data-hover]");
+    if (el && !el.contains(e.relatedTarget)) hideHover();
+  });
+}
+window.addEventListener("scroll", hideHover, { passive: true });
+window.addEventListener("hashchange", hideHover);
+
 // Flow arrows: a preview on hover; click or tap opens the details (keyboard: the "details" buttons by the diagram).
 app.addEventListener("mouseover", (e) => {
   const el = e.target.closest(".flow-graph [data-flow-open], .flow-graph [data-tip]");
@@ -2882,6 +2914,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key !== "Escape") return;
   const open = [...app.querySelectorAll(".flow-panel:not([hidden])")];
   app.querySelectorAll(".flow-tip:not([hidden])").forEach((t) => (t.hidden = true));
+  hideHover();
   if (!open.length) return;
   // Close the panel the focus is in or came from, else every open one.
   const here = open.filter((p) => p.contains(document.activeElement) || p._trigger === document.activeElement);

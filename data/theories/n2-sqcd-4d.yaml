@@ -80,7 +80,7 @@ symmetry:
     - {id: U(1)_r, group: U(1), tex: 'U(1)_r', note: 'Normalized as in Dolan–Osborn: a Coulomb-branch chiral primary, in an $\mathcal{E}_{r(0,0)}$ multiplet, has $r = \Delta$.'}
     - {id: G_F, group: 'Lie(U(2N))', tex: 'G_F', note: 'Flavor symmetry $U(2N) = SU(2N)\times U(1)$ for $N \geq 3$, enhanced to $SO(8)$ for $N = 2$.'}
   gauge: '$SU(N)$'
-  notes: 'Flavor central charges $k$ are normalized so that gauging a group $G$ is conformal when the matter it couples to has $k_G = 4h^\vee(G)$; a fundamental hypermultiplet of $SU(N)$ contributes 2 to $k_{SU(N)}$. Multiplet names follow Dolan and Osborn [@dolan2002] as tabulated by Beem et al. [@beem2013, Table 7]: $\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\hat{\mathcal{B}}_R$ Higgs-branch half-BPS, $\hat{\mathcal{C}}_{0(0,0)}$ stress tensor, $\mathcal{A}^{\Delta}_{R,r(j,\bar\jmath)}$ long.'
+  notes: 'Flavor central charges $k$ are normalized so that gauging a group $G$ is conformal when the matter it couples to has $k_G = 4h^\vee(G)$; a fundamental hypermultiplet of $SU(N)$ contributes 2 to $k_{SU(N)}$. Multiplet names follow Dolan and Osborn [@dolan2002] as tabulated by Beem et al. [@beem2013, Table 7]: $\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\hat{\mathcal{B}}_R$ Higgs-branch half-BPS, $\hat{\mathcal{C}}_{0(0,0)}$ stress tensor, $\mathcal{A}^{\Delta}_{R,r(j,\bar\jmath)}$ long. The label of Cordova, Dumitrescu and Intriligator [@cdi2016] is shown on hover; its $u(1)_r$ charge is twice the one here.'
 
 quantities:
   - symbol: 'a'
@@ -115,7 +115,7 @@ operators:
     parity: pair
     global: {SU(2)_R: singlet, U(1)_r: unknown, G_F: singlet}
     role: Coulomb-branch generator
-    multiplet: {name: '$\mathrm{Tr}\,\phi^k$', component: primary, type: '$\mathcal{E}_{k(0,0)}$'}
+    multiplet: {name: '$\mathrm{Tr}\,\phi^k$', component: primary, type: '$\mathcal{E}_{k(0,0)}$', cdi: '$L\bar B_1[0;0]^{(0;2k)}_{k}$'}
     method: exact
     refs: [shapere2008, beem2014]
     note: 'Coulomb-branch chiral ring generators, $k = 2,\dots,N$. The top component of the $k=2$ multiplet is the exactly marginal operator.'
@@ -128,7 +128,7 @@ operators:
     spin: 0
     parity: unknown
     global: {SU(2)_R: adjoint, U(1)_r: 0, G_F: adjoint}
-    multiplet: {name: flavor current, component: primary, type: '$\hat{\mathcal{B}}_1$'}
+    multiplet: {name: flavor current, component: primary, type: '$\hat{\mathcal{B}}_1$', cdi: '$B_1\bar B_1[0;0]^{(2;0)}_2$'}
     method: exact
     refs: [beem2013]
     note: 'Moment map (Higgs-branch operator), the superconformal primary of the flavor-current multiplet.'
@@ -137,7 +137,7 @@ operators:
     spin: 1
     parity: unknown
     global: {SU(2)_R: singlet, U(1)_r: 0, G_F: adjoint}
-    multiplet: {name: flavor current, component: 'Q\bar Q', type: '$\hat{\mathcal{B}}_1$'}
+    multiplet: {name: flavor current, component: 'Q\bar Q', type: '$\hat{\mathcal{B}}_1$', cdi: '$B_1\bar B_1[0;0]^{(2;0)}_2$'}
     method: exact
     note: Conserved flavor current.
   - name: 'T_{\mu\nu}'
@@ -145,7 +145,7 @@ operators:
     spin: 2
     parity: even
     global: {SU(2)_R: singlet, U(1)_r: 0, G_F: singlet}
-    multiplet: {name: stress tensor, component: 'Q^2\bar Q^2', type: '$\hat{\mathcal{C}}_{0(0,0)}$'}
+    multiplet: {name: stress tensor, component: 'Q^2\bar Q^2', type: '$\hat{\mathcal{C}}_{0(0,0)}$', cdi: '$A_2\bar A_2[0;0]^{(0;0)}_2$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -205,6 +205,13 @@ references:
     journal: Annals Phys. 307 (2003) 41-89
     arxiv: hep-th/0209056
     doi: 10.1016/S0003-4916(03)00074-5
+  - key: cdi2016
+    title: Multiplets of Superconformal Symmetry in Diverse Dimensions
+    authors: Cordova, Dumitrescu, Intriligator
+    year: 2016
+    journal: JHEP 03 (2019) 163
+    arxiv: '1612.00809'
+    doi: 10.1007/JHEP03(2019)163
 
 relations:
   - type: related_to

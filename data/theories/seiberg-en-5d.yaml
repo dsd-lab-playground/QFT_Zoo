@@ -99,14 +99,14 @@ symmetry:
   global_group:
     - {id: SU(2)_R, group: SU(2), tex: 'SU(2)_R'}
     - {id: E_n, group: 'Lie(E_n)', note: 'The flavor group: $E_n$; $U(1)$ for $\tilde E_1$; none for $E_0$.'}
-  notes: 'In the infrared gauge theory only $SO(2N_f)\times U(1)_I$ is manifest; the current of $U(1)_I$ is proportional to $*\,\mathrm{Tr}\,F\wedge F$. Multiplet names follow Cordova, Dumitrescu and Intriligator [@cdi2016].'
+  notes: 'In the infrared gauge theory only $SO(2N_f)\times U(1)_I$ is manifest; the current of $U(1)_I$ is proportional to $*\,\mathrm{Tr}\,F\wedge F$. Multiplet names follow Chang, Fluder, Lin and Wang [@chang2017, Sec. 5.1]: $\mathcal{D}[2]$ flavor current, $\mathcal{B}[0]_0$ stress tensor, $\mathcal{L}[0]_{\Delta,\ell}$ long, with $[R]$ the $SU(2)_R$ Dynkin label. The label of Cordova, Dumitrescu and Intriligator [@cdi2016] is shown on hover.'
 
 operators:
   - name: '\mu^a_{(ij)}'
     Delta: 3
     spin: 0
     global: {SU(2)_R: adjoint, E_n: adjoint}
-    multiplet: {name: flavor current, component: primary, type: '$C_1[0,0]^{(2)}_3$'}
+    multiplet: {name: flavor current, component: primary, type: '$\mathcal{D}[2]$', cdi: '$C_1[0,0]^{(2)}_3$'}
     method: exact
     refs: [chang2017]
     note: 'Moment map: superconformal primary of the flavor current multiplet (absent for $E_0$). Its expectation values parametrize the Higgs branch.'
@@ -114,7 +114,7 @@ operators:
     Delta: 4
     spin: 0
     global: {SU(2)_R: singlet, E_n: adjoint}
-    multiplet: {name: flavor current, component: 'Q^2', type: '$C_1[0,0]^{(2)}_3$'}
+    multiplet: {name: flavor current, component: 'Q^2', type: '$\mathcal{D}[2]$', cdi: '$C_1[0,0]^{(2)}_3$'}
     method: exact
     refs: [chang2017]
     note: 'In the flavor current multiplet. The mass deformations, including $1/g^2$, couple to it.'
@@ -122,14 +122,14 @@ operators:
     Delta: 4
     spin: 1
     global: {SU(2)_R: singlet, E_n: adjoint}
-    multiplet: {name: flavor current, component: 'Q^2', type: '$C_1[0,0]^{(2)}_3$'}
+    multiplet: {name: flavor current, component: 'Q^2', type: '$\mathcal{D}[2]$', cdi: '$C_1[0,0]^{(2)}_3$'}
     method: exact
     note: Conserved flavor currents.
   - name: 'T_{\mu\nu}'
     Delta: 5
     spin: 2
     global: {SU(2)_R: singlet, E_n: singlet}
-    multiplet: {name: stress tensor, component: 'Q^4', type: '$B_2[0,0]^{(0)}_3$'}
+    multiplet: {name: stress tensor, component: 'Q^4', type: '$\mathcal{B}[0]_0$', cdi: '$B_2[0,0]^{(0)}_3$'}
     method: exact
     note: Stress tensor (conserved).
 

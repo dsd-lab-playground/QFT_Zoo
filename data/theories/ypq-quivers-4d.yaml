@@ -67,7 +67,7 @@ symmetry:
     - {id: U(1)_R, group: U(1), tex: 'U(1)_R'}
     - {id: U(1)_B, group: U(1), tex: 'U(1)_B'}
   gauge: '$SU(N)^{2p}$'
-  notes: 'Multiplet names follow Cordova, Dumitrescu and Intriligator [@cdi2016].'
+  notes: 'Multiplets are named descriptively (chiral, stress tensor), as is standard in 4d $\mathcal{N}=1$; the label of Cordova, Dumitrescu and Intriligator [@cdi2016] is shown on hover.'
 
 quantities:
   - symbol: 'a = c'
@@ -100,7 +100,7 @@ operators:
     Delta: 4
     spin: 2
     global: {SU(2): singlet, U(1)_F: 0, U(1)_R: 0, U(1)_B: 0}
-    multiplet: {name: stress tensor, component: 'Q\bar Q', type: '$A_1\bar A_1[1;1]^{(0)}_3$'}
+    multiplet: {name: stress tensor, component: 'Q\bar Q', cdi: '$A_1\bar A_1[1;1]^{(0)}_3$'}
     method: exact
     note: Stress tensor (conserved).
 

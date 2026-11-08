@@ -59,7 +59,7 @@ symmetry:
     - {id: SU(2)_R, group: SU(2), tex: 'SU(2)_R'}
     - {id: E8, group: E_8}
     - {id: SU(2)_L, group: SU(2), tex: 'SU(2)_L', note: 'Present for $Q \geq 2$.'}
-  notes: 'Multiplet names follow Cordova, Dumitrescu and Intriligator [@cdi2016].'
+  notes: 'Multiplet names follow Chang and Lin [@chang2017b, Sec. 2]: $\mathcal{D}[2]$ flavor current, $\mathcal{B}[0]_0$ stress tensor, $\mathcal{L}[0]_{\Delta,\ell}$ long, with $[R]$ the $SU(2)_R$ Dynkin label. The label of Cordova, Dumitrescu and Intriligator [@cdi2016] is shown on hover.'
 
 quantities:
   - symbol: 'I_8'
@@ -98,7 +98,7 @@ operators:
     Delta: 4
     spin: 0
     global: {SU(2)_R: adjoint, E8: adjoint, SU(2)_L: singlet}
-    multiplet: {name: '$E_8$ flavor current', component: primary, type: '$D_1[0,0,0]^{(2)}_4$'}
+    multiplet: {name: '$E_8$ flavor current', component: primary, type: '$\mathcal{D}[2]$', cdi: '$D_1[0,0,0]^{(2)}_4$'}
     method: exact
     refs: [chang2017b]
     note: 'Moment map, superconformal primary of the $E_8$ current multiplet. For $Q = 1$, with the free centre-of-mass hypermultiplet removed, it generates the Higgs-branch chiral ring [@chang2017b]; for $Q > 1$ the $SU(2)_L$ moment maps are further generators.'
@@ -106,14 +106,14 @@ operators:
     Delta: 5
     spin: 1
     global: {SU(2)_R: singlet, E8: adjoint, SU(2)_L: singlet}
-    multiplet: {name: '$E_8$ flavor current', component: 'Q^2', type: '$D_1[0,0,0]^{(2)}_4$'}
+    multiplet: {name: '$E_8$ flavor current', component: 'Q^2', type: '$\mathcal{D}[2]$', cdi: '$D_1[0,0,0]^{(2)}_4$'}
     method: exact
     note: Conserved $E_8$ currents.
   - name: 'T_{\mu\nu}'
     Delta: 6
     spin: 2
     global: {SU(2)_R: singlet, E8: singlet, SU(2)_L: singlet}
-    multiplet: {name: stress tensor, component: 'Q^4', type: '$B_3[0,0,0]^{(0)}_4$'}
+    multiplet: {name: stress tensor, component: 'Q^4', type: '$\mathcal{B}[0]_0$', cdi: '$B_3[0,0,0]^{(0)}_4$'}
     method: exact
     note: Stress tensor (conserved).
 
