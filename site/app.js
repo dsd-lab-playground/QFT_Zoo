@@ -810,8 +810,12 @@ function opeStructuresHtml(t, items, title = "Structures") {
     const cite = st.ref ? ` ${citeRefs(t.id, [st.ref])}` : "";
     // An `embedding` that is not the line's formula (the structure has its source's own `form`) folds with the prose.
     const emb = st.form && st.embedding ? `In embedding space: ${tex(st.embedding, true)}` : "";
-    const more = [st.description ? md(st.description, true) : "", emb, st.relation ? md(st.relation, true) : ""].filter(Boolean).join(" ");
-    return `<li id="ope-st-${esc(st.id)}">${st.name ? `<b>${md(st.name, true)}</b>` : ""}${math ? `${st.name ? ": " : ""}${tex(math)}` : ""}${cite}${
+    // A label that is itself the structure's numerator (pure math, e.g. $V_3^\ell$, $\delta_{ij}$) already says what it
+    // is: then the full formula folds into "details" too. A named structure ("parity-even ⟨TTε⟩") shows its formula.
+    const numeratorLabel = /^\s*\$[^$]+\$\s*$/.test(st.name || "");
+    const formula = math ? `<div class="ope-st-formula">${tex(math, true)}</div>` : "";
+    const more = [numeratorLabel ? formula : "", st.description ? md(st.description, true) : "", emb, st.relation ? md(st.relation, true) : ""].filter(Boolean).join(" ");
+    return `<li id="ope-st-${esc(st.id)}">${st.name ? `<b>${md(st.name, true)}</b>` : ""}${!numeratorLabel && math ? `${st.name ? ": " : ""}${tex(math)}` : ""}${cite}${
       more ? ` <details class="ope-st-more"><summary>details</summary>${more}</details>` : ""}</li>`;
   };
   return `<div class="ope-structures small"><p class="ope-structures-title">${title}</p><ul>${used.map(li).join("")}</ul></div>`;
