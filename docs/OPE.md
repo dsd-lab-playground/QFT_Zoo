@@ -117,9 +117,9 @@ ope_structures:
   the sources state, each cited), with the citation. It is information for readers; values are never converted with it.
 - `embedding` (optional): the three-point function in embedding space, in the notation of *Spinning Conformal
   Correlators* (1.4), as a LaTeX formula without `$...$`; the page shows it in display math under the description. Give
-  it when the structure is a simple embedding-space structure (a product of $V_{i,jk}$ and $H_{ij}$ over powers of
-  $P_{ij}$), or when the source itself states the structure as a combination of them (as Chang et al. 2024, Eq. (2.2), do
-  for $\langle TT\epsilon\rangle$). The coefficient appears in it with the factor its source's normalization needs, e.g.
+  it only when the structure is a single monomial: one product of $V_{i,jk}$ and $H_{ij}$ over powers of $P_{ij}$
+  (David, 2026-11-07: "By simple, I meant like 1 monomial"). A combination of several monomials, such as the
+  $\langle TT\epsilon\rangle$ structure of Chang et al. 2024, Eq. (2.2), is identified by its citation only. The coefficient appears in it with the factor its source's normalization needs, e.g.
   $2^{\ell/2} f_{12O}$ for the blocks of Simmons-Duffin 2016, Eq. (A.16); the description says how that factor
   follows from the sources, with citations, and that the other operators are unit-normalized (two-point function
   $H_{12}^\ell/P_{12}^{\Delta+\ell}$). Where a factor depends on a convention that the sources do not pin down, leave
