@@ -91,7 +91,7 @@ symmetry:
     - {id: SU(4)_R, group: SU(4), tex: 'SU(4)_R', note: 'Enhanced to $SO(8)_R$ at $k = 1, 2$.'}
     - {id: U(1), group: U(1), note: 'The $U(1)$ of `global`; its charge normalization is not recorded.'}
   gauge: '$U(N)_k \times U(N)_{-k}$'
-  notes: '12 real Poincaré supercharges for generic $k$ and 16 at $k = 1, 2$, where the enhancement is not manifest in the Lagrangian. Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@cordova2016, Secs. 2.1.6–2.1.7]: $X[j]^{(R)}_\Delta$, with $j$ twice the spin and $R$ the $\mathfrak{so}(6)_R$ Dynkin labels (at $k = 1, 2$, $\mathfrak{so}(8)_R$ labels in the triality frame where $Q$ is in $\mathbf{8}_v$, with $\mathbf{8}_c = (0,0,0,1)$). Under $SO(8)_R \supset SU(4)_R\times U(1)$ the $\mathbf{35}_c$ contains $\mathbf{15}\oplus\mathbf{10}\oplus\overline{\mathbf{10}}$; the $\mathbf{15}$ is the primary of the $\mathcal{N}=6$ stress-tensor multiplet $B_1[0]^{(0,1,1)}_1$.'
+  notes: '12 real Poincaré supercharges for generic $k$ and 16 at $k = 1, 2$, where the enhancement is not manifest in the Lagrangian. Multiplet names follow Dolan [@dolan2008] as used by Binder, Chester, Jerdee and Pufu [@bcjp2020, Table 2] for $\mathcal{N}=6$ (the stress-tensor multiplet is $(B,2)$, in $[011] = \mathbf{15}$) and by Chester, Lee, Pufu and Yacoby [@clpy2014, Table 2] for $\mathcal{N}=8$ (it is $(B,+)$, in $\mathbf{35}_c$). The notation of Cordova, Dumitrescu and Intriligator [@cordova2016, Secs. 2.1.6–2.1.7] is shown on hover: $X[j]^{(R)}_\Delta$, with $j$ twice the spin and $R$ the $\mathfrak{so}(6)_R$ Dynkin labels (at $k = 1, 2$, $\mathfrak{so}(8)_R$ labels in the triality frame where $Q$ is in $\mathbf{8}_v$, with $\mathbf{8}_c = (0,0,0,1)$). Under $SO(8)_R \supset SU(4)_R\times U(1)$ the $\mathbf{35}_c$ contains $\mathbf{15}\oplus\mathbf{10}\oplus\overline{\mathbf{10}}$; the $\mathbf{15}$ is the primary of the $\mathcal{N}=6$ stress-tensor multiplet $B_1[0]^{(0,1,1)}_1$.'
 
 quantities:
   - symbol: 'F'
@@ -130,7 +130,7 @@ operators:
     spin: 2
     parity: even
     global: {SU(4)_R: singlet, U(1): 0}
-    multiplet: {name: stress tensor, component: 'Q^4', type: '$B_1[0]^{(0,1,1)}_1$'}
+    multiplet: {name: stress tensor, component: 'Q^4', type: '$(B,2)$', cdi: '$B_1[0]^{(0,1,1)}_1$'}
     method: exact
     note: Stress tensor (conserved).
   - name: 'J_\mu^R'
@@ -138,7 +138,7 @@ operators:
     spin: 1
     parity: unknown
     global: {SU(4)_R: adjoint, U(1): 0}
-    multiplet: {name: stress tensor, component: 'Q^2', type: '$B_1[0]^{(0,1,1)}_1$'}
+    multiplet: {name: stress tensor, component: 'Q^2', type: '$(B,2)$', cdi: '$B_1[0]^{(0,1,1)}_1$'}
     method: exact
     note: 'Conserved R-symmetry currents. At $k = 1, 2$ further conserved currents built from monopole operators enhance the symmetry to $SO(8)_R$.'
   - name: '\mathcal{O}_{\mathbf{35}_c}'
@@ -147,7 +147,7 @@ operators:
     parity: unknown
     global: {SU(4)_R: [adjoint, 'Dynkin(2,0,0)', 'Dynkin(0,0,2)'], U(1): unknown}
     role: '$\mathbf{35}_c$ of $SO(8)_R$ ($k = 1, 2$)'
-    multiplet: {name: stress tensor, component: primary, type: '$B_1[0]^{(0,0,0,2)}_1$ ($k = 1, 2$)'}
+    multiplet: {name: stress tensor, component: primary, type: '$(B,+)$ ($k = 1, 2$)', cdi: '$B_1[0]^{(0,0,0,2)}_1$ ($k = 1, 2$)'}
     method: exact
     refs: [chester2014]
     note: 'Superconformal primary of the half-BPS $\mathcal{N}=8$ stress-tensor multiplet; protected.'
@@ -206,5 +206,26 @@ references:
     authors: Cordova, Dumitrescu, Intriligator
     year: 2016
     arxiv: '1612.00809'
+  - key: dolan2008
+    title: On Superconformal Characters and Partition Functions in Three Dimensions
+    authors: Dolan
+    year: 2008
+    journal: J. Math. Phys. 51 (2010) 022301
+    arxiv: '0811.2740'
+    doi: 10.1063/1.3211091
+  - key: clpy2014
+    title: Exact Correlators of BPS Operators from the 3d Superconformal Bootstrap
+    authors: Chester, Lee, Pufu, Yacoby
+    year: 2014
+    journal: JHEP 03 (2015) 130
+    arxiv: '1412.0334'
+    doi: 10.1007/JHEP03(2015)130
+  - key: bcjp2020
+    title: 'The 3d $\mathcal{N}=6$ bootstrap: from higher spins to strings to membranes'
+    authors: Binder, Chester, Jerdee, Pufu
+    year: 2020
+    journal: JHEP 05 (2021) 083
+    arxiv: '2011.05728'
+    doi: 10.1007/JHEP05(2021)083
 
 contributors: [Canonical111]

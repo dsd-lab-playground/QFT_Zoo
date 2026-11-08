@@ -48,7 +48,7 @@ symmetry:
   parity: true
   global_group:
     - {id: U(1)_R, group: U(1), tex: 'U(1)_R'}
-  notes: 'Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@cordova2016, Sec. 2.1.2]: $X\bar Y[j]^{(r)}_\Delta$, with $j$ twice the spin and $r$ the $U(1)_R$ charge; $Q$ has $r = -1$ and $\bar Q$ has $r = +1$, and chiral primaries are $L\bar B_1[0]^{(r)}_r$.'
+  notes: 'Multiplets are named descriptively (chiral, antichiral, long), as is standard in 3d $\mathcal{N}=2$; the notation of Cordova, Dumitrescu and Intriligator [@cordova2016, Sec. 2.1.2] is shown on hover: $X\bar Y[j]^{(r)}_\Delta$, with $j$ twice the spin and $r$ the $U(1)_R$ charge; $Q$ has $r = -1$ and $\bar Q$ has $r = +1$, and chiral primaries are $L\bar B_1[0]^{(r)}_r$.'
 
 quantities:
   - key: F
@@ -93,7 +93,7 @@ operators:
     spin: 0
     parity: unknown
     global: {U(1)_R: 2/3}
-    multiplet: {name: '$\phi$', component: primary, type: '$L\bar B_1[0]^{(2/3)}_{2/3}$'}
+    multiplet: {name: '$\phi$', component: primary, type: chiral, cdi: '$L\bar B_1[0]^{(2/3)}_{2/3}$'}
     method: exact
     refs: [bobev2015b]
     note: '$\Delta = R$ for a chiral primary.'
@@ -102,7 +102,7 @@ operators:
     spin: '1/2'
     parity: unknown
     global: {U(1)_R: -1/3}
-    multiplet: {name: '$\phi$', component: Q, type: '$L\bar B_1[0]^{(2/3)}_{2/3}$'}
+    multiplet: {name: '$\phi$', component: Q, type: chiral, cdi: '$L\bar B_1[0]^{(2/3)}_{2/3}$'}
     method: exact, supersymmetry
     refs: [fei2016]
     note: '$\Delta_\psi = \Delta_\phi + \tfrac12$.'
@@ -111,7 +111,7 @@ operators:
     spin: 0
     parity: unknown
     global: {U(1)_R: 4/3}
-    multiplet: {name: '$\bar\phi$', component: '\bar Q^2', type: '$B_1\bar L[0]^{(-2/3)}_{2/3}$'}
+    multiplet: {name: '$\bar\phi$', component: '\bar Q^2', type: antichiral, cdi: '$B_1\bar L[0]^{(-2/3)}_{2/3}$'}
     method: exact, supersymmetry
     refs: [bobev2015, fei2016]
     note: 'Not a chiral primary, since $\Phi^2 = 0$ in the chiral ring; $\Delta = \Delta_\phi + 1$.'
@@ -121,7 +121,7 @@ operators:
     parity: even
     global: {U(1)_R: 0}
     role: lowest unprotected superconformal primary
-    multiplet: {name: '$[\bar\Phi\Phi]$', component: primary, type: '$L\bar L[0]^{(0)}_\Delta$'}
+    multiplet: {name: '$[\bar\Phi\Phi]$', component: primary, type: long, cdi: '$L\bar L[0]^{(0)}_\Delta$'}
     method: CB
     refs: [bobev2015]
     note: 'Its coupling is the tuning parameter of the non-supersymmetric description.'
@@ -131,7 +131,7 @@ operators:
     parity: even
     global: {U(1)_R: 0}
     role: lowest unprotected superconformal primary
-    multiplet: {name: '$[\bar\Phi\Phi]$', component: primary, type: '$L\bar L[0]^{(0)}_\Delta$'}
+    multiplet: {name: '$[\bar\Phi\Phi]$', component: primary, type: long, cdi: '$L\bar L[0]^{(0)}_\Delta$'}
     method: 'ε-exp, 4 − ε, Padé'
     refs: [fei2016]
     note: 'Padé estimate at $d=3$ of $2 - \tfrac13\epsilon^2 + \tfrac{1+12\zeta(3)}{18}\epsilon^3 + O(\epsilon^4)$ [@fei2016].'
@@ -140,7 +140,7 @@ operators:
     spin: 2
     parity: even
     global: {U(1)_R: 0}
-    multiplet: {name: stress tensor, component: 'Q\bar Q', type: '$A_1\bar A_1[2]^{(0)}_2$'}
+    multiplet: {name: stress tensor, component: 'Q\bar Q', cdi: '$A_1\bar A_1[2]^{(0)}_2$'}
     method: exact
     note: 'Stress tensor, in the multiplet whose bottom component is the $U(1)_R$ current.'
   - name: '[Q^4\bar\Phi\Phi]'
@@ -148,7 +148,7 @@ operators:
     spin: 0
     parity: even
     global: {U(1)_R: 0}
-    multiplet: {name: '$[\bar\Phi\Phi]$', component: 'Q^2\bar Q^2', type: '$L\bar L[0]^{(0)}_\Delta$'}
+    multiplet: {name: '$[\bar\Phi\Phi]$', component: 'Q^2\bar Q^2', type: long, cdi: '$L\bar L[0]^{(0)}_\Delta$'}
     method: CB
     refs: [bobev2015]
     note: '$\Delta = \Delta_{[\bar\Phi\Phi]} + 2$; the analogue of $\epsilon^\prime$ of the Ising model, $\omega = \Delta - 3$.'
@@ -158,7 +158,7 @@ operators:
     parity: unknown
     global: {U(1)_R: 0}
     role: 'second spin-1 superconformal primary in $\Phi\times\bar\Phi$'
-    multiplet: {name: '$J^\prime$', component: primary, type: '$L\bar L[2]^{(0)}_\Delta$'}
+    multiplet: {name: '$J^\prime$', component: primary, type: long, cdi: '$L\bar L[2]^{(0)}_\Delta$'}
     method: CB
     refs: [bobev2015]
   - name: '[\bar\Phi\Phi]^\prime'
@@ -167,7 +167,7 @@ operators:
     parity: unknown
     global: {U(1)_R: 0}
     role: 'second scalar superconformal primary in $\Phi\times\bar\Phi$'
-    multiplet: {name: '$[\bar\Phi\Phi]^\prime$', component: primary, type: '$L\bar L[0]^{(0)}_\Delta$'}
+    multiplet: {name: '$[\bar\Phi\Phi]^\prime$', component: primary, type: long, cdi: '$L\bar L[0]^{(0)}_\Delta$'}
     method: CB
     refs: [bobev2015]
 

@@ -82,7 +82,7 @@ symmetry:
   global_group:
     - {id: SU(3)_R, group: SU(3), tex: 'SU(3)_R'}
     - {id: U(1)_R, group: U(1), tex: 'U(1)_R'}
-  notes: 'For $\ell < k$ the parent theory has a discrete $\mathbb{Z}_{k/\ell}$ global symmetry, and its gauging has a $\mathbb{Z}_{k/\ell}$ 2-form symmetry. Multiplet names follow Cordova, Dumitrescu and Intriligator [@cdi2016].'
+  notes: 'For $\ell < k$ the parent theory has a discrete $\mathbb{Z}_{k/\ell}$ global symmetry, and its gauging has a $\mathbb{Z}_{k/\ell}$ 2-form symmetry. The label of Cordova, Dumitrescu and Intriligator [@cdi2016] is shown on hover.'
 
 quantities:
   - symbol: 'a = c'
@@ -125,7 +125,7 @@ operators:
     Delta: 4
     spin: 2
     global: {SU(3)_R: singlet, U(1)_R: 0}
-    multiplet: {name: stress tensor, component: 'Q^2\bar Q^2', type: '$B_1\bar B_1[0;0]^{(1,1;0)}_2$'}
+    multiplet: {name: stress tensor, component: 'Q^2\bar Q^2', cdi: '$B_1\bar B_1[0;0]^{(1,1;0)}_2$'}
     method: exact
     note: Stress tensor (conserved).
 

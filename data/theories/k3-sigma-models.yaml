@@ -38,6 +38,7 @@ symmetry:
   global_group:
     - {id: SU(2)_L, group: SU(2), tex: 'SU(2)_L', note: 'left-moving R-symmetry; the finite symmetry groups at special points are said in `global`'}
     - {id: SU(2)_R, group: SU(2), tex: 'SU(2)_R', note: 'right-moving R-symmetry'}
+  notes: 'Representations of the $\mathcal{N}=4$ algebra are named as by Eguchi and Taormina [@et1988]: massless (BPS) or massive, by $h$ and the $su(2)$ isospin.'
 
 quantities:
 - key: c
@@ -77,7 +78,7 @@ operators:
   weights: '(\tfrac14, \tfrac14)'
   degeneracy: 24
   global: {SU(2)_L: [singlet, fundamental], SU(2)_R: [singlet, fundamental]}
-  multiplet: {name: '$\Phi^{\rm RR}_a$', component: primary, type: Ramond ground state}
+  multiplet: {name: '$\Phi^{\rm RR}_a$', component: primary, type: 'massless (Ramond), $h = \bar h = \tfrac14$'}
   method: exact
   refs: [ghv2012]
   note: 'Ramond ground states, $(\mathbf2,\mathbf2) + 20$ singlets of $SU(2)_L\times SU(2)_R$; they correspond to $H^{\rm even}(\mathrm{K3},\mathbb{R})$.'
@@ -175,5 +176,11 @@ references:
   arxiv: '1506.06198'
   doi: '10.1186/s40687-015-0050-9'
   note: 'Twined K3 elliptic genera from the canonically twisted Conway module.'
+- key: et1988
+  title: 'Character formulas for the $N=4$ superconformal algebra'
+  authors: Eguchi, Taormina
+  year: 1988
+  journal: Phys. Lett. B200 (1988) 315
+  doi: '10.1016/0370-2693(88)90778-2'
 
 contributors: [Canonical111]

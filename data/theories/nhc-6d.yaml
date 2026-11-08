@@ -87,7 +87,7 @@ symmetry:
   global_group:
     - {id: SU(2)_R, group: SU(2), tex: 'SU(2)_R'}
   gauge: '$\mathfrak{su}(3)$, $\mathfrak{so}(8)$, $\mathfrak{f}_4$, $\mathfrak{e}_6$, $\mathfrak{e}_7$, $\mathfrak{e}_7$, $\mathfrak{e}_8$ on the tensor branch (not at the conformal point)'
-  notes: 'Multiplet names follow Cordova, Dumitrescu and Intriligator [@cdi2016].'
+  notes: 'Multiplet names follow Chang and Lin [@chang2017b, Sec. 2]: $\mathcal{D}[2]$ flavor current, $\mathcal{B}[0]_0$ stress tensor, $\mathcal{L}[0]_{\Delta,\ell}$ long, with $[R]$ the $SU(2)_R$ Dynkin label. The label of Cordova, Dumitrescu and Intriligator [@cdi2016] is shown on hover.'
 
 quantities:
   - symbol: '[I_8]_{c_2(R)^2}'
@@ -108,7 +108,7 @@ operators:
     Delta: 6
     spin: 2
     global: {SU(2)_R: singlet}
-    multiplet: {name: stress tensor, component: 'Q^4', type: '$B_3[0,0,0]^{(0)}_4$'}
+    multiplet: {name: stress tensor, component: 'Q^4', type: '$\mathcal{B}[0]_0$', cdi: '$B_3[0,0,0]^{(0)}_4$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -167,5 +167,12 @@ references:
     authors: Cordova, Dumitrescu, Intriligator
     year: 2016
     arxiv: '1612.00809'
+  - key: chang2017b
+    title: Carving out the end of the world or (superconformal bootstrap in six dimensions)
+    authors: Chang, Lin
+    year: 2017
+    journal: JHEP 08 (2017) 128
+    arxiv: '1705.05392'
+    doi: 10.1007/JHEP08(2017)128
 
 contributors: [Canonical111]

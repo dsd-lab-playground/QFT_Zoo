@@ -711,8 +711,30 @@ def parity_is_label(d: int, o: dict) -> bool | None:
 STRUCTURED = ("global", "parity", "T")
 
 
+def check_multiplets(data: dict, rel: str) -> list[str]:
+    """`multiplet` (docs/REPRESENTATIONS.md 1.5): supersymmetric theories only; the CDI label in d >= 3, none in 2d."""
+    errs = []
+    susy = (data.get("symmetry") or {}).get("supercharges")
+    for i, o in enumerate(data.get("operators") or []):
+        m, where = o.get("multiplet"), f"{rel}: operators/{i}"
+        if m is None:
+            continue
+        if not susy:
+            errs.append(f"{where}: `multiplet` is for supersymmetric theories (symmetry.supercharges > 0)")
+        elif data.get("d") == 2 and "cdi" in m:
+            errs.append(f"{where}/multiplet/cdi: the Cordova–Dumitrescu–Intriligator classification is for d >= 3")
+        elif data.get("d") != 2 and not str(m.get("cdi", "")).strip():
+            errs.append(f"{where}/multiplet: give `cdi`, the Cordova–Dumitrescu–Intriligator label "
+                        f"(`unknown` if it cannot be determined; docs/REPRESENTATIONS.md 1.5)")
+    return errs
+
+
 def check_entry_reps(data: dict, rel: str) -> list[str]:
     """Check the structured representation fields of one entry and attach `irrep` (display data) to each operator."""
+    return check_multiplets(data, rel) + _check_symmetry_labels(data, rel)
+
+
+def _check_symmetry_labels(data: dict, rel: str) -> list[str]:
     errs: list[str] = []
     sym = data.get("symmetry") or {}
     ops = data.get("operators") or []
@@ -791,8 +813,6 @@ def check_entry_reps(data: dict, rel: str) -> list[str]:
             errs.append(f"{where}: `parity` is given, but symmetry.parity is {sym.get('parity')!r}")
         if "T" in o and not has_t:
             errs.append(f"{where}: `T` (time reversal) is recorded only when symmetry.time_reversal is `independent`")
-        if "multiplet" in o and not sym.get("supercharges"):
-            errs.append(f"{where}: `multiplet` is for supersymmetric theories (symmetry.supercharges > 0)")
         if not family:
             o["irrep"] = {"global": view, "key": "|".join(f"{v['factor']}={v['canon']}" for v in view)}
     return errs

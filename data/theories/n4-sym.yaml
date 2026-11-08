@@ -43,6 +43,7 @@ symmetry:
   global_group:
     - {id: SU(4)_R, group: SU(4), tex: 'SU(4)_R'}
   gauge: '$SU(N)$'
+  notes: 'Multiplet names follow Dolan and Osborn [@dolan2002, Sec. 5], as in the $\mathcal{N}=4$ bootstrap [@brvr2013]: $\mathcal{B}^{\frac12,\frac12}_{[0,p,0](0,0)}$ half-BPS, $\mathcal{A}^{\Delta}_{[k,p,q](j,\bar\jmath)}$ long. The label of Cordova, Dumitrescu and Intriligator [@cdi2016] is shown on hover.'
 
 quantities:
   - symbol: 'a = c'
@@ -61,7 +62,7 @@ operators:
     spin: 0
     parity: unknown
     global: {SU(4)_R: 'Dynkin(0,k,0)'}
-    multiplet: {name: '$\mathcal{O}_k$', component: primary, type: half-BPS}
+    multiplet: {name: '$\mathcal{O}_k$', component: primary, type: '$\mathcal{B}^{\frac12,\frac12}_{[0,k,0](0,0)}$', cdi: '$B_1\bar B_1[0;0]^{(0,k,0)}_k$'}
     method: exact
     refs: [maldacena1997]
     note: 'Single-trace half-BPS superconformal primaries (symmetric traceless products of the six scalars), dual to the Kaluza–Klein modes on $S^5$; $\Delta = k$ is protected at every $\tau$. For $SU(N)$ the traces with $k > N$ are products of these. Multi-trace half-BPS operators in the same representations (from $k = 4$) are not listed. Parity not recorded: it acts on the six scalars by a reflection in $O(6)$, not by a sign.'
@@ -72,7 +73,7 @@ operators:
     spin: 0
     parity: even
     global: {SU(4)_R: 'Dynkin(0,2,0)'}
-    multiplet: {name: stress tensor, component: primary, type: half-BPS}
+    multiplet: {name: stress tensor, component: primary, type: '$\mathcal{B}^{\frac12,\frac12}_{[0,2,0](0,0)}$', cdi: '$B_1\bar B_1[0;0]^{(0,2,0)}_2$'}
     method: exact
     note: 'Half-BPS superconformal primary of the stress-tensor multiplet; protected.'
   - name: '\mathcal{K} = \mathrm{Tr}\,\phi^I\phi^I'
@@ -80,7 +81,7 @@ operators:
     spin: 0
     parity: even
     global: {SU(4)_R: singlet}
-    multiplet: {name: Konishi, component: primary, type: long}
+    multiplet: {name: Konishi, component: primary, type: '$\mathcal{A}^{\Delta}_{[0,0,0](0,0)}$', cdi: '$L\bar L[0;0]^{(0,0,0)}_\Delta$'}
     method: PT
     note: 'Konishi operator, the lightest unprotected operator; $\lambda = g^2_{\rm YM}N$, planar.'
     refs: [beisert2010]
@@ -102,6 +103,27 @@ references:
     authors: Beisert et al.
     year: 2010
     arxiv: '1012.3982'
+  - key: dolan2002
+    title: On Short and Semi-Short Representations for Four Dimensional Superconformal Symmetry
+    authors: Dolan, Osborn
+    year: 2002
+    journal: Annals Phys. 307 (2003) 41-89
+    arxiv: hep-th/0209056
+    doi: 10.1016/S0003-4916(03)00074-5
+  - key: brvr2013
+    title: 'The $\mathcal{N}=4$ Superconformal Bootstrap'
+    authors: Beem, Rastelli, van Rees
+    year: 2013
+    journal: Phys. Rev. Lett. 111 (2013) 071601
+    arxiv: '1304.1803'
+    doi: 10.1103/PhysRevLett.111.071601
+  - key: cdi2016
+    title: Multiplets of Superconformal Symmetry in Diverse Dimensions
+    authors: Cordova, Dumitrescu, Intriligator
+    year: 2016
+    journal: JHEP 03 (2019) 163
+    arxiv: '1612.00809'
+    doi: 10.1007/JHEP03(2019)163
 
 relations:
   - type: flows_to

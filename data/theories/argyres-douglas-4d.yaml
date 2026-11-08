@@ -82,7 +82,7 @@ symmetry:
     - {id: SU(2)_R, group: SU(2), tex: 'SU(2)_R'}
     - {id: U(1)_r, group: U(1), tex: 'U(1)_r', note: 'Normalized as in Dolan–Osborn: a Coulomb-branch chiral primary, in an $\mathcal{E}_{r(0,0)}$ multiplet, has $r = \Delta$.'}
     - {id: G_F, group: 'Lie(G_F)', note: 'Flavor symmetry: trivial for $H_0$, $SU(2)$ for $H_1$, $SU(3)$ for $H_2$.'}
-  notes: 'Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$. Multiplet names follow Dolan and Osborn [@dolan2002] as tabulated by Beem et al. [@beem2013, Table 7]: $\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\hat{\mathcal{B}}_R$ Higgs-branch half-BPS, $\hat{\mathcal{C}}_{0(0,0)}$ stress tensor, $\mathcal{A}^{\Delta}_{R,r(j,\bar\jmath)}$ long.'
+  notes: 'Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$. Multiplet names follow Dolan and Osborn [@dolan2002] as tabulated by Beem et al. [@beem2013, Table 7]: $\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\hat{\mathcal{B}}_R$ Higgs-branch half-BPS, $\hat{\mathcal{C}}_{0(0,0)}$ stress tensor, $\mathcal{A}^{\Delta}_{R,r(j,\bar\jmath)}$ long. The label of Cordova, Dumitrescu and Intriligator [@cdi2016] is shown on hover; its $u(1)_r$ charge is twice the one here.'
 
 quantities:
   - symbol: 'a'
@@ -117,7 +117,7 @@ operators:
     spin: 0
     global: {SU(2)_R: singlet, U(1)_r: 6/5, G_F: singlet}
     role: Coulomb-branch generator
-    multiplet: {name: '$u$', component: primary, type: '$\mathcal{E}_{\frac65(0,0)}$'}
+    multiplet: {name: '$u$', component: primary, type: '$\mathcal{E}_{\frac65(0,0)}$', cdi: '$L\bar B_1[0;0]^{(0;\frac{12}{5})}_{\frac65}$'}
     method: exact
     refs: [argyres1995b, aharony2007]
   - name: 'u\ (H_1)'
@@ -125,7 +125,7 @@ operators:
     spin: 0
     global: {SU(2)_R: singlet, U(1)_r: 4/3, G_F: singlet}
     role: Coulomb-branch generator
-    multiplet: {name: '$u$', component: primary, type: '$\mathcal{E}_{\frac43(0,0)}$'}
+    multiplet: {name: '$u$', component: primary, type: '$\mathcal{E}_{\frac43(0,0)}$', cdi: '$L\bar B_1[0;0]^{(0;\frac83)}_{\frac43}$'}
     method: exact
     refs: [argyres1995b, aharony2007]
   - name: 'u\ (H_2)'
@@ -133,7 +133,7 @@ operators:
     spin: 0
     global: {SU(2)_R: singlet, U(1)_r: 3/2, G_F: singlet}
     role: Coulomb-branch generator
-    multiplet: {name: '$u$', component: primary, type: '$\mathcal{E}_{\frac32(0,0)}$'}
+    multiplet: {name: '$u$', component: primary, type: '$\mathcal{E}_{\frac32(0,0)}$', cdi: '$L\bar B_1[0;0]^{(0;3)}_{\frac32}$'}
     method: exact
     refs: [argyres1995b, aharony2007]
 
@@ -199,5 +199,12 @@ references:
     journal: Annals Phys. 307 (2003) 41-89
     arxiv: hep-th/0209056
     doi: 10.1016/S0003-4916(03)00074-5
+  - key: cdi2016
+    title: Multiplets of Superconformal Symmetry in Diverse Dimensions
+    authors: Cordova, Dumitrescu, Intriligator
+    year: 2016
+    journal: JHEP 03 (2019) 163
+    arxiv: '1612.00809'
+    doi: 10.1007/JHEP03(2019)163
 
 contributors: [Canonical111]

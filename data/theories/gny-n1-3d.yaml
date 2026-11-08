@@ -71,14 +71,14 @@ operators:
     Delta: '0.5844435(83)'
     spin: 0
     parity: odd
-    multiplet: {name: '$\sigma$', component: primary}
+    multiplet: {name: '$\sigma$', component: primary, type: long, cdi: '$L[0]_\Delta$'}
     method: CB
     refs: [atanasov2022]
   - name: '\psi'
     Delta: '1.0844435(83)'
     spin: '1/2'
     parity: unknown
-    multiplet: {name: '$\sigma$', component: Q}
+    multiplet: {name: '$\sigma$', component: Q, type: long, cdi: '$L[0]_\Delta$'}
     method: CB, from Δσ
     refs: [atanasov2022]
     note: '$\Delta_\psi = \Delta_\sigma + \tfrac12$ by supersymmetry.'
@@ -86,7 +86,7 @@ operators:
     Delta: '1.5844435(83)'
     spin: 0
     parity: even
-    multiplet: {name: '$\sigma$', component: 'Q^2'}
+    multiplet: {name: '$\sigma$', component: 'Q^2', type: long, cdi: '$L[0]_\Delta$'}
     method: CB, from Δσ
     refs: [atanasov2022]
     note: '$\Delta_\epsilon = \Delta_\sigma + 1$ by supersymmetry. The only relevant parity-even scalar (the tuning parameter).'
@@ -94,14 +94,14 @@ operators:
     Delta: '2.8869(25)'
     spin: 0
     parity: odd
-    multiplet: {name: '$\sigma''$', component: primary}
+    multiplet: {name: '$\sigma''$', component: primary, type: long, cdi: '$L[0]_\Delta$'}
     method: CB
     refs: [atanasov2022]
   - name: '\epsilon'''
     Delta: '3.8869(25)'
     spin: 0
     parity: even
-    multiplet: {name: '$\sigma''$', component: 'Q^2'}
+    multiplet: {name: '$\sigma''$', component: 'Q^2', type: long, cdi: '$L[0]_\Delta$'}
     method: CB, from Δσ′
     refs: [atanasov2022]
     note: '$\Delta_{\epsilon''} = \Delta_{\sigma''} + 1$ by supersymmetry.'
@@ -110,13 +110,13 @@ operators:
     spin: '3/2'
     parity: unknown
     role: supercurrent
-    multiplet: {name: stress tensor, component: primary}
+    multiplet: {name: stress tensor, component: primary, cdi: '$A_1[3]_{5/2}$'}
     method: exact
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
     parity: even
-    multiplet: {name: stress tensor, component: Q}
+    multiplet: {name: stress tensor, component: Q, cdi: '$A_1[3]_{5/2}$'}
     method: exact
     note: Stress tensor, in the same multiplet as the supercurrent.
 

@@ -65,9 +65,11 @@ VALID = {
     "operators": [
         {"name": "\\mathcal{O}_k", "family": {"id": "bps", "parameters": [{"symbol": "k", "from": 2, "to": "N"}]},
          "Delta": "k", "spin": 0, "parity": "unknown", "global": {"SU(4)_R": "Dynkin(0,k,0)"},
-         "multiplet": {"name": "$\\mathcal{O}_k$", "component": "primary", "type": "half-BPS"}},
+         "multiplet": {"name": "$\\mathcal{O}_k$", "component": "primary", "type": "$\\mathcal{B}_{[0,k,0]}$",
+                       "cdi": "$B_1\\bar B_1[0;0]^{(0,k,0)}_k$"}},
         {"name": "\\mathcal{O}_2", "member_of": "bps", "at": {"k": 2}, "Delta": 2, "spin": 0, "parity": "even",
-         "global": {"SU(4)_R": "Dynkin(0,2,0)"}, "multiplet": {"name": "stress tensor", "component": "primary", "type": "half-BPS"}},
+         "global": {"SU(4)_R": "Dynkin(0,2,0)"}, "multiplet": {"name": "stress tensor", "component": "primary",
+         "type": "$\\mathcal{B}_{[0,2,0]}$", "cdi": "$B_1\\bar B_1[0;0]^{(0,2,0)}_2$"}},
         {"name": "K", "Delta": "2 + O(g^2)", "spin": 0, "parity": "even", "global": {"SU(4)_R": "singlet"}},
     ],
 }
@@ -119,6 +121,7 @@ broken(lambda d: op(d, 1).update({"Delta": 3}), "differs from family 'bps' at k 
 broken(lambda d: op(d, 1).update({"spin": 1}), "operators/1/spin")
 broken(lambda d: op(d, 1)["global"].update({"SU(4)_R": "Dynkin(1,0,1)"}), "but family 'bps' at k = 2 is Dynkin(0,2,0)")
 broken(lambda d: op(d, 1)["multiplet"].update({"type": "long"}), "multiplet/type")
+broken(lambda d: op(d, 1)["multiplet"].update({"cdi": "$B_1\\bar B_1[0;0]^{(0,3,0)}_2$"}), "multiplet/cdi")
 
 
 def family_parity(d):

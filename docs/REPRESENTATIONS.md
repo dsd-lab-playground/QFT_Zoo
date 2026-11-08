@@ -92,7 +92,7 @@ operators:
 | `parity` | `even`, `odd`, `pair` or `unknown` (1.3) |
 | `T` | time reversal, only with `symmetry.time_reversal: independent` (1.3) |
 | `global` | a label for **every** declared factor: `{factor id: label}` (1.4); `unknown` where it is not known |
-| `multiplet` | supersymmetric theories: `{name, component, type?}` (1.5) |
+| `multiplet` | supersymmetric theories: `{name, component, type?, cdi}`: house name and Cordova–Dumitrescu–Intriligator label (1.5) |
 | `role` | what the operator is or does: `order parameter`, `thermal`, `supercurrent`, `Coulomb-branch generator` (Markdown). Never part of the representation |
 | `degeneracy`, `method`, `refs`, `note` | unchanged |
 | `family` | makes the row one record for a tower of operators: `{id, parameters: [{symbol, from, to, step, except}]}`, with Δ, spin and labels as expressions in the parameters (1.7) |
@@ -210,24 +210,48 @@ and every component operator carries its own labels. In addition, `multiplet` pl
 in its supermultiplet:
 
 ```yaml
-multiplet: {name: '$\sigma$', component: 'Q^2'}           # epsilon = top component of the sigma multiplet
-multiplet: {name: stress tensor, component: primary, type: half-BPS}
+multiplet: {name: '$\sigma$', component: 'Q^2', type: long, cdi: '$L[0]_\Delta$'}   # epsilon in the sigma multiplet
+multiplet: {name: flavor current, component: primary, type: '$\hat{\mathcal{B}}_1$', cdi: '$B_1\bar B_1[0;0]^{(2;0)}_2$'}
+multiplet: {name: stress tensor, component: 'Q\bar Q', cdi: '$A_1\bar A_1[2]^{(0)}_2$'}  # 3d N=2: no house symbol
 ```
 
 - `name`: the multiplet, by its superconformal primary (`'$\sigma$'`) or its standard name
   (`stress tensor`, `Konishi`). Components of one multiplet use the same name.
 - `component`: `primary`, or the supercharges acting on the primary, in LaTeX (`Q`, `Q^2`,
   `Q\bar Q`).
-- `type` (optional): shortening condition or standard symbol (`half-BPS`, `long`,
-  `$A_1\bar A_1$`, `$\mathcal{B}_{[0,2,0]}$`).
+- `type`: the multiplet in the **house notation** of its case (table below), as a symbol or a
+  descriptive name (`chiral`, `long`). Omitted where the house name is descriptive and `name`
+  already says it (`stress tensor`, `flavor current` in 3d $\mathcal{N}\le2$ and 4d $\mathcal{N}=1$).
+- `cdi`: the multiplet in the notation of Cordova, Dumitrescu and Intriligator (CDI, arXiv:1612.00809),
+  $X[j]^{(R)}_\Delta$ with their normalizations (e.g. their 4d $\mathcal{N}=2$ $u(1)_r$ charge is twice
+  Dolan–Osborn's). Required in $d \ge 3$ (`unknown` if it cannot be determined); not used in 2d,
+  which CDI do not cover. The build checks both, and that a family member's `type` and `cdi` are the
+  family's at the member's parameter values (1.7).
 
-*Provisional* (docs/PRINCIPLES.md §2): the multiplet symbols now in the data (Dolan–Osborn names in 4d
-$\mathcal{N}=1,2$; Cordova–Dumitrescu–Intriligator names elsewhere) were adopted before surveying which
-nomenclature the field actually uses for each dimension and amount of supersymmetry; they will follow that survey.
+The page shows `type` (else `name`) with the CDI label in a tooltip on hover or focus. The entry's
+`symmetry.notes` says which notation it uses and cites it.
 
-The pilot uses this lightly. A full treatment would label each multiplet by its superconformal
-representation (e.g. Cordova–Dumitrescu–Intriligator notation) and let the table group by
-multiplet; that is a natural extension of the policy below.
+**Why this rule.** A survey of about 45 papers' TeX sources, weighted by INSPIRE citations
+(November 2026), found no nomenclature that is standard across cases: each dimension and amount of
+supersymmetry has its own house notation, and only CDI covers every case in $d \ge 3$. So the page
+uses each case's house notation, and CDI is always one hover away.
+
+| Case | House notation | Examples | Evidence |
+|---|---|---|---|
+| 4d $\mathcal{N}=2$ | Dolan–Osborn (hep-th/0209056) | $\hat{\mathcal{B}}_R$ (Higgs branch; $\hat{\mathcal{B}}_1$ moment map), $\mathcal{E}_r$ (Coulomb branch), $\hat{\mathcal{C}}_{0(0,0)}$ stress tensor, $\mathcal{D}_{R(0,j)}$, $\mathcal{C}_{R,r(j,\bar\jmath)}$, $\mathcal{A}^\Delta_{R,r(j,\bar\jmath)}$ long | Beem et al. 1312.5344 |
+| 4d $\mathcal{N}=4$ | Dolan–Osborn | $\mathcal{B}^{\frac12,\frac12}_{[0,p,0](0,0)}$ half-BPS, $\mathcal{C}$, $\mathcal{A}^\Delta_{[0,0,0](\ell/2,\ell/2)}$ long | Beem–Rastelli–van Rees 1304.1803 |
+| 3d $\mathcal{N}=8$, $\mathcal{N}=6$ | Dolan (0811.2740) letters | $\mathcal{N}=8$: $(B,+)$ (stress tensor, $[0020]$), $(B,2)$, $(A,0)$ long, $(A,2)$, $(A,+)$; $\mathcal{N}=6$: $(B,2)$ stress tensor, $(B,n)$, $(A,n)$, $(A,+)$ | Chester–Lee–Pufu–Yacoby 1412.0334; Binder–Chester–Jerdee–Pufu 2011.05728 |
+| 3d $\mathcal{N}=4$ | usage split: mostly Dolan/Pufu style; CDI in some | $(B,+)$, $(B,-)$ Higgs- and Coulomb-branch half-BPS (Dolan's $(2,B,\pm)$), conserved (stress tensor), $(A,\dots)$ | Beem–Peelaers–Rastelli 1601.05378; Dedushenko–Pufu–Yacoby 1610.00740; CDI in Chang et al. 1910.03600 |
+| 5d $\mathcal{N}=1$, 6d $(1,0)$ | letters with the $SU(2)_R$ label | $\mathcal{D}[2]$ flavor current, $\mathcal{B}[0]_0$ stress tensor, $\mathcal{L}[0]_{\Delta,\ell}$ long; types $\mathcal{A}$–$\mathcal{D}$ | Chang–Fluder–Lin–Wang 1710.08418; Chang–Lin 1705.05392 |
+| 6d $(2,0)$ | Beem–Rastelli–van Rees style | $\mathcal{D}[2,0]$ stress tensor, $\mathcal{D}[p,0]$ half-BPS, $\mathcal{B}$, $\mathcal{C}$, $\mathcal{A}$, long $\mathcal{L}[p_1p_2]_{\Delta,\ell}$ | 1507.05637; Beem–Lemos–Rastelli–van Rees 1404.1079 |
+| 4d $\mathcal{N}=1$, 3d $\mathcal{N}=1, 2$ | descriptive | chiral, antichiral, linear (current) multiplet, stress-tensor (Ferrara–Zumino) multiplet, long | standard usage |
+| 2d $\mathcal{N}=(2,2)$ | chiral-primary language | $(c,c)$, $(a,c)$ rings, Ramond ground states, BPS / non-BPS | Lerche–Vafa–Warner |
+| 2d small $\mathcal{N}=4$ | Eguchi–Taormina | massless (short, BPS) or massive (long), by $h$ and $su(2)$ isospin | Eguchi–Taormina 1988 |
+
+4d $\mathcal{N}=3$ is not covered by the survey; its entries show the name with CDI on hover.
+
+The pilot uses this lightly. A full treatment would let the table group by multiplet; that is a
+natural extension of the policy below.
 
 ### 1.6 Backward compatibility
 

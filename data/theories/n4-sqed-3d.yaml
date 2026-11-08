@@ -70,7 +70,7 @@ symmetry:
     - {id: U(1)_J, group: U(1), tex: 'U(1)_J', note: 'Enhanced to $SU(2)$ at $N_f = 1, 2$.'}
     - {id: SU(2)_H, group: SU(2), tex: 'SU(2)_H'}
     - {id: SU(2)_C, group: SU(2), tex: 'SU(2)_C'}
-  notes: 'Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@cordova2016, Sec. 2.1.4]: $X[j]^{(R;R'')}_\Delta$, with $j$ twice the spin and $(R;R'')$ the Dynkin labels of $SU(2)_H\times SU(2)_C$ (Higgs-branch moment maps are in $(2;0)$).'
+  notes: 'Multiplet names follow Dolan [@dolan2008] as used by Chester, Lee, Pufu and Yacoby [@clpy2014, Table 1]: $(B,+)$ and $(B,-)$ the half-BPS Higgs- and Coulomb-branch multiplets [@bpr2016, Sec. 2.1] (Dolan writes $(2,B,\pm)$), conserved the stress-tensor multiplet. Usage is split; the notation of Cordova, Dumitrescu and Intriligator [@cordova2016, Sec. 2.1.4] is shown on hover: $X[j]^{(R;R'')}_\Delta$, with $j$ twice the spin and $(R;R'')$ the Dynkin labels of $SU(2)_H\times SU(2)_C$ (Higgs-branch moment maps are in $(2;0)$).'
   gauge: '$U(1)$'
 
 quantities:
@@ -98,7 +98,7 @@ operators:
     spin: 0
     parity: unknown
     global: {SU(Nf): adjoint, U(1)_J: 0, SU(2)_H: adjoint, SU(2)_C: singlet}
-    multiplet: {name: '$SU(N_f)$ flavor current', component: primary, type: '$B_1[0]^{(2;0)}_1$'}
+    multiplet: {name: '$SU(N_f)$ flavor current', component: primary, type: '$(B,+)$', cdi: '$B_1[0]^{(2;0)}_1$'}
     method: exact
     refs: [klebanov2012]
     note: 'Higgs-branch moment map, bottom of the $SU(N_f)$ current multiplet ($N_f\ge2$).'
@@ -108,7 +108,7 @@ operators:
     parity: pair
     global: {SU(Nf): singlet, U(1)_J: ±1, SU(2)_H: singlet, SU(2)_C: sym(N_f)}
     role: Coulomb-branch chiral operators
-    multiplet: {name: '$V_\pm$', component: primary, type: '$B_1[0]^{(0;N_f)}_{N_f/2}$'}
+    multiplet: {name: '$V_\pm$', component: primary, type: '$(B,-)$', cdi: '$B_1[0]^{(0;N_f)}_{N_f/2}$'}
     method: exact
     refs: [borokhov2002, gaiotto2008]
     note: 'BPS monopole operators of unit magnetic charge; $\Delta$ equals their R-charge $N_f/2$.'
@@ -117,7 +117,7 @@ operators:
     spin: 1
     parity: unknown
     global: {SU(Nf): [singlet, adjoint], U(1)_J: 0, SU(2)_H: singlet, SU(2)_C: singlet}
-    multiplet: {name: flavor current, component: 'Q^2', type: '$B_1[0]^{(2;0)}_1$ ($SU(N_f)$), $B_1[0]^{(0;2)}_1$ ($U(1)_J$)'}
+    multiplet: {name: flavor current, component: 'Q^2', type: '$(B,+)$ ($SU(N_f)$), $(B,-)$ ($U(1)_J$)', cdi: '$B_1[0]^{(2;0)}_1$ ($SU(N_f)$), $B_1[0]^{(0;2)}_1$ ($U(1)_J$)'}
     method: exact
     note: Conserved flavor and topological currents.
   - name: 'T_{\mu\nu}'
@@ -125,7 +125,7 @@ operators:
     spin: 2
     parity: even
     global: {SU(Nf): singlet, U(1)_J: 0, SU(2)_H: singlet, SU(2)_C: singlet}
-    multiplet: {name: stress tensor, component: 'Q^4', type: '$A_2[0]^{(0;0)}_1$'}
+    multiplet: {name: stress tensor, component: 'Q^4', type: conserved, cdi: '$A_2[0]^{(0;0)}_1$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -165,5 +165,26 @@ references:
     authors: Cordova, Dumitrescu, Intriligator
     year: 2016
     arxiv: '1612.00809'
+  - key: dolan2008
+    title: On Superconformal Characters and Partition Functions in Three Dimensions
+    authors: Dolan
+    year: 2008
+    journal: J. Math. Phys. 51 (2010) 022301
+    arxiv: '0811.2740'
+    doi: 10.1063/1.3211091
+  - key: clpy2014
+    title: Exact Correlators of BPS Operators from the 3d Superconformal Bootstrap
+    authors: Chester, Lee, Pufu, Yacoby
+    year: 2014
+    journal: JHEP 03 (2015) 130
+    arxiv: '1412.0334'
+    doi: 10.1007/JHEP03(2015)130
+  - key: bpr2016
+    title: Deformation quantization and superconformal symmetry in three dimensions
+    authors: Beem, Peelaers, Rastelli
+    year: 2016
+    journal: Commun. Math. Phys. 354 (2017) 345
+    arxiv: '1601.05378'
+    doi: 10.1007/s00220-017-2845-6
 
 contributors: [Canonical111]

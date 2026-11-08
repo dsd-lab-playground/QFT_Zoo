@@ -55,7 +55,7 @@ symmetry:
   global_group:
     - {id: S3, group: S_3, note: 'Permutes $X, Y, Z$. The $U(1)\times U(1)$ flavor symmetry, on which $S_3$ acts by automorphisms, is not declared: the rows here are $S_3$ multiplets whose members carry different $U(1)\times U(1)$ charges.'}
     - {id: U(1)_R, group: U(1), tex: 'U(1)_R'}
-  notes: 'In the SQED description the $S_3$ is emergent; only $U(1)_A\times U(1)_J$ is manifest. Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@cordova2016, Sec. 2.1.2]: $X\bar Y[j]^{(r)}_\Delta$, with $j$ twice the spin and $r$ the $U(1)_R$ charge; $Q$ has $r = -1$ and $\bar Q$ has $r = +1$, and chiral primaries are $L\bar B_1[0]^{(r)}_r$.'
+  notes: 'In the SQED description the $S_3$ is emergent; only $U(1)_A\times U(1)_J$ is manifest. Multiplets are named descriptively (chiral, antichiral, long), as is standard in 3d $\mathcal{N}=2$; the notation of Cordova, Dumitrescu and Intriligator [@cordova2016, Sec. 2.1.2] is shown on hover: $X\bar Y[j]^{(r)}_\Delta$, with $j$ twice the spin and $r$ the $U(1)_R$ charge; $Q$ has $r = -1$ and $\bar Q$ has $r = +1$, and chiral primaries are $L\bar B_1[0]^{(r)}_r$.'
 
 quantities:
   - key: F
@@ -84,7 +84,7 @@ operators:
     spin: 0
     parity: unknown
     global: {S3: [trivial, standard], U(1)_R: 2/3}
-    multiplet: {name: '$X, Y, Z$', component: primary, type: '$L\bar B_1[0]^{(2/3)}_{2/3}$'}
+    multiplet: {name: '$X, Y, Z$', component: primary, type: chiral, cdi: '$L\bar B_1[0]^{(2/3)}_{2/3}$'}
     method: exact
     refs: [baggio2017]
     note: 'In SQED: $X \leftrightarrow \tilde QQ$, $Y, Z \leftrightarrow V_\pm$.'
@@ -93,7 +93,7 @@ operators:
     spin: 0
     parity: unknown
     global: {S3: standard, U(1)_R: 0}
-    multiplet: {name: flavor current, component: primary, type: '$A_2\bar A_2[0]^{(0)}_1$'}
+    multiplet: {name: flavor current, component: primary, cdi: '$A_2\bar A_2[0]^{(0)}_1$'}
     method: exact
     refs: [baggio2017]
     note: 'Bottom components of the two $U(1)$ flavor-current multiplets.'
@@ -102,7 +102,7 @@ operators:
     spin: 1
     parity: unknown
     global: {S3: standard, U(1)_R: 0}
-    multiplet: {name: flavor current, component: 'Q\bar Q', type: '$A_2\bar A_2[0]^{(0)}_1$'}
+    multiplet: {name: flavor current, component: 'Q\bar Q', cdi: '$A_2\bar A_2[0]^{(0)}_1$'}
     method: exact
     note: Conserved flavor currents.
   - name: 'X^3,\ Y^3,\ Z^3'
@@ -110,7 +110,7 @@ operators:
     spin: 0
     parity: unknown
     global: {S3: [trivial, standard], U(1)_R: 2}
-    multiplet: {name: '$X^3, Y^3, Z^3$', component: primary, type: '$L\bar B_1[0]^{(2)}_2$'}
+    multiplet: {name: '$X^3, Y^3, Z^3$', component: primary, type: chiral, cdi: '$L\bar B_1[0]^{(2)}_2$'}
     method: exact
     refs: [baggio2017]
     note: 'Their $Q^2$ descendants ($\Delta = 3$) are the marginal deformations; one complex combination is exactly marginal.'
@@ -119,7 +119,7 @@ operators:
     spin: 2
     parity: even
     global: {S3: trivial, U(1)_R: 0}
-    multiplet: {name: stress tensor, component: 'Q\bar Q', type: '$A_1\bar A_1[2]^{(0)}_2$'}
+    multiplet: {name: stress tensor, component: 'Q\bar Q', cdi: '$A_1\bar A_1[2]^{(0)}_2$'}
     method: exact
     note: Stress tensor (conserved).
 

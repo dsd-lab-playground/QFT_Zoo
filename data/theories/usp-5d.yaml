@@ -81,7 +81,7 @@ symmetry:
     - {id: E, group: 'Lie(E_{N_f+1})'}
     - {id: SU(2), group: SU(2), note: 'Acts on the antisymmetric hypermultiplet; absent at $N = 1$.'}
   gauge: '$USp(2N)$ (infrared gauge theory description)'
-  notes: 'Multiplet names follow Cordova, Dumitrescu and Intriligator [@cdi2016].'
+  notes: 'Multiplet names follow Chang, Fluder, Lin and Wang [@chang2017, Sec. 5.1]: $\mathcal{D}[2]$ flavor current, $\mathcal{B}[0]_0$ stress tensor, $\mathcal{L}[0]_{\Delta,\ell}$ long, with $[R]$ the $SU(2)_R$ Dynkin label. The label of Cordova, Dumitrescu and Intriligator [@cdi2016] is shown on hover.'
 
 quantities:
   - symbol: 'F'
@@ -102,14 +102,14 @@ operators:
     Delta: 4
     spin: 1
     global: {SU(2)_R: singlet, E: [singlet, adjoint], SU(2): [singlet, adjoint]}
-    multiplet: {name: flavor current, component: 'Q^2', type: '$C_1[0,0]^{(2)}_3$'}
+    multiplet: {name: flavor current, component: 'Q^2', type: '$\mathcal{D}[2]$', cdi: '$C_1[0,0]^{(2)}_3$'}
     method: exact
     note: Conserved flavor currents.
   - name: 'T_{\mu\nu}'
     Delta: 5
     spin: 2
     global: {SU(2)_R: singlet, E: singlet, SU(2): singlet}
-    multiplet: {name: stress tensor, component: 'Q^4', type: '$B_2[0,0]^{(0)}_3$'}
+    multiplet: {name: stress tensor, component: 'Q^4', type: '$\mathcal{B}[0]_0$', cdi: '$B_2[0,0]^{(0)}_3$'}
     method: exact
     note: Stress tensor (conserved).
 
