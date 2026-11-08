@@ -197,6 +197,7 @@ table.qty .dets, table.ops .dets { font-size: 0.82rem; white-space: nowrap; }
 .ope-structures .ope-embedding .katex-display { margin: 4px 0; text-align: left; }
 .ope-structures .ope-embedding .katex-display > .katex { text-align: left; }
 table.qty .ope-st { white-space: nowrap; }
+table.qty .value-of { white-space: nowrap; }
 /* A triplet with several coefficients (n_B, n_F of <TTT>) is one item: its lines are separated by a dotted rule only. */
 table.qty tbody.ope-item td { border-bottom: 0; }
 table.qty tbody.ope-item { border-bottom: 1px solid var(--border); }

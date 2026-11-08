@@ -49,8 +49,9 @@ scripts/spectra/          the scripts that generated the spectrum files
 site/                     the website (static HTML/CSS/JS; KaTeX for math)
 tests/                    tests of the build checks (python tests/test_flows.py, tests/test_reps.py, tests/test_ope.py, tests/test_opfam.py)
 docs/REPRESENTATIONS.md   how operators record their symmetry representations, and how tables are grouped
-docs/OPE.md               how OPE coefficients record their operators and structures, and how they are shown
-data/ope_structures.yaml  the standard three-point structures that OPE values may name
+docs/THREE_POINT.md       how three-point functions record their operators, structures and coefficients, and how they are shown
+data/three_point_structures.yaml
+                          the standard three-point structures that values may name
 .github/workflows/        validation on every PR; deploy to GitHub Pages on merge
 ```
 

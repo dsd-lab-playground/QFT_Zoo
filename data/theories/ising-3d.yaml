@@ -108,8 +108,8 @@ quantities:
     method: ε-exp, 6 loops, resummed
     refs: ['kompaniets2017, Eq. (42), p. 25', 'kompaniets2017, Table XI ($n=1$)']
 
-ope_structures:
-  # Each structure is written in the notation of the source its values come from (docs/OPE.md 1.4); the scalar values
+three_point_structures:
+  # Each structure is written in the notation of the source its values come from (docs/THREE_POINT.md 1.4); the scalar values
   # use the standard `scalar`. `embedding`, where given, restates a structure in the notation of [@costa2011].
   - id: sd16
     name: 'scalar–scalar–spin-$\ell$, blocks $z^h\bar z^{\bar h}+\dots$'
@@ -133,7 +133,7 @@ ope_structures:
     ref: 'chang2024, Eq. (2.2)'
     description: 'The parity-even structure of $\langle TT\epsilon\rangle$ as written and normalized by [@chang2024, Eq. (2.2), p. 5], with the unit-normalized stress tensor $\hat T = T/\sqrt{c_T}$, $\langle\hat T\hat T\rangle = H_{12}^2/X_{12}^5$ [@chang2024, Eq. (2.9)], chosen to match the five-point-bootstrap convention of Poland, Prilepina and Tadić [@poland2023]. A choice of these papers, not a standard normalization: other papers normalize this structure differently. The source calls $V_i$ and $H_{ij}$ the standard embedding-space structures of [@costa2011] and writes the points $X_i$; read with the definitions of [@costa2011], $X_{ij} \equiv -2X_i\cdot X_j$ (the $P_{ij}$ of [@costa2011, Eq. (2.9)]), $V_1 \equiv V_{1,23}$, $V_2 \equiv V_{2,31}$ and $H_{12}$ [@costa2011, Eqs. (4.14)–(4.16)], and the unit normalization of $\hat T$ is that of [@costa2011, Eq. (4.9)]. In the $SO(3)_r$ basis it is $-\lambda_{TT\epsilon}\frac{16\Delta_\epsilon}{2+\Delta_\epsilon}\,\mathtt{ScalarParityEven}_{\Delta_\epsilon}$ [@chang2024, Eqs. (2.2)–(2.3)].'
 
-ope_coefficients:
+three_point_functions:
   - operators: ['\sigma', '\sigma', '\epsilon']
     values:
       - structure: scalar
@@ -184,9 +184,10 @@ ope_coefficients:
         method: FS
         refs: [hu2023]
         note: '[@hu2023, Table I, p. 4], written $f_{\epsilon\epsilon\epsilon}\approx 1.5441(23)$, finite-size extrapolation; error = difference between leading- and next-to-leading-order fits [@hu2023, Supplemental Material, Sec. IV]. **Disagrees** with the bootstrap value $1.53244304(58)$ by about $5\times$ its stated error, so the stated error does not cover the extrapolation systematics.'
-  - operators: ['T_{\mu\nu}', 'T_{\mu\nu}', '\epsilon']
+  - operators: ['\epsilon', 'T_{\mu\nu}', 'T_{\mu\nu}']
     values:
       - structure: chang2024-tte
+        order: ['T_{\mu\nu}', 'T_{\mu\nu}', '\epsilon']
         symbol: '\lambda_{TT\epsilon}'
         value: '0.95331513(42)'
         method: CB, non-rigorous error

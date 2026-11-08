@@ -107,21 +107,21 @@
       "items": {
         "$ref": "#/$defs/quantity"
       },
-      "description": "Numbers characterising the theory: central charges, critical exponents, beta-function coefficients, free energies, ... OPE coefficients of a triplet of operators go in ope_coefficients."
+      "description": "Numbers characterising the theory: central charges, critical exponents, beta-function coefficients, free energies, ... Coefficients of the three-point function of three operators go in three_point_functions."
     },
-    "ope_structures": {
+    "three_point_structures": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/opeStructure"
+        "$ref": "#/$defs/threePointStructure"
       },
-      "description": "Three-point structures that this entry's OPE coefficients multiply, beyond the standard ones of data/ope_structures.yaml: each defined once, by the basis of the source the values come from (a citation of the formula that defines it, or a short standard name). See docs/OPE.md."
+      "description": "Three-point structures that this entry's three-point functions are expanded in, beyond the standard ones of data/three_point_structures.yaml: each defined once, in the notation of the source its values come from (a citation of the formula that defines it, its form, a short name). See docs/THREE_POINT.md."
     },
-    "ope_coefficients": {
+    "three_point_functions": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/opeCoefficient"
+        "$ref": "#/$defs/threePointFunction"
       },
-      "description": "OPE coefficients, one item per triplet of operators; each value names the structure it multiplies. See docs/OPE.md."
+      "description": "Three-point functions, one item per unordered triple of operators {O1, O2, O3}; each value is the coefficient of one structure in it (a three-point function is a sum of coefficients times structures). See docs/THREE_POINT.md."
     },
     "operators": {
       "type": "array",
@@ -164,7 +164,7 @@
           "type": "string"
         }
       },
-      "description": "[markdown] Normalization conventions shared by the entry's quantities of one category (see quantity.category), shown at the top of that section, e.g. central: 'C_T relative to one free real scalar'. A convention specific to one quantity goes in its description. OPE coefficients state their conventions as structures (ope_structures; docs/OPE.md)."
+      "description": "[markdown] Normalization conventions shared by the entry's quantities of one category (see quantity.category), shown at the top of that section, e.g. central: 'C_T relative to one free real scalar'. A convention specific to one quantity goes in its description. Three-point functions state their conventions as structures (three_point_structures; docs/THREE_POINT.md)."
     },
     "uv_dof": {
       "type": "number",
@@ -321,7 +321,7 @@
             "exponent",
             "other"
           ],
-          "description": "Section the quantity is shown in: central (central charges, C_T, C_J, sphere and thermal free energies), anomaly (Weyl anomalies a, c in d >= 4, 't Hooft anomalies, anomaly polynomials), ope (three-point data that is not the coefficient of one triplet of operators in ope_coefficients: structure constants as functions of continuous labels, reflection amplitudes, ratios of OPE coefficients), exponent (critical exponents), other. The site infers central, anomaly, exponent and other from key, symbol and description; `ope` is never inferred and must be set. Omit it unless the inference is wrong or the quantity is OPE data."
+          "description": "Section the quantity is shown in: central (central charges, C_T, C_J, sphere and thermal free energies), anomaly (Weyl anomalies a, c in d >= 4, 't Hooft anomalies, anomaly polynomials), ope (shown with the three-point functions: three-point data that is not a coefficient of one three-point function in three_point_functions: structure constants as functions of continuous labels, reflection amplitudes, ratios of OPE coefficients), exponent (critical exponents), other. The site infers central, anomaly, exponent and other from key, symbol and description; `ope` is never inferred and must be set. Omit it unless the inference is wrong or the quantity is OPE data."
         },
         "relation": {
           "type": "string",
@@ -1363,7 +1363,7 @@
         }
       }
     },
-    "opeStructure": {
+    "threePointStructure": {
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -1385,7 +1385,7 @@
         "id": {
           "type": "string",
           "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
-          "description": "What values write in `structure:`; unique in the entry and different from the ids of data/ope_structures.yaml."
+          "description": "What values write in `structure:`; unique in the entry and different from the ids of data/three_point_structures.yaml."
         },
         "symbol": {
           "type": "string",
@@ -1410,12 +1410,12 @@
         "form": {
           "type": "string",
           "minLength": 1,
-          "description": "[latex] What the structure is, written out where practical, else in a form some work has given it (an embedding-space combination, an SO(3) structure |j_{12}, j_{123}>, a q-basis structure [q_1,q_2,q_3], ...), so a reader can identify it without opening the reference. A formula without $...$. A structure needs `form` or a single-monomial `embedding`. See docs/OPE.md."
+          "description": "[latex] What the structure is, written out where practical, else in a form some work has given it (an embedding-space combination, an SO(3) structure |j_{12}, j_{123}>, a q-basis structure [q_1,q_2,q_3], ...), so a reader can identify it without opening the reference. A formula without $...$. A structure needs `form` or a single-monomial `embedding`. Written in the notation of the source the values come from (its symbols and formula), with the operators in the order its values assume. See docs/THREE_POINT.md."
         },
         "embedding": {
           "type": "string",
           "minLength": 1,
-          "description": "[latex] Optional: the three-point function in embedding space, in the notation of Costa, Penedones, Poland and Rychkov, Spinning Conformal Correlators (arXiv:1107.3554; cite it in the description as [@key, Eq. (...)]): points P_i, polarizations Z_i, P_{ij} = -2 P_i.P_j, V_{i,jk}, H_{ij}. A formula without $...$, shown in display math; the coefficient appears in it with any factor that the source's normalization needs (e.g. 2^{\\ell/2} f). Only for a structure that is a simple embedding-space structure, or a combination the source states. See docs/OPE.md."
+          "description": "[latex] Optional: the three-point function in embedding space, in the notation of Costa, Penedones, Poland and Rychkov, Spinning Conformal Correlators (arXiv:1107.3554; cite it in the description as [@key, Eq. (...)]): points P_i, polarizations Z_i, P_{ij} = -2 P_i.P_j, V_{i,jk}, H_{ij}. A formula without $...$, shown in display math; the coefficient appears in it with any factor that the source's normalization needs (e.g. 2^{\\ell/2} f). Only for a structure that is a simple embedding-space structure, or a combination the source states. See docs/THREE_POINT.md."
         },
         "basis": {
           "type": "string",
@@ -1424,7 +1424,7 @@
         }
       }
     },
-    "opeOperator": {
+    "threePointOperator": {
       "oneOf": [
         {
           "type": "string",
@@ -1445,7 +1445,7 @@
         }
       ]
     },
-    "opeCoefficient": {
+    "threePointFunction": {
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -1458,21 +1458,21 @@
           "minItems": 3,
           "maxItems": 3,
           "items": {
-            "$ref": "#/$defs/opeOperator"
+            "$ref": "#/$defs/threePointOperator"
           },
-          "description": "The three operators of the three-point function <O1 O2 O3> (O3 exchanged in O1 x O2), in the order the values' structures assume."
+          "description": "The three operators of the three-point function, as an unordered triple (the page shows them lightest first). Each value's structure assumes this order unless the value gives its own `order`."
         },
         "values": {
           "type": "array",
           "minItems": 1,
           "items": {
-            "$ref": "#/$defs/opeValue"
+            "$ref": "#/$defs/threePointValue"
           },
-          "description": "Determinations of the coefficients of this triplet, each in the structure it multiplies."
+          "description": "Determinations of the coefficients of this three-point function, each the coefficient of the structure it names."
         }
       }
     },
-    "opeValue": {
+    "threePointValue": {
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -1482,11 +1482,28 @@
       "properties": {
         "structure": {
           "type": "string",
-          "description": "Id of the structure this value multiplies: one of data/ope_structures.yaml or of the entry's ope_structures."
+          "description": "Id of the structure whose coefficient this value is: one of data/three_point_structures.yaml or of the entry's three_point_structures."
+        },
+        "order": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/threePointOperator"
+          },
+          "description": "Optional: the order of the three operators that this value's structure assumes (operator 1, 2, 3 of its form), when it is not the order of `operators`; the same three operators. A coefficient's sign can depend on it (e.g. lambda_{12O} = (-1)^l lambda_{21O} at spin l)."
+        },
+        "value_of": {
+          "type": "string",
+          "enum": [
+            "square",
+            "modulus"
+          ],
+          "description": "Optional: the number is the square, or the modulus, of the coefficient (e.g. lambda^2 from a bound on lambda^2, |C| when its phase is not known); omitted, it is the coefficient itself."
         },
         "symbol": {
           "type": "string",
-          "description": "[latex] The coefficient as written, e.g. '\\lambda_{\\sigma\\sigma\\epsilon}', '\\lambda^2_{\\phi\\phi s}', '|C_{\\phi\\phi\\phi}|'. Defaults to the structure's symbol."
+          "description": "[latex] Optional: the coefficient as the source writes it, e.g. 'f_{\\sigma\\sigma T}', 'C_{\\sigma\\sigma\\epsilon}'. Information only: the page writes every coefficient with one letter."
         },
         "description": {
           "type": "string",

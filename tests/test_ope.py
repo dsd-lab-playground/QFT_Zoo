@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Tests of the OPE-coefficient checks (scripts/ope.py; docs/OPE.md).
+"""Tests of the three-point-function checks (scripts/ope.py; docs/THREE_POINT.md).
 
     python tests/test_ope.py
 
 A valid synthetic entry passes the schema and the entry check; each of a list of mistakes is rejected with the
-expected message. The standard structures are read from data/ope_structures.yaml.
+expected message. The standard structures are read from data/three_point_structures.yaml.
 """
 
 from __future__ import annotations
@@ -29,9 +29,9 @@ def expect(cond, what):
         FAILS.append(what)
 
 
-std = yaml.safe_load((ROOT / "data" / "ope_structures.yaml").read_text(encoding="utf-8"))
-std_errs = list(Draft202012Validator(json.loads((ROOT / "schema" / "ope_structures.schema.json").read_text())).iter_errors(std))
-expect(not std_errs, f"data/ope_structures.yaml fails its schema: {[e.message for e in std_errs]}")
+std = yaml.safe_load((ROOT / "data" / "three_point_structures.yaml").read_text(encoding="utf-8"))
+std_errs = list(Draft202012Validator(json.loads((ROOT / "schema" / "three_point_structures.schema.json").read_text())).iter_errors(std))
+expect(not std_errs, f"data/three_point_structures.yaml fails its schema: {[e.message for e in std_errs]}")
 expect(not set_standard(std["structures"]), "standard structures have duplicate ids")
 theory = Draft202012Validator(json.loads((ROOT / "schema" / "theory.schema.json").read_text()))
 
@@ -44,12 +44,12 @@ VALID = {
         {"name": "\\epsilon", "Delta": "1.4", "spin": 0},
         {"name": "T_{\\mu\\nu}", "Delta": 3, "spin": 2},
     ],
-    "ope_structures": [
+    "three_point_structures": [
         {"id": "a-blocks", "symbol": "f", "ref": "a2020, Eq. (2.1)", "description": "Blocks of [@a2020, Eq. (2.1)].",
          "embedding": "\\langle\\phi_1(P_1)\\phi_2(P_2)O(P_3,Z_3)\\rangle = 2^{\\ell/2} f\\, V_{3,12}^\\ell/(\\cdots)"},
         {"id": "b-blocks", "symbol": "\\lambda", "ref": "b2021, fn. 3", "form": "\\lambda\\,V_{3,12}^\\ell/P_{12}^{a}", "relation": "$\\lambda^2 = 2^\\ell f^2$ [@b2021, p. 6]"},
     ],
-    "ope_coefficients": [
+    "three_point_functions": [
         {"operators": ["\\sigma", "\\sigma", "\\epsilon"], "values": [
             {"structure": "scalar", "symbol": "\\lambda_{\\sigma\\sigma\\epsilon}", "value": "1.05(1)", "method": "CB", "refs": ["a2020"]},
             {"structure": "scalar", "symbol": "\\lambda_{\\sigma\\sigma\\epsilon}", "value": "1.051(2)", "method": "MC", "refs": ["b2021, Eq. (3)"]},
@@ -67,6 +67,12 @@ VALID = {
         # an operator that is not in the table, named by label
         {"operators": ["\\sigma", "\\sigma", {"label": "\\epsilon'"}], "values": [
             {"structure": "scalar", "value": "0.05(1)", "method": "CB", "refs": ["a2020"]},
+        ]},
+        # a value whose structure assumes another order of the operators than the item's, and a modulus
+        {"operators": ["\\sigma", "\\epsilon", "T_{\\mu\\nu}"], "values": [
+            {"structure": "a-blocks", "value": "0.1(1)", "method": "CB", "refs": ["a2020"], "value_of": "modulus"},
+            {"structure": "a-blocks", "value": "0.1(1)", "method": "MC", "refs": ["a2020"],
+             "order": ["\\epsilon", "\\sigma", "T_{\\mu\\nu}"]},
         ]},
     ],
 }
@@ -87,44 +93,44 @@ def broken(change, needle, schema=False):
 
 
 def unknown_operator(d):
-    d["ope_coefficients"][0]["operators"][2] = "\\varepsilon"
+    d["three_point_functions"][0]["operators"][2] = "\\varepsilon"
 
 
 def unknown_structure(d):
-    d["ope_coefficients"][0]["values"][0]["structure"] = "unit"
+    d["three_point_functions"][0]["values"][0]["structure"] = "unit"
 
 
 def shadows_standard(d):
-    d["ope_structures"].append({"id": "scalar", "ref": "a2020"})
+    d["three_point_structures"].append({"id": "scalar", "ref": "a2020"})
 
 
 def duplicate_structure(d):
-    d["ope_structures"].append({"id": "a-blocks", "ref": "a2020"})
+    d["three_point_structures"].append({"id": "a-blocks", "ref": "a2020"})
 
 
 def unused_structure(d):
-    d["ope_structures"].append({"id": "c-blocks", "name": "other"})
+    d["three_point_structures"].append({"id": "c-blocks", "name": "other"})
 
 
 def unknown_structure_ref(d):
-    d["ope_structures"][0]["ref"] = "c2022, Eq. (1)"
+    d["three_point_structures"][0]["ref"] = "c2022, Eq. (1)"
 
 
 def unknown_value_ref(d):
-    d["ope_coefficients"][0]["values"][0]["refs"] = ["c2022"]
+    d["three_point_functions"][0]["values"][0]["refs"] = ["c2022"]
 
 
 def same_triplet_twice(d):
-    d["ope_coefficients"].append({"operators": ["\\epsilon", "\\sigma", "\\sigma"], "values": [
+    d["three_point_functions"].append({"operators": ["\\epsilon", "\\sigma", "\\sigma"], "values": [
         {"structure": "scalar", "value": "1.06(1)", "method": "CB", "refs": ["a2020"]}]})
 
 
 def duplicate_claim(d):
-    d["ope_coefficients"][0]["values"].append(copy.deepcopy(d["ope_coefficients"][0]["values"][0]))
+    d["three_point_functions"][0]["values"].append(copy.deepcopy(d["three_point_functions"][0]["values"][0]))
 
 
 def scalar_structure_on_spinning(d):
-    d["ope_coefficients"][1]["values"][0]["structure"] = "scalar"
+    d["three_point_functions"][1]["values"][0]["structure"] = "scalar"
 
 
 def wrong_dimension(d):
@@ -132,27 +138,43 @@ def wrong_dimension(d):
 
 
 def no_label_or_ref(d):
-    d["ope_structures"].append({"id": "c-blocks", "symbol": "g"})  # also lacks a form
+    d["three_point_structures"].append({"id": "c-blocks", "symbol": "g"})  # also lacks a form
 
 
 def two_operators(d):
-    d["ope_coefficients"][0]["operators"].pop()
+    d["three_point_functions"][0]["operators"].pop()
 
 
 def value_without_structure(d):
-    del d["ope_coefficients"][0]["values"][0]["structure"]
+    del d["three_point_functions"][0]["values"][0]["structure"]
 
 
 def embedding_not_a_string(d):
-    d["ope_structures"][0]["embedding"] = ["V_{3,12}"]
+    d["three_point_structures"][0]["embedding"] = ["V_{3,12}"]
 
 
 def embedding_with_dollars(d):
-    d["ope_structures"][0]["embedding"] = "$V_{3,12}^\\ell$"
+    d["three_point_structures"][0]["embedding"] = "$V_{3,12}^\\ell$"
 
 
 def embedding_with_citation(d):
-    d["ope_structures"][0]["embedding"] = "V_{3,12}^\\ell [@costa2011, Eq. (4.10)]"
+    d["three_point_structures"][0]["embedding"] = "V_{3,12}^\\ell [@costa2011, Eq. (4.10)]"
+
+
+def order_not_a_permutation(d):
+    d["three_point_functions"][4]["values"][1]["order"] = ["\\sigma", "\\sigma", "T_{\\mu\\nu}"]
+
+
+def order_redundant(d):
+    d["three_point_functions"][4]["values"][1]["order"] = ["\\sigma", "\\epsilon", "T_{\\mu\\nu}"]
+
+
+def value_of_unknown(d):
+    d["three_point_functions"][0]["values"][0]["value_of"] = "cube"
+
+
+def old_key(d):
+    d["ope_coefficients"] = d.pop("three_point_functions")
 
 
 def standard_citation_missing(d):
@@ -177,6 +199,10 @@ broken(embedding_not_a_string, "is not of type 'string'", schema=True)
 broken(embedding_with_dollars, "without $...$")
 broken(embedding_with_citation, "put its citations in the description")
 broken(standard_citation_missing, "cites [@costa2011]")
+broken(order_not_a_permutation, "order must list the three operators")
+broken(order_redundant, "order is the order of `operators`")
+broken(value_of_unknown, "is not one of", schema=True)
+broken(old_key, "Additional properties are not allowed", schema=True)
 expect("embedding" in std["structures"][0], "the standard scalar structure gives its embedding-space form")
 
 if FAILS:
@@ -184,4 +210,4 @@ if FAILS:
     for f in FAILS:
         print("  •", f)
     sys.exit(1)
-print("✓ OPE tests passed")
+print("✓ three-point function tests passed")

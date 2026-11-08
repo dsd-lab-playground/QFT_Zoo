@@ -1,7 +1,7 @@
-# Standard three-point structures: the few that the literature agrees on, so that an OPE value may name one by id
-# (`structure: scalar`) without defining it in its entry. Anything a paper defines by its own choice (a block
-# normalization, a basis of spinning structures, a normalization of a tensor of the global symmetry) is not standard:
-# define it in the entry's `ope_structures`, by a citation of the formula that defines it. See docs/OPE.md.
+# Standard three-point structures: the few that the literature agrees on, so that a value of a three-point function may
+# name one by id (`structure: scalar`) without defining it in its entry. Anything a paper defines by its own choice (a
+# block normalization, a basis of spinning structures, a normalization of a tensor of the global symmetry) is not
+# standard: define it in the entry's `three_point_structures`, in the source's notation. See docs/THREE_POINT.md.
 #
 #   id           what values write in `structure:`
 #   symbol       the usual symbol of the coefficient
@@ -13,7 +13,7 @@
 #   basis        shared by the elements of one basis of several independent structures
 #   relation     [markdown] relations that follow from the definition
 #   embedding    [latex] the three-point function in embedding space, in the notation of Costa, Penedones, Poland and
-#                Rychkov, "Spinning Conformal Correlators" (key costa2011; docs/OPE.md 1.4), for a structure that is a
+#                Rychkov, "Spinning Conformal Correlators" (key costa2011; docs/THREE_POINT.md 1.4), for a structure that is a
 #                simple embedding-space structure. A standard structure that cites a reference key in any field needs
 #                that key in the references of every entry that uses it (the build checks it).
 

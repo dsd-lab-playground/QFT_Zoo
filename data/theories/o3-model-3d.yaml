@@ -90,8 +90,8 @@ quantities:
     method: CB, non-rigorous error
     refs: [chester2020]
 
-ope_structures:
-  # The O(3) tensors of these three-point functions, in the notation of [@chester2020] (docs/OPE.md 1.4). The paper
+three_point_structures:
+  # The O(3) tensors of these three-point functions, in the notation of [@chester2020] (docs/THREE_POINT.md 1.4). The paper
   # defines its coefficients through four-point tensor structures (its Eqs. (11), (32)); the three-point tensors below
   # are the ones those imply (see the descriptions).
   - id: chester2020-tts
@@ -113,7 +113,7 @@ ope_structures:
     ref: 'chester2020, App. C, Eq. (32)'
     description: '$t$ is the symmetric traceless tensor ($\mathbf 2^+$) of $O(3)$; indices with the same letter are symmetrized with their trace removed, operators normalized as in [@chester2020, Eq. (13), p. 10]. As for $\langle tts\rangle$, the paper defines the coefficient through four-point structures [@chester2020, Eqs. (11), (32)] and does not write this tensor; it is inferred from them (not stated by the source): with the factor $\sqrt2$ it reproduces exactly (checked numerically) $T^{\mathbf 2^+}_{\mathbf 2^+\mathbf 2^+\mathbf 2^+\mathbf 2^+} = B^4_{tttt}+B^5_{tttt}-\frac23B^1_{tttt}$, $T^{\mathbf 2^+}_{\mathbf 0^+\mathbf 2^+\mathbf 2^+\mathbf 2^+} = \sqrt2 B_{sttt}$ and, with $\langle\phi\phi t\rangle$, $T^{\mathbf 2^+}_{\mathbf 2^+\mathbf 2^+\mathbf 1^-\mathbf 1^-} = B^2_{tt\phi\phi}+B^3_{tt\phi\phi}-\frac23B^1_{tt\phi\phi}$.'
 
-ope_coefficients:
+three_point_functions:
   - operators: ['\phi_i', '\phi_i', 's']
     values:
       - structure: vector-vector-singlet

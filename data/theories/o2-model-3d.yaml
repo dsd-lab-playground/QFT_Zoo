@@ -95,7 +95,7 @@ quantities:
     method: CB, non-rigorous error
     refs: [chester2019]
 
-ope_structures:
+three_point_structures:
   # The O(2) flavor structures of these three-point functions, as written by [@chester2019, Eqs. (11)–(13)].
   - id: chester2019-tts
     name: 'charge 2 × charge 2 → singlet'
@@ -110,7 +110,7 @@ ope_structures:
     ref: 'chester2019, Eqs. (11)–(13)'
     description: '$\phi$ is the charge-1 ($\mathbf 1$) and $t$ the charge-2 ($\mathbf 2$) scalar of $O(2)$, contracted with null polarizations $y$ [@chester2019, Eq. (8)]. The flavor structure is $T_{\mathbf q_1\mathbf q_2\mathbf q_3} = (y_1\cdot y_2)^{\frac{q_1+q_2-q_3}{2}}(y_2\cdot y_3)^{\frac{q_2+q_3-q_1}{2}}(y_3\cdot y_1)^{\frac{q_3+q_1-q_2}{2}}$ at $q_1 = q_2 = 1$, $q_3 = 2$ [@chester2019, Eqs. (11), (13), p. 11]; operators normalized as in [@chester2019, Eq. (16)], blocks as in [@poland2019, Table I, second line].'
 
-ope_coefficients:
+three_point_functions:
   - operators: ['\phi', '\phi', 's']
     values:
       - structure: vector-vector-singlet

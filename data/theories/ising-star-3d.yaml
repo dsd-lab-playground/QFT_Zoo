@@ -71,7 +71,7 @@ quantities:
     refs: ['chang2024, Table 2']
     note: 'From $\Delta_\epsilon$ [@chang2024, Table 2]; identical to the 3d Ising value.'
 
-ope_coefficients:
+three_point_functions:
   - operators: ['\epsilon', '\epsilon', '\epsilon']
     values:
       - structure: scalar

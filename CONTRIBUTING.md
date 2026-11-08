@@ -44,9 +44,9 @@ match the filename. See the existing entries for worked examples, e.g.
 | `family` | | marks the entry as a family of theories (see *Families* below) |
 | `symmetry` | | `spacetime`, `euclidean`, `lorentzian` (the spacetime symmetry in both signatures, see *Spacetime symmetry* below), `supercharges` (number of real Poincaré supercharges $Q$; used for sorting, not shown on the page), `global` (in words), `parity` and `global_group` (structured; see *Operator representations*), `gauge`, `notes` |
 | `quantities` | | central charges, anomalies, exponents, …: `key`, `symbol`, `description`, `value`, `method`, `refs`, `note`, optional `category` and `relation` (see *How quantities are shown*) |
-| `ope_coefficients` | | one item per triplet of operators: `operators`, `values` (each with `structure`, `symbol`, `value`, `method`, `refs`, `note`); see *OPE coefficients* |
-| `ope_structures` | | the three-point structures that this entry's OPE values multiply, beyond the standard ones: `id`, `symbol`, `ref` or `name`, `description`, `relation`, `basis` |
-| `conventions` | | normalizations shared by one category of quantities, e.g. `central: 'C_T relative to one free real scalar'` (OPE coefficients define structures instead) |
+| `three_point_functions` | | one item per unordered triple of operators: `operators`, `values` (each with `structure`, `value`, `method`, `refs`, `note`, optional `order`, `value_of`, `symbol`); see *Three-point functions* |
+| `three_point_structures` | | the three-point structures of this entry's three-point functions, beyond the standard ones, in their sources' notation: `id`, `name`, `form`, `ref`, `symbol`, `description`, `relation`, `embedding`, `basis` |
+| `conventions` | | normalizations shared by one category of quantities, e.g. `central: 'C_T relative to one free real scalar'` (three-point functions define structures instead) |
 | `operators` | | `name`, `Delta`, `spin`, `weights` (2d: `(h, \bar h)`), `lorentz`, `parity`, `global`, `role`, `multiplet`, `degeneracy`, `method`, `refs`, `note`; `family`, or `member_of` and `at`, for towers of operators (see *Operator representations*; older entries still use a free-text `rep`) |
 | `relations` | | `type`, `target`, `at`, `variant`, `note`; for flows also `id`, `flow`, `target_expr` (see below) |
 | `references` | yes | `key`, `title`, `authors`, `year`, `journal`, `note`, and at least one of `arxiv` / `doi` / `url` |
@@ -296,14 +296,14 @@ A theory page shows its quantities by kind, each kind in its own section:
 **Central charges and free energy** (`central`: $c$ in 2d, $C_T$, $C_J$, flavor central
 charges, sphere and thermal free energies), **Anomalies** (`anomaly`: the Weyl anomalies
 $a$, $c$ in $d \ge 4$ and $a$, $c_i$ in 6d, 't Hooft anomalies, anomaly polynomials),
-**OPE coefficients** (the entry's `ope_coefficients`, see *OPE coefficients* below, and
-quantities with `category: ope`), **Critical exponents** (`exponent`) and **Other data**.
+**Three-point functions** (the entry's `three_point_functions`, see *Three-point functions* below,
+and quantities with `category: ope`), **Critical exponents** (`exponent`) and **Other data**.
 An entry with few quantities keeps one table.
 
 - The kind is inferred from `key`, `symbol` and `description` ("anomaly", "exponent",
   "two-point coefficient", `\nu`, ...). Set `category:` only when the inference is wrong.
-  `ope` is never inferred: three-point data that is not the coefficient of one triplet of
-  operators (a structure constant as a function of continuous labels, a reflection
+  `ope` is never inferred: three-point data that is not a coefficient of one three-point
+  function (a structure constant as a function of continuous labels, a reflection
   amplitude, a ratio of OPE coefficients) is a quantity with `category: ope`.
 - Exponents show their relation to scaling dimensions, taken from the description's
   `$...$` (e.g. `'Critical exponent, $\nu = 1/(3-\Delta_\epsilon)$'`) or from `relation:`.
@@ -313,69 +313,75 @@ An entry with few quantities keeps one table.
   most precise value first and the others folded below it. Rows that fix a parameter in the
   description (`$N = 25$`, `$k = 1$`) stay separate quantities.
 
-### OPE coefficients
+### Three-point functions
 
-OPE coefficients have their own list, `ope_coefficients`: one item per **triplet of
-operators**, and in it every value recorded for that triplet, each labelled by the
-**three-point structure** it multiplies. The full specification, with the presentation
-rule, is [docs/OPE.md](docs/OPE.md).
+Three-point functions have their own list, `three_point_functions`: one item per **unordered triple of operators**
+$\langle O_1O_2O_3\rangle$, and in it every value recorded for it, each the coefficient of one **three-point structure**
+(a three-point function is a sum of coefficients times structures). The full specification, with the presentation rule,
+is [docs/THREE_POINT.md](docs/THREE_POINT.md).
 
 ```yaml
-ope_structures:                       # structures that are a choice of a paper: defined once, by its basis
-  - id: sd16
-    symbol: 'f'
-    ref: 'simmonsduffin2016, Eq. (A.16)'          # the formula that defines it (or `name:` for a known name)
-    description: 'Scalar–scalar–spin-$\ell$ structure, external scalars unit-normalized, blocks normalized so that they start as $z^{(\Delta-\ell)/2}\bar z^{(\Delta+\ell)/2}$ [@simmonsduffin2016, Eq. (A.16)]. In embedding space $V_{3,12}^\ell$ [@costa2011, Eqs. (4.10)–(4.12)] with coefficient $2^{\ell/2} f$ ...'
-    embedding: '\langle\phi_1(P_1)\,\phi_2(P_2)\,O(P_3,Z_3)\rangle = 2^{\ell/2} f_{12O}\, \frac{V_{3,12}^{\,\ell}}{P_{12}^{\frac{\Delta_1+\Delta_2-\Delta-\ell}{2}} P_{23}^{\frac{\Delta_2+\Delta+\ell-\Delta_1}{2}} P_{31}^{\frac{\Delta+\ell+\Delta_1-\Delta_2}{2}}}'   # optional; notation below
+three_point_structures:               # structures that are a choice of a paper: defined once, in its notation
   - id: reehorst2021
-    symbol: '\lambda'
-    ref: 'reehorst2021, p. 6, fn. 3'
-    relation: '$\lambda^2 = 2^\ell f^2$ relative to [@simmonsduffin2016, Eq. (A.16)] [@reehorst2021, p. 16].'   # only as a source states it
+    name: 'scalar–scalar–spin-$\ell$, $(Z_{123}\cdot\zeta)^\ell$'   # what it is, in a few words
+    form: '\langle O_{\Delta_1}(x_1)\,O_{\Delta_2}(x_2)\,O_{\Delta_3,\ell}(x_3,\zeta)\rangle = \lambda_{123}\,\frac{(Z_{123}\cdot\zeta)^\ell - \text{traces}}{\cdots}'   # the source's formula
+    ref: 'reehorst2021, p. 6, fn. 3'              # the formula that defines it
+    description: 'The normalization of [@poland2019, Eqs. (23)–(24)] that Reehorst et al. use; $h_{ijk} \equiv \Delta_i+\Delta_j-\Delta_k$, ...'
+    relation: 'A coefficient in this structure is $2^{\ell/2}$ times the coefficient of the same three-point function in the block-normalized structure of [@simmonsduffin2016, Eq. (A.16)] [@reehorst2021, p. 16].'   # only as a source states it
 
-ope_coefficients:
-  - operators: ['\sigma', '\sigma', '\epsilon']   # `name`s from the operators table
+three_point_functions:
+  - operators: ['\sigma', '\sigma', '\epsilon']   # `name`s from the operators table, lightest first
     values:
       - structure: scalar                           # standard: three scalars, unit-normalized
-        symbol: '\lambda_{\sigma\sigma\epsilon}'
         value: '1.0518537(41)'
         method: CB
         refs: [kos2016]
   - operators: ['\sigma', '\sigma', 'T''_{\mu\nu}']
-    values:                                         # one coefficient, quoted in two papers' bases
-      - {structure: sd16, symbol: "f_{\\sigma\\sigma T'}", value: '0.0105745(42)', method: CB-EFM, refs: [simmonsduffin2016]}
-      - {structure: reehorst2021, symbol: "\\lambda_{\\sigma\\sigma T'}", value: '0.02107(20)', method: 'CB, rigorous', refs: [reehorst2021]}
+    values:                                         # one coefficient, quoted in two papers' structures
+      - {structure: sd16, value: '0.0105745(42)', method: CB-EFM, refs: [simmonsduffin2016]}
+      - {structure: reehorst2021, value: '0.02107(20)', method: 'CB, rigorous', refs: [reehorst2021]}
+  - operators: ['\epsilon', 'T_{\mu\nu}', 'T_{\mu\nu}']
+    values:                                         # the source writes <T T eps>: its order, explicitly
+      - {structure: chang2024-tte, order: ['T_{\mu\nu}', 'T_{\mu\nu}', '\epsilon'], value: '0.95331513(42)', method: 'CB, non-rigorous error', refs: [chang2024]}
   - operators: ['T_{\mu\nu}', 'T_{\mu\nu}', 'T_{\mu\nu}']
-    values:                                         # two coefficients: elements of one standard basis
+    values:                                         # two structures of one three-point function (one basis)
       - {structure: ttt-free-boson-3d, value: '0.933444559(75)', method: 'CB, non-rigorous error', refs: [chang2024]}
       - {structure: ttt-free-fermion-3d, value: '0.013094116(33)', method: 'CB, non-rigorous error', refs: [chang2024]}
 ```
 
 - **Operators** are named exactly as in the entry's `operators` table (the build checks
-  it); `{label: '...'}` for one that is not there (counted by the build).
+  it); `{label: '...'}` for one that is not there (counted by the build). They are an
+  unordered triple: write them lightest first, as the page shows them.
+- **Operator order.** A coefficient's sign can depend on the order of the operators
+  ($\lambda_{12O} = (-1)^\ell\lambda_{21O}$). A value's structure assumes the order of
+  `operators`; when its source used another order, give it in the value's `order`. Never
+  re-sign a value to another order.
 - **Every value names its structure**: a standard one from
-  [`data/ope_structures.yaml`](data/ope_structures.yaml) (`scalar`: three scalars with
+  [`data/three_point_structures.yaml`](data/three_point_structures.yaml) (`scalar`: three scalars with
   unit-normalized two-point functions; `vector-vector-singlet`: $\delta_{ij}$ for $O(N)$;
   `ttt-free-boson-3d`, `ttt-free-fermion-3d`: $n_B$, $n_F$), or one defined in the entry's
-  `ope_structures` by the source's basis: `id`, the citation of its defining formula `ref`
-  (or a `name` readers know), the source's `symbol`, a precise `description`
-  (normalization of the operators and of the blocks or tensor structures), and a `relation`
-  to other bases only when a source states one. Never convert a value to another basis:
-  record it in its paper's basis, as its own value.
+  `three_point_structures` in the source's notation: `id`, its `form`, a short `name`, the citation of its defining
+  formula `ref`, a precise `description` (normalization of the operators and of the blocks or tensor structures, the
+  definitions of the form's symbols), and a `relation` to other structures only when a source states one. Never
+  convert a value to another structure: record it in its paper's structure, as its own value.
 - **What the structure is** (`form`): every structure says what it is, in its own line on the page, never by a bare
-  symbol plus a citation. Write it out where practical (the scalar three-point function); for a complicated structure
-  use a form some work has given it, citing that work (an embedding-space combination, a source's basis element such as
-  ScalarParityEven$_{\Delta_\epsilon}$, an SO(3) structure $|j_{12}, j_{123}\rangle$, a q-basis structure
-  $[q_1,q_2,q_3]$), so a reader can identify it without opening the reference. A single-monomial `embedding` serves as
-  the form; otherwise `form` is required. Embedding formulas are given only for single monomials.
+  symbol plus a citation, **in the notation of the source its values come from** (David: "For three point structures,
+  it makes sense to prefer notation from the source where the number comes from"): the source's three-point function
+  where it writes one (an embedding-space combination, a physical-space formula, a flavor structure), else its defining
+  formula (a block normalization), or the three-point tensor its definition implies, marked as inferred and checked.
+  Write a coefficient in the formula with the site's letter $\lambda$. Only structures that no source pins to a
+  notation (three scalars) are written in the common embedding-space notation below, as a single-monomial `embedding`.
+- **A square or a modulus**: if the number is $\lambda^2$ or $|\lambda|$, say so with `value_of: square` or
+  `value_of: modulus`.
 - **Embedding-space form** (`embedding`, optional; David: "When a structure is a simple
   embedding space structure, you should use the notation of Spinning Conformal
   Correlators"): the three-point function as a LaTeX formula (no `$`), in the notation
-  below, with the coefficient times whatever factor its source's normalization needs
-  ($2^{\ell/2}f$ for the blocks of Simmons-Duffin 2016). Say in the `description` how the
+  below, for a single monomial only, with the coefficient times whatever factor its source's normalization needs
+  ($2^{\ell/2}$ for the blocks of Simmons-Duffin 2016). Give it beside a `form` only when it adds a cross-check; leave
+  it out when the source's form says the same. Say in the `description` how the
   factor follows from the sources, citing `[@costa2011, Eq. (…)]` and the source's formulas;
   if it depends on a convention you cannot pin down from the sources, leave `embedding` out
-  and say so. Give it for a combination of structures (a conserved $\langle TT\epsilon\rangle$)
-  only when the source states the combination. Add `costa2011` to the entry's references.
+  and say so. Add `costa2011` to the entry's references.
 - **Notation** (Costa, Penedones, Poland, Rychkov, *Spinning Conformal Correlators*,
   arXiv:1107.3554, JHEP 11 (2011) 071; reference key `costa2011`; equations of arXiv v3):
   points $P_i$ on the null cone of $\mathbb R^{d+1,1}$ and polarizations $Z_i$
@@ -389,15 +395,15 @@ ope_coefficients:
   (Eq. (2.8)); general spins $Q/(P_{12}^{\frac{\tau_1+\tau_2-\tau_3}{2}}P_{23}^{\frac{\tau_2+\tau_3-\tau_1}{2}}P_{31}^{\frac{\tau_3+\tau_1-\tau_2}{2}})$,
   $\tau_i = \Delta_i+\ell_i$, with $Q$ built from $V_i$ and $H_{ij}$ (Eqs. (4.12), (4.17)); scalar–scalar–spin-$\ell$
   is $Q = \lambda_{12O}V_{3,12}^\ell$ (Sec. 4.2.1). More, with the projection to physical space
-  and the relation to block normalizations, in [docs/OPE.md](docs/OPE.md), 1.4.
-- Several determinations of a coefficient are several `values` of one triplet, in the same
-  structure or in different ones. Conventions go in the structure, once; a value's `note`
-  is about the value (locator, rigor, assumptions, agreement).
-- The page shows one item per triplet, lightest operators first; each element of a basis of
-  several structures ($n_B$, $n_F$) on its own line, all other values of the triplet on one
-  line, best first within each structure, the rest folded. Rows name their structure,
-  except values in a default standard structure (three scalars), which the section states
-  once; the structures used are defined once above the table.
+  and the relation to block normalizations, in [docs/THREE_POINT.md](docs/THREE_POINT.md), 1.4.
+- Several determinations of a coefficient are several `values` of one three-point function,
+  of the same structure or of different ones. Conventions go in the structure, once; a
+  value's `note` is about the value (locator, rigor, assumptions, agreement).
+- The page shows one item per three-point function, labelled $\langle O_1O_2O_3\rangle$ with
+  its operators lightest first, the items lightest first; each element of a basis of several
+  structures ($n_B$, $n_F$) on its own line, all other values on one line, best first within
+  each structure, the rest folded. Each row names its structure (and the operator order it
+  assumes, if not the label's); the structures used are defined once below the table.
 
 ### Families
 
@@ -557,7 +563,7 @@ Both bounds agree [@kos2016; @simmons2017, Table 1].
   and never cite a paper that isn't in the entry's `references` list: add it there first.
 - A key always means the current entry's reference. A note shown on another page (a flow
   shown on its IR theory's page) still finds it; the site handles this.
-- A standard OPE structure (`data/ope_structures.yaml`) cites by key too, and its keys mean
+- A standard three-point structure (`data/three_point_structures.yaml`) cites by key too, and its keys mean
   the references of the entry that shows it: an entry that uses it must list them (e.g.
   `costa2011`, for the embedding-space notation). The build checks it.
 
