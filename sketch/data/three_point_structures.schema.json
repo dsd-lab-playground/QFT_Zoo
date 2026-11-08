@@ -28,6 +28,7 @@
         "d": { "type": "integer", "description": "The spacetime dimension it is defined in, if only one; the build checks it against the entry." },
         "basis": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "As for an entry's structures: an id shared by the elements of one basis of several independent structures." },
         "relation": { "type": "string", "description": "[markdown] Relations that follow from the definition." },
+        "derivation": { "type": "string", "description": "[markdown] Not shown on the page: how the definition follows from the sources, for verifiers." },
         "form": { "type": "string", "minLength": 1, "description": "[latex] What the structure is, written out or in a form some work has given it; needed unless a single-monomial `embedding` says it. See docs/THREE_POINT.md." },
         "embedding": { "type": "string", "minLength": 1, "description": "[latex] Optional: the three-point function in embedding space, in the notation of Costa, Penedones, Poland and Rychkov, Spinning Conformal Correlators (arXiv:1107.3554): points P_i, polarizations Z_i, P_{ij} = -2 P_i.P_j, V_{i,jk}, H_{ij}. A formula without $...$, shown in display math. Only for a structure that is a simple embedding-space structure. See docs/THREE_POINT.md." }
       }
