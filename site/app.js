@@ -846,14 +846,13 @@ function quantityTable(t, items, cat, source) {
       q._ord ? `<div class="sub">in the order ${tex(opeBracket(q._ord))}</div>` : ""}`;
     // A value that is the square or the modulus of the coefficient says so.
     const of = it.ope && q.value_of ? `${tex(q.value_of === "square" ? `${q.symbol}^2` : `|${q.symbol}|`)} = ` : "";
-    return [
-      sym,
-      ...(hasOpe ? [stCell] : []),
-      desc + (q.note ? `<div class="sub">${md(q.note, true)}</div>` : ""),
-      ...(hasRel ? [head && rel.get(it) ? `<span class="rel">${tex(rel.get(it).tex)}</span>` : ""] : []),
-      `${of ? `<span class="value-of">${of}<span class="value">${tex(q.value)}</span></span>` : `<span class="value">${tex(q.value)}</span>`}${more}`,
-      source(q),
-    ];
+    const valueCell = `${of ? `<span class="value-of">${of}<span class="value">${tex(q.value)}</span></span>` : `<span class="value">${tex(q.value)}</span>`}${more}`;
+    const notes = desc + (q.note ? `<div class="sub">${md(q.note, true)}</div>` : "");
+    const relCell = hasRel ? [head && rel.get(it) ? `<span class="rel">${tex(rel.get(it).tex)}</span>` : ""] : [];
+    // A coefficient sits right before the structure it multiplies.
+    return hasOpe
+      ? [sym, valueCell, stCell, notes, ...relCell, source(q)]
+      : [sym, notes, ...relCell, valueCell, source(q)];
   };
   const tr = (cells, attrs = "") => `<tr${attrs}>${cells.map((c) => `<td>${c ?? ""}</td>`).join("")}</tr>`;
   const body = (it) =>
@@ -864,8 +863,10 @@ function quantityTable(t, items, cat, source) {
       return tr(row(head, one, line, true), k ? ' class="ope-line"' : "") + rest.map((q) => tr(row(q, one, line, false), ` class="det" data-det="${id}" hidden`)).join("");
     }).join("")}</tbody>`;
   const headers = cat === "ope"
-    ? ["Three-point function", ...(hasOpe ? ["Structure"] : []), "Notes", "Coefficient", "Source"]
-    : [cat === "exponent" ? "Exponent" : "Quantity", ...(hasOpe ? ["Structure"] : []), "Description", ...(hasRel ? ["Relation"] : []), "Value", "Source"];
+    ? ["Three-point function", "Coefficient", "Structure", "Notes", "Source"]
+    : hasOpe
+      ? ["Quantity", "Value", "Structure", "Description", ...(hasRel ? ["Relation"] : []), "Source"]
+      : [cat === "exponent" ? "Exponent" : "Quantity", "Description", ...(hasRel ? ["Relation"] : []), "Value", "Source"];
   return {
     html: `<div class="table-wrap"><table class="qty"><thead><tr>${headers.map((h) => `<th>${h}</th>`).join("")}</tr></thead>${items.map(body).join("")}</table></div>`,
     hasRel,

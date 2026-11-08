@@ -79,7 +79,7 @@ quantities:
 three_point_structures:
   - id: chiral
     symbol: '\lambda'
-    name: 'chiral, unit-normalized'
+    name: '$1$'
     form: '\langle u(x_1)\,u(x_2)\,\overline{u^2}(x_3)\rangle = \frac{\lambda_{uu\overline{u^2}}}{x_{12}^{2\Delta_u-\Delta_{u^2}}\,x_{23}^{\Delta_{u^2}}\,x_{31}^{\Delta_{u^2}}}'
     ref: 'gimenezgrau2020, Eq. (2.13)'
     description: 'The three-scalar structure of the chiral OPE $u\times u \ni u^2$, with unit-normalized two-point functions $\langle u(x)\bar u(0)\rangle = |x|^{-2\Delta_u}$ and $\langle u^2(x)\,\overline{u^2}(0)\rangle = |x|^{-2\Delta_{u^2}}$. The sources write $u$ as the chiral primary $\phi_r$ and define the coefficient by the chiral-channel expansion $\langle\phi_r\phi_r\bar\phi_{-r}\bar\phi_{-r}\rangle = x_{12}^{-2\Delta_\phi}x_{34}^{-2\Delta_\phi}\sum_O|\lambda_{\phi\phi\bar O}|^2g_{\Delta,\ell}(z,\bar z)$ [@gimenezgrau2020, Eq. (2.13), Table 2; @cornagliotto2017, Eq. (2.8)], with blocks $g_{\Delta,\ell} = \frac{z\bar z}{z-\bar z}\big(k_{\Delta+\ell}(z)k_{\Delta-\ell-2}(\bar z) - (z\leftrightarrow\bar z)\big)$ [@gimenezgrau2020, Eqs. (2.10)–(2.11); @cornagliotto2017, Eq. (A.1)], so that $g_{\Delta,0} = (z\bar z)^{\Delta/2}+\dots$: the quoted $\lambda^2$ is the square of the coefficient of this unit-normalized structure (generalized free field: 2).'

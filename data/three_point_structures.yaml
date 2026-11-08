@@ -20,7 +20,7 @@
 structures:
   - id: scalar
     symbol: '\lambda'
-    name: three scalars, unit-normalized
+    name: '$1$'
     default: true
     spins: [0, 0, 0]
     description: >-
@@ -36,7 +36,7 @@ structures:
 
   - id: vector-vector-singlet
     symbol: '\lambda'
-    name: 'vector × vector → singlet, $\delta_{ij}$'
+    name: '$\delta_{ij}$'
     default: true
     spins: [0, 0, 0]
     description: >-
@@ -49,7 +49,7 @@ structures:
   - id: ttt-free-boson-3d
     form: 'n_B\,\langle TTT\rangle_B'
     symbol: 'n_B'
-    name: free-scalar ⟨TTT⟩
+    name: '$\langle TTT\rangle_B$'
     d: 3
     spins: [2, 2, 2]
     basis: ttt-free-3d
@@ -65,7 +65,7 @@ structures:
   - id: ttt-free-fermion-3d
     form: 'n_F\,\langle TTT\rangle_F'
     symbol: 'n_F'
-    name: free-Majorana ⟨TTT⟩
+    name: '$\langle TTT\rangle_F$'
     d: 3
     spins: [2, 2, 2]
     basis: ttt-free-3d

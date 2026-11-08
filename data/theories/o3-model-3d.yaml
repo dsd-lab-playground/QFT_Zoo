@@ -95,19 +95,19 @@ three_point_structures:
   # defines its coefficients through four-point tensor structures (its Eqs. (11), (32)); the three-point tensors below
   # are the ones those imply (see the descriptions).
   - id: chester2020-tts
-    name: 'tensor × tensor → singlet'
+    name: '$\delta^{i_1j_1}\delta^{i_2j_2}$'
     form: '\langle t^{i_1i_2}(x_1)\,t^{j_1j_2}(x_2)\,s(x_3)\rangle = \lambda_{tts}\,\frac{\delta^{i_1j_1}\delta^{i_2j_2}}{x_{12}^{2\Delta_t-\Delta_s}\,x_{23}^{\Delta_s}\,x_{31}^{\Delta_s}}'
     symbol: '\lambda'
     ref: 'chester2020, App. C, Eq. (32)'
     description: '$t$ is the symmetric traceless tensor ($\mathbf 2^+$) and $s$ the singlet ($\mathbf 0^+$) of $O(3)$; indices with the same letter are symmetrized with their trace removed, and the operators are normalized as $\langle s s\rangle = x_{12}^{-2\Delta_s}$, $\langle\phi^i\phi^j\rangle = \delta^{ij}x_{12}^{-2\Delta_\phi}$, $\langle t^{i_1i_2}t^{j_1j_2}\rangle = \delta^{i_1j_1}\delta^{i_2j_2}x_{12}^{-2\Delta_t}$ [@chester2020, Eq. (13), p. 10]. The paper defines its coefficients by the conformal block expansion $\sum_O(-1)^\ell\lambda_{\varphi_1\varphi_2O}\lambda_{\varphi_3\varphi_4O}T^{\mathcal R}g_{\Delta,\ell}$ of four-point functions [@chester2020, Eq. (11)], with blocks normalized as in [@poland2019, Table I, second line] and four-point $O(3)$ structures $T^{\mathcal R}$ [@chester2020, App. C, Eqs. (29), (32), pp. 26–28] normalized to make the coefficients consistent under permutations, checked in free theory [@chester2020, Eq. (33)]; it does not write the three-point tensors. This tensor is inferred from them (not stated by the source): contracted over the exchanged operator it reproduces $T^{\mathbf 0^+}_{\mathbf 2^+\mathbf 2^+\mathbf 0^+\mathbf 0^+} = B_{ttss}$, $T^{\mathbf 2^+}_{\mathbf 2^+\mathbf 0^+\mathbf 2^+\mathbf 0^+} = B_{tsts}$, $T^{\mathbf 0^+}_{\mathbf 2^+\mathbf 2^+\mathbf 2^+\mathbf 2^+} = B^1_{tttt}$ and $T^{\mathbf 0^+}_{\mathbf 2^+\mathbf 2^+\mathbf 1^-\mathbf 1^-} = B^1_{tt\phi\phi}$ exactly (checked numerically). The spacetime dependence is that of three scalars.'
   - id: chester2020-phiphit
-    name: 'vector × vector → tensor'
+    name: '$\sqrt2\,\delta^{ik_1}\delta^{jk_2}$'
     form: '\langle \phi^i(x_1)\,\phi^j(x_2)\,t^{k_1k_2}(x_3)\rangle = \sqrt{2}\,\lambda_{\phi\phi t}\,\frac{\delta^{ik_1}\delta^{jk_2}}{x_{12}^{2\Delta_\phi-\Delta_t}\,x_{23}^{\Delta_t}\,x_{31}^{\Delta_t}}'
     symbol: '\lambda'
     ref: 'chester2020, App. C, Eq. (32)'
     description: '$\phi$ is the vector ($\mathbf 1^-$) and $t$ the symmetric traceless tensor ($\mathbf 2^+$) of $O(3)$; indices $k$ are symmetrized with their trace removed, operators normalized as in [@chester2020, Eq. (13), p. 10]. As for $\langle tts\rangle$, the paper defines the coefficient through four-point structures [@chester2020, Eqs. (11), (32)] and does not write this tensor; it is inferred from them (not stated by the source): with the factor $\sqrt2$ it reproduces exactly (checked numerically) $T^{\mathbf 2^+}_{\mathbf 1^-\mathbf 1^-\mathbf 1^-\mathbf 1^-} = B^2_{\phi\phi\phi\phi}+B^3_{\phi\phi\phi\phi}-\frac23B^1_{\phi\phi\phi\phi}$, $T^{\mathbf 1^-}_{\mathbf 2^+\mathbf 1^-\mathbf 2^+\mathbf 1^-} = 2B^2_{t\phi t\phi}$, $T^{\mathbf 2^+}_{\mathbf 1^-\mathbf 1^-\mathbf 0^+\mathbf 2^+} = \sqrt2 B_{\phi\phi st}$ and, with $\langle ttt\rangle$, $T^{\mathbf 2^+}_{\mathbf 2^+\mathbf 2^+\mathbf 1^-\mathbf 1^-}$. In free theory, $t^{ij} = (\phi^i\phi^j - \text{trace})/\sqrt2$ [@chester2020, Eq. (33)] gives $\lambda_{\phi\phi t} = 1$ in this structure.'
   - id: chester2020-ttt
-    name: 'tensor × tensor → tensor'
+    name: '$\sqrt2\,\delta^{i_1j_1}\delta^{i_2k_1}\delta^{j_2k_2}$'
     form: '\langle t^{i_1i_2}(x_1)\,t^{j_1j_2}(x_2)\,t^{k_1k_2}(x_3)\rangle = \sqrt{2}\,\lambda_{ttt}\,\frac{\delta^{i_1j_1}\delta^{i_2k_1}\delta^{j_2k_2}}{(x_{12}\,x_{23}\,x_{31})^{\Delta_t}}'
     symbol: '\lambda'
     ref: 'chester2020, App. C, Eq. (32)'
