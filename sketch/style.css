@@ -135,7 +135,6 @@ table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 th, td { text-align: left; vertical-align: top; padding: 6px 10px; border-bottom: 1px solid var(--border); }
 th .katex { text-transform: none; font-size: 1.1rem; }
 th { font: 500 0.9rem var(--display); color: var(--band-text); background: var(--band); }
-table.data tbody tr:nth-child(even) { background: var(--row-hover); }
 tbody tr:last-child td { border-bottom: 0; }
 .num { text-align: center; white-space: nowrap; }
 
@@ -149,7 +148,6 @@ table.catalogue td.summary { color: var(--muted); min-width: 260px; }
 table.data .value { white-space: nowrap; }
 /* Operators: one tbody per operator (its other determinations folded below it), sectors headed by their rep. */
 table.ops .value { white-space: nowrap; }
-table.ops tbody.alt > tr:not(.det) > td { background: var(--row-hover); }
 table.ops tr.op-group th {
   background: var(--accent-soft); color: var(--text); font: 600 0.92rem var(--sans);
   padding: 5px 10px; border-top: 1px solid var(--border);

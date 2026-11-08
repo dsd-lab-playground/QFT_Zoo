@@ -544,7 +544,7 @@ const QCATS = {
     title: "OPE coefficients",
     intro: (triplets) =>
       `Coefficients of the ${wiki("Operator_product_expansion", "operator product expansion")}${
-        triplets ? ": one item per triplet of operators, those with the lightest operators first. Each value multiplies a three-point structure, defined below and named in the value's row (except a standard one marked as unlabelled); values in different structures are different numbers and are never compared" : ""}.`,
+        triplets ? ": one item per triplet of operators, those with the lightest operators first. Each value multiplies a three-point structure, defined below and named in the value's Structure column; values in different structures are different numbers and are never compared" : ""}.`,
   },
   exponent: {
     id: "exponents",
@@ -719,7 +719,7 @@ let DET_SEQ = 0;
    - each value names its structure in its row, except a default standard structure (three scalars, unit-normalized),
      which the section states once (OPE_LABEL_DEFAULTS = true labels those too);
    - the structures used on the page are defined once, at the top of the section. */
-const OPE_LABEL_DEFAULTS = false;
+const OPE_LABEL_DEFAULTS = true; // David: every value shows its structure, the standard scalar one included
 
 /** The structures an entry's values may name, id -> structure (with `own` for the entry's and `order`). */
 function opeStructures(t) {
@@ -769,7 +769,7 @@ function opeItems(t) {
  *  standard structure (unless OPE_LABEL_DEFAULTS). Clicking it shows the structure's definition at the top. */
 function opeLabel(t, st) {
   if (!st || (st.default && !OPE_LABEL_DEFAULTS)) return "";
-  return `<div class="sub ope-st"><button type="button" class="linkish" data-ope-st="${esc(st.id)}" title="Show the definition of this structure">${
+  return `<div class="ope-st"><button type="button" class="linkish" data-ope-st="${esc(st.id)}" title="Show the definition of this structure">${
     st.name ? md(st.name, true) : "structure"}</button>${st.ref ? ` ${citeRefs(t.id, [st.ref])}` : ""}</div>`;
 }
 
@@ -792,6 +792,8 @@ function opeStructuresHtml(t, items, title = "Structures") {
  *  relation column. An item's lines each show their first row; the other rows of a line fold below it. */
 function quantityTable(t, items, cat, source) {
   const rel = new Map(cat === "exponent" ? items.map((it) => [it, exponentRelation(it)]) : []);
+  // OPE values name the structure they multiply in a column of its own.
+  const hasOpe = items.some((it) => it.ope);
   const hasRel = [...rel.values()].some(Boolean);
   const describe = (q, it) => {
     let d = String(q.description ?? "");
@@ -812,7 +814,8 @@ function quantityTable(t, items, cat, source) {
     const more = head && n ? detsButton(it.id, n, line.filter((r) => bad(it, line, r)).length) : head ? "" : disagreeBadge(bad(it, line, q));
     const sym = head || (it.ope && q.symbol !== line[0].symbol) ? tex(q.symbol) : "";
     return [
-      sym + (it.ope ? opeLabel(t, q._st) : ""),
+      sym,
+      ...(hasOpe ? [it.ope && (head || q._st !== line[0]._st) ? opeLabel(t, q._st) : ""] : []),
       desc + (q.note ? `<div class="sub">${md(q.note, true)}</div>` : ""),
       ...(hasRel ? [head && rel.get(it) ? `<span class="rel">${tex(rel.get(it).tex)}</span>` : ""] : []),
       `<span class="value">${tex(q.value)}</span>${more}`,
@@ -827,7 +830,7 @@ function quantityTable(t, items, cat, source) {
       const one = { ...it, id };
       return tr(row(head, one, line, true), k ? ' class="ope-line"' : "") + rest.map((q) => tr(row(q, one, line, false), ` class="det" data-det="${id}" hidden`)).join("");
     }).join("")}</tbody>`;
-  const headers = [cat === "exponent" ? "Exponent" : cat === "ope" ? "Coefficient" : "Quantity", "Description",
+  const headers = [cat === "exponent" ? "Exponent" : cat === "ope" ? "Coefficient" : "Quantity", ...(hasOpe ? ["Structure"] : []), "Description",
     ...(hasRel ? ["Relation"] : []), "Value", "Source"];
   return {
     html: `<div class="table-wrap"><table class="qty"><thead><tr>${headers.map((h) => `<th>${h}</th>`).join("")}</tr></thead>${items.map(body).join("")}</table></div>`,
