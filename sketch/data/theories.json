@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-08 06:59 UTC",
+ "generated": "2026-11-08 07:41 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
- "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, role, ...) are Markdown: use $...$ for math,\n#     and cite as [@key] or [@key, Sec. 2] (never a direct link; see CONTRIBUTING.md, Citations).\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: '$O(4,1)$ — 3d conformal group with parity'   # group — colloquial name; see CONTRIBUTING.md, Spacetime symmetry\n  supercharges: 0                  # real Poincaré supercharges Q; for SUSY theories also state Q and S in spacetime\n  global: '$O(N)$'                 # the global symmetry in words (Markdown)\n  parity: true                     # true | false | conditional (docs/REPRESENTATIONS.md)\n  global_group:                    # the factors operators' representations refer to; [] if none\n    - {id: O(N), group: O(N)}      # group: Z2, Z_n, U(1), O(N), SO(N), SU(N), Sp(N), S_n, D_n, finite\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: 'CB, rigorous'         # an abbreviation from data/methods.yaml, then an optional qualifier (CONTRIBUTING.md, Methods)\n    refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    parity: even                   # even | odd | pair | unknown\n    global: {O(N): vector}         # a label per factor of global_group (docs/REPRESENTATIONS.md)\n    role: 'order parameter'        # optional remark; never part of the representation\n    method: CB\n    refs: [author2025]\n\n# OPE coefficients: one item per triplet of operators, each value naming the structure it multiplies (docs/OPE.md).\n# ope_structures:                             # only for a structure that is a choice of a paper, not a standard one\n#   - id: author2025\n#     symbol: 'f'\n#     ref: 'author2025, Eq. (2.1)'             # the formula that defines it\n#     description: 'Scalar–scalar–spin-$\\ell$ structure ..., in embedding space $V_{3,12}^\\ell$ [@costa2011, Eq. (4.10)] ...'\n#     embedding: '\\langle\\phi_1(P_1)\\,\\phi_2(P_2)\\,O(P_3,Z_3)\\rangle = \\lambda_{12O}\\,\\frac{V_{3,12}^{\\,\\ell}}{\\cdots}'   # optional (docs/OPE.md 1.4)\n# ope_coefficients:\n#   - operators: ['\\phi', '\\phi', 's']        # `name`s from the operators table\n#     values:\n#       - structure: vector-vector-singlet     # a standard structure (data/ope_structures.yaml), or an id of ope_structures\n#         symbol: '\\lambda_{\\phi\\phi s}'\n#         value: '0.52(1)'\n#         method: CB\n#         refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
+ "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, role, ...) are Markdown: use $...$ for math,\n#     and cite as [@key] or [@key, Sec. 2] (never a direct link; see CONTRIBUTING.md, Citations).\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: '$O(4,1)$ — 3d conformal group with parity'   # group — colloquial name; see CONTRIBUTING.md, Spacetime symmetry\n  supercharges: 0                  # real Poincaré supercharges Q; for SUSY theories also state Q and S in spacetime\n  global: '$O(N)$'                 # the global symmetry in words (Markdown)\n  parity: true                     # true | false | conditional (docs/REPRESENTATIONS.md)\n  global_group:                    # the factors operators' representations refer to; [] if none\n    - {id: O(N), group: O(N)}      # group: Z2, Z_n, U(1), O(N), SO(N), SU(N), Sp(N), S_n, D_n, finite\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: 'CB, rigorous'         # an abbreviation from data/methods.yaml, then an optional qualifier (CONTRIBUTING.md, Methods)\n    refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    parity: even                   # even | odd | pair | unknown\n    global: {O(N): vector}         # a label per factor of global_group (docs/REPRESENTATIONS.md)\n    role: 'order parameter'        # optional remark; never part of the representation\n    method: CB\n    refs: [author2025]\n\n# Three-point functions: one item per unordered triple of operators (lightest first); each value is the coefficient of\n# one structure (docs/THREE_POINT.md).\n# three_point_structures:                     # only for a structure that is a choice of a paper, not a standard one\n#   - id: author2025\n#     name: 'scalar–scalar–spin-$\\ell$, ...'   # what it is, in a few words\n#     form: '\\langle\\phi_1(x_1)\\,\\phi_2(x_2)\\,O(x_3,z)\\rangle = \\lambda\\,\\cdots'   # in the source's notation\n#     ref: 'author2025, Eq. (2.1)'             # the formula that defines it\n#     description: 'Normalization of the operators and of the structure or blocks, the symbols of the form ...'\n# three_point_functions:\n#   - operators: ['\\phi', '\\phi', 's']        # `name`s from the operators table\n#     values:\n#       - structure: vector-vector-singlet     # a standard structure (data/three_point_structures.yaml), or an id of three_point_structures\n#         value: '0.52(1)'\n#         method: CB\n#         refs: [author2025]\n#         # order: ['s', '\\phi', '\\phi']      # only if the structure assumes another order of the operators\n#         # value_of: square                  # only if the number is the square (or `modulus`) of the coefficient\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
  "theories": [
   {
    "id": "lee-yang-2d",
@@ -74,7 +74,7 @@
      ]
     }
    ],
-   "ope_coefficients": [
+   "three_point_functions": [
     {
      "operators": [
       "\\phi = \\phi_{1,2}",
@@ -2566,7 +2566,7 @@
      ]
     }
    ],
-   "ope_coefficients": [
+   "three_point_functions": [
     {
      "operators": [
       "\\sigma",
@@ -20831,7 +20831,8 @@
       "tex": "SU(2)_R",
       "note": "right-moving R-symmetry"
      }
-    ]
+    ],
+    "notes": "Representations of the $\\mathcal{N}=4$ algebra are named as by Eguchi and Taormina [@k3-sigma-models/et1988]: massless (BPS) or massive, by $h$ and the $su(2)$ isospin."
    },
    "quantities": [
     {
@@ -20909,7 +20910,7 @@
      "multiplet": {
       "name": "$\\Phi^{\\rm RR}_a$",
       "component": "primary",
-      "type": "Ramond ground state"
+      "type": "massless (Ramond), $h = \\bar h = \\tfrac14$"
      },
      "method": "exact",
      "refs": [
@@ -21139,6 +21140,14 @@
      "arxiv": "1506.06198",
      "doi": "10.1186/s40687-015-0050-9",
      "note": "Twined K3 elliptic genera from the canonically twisted Conway module."
+    },
+    {
+     "key": "et1988",
+     "title": "Character formulas for the $N=4$ superconformal algebra",
+     "authors": "Eguchi, Taormina",
+     "year": 1988,
+     "journal": "Phys. Lett. B200 (1988) 315",
+     "doi": "10.1016/0370-2693(88)90778-2"
     }
    ],
    "contributors": [
@@ -24370,7 +24379,7 @@
      }
     ],
     "gauge": "$U(N)_k \\times U(N)_{-k}$",
-    "notes": "12 real Poincaré supercharges for generic $k$ and 16 at $k = 1, 2$, where the enhancement is not manifest in the Lagrangian. Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@abjm-3d/cordova2016, Secs. 2.1.6–2.1.7]: $X[j]^{(R)}_\\Delta$, with $j$ twice the spin and $R$ the $\\mathfrak{so}(6)_R$ Dynkin labels (at $k = 1, 2$, $\\mathfrak{so}(8)_R$ labels in the triality frame where $Q$ is in $\\mathbf{8}_v$, with $\\mathbf{8}_c = (0,0,0,1)$). Under $SO(8)_R \\supset SU(4)_R\\times U(1)$ the $\\mathbf{35}_c$ contains $\\mathbf{15}\\oplus\\mathbf{10}\\oplus\\overline{\\mathbf{10}}$; the $\\mathbf{15}$ is the primary of the $\\mathcal{N}=6$ stress-tensor multiplet $B_1[0]^{(0,1,1)}_1$."
+    "notes": "12 real Poincaré supercharges for generic $k$ and 16 at $k = 1, 2$, where the enhancement is not manifest in the Lagrangian. Multiplet names follow Dolan [@abjm-3d/dolan2008] as used by Binder, Chester, Jerdee and Pufu [@abjm-3d/bcjp2020, Table 2] for $\\mathcal{N}=6$ (the stress-tensor multiplet is $(B,2)$, in $[011] = \\mathbf{15}$) and by Chester, Lee, Pufu and Yacoby [@abjm-3d/clpy2014, Table 2] for $\\mathcal{N}=8$ (it is $(B,+)$, in $\\mathbf{35}_c$). The notation of Cordova, Dumitrescu and Intriligator [@abjm-3d/cordova2016, Secs. 2.1.6–2.1.7] is shown on hover: $X[j]^{(R)}_\\Delta$, with $j$ twice the spin and $R$ the $\\mathfrak{so}(6)_R$ Dynkin labels (at $k = 1, 2$, $\\mathfrak{so}(8)_R$ labels in the triality frame where $Q$ is in $\\mathbf{8}_v$, with $\\mathbf{8}_c = (0,0,0,1)$). Under $SO(8)_R \\supset SU(4)_R\\times U(1)$ the $\\mathbf{35}_c$ contains $\\mathbf{15}\\oplus\\mathbf{10}\\oplus\\overline{\\mathbf{10}}$; the $\\mathbf{15}$ is the primary of the $\\mathcal{N}=6$ stress-tensor multiplet $B_1[0]^{(0,1,1)}_1$."
    },
    "quantities": [
     {
@@ -24439,7 +24448,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^4",
-      "type": "$B_1[0]^{(0,1,1)}_1$"
+      "type": "$(B,2)$",
+      "cdi": "$B_1[0]^{(0,1,1)}_1$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -24486,7 +24496,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^2",
-      "type": "$B_1[0]^{(0,1,1)}_1$"
+      "type": "$(B,2)$",
+      "cdi": "$B_1[0]^{(0,1,1)}_1$"
      },
      "method": "exact",
      "note": "Conserved R-symmetry currents. At $k = 1, 2$ further conserved currents built from monopole operators enhance the symmetry to $SO(8)_R$.",
@@ -24538,7 +24549,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "primary",
-      "type": "$B_1[0]^{(0,0,0,2)}_1$ ($k = 1, 2$)"
+      "type": "$(B,+)$ ($k = 1, 2$)",
+      "cdi": "$B_1[0]^{(0,0,0,2)}_1$ ($k = 1, 2$)"
      },
      "method": "exact",
      "refs": [
@@ -24649,6 +24661,33 @@
      "authors": "Cordova, Dumitrescu, Intriligator",
      "year": 2016,
      "arxiv": "1612.00809"
+    },
+    {
+     "key": "dolan2008",
+     "title": "On Superconformal Characters and Partition Functions in Three Dimensions",
+     "authors": "Dolan",
+     "year": 2008,
+     "journal": "J. Math. Phys. 51 (2010) 022301",
+     "arxiv": "0811.2740",
+     "doi": "10.1063/1.3211091"
+    },
+    {
+     "key": "clpy2014",
+     "title": "Exact Correlators of BPS Operators from the 3d Superconformal Bootstrap",
+     "authors": "Chester, Lee, Pufu, Yacoby",
+     "year": 2014,
+     "journal": "JHEP 03 (2015) 130",
+     "arxiv": "1412.0334",
+     "doi": "10.1007/JHEP03(2015)130"
+    },
+    {
+     "key": "bcjp2020",
+     "title": "The 3d $\\mathcal{N}=6$ bootstrap: from higher spins to strings to membranes",
+     "authors": "Binder, Chester, Jerdee, Pufu",
+     "year": 2020,
+     "journal": "JHEP 05 (2021) 083",
+     "arxiv": "2011.05728",
+     "doi": "10.1007/JHEP05(2021)083"
     }
    ],
    "contributors": [
@@ -24773,7 +24812,7 @@
      }
     ],
     "gauge": "$SU(2)_k\\times SU(2)_{-k}$ or $(SU(2)_k\\times SU(2)_{-k})/\\mathbb{Z}_2$",
-    "notes": "Supersymmetry is manifest in the Lagrangian for every $k$, unlike for ABJM at $k = 1, 2$. Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@blg-3d/cordova2016, Sec. 2.1.7]: $X[j]^{(R)}_\\Delta$, with $j$ twice the spin and $R$ the $\\mathfrak{so}(8)_R$ Dynkin labels in the triality frame where $Q$ is in $\\mathbf{8}_v = (1,0,0,0)$, with $\\mathbf{8}_c = (0,0,0,1)$, so that the $\\mathbf{35}_c$ stress-tensor multiplet is $B_1[0]^{(0,0,0,2)}_1$ [@blg-3d/cordova2016, Eq. (5.74)]."
+    "notes": "Supersymmetry is manifest in the Lagrangian for every $k$, unlike for ABJM at $k = 1, 2$. Multiplet names follow Dolan [@blg-3d/dolan2008] as used by Chester, Lee, Pufu and Yacoby [@blg-3d/clpy2014, Table 2]: $(B,+)$ half-BPS (the stress-tensor multiplet, in $[0020] = \\mathbf{35}_c$), $(B,n)$ and $(A,n)$ short and semi-short, $(A,0)$ long. The notation of Cordova, Dumitrescu and Intriligator [@blg-3d/cordova2016, Sec. 2.1.7] is shown on hover: $X[j]^{(R)}_\\Delta$, with $j$ twice the spin and $R$ the $\\mathfrak{so}(8)_R$ Dynkin labels in the triality frame where $Q$ is in $\\mathbf{8}_v = (1,0,0,0)$, with $\\mathbf{8}_c = (0,0,0,1)$, so that the $\\mathbf{35}_c$ stress-tensor multiplet is $B_1[0]^{(0,0,0,2)}_1$ [@blg-3d/cordova2016, Eq. (5.74)]."
    },
    "quantities": [
     {
@@ -24840,7 +24879,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^4",
-      "type": "$B_1[0]^{(0,0,0,2)}_1$"
+      "type": "$(B,+)$",
+      "cdi": "$B_1[0]^{(0,0,0,2)}_1$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -24874,7 +24914,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^2",
-      "type": "$B_1[0]^{(0,0,0,2)}_1$"
+      "type": "$(B,+)$",
+      "cdi": "$B_1[0]^{(0,0,0,2)}_1$"
      },
      "method": "exact",
      "note": "Conserved R-symmetry currents.",
@@ -24908,7 +24949,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "primary",
-      "type": "$B_1[0]^{(0,0,0,2)}_1$"
+      "type": "$(B,+)$",
+      "cdi": "$B_1[0]^{(0,0,0,2)}_1$"
      },
      "method": "exact",
      "refs": [
@@ -25054,6 +25096,24 @@
      "authors": "Cordova, Dumitrescu, Intriligator",
      "year": 2016,
      "arxiv": "1612.00809"
+    },
+    {
+     "key": "dolan2008",
+     "title": "On Superconformal Characters and Partition Functions in Three Dimensions",
+     "authors": "Dolan",
+     "year": 2008,
+     "journal": "J. Math. Phys. 51 (2010) 022301",
+     "arxiv": "0811.2740",
+     "doi": "10.1063/1.3211091"
+    },
+    {
+     "key": "clpy2014",
+     "title": "Exact Correlators of BPS Operators from the 3d Superconformal Bootstrap",
+     "authors": "Chester, Lee, Pufu, Yacoby",
+     "year": 2014,
+     "journal": "JHEP 03 (2015) 130",
+     "arxiv": "1412.0334",
+     "doi": "10.1007/JHEP03(2015)130"
     }
    ],
    "contributors": [
@@ -27738,7 +27798,8 @@
     "supercharges": 2,
     "global": "time reversal / parity ($\\sigma$ odd)",
     "parity": true,
-    "global_group": []
+    "global_group": [],
+    "notes": "Multiplets are named descriptively (long; stress-tensor multiplet), as the 3d $\\mathcal{N}=1$ literature does; the label of Cordova, Dumitrescu and Intriligator [@gny-n1-3d/cdi2016] is shown on hover."
    },
    "quantities": [
     {
@@ -27779,7 +27840,7 @@
      "category": "ope"
     }
    ],
-   "ope_coefficients": [
+   "three_point_functions": [
     {
      "operators": [
       "\\sigma",
@@ -27807,7 +27868,9 @@
      "parity": "odd",
      "multiplet": {
       "name": "$\\sigma$",
-      "component": "primary"
+      "component": "primary",
+      "type": "long",
+      "cdi": "$L[0]_\\Delta$"
      },
      "method": "CB",
      "refs": [
@@ -27825,7 +27888,9 @@
      "parity": "unknown",
      "multiplet": {
       "name": "$\\sigma$",
-      "component": "Q"
+      "component": "Q",
+      "type": "long",
+      "cdi": "$L[0]_\\Delta$"
      },
      "method": "CB, from Δσ",
      "refs": [
@@ -27844,7 +27909,9 @@
      "parity": "even",
      "multiplet": {
       "name": "$\\sigma$",
-      "component": "Q^2"
+      "component": "Q^2",
+      "type": "long",
+      "cdi": "$L[0]_\\Delta$"
      },
      "method": "CB, from Δσ",
      "refs": [
@@ -27863,7 +27930,9 @@
      "parity": "odd",
      "multiplet": {
       "name": "$\\sigma'$",
-      "component": "primary"
+      "component": "primary",
+      "type": "long",
+      "cdi": "$L[0]_\\Delta$"
      },
      "method": "CB",
      "refs": [
@@ -27881,7 +27950,9 @@
      "parity": "even",
      "multiplet": {
       "name": "$\\sigma'$",
-      "component": "Q^2"
+      "component": "Q^2",
+      "type": "long",
+      "cdi": "$L[0]_\\Delta$"
      },
      "method": "CB, from Δσ′",
      "refs": [
@@ -27901,7 +27972,8 @@
      "role": "supercurrent",
      "multiplet": {
       "name": "stress tensor",
-      "component": "primary"
+      "component": "primary",
+      "cdi": "$A_1[3]_{5/2}$"
      },
      "method": "exact",
      "irrep": {
@@ -27916,7 +27988,8 @@
      "parity": "even",
      "multiplet": {
       "name": "stress tensor",
-      "component": "Q"
+      "component": "Q",
+      "cdi": "$A_1[3]_{5/2}$"
      },
      "method": "exact",
      "note": "Stress tensor, in the same multiplet as the supercurrent.",
@@ -27981,6 +28054,15 @@
      "arxiv": "1107.3554",
      "doi": "10.1007/JHEP11(2011)071",
      "note": "The embedding-space notation of the OPE structures: $P_{ij}$, Eq. (2.9); $V_{i,jk}$, $H_{ij}$, Eqs. (4.14)–(4.16). Locators refer to arXiv v3, whose printed page numbers are 1 less than the PDF's."
+    },
+    {
+     "key": "cdi2016",
+     "title": "Multiplets of Superconformal Symmetry in Diverse Dimensions",
+     "authors": "Cordova, Dumitrescu, Intriligator",
+     "year": 2016,
+     "journal": "JHEP 03 (2019) 163",
+     "arxiv": "1612.00809",
+     "doi": "10.1007/JHEP03(2019)163"
     }
    ],
    "contributors": [
@@ -29801,35 +29883,36 @@
      ]
     }
    ],
-   "ope_structures": [
+   "three_point_structures": [
     {
      "id": "sd16",
-     "name": "$2^{\\ell/2}\\,V_{3,12}^\\ell$",
+     "name": "scalar–scalar–spin-$\\ell$, blocks $z^h\\bar z^{\\bar h}+\\dots$",
+     "form": "\\lambda_{12O}\\lambda_{43O}\\,G_{h,\\bar h}(z,\\bar z) = \\lambda_{12O}\\lambda_{43O}\\,z^{\\frac{\\Delta-\\ell}{2}}\\,\\bar z^{\\frac{\\Delta+\\ell}{2}} + \\dots",
      "symbol": "f",
      "ref": "simmonsduffin2016, Eq. (A.16)",
-     "description": "Scalar–scalar–spin-$\\ell$ structure $\\langle\\phi_1\\phi_2 O_{\\Delta,\\ell}\\rangle$, external scalars unit-normalized, with conformal blocks normalized as in [@ising-3d/simmonsduffin2016, Eq. (A.16)], so that they start as $z^{(\\Delta-\\ell)/2}\\bar z^{(\\Delta+\\ell)/2}$. At $\\ell = 0$ it is the three-scalar $\\lambda$. In this normalization the Ward identity gives $\\lambda_{\\sigma\\sigma T}/\\lambda_{\\epsilon\\epsilon T} = \\Delta_\\sigma/\\Delta_\\epsilon$ and $\\lambda_{\\phi\\phi T}^2 = \\frac{3}{8}\\Delta_\\phi^2\\, C_T^{\\rm free}/C_T$ (free scalar: $3/32$). The sign depends on the order of the two external operators: $\\lambda_{43O} = (-1)^\\ell \\lambda_{34O}$ [@ising-3d/simmonsduffin2016, p. 71]. In embedding space it is the scalar–scalar–spin-$\\ell$ structure [@ising-3d/costa2011, Sec. 4.2.1, Eqs. (4.10)–(4.12)], $V_{3,12}^\\ell$ with $V_{3,12}$ of [@ising-3d/costa2011, Eq. (4.11)] and $P_{ij} \\equiv -2P_i\\cdot P_j$ [@ising-3d/costa2011, Eq. (2.9)], for $O$ unit-normalized as $\\langle O(P_1,Z_1)\\,O(P_2,Z_2)\\rangle = H_{12}^\\ell/P_{12}^{\\Delta+\\ell}$ [@ising-3d/costa2011, Eqs. (4.9), (4.15)]; the structure is $2^{\\ell/2}V_{3,12}^\\ell$ (relation below).",
+     "description": "The scalar–scalar–spin-$\\ell$ structure of $\\langle\\phi_1\\phi_2 O_{\\Delta,\\ell}\\rangle$, external scalars unit-normalized, with its coefficient normalized by the conformal blocks, as the source defines it: in the conformal block expansion of $\\langle\\phi_1\\phi_2\\phi_3\\phi_4\\rangle$ the exchange of $O$ contributes $\\lambda_{12O}\\lambda_{43O}\\,G^{r,s}_{h,\\bar h}(z,\\bar z)$, with $h = \\frac{\\Delta-\\ell}{2}$, $\\bar h = \\frac{\\Delta+\\ell}{2}$, $r = \\frac{\\Delta_{12}}{2}$, $s = \\frac{\\Delta_{34}}{2}$, and the blocks start as $z^h\\bar z^{\\bar h}$ [@ising-3d/simmonsduffin2016, Eq. (A.16), p. 71] (the source writes the coefficient $f$ and does not write the three-point function itself). At $\\ell = 0$ it is the three-scalar structure. In this normalization the Ward identity gives $\\lambda_{\\sigma\\sigma T}/\\lambda_{\\epsilon\\epsilon T} = \\Delta_\\sigma/\\Delta_\\epsilon$ and $\\lambda_{\\phi\\phi T}^2 = \\frac{3}{8}\\Delta_\\phi^2\\, C_T^{\\rm free}/C_T$ (free scalar: $3/32$). The sign depends on the order of the two external operators: $\\lambda_{43O} = (-1)^\\ell \\lambda_{34O}$ [@ising-3d/simmonsduffin2016, p. 71]. In embedding space (derived below, not written in the source) it is $2^{\\ell/2}$ times the scalar–scalar–spin-$\\ell$ structure $V_{3,12}^\\ell$ [@ising-3d/costa2011, Sec. 4.2.1, Eqs. (4.10)–(4.12)], with $P_{ij} \\equiv -2P_i\\cdot P_j$ [@ising-3d/costa2011, Eq. (2.9)] and $O$ unit-normalized as $\\langle O(P_1,Z_1)\\,O(P_2,Z_2)\\rangle = H_{12}^\\ell/P_{12}^{\\Delta+\\ell}$ [@ising-3d/costa2011, Eqs. (4.9), (4.15)].",
      "embedding": "\\langle\\phi_1(P_1)\\,\\phi_2(P_2)\\,O(P_3,Z_3)\\rangle = \\lambda_{12O}\\, 2^{\\ell/2}\\, \\frac{V_{3,12}^{\\,\\ell}}{P_{12}^{\\frac{\\Delta_1+\\Delta_2-\\Delta-\\ell}{2}}\\, P_{23}^{\\frac{\\Delta_2+\\Delta+\\ell-\\Delta_1}{2}}\\, P_{31}^{\\frac{\\Delta+\\ell+\\Delta_1-\\Delta_2}{2}}}",
-     "relation": "A coefficient in this structure is $2^{-\\ell/2}$ times the same coefficient in the $V_{3,12}^\\ell$ structure. Other papers normalize spinning blocks differently, by spin-dependent factors [@ising-3d/simmonsduffin2016, Eq. (A.17)]. Why $2^{\\ell/2}$ (the letters $\\lambda$, $f$ below are the sources' own): on the Poincaré section $V_{3,12}^\\ell$ with unit-normalized operators becomes $(Z\\cdot z)^\\ell$, $Z^\\mu = x_{13}^\\mu/x_{13}^2 - x_{23}^\\mu/x_{23}^2$, times the scalar factor [@ising-3d/costa2011, Eqs. (4.30), (4.37)], which is the structure of [@ising-3d/poland2019, Eqs. (22)–(24)]; its coefficients $\\lambda$ multiply blocks that start as $\\lambda_{12O}\\lambda_{34O}(-\\frac{1}{2})^\\ell z^{(\\Delta-\\ell)/2}\\bar z^{(\\Delta+\\ell)/2}$ [@ising-3d/poland2019, Eqs. (52), (54)], while the blocks here start as $f_{12O}f_{43O}\\, z^{(\\Delta-\\ell)/2}\\bar z^{(\\Delta+\\ell)/2}$ [@ising-3d/simmonsduffin2016, Eq. (A.16)] ($2^\\ell$ times those of [@ising-3d/poland2019], as its Table I lists). So $f_{12O}f_{43O} = 2^{-\\ell}\\lambda_{12O}\\lambda_{43O}$: the coefficient here is $2^{-\\ell/2}$ times that of $V_{3,12}^\\ell$, with the same choice of the sign of $O$. At $\\ell = 2$ it agrees with the Ward identity: the block coefficient of the stress tensor in the normalization of [@ising-3d/poland2019], $\\lambda_{\\phi\\phi T}^2 = \\frac{d^2}{(d-1)^2}\\Delta_\\phi^2/C_T$ for unit-normalized $T$ [@ising-3d/poland2019, Eq. (86)], with $C_T^{\\rm free} = d/(d-1)$ [@ising-3d/poland2019, Eq. (87)], is $\\frac{3}{2}\\Delta_\\phi^2\\,C_T^{\\rm free}/C_T = 4 f_{\\phi\\phi T}^2$ in 3d."
+     "relation": "A coefficient in this structure is $2^{-\\ell/2}$ times the coefficient of the same three-point function in the structure $[(Z_{123}\\cdot\\zeta)^\\ell - \\text{traces}]K_3$ of [@ising-3d/poland2019, Eqs. (22)–(24)] ($V_{3,12}^\\ell$ in embedding space). Other papers normalize spinning blocks differently, by spin-dependent factors [@ising-3d/simmonsduffin2016, Eq. (A.17)]. Why $2^{-\\ell/2}$: on the Poincaré section $V_{3,12}^\\ell$ with unit-normalized operators becomes the structure of [@ising-3d/poland2019, Eqs. (22)–(24)] [@ising-3d/costa2011, Eqs. (4.30), (4.37)]; the exchange of $O$ contributes to the four-point function the product of the two coefficients in that structure times blocks that start as $(-\\frac{1}{2})^\\ell z^h\\bar z^{\\bar h}$ [@ising-3d/poland2019, Eqs. (52), (54)] (ordered $12O$, $34O$), and the product of the two coefficients in this structure (ordered $12O$, $43O$) times blocks that start as $z^h\\bar z^{\\bar h}$ [@ising-3d/simmonsduffin2016, Eq. (A.16)] ($2^\\ell$ times those of [@ising-3d/poland2019], as its Table I lists). With the sign $(-1)^\\ell$ of reordering $34O \\to 43O$, the products differ by $2^{\\ell}$, so each coefficient by $2^{\\ell/2}$, with the same choice of the sign of $O$. At $\\ell = 2$ it agrees with the Ward identity: the square of the stress-tensor coefficient in the structure of [@ising-3d/poland2019] is $\\frac{d^2}{(d-1)^2}\\Delta_\\phi^2/C_T$ for unit-normalized $T$ [@ising-3d/poland2019, Eq. (86)], with $C_T^{\\rm free} = d/(d-1)$ [@ising-3d/poland2019, Eq. (87)], i.e. $\\frac{3}{2}\\Delta_\\phi^2\\,C_T^{\\rm free}/C_T$ in 3d: 4 times the square in this structure, $\\frac{3}{8}\\Delta_\\phi^2\\,C_T^{\\rm free}/C_T$."
     },
     {
      "id": "reehorst2021",
-     "name": "$V_{3,12}^\\ell$",
+     "name": "scalar–scalar–spin-$\\ell$, $(Z_{123}\\cdot\\zeta)^\\ell$",
+     "form": "\\langle O_{\\Delta_1}(x_1)\\,O_{\\Delta_2}(x_2)\\,O_{\\Delta_3,\\ell}(x_3,\\zeta)\\rangle = \\lambda_{123}\\,\\frac{(Z_{123}\\cdot\\zeta)^\\ell - \\text{traces}}{(x_{12}^2)^{\\frac{h_{123}+\\ell}{2}}\\,(x_{13}^2)^{\\frac{h_{132}-\\ell}{2}}\\,(x_{23}^2)^{\\frac{h_{231}-\\ell}{2}}},\\quad Z_{123}^\\mu = \\frac{x_{13}^\\mu}{x_{13}^2} - \\frac{x_{23}^\\mu}{x_{23}^2}",
      "symbol": "\\lambda",
      "ref": "reehorst2021, p. 6, fn. 3",
-     "description": "Scalar–scalar–spin-$\\ell$ structure, external scalars unit-normalized, with the conformal-block normalization of Reehorst [@ising-3d/reehorst2021, p. 6, fn. 3], which is that of [@ising-3d/poland2019, Eq. (52)]: $\\lambda_{12O}$ is the coefficient of the structure of [@ising-3d/poland2019, Eqs. (22)–(24)], i.e. in embedding space of $V_{3,12}^\\ell$ [@ising-3d/costa2011, Eqs. (4.10)–(4.12)] with $O$ unit-normalized, $\\langle O(P_1,Z_1)\\,O(P_2,Z_2)\\rangle = H_{12}^\\ell/P_{12}^{\\Delta+\\ell}$ [@ising-3d/costa2011, Eq. (4.9)].",
-     "embedding": "\\langle\\phi_1(P_1)\\,\\phi_2(P_2)\\,O(P_3,Z_3)\\rangle = \\lambda_{12O}\\, \\frac{V_{3,12}^{\\,\\ell}}{P_{12}^{\\frac{\\Delta_1+\\Delta_2-\\Delta-\\ell}{2}}\\, P_{23}^{\\frac{\\Delta_2+\\Delta+\\ell-\\Delta_1}{2}}\\, P_{31}^{\\frac{\\Delta+\\ell+\\Delta_1-\\Delta_2}{2}}}",
-     "relation": "A coefficient in this structure is $2^{\\ell/2}$ times the same coefficient in the $2^{\\ell/2}V_{3,12}^\\ell$ structure of [@ising-3d/simmonsduffin2016, Eq. (A.16)], twice it at spin 2: the paper notes a factor of 2 relative to the values of [@ising-3d/simmonsduffin2016] from the different block normalization [@ising-3d/reehorst2021, p. 16], and its generalized-free-field coefficients [@ising-3d/reehorst2021, Eq. (2.4)] are $2^\\ell$ times those in the normalization of [@ising-3d/simmonsduffin2016]. The same factor follows from the two block normalizations (see the structure of [@ising-3d/simmonsduffin2016, Eq. (A.16)])."
+     "description": "The scalar–scalar–spin-$\\ell$ structure in the normalization that Reehorst et al. use: that of the review of Poland, Rychkov and Vichi [@ising-3d/reehorst2021, p. 6, fn. 3], whose three-point function is the formula above [@ising-3d/poland2019, Eqs. (23)–(24)], with $h_{ijk} \\equiv \\Delta_i+\\Delta_j-\\Delta_k$, a polarization $\\zeta$ of $O$, and all operators unit-normalized, $\\langle O_{\\Delta,\\ell}(x_1,\\zeta_1)O_{\\Delta,\\ell}(x_2,\\zeta_2)\\rangle = [(I_{\\mu\\nu}(x_{12})\\zeta_1^\\mu\\zeta_2^\\nu)^\\ell - \\text{traces}]/(x_{12}^2)^\\Delta$ [@ising-3d/poland2019, Eq. (22)]; its blocks start as $(-\\frac{1}{2})^\\ell z^{(\\Delta-\\ell)/2}\\bar z^{(\\Delta+\\ell)/2}$ [@ising-3d/poland2019, Eqs. (52), (54)]. The coefficient is antisymmetric for odd $\\ell$, $\\lambda_{123} = (-1)^\\ell\\lambda_{213}$ [@ising-3d/poland2019, Eq. (25)]. In embedding space it is the coefficient of $V_{3,12}^\\ell$ [@ising-3d/costa2011, Eqs. (4.10)–(4.12), (4.30), (4.37)].",
+     "relation": "A coefficient in this structure is $2^{\\ell/2}$ times the coefficient of the same three-point function in the block-normalized structure of [@ising-3d/simmonsduffin2016, Eq. (A.16)], twice it at spin 2: the paper notes a factor of 2 relative to the values of [@ising-3d/simmonsduffin2016] from the different block normalization [@ising-3d/reehorst2021, p. 16], and its generalized-free-field coefficients [@ising-3d/reehorst2021, Eq. (2.4)] are $2^\\ell$ times those in the normalization of [@ising-3d/simmonsduffin2016] (squares). The same factor follows from the two block normalizations (see the structure of [@ising-3d/simmonsduffin2016, Eq. (A.16)])."
     },
     {
      "id": "chang2024-tte",
      "name": "parity-even $\\langle TT\\epsilon\\rangle$",
-     "form": "\\langle \\hat T\\hat T\\epsilon\\rangle = \\frac{\\lambda_{TT\\epsilon}}{P_{12}^{\\frac{6-\\Delta_\\epsilon}{2}+2} P_{23}^{\\frac{\\Delta_\\epsilon}{2}} P_{31}^{\\frac{\\Delta_\\epsilon}{2}}} \\Big( V_1^2 V_2^2 + \\tfrac{4(\\Delta_\\epsilon-4)}{\\Delta_\\epsilon+2} H_{12} V_1 V_2 + \\tfrac{2(\\Delta_\\epsilon^2-6\\Delta_\\epsilon+6)}{\\Delta_\\epsilon(\\Delta_\\epsilon+2)} H_{12}^2 \\Big)",
+     "form": "\\langle \\hat T(X_1,Z_1)\\,\\hat T(X_2,Z_2)\\,\\epsilon(X_3)\\rangle = \\lambda_{TT\\epsilon}\\,\\frac{1}{X_{12}^{\\frac{6-\\Delta_\\epsilon}{2}+2}\\, X_{23}^{\\frac{\\Delta_\\epsilon}{2}}\\, X_{31}^{\\frac{\\Delta_\\epsilon}{2}}} \\Big( V_1^2 V_2^2 + \\frac{4(\\Delta_\\epsilon-4)}{\\Delta_\\epsilon+2} H_{12} V_1 V_2 + \\frac{2(\\Delta_\\epsilon^2-6\\Delta_\\epsilon+6)}{\\Delta_\\epsilon(\\Delta_\\epsilon+2)} H_{12}^2 \\Big)",
      "symbol": "\\lambda",
      "ref": "chang2024, Eq. (2.2)",
-     "description": "The parity-even structure of $\\langle TT\\epsilon\\rangle$ as normalized by [@ising-3d/chang2024, Eq. (2.2), p. 5], with the unit-normalized $\\hat T = T/\\sqrt{c_T}$ [@ising-3d/chang2024, Eq. (2.9)], chosen to match the five-point-bootstrap convention of Poland, Prilepina and Tadić [@ising-3d/poland2023]. A choice of these papers, not a standard normalization: other papers normalize this structure differently. The source states it in embedding space as a combination of the structures $V_i$, $H_{ij}$ of [@ising-3d/costa2011] (not a single monomial, so no formula is shown here); it writes the points $X_i$ and $X_{ij}$, and does not restate the definitions, which are read here as those of [@ising-3d/costa2011]: $P_{ij} \\equiv -2P_i\\cdot P_j$ [@ising-3d/costa2011, Eq. (2.9)], $V_1 \\equiv V_{1,23}$, $V_2 \\equiv V_{2,31}$ and $H_{12}$ [@ising-3d/costa2011, Eqs. (4.14)–(4.16)], and $\\langle\\hat T(P_1,Z_1)\\,\\hat T(P_2,Z_2)\\rangle = H_{12}^2/P_{12}^5$ [@ising-3d/chang2024, Eq. (2.9)], the unit normalization of [@ising-3d/costa2011, Eq. (4.9)]. In the $SO(3)_r$ basis it is $-\\lambda_{TT\\epsilon}\\frac{16\\Delta_\\epsilon}{2+\\Delta_\\epsilon}\\,\\mathtt{ScalarParityEven}_{\\Delta_\\epsilon}$ [@ising-3d/chang2024, Eqs. (2.2)–(2.3)]."
+     "description": "The parity-even structure of $\\langle TT\\epsilon\\rangle$ as written and normalized by [@ising-3d/chang2024, Eq. (2.2), p. 5], with the unit-normalized stress tensor $\\hat T = T/\\sqrt{c_T}$, $\\langle\\hat T\\hat T\\rangle = H_{12}^2/X_{12}^5$ [@ising-3d/chang2024, Eq. (2.9)], chosen to match the five-point-bootstrap convention of Poland, Prilepina and Tadić [@ising-3d/poland2023]. A choice of these papers, not a standard normalization: other papers normalize this structure differently. The source calls $V_i$ and $H_{ij}$ the standard embedding-space structures of [@ising-3d/costa2011] and writes the points $X_i$; read with the definitions of [@ising-3d/costa2011], $X_{ij} \\equiv -2X_i\\cdot X_j$ (the $P_{ij}$ of [@ising-3d/costa2011, Eq. (2.9)]), $V_1 \\equiv V_{1,23}$, $V_2 \\equiv V_{2,31}$ and $H_{12}$ [@ising-3d/costa2011, Eqs. (4.14)–(4.16)], and the unit normalization of $\\hat T$ is that of [@ising-3d/costa2011, Eq. (4.9)]. In the $SO(3)_r$ basis it is $-\\lambda_{TT\\epsilon}\\frac{16\\Delta_\\epsilon}{2+\\Delta_\\epsilon}\\,\\mathtt{ScalarParityEven}_{\\Delta_\\epsilon}$ [@ising-3d/chang2024, Eqs. (2.2)–(2.3)]."
     }
    ],
-   "ope_coefficients": [
+   "three_point_functions": [
     {
      "operators": [
       "\\sigma",
@@ -29928,13 +30011,18 @@
     },
     {
      "operators": [
+      "\\epsilon",
       "T_{\\mu\\nu}",
-      "T_{\\mu\\nu}",
-      "\\epsilon"
+      "T_{\\mu\\nu}"
      ],
      "values": [
       {
        "structure": "chang2024-tte",
+       "order": [
+        "T_{\\mu\\nu}",
+        "T_{\\mu\\nu}",
+        "\\epsilon"
+       ],
        "symbol": "\\lambda_{TT\\epsilon}",
        "value": "0.95331513(42)",
        "method": "CB, non-rigorous error",
@@ -30124,7 +30212,7 @@
        "refs": [
         "reehorst2021"
        ],
-       "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.5), p. 16], $\\Lambda=19$. Rigorous, assuming only two $\\mathbb{Z}_2$-even spin-2 operators below 6. Compare $2 f_{\\sigma\\sigma T'} = 0.021149(8)$."
+       "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.5), p. 16], $\\Lambda=19$. Rigorous, assuming only two $\\mathbb{Z}_2$-even spin-2 operators below 6. Compare twice the value in the block-normalized structure of [@ising-3d/simmonsduffin2016], $2\\times 0.0105745(42) = 0.021149(8)$."
       }
      ]
     },
@@ -30153,7 +30241,7 @@
        "refs": [
         "reehorst2021"
        ],
-       "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.5), p. 16], $\\Lambda=19$. Same assumptions. Compare $2 f_{\\epsilon\\epsilon T'} = 1.3805(10)$, which lies inside this interval."
+       "note": "[@ising-3d/reehorst2021, Table 1, p. 4; @ising-3d/reehorst2021, Eq. (4.5), p. 16], $\\Lambda=19$. Same assumptions. Compare twice the value in the block-normalized structure of [@ising-3d/simmonsduffin2016], $2\\times 0.69023(49) = 1.3805(10)$, which lies inside this interval."
       }
      ]
     },
@@ -31652,7 +31740,7 @@
      "note": "From $\\Delta_\\epsilon$ [@ising-star-3d/chang2024, Table 2]; identical to the 3d Ising value."
     }
    ],
-   "ope_coefficients": [
+   "three_point_functions": [
     {
      "operators": [
       "\\epsilon",
@@ -31878,7 +31966,7 @@
      ]
     }
    ],
-   "ope_coefficients": [
+   "three_point_functions": [
     {
      "operators": [
       "\\phi",
@@ -31889,6 +31977,7 @@
       {
        "structure": "scalar",
        "symbol": "|C_{\\phi\\phi\\phi}|",
+       "value_of": "modulus",
        "value": "1.9696(31)",
        "method": "FS",
        "refs": [
@@ -32253,7 +32342,7 @@
       "tex": "U(1)_{\\rm top}"
      }
     ],
-    "notes": "Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@minimal-n4-scft-3d/cordova2016, Sec. 2.1.4]: $X[j]^{(R;R')}_\\Delta$, with $j$ twice the spin and $(R;R')$ the Dynkin labels of the conjectured $SO(4)_R \\simeq SU(2)\\times SU(2)$ R-symmetry.",
+    "notes": "Multiplet names follow Dolan [@minimal-n4-scft-3d/dolan2008] as used by Chester, Lee, Pufu and Yacoby [@minimal-n4-scft-3d/clpy2014, Table 1]: $(B,+)$ and $(B,-)$ the half-BPS Higgs- and Coulomb-branch multiplets [@minimal-n4-scft-3d/bpr2016, Sec. 2.1] (Dolan writes $(2,B,\\pm)$), conserved the stress-tensor multiplet. Usage is split; the notation of Cordova, Dumitrescu and Intriligator [@minimal-n4-scft-3d/cordova2016, Sec. 2.1.4] is shown on hover: $X[j]^{(R;R')}_\\Delta$, with $j$ twice the spin and $(R;R')$ the Dynkin labels of the conjectured $SO(4)_R \\simeq SU(2)\\times SU(2)$ R-symmetry.",
     "gauge": "$U(1)_{-3/2}$ (UV description)"
    },
    "quantities": [
@@ -32344,7 +32433,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^4",
-      "type": "$A_2[0]^{(0;0)}_1$"
+      "type": "conserved",
+      "cdi": "$A_2[0]^{(0;0)}_1$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -32407,6 +32497,33 @@
      "authors": "Cordova, Dumitrescu, Intriligator",
      "year": 2016,
      "arxiv": "1612.00809"
+    },
+    {
+     "key": "dolan2008",
+     "title": "On Superconformal Characters and Partition Functions in Three Dimensions",
+     "authors": "Dolan",
+     "year": 2008,
+     "journal": "J. Math. Phys. 51 (2010) 022301",
+     "arxiv": "0811.2740",
+     "doi": "10.1063/1.3211091"
+    },
+    {
+     "key": "clpy2014",
+     "title": "Exact Correlators of BPS Operators from the 3d Superconformal Bootstrap",
+     "authors": "Chester, Lee, Pufu, Yacoby",
+     "year": 2014,
+     "journal": "JHEP 03 (2015) 130",
+     "arxiv": "1412.0334",
+     "doi": "10.1007/JHEP03(2015)130"
+    },
+    {
+     "key": "bpr2016",
+     "title": "Deformation quantization and superconformal symmetry in three dimensions",
+     "authors": "Beem, Peelaers, Rastelli",
+     "year": 2016,
+     "journal": "Commun. Math. Phys. 354 (2017) 345",
+     "arxiv": "1601.05378",
+     "doi": "10.1007/s00220-017-2845-6"
     }
    ],
    "contributors": [
@@ -32468,7 +32585,7 @@
       "tex": "U(1)_R"
      }
     ],
-    "notes": "Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@n2-super-ising-3d/cordova2016, Sec. 2.1.2]: $X\\bar Y[j]^{(r)}_\\Delta$, with $j$ twice the spin and $r$ the $U(1)_R$ charge; $Q$ has $r = -1$ and $\\bar Q$ has $r = +1$, and chiral primaries are $L\\bar B_1[0]^{(r)}_r$."
+    "notes": "Multiplets are named descriptively (chiral, antichiral, long), as is standard in 3d $\\mathcal{N}=2$; the notation of Cordova, Dumitrescu and Intriligator [@n2-super-ising-3d/cordova2016, Sec. 2.1.2] is shown on hover: $X\\bar Y[j]^{(r)}_\\Delta$, with $j$ twice the spin and $r$ the $U(1)_R$ charge; $Q$ has $r = -1$ and $\\bar Q$ has $r = +1$, and chiral primaries are $L\\bar B_1[0]^{(r)}_r$."
    },
    "quantities": [
     {
@@ -32546,7 +32663,8 @@
      "multiplet": {
       "name": "$\\phi$",
       "component": "primary",
-      "type": "$L\\bar B_1[0]^{(2/3)}_{2/3}$"
+      "type": "chiral",
+      "cdi": "$L\\bar B_1[0]^{(2/3)}_{2/3}$"
      },
      "method": "exact",
      "refs": [
@@ -32581,7 +32699,8 @@
      "multiplet": {
       "name": "$\\phi$",
       "component": "Q",
-      "type": "$L\\bar B_1[0]^{(2/3)}_{2/3}$"
+      "type": "chiral",
+      "cdi": "$L\\bar B_1[0]^{(2/3)}_{2/3}$"
      },
      "method": "exact, supersymmetry",
      "refs": [
@@ -32616,7 +32735,8 @@
      "multiplet": {
       "name": "$\\bar\\phi$",
       "component": "\\bar Q^2",
-      "type": "$B_1\\bar L[0]^{(-2/3)}_{2/3}$"
+      "type": "antichiral",
+      "cdi": "$B_1\\bar L[0]^{(-2/3)}_{2/3}$"
      },
      "method": "exact, supersymmetry",
      "refs": [
@@ -32653,7 +32773,8 @@
      "multiplet": {
       "name": "$[\\bar\\Phi\\Phi]$",
       "component": "primary",
-      "type": "$L\\bar L[0]^{(0)}_\\Delta$"
+      "type": "long",
+      "cdi": "$L\\bar L[0]^{(0)}_\\Delta$"
      },
      "method": "CB",
      "refs": [
@@ -32689,7 +32810,8 @@
      "multiplet": {
       "name": "$[\\bar\\Phi\\Phi]$",
       "component": "primary",
-      "type": "$L\\bar L[0]^{(0)}_\\Delta$"
+      "type": "long",
+      "cdi": "$L\\bar L[0]^{(0)}_\\Delta$"
      },
      "method": "ε-exp, 4 − ε, Padé",
      "refs": [
@@ -32724,7 +32846,7 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q\\bar Q",
-      "type": "$A_1\\bar A_1[2]^{(0)}_2$"
+      "cdi": "$A_1\\bar A_1[2]^{(0)}_2$"
      },
      "method": "exact",
      "note": "Stress tensor, in the multiplet whose bottom component is the $U(1)_R$ current.",
@@ -32756,7 +32878,8 @@
      "multiplet": {
       "name": "$[\\bar\\Phi\\Phi]$",
       "component": "Q^2\\bar Q^2",
-      "type": "$L\\bar L[0]^{(0)}_\\Delta$"
+      "type": "long",
+      "cdi": "$L\\bar L[0]^{(0)}_\\Delta$"
      },
      "method": "CB",
      "refs": [
@@ -32792,7 +32915,8 @@
      "multiplet": {
       "name": "$J^\\prime$",
       "component": "primary",
-      "type": "$L\\bar L[2]^{(0)}_\\Delta$"
+      "type": "long",
+      "cdi": "$L\\bar L[2]^{(0)}_\\Delta$"
      },
      "method": "CB",
      "refs": [
@@ -32827,7 +32951,8 @@
      "multiplet": {
       "name": "$[\\bar\\Phi\\Phi]^\\prime$",
       "component": "primary",
-      "type": "$L\\bar L[0]^{(0)}_\\Delta$"
+      "type": "long",
+      "cdi": "$L\\bar L[0]^{(0)}_\\Delta$"
      },
      "method": "CB",
      "refs": [
@@ -33026,7 +33151,7 @@
       "tex": "SU(2)_C"
      }
     ],
-    "notes": "Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@n4-sqed-3d/cordova2016, Sec. 2.1.4]: $X[j]^{(R;R')}_\\Delta$, with $j$ twice the spin and $(R;R')$ the Dynkin labels of $SU(2)_H\\times SU(2)_C$ (Higgs-branch moment maps are in $(2;0)$).",
+    "notes": "Multiplet names follow Dolan [@n4-sqed-3d/dolan2008] as used by Chester, Lee, Pufu and Yacoby [@n4-sqed-3d/clpy2014, Table 1]: $(B,+)$ and $(B,-)$ the half-BPS Higgs- and Coulomb-branch multiplets [@n4-sqed-3d/bpr2016, Sec. 2.1] (Dolan writes $(2,B,\\pm)$), conserved the stress-tensor multiplet. Usage is split; the notation of Cordova, Dumitrescu and Intriligator [@n4-sqed-3d/cordova2016, Sec. 2.1.4] is shown on hover: $X[j]^{(R;R')}_\\Delta$, with $j$ twice the spin and $(R;R')$ the Dynkin labels of $SU(2)_H\\times SU(2)_C$ (Higgs-branch moment maps are in $(2;0)$).",
     "gauge": "$U(1)$"
    },
    "quantities": [
@@ -33075,7 +33200,8 @@
      "multiplet": {
       "name": "$SU(N_f)$ flavor current",
       "component": "primary",
-      "type": "$B_1[0]^{(2;0)}_1$"
+      "type": "$(B,+)$",
+      "cdi": "$B_1[0]^{(2;0)}_1$"
      },
      "method": "exact",
      "refs": [
@@ -33150,7 +33276,8 @@
      "multiplet": {
       "name": "$V_\\pm$",
       "component": "primary",
-      "type": "$B_1[0]^{(0;N_f)}_{N_f/2}$"
+      "type": "$(B,-)$",
+      "cdi": "$B_1[0]^{(0;N_f)}_{N_f/2}$"
      },
      "method": "exact",
      "refs": [
@@ -33228,7 +33355,8 @@
      "multiplet": {
       "name": "flavor current",
       "component": "Q^2",
-      "type": "$B_1[0]^{(2;0)}_1$ ($SU(N_f)$), $B_1[0]^{(0;2)}_1$ ($U(1)_J$)"
+      "type": "$(B,+)$ ($SU(N_f)$), $(B,-)$ ($U(1)_J$)",
+      "cdi": "$B_1[0]^{(2;0)}_1$ ($SU(N_f)$), $B_1[0]^{(0;2)}_1$ ($U(1)_J$)"
      },
      "method": "exact",
      "note": "Conserved flavor and topological currents.",
@@ -33301,7 +33429,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^4",
-      "type": "$A_2[0]^{(0;0)}_1$"
+      "type": "conserved",
+      "cdi": "$A_2[0]^{(0;0)}_1$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -33406,6 +33535,33 @@
      "authors": "Cordova, Dumitrescu, Intriligator",
      "year": 2016,
      "arxiv": "1612.00809"
+    },
+    {
+     "key": "dolan2008",
+     "title": "On Superconformal Characters and Partition Functions in Three Dimensions",
+     "authors": "Dolan",
+     "year": 2008,
+     "journal": "J. Math. Phys. 51 (2010) 022301",
+     "arxiv": "0811.2740",
+     "doi": "10.1063/1.3211091"
+    },
+    {
+     "key": "clpy2014",
+     "title": "Exact Correlators of BPS Operators from the 3d Superconformal Bootstrap",
+     "authors": "Chester, Lee, Pufu, Yacoby",
+     "year": 2014,
+     "journal": "JHEP 03 (2015) 130",
+     "arxiv": "1412.0334",
+     "doi": "10.1007/JHEP03(2015)130"
+    },
+    {
+     "key": "bpr2016",
+     "title": "Deformation quantization and superconformal symmetry in three dimensions",
+     "authors": "Beem, Peelaers, Rastelli",
+     "year": 2016,
+     "journal": "Commun. Math. Phys. 354 (2017) 345",
+     "arxiv": "1601.05378",
+     "doi": "10.1007/s00220-017-2845-6"
     }
    ],
    "contributors": [
@@ -33575,17 +33731,25 @@
      ]
     }
    ],
-   "ope_structures": [
+   "three_point_structures": [
     {
-     "id": "chester2019",
-     "name": "$O(2)$ invariant tensor × three scalars",
-     "form": "\\lambda\\, T^{O(2)}_{abc}\\;\\langle O_1 O_2 O_3\\rangle_{\\text{three scalars}}",
+     "id": "chester2019-tts",
+     "name": "charge 2 × charge 2 → singlet",
+     "form": "\\langle t(x_1,y_1)\\,t(x_2,y_2)\\,s(x_3)\\rangle = \\lambda_{tts}\\,\\frac{(y_1\\cdot y_2)^2}{x_{12}^{2\\Delta_t-\\Delta_s}\\,x_{23}^{\\Delta_s}\\,x_{31}^{\\Delta_s}}",
      "symbol": "\\lambda",
-     "ref": "chester2019",
-     "description": "$T^{O(2)}_{abc}$ is the invariant tensor of the triplet; its normalization is not recorded here. $O(2)$ tensor structures of the three-point functions that involve the charge-2 scalar $t$, with the operators unit-normalized and the invariant tensors normalized as in [@o2-model-3d/chester2019]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator. Their spacetime dependence is that of three scalars [@o2-model-3d/costa2011, Eq. (2.8)]; no embedding-space formula is given, since the normalization of the $O(2)$ tensor that multiplies it is not recorded."
+     "ref": "chester2019, Eqs. (11)–(13)",
+     "description": "$t$ is the charge-2 ($\\mathbf 2$) and $s$ the singlet ($\\mathbf 0^+$) scalar of $O(2)$, contracted with null polarizations $y$ ($y\\cdot y = 0$), $t(x,y) = t^{ij}(x)y_iy_j$ [@o2-model-3d/chester2019, Eq. (8)]. The three-point function is $\\lambda_{\\varphi_1\\varphi_2O}T_{\\mathcal R_1\\mathcal R_2\\mathcal R_3}(y_1,y_2,y_3)$ times the three-scalar structure, with the flavor structure $T_{\\mathbf q\\mathbf q\\mathbf 0^+} = (y_1\\cdot y_2)^q$ [@o2-model-3d/chester2019, Eqs. (11), (13), p. 11], and the operators normalized as $\\langle ss\\rangle = x_{12}^{-2\\Delta_s}$, $\\langle\\phi\\phi\\rangle = (y_1\\cdot y_2)\\,x_{12}^{-2\\Delta_\\phi}$, $\\langle tt\\rangle = (y_1\\cdot y_2)^2x_{12}^{-2\\Delta_t}$ [@o2-model-3d/chester2019, Eq. (16)]; blocks normalized as in [@o2-model-3d/poland2019, Table I, second line]."
+    },
+    {
+     "id": "chester2019-phiphit",
+     "name": "charge 1 × charge 1 → charge 2",
+     "form": "\\langle \\phi(x_1,y_1)\\,\\phi(x_2,y_2)\\,t(x_3,y_3)\\rangle = \\lambda_{\\phi\\phi t}\\,\\frac{(y_2\\cdot y_3)\\,(y_3\\cdot y_1)}{x_{12}^{2\\Delta_\\phi-\\Delta_t}\\,x_{23}^{\\Delta_t}\\,x_{31}^{\\Delta_t}}",
+     "symbol": "\\lambda",
+     "ref": "chester2019, Eqs. (11)–(13)",
+     "description": "$\\phi$ is the charge-1 ($\\mathbf 1$) and $t$ the charge-2 ($\\mathbf 2$) scalar of $O(2)$, contracted with null polarizations $y$ [@o2-model-3d/chester2019, Eq. (8)]. The flavor structure is $T_{\\mathbf q_1\\mathbf q_2\\mathbf q_3} = (y_1\\cdot y_2)^{\\frac{q_1+q_2-q_3}{2}}(y_2\\cdot y_3)^{\\frac{q_2+q_3-q_1}{2}}(y_3\\cdot y_1)^{\\frac{q_3+q_1-q_2}{2}}$ at $q_1 = q_2 = 1$, $q_3 = 2$ [@o2-model-3d/chester2019, Eqs. (11), (13), p. 11]; operators normalized as in [@o2-model-3d/chester2019, Eq. (16)], blocks as in [@o2-model-3d/poland2019, Table I, second line]."
     }
    ],
-   "ope_coefficients": [
+   "three_point_functions": [
     {
      "operators": [
       "\\phi",
@@ -33630,7 +33794,7 @@
      ],
      "values": [
       {
-       "structure": "chester2019",
+       "structure": "chester2019-tts",
        "symbol": "\\lambda_{tts}",
        "value": "1.25213(14)",
        "method": "CB, non-rigorous error",
@@ -33648,7 +33812,7 @@
      ],
      "values": [
       {
-       "structure": "chester2019",
+       "structure": "chester2019-phiphit",
        "symbol": "\\lambda_{\\phi\\phi t}",
        "value": "1.213408(65)",
        "method": "CB, non-rigorous error",
@@ -33888,6 +34052,16 @@
      "arxiv": "cond-mat/0012164"
     },
     {
+     "key": "poland2019",
+     "title": "The Conformal Bootstrap: Theory, Numerical Techniques, and Applications",
+     "authors": "Poland, Rychkov, Vichi",
+     "year": 2019,
+     "journal": "Rev. Mod. Phys. 91, 015002",
+     "arxiv": "1805.04405",
+     "doi": "10.1103/RevModPhys.91.015002",
+     "note": "Locators refer to arXiv v3. Table I lists conformal-block normalizations used in the literature."
+    },
+    {
      "key": "costa2011",
      "title": "Spinning Conformal Correlators",
      "authors": "Costa, Penedones, Poland, Rychkov",
@@ -34043,17 +34217,33 @@
      ]
     }
    ],
-   "ope_structures": [
+   "three_point_structures": [
     {
-     "id": "chester2020",
-     "name": "$O(3)$ invariant tensor × three scalars",
-     "form": "\\lambda\\, T^{O(3)}_{abc}\\;\\langle O_1 O_2 O_3\\rangle_{\\text{three scalars}}",
+     "id": "chester2020-tts",
+     "name": "tensor × tensor → singlet",
+     "form": "\\langle t^{i_1i_2}(x_1)\\,t^{j_1j_2}(x_2)\\,s(x_3)\\rangle = \\lambda_{tts}\\,\\frac{\\delta^{i_1j_1}\\delta^{i_2j_2}}{x_{12}^{2\\Delta_t-\\Delta_s}\\,x_{23}^{\\Delta_s}\\,x_{31}^{\\Delta_s}}",
      "symbol": "\\lambda",
-     "ref": "chester2020",
-     "description": "$T^{O(3)}_{abc}$ is the invariant tensor of the triplet; its normalization is not recorded here. $O(3)$ tensor structures of the three-point functions that involve the symmetric traceless tensor $t_{ij}$, with the operators unit-normalized and the invariant tensors normalized as in [@o3-model-3d/chester2020]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator. Their spacetime dependence is that of three scalars [@o3-model-3d/costa2011, Eq. (2.8)]; no embedding-space formula is given, since the normalization of the $O(3)$ tensor that multiplies it is not recorded."
+     "ref": "chester2020, App. C, Eq. (32)",
+     "description": "$t$ is the symmetric traceless tensor ($\\mathbf 2^+$) and $s$ the singlet ($\\mathbf 0^+$) of $O(3)$; indices with the same letter are symmetrized with their trace removed, and the operators are normalized as $\\langle s s\\rangle = x_{12}^{-2\\Delta_s}$, $\\langle\\phi^i\\phi^j\\rangle = \\delta^{ij}x_{12}^{-2\\Delta_\\phi}$, $\\langle t^{i_1i_2}t^{j_1j_2}\\rangle = \\delta^{i_1j_1}\\delta^{i_2j_2}x_{12}^{-2\\Delta_t}$ [@o3-model-3d/chester2020, Eq. (13), p. 10]. The paper defines its coefficients by the conformal block expansion $\\sum_O(-1)^\\ell\\lambda_{\\varphi_1\\varphi_2O}\\lambda_{\\varphi_3\\varphi_4O}T^{\\mathcal R}g_{\\Delta,\\ell}$ of four-point functions [@o3-model-3d/chester2020, Eq. (11)], with blocks normalized as in [@o3-model-3d/poland2019, Table I, second line] and four-point $O(3)$ structures $T^{\\mathcal R}$ [@o3-model-3d/chester2020, App. C, Eqs. (29), (32), pp. 26–28] normalized to make the coefficients consistent under permutations, checked in free theory [@o3-model-3d/chester2020, Eq. (33)]; it does not write the three-point tensors. This tensor is inferred from them (not stated by the source): contracted over the exchanged operator it reproduces $T^{\\mathbf 0^+}_{\\mathbf 2^+\\mathbf 2^+\\mathbf 0^+\\mathbf 0^+} = B_{ttss}$, $T^{\\mathbf 2^+}_{\\mathbf 2^+\\mathbf 0^+\\mathbf 2^+\\mathbf 0^+} = B_{tsts}$, $T^{\\mathbf 0^+}_{\\mathbf 2^+\\mathbf 2^+\\mathbf 2^+\\mathbf 2^+} = B^1_{tttt}$ and $T^{\\mathbf 0^+}_{\\mathbf 2^+\\mathbf 2^+\\mathbf 1^-\\mathbf 1^-} = B^1_{tt\\phi\\phi}$ exactly (checked numerically). The spacetime dependence is that of three scalars."
+    },
+    {
+     "id": "chester2020-phiphit",
+     "name": "vector × vector → tensor",
+     "form": "\\langle \\phi^i(x_1)\\,\\phi^j(x_2)\\,t^{k_1k_2}(x_3)\\rangle = \\sqrt{2}\\,\\lambda_{\\phi\\phi t}\\,\\frac{\\delta^{ik_1}\\delta^{jk_2}}{x_{12}^{2\\Delta_\\phi-\\Delta_t}\\,x_{23}^{\\Delta_t}\\,x_{31}^{\\Delta_t}}",
+     "symbol": "\\lambda",
+     "ref": "chester2020, App. C, Eq. (32)",
+     "description": "$\\phi$ is the vector ($\\mathbf 1^-$) and $t$ the symmetric traceless tensor ($\\mathbf 2^+$) of $O(3)$; indices $k$ are symmetrized with their trace removed, operators normalized as in [@o3-model-3d/chester2020, Eq. (13), p. 10]. As for $\\langle tts\\rangle$, the paper defines the coefficient through four-point structures [@o3-model-3d/chester2020, Eqs. (11), (32)] and does not write this tensor; it is inferred from them (not stated by the source): with the factor $\\sqrt2$ it reproduces exactly (checked numerically) $T^{\\mathbf 2^+}_{\\mathbf 1^-\\mathbf 1^-\\mathbf 1^-\\mathbf 1^-} = B^2_{\\phi\\phi\\phi\\phi}+B^3_{\\phi\\phi\\phi\\phi}-\\frac23B^1_{\\phi\\phi\\phi\\phi}$, $T^{\\mathbf 1^-}_{\\mathbf 2^+\\mathbf 1^-\\mathbf 2^+\\mathbf 1^-} = 2B^2_{t\\phi t\\phi}$, $T^{\\mathbf 2^+}_{\\mathbf 1^-\\mathbf 1^-\\mathbf 0^+\\mathbf 2^+} = \\sqrt2 B_{\\phi\\phi st}$ and, with $\\langle ttt\\rangle$, $T^{\\mathbf 2^+}_{\\mathbf 2^+\\mathbf 2^+\\mathbf 1^-\\mathbf 1^-}$. In free theory, $t^{ij} = (\\phi^i\\phi^j - \\text{trace})/\\sqrt2$ [@o3-model-3d/chester2020, Eq. (33)] gives $\\lambda_{\\phi\\phi t} = 1$ in this structure."
+    },
+    {
+     "id": "chester2020-ttt",
+     "name": "tensor × tensor → tensor",
+     "form": "\\langle t^{i_1i_2}(x_1)\\,t^{j_1j_2}(x_2)\\,t^{k_1k_2}(x_3)\\rangle = \\sqrt{2}\\,\\lambda_{ttt}\\,\\frac{\\delta^{i_1j_1}\\delta^{i_2k_1}\\delta^{j_2k_2}}{(x_{12}\\,x_{23}\\,x_{31})^{\\Delta_t}}",
+     "symbol": "\\lambda",
+     "ref": "chester2020, App. C, Eq. (32)",
+     "description": "$t$ is the symmetric traceless tensor ($\\mathbf 2^+$) of $O(3)$; indices with the same letter are symmetrized with their trace removed, operators normalized as in [@o3-model-3d/chester2020, Eq. (13), p. 10]. As for $\\langle tts\\rangle$, the paper defines the coefficient through four-point structures [@o3-model-3d/chester2020, Eqs. (11), (32)] and does not write this tensor; it is inferred from them (not stated by the source): with the factor $\\sqrt2$ it reproduces exactly (checked numerically) $T^{\\mathbf 2^+}_{\\mathbf 2^+\\mathbf 2^+\\mathbf 2^+\\mathbf 2^+} = B^4_{tttt}+B^5_{tttt}-\\frac23B^1_{tttt}$, $T^{\\mathbf 2^+}_{\\mathbf 0^+\\mathbf 2^+\\mathbf 2^+\\mathbf 2^+} = \\sqrt2 B_{sttt}$ and, with $\\langle\\phi\\phi t\\rangle$, $T^{\\mathbf 2^+}_{\\mathbf 2^+\\mathbf 2^+\\mathbf 1^-\\mathbf 1^-} = B^2_{tt\\phi\\phi}+B^3_{tt\\phi\\phi}-\\frac23B^1_{tt\\phi\\phi}$."
     }
    ],
-   "ope_coefficients": [
+   "three_point_functions": [
     {
      "operators": [
       "\\phi_i",
@@ -34098,7 +34288,7 @@
      ],
      "values": [
       {
-       "structure": "chester2020",
+       "structure": "chester2020-tts",
        "symbol": "\\lambda_{tts}",
        "value": "0.98348(39)",
        "method": "CB, non-rigorous error",
@@ -34116,7 +34306,7 @@
      ],
      "values": [
       {
-       "structure": "chester2020",
+       "structure": "chester2020-phiphit",
        "symbol": "\\lambda_{\\phi\\phi t}",
        "value": "0.87451(22)",
        "method": "CB, non-rigorous error",
@@ -34134,7 +34324,7 @@
      ],
      "values": [
       {
-       "structure": "chester2020",
+       "structure": "chester2020-ttt",
        "symbol": "\\lambda_{ttt}",
        "value": "1.49957(49)",
        "method": "CB, non-rigorous error",
@@ -34578,6 +34768,16 @@
      "year": 2002,
      "journal": "Phys. Rept. 368, 549",
      "arxiv": "cond-mat/0012164"
+    },
+    {
+     "key": "poland2019",
+     "title": "The Conformal Bootstrap: Theory, Numerical Techniques, and Applications",
+     "authors": "Poland, Rychkov, Vichi",
+     "year": 2019,
+     "journal": "Rev. Mod. Phys. 91, 015002",
+     "arxiv": "1805.04405",
+     "doi": "10.1103/RevModPhys.91.015002",
+     "note": "Locators refer to arXiv v3. Table I lists conformal-block normalizations used in the literature."
     },
     {
      "key": "costa2011",
@@ -38530,7 +38730,7 @@
      }
     ],
     "gauge": "$U(1)\\times U(2)\\times\\dots\\times U(N-1)$ (UV quiver)",
-    "notes": "Only the Cartan $U(1)^{N-1}$ of the Coulomb-branch $SU(N)$ is visible in the UV. Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@t-sun-3d/cordova2016, Sec. 2.1.4]: $X[j]^{(R;R')}_\\Delta$, with $j$ twice the spin and $(R;R')$ the Dynkin labels of $SU(2)_H\\times SU(2)_C$ (Higgs-branch moment maps are in $(2;0)$)."
+    "notes": "Only the Cartan $U(1)^{N-1}$ of the Coulomb-branch $SU(N)$ is visible in the UV. Multiplet names follow Dolan [@t-sun-3d/dolan2008] as used by Chester, Lee, Pufu and Yacoby [@t-sun-3d/clpy2014, Table 1]: $(B,+)$ and $(B,-)$ the half-BPS Higgs- and Coulomb-branch multiplets [@t-sun-3d/bpr2016, Sec. 2.1] (Dolan writes $(2,B,\\pm)$), conserved the stress-tensor multiplet. Usage is split; the notation of Cordova, Dumitrescu and Intriligator [@t-sun-3d/cordova2016, Sec. 2.1.4] is shown on hover: $X[j]^{(R;R')}_\\Delta$, with $j$ twice the spin and $(R;R')$ the Dynkin labels of $SU(2)_H\\times SU(2)_C$ (Higgs-branch moment maps are in $(2;0)$)."
    },
    "quantities": [
     {
@@ -38579,7 +38779,8 @@
      "multiplet": {
       "name": "Higgs-branch flavor current",
       "component": "primary",
-      "type": "$B_1[0]^{(2;0)}_1$"
+      "type": "$(B,+)$",
+      "cdi": "$B_1[0]^{(2;0)}_1$"
      },
      "method": "exact",
      "refs": [
@@ -38654,7 +38855,8 @@
      "multiplet": {
       "name": "Coulomb-branch flavor current",
       "component": "primary",
-      "type": "$B_1[0]^{(0;2)}_1$"
+      "type": "$(B,-)$",
+      "cdi": "$B_1[0]^{(0;2)}_1$"
      },
      "method": "exact",
      "refs": [
@@ -38735,7 +38937,8 @@
      "multiplet": {
       "name": "flavor current",
       "component": "Q^2",
-      "type": "$B_1[0]^{(2;0)}_1$ ($SU(N)_H$), $B_1[0]^{(0;2)}_1$ ($SU(N)_C$)"
+      "type": "$(B,+)$ ($SU(N)_H$), $(B,-)$ ($SU(N)_C$)",
+      "cdi": "$B_1[0]^{(2;0)}_1$ ($SU(N)_H$), $B_1[0]^{(0;2)}_1$ ($SU(N)_C$)"
      },
      "method": "exact",
      "note": "Conserved flavor currents.",
@@ -38811,7 +39014,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^4",
-      "type": "$A_2[0]^{(0;0)}_1$"
+      "type": "conserved",
+      "cdi": "$A_2[0]^{(0;0)}_1$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -38929,6 +39133,33 @@
      "authors": "Cordova, Dumitrescu, Intriligator",
      "year": 2016,
      "arxiv": "1612.00809"
+    },
+    {
+     "key": "dolan2008",
+     "title": "On Superconformal Characters and Partition Functions in Three Dimensions",
+     "authors": "Dolan",
+     "year": 2008,
+     "journal": "J. Math. Phys. 51 (2010) 022301",
+     "arxiv": "0811.2740",
+     "doi": "10.1063/1.3211091"
+    },
+    {
+     "key": "clpy2014",
+     "title": "Exact Correlators of BPS Operators from the 3d Superconformal Bootstrap",
+     "authors": "Chester, Lee, Pufu, Yacoby",
+     "year": 2014,
+     "journal": "JHEP 03 (2015) 130",
+     "arxiv": "1412.0334",
+     "doi": "10.1007/JHEP03(2015)130"
+    },
+    {
+     "key": "bpr2016",
+     "title": "Deformation quantization and superconformal symmetry in three dimensions",
+     "authors": "Beem, Peelaers, Rastelli",
+     "year": 2016,
+     "journal": "Commun. Math. Phys. 354 (2017) 345",
+     "arxiv": "1601.05378",
+     "doi": "10.1007/s00220-017-2845-6"
     }
    ],
    "contributors": [
@@ -39137,7 +39368,7 @@
       "tex": "U(1)_R"
      }
     ],
-    "notes": "In the SQED description the $S_3$ is emergent; only $U(1)_A\\times U(1)_J$ is manifest. Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@xyz-model-3d/cordova2016, Sec. 2.1.2]: $X\\bar Y[j]^{(r)}_\\Delta$, with $j$ twice the spin and $r$ the $U(1)_R$ charge; $Q$ has $r = -1$ and $\\bar Q$ has $r = +1$, and chiral primaries are $L\\bar B_1[0]^{(r)}_r$."
+    "notes": "In the SQED description the $S_3$ is emergent; only $U(1)_A\\times U(1)_J$ is manifest. Multiplets are named descriptively (chiral, antichiral, long), as is standard in 3d $\\mathcal{N}=2$; the notation of Cordova, Dumitrescu and Intriligator [@xyz-model-3d/cordova2016, Sec. 2.1.2] is shown on hover: $X\\bar Y[j]^{(r)}_\\Delta$, with $j$ twice the spin and $r$ the $U(1)_R$ charge; $Q$ has $r = -1$ and $\\bar Q$ has $r = +1$, and chiral primaries are $L\\bar B_1[0]^{(r)}_r$."
    },
    "quantities": [
     {
@@ -39189,7 +39420,8 @@
      "multiplet": {
       "name": "$X, Y, Z$",
       "component": "primary",
-      "type": "$L\\bar B_1[0]^{(2/3)}_{2/3}$"
+      "type": "chiral",
+      "cdi": "$L\\bar B_1[0]^{(2/3)}_{2/3}$"
      },
      "method": "exact",
      "refs": [
@@ -39238,7 +39470,7 @@
      "multiplet": {
       "name": "flavor current",
       "component": "primary",
-      "type": "$A_2\\bar A_2[0]^{(0)}_1$"
+      "cdi": "$A_2\\bar A_2[0]^{(0)}_1$"
      },
      "method": "exact",
      "refs": [
@@ -39285,7 +39517,7 @@
      "multiplet": {
       "name": "flavor current",
       "component": "Q\\bar Q",
-      "type": "$A_2\\bar A_2[0]^{(0)}_1$"
+      "cdi": "$A_2\\bar A_2[0]^{(0)}_1$"
      },
      "method": "exact",
      "note": "Conserved flavor currents.",
@@ -39332,7 +39564,8 @@
      "multiplet": {
       "name": "$X^3, Y^3, Z^3$",
       "component": "primary",
-      "type": "$L\\bar B_1[0]^{(2)}_2$"
+      "type": "chiral",
+      "cdi": "$L\\bar B_1[0]^{(2)}_2$"
      },
      "method": "exact",
      "refs": [
@@ -39381,7 +39614,7 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q\\bar Q",
-      "type": "$A_1\\bar A_1[2]^{(0)}_2$"
+      "cdi": "$A_1\\bar A_1[2]^{(0)}_2$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -39818,7 +40051,7 @@
       "note": "Flavor symmetry: trivial for $H_0$, $SU(2)$ for $H_1$, $SU(3)$ for $H_2$."
      }
     ],
-    "notes": "Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$. Multiplet names follow Dolan and Osborn [@argyres-douglas-4d/dolan2002] as tabulated by Beem et al. [@argyres-douglas-4d/beem2013, Table 7]: $\\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\\hat{\\mathcal{B}}_R$ Higgs-branch half-BPS, $\\hat{\\mathcal{C}}_{0(0,0)}$ stress tensor, $\\mathcal{A}^{\\Delta}_{R,r(j,\\bar\\jmath)}$ long."
+    "notes": "Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$. Multiplet names follow Dolan and Osborn [@argyres-douglas-4d/dolan2002] as tabulated by Beem et al. [@argyres-douglas-4d/beem2013, Table 7]: $\\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\\hat{\\mathcal{B}}_R$ Higgs-branch half-BPS, $\\hat{\\mathcal{C}}_{0(0,0)}$ stress tensor, $\\mathcal{A}^{\\Delta}_{R,r(j,\\bar\\jmath)}$ long. The label of Cordova, Dumitrescu and Intriligator [@argyres-douglas-4d/cdi2016] is shown on hover; its $u(1)_r$ charge is twice the one here."
    },
    "quantities": [
     {
@@ -39883,7 +40116,8 @@
      "multiplet": {
       "name": "$u$",
       "component": "primary",
-      "type": "$\\mathcal{E}_{\\frac65(0,0)}$"
+      "type": "$\\mathcal{E}_{\\frac65(0,0)}$",
+      "cdi": "$L\\bar B_1[0;0]^{(0;\\frac{12}{5})}_{\\frac65}$"
      },
      "method": "exact",
      "refs": [
@@ -39942,7 +40176,8 @@
      "multiplet": {
       "name": "$u$",
       "component": "primary",
-      "type": "$\\mathcal{E}_{\\frac43(0,0)}$"
+      "type": "$\\mathcal{E}_{\\frac43(0,0)}$",
+      "cdi": "$L\\bar B_1[0;0]^{(0;\\frac83)}_{\\frac43}$"
      },
      "method": "exact",
      "refs": [
@@ -40001,7 +40236,8 @@
      "multiplet": {
       "name": "$u$",
       "component": "primary",
-      "type": "$\\mathcal{E}_{\\frac32(0,0)}$"
+      "type": "$\\mathcal{E}_{\\frac32(0,0)}$",
+      "cdi": "$L\\bar B_1[0;0]^{(0;3)}_{\\frac32}$"
      },
      "method": "exact",
      "refs": [
@@ -40129,6 +40365,15 @@
      "journal": "Annals Phys. 307 (2003) 41-89",
      "arxiv": "hep-th/0209056",
      "doi": "10.1016/S0003-4916(03)00074-5"
+    },
+    {
+     "key": "cdi2016",
+     "title": "Multiplets of Superconformal Symmetry in Diverse Dimensions",
+     "authors": "Cordova, Dumitrescu, Intriligator",
+     "year": 2016,
+     "journal": "JHEP 03 (2019) 163",
+     "arxiv": "1612.00809",
+     "doi": "10.1007/JHEP03(2019)163"
     }
    ],
    "contributors": [
@@ -42429,7 +42674,7 @@
       "note": "$E_6$, $E_7$ or $E_8$: one theory each."
      }
     ],
-    "notes": "Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$, and gauging $G$ is conformal when the matter has $k_G = 4h^\\vee(G)$. Multiplet names follow Dolan and Osborn [@minahan-nemeschansky-4d/dolan2002] as tabulated by Beem et al. [@minahan-nemeschansky-4d/beem2013, Table 7]: $\\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\\hat{\\mathcal{B}}_R$ Higgs-branch half-BPS, $\\hat{\\mathcal{C}}_{0(0,0)}$ stress tensor, $\\mathcal{A}^{\\Delta}_{R,r(j,\\bar\\jmath)}$ long."
+    "notes": "Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$, and gauging $G$ is conformal when the matter has $k_G = 4h^\\vee(G)$. Multiplet names follow Dolan and Osborn [@minahan-nemeschansky-4d/dolan2002] as tabulated by Beem et al. [@minahan-nemeschansky-4d/beem2013, Table 7]: $\\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\\hat{\\mathcal{B}}_R$ Higgs-branch half-BPS, $\\hat{\\mathcal{C}}_{0(0,0)}$ stress tensor, $\\mathcal{A}^{\\Delta}_{R,r(j,\\bar\\jmath)}$ long. The label of Cordova, Dumitrescu and Intriligator [@minahan-nemeschansky-4d/cdi2016] is shown on hover; its $u(1)_r$ charge is twice the one here."
    },
    "quantities": [
     {
@@ -42493,7 +42738,8 @@
      "multiplet": {
       "name": "$u$",
       "component": "primary",
-      "type": "$\\mathcal{E}_{3(0,0)}$"
+      "type": "$\\mathcal{E}_{3(0,0)}$",
+      "cdi": "$L\\bar B_1[0;0]^{(0;6)}_{3}$"
      },
      "method": "exact",
      "refs": [
@@ -42552,7 +42798,8 @@
      "multiplet": {
       "name": "$u$",
       "component": "primary",
-      "type": "$\\mathcal{E}_{4(0,0)}$"
+      "type": "$\\mathcal{E}_{4(0,0)}$",
+      "cdi": "$L\\bar B_1[0;0]^{(0;8)}_{4}$"
      },
      "method": "exact",
      "refs": [
@@ -42611,7 +42858,8 @@
      "multiplet": {
       "name": "$u$",
       "component": "primary",
-      "type": "$\\mathcal{E}_{6(0,0)}$"
+      "type": "$\\mathcal{E}_{6(0,0)}$",
+      "cdi": "$L\\bar B_1[0;0]^{(0;12)}_{6}$"
      },
      "method": "exact",
      "refs": [
@@ -42669,7 +42917,8 @@
      "multiplet": {
       "name": "flavor current",
       "component": "primary",
-      "type": "$\\hat{\\mathcal{B}}_1$"
+      "type": "$\\hat{\\mathcal{B}}_1$",
+      "cdi": "$B_1\\bar B_1[0;0]^{(2;0)}_2$"
      },
      "method": "exact",
      "refs": [
@@ -42727,7 +42976,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^2\\bar Q^2",
-      "type": "$\\hat{\\mathcal{C}}_{0(0,0)}$"
+      "type": "$\\hat{\\mathcal{C}}_{0(0,0)}$",
+      "cdi": "$A_2\\bar A_2[0;0]^{(0;0)}_2$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -42844,6 +43094,15 @@
      "journal": "Annals Phys. 307 (2003) 41-89",
      "arxiv": "hep-th/0209056",
      "doi": "10.1016/S0003-4916(03)00074-5"
+    },
+    {
+     "key": "cdi2016",
+     "title": "Multiplets of Superconformal Symmetry in Diverse Dimensions",
+     "authors": "Cordova, Dumitrescu, Intriligator",
+     "year": 2016,
+     "journal": "JHEP 03 (2019) 163",
+     "arxiv": "1612.00809",
+     "doi": "10.1007/JHEP03(2019)163"
     }
    ],
    "relations": [
@@ -42948,7 +43207,7 @@
       "note": "Normalized as in Dolan–Osborn: a Coulomb-branch chiral primary, in an $\\mathcal{E}_{r(0,0)}$ multiplet, has $r = \\Delta$."
      }
     ],
-    "notes": "Multiplet names follow Dolan and Osborn [@minimal-ad-4d/dolan2002] as tabulated by Beem et al. [@minimal-ad-4d/beem2013, Table 7]: $\\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\\hat{\\mathcal{B}}_R$ Higgs-branch half-BPS, $\\hat{\\mathcal{C}}_{0(0,0)}$ stress tensor, $\\mathcal{A}^{\\Delta}_{R,r(j,\\bar\\jmath)}$ long."
+    "notes": "Multiplet names follow Dolan and Osborn [@minimal-ad-4d/dolan2002] as tabulated by Beem et al. [@minimal-ad-4d/beem2013, Table 7]: $\\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\\hat{\\mathcal{B}}_R$ Higgs-branch half-BPS, $\\hat{\\mathcal{C}}_{0(0,0)}$ stress tensor, $\\mathcal{A}^{\\Delta}_{R,r(j,\\bar\\jmath)}$ long. The label of Cordova, Dumitrescu and Intriligator [@minimal-ad-4d/cdi2016] is shown on hover; its $u(1)_r$ charge is twice the one here."
    },
    "quantities": [
     {
@@ -42976,16 +43235,17 @@
      "note": "Saturates the bound $c \\geq \\tfrac{11}{30}$ for interacting $\\mathcal{N}=2$ SCFTs [@minimal-ad-4d/liendo2015, Eq. (4.14)]."
     }
    ],
-   "ope_structures": [
+   "three_point_structures": [
     {
      "id": "chiral",
      "symbol": "\\lambda",
      "name": "chiral, unit-normalized",
-     "description": "Coefficient of the Coulomb-branch chiral operator $u^2$ in the chiral OPE $u\\times u$, i.e. of the structure of $\\langle u\\,u\\,\\overline{u^2}\\rangle$, with unit-normalized two-point functions $\\langle u(x)\\bar u(0)\\rangle = |x|^{-2\\Delta_u}$ and $\\langle u^2(x)\\,\\overline{u^2}(0)\\rangle = |x|^{-2\\Delta_{u^2}}$. In embedding space it is the scalar three-point function of [@minimal-ad-4d/costa2011, Eq. (2.8)], $P_{ij} \\equiv -2P_i\\cdot P_j$ [@minimal-ad-4d/costa2011, Eq. (2.9)], with $\\lambda$ as its constant.",
-     "embedding": "\\langle u(P_1)\\,u(P_2)\\,\\overline{u^2}(P_3)\\rangle = \\frac{\\lambda}{P_{12}^{\\frac{2\\Delta_u-\\Delta_{u^2}}{2}}\\,(P_{23}P_{31})^{\\frac{\\Delta_{u^2}}{2}}}"
+     "form": "\\langle u(x_1)\\,u(x_2)\\,\\overline{u^2}(x_3)\\rangle = \\frac{\\lambda_{uu\\overline{u^2}}}{x_{12}^{2\\Delta_u-\\Delta_{u^2}}\\,x_{23}^{\\Delta_{u^2}}\\,x_{31}^{\\Delta_{u^2}}}",
+     "ref": "gimenezgrau2020, Eq. (2.13)",
+     "description": "The three-scalar structure of the chiral OPE $u\\times u \\ni u^2$, with unit-normalized two-point functions $\\langle u(x)\\bar u(0)\\rangle = |x|^{-2\\Delta_u}$ and $\\langle u^2(x)\\,\\overline{u^2}(0)\\rangle = |x|^{-2\\Delta_{u^2}}$. The sources write $u$ as the chiral primary $\\phi_r$ and define the coefficient by the chiral-channel expansion $\\langle\\phi_r\\phi_r\\bar\\phi_{-r}\\bar\\phi_{-r}\\rangle = x_{12}^{-2\\Delta_\\phi}x_{34}^{-2\\Delta_\\phi}\\sum_O|\\lambda_{\\phi\\phi\\bar O}|^2g_{\\Delta,\\ell}(z,\\bar z)$ [@minimal-ad-4d/gimenezgrau2020, Eq. (2.13), Table 2; @minimal-ad-4d/cornagliotto2017, Eq. (2.8)], with blocks $g_{\\Delta,\\ell} = \\frac{z\\bar z}{z-\\bar z}\\big(k_{\\Delta+\\ell}(z)k_{\\Delta-\\ell-2}(\\bar z) - (z\\leftrightarrow\\bar z)\\big)$ [@minimal-ad-4d/gimenezgrau2020, Eqs. (2.10)–(2.11); @minimal-ad-4d/cornagliotto2017, Eq. (A.1)], so that $g_{\\Delta,0} = (z\\bar z)^{\\Delta/2}+\\dots$: the quoted $\\lambda^2$ is the square of the coefficient of this unit-normalized structure (generalized free field: 2)."
     }
    ],
-   "ope_coefficients": [
+   "three_point_functions": [
     {
      "operators": [
       "u",
@@ -42996,6 +43256,7 @@
       {
        "structure": "chiral",
        "symbol": "\\lambda^2_{u^2}",
+       "value_of": "square",
        "value": "[2.142596,\\ 2.16509]",
        "method": "CB, rigorous bounds",
        "refs": [
@@ -43006,6 +43267,7 @@
       {
        "structure": "chiral",
        "symbol": "\\lambda^2_{u^2}",
+       "value_of": "square",
        "value": "[2.1418,\\ 2.1672]",
        "method": "CB, rigorous bounds",
        "refs": [
@@ -43028,7 +43290,8 @@
      "multiplet": {
       "name": "$u$",
       "component": "primary",
-      "type": "$\\mathcal{E}_{\\frac65(0,0)}$"
+      "type": "$\\mathcal{E}_{\\frac65(0,0)}$",
+      "cdi": "$L\\bar B_1[0;0]^{(0;\\frac{12}{5})}_{\\frac65}$"
      },
      "method": "exact",
      "refs": [
@@ -43076,7 +43339,8 @@
      "multiplet": {
       "name": "$u^2$",
       "component": "primary",
-      "type": "$\\mathcal{E}_{\\frac{12}{5}(0,0)}$"
+      "type": "$\\mathcal{E}_{\\frac{12}{5}(0,0)}$",
+      "cdi": "$L\\bar B_1[0;0]^{(0;\\frac{24}{5})}_{\\frac{12}{5}}$"
      },
      "method": "exact",
      "refs": [
@@ -43123,7 +43387,8 @@
      "multiplet": {
       "name": "$[u\\bar u]_{\\rm long}$",
       "component": "primary",
-      "type": "$\\mathcal{A}^{\\Delta}_{0,0(0,0)}$"
+      "type": "$\\mathcal{A}^{\\Delta}_{0,0(0,0)}$",
+      "cdi": "$L\\bar L[0;0]^{(0;0)}_\\Delta$"
      },
      "method": "CB-EFM",
      "refs": [
@@ -43170,7 +43435,8 @@
      "multiplet": {
       "name": "$[u\\bar u]_{\\rm long}$",
       "component": "primary",
-      "type": "$\\mathcal{A}^{\\Delta}_{0,0(0,0)}$"
+      "type": "$\\mathcal{A}^{\\Delta}_{0,0(0,0)}$",
+      "cdi": "$L\\bar L[0;0]^{(0;0)}_\\Delta$"
      },
      "method": "CB",
      "refs": [
@@ -43217,7 +43483,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^2\\bar Q^2",
-      "type": "$\\hat{\\mathcal{C}}_{0(0,0)}$"
+      "type": "$\\hat{\\mathcal{C}}_{0(0,0)}$",
+      "cdi": "$A_2\\bar A_2[0;0]^{(0;0)}_2$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -43358,6 +43625,15 @@
      "arxiv": "1107.3554",
      "doi": "10.1007/JHEP11(2011)071",
      "note": "The embedding-space notation of the OPE structures: $P_{ij}$, Eq. (2.9); $V_{i,jk}$, $H_{ij}$, Eqs. (4.14)–(4.16). Locators refer to arXiv v3, whose printed page numbers are 1 less than the PDF's."
+    },
+    {
+     "key": "cdi2016",
+     "title": "Multiplets of Superconformal Symmetry in Diverse Dimensions",
+     "authors": "Cordova, Dumitrescu, Intriligator",
+     "year": 2016,
+     "journal": "JHEP 03 (2019) 163",
+     "arxiv": "1612.00809",
+     "doi": "10.1007/JHEP03(2019)163"
     }
    ],
    "relations": [
@@ -43475,7 +43751,7 @@
      }
     ],
     "gauge": "$SU(N)$",
-    "notes": "Flavor central charges $k$ are normalized so that gauging a group $G$ is conformal when the matter it couples to has $k_G = 4h^\\vee(G)$; a fundamental hypermultiplet of $SU(N)$ contributes 2 to $k_{SU(N)}$. Multiplet names follow Dolan and Osborn [@n2-sqcd-4d/dolan2002] as tabulated by Beem et al. [@n2-sqcd-4d/beem2013, Table 7]: $\\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\\hat{\\mathcal{B}}_R$ Higgs-branch half-BPS, $\\hat{\\mathcal{C}}_{0(0,0)}$ stress tensor, $\\mathcal{A}^{\\Delta}_{R,r(j,\\bar\\jmath)}$ long."
+    "notes": "Flavor central charges $k$ are normalized so that gauging a group $G$ is conformal when the matter it couples to has $k_G = 4h^\\vee(G)$; a fundamental hypermultiplet of $SU(N)$ contributes 2 to $k_{SU(N)}$. Multiplet names follow Dolan and Osborn [@n2-sqcd-4d/dolan2002] as tabulated by Beem et al. [@n2-sqcd-4d/beem2013, Table 7]: $\\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\\hat{\\mathcal{B}}_R$ Higgs-branch half-BPS, $\\hat{\\mathcal{C}}_{0(0,0)}$ stress tensor, $\\mathcal{A}^{\\Delta}_{R,r(j,\\bar\\jmath)}$ long. The label of Cordova, Dumitrescu and Intriligator [@n2-sqcd-4d/cdi2016] is shown on hover; its $u(1)_r$ charge is twice the one here."
    },
    "quantities": [
     {
@@ -43537,7 +43813,8 @@
      "multiplet": {
       "name": "$\\mathrm{Tr}\\,\\phi^k$",
       "component": "primary",
-      "type": "$\\mathcal{E}_{k(0,0)}$"
+      "type": "$\\mathcal{E}_{k(0,0)}$",
+      "cdi": "$L\\bar B_1[0;0]^{(0;2k)}_{k}$"
      },
      "method": "exact",
      "refs": [
@@ -43618,7 +43895,8 @@
      "multiplet": {
       "name": "flavor current",
       "component": "primary",
-      "type": "$\\hat{\\mathcal{B}}_1$"
+      "type": "$\\hat{\\mathcal{B}}_1$",
+      "cdi": "$B_1\\bar B_1[0;0]^{(2;0)}_2$"
      },
      "method": "exact",
      "refs": [
@@ -43677,7 +43955,8 @@
      "multiplet": {
       "name": "flavor current",
       "component": "Q\\bar Q",
-      "type": "$\\hat{\\mathcal{B}}_1$"
+      "type": "$\\hat{\\mathcal{B}}_1$",
+      "cdi": "$B_1\\bar B_1[0;0]^{(2;0)}_2$"
      },
      "method": "exact",
      "note": "Conserved flavor current.",
@@ -43733,7 +44012,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^2\\bar Q^2",
-      "type": "$\\hat{\\mathcal{C}}_{0(0,0)}$"
+      "type": "$\\hat{\\mathcal{C}}_{0(0,0)}$",
+      "cdi": "$A_2\\bar A_2[0;0]^{(0;0)}_2$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -43850,6 +44130,15 @@
      "journal": "Annals Phys. 307 (2003) 41-89",
      "arxiv": "hep-th/0209056",
      "doi": "10.1016/S0003-4916(03)00074-5"
+    },
+    {
+     "key": "cdi2016",
+     "title": "Multiplets of Superconformal Symmetry in Diverse Dimensions",
+     "authors": "Cordova, Dumitrescu, Intriligator",
+     "year": 2016,
+     "journal": "JHEP 03 (2019) 163",
+     "arxiv": "1612.00809",
+     "doi": "10.1007/JHEP03(2019)163"
     }
    ],
    "relations": [
@@ -43993,7 +44282,7 @@
       "tex": "U(1)_R"
      }
     ],
-    "notes": "For $\\ell < k$ the parent theory has a discrete $\\mathbb{Z}_{k/\\ell}$ global symmetry, and its gauging has a $\\mathbb{Z}_{k/\\ell}$ 2-form symmetry. Multiplet names follow Cordova, Dumitrescu and Intriligator [@n3-sfold-4d/cdi2016]."
+    "notes": "For $\\ell < k$ the parent theory has a discrete $\\mathbb{Z}_{k/\\ell}$ global symmetry, and its gauging has a $\\mathbb{Z}_{k/\\ell}$ 2-form symmetry. The label of Cordova, Dumitrescu and Intriligator [@n3-sfold-4d/cdi2016] is shown on hover."
    },
    "quantities": [
     {
@@ -44120,7 +44409,7 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^2\\bar Q^2",
-      "type": "$B_1\\bar B_1[0;0]^{(1,1;0)}_2$"
+      "cdi": "$B_1\\bar B_1[0;0]^{(1,1;0)}_2$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -44293,7 +44582,8 @@
       "tex": "SU(4)_R"
      }
     ],
-    "gauge": "$SU(N)$"
+    "gauge": "$SU(N)$",
+    "notes": "Multiplet names follow Dolan and Osborn [@n4-sym/dolan2002, Sec. 5], as in the $\\mathcal{N}=4$ bootstrap [@n4-sym/brvr2013]: $\\mathcal{B}^{\\frac12,\\frac12}_{[0,p,0](0,0)}$ half-BPS, $\\mathcal{A}^{\\Delta}_{[k,p,q](j,\\bar\\jmath)}$ long. The label of Cordova, Dumitrescu and Intriligator [@n4-sym/cdi2016] is shown on hover."
    },
    "quantities": [
     {
@@ -44326,7 +44616,8 @@
      "multiplet": {
       "name": "$\\mathcal{O}_k$",
       "component": "primary",
-      "type": "half-BPS"
+      "type": "$\\mathcal{B}^{\\frac12,\\frac12}_{[0,k,0](0,0)}$",
+      "cdi": "$B_1\\bar B_1[0;0]^{(0,k,0)}_k$"
      },
      "method": "exact",
      "refs": [
@@ -44382,7 +44673,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "primary",
-      "type": "half-BPS"
+      "type": "$\\mathcal{B}^{\\frac12,\\frac12}_{[0,2,0](0,0)}$",
+      "cdi": "$B_1\\bar B_1[0;0]^{(0,2,0)}_2$"
      },
      "method": "exact",
      "note": "Half-BPS superconformal primary of the stress-tensor multiplet; protected.",
@@ -44425,7 +44717,8 @@
      "multiplet": {
       "name": "Konishi",
       "component": "primary",
-      "type": "long"
+      "type": "$\\mathcal{A}^{\\Delta}_{[0,0,0](0,0)}$",
+      "cdi": "$L\\bar L[0;0]^{(0,0,0)}_\\Delta$"
      },
      "method": "PT",
      "note": "Konishi operator, the lightest unprotected operator; $\\lambda = g^2_{\\rm YM}N$, planar.",
@@ -44475,6 +44768,33 @@
      "authors": "Beisert et al.",
      "year": 2010,
      "arxiv": "1012.3982"
+    },
+    {
+     "key": "dolan2002",
+     "title": "On Short and Semi-Short Representations for Four Dimensional Superconformal Symmetry",
+     "authors": "Dolan, Osborn",
+     "year": 2002,
+     "journal": "Annals Phys. 307 (2003) 41-89",
+     "arxiv": "hep-th/0209056",
+     "doi": "10.1016/S0003-4916(03)00074-5"
+    },
+    {
+     "key": "brvr2013",
+     "title": "The $\\mathcal{N}=4$ Superconformal Bootstrap",
+     "authors": "Beem, Rastelli, van Rees",
+     "year": 2013,
+     "journal": "Phys. Rev. Lett. 111 (2013) 071601",
+     "arxiv": "1304.1803",
+     "doi": "10.1103/PhysRevLett.111.071601"
+    },
+    {
+     "key": "cdi2016",
+     "title": "Multiplets of Superconformal Symmetry in Diverse Dimensions",
+     "authors": "Cordova, Dumitrescu, Intriligator",
+     "year": 2016,
+     "journal": "JHEP 03 (2019) 163",
+     "arxiv": "1612.00809",
+     "doi": "10.1007/JHEP03(2019)163"
     }
    ],
    "relations": [
@@ -45593,7 +45913,7 @@
      }
     ],
     "gauge": "$SU(N_c)$ (electric) or $SU(N_f-N_c)$ (magnetic)",
-    "notes": "Multiplet names follow Cordova, Dumitrescu and Intriligator [@sqcd-conformal-window-4d/cdi2016]."
+    "notes": "Multiplets are named descriptively (chiral, stress tensor), as is standard in 4d $\\mathcal{N}=1$; the label of Cordova, Dumitrescu and Intriligator [@sqcd-conformal-window-4d/cdi2016] is shown on hover."
    },
    "quantities": [
     {
@@ -45656,7 +45976,8 @@
      "multiplet": {
       "name": "$M$",
       "component": "primary",
-      "type": "chiral, $L\\bar B_1[0;0]^{(r)}_{3r/2}$"
+      "type": "chiral",
+      "cdi": "$L\\bar B_1[0;0]^{(r)}_{3r/2}$"
      },
      "method": "exact",
      "refs": [
@@ -45735,7 +46056,8 @@
      "multiplet": {
       "name": "$B$, $\\tilde B$",
       "component": "primary",
-      "type": "chiral, $L\\bar B_1[0;0]^{(r)}_{3r/2}$"
+      "type": "chiral",
+      "cdi": "$L\\bar B_1[0;0]^{(r)}_{3r/2}$"
      },
      "method": "exact",
      "refs": [
@@ -45887,7 +46209,7 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q\\bar Q",
-      "type": "$A_1\\bar A_1[1;1]^{(0)}_3$"
+      "cdi": "$A_1\\bar A_1[1;1]^{(0)}_3$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -46495,7 +46817,7 @@
      }
     ],
     "gauge": "$SU(N)^{2p}$",
-    "notes": "Multiplet names follow Cordova, Dumitrescu and Intriligator [@ypq-quivers-4d/cdi2016]."
+    "notes": "Multiplets are named descriptively (chiral, stress tensor), as is standard in 4d $\\mathcal{N}=1$; the label of Cordova, Dumitrescu and Intriligator [@ypq-quivers-4d/cdi2016] is shown on hover."
    },
    "quantities": [
     {
@@ -46611,7 +46933,7 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q\\bar Q",
-      "type": "$A_1\\bar A_1[1;1]^{(0)}_3$"
+      "cdi": "$A_1\\bar A_1[1;1]^{(0)}_3$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -48275,7 +48597,7 @@
       "note": "The flavor group: $E_n$; $U(1)$ for $\\tilde E_1$; none for $E_0$."
      }
     ],
-    "notes": "In the infrared gauge theory only $SO(2N_f)\\times U(1)_I$ is manifest; the current of $U(1)_I$ is proportional to $*\\,\\mathrm{Tr}\\,F\\wedge F$. Multiplet names follow Cordova, Dumitrescu and Intriligator [@seiberg-en-5d/cdi2016]."
+    "notes": "In the infrared gauge theory only $SO(2N_f)\\times U(1)_I$ is manifest; the current of $U(1)_I$ is proportional to $*\\,\\mathrm{Tr}\\,F\\wedge F$. Multiplet names follow Chang, Fluder, Lin and Wang [@seiberg-en-5d/chang2017, Sec. 5.1]: $\\mathcal{D}[2]$ flavor current, $\\mathcal{B}[0]_0$ stress tensor, $\\mathcal{L}[0]_{\\Delta,\\ell}$ long, with $[R]$ the $SU(2)_R$ Dynkin label. The label of Cordova, Dumitrescu and Intriligator [@seiberg-en-5d/cdi2016] is shown on hover."
    },
    "operators": [
     {
@@ -48289,7 +48611,8 @@
      "multiplet": {
       "name": "flavor current",
       "component": "primary",
-      "type": "$C_1[0,0]^{(2)}_3$"
+      "type": "$\\mathcal{D}[2]$",
+      "cdi": "$C_1[0,0]^{(2)}_3$"
      },
      "method": "exact",
      "refs": [
@@ -48335,7 +48658,8 @@
      "multiplet": {
       "name": "flavor current",
       "component": "Q^2",
-      "type": "$C_1[0,0]^{(2)}_3$"
+      "type": "$\\mathcal{D}[2]$",
+      "cdi": "$C_1[0,0]^{(2)}_3$"
      },
      "method": "exact",
      "refs": [
@@ -48381,7 +48705,8 @@
      "multiplet": {
       "name": "flavor current",
       "component": "Q^2",
-      "type": "$C_1[0,0]^{(2)}_3$"
+      "type": "$\\mathcal{D}[2]$",
+      "cdi": "$C_1[0,0]^{(2)}_3$"
      },
      "method": "exact",
      "note": "Conserved flavor currents.",
@@ -48424,7 +48749,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^4",
-      "type": "$B_2[0,0]^{(0)}_3$"
+      "type": "$\\mathcal{B}[0]_0$",
+      "cdi": "$B_2[0,0]^{(0)}_3$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -48700,7 +49026,7 @@
      }
     ],
     "gauge": "$USp(2N)$ (infrared gauge theory description)",
-    "notes": "Multiplet names follow Cordova, Dumitrescu and Intriligator [@usp-5d/cdi2016]."
+    "notes": "Multiplet names follow Chang, Fluder, Lin and Wang [@usp-5d/chang2017, Sec. 5.1]: $\\mathcal{D}[2]$ flavor current, $\\mathcal{B}[0]_0$ stress tensor, $\\mathcal{L}[0]_{\\Delta,\\ell}$ long, with $[R]$ the $SU(2)_R$ Dynkin label. The label of Cordova, Dumitrescu and Intriligator [@usp-5d/cdi2016] is shown on hover."
    },
    "quantities": [
     {
@@ -48744,7 +49070,8 @@
      "multiplet": {
       "name": "flavor current",
       "component": "Q^2",
-      "type": "$C_1[0,0]^{(2)}_3$"
+      "type": "$\\mathcal{D}[2]$",
+      "cdi": "$C_1[0,0]^{(2)}_3$"
      },
      "method": "exact",
      "note": "Conserved flavor currents.",
@@ -48804,7 +49131,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^4",
-      "type": "$B_2[0,0]^{(0)}_3$"
+      "type": "$\\mathcal{B}[0]_0$",
+      "cdi": "$B_2[0,0]^{(0)}_3$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -49055,7 +49383,7 @@
       "tex": "G_R"
      }
     ],
-    "notes": "Multiplet names follow Cordova, Dumitrescu and Intriligator [@conformal-matter-6d/cdi2016]."
+    "notes": "Multiplet names follow Chang and Lin [@conformal-matter-6d/chang2017b, Sec. 2]: $\\mathcal{D}[2]$ flavor current, $\\mathcal{B}[0]_0$ stress tensor, $\\mathcal{L}[0]_{\\Delta,\\ell}$ long, with $[R]$ the $SU(2)_R$ Dynkin label. The label of Cordova, Dumitrescu and Intriligator [@conformal-matter-6d/cdi2016] is shown on hover."
    },
    "quantities": [
     {
@@ -49088,7 +49416,8 @@
      "multiplet": {
       "name": "flavor current",
       "component": "Q^2",
-      "type": "$D_1[0,0,0]^{(2)}_4$"
+      "type": "$\\mathcal{D}[2]$",
+      "cdi": "$D_1[0,0,0]^{(2)}_4$"
      },
      "method": "exact",
      "note": "Conserved flavor currents.",
@@ -49146,7 +49475,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^4",
-      "type": "$B_3[0,0,0]^{(0)}_4$"
+      "type": "$\\mathcal{B}[0]_0$",
+      "cdi": "$B_3[0,0,0]^{(0)}_4$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -49236,6 +49566,15 @@
      "authors": "Cordova, Dumitrescu, Intriligator",
      "year": 2016,
      "arxiv": "1612.00809"
+    },
+    {
+     "key": "chang2017b",
+     "title": "Carving out the end of the world or (superconformal bootstrap in six dimensions)",
+     "authors": "Chang, Lin",
+     "year": 2017,
+     "journal": "JHEP 08 (2017) 128",
+     "arxiv": "1705.05392",
+     "doi": "10.1007/JHEP08(2017)128"
     }
    ],
    "contributors": [
@@ -49355,7 +49694,7 @@
       "note": "Present for $Q \\geq 2$."
      }
     ],
-    "notes": "Multiplet names follow Cordova, Dumitrescu and Intriligator [@e-string-6d/cdi2016]."
+    "notes": "Multiplet names follow Chang and Lin [@e-string-6d/chang2017b, Sec. 2]: $\\mathcal{D}[2]$ flavor current, $\\mathcal{B}[0]_0$ stress tensor, $\\mathcal{L}[0]_{\\Delta,\\ell}$ long, with $[R]$ the $SU(2)_R$ Dynkin label. The label of Cordova, Dumitrescu and Intriligator [@e-string-6d/cdi2016] is shown on hover."
    },
    "quantities": [
     {
@@ -49423,7 +49762,8 @@
      "multiplet": {
       "name": "$E_8$ flavor current",
       "component": "primary",
-      "type": "$D_1[0,0,0]^{(2)}_4$"
+      "type": "$\\mathcal{D}[2]$",
+      "cdi": "$D_1[0,0,0]^{(2)}_4$"
      },
      "method": "exact",
      "refs": [
@@ -49483,7 +49823,8 @@
      "multiplet": {
       "name": "$E_8$ flavor current",
       "component": "Q^2",
-      "type": "$D_1[0,0,0]^{(2)}_4$"
+      "type": "$\\mathcal{D}[2]$",
+      "cdi": "$D_1[0,0,0]^{(2)}_4$"
      },
      "method": "exact",
      "note": "Conserved $E_8$ currents.",
@@ -49540,7 +49881,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^4",
-      "type": "$B_3[0,0,0]^{(0)}_4$"
+      "type": "$\\mathcal{B}[0]_0$",
+      "cdi": "$B_3[0,0,0]^{(0)}_4$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -50552,7 +50894,7 @@
      }
     ],
     "gauge": "$\\mathfrak{su}(3)$, $\\mathfrak{so}(8)$, $\\mathfrak{f}_4$, $\\mathfrak{e}_6$, $\\mathfrak{e}_7$, $\\mathfrak{e}_7$, $\\mathfrak{e}_8$ on the tensor branch (not at the conformal point)",
-    "notes": "Multiplet names follow Cordova, Dumitrescu and Intriligator [@nhc-6d/cdi2016]."
+    "notes": "Multiplet names follow Chang and Lin [@nhc-6d/chang2017b, Sec. 2]: $\\mathcal{D}[2]$ flavor current, $\\mathcal{B}[0]_0$ stress tensor, $\\mathcal{L}[0]_{\\Delta,\\ell}$ long, with $[R]$ the $SU(2)_R$ Dynkin label. The label of Cordova, Dumitrescu and Intriligator [@nhc-6d/cdi2016] is shown on hover."
    },
    "quantities": [
     {
@@ -50588,7 +50930,8 @@
      "multiplet": {
       "name": "stress tensor",
       "component": "Q^4",
-      "type": "$B_3[0,0,0]^{(0)}_4$"
+      "type": "$\\mathcal{B}[0]_0$",
+      "cdi": "$B_3[0,0,0]^{(0)}_4$"
      },
      "method": "exact",
      "note": "Stress tensor (conserved).",
@@ -50681,6 +51024,15 @@
      "authors": "Cordova, Dumitrescu, Intriligator",
      "year": 2016,
      "arxiv": "1612.00809"
+    },
+    {
+     "key": "chang2017b",
+     "title": "Carving out the end of the world or (superconformal bootstrap in six dimensions)",
+     "authors": "Chang, Lin",
+     "year": 2017,
+     "journal": "JHEP 08 (2017) 128",
+     "arxiv": "1705.05392",
+     "doi": "10.1007/JHEP08(2017)128"
     }
    ],
    "contributors": [
@@ -52155,7 +52507,7 @@
    ]
   }
  ],
- "ope_structures": [
+ "three_point_structures": [
   {
    "id": "scalar",
    "symbol": "\\lambda",
@@ -52184,7 +52536,7 @@
   },
   {
    "id": "ttt-free-boson-3d",
-   "form": "n_B\\,\\langle TTT\\rangle_{\\text{free real scalar}}",
+   "form": "n_B\\,\\langle TTT\\rangle_B",
    "symbol": "n_B",
    "name": "free-scalar ⟨TTT⟩",
    "d": 3,
@@ -52199,7 +52551,7 @@
   },
   {
    "id": "ttt-free-fermion-3d",
-   "form": "n_F\\,\\langle TTT\\rangle_{\\text{free Majorana fermion}}",
+   "form": "n_F\\,\\langle TTT\\rangle_F",
    "symbol": "n_F",
    "name": "free-Majorana ⟨TTT⟩",
    "d": 3,
