@@ -97,9 +97,11 @@ quantities:
 
 ope_structures:
   - id: chester2019
+    name: '$O(2)$ invariant tensor × three scalars'
+    form: '\lambda\, T^{O(2)}_{abc}\;\langle O_1 O_2 O_3\rangle_{\text{three scalars}}'
     symbol: '\lambda'
     ref: 'chester2019'
-    description: '$O(2)$ tensor structures of the three-point functions that involve the charge-2 scalar $t$, with the operators unit-normalized and the invariant tensors normalized as in [@chester2019]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator. Their spacetime dependence is that of three scalars [@costa2011, Eq. (2.8)]; no embedding-space formula is given, since the normalization of the $O(2)$ tensor that multiplies it is not recorded.'
+    description: '$T^{O(2)}_{abc}$ is the invariant tensor of the triplet; its normalization is not recorded here. $O(2)$ tensor structures of the three-point functions that involve the charge-2 scalar $t$, with the operators unit-normalized and the invariant tensors normalized as in [@chester2019]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator. Their spacetime dependence is that of three scalars [@costa2011, Eq. (2.8)]; no embedding-space formula is given, since the normalization of the $O(2)$ tensor that multiplies it is not recorded.'
 
 ope_coefficients:
   - operators: ['\phi', '\phi', 's']

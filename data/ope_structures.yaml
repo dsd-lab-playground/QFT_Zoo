@@ -47,8 +47,10 @@ structures:
     embedding: '\langle \phi_i(P_1)\,\phi_j(P_2)\,s(P_3)\rangle = \frac{\lambda_{\phi\phi s}\,\delta_{ij}}{P_{12}^{\frac{2\Delta_\phi-\Delta_s}{2}}\,(P_{23}P_{31})^{\frac{\Delta_s}{2}}}'
 
   - id: ttt-free-boson-3d
+
+    form: 'n_B\,\langle TTT\rangle_{\text{free real scalar}}'
     symbol: 'n_B'
-    name: free-boson structure
+    name: free-scalar ⟨TTT⟩
     d: 3
     spins: [2, 2, 2]
     basis: ttt-free-3d
@@ -62,8 +64,10 @@ structures:
     # which the sources used here do not write out.
 
   - id: ttt-free-fermion-3d
+
+    form: 'n_F\,\langle TTT\rangle_{\text{free Majorana fermion}}'
     symbol: 'n_F'
-    name: free-fermion structure
+    name: free-Majorana ⟨TTT⟩
     d: 3
     spins: [2, 2, 2]
     basis: ttt-free-3d

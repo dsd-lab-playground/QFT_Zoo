@@ -47,7 +47,7 @@ VALID = {
     "ope_structures": [
         {"id": "a-blocks", "symbol": "f", "ref": "a2020, Eq. (2.1)", "description": "Blocks of [@a2020, Eq. (2.1)].",
          "embedding": "\\langle\\phi_1(P_1)\\phi_2(P_2)O(P_3,Z_3)\\rangle = 2^{\\ell/2} f\\, V_{3,12}^\\ell/(\\cdots)"},
-        {"id": "b-blocks", "symbol": "\\lambda", "ref": "b2021, fn. 3", "relation": "$\\lambda^2 = 2^\\ell f^2$ [@b2021, p. 6]"},
+        {"id": "b-blocks", "symbol": "\\lambda", "ref": "b2021, fn. 3", "form": "\\lambda\\,V_{3,12}^\\ell/P_{12}^{a}", "relation": "$\\lambda^2 = 2^\\ell f^2$ [@b2021, p. 6]"},
     ],
     "ope_coefficients": [
         {"operators": ["\\sigma", "\\sigma", "\\epsilon"], "values": [
@@ -132,7 +132,7 @@ def wrong_dimension(d):
 
 
 def no_label_or_ref(d):
-    d["ope_structures"].append({"id": "c-blocks", "symbol": "g"})
+    d["ope_structures"].append({"id": "c-blocks", "symbol": "g"})  # also lacks a form
 
 
 def two_operators(d):

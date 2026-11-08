@@ -358,6 +358,12 @@ ope_coefficients:
   (normalization of the operators and of the blocks or tensor structures), and a `relation`
   to other bases only when a source states one. Never convert a value to another basis:
   record it in its paper's basis, as its own value.
+- **What the structure is** (`form`): every structure says what it is, in its own line on the page, never by a bare
+  symbol plus a citation. Write it out where practical (the scalar three-point function); for a complicated structure
+  use a form some work has given it, citing that work (an embedding-space combination, a source's basis element such as
+  ScalarParityEven$_{\Delta_\epsilon}$, an SO(3) structure $|j_{12}, j_{123}\rangle$, a q-basis structure
+  $[q_1,q_2,q_3]$), so a reader can identify it without opening the reference. A single-monomial `embedding` serves as
+  the form; otherwise `form` is required. Embedding formulas are given only for single monomials.
 - **Embedding-space form** (`embedding`, optional; David: "When a structure is a simple
   embedding space structure, you should use the notation of Spinning Conformal
   Correlators"): the three-point function as a LaTeX formula (no `$`), in the notation

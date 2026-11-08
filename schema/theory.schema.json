@@ -1407,6 +1407,11 @@
           "type": "string",
           "description": "[markdown] Optional: the relation to another basis, only as a source states it (with a citation), e.g. '$\\lambda^2 = 2^\\ell f^2$ relative to ...'. Values are never converted."
         },
+        "form": {
+          "type": "string",
+          "minLength": 1,
+          "description": "[latex] What the structure is, written out where practical, else in a form some work has given it (an embedding-space combination, an SO(3) structure |j_{12}, j_{123}>, a q-basis structure [q_1,q_2,q_3], ...), so a reader can identify it without opening the reference. A formula without $...$. A structure needs `form` or a single-monomial `embedding`. See docs/OPE.md."
+        },
         "embedding": {
           "type": "string",
           "minLength": 1,

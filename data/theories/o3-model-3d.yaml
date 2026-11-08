@@ -92,9 +92,11 @@ quantities:
 
 ope_structures:
   - id: chester2020
+    name: '$O(3)$ invariant tensor × three scalars'
+    form: '\lambda\, T^{O(3)}_{abc}\;\langle O_1 O_2 O_3\rangle_{\text{three scalars}}'
     symbol: '\lambda'
     ref: 'chester2020'
-    description: '$O(3)$ tensor structures of the three-point functions that involve the symmetric traceless tensor $t_{ij}$, with the operators unit-normalized and the invariant tensors normalized as in [@chester2020]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator. Their spacetime dependence is that of three scalars [@costa2011, Eq. (2.8)]; no embedding-space formula is given, since the normalization of the $O(3)$ tensor that multiplies it is not recorded.'
+    description: '$T^{O(3)}_{abc}$ is the invariant tensor of the triplet; its normalization is not recorded here. $O(3)$ tensor structures of the three-point functions that involve the symmetric traceless tensor $t_{ij}$, with the operators unit-normalized and the invariant tensors normalized as in [@chester2020]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator. Their spacetime dependence is that of three scalars [@costa2011, Eq. (2.8)]; no embedding-space formula is given, since the normalization of the $O(3)$ tensor that multiplies it is not recorded.'
 
 ope_coefficients:
   - operators: ['\phi_i', '\phi_i', 's']

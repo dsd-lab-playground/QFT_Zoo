@@ -770,7 +770,7 @@ function opeItems(t) {
 function opeLabel(t, st) {
   if (!st || (st.default && !OPE_LABEL_DEFAULTS)) return "";
   return `<div class="ope-st"><button type="button" class="linkish" data-ope-st="${esc(st.id)}" title="Show the definition of this structure">${
-    st.name ? md(st.name, true) : "structure"}</button>${st.ref ? ` ${citeRefs(t.id, [st.ref])}` : ""}</div>`;
+    st.name ? md(st.name, true) : "structure of"}</button>${st.ref ? ` ${citeRefs(t.id, [st.ref])}` : ""}</div>`;
 }
 
 /** The definitions of the structures that the items use, once for the section, in structure order (the standard ones
@@ -779,13 +779,13 @@ function opeLabel(t, st) {
 function opeStructuresHtml(t, items, title = "Structures") {
   const used = [...new Set(items.filter((it) => it.ope).flatMap((it) => it.rows.map((r) => r._st)))].sort((a, b) => a.order - b.order);
   if (!used.length) return "";
-  // One line per structure: symbol, name or defining citation, and its embedding-space form when known. The longer
-  // description and stated relations stay in the data, folded behind "details".
   const li = (st) => {
-    const label = [st.name ? md(st.name, true) : "", st.ref ? citeRefs(t.id, [st.ref]) : ""].filter(Boolean).join(" ");
+    // What the structure is, shown in the line: its name, then the structure written out (`form`, else its
+    // single-monomial `embedding`), then the citation as the source of the convention. Only prose folds.
+    const math = st.form || st.embedding;
+    const cite = st.ref ? ` ${citeRefs(t.id, [st.ref])}` : "";
     const more = [st.description ? md(st.description, true) : "", st.relation ? md(st.relation, true) : ""].filter(Boolean).join(" ");
-    return `<li id="ope-st-${esc(st.id)}">${st.symbol ? `${tex(st.symbol)}: ` : ""}${label}${
-      st.embedding ? ` &nbsp;${tex(st.embedding)}` : ""}${
+    return `<li id="ope-st-${esc(st.id)}">${st.name ? `<b>${md(st.name, true)}</b>` : ""}${math ? `${st.name ? ": " : ""}${tex(math)}` : ""}${cite}${
       more ? ` <details class="ope-st-more"><summary>details</summary>${more}</details>` : ""}</li>`;
   };
   return `<div class="ope-structures small"><p class="ope-structures-title">${title}</p><ul>${used.map(li).join("")}</ul></div>`;

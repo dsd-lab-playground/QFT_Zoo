@@ -115,6 +115,13 @@ ope_structures:
   with citations.
 - `relation` (optional): how it relates to another basis, **only as a source states it** (or as it follows from formulas
   the sources state, each cited), with the citation. It is information for readers; values are never converted with it.
+- `form`: what the structure is, as a LaTeX formula shown in its line (never folded), so that a reader can identify
+  it without opening the reference (David, 2026-11-07: "Label every OPE structure by what it is, never by a bare λ plus
+  a citation"). Write the structure out where that is practical; for a complicated one use a form some work has given
+  it, citing that work: an embedding-space combination (⟨TTε⟩ of Chang et al.), the form in a source's own basis
+  (e.g. ScalarParityEven$_{\Delta_\epsilon}$), an SO(3) structure $|j_{12}, j_{123}\rangle$, a q-basis structure
+  $[q_1, q_2, q_3]$. Choose by judgement. A single-monomial `embedding` serves as the form; otherwise `form` is required
+  (the build checks it). The citation follows the form as the source of the convention.
 - `embedding` (optional): the three-point function in embedding space, in the notation of *Spinning Conformal
   Correlators* (1.4), as a LaTeX formula without `$...$`; the page shows it in display math under the description. Give
   it only when the structure is a single monomial: one product of $V_{i,jk}$ and $H_{ij}$ over powers of $P_{ij}$
