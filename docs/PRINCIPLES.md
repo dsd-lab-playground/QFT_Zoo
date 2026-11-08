@@ -30,6 +30,9 @@ specific documents (CONTRIBUTING.md, docs/REPRESENTATIONS.md, docs/OPE.md) apply
   such a survey is provisional and says so.
 - Where the literature offers several equivalent conventions, choose one site-wide by what is most widely used, write
   it down, and use it everywhere. A letter is a convention, not information (λ versus f for OPE coefficients).
+- Three-point structures are written in the notation of the source the number comes from (its basis, symbols and
+  formula), so a reader can match the value to the paper; only simple structures with no source-specific notation are
+  written in a common notation.
 - Sources' own bases and normalizations may be kept when they differ, but each value then says exactly which one it is
   in, and values in different conventions are never silently compared. Converting to a common convention is fine
   when the relation is exact and stated.

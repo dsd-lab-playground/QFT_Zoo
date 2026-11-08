@@ -155,8 +155,11 @@ sentence of description) and its values; nothing in other entries or in the site
 
 ### 1.4 Embedding-space notation (Costa, Penedones, Poland, Rychkov)
 
-*Provisional* (docs/PRINCIPLES.md §2): this notation was adopted before surveying how the field writes three-point
-structures; it will follow the outcome of that survey.
+**Notation rule** (David, 2026-11-07: "For three point structures, it makes sense to prefer notation from the source
+where the number comes from"): a structure's `form` is written in the notation of the source its values come from —
+its basis, its symbols, its formula — so a reader can match the number to the paper. The embedding-space notation
+below is used only to write out simple structures that no source pins to a notation of its own (e.g. three scalars,
+scalar–scalar–spin-ℓ), and as a common language in the `embedding` field.
 
 Embedding-space forms follow *Spinning Conformal Correlators* by Costa, Penedones, Poland and Rychkov (arXiv:1107.3554,
 JHEP 11 (2011) 071; reference key `costa2011`; equation numbers of arXiv v3). A point $x\in\mathbb R^d$ is a null ray
