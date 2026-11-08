@@ -279,6 +279,12 @@ value **of the same structure, in the same operator order**: values in different
 
 ### 2.3 The Structure column
 
+**Labels** (David, 2026-11-08): a structure is labelled by its numerator when that is simple ($1$, $2^{\ell/2}V_3^\ell$,
+$V_3^\ell$, $\delta_{ij}$, an $O(N)$ tensor); when the numerator is too complicated, by a short name
+("parity-even $\langle TT\epsilon\rangle$", $\langle TTT\rangle_B$). The coefficient column sits right before the
+structure it multiplies. **In 2d** the three-point function of three primaries has a unique structure, so 2d entries
+have no Structure column and no list of structures.
+
 Each row names the structure of its coefficient: the structure's name, else its citation (plus the citation after a
 name); clicking it shows the definition. When the value's structure assumes another operator order than the label's,
 the cell says so ("in the order $\langle T\,T\,\epsilon\rangle$"). A value that is the square or the modulus of its
