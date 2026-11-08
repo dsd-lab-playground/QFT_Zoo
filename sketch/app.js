@@ -793,7 +793,7 @@ function opeItems(t) {
 function opeLabel(t, st) {
   if (!st || (st.default && !OPE_LABEL_DEFAULTS)) return "";
   return `<div class="ope-st"><button type="button" class="linkish" data-ope-st="${esc(st.id)}" title="Show the definition of this structure">${
-    st.name ? md(st.name, true) : "structure of"}</button>${st.ref ? ` ${citeRefs(t.id, [st.ref])}` : ""}</div>`;
+    st.name ? md(st.name, true) : "structure"}</button></div>`; // its citation is in the Structures list below
 }
 
 /** The definitions of the structures that the items use, once for the section, in structure order (the standard ones
