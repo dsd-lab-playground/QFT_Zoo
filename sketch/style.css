@@ -188,7 +188,7 @@ table.qty tbody.group th {
 table.qty .dets, table.ops .dets { font-size: 0.82rem; white-space: nowrap; }
 .block > p.intro, .block > p.conv { margin: -4px 0 10px; }
 /* OPE coefficients: the structures used on the page, defined once above the table; a row names its structure. */
-.ope-structures { margin: 0 0 12px; }
+.ope-structures { margin: 12px 0 0; }
 .ope-structures .ope-structures-title { margin: 0 0 2px; font-weight: 600; }
 .ope-structures ul { margin: 0; padding-left: 18px; }
 .ope-structures li { margin: 2px 0; border-radius: 3px; }

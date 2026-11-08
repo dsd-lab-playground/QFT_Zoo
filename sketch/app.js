@@ -544,7 +544,7 @@ const QCATS = {
     title: "OPE coefficients",
     intro: (triplets) =>
       `Coefficients of the ${wiki("Operator_product_expansion", "operator product expansion")}${
-        triplets ? ": one item per triplet of operators, those with the lightest operators first. Each value multiplies a three-point structure, defined below and named in the value's Structure column; values in different structures are different numbers and are never compared" : ""}.`,
+        triplets ? ": one item per triplet of operators, those with the lightest operators first. Each value multiplies a three-point structure, defined below the table and named in the value's Structure column; values in different structures are different numbers and are never compared" : ""}.`,
   },
   exponent: {
     id: "exponents",
@@ -857,7 +857,7 @@ function dataSections(t, source, topics, used) {
     const tb = quantityTable(t, items, null, source);
     const notes = QCAT_ORDER.filter((c) => conv[c]).map((c) => `<p class="small conv"><b>${QCATS[c].title}.</b> ${md(conv[c], true)}</p>`).join("");
     const btn = allBtn(items);
-    return [section("data", "Data", `${notes}${opeStructuresHtml(t, items, "Structures of the OPE coefficients")}${btn ? `<p class="small">${btn}</p>` : ""}${tb.html}`)];
+    return [section("data", "Data", `${notes}${btn ? `<p class="small">${btn}</p>` : ""}${tb.html}${opeStructuresHtml(t, items, "Structures of the OPE coefficients")}`)];
   }
   return cats.map((c) => {
     const its = items.filter((it) => it.cat === c);
@@ -872,10 +872,10 @@ function dataSections(t, source, topics, used) {
         }
       });
     const intro = meta.intro(c === "ope" ? its.some((it) => it.ope) : tb.hasRel) + allBtn(its);
-    if (c === "ope") prose += opeStructuresHtml(t, its);
+    const after = c === "ope" ? opeStructuresHtml(t, its) : ""; // the structures are defined below the table
     const id = cats.length === 1 && c === "other" ? "data" : meta.id;
     const title = cats.length === 1 && c === "other" ? "Data" : meta.title;
-    return section(id, title, `${intro.trim() ? `<p class="small muted intro">${intro}</p>` : ""}${convLine(c)}${prose}${tb.html}`);
+    return section(id, title, `${intro.trim() ? `<p class="small muted intro">${intro}</p>` : ""}${convLine(c)}${prose}${tb.html}${after}`);
   });
 }
 
