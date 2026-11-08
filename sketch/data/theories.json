@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-08 07:41 UTC",
+ "generated": "2026-11-08 13:06 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
  "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, role, ...) are Markdown: use $...$ for math,\n#     and cite as [@key] or [@key, Sec. 2] (never a direct link; see CONTRIBUTING.md, Citations).\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: '$O(4,1)$ — 3d conformal group with parity'   # group — colloquial name; see CONTRIBUTING.md, Spacetime symmetry\n  supercharges: 0                  # real Poincaré supercharges Q; for SUSY theories also state Q and S in spacetime\n  global: '$O(N)$'                 # the global symmetry in words (Markdown)\n  parity: true                     # true | false | conditional (docs/REPRESENTATIONS.md)\n  global_group:                    # the factors operators' representations refer to; [] if none\n    - {id: O(N), group: O(N)}      # group: Z2, Z_n, U(1), O(N), SO(N), SU(N), Sp(N), S_n, D_n, finite\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: 'CB, rigorous'         # an abbreviation from data/methods.yaml, then an optional qualifier (CONTRIBUTING.md, Methods)\n    refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    parity: even                   # even | odd | pair | unknown\n    global: {O(N): vector}         # a label per factor of global_group (docs/REPRESENTATIONS.md)\n    role: 'order parameter'        # optional remark; never part of the representation\n    method: CB\n    refs: [author2025]\n\n# Three-point functions: one item per unordered triple of operators (lightest first); each value is the coefficient of\n# one structure (docs/THREE_POINT.md).\n# three_point_structures:                     # only for a structure that is a choice of a paper, not a standard one\n#   - id: author2025\n#     name: 'scalar–scalar–spin-$\\ell$, ...'   # what it is, in a few words\n#     form: '\\langle\\phi_1(x_1)\\,\\phi_2(x_2)\\,O(x_3,z)\\rangle = \\lambda\\,\\cdots'   # in the source's notation\n#     ref: 'author2025, Eq. (2.1)'             # the formula that defines it\n#     description: 'Normalization of the operators and of the structure or blocks, the symbols of the form ...'\n# three_point_functions:\n#   - operators: ['\\phi', '\\phi', 's']        # `name`s from the operators table\n#     values:\n#       - structure: vector-vector-singlet     # a standard structure (data/three_point_structures.yaml), or an id of three_point_structures\n#         value: '0.52(1)'\n#         method: CB\n#         refs: [author2025]\n#         # order: ['s', '\\phi', '\\phi']      # only if the structure assumes another order of the operators\n#         # value_of: square                  # only if the number is the square (or `modulus`) of the coefficient\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
@@ -29886,7 +29886,7 @@
    "three_point_structures": [
     {
      "id": "sd16",
-     "name": "scalar–scalar–spin-$\\ell$, blocks $z^h\\bar z^{\\bar h}+\\dots$",
+     "name": "$2^{\\ell/2}\\,V_3^\\ell$",
      "form": "\\lambda_{12O}\\lambda_{43O}\\,G_{h,\\bar h}(z,\\bar z) = \\lambda_{12O}\\lambda_{43O}\\,z^{\\frac{\\Delta-\\ell}{2}}\\,\\bar z^{\\frac{\\Delta+\\ell}{2}} + \\dots",
      "symbol": "f",
      "ref": "simmonsduffin2016, Eq. (A.16)",
@@ -29896,7 +29896,7 @@
     },
     {
      "id": "reehorst2021",
-     "name": "scalar–scalar–spin-$\\ell$, $(Z_{123}\\cdot\\zeta)^\\ell$",
+     "name": "$V_3^\\ell$",
      "form": "\\langle O_{\\Delta_1}(x_1)\\,O_{\\Delta_2}(x_2)\\,O_{\\Delta_3,\\ell}(x_3,\\zeta)\\rangle = \\lambda_{123}\\,\\frac{(Z_{123}\\cdot\\zeta)^\\ell - \\text{traces}}{(x_{12}^2)^{\\frac{h_{123}+\\ell}{2}}\\,(x_{13}^2)^{\\frac{h_{132}-\\ell}{2}}\\,(x_{23}^2)^{\\frac{h_{231}-\\ell}{2}}},\\quad Z_{123}^\\mu = \\frac{x_{13}^\\mu}{x_{13}^2} - \\frac{x_{23}^\\mu}{x_{23}^2}",
      "symbol": "\\lambda",
      "ref": "reehorst2021, p. 6, fn. 3",
@@ -33734,7 +33734,7 @@
    "three_point_structures": [
     {
      "id": "chester2019-tts",
-     "name": "charge 2 × charge 2 → singlet",
+     "name": "$(y_1\\cdot y_2)^2$",
      "form": "\\langle t(x_1,y_1)\\,t(x_2,y_2)\\,s(x_3)\\rangle = \\lambda_{tts}\\,\\frac{(y_1\\cdot y_2)^2}{x_{12}^{2\\Delta_t-\\Delta_s}\\,x_{23}^{\\Delta_s}\\,x_{31}^{\\Delta_s}}",
      "symbol": "\\lambda",
      "ref": "chester2019, Eqs. (11)–(13)",
@@ -33742,7 +33742,7 @@
     },
     {
      "id": "chester2019-phiphit",
-     "name": "charge 1 × charge 1 → charge 2",
+     "name": "$(y_2\\cdot y_3)(y_3\\cdot y_1)$",
      "form": "\\langle \\phi(x_1,y_1)\\,\\phi(x_2,y_2)\\,t(x_3,y_3)\\rangle = \\lambda_{\\phi\\phi t}\\,\\frac{(y_2\\cdot y_3)\\,(y_3\\cdot y_1)}{x_{12}^{2\\Delta_\\phi-\\Delta_t}\\,x_{23}^{\\Delta_t}\\,x_{31}^{\\Delta_t}}",
      "symbol": "\\lambda",
      "ref": "chester2019, Eqs. (11)–(13)",
@@ -34220,7 +34220,7 @@
    "three_point_structures": [
     {
      "id": "chester2020-tts",
-     "name": "tensor × tensor → singlet",
+     "name": "$\\delta^{i_1j_1}\\delta^{i_2j_2}$",
      "form": "\\langle t^{i_1i_2}(x_1)\\,t^{j_1j_2}(x_2)\\,s(x_3)\\rangle = \\lambda_{tts}\\,\\frac{\\delta^{i_1j_1}\\delta^{i_2j_2}}{x_{12}^{2\\Delta_t-\\Delta_s}\\,x_{23}^{\\Delta_s}\\,x_{31}^{\\Delta_s}}",
      "symbol": "\\lambda",
      "ref": "chester2020, App. C, Eq. (32)",
@@ -34228,7 +34228,7 @@
     },
     {
      "id": "chester2020-phiphit",
-     "name": "vector × vector → tensor",
+     "name": "$\\sqrt2\\,\\delta^{ik_1}\\delta^{jk_2}$",
      "form": "\\langle \\phi^i(x_1)\\,\\phi^j(x_2)\\,t^{k_1k_2}(x_3)\\rangle = \\sqrt{2}\\,\\lambda_{\\phi\\phi t}\\,\\frac{\\delta^{ik_1}\\delta^{jk_2}}{x_{12}^{2\\Delta_\\phi-\\Delta_t}\\,x_{23}^{\\Delta_t}\\,x_{31}^{\\Delta_t}}",
      "symbol": "\\lambda",
      "ref": "chester2020, App. C, Eq. (32)",
@@ -34236,7 +34236,7 @@
     },
     {
      "id": "chester2020-ttt",
-     "name": "tensor × tensor → tensor",
+     "name": "$\\sqrt2\\,\\delta^{i_1j_1}\\delta^{i_2k_1}\\delta^{j_2k_2}$",
      "form": "\\langle t^{i_1i_2}(x_1)\\,t^{j_1j_2}(x_2)\\,t^{k_1k_2}(x_3)\\rangle = \\sqrt{2}\\,\\lambda_{ttt}\\,\\frac{\\delta^{i_1j_1}\\delta^{i_2k_1}\\delta^{j_2k_2}}{(x_{12}\\,x_{23}\\,x_{31})^{\\Delta_t}}",
      "symbol": "\\lambda",
      "ref": "chester2020, App. C, Eq. (32)",
@@ -43239,7 +43239,7 @@
     {
      "id": "chiral",
      "symbol": "\\lambda",
-     "name": "chiral, unit-normalized",
+     "name": "$1$",
      "form": "\\langle u(x_1)\\,u(x_2)\\,\\overline{u^2}(x_3)\\rangle = \\frac{\\lambda_{uu\\overline{u^2}}}{x_{12}^{2\\Delta_u-\\Delta_{u^2}}\\,x_{23}^{\\Delta_{u^2}}\\,x_{31}^{\\Delta_{u^2}}}",
      "ref": "gimenezgrau2020, Eq. (2.13)",
      "description": "The three-scalar structure of the chiral OPE $u\\times u \\ni u^2$, with unit-normalized two-point functions $\\langle u(x)\\bar u(0)\\rangle = |x|^{-2\\Delta_u}$ and $\\langle u^2(x)\\,\\overline{u^2}(0)\\rangle = |x|^{-2\\Delta_{u^2}}$. The sources write $u$ as the chiral primary $\\phi_r$ and define the coefficient by the chiral-channel expansion $\\langle\\phi_r\\phi_r\\bar\\phi_{-r}\\bar\\phi_{-r}\\rangle = x_{12}^{-2\\Delta_\\phi}x_{34}^{-2\\Delta_\\phi}\\sum_O|\\lambda_{\\phi\\phi\\bar O}|^2g_{\\Delta,\\ell}(z,\\bar z)$ [@minimal-ad-4d/gimenezgrau2020, Eq. (2.13), Table 2; @minimal-ad-4d/cornagliotto2017, Eq. (2.8)], with blocks $g_{\\Delta,\\ell} = \\frac{z\\bar z}{z-\\bar z}\\big(k_{\\Delta+\\ell}(z)k_{\\Delta-\\ell-2}(\\bar z) - (z\\leftrightarrow\\bar z)\\big)$ [@minimal-ad-4d/gimenezgrau2020, Eqs. (2.10)–(2.11); @minimal-ad-4d/cornagliotto2017, Eq. (A.1)], so that $g_{\\Delta,0} = (z\\bar z)^{\\Delta/2}+\\dots$: the quoted $\\lambda^2$ is the square of the coefficient of this unit-normalized structure (generalized free field: 2)."
@@ -52511,7 +52511,7 @@
   {
    "id": "scalar",
    "symbol": "\\lambda",
-   "name": "three scalars, unit-normalized",
+   "name": "$1$",
    "default": true,
    "spins": [
     0,
@@ -52524,7 +52524,7 @@
   {
    "id": "vector-vector-singlet",
    "symbol": "\\lambda",
-   "name": "vector × vector → singlet, $\\delta_{ij}$",
+   "name": "$\\delta_{ij}$",
    "default": true,
    "spins": [
     0,
@@ -52538,7 +52538,7 @@
    "id": "ttt-free-boson-3d",
    "form": "n_B\\,\\langle TTT\\rangle_B",
    "symbol": "n_B",
-   "name": "free-scalar ⟨TTT⟩",
+   "name": "$\\langle TTT\\rangle_B$",
    "d": 3,
    "spins": [
     2,
@@ -52553,7 +52553,7 @@
    "id": "ttt-free-fermion-3d",
    "form": "n_F\\,\\langle TTT\\rangle_F",
    "symbol": "n_F",
-   "name": "free-Majorana ⟨TTT⟩",
+   "name": "$\\langle TTT\\rangle_F$",
    "d": 3,
    "spins": [
     2,
