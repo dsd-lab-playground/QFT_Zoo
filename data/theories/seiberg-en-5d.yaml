@@ -95,33 +95,41 @@ symmetry:
   lorentzian: '$F(4)$'
   supercharges: 8
   global: 'Flavor $E_n$ for $n\ge1$, $U(1)$ for $\tilde E_1$, none for $E_0$; R-symmetry $SU(2)_R$'
-  notes: 'In the infrared gauge theory only $SO(2N_f)\times U(1)_I$ is manifest; the current of $U(1)_I$ is proportional to $*\,\mathrm{Tr}\,F\wedge F$.'
+  parity: false
+  global_group:
+    - {id: SU(2)_R, group: SU(2), tex: 'SU(2)_R'}
+    - {id: E_n, group: 'Lie(E_n)', note: 'The flavor group: $E_n$; $U(1)$ for $\tilde E_1$; none for $E_0$.'}
+  notes: 'In the infrared gauge theory only $SO(2N_f)\times U(1)_I$ is manifest; the current of $U(1)_I$ is proportional to $*\,\mathrm{Tr}\,F\wedge F$. Multiplet names follow Cordova, Dumitrescu and Intriligator [@cdi2016].'
 
 operators:
   - name: '\mu^a_{(ij)}'
     Delta: 3
     spin: 0
-    rep: 'adjoint of the flavor group; triplet of $SU(2)_R$'
+    global: {SU(2)_R: adjoint, E_n: adjoint}
+    multiplet: {name: flavor current, component: primary, type: '$C_1[0,0]^{(2)}_3$'}
     method: exact
     refs: [chang2017]
     note: 'Moment map: superconformal primary of the flavor current multiplet (absent for $E_0$). Its expectation values parametrize the Higgs branch.'
   - name: 'N^a'
     Delta: 4
     spin: 0
-    rep: 'adjoint of the flavor group; $SU(2)_R$ singlet'
+    global: {SU(2)_R: singlet, E_n: adjoint}
+    multiplet: {name: flavor current, component: 'Q^2', type: '$C_1[0,0]^{(2)}_3$'}
     method: exact
     refs: [chang2017]
     note: 'In the flavor current multiplet. The mass deformations, including $1/g^2$, couple to it.'
   - name: 'J_\mu^a'
     Delta: 4
     spin: 1
-    rep: 'adjoint of the flavor group'
+    global: {SU(2)_R: singlet, E_n: adjoint}
+    multiplet: {name: flavor current, component: 'Q^2', type: '$C_1[0,0]^{(2)}_3$'}
     method: exact
     note: Conserved flavor currents.
   - name: 'T_{\mu\nu}'
     Delta: 5
     spin: 2
-    rep: singlet
+    global: {SU(2)_R: singlet, E_n: singlet}
+    multiplet: {name: stress tensor, component: 'Q^4', type: '$B_2[0,0]^{(0)}_3$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -170,5 +178,10 @@ references:
     arxiv: '1105.4598'
     doi: '10.1007/JHEP10(2011)038'
     note: 'Sec. 2: $\tilde F = (-1)^{(d+1)/2}F$ with $F = -\log|Z_{S^d}|$, i.e. $\log|Z_{S^5}|$ in $d=5$.'
+  - key: cdi2016
+    title: Multiplets of Superconformal Symmetry in Diverse Dimensions
+    authors: Cordova, Dumitrescu, Intriligator
+    year: 2016
+    arxiv: '1612.00809'
 
 contributors: [Canonical111]

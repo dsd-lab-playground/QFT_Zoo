@@ -74,6 +74,9 @@ symmetry:
   supercharges: 0
   gauge: '$U(N)$, Chern–Simons level $k$'
   global: '$U(1)$ (baryon number for gauge group $SU(N)$; for $U(N)$ a combination with the topological $U(1)$). Higher-spin symmetry at $N=\infty$, broken at order $1/N$.'
+  parity: false
+  global_group:
+    - {id: U(1), group: U(1)}
   notes: 'Parity and time reversal map $\lambda\to-\lambda$; the planar theory is parity invariant at $\lambda = 0$ and in the limit $|\lambda|\to1$.'
 
 quantities:
@@ -98,25 +101,25 @@ operators:
   - name: 'J_0 = \bar\psi\psi'
     Delta: '2 + O(1/N)'
     spin: 0
-    rep: singlet
+    global: {U(1): 0}
     method: exact, planar limit
     refs: [giombi2011, maldacena2012]
   - name: 'J_\mu'
     Delta: 2
     spin: 1
-    rep: singlet
+    global: {U(1): 0}
     method: exact
     note: Conserved $U(1)$ current.
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: singlet
+    global: {U(1): 0}
     method: exact
     note: Stress tensor (conserved).
   - name: 'J_s\ (s\ge3)'
     Delta: 's + 1 + O(1/N)'
     spin: s
-    rep: singlet
+    global: {U(1): 0}
     method: exact, planar limit
     refs: [giombi2011, maldacena2012]
     note: 'Higher-spin currents, conserved at $N=\infty$.'

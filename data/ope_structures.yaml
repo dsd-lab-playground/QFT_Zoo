@@ -1,0 +1,61 @@
+# Standard three-point structures: the few that the literature agrees on, so that an OPE value may name one by id
+# (`structure: scalar`) without defining it in its entry. Anything a paper defines by its own choice (a block
+# normalization, a basis of spinning structures, a normalization of a tensor of the global symmetry) is not standard:
+# define it in the entry's `ope_structures`, by a citation of the formula that defines it. See docs/OPE.md.
+#
+#   id           what values write in `structure:`
+#   symbol       the usual symbol of the coefficient
+#   name         a short name everyone will understand
+#   description  [markdown] the definition
+#   default      true for the structure a reader assumes when none is named: its values carry no label on the page
+#   spins        spins of the three operators it is defined for (checked against the entry's operators table)
+#   d            spacetime dimension, if it is defined in one only (checked)
+#   basis        shared by the elements of one basis of several independent structures
+#   relation     [markdown] relations that follow from the definition
+
+structures:
+  - id: scalar
+    symbol: '\lambda'
+    name: three scalars, unit-normalized
+    default: true
+    spins: [0, 0, 0]
+    description: >-
+      Three scalars $O_1, O_2, O_3$ that are singlets of any continuous global symmetry, with unit-normalized
+      two-point functions $\langle O_i(x) O_i(0)\rangle = |x|^{-2\Delta_i}$:
+      $\langle O_1(x_1) O_2(x_2) O_3(x_3)\rangle = \lambda_{123}\,
+      |x_{12}|^{\Delta_3-\Delta_1-\Delta_2}|x_{13}|^{\Delta_2-\Delta_1-\Delta_3}|x_{23}|^{\Delta_1-\Delta_2-\Delta_3}$.
+      In 2d it is often written $C_{123}$. The sign of $\lambda$ depends on the signs chosen for the operators.
+
+  - id: vector-vector-singlet
+    symbol: '\lambda'
+    name: 'vector × vector → singlet, $\delta_{ij}$'
+    default: true
+    spins: [0, 0, 0]
+    description: >-
+      Two scalars $\phi_i$ in the vector of $O(N)$ and a singlet scalar $s$, with
+      $\langle \phi_i(x)\phi_j(0)\rangle = \delta_{ij}|x|^{-2\Delta_\phi}$ and $s$ unit-normalized:
+      $\langle\phi_i\phi_j s\rangle = \lambda_{\phi\phi s}\,\delta_{ij}$ times the three-scalar structure.
+
+  - id: ttt-free-boson-3d
+    symbol: 'n_B'
+    name: free-boson structure
+    d: 3
+    spins: [2, 2, 2]
+    basis: ttt-free-3d
+    description: >-
+      The parity-even stress-tensor three-point function of a 3d CFT is a combination of two structures,
+      $\langle TTT\rangle = n_B\langle TTT\rangle_B + n_F\langle TTT\rangle_F$, where $\langle TTT\rangle_B$ is that of
+      one free real scalar and $\langle TTT\rangle_F$ that of one free Majorana fermion (each with its own $T$
+      normalized by the Ward identity). $n_B$ is the coefficient of the free-scalar structure.
+    relation: '$n_B + n_F = C_T/C_T^{\rm free}$, with $C_T^{\rm free}$ that of one free real scalar (equal to that of one Majorana fermion in 3d).'
+
+  - id: ttt-free-fermion-3d
+    symbol: 'n_F'
+    name: free-fermion structure
+    d: 3
+    spins: [2, 2, 2]
+    basis: ttt-free-3d
+    description: >-
+      The coefficient of the free-Majorana-fermion structure $\langle TTT\rangle_F$ in
+      $\langle TTT\rangle = n_B\langle TTT\rangle_B + n_F\langle TTT\rangle_F$ (see the free-boson structure).
+    relation: '$n_B + n_F = C_T/C_T^{\rm free}$.'

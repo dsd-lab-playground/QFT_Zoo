@@ -88,6 +88,47 @@ def parse_factor(f: dict, params: set[str]) -> dict:
     g["tex"] = f.get("tex") or default_tex(group, g)
     return g
 
+# --- extension (2d batch a): `listed` groups -------------------------------------------------------------------------
+# `group: listed` is any group outside the vocabulary that is not finite, or not a group of fixed size: a non-compact
+# group with continuous series (SL(2,C) of H3+), the shift group R of a non-compact boson, U(1)^d with vector charges,
+# S_Q or O(n) at non-integer Q or n. The entry gives `tex` (the group's name) and lists the irreps it uses, the trivial
+# one first, exactly as for `finite`; labels are checked against that list.
+
+_parse_factor_base = parse_factor
+
+
+def parse_factor(f: dict, params: set[str]) -> dict:  # noqa: F811 (extends the definition above)
+    if str(f.get("group", "")).strip() == "listed":
+        if not f.get("tex"):
+            raise RepError("a `listed` group needs `tex`, its display name")
+        g = _parse_factor_base({**f, "group": "finite"}, params)
+        g["type"] = "listed"
+        return g
+    return _parse_factor_base(f, params)
+
+
+# --- extension (4d-and-up batch): exceptional groups E6, E7, E8, and a parameter-dependent Lie group `Lie(G)` -------
+# `E_6`, `E_7`, `E_8` (or E6, E7, E8): flavor symmetries of Minahan–Nemeschansky, E-string and Seiberg theories.
+# `Lie(G)`: a continuous group that differs between the members of a family and has no single type, e.g. G_L x G_R of
+# conformal matter, E_n of Seiberg's 5d theories, the flavor group of each Argyres–Douglas theory; G is its display
+# name. Only labels valid for every member are offered (singlet, adjoint: the adjoint of its Lie algebra, reducible
+# when a member's group is not simple). Labels: see the matching block in the labels section.
+
+_GROUP.extend([
+    (re.compile(r"^E_?\{?([678])\}?$"), lambda m: {"type": "E", "n": int(m.group(1))}),
+    (re.compile(r"^Lie\((.+)\)$"), lambda m: {"type": "Lie", "name": m.group(1).strip()}),
+])
+
+_default_tex_core = default_tex
+
+
+def default_tex(group: str, g: dict) -> str:  # noqa: F811 (extends the definition above)
+    if g["type"] == "E":
+        return f"E_{g['n']}"
+    if g["type"] == "Lie":
+        return g["name"]
+    return _default_tex_core(group, g)
+
 
 # ------------------------------------------------------------------ labels
 
@@ -206,6 +247,8 @@ def label(g: dict, value, params: set[str]) -> dict:
 
 
 def _label(g, t, s, params, G):
+    if (ext := _label_ext(g, t, s, params, G)) is not None:   # separate blocks of added labels, below
+        return ext
     if t == "Z2":
         if s not in ("even", "odd"):
             raise RepError(f"a Z2 label is `even` or `odd`, not '{s}'")
@@ -374,6 +417,245 @@ def _label(g, t, s, params, G):
         return {"canon": s, "short": short, "trivial": i == 0, "sort": [i]}
     raise RepError(f"unsupported group type {t}")
 
+# --- extension (2d batch a): symbolic U(1) charges; labels of `listed` groups ----------------------------------------
+# A U(1) charge may be a symbol or expression, for a row that stands for a family of operators labelled by their charge
+# (momentum n of a compact boson, l/(k+2) for N=2 chiral primaries): 'n', '-n', 'l/(k+2)'. It is shown as
+# "U(1) charge $n$" and sorted after every numeric charge. A `listed` group's labels are those it declares.
+
+SYMBOLIC_CHARGE = re.compile(r"^[±-]?\(?[A-Za-z\\][A-Za-z0-9_{}\\+\-*/() ]*$")
+_label_base = _label
+
+
+def _label(g, t, s, params, G):  # noqa: F811 (extends the definition above)
+    if t == "U1" and SYMBOLIC_CHARGE.fullmatch(s) and re.search(r"[A-Za-z]", s):
+        return {"canon": f"q({s})", "short": f"charge ${s}$", "trivial": False, "sort": [BIG, 0]}
+    if t == "listed":
+        return _label_base(g, "finite", s, params, G)
+    return _label_base(g, t, s, params, G)
+
+
+# ------------------------------------------------------------------ labels: additions (3d migration batch)
+# Two self-contained additions, reached through the hook at the top of _label. Each returns None for labels it does
+# not handle, so the core vocabulary above is unchanged.
+#
+# (a) SO(8) triality names: 8v, 8s, 8c, 35v, 35s, 35c (also 28 = adjoint, 1 = singlet). They refer to a triality frame
+#     in which the supercharges of a 3d N=8 SCFT are in 8v, as in Cordova-Dumitrescu-Intriligator (arXiv:1612.00809,
+#     sec. 2.1.7: 8v = (1,0,0,0), 8s = (0,0,1,0), 8c = (0,0,0,1)) and in the N=8 bootstrap literature, where the
+#     stress-tensor multiplet's primary is a 35c. Which of the two spinors is called s and which c is a convention:
+#     use the source's name. 8v, 35v and 28 are the same irreps as vector, sym(2) and adjoint (same canonical form).
+# (b) SU(N), Sp(N) with numeric N: sym(k), anti(k) with k a parameter expression, e.g. the SU(2)_C spin N_f/2 of a
+#     Coulomb-branch operator of dimension N_f/2 in 3d N=4 SQED is sym(N_f) of SU(2).
+
+SO8_TENSOR_ALIAS = {"1": "singlet", "8v": "vector", "28": "adjoint", "35v": "sym(2)"}
+SO8_SPINORIAL = {"8s": ((0, 0, 1, 0), [BIG // 2, 0, 0, 0]), "8c": ((0, 0, 0, 1), [BIG // 2, 0, 0, 1]),
+                 "35s": ((0, 0, 2, 0), [4, -1, -1, -1, 0]), "35c": ((0, 0, 0, 2), [4, -1, -1, -1, 1])}
+
+
+def _so8_bold(name: str) -> str:
+    m = re.fullmatch(r"(\d+)([vsc]?)", name)
+    return f"\\mathbf{{{m.group(1)}}}" + (f"_{m.group(2)}" if m.group(2) else "")
+
+
+def _label_ext(g, t, s, params, G):
+    if t == "SO" and g.get("N") == 8:
+        name = s.replace("_", "")
+        if name in SO8_TENSOR_ALIAS:
+            out = _label(g, t, SO8_TENSOR_ALIAS[name], params, G)
+            out["short"] = f"{out['short']} ${_so8_bold(name)}$" if name != "1" else out["short"]
+            out.pop("text", None)
+            return out
+        if name in SO8_SPINORIAL:
+            dyn, sort = SO8_SPINORIAL[name]
+            return {"canon": "D4(" + ",".join(map(str, dyn)) + ")", "short": f"${_so8_bold(name)}$", "trivial": False,
+                    "sort": list(sort)}
+        return None
+    if t in ("SU", "Sp") and isinstance(g.get("N"), int):
+        m = re.fullmatch(r"(sym|anti)\((.+)\)(bar)?", s)
+        if not m or re.fullmatch(r"\s*\d+\s*", m.group(2)):
+            return None
+        if m.group(3) and t != "SU":
+            raise RepError("conjugate (bar) labels are for SU(N)")
+        k = _num(m.group(2), params)
+        kind, conj = m.group(1), bool(m.group(3))
+        if g["N"] == 2 and kind == "sym":
+            short = f"spin ${_ktex(k)}/2$ (rank-${_ktex(k)}$ symmetric)"
+        else:
+            short = f"rank-${_ktex(k)}$ {'antisymmetric' if kind == 'anti' else 'symmetric'}{' (conjugate)' if conj else ''}"
+        return {"canon": f"{kind}({k}){'bar' if conj else ''}", "short": short, "trivial": False,
+                "sort": [BIG, 2 if kind == "sym" else 3, int(conj)]}
+    return None
+
+
+# --- extension (4d-and-up batch): labels of E_n and Lie(G); U(1) charges that depend on parameters ------------------
+# E_6, E_7, E_8: `singlet`, `adjoint` (78, 133, 248), and for E_6 `fundamental` (27) and `antifundamental` (27bar),
+# for E_7 `fundamental` (56). Lie(G): `singlet`, `adjoint`.
+# U(1): besides numbers, a charge may be an expression in the entry's parameters, optionally with a sign or ±:
+# '2(N_f-N_c)/N_f', '±N_c', '-N'. It sorts after every numeric charge.
+
+E_IRREPS = {
+    6: {"singlet": (1, ""), "fundamental": (27, "27"), "antifundamental": (27, "27b"), "adjoint": (78, "78")},
+    7: {"singlet": (1, ""), "fundamental": (56, "56"), "adjoint": (133, "133")},
+    8: {"singlet": (1, ""), "adjoint": (248, "248")},
+}
+
+_label_core = _label
+
+
+def _label(g, t, s, params, G):  # noqa: F811 (extends the definition above)
+    if t == "E":
+        irr = E_IRREPS[g["n"]]
+        if s not in irr:
+            raise RepError(f"an E_{g['n']} label is {', '.join(irr)}; not '{s}'")
+        dim, name = irr[s]
+        if s == "singlet":
+            return {"canon": s, "short": "singlet", "trivial": True, "sort": [1, 0]}
+        return {"canon": s, "short": f"{s} ${bold_dim(name)}$", "trivial": False, "sort": [dim, int(name.endswith("b"))]}
+    if t == "Lie":
+        if s not in ("singlet", "adjoint"):
+            raise RepError(f"a Lie(G) label (a group that depends on the family member) is singlet or adjoint; not '{s}'")
+        return {"canon": s, "short": s, "trivial": s == "singlet", "sort": [0 if s == "singlet" else 1]}
+    if t == "U1":
+        try:
+            charge(s)
+        except RepError:
+            v = s.replace("+-", "±").strip()
+            sign = v[0] if v[:1] in ("±", "-", "+") else ""
+            body = v[len(sign):].strip()
+            try:
+                e = _num(body, params)
+            except RepError:
+                # Not an expression in the entry's parameters: leave it to the symbolic-charge rule of the 2d batch
+                # (a row standing for a family labelled by its charge, e.g. 'n'), which rejects anything else.
+                return _label_core(g, t, s, params, G)
+            if isinstance(e, int):
+                return _label_core(g, t, s, params, G)
+            pre = {"±": "\\pm ", "-": "-", "+": ""}.get(sign, "")
+            canon = ("±" if sign == "±" else "-" if sign == "-" else "") + norm_sym(e)
+            return {"canon": canon, "short": f"charge ${pre}{e}$", "trivial": False,
+                    "sort": [BIG, {"±": 0, "": 1, "+": 1, "-": 2}[sign]]}
+    return _label_core(g, t, s, params, G)
+
+
+# ------------------------------------------------------------------ extension: index symbols, SU(2) spins, parametric
+# S_n and D_n, SL(2,R), a generic simple group G (added with the migration of 2d entries, batch b)
+#
+# - A factor may declare `symbols`: names, other than the entry's parameters, that its labels may use: a running index
+#   of a family of operators listed in one row (`j` in Phi_j, `L` in the L-leg operator), or a formal group size
+#   (`n` in O(n) at n -> 0). They count as parameters for that factor only.
+# - SU(2) (and Sp(2)): `spin(j)`, j a half-integer (the same label as Dynkin(2j)) or an expression in the parameters
+#   and symbols (`spin(j)`, `spin(k/2)`).
+# - S_n with n a parameter (S_Q, for Q continued in the sense of Deligne's category Rep(S_t)): `trivial`, `standard`,
+#   `Y(l1,l2,...)` for the irrep [n - |l|, l1, l2, ...].
+# - D_n with n a parameter (dihedral of order 2n): A1, A2, B1, B2 (n even), E1, E2, ... (E_j: the rotation acts as
+#   e^{+-2 pi i j/n}).
+# - `SL(2,R)`: the universal cover of SL(2,R), with the unitary irreps that occur in the SL(2,R) WZW model and the
+#   adjoint: `trivial`, `adjoint`, `D+(j)`, `D-(j)`, `D±(j)` (discrete series, lowest/highest weight j; ± is a
+#   conjugate pair in one row, as for charges), `C(j, alpha)` (continuous series, Casimir -j(j-1), J^3_0 in alpha + Z).
+# - A group named by a parameter of the entry (`group: G`): a generic compact simple Lie group, with labels
+#   `singlet`, `adjoint`, `hw(lambda)` (highest weight lambda, a parameter or symbol) and `hw(lambda)bar` (its
+#   conjugate lambda^*).
+
+_parse_factor_2db, _label_dispatch_2db, _label_public_2db = parse_factor, _label, label
+
+
+def _symbols(f: dict) -> set[str]:
+    return {norm_sym(s) for s in (f.get("symbols") or [])}
+
+
+def _expr(s: str, params: set[str]):
+    """A number or an expression in parameters and symbols (TeX names such as '\\alpha' allowed, `i` the imaginary
+    unit), returned as written. Raises RepError."""
+    s = s.strip()
+    if re.fullmatch(r"-?\d+(?:/\d+)?", s):
+        return Fraction(s)
+    names = re.findall(r"\\?[A-Za-z]+(?:_\{?[A-Za-z0-9]+\}?)?", s)
+    bad = [n for n in names if n != "i" and norm_sym(n) not in params]
+    if not names or bad or not re.fullmatch(r"[\\A-Za-z0-9_{}+\-*/() ]+", s):
+        raise RepError(f"'{s}' is neither a number nor an expression in the entry's parameters"
+                       f"{' (unknown: ' + ', '.join(bad) + ')' if bad else ''}; a running index goes in the factor's `symbols`")
+    return s
+
+
+def parse_factor(f: dict, params: set[str]) -> dict:
+    params = set(params) | _symbols(f)
+    group = norm_sym(f.get("group", ""))
+    base = {k: v for k, v in f.items() if k != "symbols"}
+    if (m := re.fullmatch(r"(S|D)_?([A-Za-z]\w*)", group)) and norm_sym(m.group(2)) in params:
+        g = {"type": m.group(1), "n": m.group(2), "id": str(f["id"])}
+        g["tex"] = f.get("tex") or f"{m.group(1)}_{{{m.group(2)}}}"
+    elif group in ("SL(2,R)", "SL(2,\\mathbbR)"):
+        g = {"type": "SL2R", "id": str(f["id"]), "tex": f.get("tex") or "SL(2,\\mathbb{R})"}
+    elif group in params and re.fullmatch(r"\\?[A-Za-z]+", group):
+        g = {"type": "LieParam", "G": group, "id": str(f["id"]), "tex": f.get("tex") or group}
+    else:
+        g = _parse_factor_2db(base, params)
+    if "irreps" in f and g["type"] not in ("finite", "listed"):
+        raise RepError("`irreps` is only for `group: finite` or `group: listed`")
+    g["symbols"] = _symbols(f)
+    return g
+
+
+def label(g: dict, value, params: set[str]) -> dict:
+    return _label_public_2db(g, value, set(params) | g.get("symbols", set()))
+
+
+def _label(g, t, s, params, G):
+    if t in ("SU", "Sp") and g["N"] == 2 and (m := re.fullmatch(r"spin\((.+)\)", s)):
+        j = _expr(m.group(1), params)
+        if isinstance(j, Fraction):
+            if j < 0 or (2 * j).denominator != 1:
+                raise RepError(f"'{s}': the spin is a non-negative half-integer")
+            return _label_dispatch_2db(g, t, f"Dynkin({int(2 * j)})", params, G)
+        return {"canon": f"spin({norm_sym(j)})", "short": f"spin ${j}$", "trivial": False, "sort": [BIG, 0]}
+    if t == "S" and not isinstance(g["n"], int):
+        n = g["n"]
+        if s == "trivial":
+            lam = []
+        elif s == "standard":
+            lam = [1]
+        elif (m := re.fullmatch(r"Y\(([\d,\s]*)\)", s)):
+            lam = _tuple(m.group(1))
+            if any(x < 1 for x in lam) or lam != sorted(lam, reverse=True):
+                raise RepError(f"'{s}': the rows below the first are positive and non-increasing")
+        else:
+            raise RepError(f"an S_{n} label (n a parameter) is trivial, standard or Y(l1,l2,...) for the irrep "
+                           f"[{n} - |l|, l1, l2, ...]; not '{s}'")
+        rows = ",".join(map(str, lam))
+        short = {(): "trivial", (1,): f"standard (${n}-1$-dimensional)"}.get(tuple(lam), f"irrep $[{n}-{sum(lam)},{rows}]$")
+        return {"canon": f"Y({rows})", "short": short, "trivial": not lam, "sort": [sum(lam), *(-x for x in lam)]}
+    if t == "D" and not isinstance(g["n"], int):
+        m = re.fullmatch(r"(A1|A2|B1|B2)|E(\d+)", s)
+        if not m or (m.group(2) and int(m.group(2)) < 1):
+            raise RepError(f"a D_{g['n']} label is A1, A2, B1, B2 (n even) or E1, E2, ...; not '{s}'")
+        order = ["A1", "A2", "B1", "B2"].index(s) if m.group(1) else 3 + int(m.group(2))
+        return {"canon": s, "short": f"${s[0]}_{{{s[1:]}}}$", "trivial": s == "A1", "sort": [order]}
+    if t == "SL2R":
+        if s in ("trivial", "adjoint"):
+            return {"canon": s, "short": s, "trivial": s == "trivial", "sort": [0 if s == "trivial" else 1]}
+        if (m := re.fullmatch(r"D(\+|-|±|\+-)\((.+)\)", s)):
+            sign = "±" if m.group(1) in ("±", "+-") else m.group(1)
+            j = _expr(m.group(2), params)
+            return {"canon": f"D{sign}({norm_sym(j)})", "short": f"discrete series $\\mathcal{{D}}^{{{sign}}}_{{{j}}}$",
+                    "trivial": False, "sort": [2, {"±": 0, "+": 1, "-": 2}[sign]]}
+        if (m := re.fullmatch(r"C\((.+),(.+)\)", s)):
+            j, a = _expr(m.group(1), params), _expr(m.group(2), params)
+            return {"canon": f"C({norm_sym(j)},{norm_sym(a)})", "short": f"continuous series $\\mathcal{{C}}^{{{a}}}_{{{j}}}$",
+                    "trivial": False, "sort": [3, 0]}
+        raise RepError(f"an SL(2,R) label is trivial, adjoint, D+(j), D-(j), D±(j) or C(j, alpha); not '{s}'")
+    if t == "LieParam":
+        if s in ("singlet", "adjoint"):
+            return {"canon": s, "short": s, "trivial": s == "singlet", "sort": [0 if s == "singlet" else 1, 0]}
+        if (m := re.fullmatch(r"hw\((.+)\)(bar)?", s)):
+            lam = m.group(1).strip()
+            if norm_sym(lam) not in params:
+                raise RepError(f"'{s}': the highest weight '{lam}' is not a parameter or symbol of the entry")
+            conj = bool(m.group(2))
+            short = f"conjugate of highest weight ${lam}$ (${lam}^*$)" if conj else f"highest weight ${lam}$"
+            return {"canon": f"hw({norm_sym(lam)}){'bar' if conj else ''}", "short": short, "trivial": False,
+                    "sort": [2, int(conj)]}
+        raise RepError(f"a label of a generic group {g['G']} is singlet, adjoint, hw(lambda) or hw(lambda)bar; not '{s}'")
+    return _label_dispatch_2db(g, t, s, params, G)
+
 
 # ------------------------------------------------------------------ spacetime
 
@@ -482,8 +764,9 @@ def check_entry_reps(data: dict, rel: str) -> list[str]:
         if missing:
             errs.append(f"{where}/global: no label for {missing} (write `unknown` if it is not known)")
         view = []
+        family = "family" in o     # a family row's labels may be expressions in its parameters: scripts/opfam.py
         for f in factors:
-            if f["id"] not in g:
+            if f["id"] not in g or family:
                 continue
             try:
                 view.append({"factor": f["id"], **label(f, g[f["id"]], params)})
@@ -510,7 +793,8 @@ def check_entry_reps(data: dict, rel: str) -> list[str]:
             errs.append(f"{where}: `T` (time reversal) is recorded only when symmetry.time_reversal is `independent`")
         if "multiplet" in o and not sym.get("supercharges"):
             errs.append(f"{where}: `multiplet` is for supersymmetric theories (symmetry.supercharges > 0)")
-        o["irrep"] = {"global": view, "key": "|".join(f"{v['factor']}={v['canon']}" for v in view)}
+        if not family:
+            o["irrep"] = {"global": view, "key": "|".join(f"{v['factor']}={v['canon']}" for v in view)}
     return errs
 
 

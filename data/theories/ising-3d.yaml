@@ -34,16 +34,6 @@ symmetry:
     - {id: Z2, group: Z2}
 
 quantities:
-  - symbol: '\lambda_{\sigma\sigma\epsilon}'
-    description: OPE coefficient
-    value: '1.0518537(41)'
-    method: CB
-    refs: [kos2016]
-  - symbol: '\lambda_{\epsilon\epsilon\epsilon}'
-    description: OPE coefficient
-    value: '1.532435(19)'
-    method: CB
-    refs: [kos2016]
   - symbol: '\eta'
     description: 'Critical exponent, $\eta = 2\Delta_\sigma - 1$'
     value: '0.036297612(48)'
@@ -54,96 +44,18 @@ quantities:
     value: '0.62997097(12)'
     method: CB, from Δε
     refs: ['chang2024, Table 2, p. 2']
-  - symbol: '\lambda_{\sigma\sigma\epsilon}'
-    description: OPE coefficient
-    value: '1.05185373(11)'
-    method: CB, non-rigorous error
-    refs: [chang2024]
-    note: '[@chang2024, Table 1, p. 2], derivative order $\Lambda=43$. The error is not bold in the table, so it is not rigorous. Agrees with the $\sigma\epsilon$ island value $1.0518537(41)$ above.'
-  - symbol: '\lambda_{\epsilon\epsilon\epsilon}'
-    description: OPE coefficient
-    value: '1.53244304(58)'
-    method: CB, non-rigorous error
-    refs: [chang2024]
-    note: '[@chang2024, Table 1, p. 2], $\Lambda=43$; error not bold, so not rigorous. Agrees with $1.532435(19)$ above.'
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to one free real scalar'
     value: '0.946538675(42)'
     method: CB, non-rigorous error
     refs: [chang2024]
     note: '[@chang2024, Table 1, p. 2], where it is written $c_T/c_B$ with $c_B = 3/(2(4\pi)^2)$ the free real scalar value in their normalization [@chang2024, Eq. (2.8)]; the ratio is normalization independent. Error not bold, so not rigorous.'
-  - symbol: '\lambda_{TT\epsilon}'
-    description: 'OPE coefficient of $\epsilon$ in $T\times T$, unit-normalized $T$, in the convention of [@chang2024, Eq. (2.2)]'
-    value: '0.95331513(42)'
-    method: CB, non-rigorous error
-    refs: [chang2024]
-    note: '[@chang2024, Table 1, p. 2]; defined in [@chang2024, Eq. (2.2), p. 5], with $\hat T = T/\sqrt{c_T}$ [@chang2024, Eq. (2.9)], chosen to match the five-point-bootstrap convention of Poland, Prilepina and Tadić [@poland2023]. Other normalizations of this structure differ. Error not bold, so not rigorous.'
-  - symbol: 'n_B'
-    description: 'Free-boson coefficient of $\langle TTT\rangle = n_B\langle TTT\rangle_B + n_F\langle TTT\rangle_F$ (free real scalar and free Majorana fermion structures); $n_B + n_F = C_T/C_T^{\rm free}$'
-    value: '0.933444559(75)'
-    method: CB, non-rigorous error
-    refs: [chang2024]
-    note: '[@chang2024, Table 1, p. 2]; definition [@chang2024, Eqs. (2.7)–(2.8), p. 6]. Error not bold, so not rigorous.'
-  - symbol: 'n_F'
-    description: 'Free-Majorana-fermion coefficient of $\langle TTT\rangle$; see $n_B$'
-    value: '0.013094116(33)'
-    method: CB, non-rigorous error
-    refs: [chang2024]
-    note: '[@chang2024, Table 1, p. 2]. The conclusion of [@chang2024, p. 33] states $n_F/(n_F+n_B) = 1.3833683(35)\%$. Error not bold, so not rigorous.'
   - symbol: 'C_T/C_T^{\rm free}'
     description: 'Stress-tensor two-point coefficient, relative to one free real scalar'
     value: '0.946543(42)'
     method: CB, rigorous
     refs: [reehorst2021]
     note: '[@reehorst2021, Table 1, p. 4; @reehorst2021, Eq. (4.4)], $\Lambda=19$. Rigorous interval assuming only two $\mathbb{Z}_2$-even spin-2 operators ($T$, $T''$) below $\Delta=6$, together with $\Delta_{\epsilon''}\geq 3$ and $\Delta_{\sigma''}>3$ [@reehorst2021, Sec. 4.3, App. A.7]. Consistent with $0.946538675(42)$.'
-  - symbol: '\lambda_{\sigma\sigma\epsilon''}'
-    description: OPE coefficient
-    value: '0.05304(16)'
-    method: CB, rigorous
-    refs: [reehorst2021]
-    note: '[@reehorst2021, Table 1, p. 4; @reehorst2021, Table 4], $\Lambda=19$. Rigorous, assuming $\Delta_{\sigma''}>3$, $\Delta_{\epsilon''''}>6$ and no degeneracy at $\Delta_{\epsilon''}$.'
-  - symbol: '\lambda_{\epsilon\epsilon\epsilon''}'
-    description: OPE coefficient
-    value: '1.5362(12)'
-    method: CB, rigorous
-    refs: [reehorst2021]
-    note: '[@reehorst2021, Table 1, p. 4; @reehorst2021, Table 4], $\Lambda=19$. Same assumptions as $\lambda_{\sigma\sigma\epsilon''}$.'
-  - symbol: '\lambda_{\sigma\epsilon\sigma''}'
-    description: OPE coefficient
-    value: '0.0565(15)'
-    method: CB, rigorous
-    refs: [reehorst2021]
-    note: '[@reehorst2021, Table 1, p. 4; @reehorst2021, Eq. (4.3)], $\Lambda=19$. Rigorous, assuming only two $\mathbb{Z}_2$-odd scalars below $\Delta=6$ and $\Delta_{\epsilon''}>3$ [@reehorst2021, Sec. 4.2].'
-  - symbol: '\lambda_{\sigma\sigma\epsilon''}'
-    description: OPE coefficient
-    value: '0.053012(55)'
-    method: CB-EFM
-    refs: [simmonsduffin2016]
-    note: '[@simmonsduffin2016, Table 2, p. 72], where it is written $f_{\sigma\sigma\epsilon''}$; for scalars this is the same normalization as $\lambda$ here (the same table gives $f_{\sigma\sigma\epsilon} = 1.0518537(41)$). Error: standard deviation over 60 extremal spectra at $\Lambda=43$, not rigorous [@simmonsduffin2016, App. A.3, p. 71].'
-  - symbol: '\lambda_{\epsilon\epsilon\epsilon''}'
-    description: OPE coefficient
-    value: '1.5360(16)'
-    method: CB-EFM
-    refs: [simmonsduffin2016]
-    note: '[@simmonsduffin2016, Table 2, p. 72], written $f_{\epsilon\epsilon\epsilon''}$. Error: standard deviation over 60 extremal spectra, not rigorous.'
-  - symbol: '\lambda_{\sigma\epsilon\sigma''}'
-    description: OPE coefficient
-    value: '0.057235(20)'
-    method: CB-EFM
-    refs: [simmonsduffin2016]
-    note: '[@simmonsduffin2016, Table 2, p. 72], $\sigma''$ row, $f_{\sigma O}$ column (the $\sigma\times\epsilon$ OPE). Error: standard deviation over 60 extremal spectra, not rigorous.'
-  - symbol: '\lambda_{\sigma\sigma\epsilon}'
-    description: OPE coefficient
-    value: '1.051(1)'
-    method: MC-BC
-    refs: [hasenbusch2017]
-    note: '[@hasenbusch2017, Eq. (37), p. 18], written $f_{\sigma\sigma\epsilon}$ in the bootstrap normalization [@hasenbusch2017, Eqs. (2)–(3)]. Lattices up to $L=1600$. The analysis uses the bootstrap $\Delta_\sigma$, $\Delta_\epsilon$ as input, and the value is read off at distances $x\approx 30$; the author notes that it is hard to quote a value not biased by knowledge of the bootstrap result [@hasenbusch2017, p. 18].'
-  - symbol: '\lambda_{\epsilon\epsilon\epsilon}'
-    description: OPE coefficient
-    value: '1.533(5)'
-    method: MC-BC
-    refs: [hasenbusch2017]
-    note: '[@hasenbusch2017, Eq. (38), p. 19], written $f_{\epsilon\epsilon\epsilon}$; read off at distances $x\approx 25$, with the bootstrap $\Delta_\epsilon$ as input (same caveat as $\lambda_{\sigma\sigma\epsilon}$).'
   - symbol: '\nu'
     description: 'Critical exponent, $\nu = 1/(3-\Delta_\epsilon)$'
     value: '0.62998(5)'
@@ -173,18 +85,6 @@ quantities:
     method: MC, spin-1/2 Ising model
     refs: [ferrenberg2018]
     note: '[@ferrenberg2018, Eq. (39), p. 7], also in the abstract. Lattices up to $1024^3$. The fits fix the correction exponents ($\omega_1 = 0.83$, $\omega_2 = 4$, and $\omega_\nu=1.6$ in some fits) rather than fitting them.'
-  - symbol: '\lambda_{\sigma\sigma\epsilon}'
-    description: OPE coefficient
-    value: '1.0539(18)'
-    method: FS
-    refs: [hu2023]
-    note: '[@hu2023, Table I, p. 4], written $f_{\sigma\sigma\epsilon}\approx 1.0539(18)$, from a linear extrapolation in $1/N$ of the six largest sizes (exact diagonalization and DMRG, [@hu2023, Fig. 2]). The error is the difference between the leading-order and next-to-leading-order finite-size fits [@hu2023, Supplemental Material, Sec. IV], a systematic estimate, not a statistical error. About $1\sigma$ above the bootstrap value.'
-  - symbol: '\lambda_{\epsilon\epsilon\epsilon}'
-    description: OPE coefficient
-    value: '1.5441(23)'
-    method: FS
-    refs: [hu2023]
-    note: '[@hu2023, Table I, p. 4], written $f_{\epsilon\epsilon\epsilon}\approx 1.5441(23)$, finite-size extrapolation; error = difference between leading- and next-to-leading-order fits [@hu2023, Supplemental Material, Sec. IV]. **Disagrees** with the bootstrap value $1.53244304(58)$ by about $5\times$ its stated error, so the stated error does not cover the extrapolation systematics.'
   - symbol: 'F'
     description: 'Sphere free energy ($F = -\log Z_{S^3}$), from the entanglement entropy of a disk'
     value: '0.0612(5)'
@@ -207,66 +107,215 @@ quantities:
     value: '0.820(7)'
     method: ε-exp, 6 loops, resummed
     refs: ['kompaniets2017, Eq. (42), p. 25', 'kompaniets2017, Table XI ($n=1$)']
-  - symbol: 'f_{\sigma\sigma T}'
-    description: 'OPE coefficient of the stress tensor, in the block normalization of [@simmonsduffin2016, Eq. (A.16)], in which blocks start as $z^{(\Delta-\ell)/2}\bar z^{(\Delta+\ell)/2}$'
-    value: '0.32613776(45)'
-    method: CB-EFM
-    refs: [simmonsduffin2016]
-    note: '[@simmonsduffin2016, Table 2, p. 72], $T_{\mu\nu}$ row. Fixed by the Ward identity in terms of $\Delta_\sigma$ and $C_T$, so it calibrates this normalization: $f_{\sigma\sigma T}/f_{\epsilon\epsilon T} = \Delta_\sigma/\Delta_\epsilon$, and in this normalization $f_{\phi\phi T}^2 = \frac{3}{8}\Delta_\phi^2\, C_T^{\rm free}/C_T$ (free scalar: $3/32$), which the tabulated values satisfy with $C_T/C_T^{\rm free} = 0.946538675$. Other papers normalize spinning blocks differently, by spin-dependent factors [@simmonsduffin2016, Eq. (A.17)]. Error not rigorous.'
-  - symbol: 'f_{\epsilon\epsilon T}'
-    description: 'OPE coefficient of the stress tensor, normalization as for $f_{\sigma\sigma T}$'
-    value: '0.8891471(40)'
-    method: CB-EFM
-    refs: [simmonsduffin2016]
-    note: '[@simmonsduffin2016, Table 2, p. 72], $T_{\mu\nu}$ row. Error not rigorous.'
-  - symbol: "f_{\\sigma\\sigma T'}"
-    description: 'Spinning OPE coefficient, normalization as for $f_{\sigma\sigma T}$'
-    value: '0.0105745(42)'
-    method: CB-EFM
-    refs: [simmonsduffin2016]
-    note: '[@simmonsduffin2016, Table 2, p. 72], $T''_{\mu\nu}$ row. Error: standard deviation over 60 extremal spectra, not rigorous.'
-  - symbol: "f_{\\epsilon\\epsilon T'}"
-    description: 'Spinning OPE coefficient, normalization as for $f_{\sigma\sigma T}$'
-    value: '0.69023(49)'
-    method: CB-EFM
-    refs: [simmonsduffin2016]
-    note: '[@simmonsduffin2016, Table 2, p. 72], $T''_{\mu\nu}$ row. Not rigorous.'
-  - symbol: 'f_{\sigma\sigma C}'
-    description: 'Spinning OPE coefficient of $C_{\mu\nu\rho\sigma}$ (spin 4), normalization as for $f_{\sigma\sigma T}$'
-    value: '0.069076(43)'
-    method: CB-EFM
-    refs: [simmonsduffin2016]
-    note: '[@simmonsduffin2016, Table 2, p. 72], $C_{\mu\nu\rho\sigma}$ row. Not rigorous.'
-  - symbol: 'f_{\epsilon\epsilon C}'
-    description: 'Spinning OPE coefficient of $C_{\mu\nu\rho\sigma}$, normalization as for $f_{\sigma\sigma T}$'
-    value: '0.24792(20)'
-    method: CB-EFM
-    refs: [simmonsduffin2016]
-    note: '[@simmonsduffin2016, Table 2, p. 72], $C_{\mu\nu\rho\sigma}$ row. Not rigorous.'
-  - symbol: 'f_{\sigma\epsilon\sigma_{\mu\nu}}'
-    description: 'Spinning OPE coefficient of the lightest $\mathbb{Z}_2$-odd spin-2 operator in $\sigma\times\epsilon$, normalization as for $f_{\sigma\sigma T}$'
-    value: '0.38915941(81)'
-    method: CB-EFM
-    refs: [simmonsduffin2016]
-    note: '[@simmonsduffin2016, Table 2, p. 72], $\ell=2$, $\Delta = 4.180305(18)$ row, $f_{\sigma\epsilon O}$ column. Sign depends on the order of $\sigma,\epsilon$ ($f_{43O} = (-1)^\ell f_{34O}$ [@simmonsduffin2016, p. 71]). Not rigorous.'
-  - symbol: 'f_{\sigma\epsilon\sigma_{\mu\nu\rho}}'
-    description: 'Spinning OPE coefficient of the lightest $\mathbb{Z}_2$-odd spin-3 operator in $\sigma\times\epsilon$, normalization as for $f_{\sigma\sigma T}$'
-    value: '0.1385(34)'
-    method: CB-EFM
-    refs: [simmonsduffin2016]
-    note: '[@simmonsduffin2016, Table 2, p. 72], $\ell=3$ row. Odd spin, so the sign flips with the order of $\sigma,\epsilon$. Not rigorous.'
-  - symbol: "\\lambda_{\\sigma\\sigma T'}"
-    description: 'Spinning OPE coefficient in the block normalization of Reehorst [@reehorst2021, p. 6, fn. 3], in which $\lambda^2 = 2^\ell f^2$ relative to the $f$ rows, so $\lambda = 2f$ at spin 2'
-    value: '0.02107(20)'
-    method: CB, rigorous
-    refs: [reehorst2021]
-    note: '[@reehorst2021, Table 1, p. 4; @reehorst2021, Eq. (4.5), p. 16], $\Lambda=19$. Rigorous, assuming only two $\mathbb{Z}_2$-even spin-2 operators below 6. The paper notes a factor of 2 relative to the value of [@simmonsduffin2016] from a different block normalization [@reehorst2021, p. 16]; his generalized-free-field coefficients [@reehorst2021, Eq. (2.4)] are $2^\ell$ times those in the normalization of [@simmonsduffin2016]. Compare $2 f_{\sigma\sigma T''} = 0.021149(8)$.'
-  - symbol: "\\lambda_{\\epsilon\\epsilon T'}"
-    description: 'Spinning OPE coefficient, normalization as for $\lambda_{\sigma\sigma T''}$'
-    value: '1.355(30)'
-    method: CB, rigorous
-    refs: [reehorst2021]
-    note: '[@reehorst2021, Table 1, p. 4; @reehorst2021, Eq. (4.5), p. 16], $\Lambda=19$. Same assumptions. Compare $2 f_{\epsilon\epsilon T''} = 1.3805(10)$, which lies inside this interval.'
+
+ope_structures:
+  # Bases of spinning structures chosen by the sources (docs/OPE.md); the scalar values use the standard `scalar`.
+  - id: sd16
+    symbol: 'f'
+    ref: 'simmonsduffin2016, Eq. (A.16)'
+    description: 'Scalar–scalar–spin-$\ell$ structure $\langle\phi_1\phi_2 O_{\Delta,\ell}\rangle$, external scalars unit-normalized, with conformal blocks normalized as in [@simmonsduffin2016, Eq. (A.16)], so that they start as $z^{(\Delta-\ell)/2}\bar z^{(\Delta+\ell)/2}$. At $\ell = 0$ it is the three-scalar $\lambda$. In this normalization the Ward identity gives $f_{\sigma\sigma T}/f_{\epsilon\epsilon T} = \Delta_\sigma/\Delta_\epsilon$ and $f_{\phi\phi T}^2 = \frac{3}{8}\Delta_\phi^2\, C_T^{\rm free}/C_T$ (free scalar: $3/32$). The sign depends on the order of the two external operators: $f_{43O} = (-1)^\ell f_{34O}$ [@simmonsduffin2016, p. 71].'
+    relation: 'Other papers normalize spinning blocks differently, by spin-dependent factors [@simmonsduffin2016, Eq. (A.17)].'
+  - id: reehorst2021
+    symbol: '\lambda'
+    ref: 'reehorst2021, p. 6, fn. 3'
+    description: 'Scalar–scalar–spin-$\ell$ structure, external scalars unit-normalized, with the conformal-block normalization of Reehorst [@reehorst2021, p. 6, fn. 3].'
+    relation: '$\lambda^2 = 2^\ell f^2$ relative to the structure of [@simmonsduffin2016, Eq. (A.16)], so $\lambda = 2f$ at spin 2: the paper notes a factor of 2 relative to the values of [@simmonsduffin2016] from the different block normalization [@reehorst2021, p. 16], and its generalized-free-field coefficients [@reehorst2021, Eq. (2.4)] are $2^\ell$ times those in the normalization of [@simmonsduffin2016].'
+  - id: chang2024-tte
+    symbol: '\lambda'
+    ref: 'chang2024, Eq. (2.2)'
+    description: 'The parity-even structure of $\langle TT\epsilon\rangle$ as normalized by [@chang2024, Eq. (2.2), p. 5], with the unit-normalized $\hat T = T/\sqrt{c_T}$ [@chang2024, Eq. (2.9)], chosen to match the five-point-bootstrap convention of Poland, Prilepina and Tadić [@poland2023]. A choice of these papers, not a standard normalization: other papers normalize this structure differently.'
+
+ope_coefficients:
+  - operators: ['\sigma', '\sigma', '\epsilon']
+    values:
+      - structure: scalar
+        symbol: '\lambda_{\sigma\sigma\epsilon}'
+        value: '1.0518537(41)'
+        method: CB
+        refs: [kos2016]
+      - structure: scalar
+        symbol: '\lambda_{\sigma\sigma\epsilon}'
+        value: '1.05185373(11)'
+        method: CB, non-rigorous error
+        refs: [chang2024]
+        note: '[@chang2024, Table 1, p. 2], derivative order $\Lambda=43$. The error is not bold in the table, so it is not rigorous. Agrees with the $\sigma\epsilon$ island value $1.0518537(41)$ above.'
+      - structure: scalar
+        symbol: '\lambda_{\sigma\sigma\epsilon}'
+        value: '1.051(1)'
+        method: MC-BC
+        refs: [hasenbusch2017]
+        note: '[@hasenbusch2017, Eq. (37), p. 18], written $f_{\sigma\sigma\epsilon}$ in the bootstrap normalization [@hasenbusch2017, Eqs. (2)–(3)]. Lattices up to $L=1600$. The analysis uses the bootstrap $\Delta_\sigma$, $\Delta_\epsilon$ as input, and the value is read off at distances $x\approx 30$; the author notes that it is hard to quote a value not biased by knowledge of the bootstrap result [@hasenbusch2017, p. 18].'
+      - structure: scalar
+        symbol: '\lambda_{\sigma\sigma\epsilon}'
+        value: '1.0539(18)'
+        method: FS
+        refs: [hu2023]
+        note: '[@hu2023, Table I, p. 4], written $f_{\sigma\sigma\epsilon}\approx 1.0539(18)$, from a linear extrapolation in $1/N$ of the six largest sizes (exact diagonalization and DMRG, [@hu2023, Fig. 2]). The error is the difference between the leading-order and next-to-leading-order finite-size fits [@hu2023, Supplemental Material, Sec. IV], a systematic estimate, not a statistical error. About $1\sigma$ above the bootstrap value.'
+  - operators: ['\epsilon', '\epsilon', '\epsilon']
+    values:
+      - structure: scalar
+        symbol: '\lambda_{\epsilon\epsilon\epsilon}'
+        value: '1.532435(19)'
+        method: CB
+        refs: [kos2016]
+      - structure: scalar
+        symbol: '\lambda_{\epsilon\epsilon\epsilon}'
+        value: '1.53244304(58)'
+        method: CB, non-rigorous error
+        refs: [chang2024]
+        note: '[@chang2024, Table 1, p. 2], $\Lambda=43$; error not bold, so not rigorous. Agrees with $1.532435(19)$ above.'
+      - structure: scalar
+        symbol: '\lambda_{\epsilon\epsilon\epsilon}'
+        value: '1.533(5)'
+        method: MC-BC
+        refs: [hasenbusch2017]
+        note: '[@hasenbusch2017, Eq. (38), p. 19], written $f_{\epsilon\epsilon\epsilon}$; read off at distances $x\approx 25$, with the bootstrap $\Delta_\epsilon$ as input (same caveat as $\lambda_{\sigma\sigma\epsilon}$).'
+      - structure: scalar
+        symbol: '\lambda_{\epsilon\epsilon\epsilon}'
+        value: '1.5441(23)'
+        method: FS
+        refs: [hu2023]
+        note: '[@hu2023, Table I, p. 4], written $f_{\epsilon\epsilon\epsilon}\approx 1.5441(23)$, finite-size extrapolation; error = difference between leading- and next-to-leading-order fits [@hu2023, Supplemental Material, Sec. IV]. **Disagrees** with the bootstrap value $1.53244304(58)$ by about $5\times$ its stated error, so the stated error does not cover the extrapolation systematics.'
+  - operators: ['T_{\mu\nu}', 'T_{\mu\nu}', '\epsilon']
+    values:
+      - structure: chang2024-tte
+        symbol: '\lambda_{TT\epsilon}'
+        value: '0.95331513(42)'
+        method: CB, non-rigorous error
+        refs: [chang2024]
+        note: '[@chang2024, Table 1, p. 2]. Error not bold, so not rigorous.'
+  - operators: ['T_{\mu\nu}', 'T_{\mu\nu}', 'T_{\mu\nu}']
+    values:
+      - structure: ttt-free-boson-3d
+        symbol: 'n_B'
+        value: '0.933444559(75)'
+        method: CB, non-rigorous error
+        refs: [chang2024]
+        note: '[@chang2024, Table 1, p. 2]; definition [@chang2024, Eqs. (2.7)–(2.8), p. 6]. Error not bold, so not rigorous.'
+      - structure: ttt-free-fermion-3d
+        symbol: 'n_F'
+        value: '0.013094116(33)'
+        method: CB, non-rigorous error
+        refs: [chang2024]
+        note: '[@chang2024, Table 1, p. 2]. The conclusion of [@chang2024, p. 33] states $n_F/(n_F+n_B) = 1.3833683(35)\%$. Error not bold, so not rigorous.'
+  - operators: ['\sigma', '\sigma', "\\epsilon'"]
+    values:
+      - structure: scalar
+        symbol: '\lambda_{\sigma\sigma\epsilon''}'
+        value: '0.05304(16)'
+        method: CB, rigorous
+        refs: [reehorst2021]
+        note: '[@reehorst2021, Table 1, p. 4; @reehorst2021, Table 4], $\Lambda=19$. Rigorous, assuming $\Delta_{\sigma''}>3$, $\Delta_{\epsilon''''}>6$ and no degeneracy at $\Delta_{\epsilon''}$.'
+      - structure: scalar
+        symbol: '\lambda_{\sigma\sigma\epsilon''}'
+        value: '0.053012(55)'
+        method: CB-EFM
+        refs: [simmonsduffin2016]
+        note: '[@simmonsduffin2016, Table 2, p. 72], where it is written $f_{\sigma\sigma\epsilon''}$; for scalars this is the same normalization as $\lambda$ here (the same table gives $f_{\sigma\sigma\epsilon} = 1.0518537(41)$). Error: standard deviation over 60 extremal spectra at $\Lambda=43$, not rigorous [@simmonsduffin2016, App. A.3, p. 71].'
+  - operators: ['\epsilon', '\epsilon', "\\epsilon'"]
+    values:
+      - structure: scalar
+        symbol: '\lambda_{\epsilon\epsilon\epsilon''}'
+        value: '1.5362(12)'
+        method: CB, rigorous
+        refs: [reehorst2021]
+        note: '[@reehorst2021, Table 1, p. 4; @reehorst2021, Table 4], $\Lambda=19$. Same assumptions as $\lambda_{\sigma\sigma\epsilon''}$.'
+      - structure: scalar
+        symbol: '\lambda_{\epsilon\epsilon\epsilon''}'
+        value: '1.5360(16)'
+        method: CB-EFM
+        refs: [simmonsduffin2016]
+        note: '[@simmonsduffin2016, Table 2, p. 72], written $f_{\epsilon\epsilon\epsilon''}$. Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - operators: ['\sigma', '\epsilon', "\\sigma'"]
+    values:
+      - structure: scalar
+        symbol: '\lambda_{\sigma\epsilon\sigma''}'
+        value: '0.0565(15)'
+        method: CB, rigorous
+        refs: [reehorst2021]
+        note: '[@reehorst2021, Table 1, p. 4; @reehorst2021, Eq. (4.3)], $\Lambda=19$. Rigorous, assuming only two $\mathbb{Z}_2$-odd scalars below $\Delta=6$ and $\Delta_{\epsilon''}>3$ [@reehorst2021, Sec. 4.2].'
+      - structure: scalar
+        symbol: '\lambda_{\sigma\epsilon\sigma''}'
+        value: '0.057235(20)'
+        method: CB-EFM
+        refs: [simmonsduffin2016]
+        note: '[@simmonsduffin2016, Table 2, p. 72], $\sigma''$ row, $f_{\sigma O}$ column (the $\sigma\times\epsilon$ OPE). Error: standard deviation over 60 extremal spectra, not rigorous.'
+  - operators: ['\sigma', '\sigma', 'T_{\mu\nu}']
+    values:
+      - structure: sd16
+        symbol: 'f_{\sigma\sigma T}'
+        value: '0.32613776(45)'
+        method: CB-EFM
+        refs: [simmonsduffin2016]
+        note: '[@simmonsduffin2016, Table 2, p. 72], $T_{\mu\nu}$ row. Fixed by the Ward identity in terms of $\Delta_\sigma$ and $C_T$, so it calibrates this normalization: the tabulated values satisfy the Ward-identity relations stated with the structure, with $C_T/C_T^{\rm free} = 0.946538675$. Error not rigorous.'
+  - operators: ['\epsilon', '\epsilon', 'T_{\mu\nu}']
+    values:
+      - structure: sd16
+        symbol: 'f_{\epsilon\epsilon T}'
+        value: '0.8891471(40)'
+        method: CB-EFM
+        refs: [simmonsduffin2016]
+        note: '[@simmonsduffin2016, Table 2, p. 72], $T_{\mu\nu}$ row. Error not rigorous.'
+  - operators: ['\sigma', '\sigma', "T'_{\\mu\\nu}"]
+    values:
+      - structure: sd16
+        symbol: "f_{\\sigma\\sigma T'}"
+        value: '0.0105745(42)'
+        method: CB-EFM
+        refs: [simmonsduffin2016]
+        note: '[@simmonsduffin2016, Table 2, p. 72], $T''_{\mu\nu}$ row. Error: standard deviation over 60 extremal spectra, not rigorous.'
+      - structure: reehorst2021
+        symbol: "\\lambda_{\\sigma\\sigma T'}"
+        value: '0.02107(20)'
+        method: CB, rigorous
+        refs: [reehorst2021]
+        note: '[@reehorst2021, Table 1, p. 4; @reehorst2021, Eq. (4.5), p. 16], $\Lambda=19$. Rigorous, assuming only two $\mathbb{Z}_2$-even spin-2 operators below 6. Compare $2 f_{\sigma\sigma T''} = 0.021149(8)$.'
+  - operators: ['\epsilon', '\epsilon', "T'_{\\mu\\nu}"]
+    values:
+      - structure: sd16
+        symbol: "f_{\\epsilon\\epsilon T'}"
+        value: '0.69023(49)'
+        method: CB-EFM
+        refs: [simmonsduffin2016]
+        note: '[@simmonsduffin2016, Table 2, p. 72], $T''_{\mu\nu}$ row. Not rigorous.'
+      - structure: reehorst2021
+        symbol: "\\lambda_{\\epsilon\\epsilon T'}"
+        value: '1.355(30)'
+        method: CB, rigorous
+        refs: [reehorst2021]
+        note: '[@reehorst2021, Table 1, p. 4; @reehorst2021, Eq. (4.5), p. 16], $\Lambda=19$. Same assumptions. Compare $2 f_{\epsilon\epsilon T''} = 1.3805(10)$, which lies inside this interval.'
+  - operators: ['\sigma', '\sigma', 'C_{\mu\nu\rho\sigma}']
+    values:
+      - structure: sd16
+        symbol: 'f_{\sigma\sigma C}'
+        value: '0.069076(43)'
+        method: CB-EFM
+        refs: [simmonsduffin2016]
+        note: '[@simmonsduffin2016, Table 2, p. 72], $C_{\mu\nu\rho\sigma}$ row. Not rigorous.'
+  - operators: ['\epsilon', '\epsilon', 'C_{\mu\nu\rho\sigma}']
+    values:
+      - structure: sd16
+        symbol: 'f_{\epsilon\epsilon C}'
+        value: '0.24792(20)'
+        method: CB-EFM
+        refs: [simmonsduffin2016]
+        note: '[@simmonsduffin2016, Table 2, p. 72], $C_{\mu\nu\rho\sigma}$ row. Not rigorous.'
+  - operators: ['\sigma', '\epsilon', '\sigma_{\mu\nu}']
+    values:
+      - structure: sd16
+        symbol: 'f_{\sigma\epsilon\sigma_{\mu\nu}}'
+        value: '0.38915941(81)'
+        method: CB-EFM
+        refs: [simmonsduffin2016]
+        note: '[@simmonsduffin2016, Table 2, p. 72], $\ell=2$, $\Delta = 4.180305(18)$ row, $f_{\sigma\epsilon O}$ column. Not rigorous.'
+  - operators: ['\sigma', '\epsilon', '\sigma_{\mu\nu\rho}']
+    values:
+      - structure: sd16
+        symbol: 'f_{\sigma\epsilon\sigma_{\mu\nu\rho}}'
+        value: '0.1385(34)'
+        method: CB-EFM
+        refs: [simmonsduffin2016]
+        note: '[@simmonsduffin2016, Table 2, p. 72], $\ell=3$ row. Odd spin, so the sign flips with the order of $\sigma,\epsilon$. Not rigorous.'
 
 operators:
   - name: '\sigma'

@@ -285,6 +285,8 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = 1 + 6Q^2$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: none
+  parity: true
+  global_group: []
   notes: 'The chiral algebra is Virasoro at central charge $c$. Reflection $V_{-P}=V_P$ and duality $b\to b^{-1}$ are identifications, not symmetries.'
 
 quantities:
@@ -307,18 +309,21 @@ quantities:
     value: '4\sqrt{2}\,\sinh(2\pi bP)\sinh(2\pi b^{-1}P)'
     method: exact
     refs: [cemr2024, cmmt2020]
+    category: ope
   - symbol: 'C_b(P_1,P_2,P_3)'
     description: 'Three-point function (DOZZ formula)'
     value: '\frac{\Gamma_b(2Q)\,\Gamma_b(\frac{Q}{2}\pm iP_1\pm iP_2\pm iP_3)}{\sqrt{2}\,\Gamma_b(Q)^3\prod_{k=1}^{3}\Gamma_b(Q\pm 2iP_k)}'
     method: exact
     refs: [dornotto1994, zz1996, teschner1995, cemr2024]
+    category: ope
 
 operators:
   - name: 'V_P'
     Delta: '\frac{Q^2}{2}+2P^2'
     spin: 0
     weights: '(h_P,h_P)'
-    rep: 'Continuum, $P\in\mathbb{R}_{\geq 0}$'
+    parity: even
+    role: 'Continuum, $P\in\mathbb{R}_{\geq 0}$'
     method: exact
     refs: [cemr2024]
     note: 'The spectrum. Reflection symmetric, $V_{-P}=V_P$.'
@@ -326,7 +331,8 @@ operators:
     Delta: 0
     spin: 0
     weights: '(0,0)'
-    rep: '$P=\frac{iQ}{2}$'
+    parity: even
+    role: '$P=\frac{iQ}{2}$'
     method: exact
     refs: [cemr2024]
     note: 'Not in the spectrum: the identity is not normalisable, and is reached by analytic continuation.'
@@ -334,7 +340,8 @@ operators:
     Delta: '\frac{Q^2-(rb+sb^{-1})^2}{2}'
     spin: 0
     weights: '(h_{r,s},h_{r,s})'
-    rep: '$P_{r,s}=\frac{i}{2}(rb+sb^{-1})$, $r,s\geq 1$'
+    parity: even
+    role: '$P_{r,s}=\frac{i}{2}(rb+sb^{-1})$, $r,s\geq 1$'
     method: exact
     refs: [cemr2024]
     note: 'Degenerate operators with $h_{r,s}=h_{P_{r,s}}$, not in the spectrum. $C_b$ vanishes at these momenta for generic other momenta.'

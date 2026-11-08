@@ -40,6 +40,10 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = 1$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$U(1)_{\rm momentum} \times U(1)_{\rm winding}$, plus $X \to -X$; enhanced to $SU(2)\times SU(2)$ at $R=\sqrt2$'
+  parity: true
+  global_group:
+    - {id: U(1)_m, group: U(1), tex: 'U(1)_{\rm momentum}', note: '$X \to -X$ reverses both charges (an outer automorphism, said in `global`); enhanced at $R = \sqrt2$'}
+    - {id: U(1)_w, group: U(1), tex: 'U(1)_{\rm winding}'}
 
 quantities:
 - key: c
@@ -58,10 +62,19 @@ operators:
 - name: 'V_{n,w}'
   Delta: '\frac{n^2}{R^2} + \frac{w^2R^2}{4}'
   spin: nw
+  parity: unknown
+  global: {U(1)_m: n, U(1)_w: w}
   note: 'Momentum $n$, winding $w$.'
+  family:
+    id: vertex
+    parameters:
+    - {symbol: n}
+    - {symbol: w}
 - name: '\partial X,\ \bar\partial X'
   Delta: 1
   spin: 1
+  parity: pair
+  global: {U(1)_m: 0, U(1)_w: 0}
   note: '$U(1)$ currents.'
 
 references:

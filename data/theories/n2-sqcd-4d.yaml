@@ -74,8 +74,13 @@ symmetry:
   lorentzian: '$SU(2,2|2)$'
   supercharges: 8
   global: '$U(2N) = SU(2N)\times U(1)$ flavor symmetry for $N\geq3$, enhanced to $SO(8)$ for $N=2$; R-symmetry $SU(2)_R\times U(1)_r$'
+  parity: conditional
+  global_group:
+    - {id: SU(2)_R, group: SU(2), tex: 'SU(2)_R'}
+    - {id: U(1)_r, group: U(1), tex: 'U(1)_r', note: 'Normalized as in Dolan–Osborn: a Coulomb-branch chiral primary, in an $\mathcal{E}_{r(0,0)}$ multiplet, has $r = \Delta$.'}
+    - {id: G_F, group: 'Lie(U(2N))', tex: 'G_F', note: 'Flavor symmetry $U(2N) = SU(2N)\times U(1)$ for $N \geq 3$, enhanced to $SO(8)$ for $N = 2$.'}
   gauge: '$SU(N)$'
-  notes: 'Flavor central charges $k$ are normalized so that gauging a group $G$ is conformal when the matter it couples to has $k_G = 4h^\vee(G)$; a fundamental hypermultiplet of $SU(N)$ contributes 2 to $k_{SU(N)}$.'
+  notes: 'Flavor central charges $k$ are normalized so that gauging a group $G$ is conformal when the matter it couples to has $k_G = 4h^\vee(G)$; a fundamental hypermultiplet of $SU(N)$ contributes 2 to $k_{SU(N)}$. Multiplet names follow Dolan and Osborn [@dolan2002] as tabulated by Beem et al. [@beem2013, Table 7]: $\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\hat{\mathcal{B}}_R$ Higgs-branch half-BPS, $\hat{\mathcal{C}}_{0(0,0)}$ stress tensor, $\mathcal{A}^{\Delta}_{R,r(j,\bar\jmath)}$ long.'
 
 quantities:
   - symbol: 'a'
@@ -107,27 +112,40 @@ operators:
   - name: '\mathrm{Tr}\,\phi^k'
     Delta: 'k'
     spin: 0
-    rep: 'flavor and $SU(2)_R$ singlet; charged under $U(1)_r$'
+    parity: pair
+    global: {SU(2)_R: singlet, U(1)_r: unknown, G_F: singlet}
+    role: Coulomb-branch generator
+    multiplet: {name: '$\mathrm{Tr}\,\phi^k$', component: primary, type: '$\mathcal{E}_{k(0,0)}$'}
     method: exact
     refs: [shapere2008, beem2014]
     note: 'Coulomb-branch chiral ring generators, $k = 2,\dots,N$. The top component of the $k=2$ multiplet is the exactly marginal operator.'
+    family:
+      id: coulomb-branch
+      parameters:
+        - {symbol: k, from: 2, to: N}
   - name: '\mu = \tilde Q Q'
     Delta: 2
     spin: 0
-    rep: 'adjoint of the flavor group; $SU(2)_R$ triplet'
+    parity: unknown
+    global: {SU(2)_R: adjoint, U(1)_r: 0, G_F: adjoint}
+    multiplet: {name: flavor current, component: primary, type: '$\hat{\mathcal{B}}_1$'}
     method: exact
     refs: [beem2013]
     note: 'Moment map (Higgs-branch operator), the superconformal primary of the flavor-current multiplet.'
   - name: 'J_\mu'
     Delta: 3
     spin: 1
-    rep: 'adjoint of the flavor group'
+    parity: unknown
+    global: {SU(2)_R: singlet, U(1)_r: 0, G_F: adjoint}
+    multiplet: {name: flavor current, component: 'Q\bar Q', type: '$\hat{\mathcal{B}}_1$'}
     method: exact
     note: Conserved flavor current.
   - name: 'T_{\mu\nu}'
     Delta: 4
     spin: 2
-    rep: singlet
+    parity: even
+    global: {SU(2)_R: singlet, U(1)_r: 0, G_F: singlet}
+    multiplet: {name: stress tensor, component: 'Q^2\bar Q^2', type: '$\hat{\mathcal{C}}_{0(0,0)}$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -180,6 +198,13 @@ references:
     year: 2021
     journal: JHEP 01 (2021) 175
     arxiv: '2006.01847'
+  - key: dolan2002
+    title: On Short and Semi-Short Representations for Four Dimensional Superconformal Symmetry
+    authors: Dolan, Osborn
+    year: 2002
+    journal: Annals Phys. 307 (2003) 41-89
+    arxiv: hep-th/0209056
+    doi: 10.1016/S0003-4916(03)00074-5
 
 relations:
   - type: related_to

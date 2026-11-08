@@ -67,6 +67,10 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = d$ — 2d conformal symmetry; parity for $d = 1$, and for $d \geq 2$ only on special loci of the moduli space such as $B = 0$, since parity maps $B \to -B$'
   supercharges: 0
   global: '$U(1)^d_L\times U(1)^d_R$ (momentum and winding), enhanced to $G_L\times G_R$ at special points'
+  parity: conditional
+  global_group:
+    - {id: U(1)^d_L, group: listed, tex: 'U(1)^d_L', note: 'charges are the lattice vectors $p_L$; enhanced to $G_L$ at special points', irreps: [{label: '0', tex: '\text{neutral}'}, {label: p_L, tex: '\text{charge } p_L'}]}
+    - {id: U(1)^d_R, group: listed, tex: 'U(1)^d_R', irreps: [{label: '0', tex: '\text{neutral}'}, {label: p_R, tex: '\text{charge } p_R'}]}
   notes: 'T-duality $O(d,d;\mathbb{Z})$ acts on the moduli and identifies equivalent theories.'
 
 quantities:
@@ -99,6 +103,8 @@ operators:
   Delta: '\tfrac12(p_L^2+p_R^2)'
   spin: '\tfrac12(p_L^2-p_R^2)'
   weights: '(\tfrac12 p_L^2,\ \tfrac12 p_R^2)'
+  parity: unknown
+  global: {U(1)^d_L: p_L, U(1)^d_R: p_R}
   method: exact
   refs: [acht2021]
   note: 'Vertex operators, one for each non-zero vector of $\Lambda$; $U(1)^d\times U(1)^d$ primaries.'
@@ -106,6 +112,8 @@ operators:
   Delta: 1
   spin: 1
   weights: '(1,0),\ (0,1)'
+  parity: pair
+  global: {U(1)^d_L: '0', U(1)^d_R: '0'}
   method: exact
   note: '$U(1)$ currents, $d$ of each chirality; Virasoro primaries.'
 

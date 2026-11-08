@@ -44,6 +44,9 @@ symmetry:
   lorentzian: '$O(4,2)$'
   supercharges: 0
   global: '$SU(4)$ acting on the four Majorana fermions (it contains $SU(2)_L\times SU(2)_R\times U(1)_V$ of the Dirac description)'
+  parity: true
+  global_group:
+    - {id: SU(4), group: SU(4)}
   gauge: '$SU(2)$'
 
 quantities:
@@ -80,20 +83,24 @@ operators:
   - name: '\bar\psi\psi'
     Delta: '2.62\text{–}2.80'
     spin: 0
-    rep: 'gauge singlet; the fermion mass operator'
+    parity: pair
+    global: {SU(4): sym(2)}
+    role: fermion mass operator
     method: LGT, from γ*
     refs: [patella2012, bergner2017, degrand2011, rantaharju2016]
     note: 'Range $3 - \gamma_*$ spanned by the lattice values above, without their scaling corrections.'
   - name: 'J_\mu'
     Delta: 3
     spin: 1
-    rep: '$SU(4)$ adjoint'
+    parity: unknown
+    global: {SU(4): adjoint}
     method: exact
     note: Conserved flavor currents.
   - name: 'T_{\mu\nu}'
     Delta: 4
     spin: 2
-    rep: singlet
+    parity: even
+    global: {SU(4): singlet}
     method: exact
     note: Stress tensor (conserved).
 

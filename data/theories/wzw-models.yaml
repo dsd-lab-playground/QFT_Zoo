@@ -45,6 +45,10 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{k\dim G}{k+h^\vee}$ — 2d conformal symmetry, with parity (combined with $g \to g^{-1}$)'
   supercharges: 0
   global: 'Left and right multiplication of $g$ ($G_L \times G_R$), part of the chiral current algebras $\hat{\mathfrak g}_k \times \hat{\mathfrak g}_k$'
+  parity: true
+  global_group:
+    - {id: G_L, group: G, tex: 'G_L', symbols: ['\lambda']}
+    - {id: G_R, group: G, tex: 'G_R', symbols: ['\lambda']}
 
 quantities:
 - key: c
@@ -77,13 +81,16 @@ operators:
   Delta: 1
   spin: 1
   weights: '(1, 0),\ (0, 1)'
-  rep: 'adjoint of $G_L$, $G_R$'
+  parity: pair
+  global: {G_L: [singlet, adjoint], G_R: [singlet, adjoint]}
   method: exact
   note: 'Chiral currents, $\dim G$ of each; Virasoro primaries.'
 - name: '\Phi_\lambda'
   Delta: '\frac{(\lambda,\lambda+2\rho)}{k+h^\vee}'
   spin: 0
   weights: '(h_\lambda, h_\lambda)'
+  parity: unknown
+  global: {G_L: 'hw(\lambda)', G_R: 'hw(\lambda)bar'}
   method: exact
   refs: [walton1999, gepnerwitten1986]
   note: 'One affine primary for each integrable highest weight $\lambda$, $(\lambda,\theta)\le k$.'

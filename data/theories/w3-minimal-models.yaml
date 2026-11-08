@@ -24,6 +24,9 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = 2\big(1 - \tfrac{12}{p(p+1)}\big)$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: '$S_3$'
+  parity: true
+  global_group:
+    - {id: S3, group: S_3}
 
 quantities:
 - key: c
@@ -43,6 +46,8 @@ operators:
   Delta: '\frac{8}{3p(p+1)}'
   spin: 0
   degeneracy: 2
+  parity: even
+  global: {S3: standard}
   note: Lightest primaries.
 
 references:

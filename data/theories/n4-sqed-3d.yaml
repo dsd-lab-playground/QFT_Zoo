@@ -64,6 +64,13 @@ symmetry:
   lorentzian: '$OSp(4|4)$'
   supercharges: 8
   global: '$SU(N_f)$ acting on the hypermultiplets, times the topological $U(1)_J$, which is enhanced to $SU(2)$ at $N_f=1$ (the free twisted hypermultiplet, whose moment maps are bilinears of the free monopole fields $V_\pm$) and at $N_f=2$; R-symmetry $SU(2)_H\times SU(2)_C$'
+  parity: true
+  global_group:
+    - {id: SU(Nf), group: SU(N_f)}
+    - {id: U(1)_J, group: U(1), tex: 'U(1)_J', note: 'Enhanced to $SU(2)$ at $N_f = 1, 2$.'}
+    - {id: SU(2)_H, group: SU(2), tex: 'SU(2)_H'}
+    - {id: SU(2)_C, group: SU(2), tex: 'SU(2)_C'}
+  notes: 'Multiplet types in the notation of Cordova, Dumitrescu and Intriligator [@cordova2016, Sec. 2.1.4]: $X[j]^{(R;R'')}_\Delta$, with $j$ twice the spin and $(R;R'')$ the Dynkin labels of $SU(2)_H\times SU(2)_C$ (Higgs-branch moment maps are in $(2;0)$).'
   gauge: '$U(1)$'
 
 quantities:
@@ -89,27 +96,36 @@ operators:
   - name: '\tilde Q^a Q_b'
     Delta: 1
     spin: 0
-    rep: 'adjoint of $SU(N_f)$; triplet of $SU(2)_H$'
+    parity: unknown
+    global: {SU(Nf): adjoint, U(1)_J: 0, SU(2)_H: adjoint, SU(2)_C: singlet}
+    multiplet: {name: '$SU(N_f)$ flavor current', component: primary, type: '$B_1[0]^{(2;0)}_1$'}
     method: exact
     refs: [klebanov2012]
     note: 'Higgs-branch moment map, bottom of the $SU(N_f)$ current multiplet ($N_f\ge2$).'
   - name: 'V_\pm'
     Delta: '\frac{N_f}{2}'
     spin: 0
-    rep: '$U(1)_J$ charge $\pm1$; Coulomb-branch chiral operators'
+    parity: pair
+    global: {SU(Nf): singlet, U(1)_J: ±1, SU(2)_H: singlet, SU(2)_C: sym(N_f)}
+    role: Coulomb-branch chiral operators
+    multiplet: {name: '$V_\pm$', component: primary, type: '$B_1[0]^{(0;N_f)}_{N_f/2}$'}
     method: exact
     refs: [borokhov2002, gaiotto2008]
     note: 'BPS monopole operators of unit magnetic charge; $\Delta$ equals their R-charge $N_f/2$.'
   - name: 'J_\mu'
     Delta: 2
     spin: 1
-    rep: 'adjoint of $SU(N_f)$, and $U(1)_J$'
+    parity: unknown
+    global: {SU(Nf): [singlet, adjoint], U(1)_J: 0, SU(2)_H: singlet, SU(2)_C: singlet}
+    multiplet: {name: flavor current, component: 'Q^2', type: '$B_1[0]^{(2;0)}_1$ ($SU(N_f)$), $B_1[0]^{(0;2)}_1$ ($U(1)_J$)'}
     method: exact
     note: Conserved flavor and topological currents.
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: singlet
+    parity: even
+    global: {SU(Nf): singlet, U(1)_J: 0, SU(2)_H: singlet, SU(2)_C: singlet}
+    multiplet: {name: stress tensor, component: 'Q^4', type: '$A_2[0]^{(0;0)}_1$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -144,5 +160,10 @@ references:
     year: 2021
     journal: SciPost Phys. 10, 097
     arxiv: '1910.03600'
+  - key: cordova2016
+    title: Multiplets of superconformal symmetry in diverse dimensions
+    authors: Cordova, Dumitrescu, Intriligator
+    year: 2016
+    arxiv: '1612.00809'
 
 contributors: [Canonical111]

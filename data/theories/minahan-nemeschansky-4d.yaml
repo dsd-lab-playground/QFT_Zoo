@@ -63,7 +63,12 @@ symmetry:
   lorentzian: '$SU(2,2|2)$'
   supercharges: 8
   global: '$E_6$, $E_7$ or $E_8$ flavor symmetry; R-symmetry $SU(2)_R\times U(1)_r$'
-  notes: 'Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$, and gauging $G$ is conformal when the matter has $k_G = 4h^\vee(G)$.'
+  parity: false
+  global_group:
+    - {id: SU(2)_R, group: SU(2), tex: 'SU(2)_R'}
+    - {id: U(1)_r, group: U(1), tex: 'U(1)_r', note: 'Normalized as in Dolan–Osborn: a Coulomb-branch chiral primary, in an $\mathcal{E}_{r(0,0)}$ multiplet, has $r = \Delta$.'}
+    - {id: E_n, group: 'Lie(E_n)', note: '$E_6$, $E_7$ or $E_8$: one theory each.'}
+  notes: 'Flavor central charges in the normalization where $SU(2)$ with four flavors has $k_{SO(8)} = 4$, and gauging $G$ is conformal when the matter has $k_G = 4h^\vee(G)$. Multiplet names follow Dolan and Osborn [@dolan2002] as tabulated by Beem et al. [@beem2013, Table 7]: $\mathcal{E}_{r(0,0)}$ Coulomb-branch chiral, $\hat{\mathcal{B}}_R$ Higgs-branch half-BPS, $\hat{\mathcal{C}}_{0(0,0)}$ stress tensor, $\mathcal{A}^{\Delta}_{R,r(j,\bar\jmath)}$ long.'
 
 quantities:
   - symbol: 'a'
@@ -95,32 +100,40 @@ operators:
   - name: 'u\ (E_6)'
     Delta: 3
     spin: 0
-    rep: '$E_6$ and $SU(2)_R$ singlet; Coulomb-branch generator'
+    global: {SU(2)_R: singlet, U(1)_r: 3, E_n: singlet}
+    role: Coulomb-branch generator
+    multiplet: {name: '$u$', component: primary, type: '$\mathcal{E}_{3(0,0)}$'}
     method: exact
     refs: [minahan1996, aharony2007]
   - name: 'u\ (E_7)'
     Delta: 4
     spin: 0
-    rep: '$E_7$ and $SU(2)_R$ singlet; Coulomb-branch generator'
+    global: {SU(2)_R: singlet, U(1)_r: 4, E_n: singlet}
+    role: Coulomb-branch generator
+    multiplet: {name: '$u$', component: primary, type: '$\mathcal{E}_{4(0,0)}$'}
     method: exact
     refs: [minahan1996b, aharony2007]
   - name: 'u\ (E_8)'
     Delta: 6
     spin: 0
-    rep: '$E_8$ and $SU(2)_R$ singlet; Coulomb-branch generator'
+    global: {SU(2)_R: singlet, U(1)_r: 6, E_n: singlet}
+    role: Coulomb-branch generator
+    multiplet: {name: '$u$', component: primary, type: '$\mathcal{E}_{6(0,0)}$'}
     method: exact
     refs: [minahan1996b, aharony2007]
   - name: '\mu'
     Delta: 2
     spin: 0
-    rep: 'adjoint of $E_n$; $SU(2)_R$ triplet'
+    global: {SU(2)_R: adjoint, U(1)_r: 0, E_n: adjoint}
+    multiplet: {name: flavor current, component: primary, type: '$\hat{\mathcal{B}}_1$'}
     method: exact
     refs: [beem2014]
     note: 'Moment map, the superconformal primary of the flavor-current multiplet; it generates the Higgs-branch chiral ring.'
   - name: 'T_{\mu\nu}'
     Delta: 4
     spin: 2
-    rep: singlet
+    global: {SU(2)_R: singlet, U(1)_r: 0, E_n: singlet}
+    multiplet: {name: stress tensor, component: 'Q^2\bar Q^2', type: '$\hat{\mathcal{C}}_{0(0,0)}$'}
     method: exact
     note: Stress tensor (conserved).
 
@@ -173,6 +186,13 @@ references:
     year: 2016
     journal: JHEP 03 (2016) 183
     arxiv: '1412.7541'
+  - key: dolan2002
+    title: On Short and Semi-Short Representations for Four Dimensional Superconformal Symmetry
+    authors: Dolan, Osborn
+    year: 2002
+    journal: Annals Phys. 307 (2003) 41-89
+    arxiv: hep-th/0209056
+    doi: 10.1016/S0003-4916(03)00074-5
 
 relations:
   - type: related_to

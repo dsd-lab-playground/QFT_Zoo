@@ -29,6 +29,9 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{2(k-1)}{k+2}$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: 'Dihedral $D_k$ ($\mathbb{Z}_k$ rotations and charge conjugation)'
+  parity: true
+  global_group:
+    - {id: D_k, group: D_k, note: '$\mathbb{Z}_k$ rotations and charge conjugation.'}
 
 quantities:
 - key: c
@@ -49,6 +52,8 @@ operators:
   Delta: '\frac{k-1}{k(k+2)}'
   spin: 0
   degeneracy: 2
+  parity: even
+  global: {D_k: E1}
   note: 'Lightest primaries ($k \geq 3$).'
 
 references:

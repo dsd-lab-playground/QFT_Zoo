@@ -48,6 +48,8 @@ symmetry:
   euclidean: '$O(4,1)$'
   supercharges: 0
   global: 'None (the Ising $\mathbb{Z}_2$ is broken by the imaginary field)'
+  parity: true
+  global_group: []
   notes: 'Not unitary. The action has a $\mathcal{PT}$ symmetry, $\phi \to -\phi$ combined with $i \to -i$; the quantum Hamiltonians that realize the critical point are non-Hermitian but $\mathcal{PT}$-symmetric.'
 
 quantities:
@@ -84,84 +86,100 @@ quantities:
     value: '-0.586(29)'
     method: FRG
     refs: [an2016]
-  - symbol: '|C_{\phi\phi\phi}|'
-    description: OPE coefficient (absolute value)
-    value: '1.9696(31)'
-    method: FS
-    refs: [arguellocruz2025]
-    note: 'From matrix elements of the fuzzy-sphere observable $Z_\ell$; from $X_\ell$, $1.969(5)$. The truncated bootstrap gives $C_{\phi\phi\phi}^2 = -3.88(1)$ [@gliozzi2014]: the coefficient is imaginary.'
+
+ope_coefficients:
+  - operators: ['\phi', '\phi', '\phi']
+    values:
+      - structure: scalar
+        symbol: '|C_{\phi\phi\phi}|'
+        value: '1.9696(31)'
+        method: FS
+        refs: [arguellocruz2025]
+        note: 'From matrix elements of the fuzzy-sphere observable $Z_\ell$; from $X_\ell$, $1.969(5)$. The truncated bootstrap gives $C_{\phi\phi\phi}^2 = -3.88(1)$ [@gliozzi2014]: the coefficient is imaginary.'
 
 operators:
   - name: '\phi'
     Delta: '0.214(2)'
     spin: 0
-    rep: the only relevant primary
+    parity: even
+    role: the only relevant primary
     method: FS
     refs: [arguellocruz2025]
     note: 'Below the unitarity bound.'
   - name: '\phi'
     Delta: '0.215(10)'
     spin: 0
-    rep: the only relevant primary
+    parity: even
+    role: the only relevant primary
     method: 'ε-exp, 6 − ε, five loops, resummed, from η'
     refs: [arguellocruz2025, borinsky2021]
     note: 'Listed by Arguello Cruz et al. [@arguellocruz2025], from the five-loop $\eta$ [@borinsky2021].'
   - name: '\phi'
     Delta: '0.214(6)'
     spin: 0
-    rep: the only relevant primary
+    parity: even
+    role: the only relevant primary
     method: series, from σ
     refs: [arguellocruz2025, butera2012]
     note: 'Listed by Arguello Cruz et al. [@arguellocruz2025], from the series value of $\sigma$ [@butera2012].'
   - name: '\phi'
     Delta: '0.29'
     spin: 0
-    rep: the only relevant primary
+    parity: even
+    role: the only relevant primary
     method: FS
     refs: [fan2025]
     note: 'No error quoted.'
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
+    parity: even
     method: exact
     note: Stress tensor (conserved).
   - name: '\phi^3'
     Delta: '4.613(6)'
     spin: 0
+    parity: even
     method: FS
     refs: [arguellocruz2025]
     note: 'Leading irrelevant scalar.'
   - name: '\phi^3'
     Delta: '4.5(2)'
     spin: 0
+    parity: even
     method: 'ε-exp, 6 − ε, five loops, resummed, from ω'
     refs: [borinsky2021]
     note: '$3 + \omega$ with the five-loop $\omega = 1.5(2)$.'
   - name: '\phi^3'
     Delta: '5.0(1)'
     spin: 0
+    parity: even
     method: CB-trunc
     refs: [gliozzi2014]
   - name: '\phi^3'
     Delta: '4.71'
     spin: 0
+    parity: even
     method: FS
     refs: [fan2025]
     note: 'No error quoted.'
   - name: 'Q_{\mu\nu\rho\sigma}'
     Delta: '4.9(1)'
     spin: 4
+    parity: even
     method: FS
     refs: [arguellocruz2025]
     note: 'Lightest spin-4 primary.'
   - name: 'Q_{\mu\nu\rho\sigma}'
     Delta: '4.75(1)'
     spin: 4
+    parity: even
     method: CB-trunc
     refs: [gliozzi2014]
   - name: 'Q_{\mu\nu\rho\sigma}'
     Delta: '4.90'
     spin: 4
+    parity: even
     method: FS
     refs: [fan2025]
     note: 'No error quoted.'

@@ -38,11 +38,6 @@ quantities:
     value: '1/8'
     method: exact
     refs: [bpz1984]
-  - symbol: 'C_{\sigma\sigma\epsilon}'
-    description: OPE coefficient
-    value: '\frac{1}{2}'
-    method: exact
-    refs: [bpz1984]
   - symbol: '\eta'
     description: Critical exponent
     value: '\frac{1}{4}'
@@ -53,6 +48,15 @@ quantities:
     value: '1'
     method: exact
     refs: [onsager1944]
+
+ope_coefficients:
+  - operators: ['\sigma', '\sigma', '\epsilon']
+    values:
+      - structure: scalar
+        symbol: 'C_{\sigma\sigma\epsilon}'
+        value: '\frac{1}{2}'
+        method: exact
+        refs: [bpz1984]
 
 operators:
   - name: '\sigma'

@@ -23,6 +23,9 @@ symmetry:
   lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$\mathbb{Z}_2$ ($\phi\to-\phi$), plus shift symmetry $\phi \to \phi + c$'
+  parity: true
+  global_group:
+    - {id: Z2, group: Z2, note: 'The shift symmetry $\phi\to\phi+c$ is not a factor: it does not act on operators by a representation.'}
 
 quantities:
   - key: F
@@ -36,17 +39,20 @@ operators:
   - name: '\phi'
     Delta: '\frac{1}{2}'
     spin: 0
-    rep: '$\mathbb{Z}_2$-odd'
+    parity: even
+    global: {Z2: odd}
     method: exact
   - name: '\phi^2'
     Delta: 1
     spin: 0
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: exact
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: '$\mathbb{Z}_2$-even'
+    parity: even
+    global: {Z2: even}
     method: exact
     note: Stress tensor (conserved).
 

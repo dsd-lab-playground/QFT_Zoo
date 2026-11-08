@@ -8,6 +8,9 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac43$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: 'Dihedral $D_{7}$: $\mathbb{Z}_{7}$ rotations $r$ and charge conjugation $C$'
+  parity: true
+  global_group:
+    - {id: D7, group: D_7, note: 'rotations $r$ ($\mathbb{Z}_7$) and charge conjugation $C$'}
 
 quantities:
 - key: c
@@ -27,6 +30,8 @@ operators:
   spin: 0
   weights: '(\tfrac{1}{21}, \tfrac{1}{21})'
   degeneracy: 2
+  parity: even
+  global: {D7: E1}
   note: Lightest non-vacuum Virasoro primary.
 
 relations:

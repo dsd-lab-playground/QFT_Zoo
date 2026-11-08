@@ -45,6 +45,9 @@ symmetry:
   spacetime: 'One Virasoro algebra at $c = 24$, on the holomorphic side only ($\bar c = 0$) — 2d conformal symmetry, no parity (holomorphic)'
   supercharges: 0
   global: '$U(1)^{24}$ (the currents $\partial X^i$), with outer automorphisms $O(\Lambda) = \mathrm{Co}_0$'
+  parity: false
+  global_group:
+    - {id: U(1)^24, group: listed, tex: 'U(1)^{24}', note: 'charges are vectors of $\Lambda$; the outer automorphisms $\mathrm{Co}_0$ are said in `global`', irreps: [{label: '0', tex: '\text{neutral}'}, {label: p, tex: '\text{charge } p \in \Lambda'}]}
 
 quantities:
   - symbol: '(c_L,\ c_R)'
@@ -70,12 +73,14 @@ operators:
     spin: 1
     weights: '(1, 0)'
     degeneracy: 24
+    global: {U(1)^24: '0'}
     method: exact
     note: '$U(1)^{24}$ currents.'
   - name: 'T'
     Delta: 2
     spin: 2
     weights: '(2, 0)'
+    global: {U(1)^24: '0'}
     method: exact
     note: Stress tensor.
   - name: 'e^{ip\cdot X},\ p^2 = 4'
@@ -83,6 +88,7 @@ operators:
     spin: 2
     weights: '(2, 0)'
     degeneracy: 196560
+    global: {U(1)^24: p}
     method: exact
     refs: [witten2007]
     note: 'Lightest vertex operators, one for each norm-4 vector of $\Lambda$. The count is the $q^2$ coefficient of $\Theta_\Lambda = E_4^3 - 720\Delta$ (derived).'
@@ -90,6 +96,7 @@ operators:
     Delta: '\tfrac{p^2}{2}'
     spin: '\tfrac{p^2}{2}'
     weights: '(\tfrac{p^2}{2}, 0)'
+    global: {U(1)^24: p}
     method: exact
     refs: [witten2007]
 

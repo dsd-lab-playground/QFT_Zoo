@@ -56,6 +56,9 @@ symmetry:
   spacetime: 'One Virasoro algebra at $c = 24$, on the holomorphic side only ($\bar c = 0$) — 2d conformal symmetry, no parity (holomorphic)'
   supercharges: 0
   global: 'The Monster group $\mathbb{M}$ (finite, of order $\approx 8.08\times10^{53}$); no continuous symmetry'
+  parity: false
+  global_group:
+    - {id: M, group: finite, tex: '\mathbb{M}', note: 'only the irreps used here are listed', irreps: [{label: '1', tex: '\mathbf{1}', dim: 1}, {label: '196883', tex: '\mathbf{196883}', dim: 196883}]}
   notes: '$|\mathbb{M}| = 808017424794512875886459904961710757005754368000000000$, and its smallest non-trivial linear representation has dimension 196883 [@dmc2015, Eqs. (1.3)–(1.4)].'
 
 quantities:
@@ -76,6 +79,7 @@ operators:
     Delta: 2
     spin: 2
     weights: '(2, 0)'
+    global: {M: '1'}
     method: exact
     note: 'Stress tensor; the only Virasoro descendant of the vacuum at weight 2.'
   - name: '\phi_a\ (a = 1,\dots,196883)'
@@ -83,7 +87,7 @@ operators:
     spin: 2
     weights: '(2, 0)'
     degeneracy: 196883
-    rep: 'the 196883-dimensional irreducible representation of $\mathbb{M}$'
+    global: {M: '196883'}
     method: exact
     refs: [witten2007, dmc2015]
     note: 'The lightest Virasoro primaries.'

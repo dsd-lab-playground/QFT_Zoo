@@ -7,6 +7,10 @@ tags: [CFT, interacting, unitary, rational]
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac{19}{13}$ — 2d conformal symmetry, with parity'
   global: 'Contains $\mathbb{Z}_2 \times \mathbb{Z}_2$: the Ising spin flip and the $\mathbb{Z}_2$ of the $E_6$ minimal model'
+  parity: true
+  global_group:
+    - {id: Z2_Ising, group: Z2, tex: '\mathbb{Z}_2^{\rm Ising}', note: 'Ising spin flip; the global symmetry contains the factors declared here; the full group is not recorded'}
+    - {id: Z2_E6, group: Z2, tex: '\mathbb{Z}_2^{E_6}', note: 'the $\mathbb{Z}_2$ of the $E_6$ minimal model'}
 
 quantities:
 - key: c
@@ -25,6 +29,8 @@ operators:
   Delta: '5/104'
   spin: 0
   weights: '(\tfrac{5}{208}, \tfrac{5}{208})'
+  parity: even
+  global: {Z2_Ising: even, Z2_E6: unknown}
   note: Lightest non-vacuum Virasoro primary.
 
 relations:

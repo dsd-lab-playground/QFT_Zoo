@@ -135,7 +135,6 @@ table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 th, td { text-align: left; vertical-align: top; padding: 6px 10px; border-bottom: 1px solid var(--border); }
 th .katex { text-transform: none; font-size: 1.1rem; }
 th { font: 500 0.9rem var(--display); color: var(--band-text); background: var(--band); }
-table.data tbody tr:nth-child(even) { background: var(--row-hover); }
 tbody tr:last-child td { border-bottom: 0; }
 .num { text-align: center; white-space: nowrap; }
 
@@ -149,7 +148,6 @@ table.catalogue td.summary { color: var(--muted); min-width: 260px; }
 table.data .value { white-space: nowrap; }
 /* Operators: one tbody per operator (its other determinations folded below it), sectors headed by their rep. */
 table.ops .value { white-space: nowrap; }
-table.ops tbody.alt > tr:not(.det) > td { background: var(--row-hover); }
 table.ops tr.op-group th {
   background: var(--accent-soft); color: var(--text); font: 600 0.92rem var(--sans);
   padding: 5px 10px; border-top: 1px solid var(--border);
@@ -165,10 +163,17 @@ table.ops .num { padding-left: 4px; padding-right: 4px; }
 .op-rep { color: var(--muted); font-size: 0.88em; }
 .op-rep:not(:last-child) { margin-bottom: 2px; }
 /* Structured entries: each group heading folds its group; the count of operators follows the heading. */
-table.ops .op-fold { color: var(--muted); font-size: 0.85em; margin-right: 3px; text-decoration: none; }
+table.ops .op-fold { color: var(--accent); font-size: 1.25em; line-height: 1; margin-right: 6px; padding: 2px 4px; text-decoration: none; display: inline-block; }
 table.ops .op-count { color: var(--muted); font-weight: 400; font-size: 0.82em; margin-left: 3px; }
 .op-group-none { color: var(--muted); font-weight: 400; font-style: italic; }
 .sub { color: var(--muted); font-size: 0.88rem; margin-top: 2px; }
+/* Operator families: one row for a tower of operators, its range under the name; members listed separately follow it,
+   indented, each led by its parameter values. */
+table.ops .op-family .katex { font-size: 1em; }
+table.ops .op-range { white-space: nowrap; }
+table.ops .op-members { font-size: 0.82rem; white-space: nowrap; }
+table.ops tr.op-member > td:first-child { padding-left: 26px; border-left: 3px solid var(--accent-soft); }
+table.ops .op-at { color: var(--muted); font-size: 0.88em; white-space: nowrap; }
 
 /* Quantity tables: one tbody per quantity; further determinations folded below it. */
 table.qty .value, table.qty .rel { white-space: nowrap; }
@@ -182,6 +187,19 @@ table.qty tbody.group th {
 }
 table.qty .dets, table.ops .dets { font-size: 0.82rem; white-space: nowrap; }
 .block > p.intro, .block > p.conv { margin: -4px 0 10px; }
+/* OPE coefficients: the structures used on the page, defined once above the table; a row names its structure. */
+.ope-structures { margin: 12px 0 0; }
+.ope-structures .ope-structures-title { margin: 0 0 2px; font-weight: 600; }
+.ope-structures ul { margin: 0; padding-left: 18px; }
+.ope-structures li { margin: 2px 0; border-radius: 3px; }
+.ope-structures li.flash { animation: flash 1.6s ease-out; }
+table.qty .ope-st { white-space: nowrap; }
+/* A triplet with several coefficients (n_B, n_F of <TTT>) is one item: its lines are separated by a dotted rule only. */
+table.qty tbody.ope-item td { border-bottom: 0; }
+table.qty tbody.ope-item { border-bottom: 1px solid var(--border); }
+table.qty tbody.ope-item:last-child { border-bottom: 0; }
+table.qty tbody.ope-item tr.ope-line td { border-top: 1px dotted var(--border); }
+table.qty .ope-st button.linkish { font-size: inherit; }
 
 .empty { text-align: center; color: var(--muted); padding: 30px 0; }
 

@@ -11,6 +11,9 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac75$ — 2d conformal symmetry, with parity'
   supercharges: 0
   global: 'Dihedral $D_{8}$: $\mathbb{Z}_{8}$ rotations $r$ and charge conjugation $C$'
+  parity: true
+  global_group:
+    - {id: D8, group: D_8, note: 'rotations $r$ ($\mathbb{Z}_8$) and charge conjugation $C$'}
 
 quantities:
 - key: c
@@ -30,6 +33,8 @@ operators:
   spin: 0
   weights: '(\tfrac{7}{160}, \tfrac{7}{160})'
   degeneracy: 2
+  parity: even
+  global: {D8: E1}
   note: Lightest non-vacuum Virasoro primary.
 
 relations:

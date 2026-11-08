@@ -87,6 +87,9 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = 1 - \tfrac{6(1-g)^2}{g}$ — 2d conformal symmetry, with parity; Euclidean only (non-unitary statistical model)'
   supercharges: 0
   global: '$O(n)$ for continuous $n$ (a categorical symmetry of the loop model)'
+  parity: true
+  global_group:
+    - {id: O(n), group: listed, tex: 'O(n)', note: 'continuous $n = -2\cos(\pi g)$, a categorical symmetry of the loop model', irreps: [{label: singlet, tex: '\text{singlet}'}, {label: vector, tex: '\text{vector}'}, {label: 'sym(L)', tex: '\text{traceless symmetric tensor } [L]'}]}
 
 quantities:
   - key: c
@@ -112,21 +115,27 @@ operators:
   - name: 'V_{(\frac12,0)}'
     Delta: '\frac{g}{8} - \frac{(1-g)^2}{2g}'
     spin: 0
-    rep: 'vector (spin field, 1-leg operator)'
+    parity: even
+    global: {O(n): vector}
+    role: 'spin field, 1-leg operator'
     method: exact
     refs: [jrs2023, granssamuelsson2022]
     note: '$2\Delta_{(\frac12,0)}$. Gives $\tfrac18$ at $g = \tfrac43$ (Ising $\sigma$) and $\tfrac{5}{48}$ at $g = \tfrac32$.'
   - name: 'V_{(\frac{L}{2},0)}'
     Delta: '\frac{gL^2}{8} - \frac{(1-g)^2}{2g}'
     spin: 0
-    rep: '$L$-leg (watermelon) operator, in the traceless symmetric tensor $[L]$ of $O(n)$'
+    parity: even
+    global: {O(n): 'sym(L)'}
+    role: '$L$-leg (watermelon) operator'
     method: exact
     refs: [jrs2023, granssamuelsson2022, saleur1992]
     note: '$2\Delta_{(\frac{L}{2},0)}$. Agrees with Saleur''s [@saleur1992] $2h_L = (9L^2-4)/48$ for dilute polymers ($g = \tfrac32$) and with his dense-polymer ($g = \tfrac12$) and percolation-hull ($g = \tfrac23$) weights.'
   - name: '\varepsilon = V^D_{\langle 1,3\rangle}'
     Delta: '\frac{4}{g} - 2'
     spin: 0
-    rep: 'singlet (energy operator)'
+    parity: even
+    global: {O(n): singlet}
+    role: energy operator
     method: exact
     refs: [jrs2023, gorbenkozan2020]
     note: '$2\Delta_{(1,3)}$. Relevant on the dilute branch, marginal at $n = 2$, irrelevant on the dense branch; $\Delta = 1$ at $g = \tfrac43$ (Ising $\epsilon$).'

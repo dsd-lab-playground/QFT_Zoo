@@ -50,6 +50,10 @@ symmetry:
   spacetime: 'Two $\mathcal{N}=2$ super-Virasoro algebras at $c = \bar c = \sum_i \tfrac{3k_i}{k_i+2}$ — 2d $\mathcal{N}=(2,2)$ superconformal symmetry (4 $Q$ + 4 $S$ supercharges); for the K3 members two small $\mathcal{N}=4$ super-Virasoro algebras, $\mathcal{N}=(4,4)$ (8 $Q$ + 8 $S$ supercharges); parity not recorded'
   supercharges: 4
   global: '$U(1)$ R-symmetry on each side; discrete phase symmetries of the factors (including the quantum symmetry of the orbifold) and permutations of equal factors'
+  parity: false
+  global_group:
+    - {id: U(1)_R, group: U(1), tex: 'U(1)_R', note: 'left-moving R-symmetry (current $J$); the discrete symmetries and permutations are said in `global`'}
+    - {id: U(1)_Rbar, group: U(1), tex: '\overline{U(1)}_R', note: 'right-moving R-symmetry'}
 
 quantities:
 - key: c
@@ -65,12 +69,16 @@ operators:
   Delta: 1
   spin: 1
   weights: '(1, 0)'
+  global: {U(1)_R: 0, U(1)_Rbar: 0}
+  multiplet: {name: stress tensor, component: primary}
   method: exact
   note: '$U(1)$ R-current, the sum of the currents of the factors.'
 - name: 'G^{\pm}'
   Delta: '3/2'
   spin: '3/2'
   weights: '(\tfrac32, 0)'
+  global: {U(1)_R: '±1', U(1)_Rbar: 0}
+  multiplet: {name: stress tensor, component: Q}
   method: exact
   note: '$\mathcal{N}=2$ supercurrents; fermionic.'
 

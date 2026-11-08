@@ -72,6 +72,9 @@ symmetry:
   supercharges: 0
   global: '$SL(2,\mathbb{C})$, with $\theta^\alpha$ and $\chi^\alpha$ in the fundamental'
   notes: 'Non-unitary ($c < 0$). Logarithmic: $L_0$ is not diagonalizable on the vacuum module.'
+  parity: true
+  global_group:
+    - {id: SL2C, group: SU(2), tex: 'SL(2,\mathbb{C})', note: 'Its finite-dimensional representations are labelled as those of $SU(2)$, its compact real form (doublet = fundamental).'}
 
 quantities:
   - key: c
@@ -87,13 +90,17 @@ operators:
     spin: 1
     weights: '(1, 0)'
     degeneracy: 2
-    rep: '$SL(2,\mathbb{C})$ doublet, fermionic'
+    parity: pair
+    global: {SL2C: fundamental}
+    role: fermionic
     method: exact
     refs: [kausch2000]
     note: 'The symplectic fermions; $\bar\chi^\alpha$ has weights $(0, 1)$.'
   - name: '\omega'
     Delta: 0
     spin: 0
+    parity: even
+    global: {SL2C: singlet}
     method: exact
     refs: [kausch2000, gk1999]
     note: 'Logarithmic partner of the identity $\Omega$: $L_0\omega = \bar L_0\omega = \Omega$, $\langle\omega\rangle = 1$, $\langle\Omega\rangle = 0$.'
@@ -102,7 +109,8 @@ operators:
     spin: 3
     weights: '(3, 0)'
     degeneracy: 3
-    rep: '$su(2)$ triplet'
+    parity: pair
+    global: {SL2C: adjoint}
     method: exact
     refs: [gk1996, kausch2000]
     note: 'Triplet-algebra generators, bilinear in $\chi^\alpha$ (bosonic orbifold).'
@@ -110,6 +118,8 @@ operators:
     Delta: '-\frac{1}{4}'
     spin: 0
     weights: '(-\tfrac18, -\tfrac18)'
+    parity: unknown
+    global: {SL2C: singlet}
     method: exact
     refs: [gk1999, kausch2000]
     note: '$su(2)$ singlet; ground state of the $\mathbb{C}_2$-twisted sector, a local field of the bosonic orbifold.'
@@ -118,6 +128,8 @@ operators:
     spin: 0
     weights: '(\tfrac38, \tfrac38)'
     degeneracy: 4
+    parity: unknown
+    global: {SL2C: [singlet, adjoint]}
     method: exact
     refs: [gk1999, kausch2000]
     note: 'Twisted sector, $\nu^{\alpha\bar\alpha} = \chi^\alpha_{-1/2}\bar\chi^{\bar\alpha}_{-1/2}\mu$ ($su(2)$ doublet on each side).'

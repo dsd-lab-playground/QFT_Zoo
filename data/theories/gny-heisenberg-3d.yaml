@@ -29,6 +29,9 @@ symmetry:
   lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$SU(2)$ spin, plus the lattice-derived flavour and discrete symmetries'
+  parity: true
+  global_group:
+    - {id: SU(2), group: SU(2), tex: 'SU(2)_{\rm spin}', note: 'The lattice-derived flavour and discrete symmetries are not declared.'}
 
 quantities:
   - symbol: '\nu'
@@ -54,21 +57,25 @@ operators:
   - name: '\vec\phi'
     Delta: '\approx 0.86\text{–}0.90'
     spin: 0
-    rep: $SU(2)$ triplet (Néel order parameter)
+    parity: unknown
+    global: {SU(2): adjoint}
+    role: Néel order parameter
     method: QMC
     refs: [wang2026, du2026, lang2025]
     note: '$\Delta = (1+\eta_\phi)/2$, from the spread of recent estimates $\eta_\phi = 0.72$–$0.79$.'
   - name: '\psi'
     Delta: '\approx 1.05\text{–}1.09'
     spin: '1/2'
-    rep: fermion
+    parity: unknown
+    global: {SU(2): fundamental}
     method: QMC
     refs: [wang2026, du2026, lang2025]
     note: '$\Delta = 1 + \eta_\psi/2$, from the spread of recent estimates $\eta_\psi = 0.09$–$0.19$.'
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: singlet
+    parity: even
+    global: {SU(2): singlet}
     method: exact
     note: Stress tensor (conserved).
 

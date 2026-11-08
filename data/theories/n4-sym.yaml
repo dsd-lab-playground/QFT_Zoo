@@ -52,7 +52,22 @@ quantities:
     note: Independent of $\tau$.
 
 operators:
+  - name: '\mathcal{O}_k = \mathrm{Tr}\,\phi^{\{I_1}\cdots\phi^{I_k\}}'
+    family:
+      id: half-BPS
+      parameters:
+        - {symbol: k, from: 2, to: N}
+    Delta: 'k'
+    spin: 0
+    parity: unknown
+    global: {SU(4)_R: 'Dynkin(0,k,0)'}
+    multiplet: {name: '$\mathcal{O}_k$', component: primary, type: half-BPS}
+    method: exact
+    refs: [maldacena1997]
+    note: 'Single-trace half-BPS superconformal primaries (symmetric traceless products of the six scalars), dual to the Kaluza–Klein modes on $S^5$; $\Delta = k$ is protected at every $\tau$. For $SU(N)$ the traces with $k > N$ are products of these. Multi-trace half-BPS operators in the same representations (from $k = 4$) are not listed. Parity not recorded: it acts on the six scalars by a reflection in $O(6)$, not by a sign.'
   - name: '\mathcal{O}_{\mathbf{20}^\prime} = \mathrm{Tr}\,\phi^{\{I}\phi^{J\}}'
+    member_of: half-BPS
+    at: {k: 2}
     Delta: 2
     spin: 0
     parity: even

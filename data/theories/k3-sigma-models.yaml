@@ -34,6 +34,10 @@ symmetry:
   spacetime: 'Two small $\mathcal{N}=4$ super-Virasoro algebras at $c = \bar c = 6$ — 2d $\mathcal{N}=(4,4)$ superconformal symmetry (8 $Q$ + 8 $S$ supercharges); parity not recorded (in a sigma-model description it maps $B \to -B$)'
   supercharges: 8
   global: '$SU(2)_L\times SU(2)_R$ R-symmetry; at special points, finite symmetry groups (subgroups of $\mathrm{Co}_0$)'
+  parity: false
+  global_group:
+    - {id: SU(2)_L, group: SU(2), tex: 'SU(2)_L', note: 'left-moving R-symmetry; the finite symmetry groups at special points are said in `global`'}
+    - {id: SU(2)_R, group: SU(2), tex: 'SU(2)_R', note: 'right-moving R-symmetry'}
 
 quantities:
 - key: c
@@ -72,6 +76,8 @@ operators:
   spin: 0
   weights: '(\tfrac14, \tfrac14)'
   degeneracy: 24
+  global: {SU(2)_L: [singlet, fundamental], SU(2)_R: [singlet, fundamental]}
+  multiplet: {name: '$\Phi^{\rm RR}_a$', component: primary, type: Ramond ground state}
   method: exact
   refs: [ghv2012]
   note: 'Ramond ground states, $(\mathbf2,\mathbf2) + 20$ singlets of $SU(2)_L\times SU(2)_R$; they correspond to $H^{\rm even}(\mathrm{K3},\mathbb{R})$.'
@@ -80,6 +86,8 @@ operators:
   spin: 1
   weights: '(1, 0)'
   degeneracy: 3
+  global: {SU(2)_L: adjoint, SU(2)_R: singlet}
+  multiplet: {name: stress tensor, component: primary}
   method: exact
   note: '$su(2)$ R-currents at level 1 of the $\mathcal{N}=4$ algebra (and $\bar J^a$).'
 - name: 'G^{\pm},\ G''^{\pm}'
@@ -87,6 +95,8 @@ operators:
   spin: '3/2'
   weights: '(\tfrac32, 0)'
   degeneracy: 4
+  global: {SU(2)_L: fundamental, SU(2)_R: singlet}
+  multiplet: {name: stress tensor, component: Q}
   method: exact
   note: 'Supercurrents of the $\mathcal{N}=4$ algebra (and their right-moving partners); fermionic.'
 

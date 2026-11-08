@@ -51,6 +51,9 @@ symmetry:
   euclidean: '$O(6,1)$'
   supercharges: 0
   global: '$S_q$ permutation symmetry of the Potts model, at $q \to 1$ (formal)'
+  parity: true
+  global_group:
+    - {id: S_q, group: finite, tex: 'S_q', irreps: [{label: trivial, tex: '\text{singlet}', dim: 1}, {label: standard, tex: '(q-1)\text{-dimensional}'}], note: 'The permutation group of the $q$-state Potts model at $q \to 1$ (formal); its standard representation has dimension $q - 1$.'}
   notes: 'The $N+1$ vectors $e_\alpha$ are the vertices of an $N$-dimensional tetrahedron, so $d_{ijk}$ is invariant under their permutations, the $S_{N+1} = S_q$ of the Potts model.'
 
 quantities:
@@ -103,14 +106,18 @@ operators:
   - name: '\sigma'
     Delta: '1.4740(14)'
     spin: 0
-    rep: '$(q-1)$-dimensional representation of $S_q$ (order parameter)'
+    parity: even
+    global: {S_q: standard}
+    role: order parameter
     method: MC, from d_f
     refs: [zhang2021, tan2020]
     note: '$5 - d_f$ with $d_f = 3.5260(14)$, listed as the magnetic dimension $X_1$ in [@tan2020, Table IV]. Below the unitarity bound $\tfrac32$.'
   - name: '\epsilon'
     Delta: '3.263(2)'
     spin: 0
-    rep: '$S_q$ singlet (thermal)'
+    parity: even
+    global: {S_q: trivial}
+    role: thermal
     method: MC, bond, hypercubic
     refs: [tan2020]
     note: 'Measured as the two-cluster exponent $X_{2s}$, which equals $5 - y_t$.'

@@ -76,6 +76,10 @@ symmetry:
   lorentzian: '$O(3,2)$'
   supercharges: 0
   global: '$\big(PSU(N) \times U(1)_{\rm top}\big) \rtimes \mathbb{Z}_2^C$; for $N=1$ only $U(1)_{\rm top} \rtimes \mathbb{Z}_2^C = O(2)$'
+  parity: true
+  global_group:
+    - {id: SU(N), group: SU(N), tex: 'PSU(N)', note: 'Labels are $SU(N)$ irreps of zero $N$-ality; charge conjugation is not declared.'}
+    - {id: U(1)_top, group: U(1), tex: 'U(1)_{\rm top}'}
   gauge: '$U(1)$'
   notes: 'The center $\mathbb{Z}_N$ of $SU(N)$ is part of the gauge group, so gauge-invariant operators, monopoles included, have zero $N$-ality.'
 
@@ -126,34 +130,40 @@ operators:
   - name: 'z^\dagger T^a z'
     Delta: '1 - \frac{16}{\pi^2 N} + O(N^{-2})'
     spin: 0
-    rep: '$SU(N)$ adjoint (Néel order parameter)'
+    parity: even
+    global: {SU(N): adjoint, U(1)_top: 0}
+    role: Néel order parameter
     method: 1/N, from η_q
     refs: [kaul2008, benvenuti2018]
     note: '$\Delta = (1+\eta_q)/2$ with $\eta_q = 1 - 32/(\pi^2 N)$ (called $\eta_N$ by Kaul–Sachdev [@kaul2008]).'
   - name: 'M_{1/2}'
     Delta: '0.1245922\,N + 0.3815 + O(1/N)'
     spin: 0
-    rep: 'unit topological charge, $SU(N)$ singlet'
+    parity: pair
+    global: {SU(N): singlet, U(1)_top: 1}
     method: 1/N
     refs: [dyer2015, murthy1990]
     note: 'Minimal monopole (VBS order parameter in $SU(N)$ magnets). The $O(N)$ term is from [@murthy1990]. Extrapolation gives $\Delta < 3$ for $N \leq 21$.'
   - name: 'M_{1}'
     Delta: '0.3110952\,N + 0.8745 + O(1/N)'
     spin: 0
-    rep: 'topological charge 2'
+    parity: pair
+    global: {SU(N): unknown, U(1)_top: 2}
     method: 1/N
     refs: [dyer2015]
     note: 'Extrapolation gives $\Delta < 3$ for $N \leq 6$.'
   - name: 'J_\mu^{\rm top},\ J_\mu^{SU(N)}'
     Delta: 2
     spin: 1
-    rep: 'singlet; $SU(N)$ adjoint'
+    parity: unknown
+    global: {SU(N): [singlet, adjoint], U(1)_top: 0}
     method: exact
     note: Conserved currents.
   - name: 'T_{\mu\nu}'
     Delta: 3
     spin: 2
-    rep: singlet
+    parity: even
+    global: {SU(N): singlet, U(1)_top: 0}
     method: exact
     note: Stress tensor (conserved).
 

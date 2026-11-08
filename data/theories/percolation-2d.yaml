@@ -56,6 +56,9 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = 0$ — 2d conformal symmetry, with parity; Euclidean only (non-unitary statistical model)'
   supercharges: 0
   global: '$S_Q$ permutation symmetry of the Potts model, at $Q \to 1$ (formal)'
+  parity: true
+  global_group:
+    - {id: S_Q, group: listed, tex: 'S_Q', note: 'permutation symmetry of the Potts model at $Q \to 1$ (formal)', irreps: [{label: trivial, tex: '\text{singlet}'}, {label: standard, tex: '(Q-1)\text{-dimensional}'}]}
 
 quantities:
   - key: c
@@ -103,7 +106,9 @@ operators:
     Delta: '\frac{5}{48}'
     spin: 0
     weights: '(\tfrac{5}{96}, \tfrac{5}{96})'
-    rep: 'order parameter; $(Q-1)$-dimensional representation of $S_Q$'
+    parity: even
+    global: {S_Q: standard}
+    role: order parameter
     method: exact
     refs: [saleur1992, jacobsensaleur2019, smirnovwerner2001]
     note: 'Kac weight $h_{1/2,0}$; its two-point function is the connectivity $\propto |x|^{-5/24}$.'
@@ -111,7 +116,9 @@ operators:
     Delta: '\frac{5}{4}'
     spin: 0
     weights: '(\tfrac58, \tfrac58)'
-    rep: '$S_Q$ singlet (thermal)'
+    parity: even
+    global: {S_Q: trivial}
+    role: thermal
     method: exact
     refs: [saleur1992, delfinoviti2011]
     note: 'Kac weight $h_{2,1}$, degenerate; $\Delta_\epsilon = 2 - 1/\nu$.'

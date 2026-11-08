@@ -47,6 +47,9 @@ symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = 0$ — 2d conformal symmetry, with parity; Euclidean only (non-unitary statistical model)'
   supercharges: 0
   global: '$O(n)$ at $n \to 0$ (formal, defined through the loop model)'
+  parity: true
+  global_group:
+    - {id: O(n), group: O(n), symbols: [n, L], note: 'Formal, at $n \to 0$, defined through the loop model; $L$ labels the $L$-leg operators.'}
 
 quantities:
   - key: c
@@ -91,7 +94,9 @@ operators:
     Delta: '\frac{5}{48}'
     spin: 0
     weights: '(\tfrac{5}{96}, \tfrac{5}{96})'
-    rep: 'vector (1-leg operator, end point of a walk)'
+    parity: even
+    global: {O(n): vector}
+    role: '1-leg operator, end point of a walk'
     method: exact
     refs: [saleur1992]
     note: '$h_L$ at $L = 1$; the same dimension as the percolation spin field.'
@@ -99,7 +104,9 @@ operators:
     Delta: '\frac{2}{3}'
     spin: 0
     weights: '(\tfrac13, \tfrac13)'
-    rep: 'singlet (energy) and 2-leg operator, degenerate at $n = 0$'
+    parity: even
+    global: {O(n): [singlet, sym(2)]}
+    role: 'energy and 2-leg operator, degenerate at $n = 0$'
     method: exact
     refs: [saleur1992, lsw2004]
     note: '$h_L$ at $L = 2$, equal to $2 - 1/\nu$.'
@@ -107,12 +114,16 @@ operators:
     Delta: '\frac{9L^2 - 4}{48}'
     spin: 0
     weights: '(h_L, h_L)'
-    rep: '$L$-leg (watermelon) operator'
+    parity: even
+    global: {O(n): sym(L)}
+    role: '$L$-leg (watermelon) operator'
     method: exact
     refs: [saleur1992]
   - name: 'T'
     Delta: 2
     spin: 2
+    parity: pair
+    global: {O(n): singlet}
     method: exact
     refs: [vasseur2012]
     note: 'Stress tensor. At $c = 0$ it is expected to have a logarithmic partner.'

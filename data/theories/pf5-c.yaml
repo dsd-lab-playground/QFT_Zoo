@@ -9,6 +9,9 @@ description: 'The $C$-twisted sectors have weights $h = \frac{k-2+(k-2s)^2}{16(k
 symmetry:
   spacetime: 'Two Virasoro algebras, $c = \bar c = \tfrac87$ — 2d conformal symmetry, with parity'
   global: 'Contains the dual $\mathbb{Z}_2$ of the orbifold, odd on the $C$-twisted sectors'
+  parity: true
+  global_group:
+    - {id: Z2_dual, group: Z2, tex: '\hat{\mathbb{Z}}_2', note: 'dual symmetry of the orbifold, odd on the $C$-twisted sectors; the global symmetry contains the factors declared here; the full group is not recorded'}
 
 quantities:
 - key: c
@@ -27,6 +30,8 @@ operators:
   Delta: '1/14'
   spin: 0
   weights: '(\tfrac{1}{28}, \tfrac{1}{28})'
+  parity: unknown
+  global: {Z2_dual: odd}
   note: 'Lightest $C$-twisted-sector field; lightest non-vacuum primary.'
 
 relations:
