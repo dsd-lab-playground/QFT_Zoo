@@ -543,8 +543,10 @@ const QCATS = {
   ope: {
     id: "three-point",
     title: "Three-point functions",
-    intro: (triplets) =>
-      triplets
+    intro: (triplets, d) =>
+      triplets && d === 2
+        ? `In 2d the ${wiki("Conformal_field_theory#Dependence_on_field_positions", "three-point function")} of three primaries is fixed by conformal symmetry up to one coefficient; each row gives it. Lightest operators first.`
+        : triplets
         ? `A ${wiki("Conformal_field_theory#Dependence_on_field_positions", "three-point function")} of primary operators is a sum of coefficients times structures fixed by conformal symmetry: each row is the coefficient of one structure, named in its Structure column and defined below the table. Lightest operators first; values in different structures are different numbers and are never compared.`
         : `Three-point data: coefficients of ${wiki("Conformal_field_theory#Dependence_on_field_positions", "three-point functions")} and the ${wiki("Operator_product_expansion", "operator product expansion")}.`,
   },
@@ -798,6 +800,7 @@ function opeLabel(t, st) {
  *  first, a default one marked as carrying no label), each with its symbol, label, definition, its embedding-space form
  *  (`embedding`, in the notation of Costa, Penedones, Poland and Rychkov; docs/THREE_POINT.md 1.4) and stated relations. */
 function opeStructuresHtml(t, items, title = "Structures") {
+  if (t.d === 2) return ""; // unique structure in 2d: nothing to define
   const used = [...new Set(items.filter((it) => it.ope).flatMap((it) => it.rows.map((r) => r._st)))].sort((a, b) => a.order - b.order);
   if (!used.length) return "";
   const li = (st) => {
@@ -820,7 +823,8 @@ function opeStructuresHtml(t, items, title = "Structures") {
 function quantityTable(t, items, cat, source) {
   const rel = new Map(cat === "exponent" ? items.map((it) => [it, exponentRelation(it)]) : []);
   // OPE values name the structure they multiply in a column of its own.
-  const hasOpe = items.some((it) => it.ope);
+  // In 2d a three-point function of primaries has a unique structure: no Structure column there.
+  const hasOpe = items.some((it) => it.ope) && t.d !== 2;
   const hasRel = [...rel.values()].some(Boolean);
   const describe = (q, it) => {
     let d = String(q.description ?? "");
@@ -852,7 +856,9 @@ function quantityTable(t, items, cat, source) {
     // A coefficient sits right before the structure it multiplies.
     return hasOpe
       ? [sym, valueCell, stCell, notes, ...relCell, source(q)]
-      : [sym, notes, ...relCell, valueCell, source(q)];
+      : cat === "ope"
+        ? [sym, valueCell, notes, source(q)] // 2d: unique structure, no column
+        : [sym, notes, ...relCell, valueCell, source(q)];
   };
   const tr = (cells, attrs = "") => `<tr${attrs}>${cells.map((c) => `<td>${c ?? ""}</td>`).join("")}</tr>`;
   const body = (it) =>
@@ -863,7 +869,7 @@ function quantityTable(t, items, cat, source) {
       return tr(row(head, one, line, true), k ? ' class="ope-line"' : "") + rest.map((q) => tr(row(q, one, line, false), ` class="det" data-det="${id}" hidden`)).join("");
     }).join("")}</tbody>`;
   const headers = cat === "ope"
-    ? ["Three-point function", "Coefficient", "Structure", "Notes", "Source"]
+    ? ["Three-point function", "Coefficient", ...(hasOpe ? ["Structure"] : []), "Notes", "Source"]
     : hasOpe
       ? ["Quantity", "Value", "Structure", "Description", ...(hasRel ? ["Relation"] : []), "Source"]
       : [cat === "exponent" ? "Exponent" : "Quantity", "Description", ...(hasRel ? ["Relation"] : []), "Value", "Source"];
@@ -907,7 +913,7 @@ function dataSections(t, source, topics, used) {
           prose += `<div class="prose">${md(tp.body)}</div>`;
         }
       });
-    const intro = meta.intro(c === "ope" ? its.some((it) => it.ope) : tb.hasRel) + allBtn(its);
+    const intro = meta.intro(c === "ope" ? its.some((it) => it.ope) : tb.hasRel, t.d) + allBtn(its);
     const after = c === "ope" ? opeStructuresHtml(t, its) : ""; // the structures are defined below the table
     const id = cats.length === 1 && c === "other" ? "data" : meta.id;
     const title = cats.length === 1 && c === "other" ? "Data" : meta.title;
