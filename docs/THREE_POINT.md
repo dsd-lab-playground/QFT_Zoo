@@ -282,7 +282,7 @@ value **of the same structure, in the same operator order**: values in different
 **Labels** (David, 2026-11-08): a structure is labelled by its numerator when that is simple ($1$, $2^{\ell/2}V_3^\ell$,
 $V_3^\ell$, $\delta_{ij}$, an $O(N)$ tensor); when the numerator is too complicated, by a short name
 ("parity-even $\langle TT\epsilon\rangle$", $\langle TTT\rangle_B$). The coefficient column sits right before the
-structure it multiplies. In the list of structures below the table, a structure labelled by its numerator shows only the label and its citation, with the full formula under "details"; a named structure shows its formula. **In 2d** the three-point function of three primaries has a unique structure, so 2d entries
+structure it multiplies. In the list of structures below the table, a structure labelled by its numerator shows only the label and its citation, with the full formula under "details"; a named structure shows its formula. **Details are uniform and short** (David, 2026-11-08): the formula in the source's notation (`form`, only when it says more than the label), one sentence on normalization (`description`), and at most one `relation` that a source states. How a normalization or relation follows from the sources goes in `derivation`, which is kept for verifiers and not shown. **In 2d** the three-point function of three primaries has a unique structure, so 2d entries
 have no Structure column and no list of structures.
 
 Each row names the structure of its coefficient: the structure's name, else its citation (plus the citation after a

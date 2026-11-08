@@ -22,7 +22,7 @@ _CITE_KEYS = re.compile(r"\[(@[^\]]*)\]")
 def _cited_keys(s: dict) -> list[str]:
     """Reference keys cited ([@key, ...]) in a structure's prose fields, in order, without repeats."""
     out: list[str] = []
-    for f in ("name", "description", "relation", "embedding", "form"):
+    for f in ("name", "description", "relation", "embedding", "form", "derivation"):
         for m in _CITE_KEYS.finditer(str(s.get(f, ""))):
             for k in re.findall(r"@([A-Za-z0-9_:-]+)", m.group(1)):
                 if k not in out:
@@ -33,7 +33,7 @@ def _cited_keys(s: dict) -> list[str]:
 def _embedding_errs(s: dict, where: str) -> list[str]:
     """`embedding` is a LaTeX formula shown in display math: no $...$ delimiters, no citation inside it."""
     errs = []
-    if s.get("form") is None and s.get("embedding") is None:
+    if s.get("form") is None and s.get("embedding") is None and not (s.get("name") and s.get("description")):
         # David, 2026-11-07: label every structure by what it is, never by a bare symbol plus a citation.
         errs.append(f"{where}: say what the structure is: give `form` (written out, or a form some work gave it) "
                     f"or a single-monomial `embedding`")

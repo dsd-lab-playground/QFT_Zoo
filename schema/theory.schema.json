@@ -1411,6 +1411,10 @@
           "type": "string",
           "description": "[markdown] Optional: the relation to another basis, only as a source states it (with a citation), e.g. '$\\lambda^2 = 2^\\ell f^2$ relative to ...'. Values are never converted."
         },
+        "derivation": {
+          "type": "string",
+          "description": "[markdown] Not shown on the page: how the normalization or the relation follows from the sources, for verifiers. The page shows only `form`, a one-sentence `description` and at most one `relation`."
+        },
         "form": {
           "type": "string",
           "minLength": 1,

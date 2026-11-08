@@ -96,19 +96,20 @@ quantities:
     refs: [chester2019]
 
 three_point_structures:
-  # The O(2) flavor structures of these three-point functions, as written by [@chester2019, Eqs. (11)–(13)].
-  - id: chester2019-tts
+  - id: 'chester2019-tts'
+    symbol: '\lambda'
     name: '$(y_1\cdot y_2)^2$'
+    ref: 'chester2019, Eqs. (11)–(13)'
     form: '\langle t(x_1,y_1)\,t(x_2,y_2)\,s(x_3)\rangle = \lambda_{tts}\,\frac{(y_1\cdot y_2)^2}{x_{12}^{2\Delta_t-\Delta_s}\,x_{23}^{\Delta_s}\,x_{31}^{\Delta_s}}'
+    description: '$t(x,y) = t^{ij}(x)\,y_iy_j$ with null $y$; operators unit-normalized [@chester2019, Eq. (8)].'
+    derivation: '$t$ is the charge-2 ($\mathbf 2$) and $s$ the singlet ($\mathbf 0^+$) scalar of $O(2)$, contracted with null polarizations $y$ ($y\cdot y = 0$), $t(x,y) = t^{ij}(x)y_iy_j$ [@chester2019, Eq. (8)]. The three-point function is $\lambda_{\varphi_1\varphi_2O}T_{\mathcal R_1\mathcal R_2\mathcal R_3}(y_1,y_2,y_3)$ times the three-scalar structure, with the flavor structure $T_{\mathbf q\mathbf q\mathbf 0^+} = (y_1\cdot y_2)^q$ [@chester2019, Eqs. (11), (13), p. 11], and the operators normalized as $\langle ss\rangle = x_{12}^{-2\Delta_s}$, $\langle\phi\phi\rangle = (y_1\cdot y_2)\,x_{12}^{-2\Delta_\phi}$, $\langle tt\rangle = (y_1\cdot y_2)^2x_{12}^{-2\Delta_t}$ [@chester2019, Eq. (16)]; blocks normalized as in [@poland2019, Table I, second line].'
+  - id: 'chester2019-phiphit'
     symbol: '\lambda'
-    ref: 'chester2019, Eqs. (11)–(13)'
-    description: '$t$ is the charge-2 ($\mathbf 2$) and $s$ the singlet ($\mathbf 0^+$) scalar of $O(2)$, contracted with null polarizations $y$ ($y\cdot y = 0$), $t(x,y) = t^{ij}(x)y_iy_j$ [@chester2019, Eq. (8)]. The three-point function is $\lambda_{\varphi_1\varphi_2O}T_{\mathcal R_1\mathcal R_2\mathcal R_3}(y_1,y_2,y_3)$ times the three-scalar structure, with the flavor structure $T_{\mathbf q\mathbf q\mathbf 0^+} = (y_1\cdot y_2)^q$ [@chester2019, Eqs. (11), (13), p. 11], and the operators normalized as $\langle ss\rangle = x_{12}^{-2\Delta_s}$, $\langle\phi\phi\rangle = (y_1\cdot y_2)\,x_{12}^{-2\Delta_\phi}$, $\langle tt\rangle = (y_1\cdot y_2)^2x_{12}^{-2\Delta_t}$ [@chester2019, Eq. (16)]; blocks normalized as in [@poland2019, Table I, second line].'
-  - id: chester2019-phiphit
     name: '$(y_2\cdot y_3)(y_3\cdot y_1)$'
-    form: '\langle \phi(x_1,y_1)\,\phi(x_2,y_2)\,t(x_3,y_3)\rangle = \lambda_{\phi\phi t}\,\frac{(y_2\cdot y_3)\,(y_3\cdot y_1)}{x_{12}^{2\Delta_\phi-\Delta_t}\,x_{23}^{\Delta_t}\,x_{31}^{\Delta_t}}'
-    symbol: '\lambda'
     ref: 'chester2019, Eqs. (11)–(13)'
-    description: '$\phi$ is the charge-1 ($\mathbf 1$) and $t$ the charge-2 ($\mathbf 2$) scalar of $O(2)$, contracted with null polarizations $y$ [@chester2019, Eq. (8)]. The flavor structure is $T_{\mathbf q_1\mathbf q_2\mathbf q_3} = (y_1\cdot y_2)^{\frac{q_1+q_2-q_3}{2}}(y_2\cdot y_3)^{\frac{q_2+q_3-q_1}{2}}(y_3\cdot y_1)^{\frac{q_3+q_1-q_2}{2}}$ at $q_1 = q_2 = 1$, $q_3 = 2$ [@chester2019, Eqs. (11), (13), p. 11]; operators normalized as in [@chester2019, Eq. (16)], blocks as in [@poland2019, Table I, second line].'
+    form: '\langle \phi(x_1,y_1)\,\phi(x_2,y_2)\,t(x_3,y_3)\rangle = \lambda_{\phi\phi t}\,\frac{(y_2\cdot y_3)\,(y_3\cdot y_1)}{x_{12}^{2\Delta_\phi-\Delta_t}\,x_{23}^{\Delta_t}\,x_{31}^{\Delta_t}}'
+    description: '$\phi(x,y)$, $t(x,y)$ contracted with null $y$; operators unit-normalized [@chester2019, Eq. (8)].'
+    derivation: '$\phi$ is the charge-1 ($\mathbf 1$) and $t$ the charge-2 ($\mathbf 2$) scalar of $O(2)$, contracted with null polarizations $y$ [@chester2019, Eq. (8)]. The flavor structure is $T_{\mathbf q_1\mathbf q_2\mathbf q_3} = (y_1\cdot y_2)^{\frac{q_1+q_2-q_3}{2}}(y_2\cdot y_3)^{\frac{q_2+q_3-q_1}{2}}(y_3\cdot y_1)^{\frac{q_3+q_1-q_2}{2}}$ at $q_1 = q_2 = 1$, $q_3 = 2$ [@chester2019, Eqs. (11), (13), p. 11]; operators normalized as in [@chester2019, Eq. (16)], blocks as in [@poland2019, Table I, second line].'
 
 three_point_functions:
   - operators: ['\phi', '\phi', 's']

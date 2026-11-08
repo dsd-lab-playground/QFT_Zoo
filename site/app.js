@@ -809,7 +809,7 @@ function opeStructuresHtml(t, items, title = "Structures") {
     const math = st.form || st.embedding;
     const cite = st.ref ? ` ${citeRefs(t.id, [st.ref])}` : "";
     // An `embedding` that is not the line's formula (the structure has its source's own `form`) folds with the prose.
-    const emb = st.form && st.embedding ? `In embedding space: ${tex(st.embedding, true)}` : "";
+    const emb = ""; // the page shows the source's form only; `embedding` and `derivation` stay in the data
     // A label that is itself the structure's numerator (pure math, e.g. $V_3^\ell$, $\delta_{ij}$) already says what it
     // is: then the full formula folds into "details" too. A named structure ("parity-even ⟨TTε⟩") shows its formula.
     const numeratorLabel = /^\s*\$[^$]+\$\s*$/.test(st.name || "");
