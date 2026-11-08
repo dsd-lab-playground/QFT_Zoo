@@ -155,6 +155,9 @@ sentence of description) and its values; nothing in other entries or in the site
 
 ### 1.4 Embedding-space notation (Costa, Penedones, Poland, Rychkov)
 
+*Provisional* (docs/PRINCIPLES.md §2): this notation was adopted before surveying how the field writes three-point
+structures; it will follow the outcome of that survey.
+
 Embedding-space forms follow *Spinning Conformal Correlators* by Costa, Penedones, Poland and Rychkov (arXiv:1107.3554,
 JHEP 11 (2011) 071; reference key `costa2011`; equation numbers of arXiv v3). A point $x\in\mathbb R^d$ is a null ray
 $P$ of $\mathbb R^{d+1,1}$, and a symmetric traceless spin-$\ell$ operator is a polynomial of degree $\ell$ in a

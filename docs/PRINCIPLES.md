@@ -21,9 +21,13 @@ specific documents (CONTRIBUTING.md, docs/REPRESENTATIONS.md, docs/OPE.md) apply
 ## 2. The field's best concepts and standard notation
 
 - Use the established concept and its standard name: the actual spacetime symmetry group (in Euclidean and Lorentzian
-  signature where both exist; two Virasoro algebras in 2d; supercharges as part of the spacetime symmetry), standard
-  superconformal multiplet names (Dolan–Osborn; Cordova–Dumitrescu–Intriligator), the embedding-space notation of
-  Costa–Penedones–Poland–Rychkov for simple three-point structures.
+  signature where both exist; two Virasoro algebras in 2d; supercharges as part of the spacetime symmetry), the
+  standard names of superconformal multiplets, the standard notation for three-point structures.
+- What is "standard" is decided by the literature, not by whichever paper we happened to read first: survey how the
+  field writes the thing (reviews, lecture notes, the most-cited papers), adopt the most widely used convention, and
+  record the choice and the evidence in the relevant document. Papers that discuss a topic (e.g. a classification of
+  multiplets, an embedding-space formalism) are sources for it, not automatically the standard. A choice made before
+  such a survey is provisional and says so.
 - Where the literature offers several equivalent conventions, choose one site-wide by what is most widely used, write
   it down, and use it everywhere. A letter is a convention, not information (λ versus f for OPE coefficients).
 - Sources' own bases and normalizations may be kept when they differ, but each value then says exactly which one it is

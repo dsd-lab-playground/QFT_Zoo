@@ -221,6 +221,10 @@ multiplet: {name: stress tensor, component: primary, type: half-BPS}
 - `type` (optional): shortening condition or standard symbol (`half-BPS`, `long`,
   `$A_1\bar A_1$`, `$\mathcal{B}_{[0,2,0]}$`).
 
+*Provisional* (docs/PRINCIPLES.md §2): the multiplet symbols now in the data (Dolan–Osborn names in 4d
+$\mathcal{N}=1,2$; Cordova–Dumitrescu–Intriligator names elsewhere) were adopted before surveying which
+nomenclature the field actually uses for each dimension and amount of supersymmetry; they will follow that survey.
+
 The pilot uses this lightly. A full treatment would label each multiplet by its superconformal
 representation (e.g. Cordova–Dumitrescu–Intriligator notation) and let the table group by
 multiplet; that is a natural extension of the policy below.
