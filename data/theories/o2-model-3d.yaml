@@ -99,7 +99,7 @@ ope_structures:
   - id: chester2019
     symbol: '\lambda'
     ref: 'chester2019'
-    description: '$O(2)$ tensor structures of the three-point functions that involve the charge-2 scalar $t$, with the operators unit-normalized and the invariant tensors normalized as in [@chester2019]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator.'
+    description: '$O(2)$ tensor structures of the three-point functions that involve the charge-2 scalar $t$, with the operators unit-normalized and the invariant tensors normalized as in [@chester2019]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator. Their spacetime dependence is that of three scalars [@costa2011, Eq. (2.8)]; no embedding-space formula is given, since the normalization of the $O(2)$ tensor that multiplies it is not recorded.'
 
 ope_coefficients:
   - operators: ['\phi', '\phi', 's']
@@ -285,5 +285,13 @@ references:
     year: 2002
     journal: Phys. Rept. 368, 549
     arxiv: 'cond-mat/0012164'
+  - key: costa2011
+    title: Spinning Conformal Correlators
+    authors: Costa, Penedones, Poland, Rychkov
+    year: 2011
+    journal: JHEP 11 (2011) 071
+    arxiv: '1107.3554'
+    doi: '10.1007/JHEP11(2011)071'
+    note: 'The embedding-space notation of the OPE structures: $P_{ij}$, Eq. (2.9); $V_{i,jk}$, $H_{ij}$, Eqs. (4.14)–(4.16). Locators refer to arXiv v3, whose printed page numbers are 1 less than the PDF''s.'
 
 contributors: [nathansbenjamin]

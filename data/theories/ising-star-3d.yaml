@@ -154,5 +154,13 @@ references:
     journal: Science 335, 193
     arxiv: '1108.2055'
     note: XY$^*$ transition.
+  - key: costa2011
+    title: Spinning Conformal Correlators
+    authors: Costa, Penedones, Poland, Rychkov
+    year: 2011
+    journal: JHEP 11 (2011) 071
+    arxiv: '1107.3554'
+    doi: '10.1007/JHEP11(2011)071'
+    note: 'The embedding-space notation of the OPE structures: $P_{ij}$, Eq. (2.9); $V_{i,jk}$, $H_{ij}$, Eqs. (4.14)–(4.16). Locators refer to arXiv v3, whose printed page numbers are 1 less than the PDF''s.'
 
 contributors: [Canonical111]

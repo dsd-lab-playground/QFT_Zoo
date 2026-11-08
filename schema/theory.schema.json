@@ -1407,6 +1407,11 @@
           "type": "string",
           "description": "[markdown] Optional: the relation to another basis, only as a source states it (with a citation), e.g. '$\\lambda^2 = 2^\\ell f^2$ relative to ...'. Values are never converted."
         },
+        "embedding": {
+          "type": "string",
+          "minLength": 1,
+          "description": "[latex] Optional: the three-point function in embedding space, in the notation of Costa, Penedones, Poland and Rychkov, Spinning Conformal Correlators (arXiv:1107.3554; cite it in the description as [@key, Eq. (...)]): points P_i, polarizations Z_i, P_{ij} = -2 P_i.P_j, V_{i,jk}, H_{ij}. A formula without $...$, shown in display math; the coefficient appears in it with any factor that the source's normalization needs (e.g. 2^{\\ell/2} f). Only for a structure that is a simple embedding-space structure, or a combination the source states. See docs/OPE.md."
+        },
         "basis": {
           "type": "string",
           "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",

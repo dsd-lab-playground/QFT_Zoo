@@ -37,14 +37,16 @@ theory = Draft202012Validator(json.loads((ROOT / "schema" / "theory.schema.json"
 
 VALID = {
     "id": "x", "name": "X", "d": 3, "summary": "s", "tags": ["CFT"],
-    "references": [{"key": "a2020", "title": "A", "arxiv": "2001.00001"}, {"key": "b2021", "title": "B", "arxiv": "2101.00001"}],
+    "references": [{"key": "a2020", "title": "A", "arxiv": "2001.00001"}, {"key": "b2021", "title": "B", "arxiv": "2101.00001"},
+                   {"key": "costa2011", "title": "Spinning Conformal Correlators", "arxiv": "1107.3554"}],
     "operators": [
         {"name": "\\sigma", "Delta": "0.5", "spin": 0},
         {"name": "\\epsilon", "Delta": "1.4", "spin": 0},
         {"name": "T_{\\mu\\nu}", "Delta": 3, "spin": 2},
     ],
     "ope_structures": [
-        {"id": "a-blocks", "symbol": "f", "ref": "a2020, Eq. (2.1)", "description": "Blocks of [@a2020, Eq. (2.1)]."},
+        {"id": "a-blocks", "symbol": "f", "ref": "a2020, Eq. (2.1)", "description": "Blocks of [@a2020, Eq. (2.1)].",
+         "embedding": "\\langle\\phi_1(P_1)\\phi_2(P_2)O(P_3,Z_3)\\rangle = 2^{\\ell/2} f\\, V_{3,12}^\\ell/(\\cdots)"},
         {"id": "b-blocks", "symbol": "\\lambda", "ref": "b2021, fn. 3", "relation": "$\\lambda^2 = 2^\\ell f^2$ [@b2021, p. 6]"},
     ],
     "ope_coefficients": [
@@ -141,6 +143,22 @@ def value_without_structure(d):
     del d["ope_coefficients"][0]["values"][0]["structure"]
 
 
+def embedding_not_a_string(d):
+    d["ope_structures"][0]["embedding"] = ["V_{3,12}"]
+
+
+def embedding_with_dollars(d):
+    d["ope_structures"][0]["embedding"] = "$V_{3,12}^\\ell$"
+
+
+def embedding_with_citation(d):
+    d["ope_structures"][0]["embedding"] = "V_{3,12}^\\ell [@costa2011, Eq. (4.10)]"
+
+
+def standard_citation_missing(d):
+    d["references"] = [r for r in d["references"] if r["key"] != "costa2011"]
+
+
 broken(unknown_operator, "no operator named")
 broken(unknown_structure, "unknown structure 'unit'")
 broken(shadows_standard, "is a standard structure")
@@ -155,6 +173,11 @@ broken(wrong_dimension, "is defined in d = 3")
 broken(no_label_or_ref, "is not valid under any of the given schemas", schema=True)
 broken(two_operators, "is too short", schema=True)
 broken(value_without_structure, "'structure' is a required property", schema=True)
+broken(embedding_not_a_string, "is not of type 'string'", schema=True)
+broken(embedding_with_dollars, "without $...$")
+broken(embedding_with_citation, "put its citations in the description")
+broken(standard_citation_missing, "cites [@costa2011]")
+expect("embedding" in std["structures"][0], "the standard scalar structure gives its embedding-space form")
 
 if FAILS:
     print(f"✗ {len(FAILS)} failure(s):")

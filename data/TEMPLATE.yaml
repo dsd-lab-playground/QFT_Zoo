@@ -54,6 +54,12 @@ operators:
     refs: [author2025]
 
 # OPE coefficients: one item per triplet of operators, each value naming the structure it multiplies (docs/OPE.md).
+# ope_structures:                             # only for a structure that is a choice of a paper, not a standard one
+#   - id: author2025
+#     symbol: 'f'
+#     ref: 'author2025, Eq. (2.1)'             # the formula that defines it
+#     description: 'Scalar–scalar–spin-$\ell$ structure ..., in embedding space $V_{3,12}^\ell$ [@costa2011, Eq. (4.10)] ...'
+#     embedding: '\langle\phi_1(P_1)\,\phi_2(P_2)\,O(P_3,Z_3)\rangle = \lambda_{12O}\,\frac{V_{3,12}^{\,\ell}}{\cdots}'   # optional (docs/OPE.md 1.4)
 # ope_coefficients:
 #   - operators: ['\phi', '\phi', 's']        # `name`s from the operators table
 #     values:

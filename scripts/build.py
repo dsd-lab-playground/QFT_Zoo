@@ -874,6 +874,9 @@ def main() -> int:
     n_ope = sum(len(it["values"]) for e in entries for it in e.get("ope_coefficients", []) or [])
     n_ope_e = sum(bool(e.get("ope_coefficients")) for e in entries)
     print(f"✓ {n_ope} OPE values in {n_ope_e} entries, each labelled by its structure ({len(STANDARD)} standard structures; docs/OPE.md)")
+    own_st = [s for e in entries for s in e.get("ope_structures", []) or []]
+    n_emb = sum("embedding" in s for s in [*STANDARD.values(), *own_st])
+    print(f"✓ {n_emb} of {len(STANDARD) + len(own_st)} OPE structures give their embedding-space form (notation of Costa et al. 2011; docs/OPE.md 1.4)")
     if (n := labelled_operators(entries)):
         print(f"! {n} OPE operator(s) named by a label instead of an operator of the entry's table (docs/OPE.md)")
     n_opfam, n_mem = count_families(entries)

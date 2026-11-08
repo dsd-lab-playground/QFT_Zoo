@@ -3,7 +3,9 @@
 
 An OPE coefficient item names its three operators (by their `name` in the entry's operators table, or by an
 explicit `label` for one that is not in the table) and lists values, each of which names the structure it
-multiplies: a standard one, or one the entry defines by a citation of the formula that defines it.
+multiplies: a standard one, or one the entry defines by a citation of the formula that defines it. A structure may
+also give its `embedding`: the three-point function in the embedding-space notation of Costa, Penedones, Poland and
+Rychkov (arXiv:1107.3554), as a LaTeX formula.
 """
 
 from __future__ import annotations
@@ -13,6 +15,32 @@ from fractions import Fraction
 
 STANDARD: dict[str, dict] = {}  # id -> standard structure (filled by build.py from data/ope_structures.yaml)
 
+_CITE_KEYS = re.compile(r"\[(@[^\]]*)\]")
+
+
+def _cited_keys(s: dict) -> list[str]:
+    """Reference keys cited ([@key, ...]) in a structure's prose fields, in order, without repeats."""
+    out: list[str] = []
+    for f in ("name", "description", "relation", "embedding"):
+        for m in _CITE_KEYS.finditer(str(s.get(f, ""))):
+            for k in re.findall(r"@([A-Za-z0-9_:-]+)", m.group(1)):
+                if k not in out:
+                    out.append(k)
+    return out
+
+
+def _embedding_errs(s: dict, where: str) -> list[str]:
+    """`embedding` is a LaTeX formula shown in display math: no $...$ delimiters, no citation inside it."""
+    e = s.get("embedding")
+    if e is None:
+        return []
+    errs = []
+    if "$" in e:
+        errs.append(f"{where}: embedding is a LaTeX formula, shown in display math: write it without $...$")
+    if _CITE_KEYS.search(e):
+        errs.append(f"{where}: embedding is a formula: put its citations in the description")
+    return errs
+
 
 def set_standard(structures: list[dict]) -> list[str]:
     """Install the standard structures; returns problems (duplicate ids)."""
@@ -21,6 +49,7 @@ def set_standard(structures: list[dict]) -> list[str]:
     for i, s in enumerate(structures):
         if s["id"] in STANDARD:
             errs.append(f"data/ope_structures.yaml: structures/{i}: duplicate id '{s['id']}'")
+        errs += _embedding_errs(s, f"data/ope_structures.yaml: structures/{i}")
         STANDARD[s["id"]] = s
     return errs
 
@@ -67,6 +96,7 @@ def check_entry_ope(data: dict, rel: str) -> list[str]:
         seen_ids.add(s["id"])
         if "ref" in s and _ref_key(s["ref"]) not in keys:
             errs.append(f"{where}: unknown reference key '{_ref_key(s['ref'])}' in ref (add it to the references list)")
+        errs += _embedding_errs(s, where)
     allst = structures_of(data)
 
     used: set[str] = set()
@@ -111,6 +141,13 @@ def check_entry_ope(data: dict, rel: str) -> list[str]:
             if claim in claims:
                 errs.append(f"{w}: the same value, structure, method and refs as {claims[claim]}")
             claims.setdefault(claim, w.split(": ", 1)[1])
+    # A standard structure's citations are read against the references of the entry that shows it.
+    own_ids = {s["id"] for s in own}
+    for sid in sorted(used - own_ids):
+        for k in _cited_keys(STANDARD[sid]):
+            if k not in keys:
+                errs.append(f"{rel}: the standard structure '{sid}' (data/ope_structures.yaml) cites [@{k}]: "
+                            f"add the reference '{k}' to the references list")
     for i, s in enumerate(own):
         if s["id"] not in used:
             errs.append(f"{rel}: ope_structures/{i}: structure '{s['id']}' is not used by any value")

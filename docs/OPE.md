@@ -80,7 +80,7 @@ paper is defined in the entry by reference to that paper's basis.
 
 | id | symbol | name | meaning |
 |---|---|---|---|
-| `scalar` | $\lambda$ | three scalars, unit-normalized | three scalars, singlets of any continuous symmetry, with $\langle O_iO_i\rangle = \lvert x\rvert^{-2\Delta_i}$ (default) |
+| `scalar` | $\lambda$ | three scalars, unit-normalized | three scalars, singlets of any continuous symmetry, with $\langle O_iO_i\rangle = \lvert x\rvert^{-2\Delta_i}$ (default); in embedding space $\lambda_{123}/(P_{12}^{\frac{\Delta_1+\Delta_2-\Delta_3}{2}}P_{23}^{\frac{\Delta_2+\Delta_3-\Delta_1}{2}}P_{31}^{\frac{\Delta_3+\Delta_1-\Delta_2}{2}})$ |
 | `vector-vector-singlet` | $\lambda$ | vector × vector → singlet, $\delta_{ij}$ | $\langle\phi_i\phi_j s\rangle = \lambda\,\delta_{ij}\times$ the three-scalar structure, $O(N)$ (default) |
 | `ttt-free-boson-3d`, `ttt-free-fermion-3d` | $n_B$, $n_F$ | free-boson / free-fermion structure | $\langle TTT\rangle = n_B\langle TTT\rangle_B + n_F\langle TTT\rangle_F$ in 3d (one basis, two coefficients) |
 
@@ -99,7 +99,9 @@ ope_structures:
   - id: reehorst2021
     symbol: '\lambda'
     ref: 'reehorst2021, p. 6, fn. 3'
-    description: 'Scalar–scalar–spin-$\ell$ structure, external scalars unit-normalized, with the block normalization of ...'
+    description: 'Scalar–scalar–spin-$\ell$ structure, external scalars unit-normalized, with the block normalization of ...;
+      in embedding space the coefficient of $V_{3,12}^\ell$ [@costa2011, Eqs. (4.10)–(4.12)] ...'
+    embedding: '\langle\phi_1(P_1)\,\phi_2(P_2)\,O(P_3,Z_3)\rangle = \lambda_{12O}\, \frac{V_{3,12}^{\,\ell}}{P_{12}^{\frac{\Delta_1+\Delta_2-\Delta-\ell}{2}} P_{23}^{\frac{\Delta_2+\Delta+\ell-\Delta_1}{2}} P_{31}^{\frac{\Delta+\ell+\Delta_1-\Delta_2}{2}}}'
     relation: '$\lambda^2 = 2^\ell f^2$ relative to the structure of [@simmonsduffin2016, Eq. (A.16)] ([@reehorst2021, p. 16]).'
 ```
 
@@ -111,8 +113,19 @@ ope_structures:
 - `description`: what the structure is, precisely: which three-point function, how the operators are normalized, how the
   tensor structure or conformal block is normalized (e.g. "blocks start as $z^{(\Delta-\ell)/2}\bar z^{(\Delta+\ell)/2}$"),
   with citations.
-- `relation` (optional): how it relates to another basis, **only as a source states it**, with the citation. It is
-  information for readers; values are never converted with it.
+- `relation` (optional): how it relates to another basis, **only as a source states it** (or as it follows from formulas
+  the sources state, each cited), with the citation. It is information for readers; values are never converted with it.
+- `embedding` (optional): the three-point function in embedding space, in the notation of *Spinning Conformal
+  Correlators* (1.4), as a LaTeX formula without `$...$`; the page shows it in display math under the description. Give
+  it when the structure is a simple embedding-space structure (a product of $V_{i,jk}$ and $H_{ij}$ over powers of
+  $P_{ij}$), or when the source itself states the structure as a combination of them (as Chang et al. 2024, Eq. (2.2), do
+  for $\langle TT\epsilon\rangle$). The coefficient appears in it with the factor its source's normalization needs, e.g.
+  $2^{\ell/2} f_{12O}$ for the blocks of Simmons-Duffin 2016, Eq. (A.16); the description says how that factor
+  follows from the sources, with citations, and that the other operators are unit-normalized (two-point function
+  $H_{12}^\ell/P_{12}^{\Delta+\ell}$). Where a factor depends on a convention that the sources do not pin down, leave
+  `embedding` out and say so, rather than guess. Citations go in the description, not in the formula. A structure
+  whose source defines it in another basis (the $\langle TTT\rangle$ free-field structures; the $O(N)$ tensor
+  structures of Chester et al., whose tensor normalization is not recorded) has none.
 - `basis` (rare): for a structure that is one element of a basis of several independent structures of the same
   three-point function, an id shared by its elements (as `ttt-free-3d` for $n_B$, $n_F$). Values of different elements
   are different coefficients (2.2). A structure that is the only one of its three-point function in its paper's basis
@@ -128,7 +141,45 @@ sentence of description) and its values; nothing in other entries or in the site
   id, and are each used by some value; a structure's `ref` and every value's `refs` name the entry's references;
 - the operators' spins (from the table) match the structure's `spins`, and the entry's `d` its `d`;
 - one item per triplet; no two values claim the same (triplet, structure, method, refs, value);
+- an `embedding` is a string (schema) with no `$` and no citation in it; a standard structure that cites a key
+  (`[@costa2011, ...]`) needs that key in the references of every entry that uses it (citations are read against the
+  entry's references); the build reports how many structures give their embedding-space form;
 - methods as for every row (CONTRIBUTING.md, *Methods*). `tests/test_ope.py` tests these checks.
+
+### 1.4 Embedding-space notation (Costa, Penedones, Poland, Rychkov)
+
+Embedding-space forms follow *Spinning Conformal Correlators* by Costa, Penedones, Poland and Rychkov (arXiv:1107.3554,
+JHEP 11 (2011) 071; reference key `costa2011`; equation numbers of arXiv v3). A point $x\in\mathbb R^d$ is a null ray
+$P$ of $\mathbb R^{d+1,1}$, and a symmetric traceless spin-$\ell$ operator is a polynomial of degree $\ell$ in a
+polarization $Z$ with $Z^2 = Z\cdot P = 0$, homogeneous of degree $-\Delta$ in $P$. On the Poincaré section
+$P = (1, x^2, x)$, $Z = (0, 2x\cdot z, z)$ [Eq. (4.36)].
+
+- $P_{ij} \equiv -2P_i\cdot P_j$ [Eq. (2.9)], which becomes $x_{ij}^2$ [Eq. (2.10)]. (Later papers, e.g.
+  Chang et al. 2024, Eq. (2.2), write the points $X_i$ and $X_{ij}$ for $P_{ij}$.)
+- $C_i^{AB} \equiv Z_i^AP_i^B - Z_i^BP_i^A$ [Eq. (3.28)];
+  $V_{i,jk} \equiv \dfrac{P_j\cdot C_i\cdot P_k}{P_j\cdot P_k} = \dfrac{(Z_i\cdot P_j)(P_i\cdot P_k)-(Z_i\cdot P_k)(P_i\cdot P_j)}{P_j\cdot P_k}$
+  [Eq. (4.14)], and
+  $H_{ij} \equiv -C_i\cdot C_j = -2\left[(Z_i\cdot Z_j)(P_i\cdot P_j)-(Z_i\cdot P_j)(Z_j\cdot P_i)\right]$ [Eq. (4.15)];
+  $V_{i,jk} = -V_{i,kj}$, $H_{ij} = H_{ji}$, and $V_1\equiv V_{1,23}$, $V_2\equiv V_{2,31}$, $V_3\equiv V_{3,12}$ [Eq. (4.16)].
+- Two-point function of a spin-$\ell$ operator: $H_{12}^\ell/P_{12}^{\Delta+\ell}$ times a constant [Eq. (4.9)]; the
+  zoo's unit normalization is constant $1$, which on the Poincaré section is $(z_1\cdot I(x_{12})\cdot z_2)^\ell/x_{12}^{2\Delta}$.
+- Three scalars: $\lambda_{123}/(P_{12}^{\frac{\Delta_1+\Delta_2-\Delta_3}{2}}P_{23}^{\frac{\Delta_2+\Delta_3-\Delta_1}{2}}P_{31}^{\frac{\Delta_3+\Delta_1-\Delta_2}{2}})$ [Eq. (2.8)].
+- General spins: $Q(\{P_i;Z_i\})/(P_{12}^{\frac{\tau_1+\tau_2-\tau_3}{2}}P_{23}^{\frac{\tau_2+\tau_3-\tau_1}{2}}P_{31}^{\frac{\tau_3+\tau_1-\tau_2}{2}})$
+  with $\tau_i = \Delta_i+\ell_i$ [Eq. (4.12)], where $Q$ is a combination of the monomials
+  $\prod_i V_i^{m_i}\prod_{i<j}H_{ij}^{n_{ij}}$, $m_i + \sum_{j\ne i} n_{ij} = \ell_i$ [Eqs. (4.17)–(4.18)].
+- Scalar–scalar–spin-$\ell$ (Sec. 4.2.1, Eqs. (4.10)–(4.11)): the single structure $V_{3,12}^\ell$, i.e.
+  $\langle\phi_1(P_1)\phi_2(P_2)O(P_3,Z_3)\rangle = \lambda_{12O}\,V_{3,12}^\ell/(P_{12}^{\frac{\Delta_1+\Delta_2-\Delta-\ell}{2}}P_{23}^{\frac{\Delta_2+\Delta+\ell-\Delta_1}{2}}P_{31}^{\frac{\Delta+\ell+\Delta_1-\Delta_2}{2}})$.
+  On the Poincaré section $P_{12}V_3 = z_3\cdot\tilde x_{12}$, $\tilde x_{12} = x_{13}x_{23}^2 - x_{23}x_{13}^2$ [Eqs. (4.30), (4.37)],
+  so this is $\lambda_{12O}(Z\cdot z_3)^\ell/(x_{12}^{\Delta_1+\Delta_2-\Delta+\ell}x_{13}^{\Delta_1+\Delta-\Delta_2-\ell}x_{23}^{\Delta_2+\Delta-\Delta_1-\ell})$,
+  $Z^\mu = x_{13}^\mu/x_{13}^2 - x_{23}^\mu/x_{23}^2$: the structure of Poland, Rychkov and Vichi's review
+  (arXiv:1805.04405, Eqs. (22)–(24)), whose blocks start as $\lambda_{12O}\lambda_{34O}(-\frac12)^\ell z^{(\Delta-\ell)/2}\bar z^{(\Delta+\ell)/2}$
+  (its Eqs. (52), (54)). Its coefficient is antisymmetric for odd $\ell$: $\lambda_{21O} = (-1)^\ell\lambda_{12O}$.
+- Normalizations by blocks: a coefficient defined by a block normalization (rather than by a three-point structure) is
+  related to $\lambda_{12O}$ by comparing the leading terms of the blocks. For the blocks of Simmons-Duffin 2016, which
+  start as $f_{12O}f_{43O}z^{(\Delta-\ell)/2}\bar z^{(\Delta+\ell)/2}$ (its Eq. (A.16)), this gives
+  $f_{12O}f_{43O} = 2^{-\ell}\lambda_{12O}\lambda_{43O}$, i.e. $\lambda = 2^{\ell/2}f$ (the review's Table I lists the same
+  factor $2^\ell$ between the two normalizations; Reehorst's $\lambda$, in the review's normalization, satisfies
+  $\lambda^2 = 2^\ell f^2$). The sign of a single coefficient is fixed only together with the sign of $O$.
 
 ---
 
@@ -168,9 +219,10 @@ $f_{\sigma\sigma T'}$). The switch `OPE_LABEL_DEFAULTS` in `site/app.js` labels 
 
 ### 2.4 Definitions, once
 
-Above the table, a short **Structures** list defines every structure used on the page, once: its symbol, its name or
-citation, "(standard)" for a standard one (and, for a default one, that its values carry no label), its description
-and any stated relation to other bases. Row descriptions never repeat a convention.
+Below the table, a short **Structures** list defines every structure used on the page, once: its symbol, its name or
+citation, "(standard)" for a standard one (and, for a default one, that its values carry no label), its description,
+its embedding-space form (`embedding`, in display math, 1.4) and any stated relation to other bases. Row descriptions
+never repeat a convention.
 
 ---
 
@@ -186,5 +238,12 @@ $H_1$/$H_2$ value of $\lambda^2_{u^2}$ (`argyres-douglas-4d`: one value for two 
 and reflection amplitudes of `liouville-cft`, `super-liouville`, `h3-wzw`, `toda-cft` (functions of continuous labels).
 
 Open points: the $O(2)$ and $O(3)$ entries' coefficients involving the symmetric traceless $t$ are labelled by the
-papers' normalization (Chester et al. 2019, 2020) without a locator; the normalization of `lee-yang-3d`'s
-$\lvert C_{\phi\phi\phi}\rvert$ is assumed to be the standard unit normalization.
+papers' normalization (Chester et al. 2019, 2020) without a locator, so they have no embedding-space form; the
+normalization of `lee-yang-3d`'s $\lvert C_{\phi\phi\phi}\rvert$ is assumed to be the standard unit normalization.
+
+**Embedding-space forms (November 2026).** David: "When a structure is a simple embedding space structure, you should
+use the notation of Spinning Conformal Correlators." Structures gained `embedding` (1.4): `scalar`,
+`vector-vector-singlet`, `chiral` (Eq. (2.8)); `sd16` and `reehorst2021` ($V_{3,12}^\ell$, with $2^{\ell/2}f$ and
+$\lambda$); `chang2024-tte` (the combination of Chang et al. 2024, Eq. (2.2)). The $\langle TTT\rangle$ free-field structures
+and the $O(N)$ tensor structures have none. The reference `costa2011` was added to every entry that shows one
+(`poland2019` to `ising-3d`, for the block normalization). No value, method or refs changed (checked by script).

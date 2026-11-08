@@ -80,7 +80,8 @@ ope_structures:
   - id: chiral
     symbol: '\lambda'
     name: 'chiral, unit-normalized'
-    description: 'Coefficient of the Coulomb-branch chiral operator $u^2$ in the chiral OPE $u\times u$, i.e. of the structure of $\langle u\,u\,\overline{u^2}\rangle$, with unit-normalized two-point functions $\langle u(x)\bar u(0)\rangle = |x|^{-2\Delta_u}$ and $\langle u^2(x)\,\overline{u^2}(0)\rangle = |x|^{-2\Delta_{u^2}}$.'
+    description: 'Coefficient of the Coulomb-branch chiral operator $u^2$ in the chiral OPE $u\times u$, i.e. of the structure of $\langle u\,u\,\overline{u^2}\rangle$, with unit-normalized two-point functions $\langle u(x)\bar u(0)\rangle = |x|^{-2\Delta_u}$ and $\langle u^2(x)\,\overline{u^2}(0)\rangle = |x|^{-2\Delta_{u^2}}$. In embedding space it is the scalar three-point function of [@costa2011, Eq. (2.8)], $P_{ij} \equiv -2P_i\cdot P_j$ [@costa2011, Eq. (2.9)], with $\lambda$ as its constant.'
+    embedding: '\langle u(P_1)\,u(P_2)\,\overline{u^2}(P_3)\rangle = \frac{\lambda}{P_{12}^{\frac{2\Delta_u-\Delta_{u^2}}{2}}\,(P_{23}P_{31})^{\frac{\Delta_{u^2}}{2}}}'
 
 ope_coefficients:
   - operators: ['u', 'u', 'u^2']
@@ -213,6 +214,14 @@ references:
     year: 2013
     journal: Commun. Math. Phys. 336 (2015) 1359-1433
     arxiv: '1312.5344'
+  - key: costa2011
+    title: Spinning Conformal Correlators
+    authors: Costa, Penedones, Poland, Rychkov
+    year: 2011
+    journal: JHEP 11 (2011) 071
+    arxiv: '1107.3554'
+    doi: '10.1007/JHEP11(2011)071'
+    note: 'The embedding-space notation of the OPE structures: $P_{ij}$, Eq. (2.9); $V_{i,jk}$, $H_{ij}$, Eqs. (4.14)–(4.16). Locators refer to arXiv v3, whose printed page numbers are 1 less than the PDF''s.'
 
 relations:
   - type: member_of

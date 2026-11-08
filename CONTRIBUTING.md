@@ -322,7 +322,8 @@ ope_structures:                       # structures that are a choice of a paper:
   - id: sd16
     symbol: 'f'
     ref: 'simmonsduffin2016, Eq. (A.16)'          # the formula that defines it (or `name:` for a known name)
-    description: 'Scalar–scalar–spin-$\ell$ structure, external scalars unit-normalized, blocks normalized so that they start as $z^{(\Delta-\ell)/2}\bar z^{(\Delta+\ell)/2}$ [@simmonsduffin2016, Eq. (A.16)].'
+    description: 'Scalar–scalar–spin-$\ell$ structure, external scalars unit-normalized, blocks normalized so that they start as $z^{(\Delta-\ell)/2}\bar z^{(\Delta+\ell)/2}$ [@simmonsduffin2016, Eq. (A.16)]. In embedding space $V_{3,12}^\ell$ [@costa2011, Eqs. (4.10)–(4.12)] with coefficient $2^{\ell/2} f$ ...'
+    embedding: '\langle\phi_1(P_1)\,\phi_2(P_2)\,O(P_3,Z_3)\rangle = 2^{\ell/2} f_{12O}\, \frac{V_{3,12}^{\,\ell}}{P_{12}^{\frac{\Delta_1+\Delta_2-\Delta-\ell}{2}} P_{23}^{\frac{\Delta_2+\Delta+\ell-\Delta_1}{2}} P_{31}^{\frac{\Delta+\ell+\Delta_1-\Delta_2}{2}}}'   # optional; notation below
   - id: reehorst2021
     symbol: '\lambda'
     ref: 'reehorst2021, p. 6, fn. 3'
@@ -357,6 +358,29 @@ ope_coefficients:
   (normalization of the operators and of the blocks or tensor structures), and a `relation`
   to other bases only when a source states one. Never convert a value to another basis:
   record it in its paper's basis, as its own value.
+- **Embedding-space form** (`embedding`, optional; David: "When a structure is a simple
+  embedding space structure, you should use the notation of Spinning Conformal
+  Correlators"): the three-point function as a LaTeX formula (no `$`), in the notation
+  below, with the coefficient times whatever factor its source's normalization needs
+  ($2^{\ell/2}f$ for the blocks of Simmons-Duffin 2016). Say in the `description` how the
+  factor follows from the sources, citing `[@costa2011, Eq. (…)]` and the source's formulas;
+  if it depends on a convention you cannot pin down from the sources, leave `embedding` out
+  and say so. Give it for a combination of structures (a conserved $\langle TT\epsilon\rangle$)
+  only when the source states the combination. Add `costa2011` to the entry's references.
+- **Notation** (Costa, Penedones, Poland, Rychkov, *Spinning Conformal Correlators*,
+  arXiv:1107.3554, JHEP 11 (2011) 071; reference key `costa2011`; equations of arXiv v3):
+  points $P_i$ on the null cone of $\mathbb R^{d+1,1}$ and polarizations $Z_i$
+  ($Z_i^2 = Z_i\cdot P_i = 0$); $P_{ij} \equiv -2P_i\cdot P_j$ (Eq. (2.9), $= x_{ij}^2$ on the
+  Poincaré section; later papers write $X_{ij}$);
+  $V_{i,jk} \equiv \frac{(Z_i\cdot P_j)(P_i\cdot P_k)-(Z_i\cdot P_k)(P_i\cdot P_j)}{P_j\cdot P_k}$ (Eq. (4.14));
+  $H_{ij} \equiv -2\left[(Z_i\cdot Z_j)(P_i\cdot P_j)-(Z_i\cdot P_j)(Z_j\cdot P_i)\right]$ (Eq. (4.15));
+  $V_1 \equiv V_{1,23}$, $V_2 \equiv V_{2,31}$, $V_3 \equiv V_{3,12}$ (Eq. (4.16)). Unit-normalized
+  spin-$\ell$ operators have $\langle O(P_1,Z_1)O(P_2,Z_2)\rangle = H_{12}^\ell/P_{12}^{\Delta+\ell}$
+  (Eq. (4.9)); three scalars give $\lambda/(P_{12}^{\frac{\Delta_1+\Delta_2-\Delta_3}{2}}P_{23}^{\frac{\Delta_2+\Delta_3-\Delta_1}{2}}P_{31}^{\frac{\Delta_3+\Delta_1-\Delta_2}{2}})$
+  (Eq. (2.8)); general spins $Q/(P_{12}^{\frac{\tau_1+\tau_2-\tau_3}{2}}P_{23}^{\frac{\tau_2+\tau_3-\tau_1}{2}}P_{31}^{\frac{\tau_3+\tau_1-\tau_2}{2}})$,
+  $\tau_i = \Delta_i+\ell_i$, with $Q$ built from $V_i$ and $H_{ij}$ (Eqs. (4.12), (4.17)); scalar–scalar–spin-$\ell$
+  is $Q = \lambda_{12O}V_{3,12}^\ell$ (Sec. 4.2.1). More, with the projection to physical space
+  and the relation to block normalizations, in [docs/OPE.md](docs/OPE.md), 1.4.
 - Several determinations of a coefficient are several `values` of one triplet, in the same
   structure or in different ones. Conventions go in the structure, once; a value's `note`
   is about the value (locator, rigor, assumptions, agreement).
@@ -524,6 +548,9 @@ Both bounds agree [@kos2016; @simmons2017, Table 1].
   and never cite a paper that isn't in the entry's `references` list: add it there first.
 - A key always means the current entry's reference. A note shown on another page (a flow
   shown on its IR theory's page) still finds it; the site handles this.
+- A standard OPE structure (`data/ope_structures.yaml`) cites by key too, and its keys mean
+  the references of the entry that shows it: an entry that uses it must list them (e.g.
+  `costa2011`, for the embedding-space notation). The build checks it.
 
 **Locators** point to the passage that states the claim, in the paper's own numbering
 (of the arXiv version unless the reference's `note` names another). Use these forms,
