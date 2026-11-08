@@ -825,14 +825,17 @@ function opeStructuresHtml(t, items, title = "Structures") {
 /** One table of quantity items (and OPE items). With `cat`, the table is shaped for that kind: exponents get a
  *  relation column. An item's lines each show their first row; the other rows of a line fold below it. */
 function quantityTable(t, items, cat, source) {
-  const rel = new Map(cat === "exponent" ? items.map((it) => [it, exponentRelation(it)]) : []);
+  // Keyed by the item's rows: the table draws each item from a copy ({ ...it, id }), whose rows are the same array.
+  const rel = new Map(cat === "exponent" ? items.map((it) => [it.rows, exponentRelation(it)]) : []);
   // OPE values name the structure they multiply in a column of its own.
   // In 2d a three-point function of primaries has a unique structure: no Structure column there.
   const hasOpe = items.some((it) => it.ope) && t.d !== 2;
   const hasRel = [...rel.values()].some(Boolean);
+  // A three-point table shows its Notes column only when some row has a note or description.
+  const hasNotes = cat !== "ope" || items.some((it) => it.rows.some((q) => q.note || (!it.ope && q.description)));
   const describe = (q, it) => {
     let d = String(q.description ?? "");
-    const r = rel.get(it);
+    const r = rel.get(it.rows);
     if (r?.src) d = d.replace(r.src, "").replace(/\s*[,:;]?\s*$/, "").replace(/\s*,\s*,/, ",").replace(/^\s*[,:;]\s*/, "").replace(/\s+([,;.])/g, "$1").replace(/,\s*\(/, " (");
     if (cat === "exponent" && /^critical exponent\.?$/i.test(d.trim())) d = "";
     // In the one-table layout (no OPE section), an OPE value says what it is.
@@ -856,12 +859,12 @@ function quantityTable(t, items, cat, source) {
     const of = it.ope && q.value_of ? `${tex(q.value_of === "square" ? `${q.symbol}^2` : `|${q.symbol}|`)} = ` : "";
     const valueCell = `${of ? `<span class="value-of">${of}<span class="value">${tex(q.value)}</span></span>` : `<span class="value">${tex(q.value)}</span>`}${more}`;
     const notes = desc + (q.note ? `<div class="sub">${md(q.note, true)}</div>` : "");
-    const relCell = hasRel ? [head && rel.get(it) ? `<span class="rel">${tex(rel.get(it).tex)}</span>` : ""] : [];
+    const relCell = hasRel ? [head && rel.get(it.rows) ? `<span class="rel">${tex(rel.get(it.rows).tex)}</span>` : ""] : [];
     // A coefficient sits right before the structure it multiplies.
     return hasOpe
-      ? [sym, valueCell, stCell, notes, ...relCell, source(q)]
+      ? [sym, valueCell, stCell, ...(hasNotes ? [notes] : []), ...relCell, source(q)]
       : cat === "ope"
-        ? [sym, valueCell, notes, source(q)] // 2d: unique structure, no column
+        ? [sym, valueCell, ...(hasNotes ? [notes] : []), source(q)] // 2d: unique structure, no column
         : [sym, notes, ...relCell, valueCell, source(q)];
   };
   const tr = (cells, attrs = "") => `<tr${attrs}>${cells.map((c) => `<td>${c ?? ""}</td>`).join("")}</tr>`;
@@ -873,7 +876,7 @@ function quantityTable(t, items, cat, source) {
       return tr(row(head, one, line, true), k ? ' class="ope-line"' : "") + rest.map((q) => tr(row(q, one, line, false), ` class="det" data-det="${id}" hidden`)).join("");
     }).join("")}</tbody>`;
   const headers = cat === "ope"
-    ? ["Three-point function", "Coefficient", ...(hasOpe ? ["Structure"] : []), "Notes", "Source"]
+    ? ["Three-point function", "Coefficient", ...(hasOpe ? ["Structure"] : []), ...(hasNotes ? ["Notes"] : []), "Source"]
     : hasOpe
       ? ["Quantity", "Value", "Structure", "Description", ...(hasRel ? ["Relation"] : []), "Source"]
       : [cat === "exponent" ? "Exponent" : "Quantity", "Description", ...(hasRel ? ["Relation"] : []), "Value", "Source"];
@@ -899,7 +902,9 @@ function dataSections(t, source, topics, used) {
   const allBtn = (its) => its.some((it) => (it.lines || [it.rows]).some((l) => l.length > 1))
     ? ` <button type="button" class="linkish small" data-dets-all aria-expanded="false">Show all determinations</button>` : "";
   const most = Math.max(...cats.filter((c) => c !== "other").map((c) => items.filter((it) => it.cat === c).length));
-  if (cats.length > 1 && items.length < 6 && most < 3) {
+  // Every entry gets the same sections, however few its data (David, 2026-11-08: the same kind of thing looks the
+  // same on every page); the one-table layout for small entries is gone.
+  if (false) {
     const tb = quantityTable(t, items, null, source);
     const notes = QCAT_ORDER.filter((c) => conv[c]).map((c) => `<p class="small conv"><b>${QCATS[c].title}.</b> ${md(conv[c], true)}</p>`).join("");
     const btn = allBtn(items);

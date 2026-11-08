@@ -299,7 +299,7 @@ charges, sphere and thermal free energies), **Anomalies** (`anomaly`: the Weyl a
 $a$, $c$ in $d \ge 4$ and $a$, $c_i$ in 6d, 't Hooft anomalies, anomaly polynomials),
 **Three-point functions** (the entry's `three_point_functions`, see *Three-point functions* below,
 and quantities with `category: ope`), **Critical exponents** (`exponent`) and **Other data**.
-An entry with few quantities keeps one table.
+Every entry gets the same sections, however few its quantities, so the same kind of data looks the same on every page.
 
 - The kind is inferred from `key`, `symbol` and `description` ("anomaly", "exponent",
   "two-point coefficient", `\nu`, ...). Set `category:` only when the inference is wrong.

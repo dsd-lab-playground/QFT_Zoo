@@ -39,12 +39,14 @@ quantities:
     method: exact
     refs: [bpz1984]
   - symbol: '\eta'
-    description: Critical exponent
+    description: Anomalous dimension of the spin field
+    relation: '\eta = 2\Delta_\sigma'
     value: '\frac{1}{4}'
     method: exact
     refs: [onsager1944]
   - symbol: '\nu'
-    description: Critical exponent
+    description: Correlation-length exponent
+    relation: '\nu = 1/(2-\Delta_\epsilon)'
     value: '1'
     method: exact
     refs: [onsager1944]
