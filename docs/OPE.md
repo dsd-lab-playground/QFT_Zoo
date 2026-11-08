@@ -153,6 +153,19 @@ sentence of description) and its values; nothing in other entries or in the site
   entry's references); the build reports how many structures give their embedding-space form;
 - methods as for every row (CONTRIBUTING.md, *Methods*). `tests/test_ope.py` tests these checks.
 
+### Coefficient letter
+
+Every OPE coefficient on the site is written $\lambda$ with its three operators as subscripts ($\lambda_{\sigma\sigma\epsilon}$);
+the Structure column says what it multiplies. A letter is a convention, not information (David, 2026-11-07: "f vs
+lambda is not really a thing"), so the site uses one. **Evidence for λ** (survey of 2026-11-07, letter read from each
+paper's definition, weighted by INSPIRE citations): λ is used by about 20 of the influential $d \geq 3$ papers sampled
+(~6,200 citations), including Rattazzi–Rychkov–Tonni–Vichi 2008, the Poland–Rychkov–Vichi review (2019), Rychkov's
+EPFL lectures, Chester's lectures, the Kos–Poland–Simmons-Duffin(–Vichi) series, SDPB, and the O(N), fermion, GNY and
+stress-tensor bootstrap papers through Chang et al. 2024; $f$ by 7 (~3,500: the 3d Ising I–II papers, the
+OPE-convergence paper, Simmons-Duffin's TASI lectures, the light-ray and lightcone papers, Caron-Huot's inversion
+formula); $C$ and $c$ mostly in 2d and analytic work. Exceptions: elements of a named basis keep their names
+($n_B$, $n_F$ of ⟨TTT⟩); a source's own letter stays in the data (`symbol`) for traceability.
+
 ### 1.4 Embedding-space notation (Costa, Penedones, Poland, Rychkov)
 
 **Notation rule** (David, 2026-11-07: "For three point structures, it makes sense to prefer notation from the source
