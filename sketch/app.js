@@ -731,6 +731,13 @@ function opeStructures(t) {
 
 /** OPE items { cat: "ope", ope: true, lines: [[row, ...], ...], rows, ops }: one per triplet, in the order above.
  *  A row is a value with its symbol resolved and _st (its structure) and _best (best value in its structure). */
+/** λ with the three operators as subscripts; Lorentz indices dropped (λ_{σσT}, not λ_{σσT_{μν}}). */
+function opeLambda(ops) {
+  const short = (o) => (typeof o === "string" ? o : o.label || "")
+    .replace(/_\{\\(?:mu|nu|rho|sigma|alpha|beta|mu_1)[^}]*\}/g, "").replace(/\^\{\[ij\]\}/g, "").trim();
+  return `\\lambda_{${ops.map(short).join("\\,")}}`;
+}
+
 function opeItems(t) {
   const sts = opeStructures(t);
   const dim = new Map();
@@ -745,7 +752,10 @@ function opeItems(t) {
       const st = sts.get(v.structure);
       const k = st.basis ? `s:${st.id}` : "one";
       if (!lines.has(k)) lines.set(k, []);
-      lines.get(k).push({ ...v, symbol: v.symbol ?? st.symbol, _st: st });
+      // One letter for every OPE coefficient (David: "f vs lambda is not really a thing" — papers just pick letters):
+      // λ with the triplet's operators as subscripts; the Structure column says what it multiplies. Only the elements
+      // of a basis with their own coefficient names (⟨TTT⟩'s n_B, n_F) keep them. A source's letter stays in the data.
+      lines.get(k).push({ ...v, symbol: st.basis && st.symbol ? st.symbol : opeLambda(c.operators), _st: st });
     }
     const ordered = [...lines.values()].map((vals) => {
       const byst = new Map();
