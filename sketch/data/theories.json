@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-08 05:44 UTC",
+ "generated": "2026-11-08 06:51 UTC",
  "repo": "nathansbenjamin/QFT_Zoo",
  "branch": "main",
  "template": "# QFT Zoo entry template.\n# Save as data/theories/<id>.yaml, where <id> matches the `id` field below.\n# Delete any optional section you don't need. Full field reference: CONTRIBUTING.md\n#\n# LaTeX tips: wrap LaTeX in 'single quotes' (backslashes are then kept as-is).\n#   - Prose fields (summary, description, note, role, ...) are Markdown: use $...$ for math,\n#     and cite as [@key] or [@key, Sec. 2] (never a direct link; see CONTRIBUTING.md, Citations).\n#   - Pure-math fields (lagrangian, symbol, name of an operator, value, Delta): no $ signs.\n\nid: my-theory                      # lowercase-with-hyphens, = filename\nname: 'My theory'                  # may contain $...$ math\naliases: []\nd: 3                               # spacetime dimension\nsummary: >-\n  One or two sentences describing the theory.\ntags: [CFT, interacting, unitary]  # see schema/theory.schema.json for the allowed list\n\ndescription: |\n  Longer Markdown description. Inline math like $\\Delta_\\sigma$ and display math\n  like $$\\langle \\phi(x)\\phi(0)\\rangle = |x|^{-2\\Delta}$$ both work.\n\nlagrangian: '\\mathcal{L} = \\tfrac{1}{2}(\\partial\\phi)^2'\n\nparameters:\n  - symbol: 'N'\n    description: Number of fields.\n    range: '$N \\geq 1$'\n\nsymmetry:\n  spacetime: '$O(4,1)$ — 3d conformal group with parity'   # group — colloquial name; see CONTRIBUTING.md, Spacetime symmetry\n  supercharges: 0                  # real Poincaré supercharges Q; for SUSY theories also state Q and S in spacetime\n  global: '$O(N)$'                 # the global symmetry in words (Markdown)\n  parity: true                     # true | false | conditional (docs/REPRESENTATIONS.md)\n  global_group:                    # the factors operators' representations refer to; [] if none\n    - {id: O(N), group: O(N)}      # group: Z2, Z_n, U(1), O(N), SO(N), SU(N), Sp(N), S_n, D_n, finite\n  # gauge: '$SU(N)$'\n  # notes: 'Anomalies, emergent symmetries, ...'\n\nquantities:\n  - symbol: 'C_T/C_T^{\\text{free}}'\n    description: Stress-tensor central charge\n    value: '0.9(1)'                # parenthesis notation for uncertainties\n    method: 'CB, rigorous'         # an abbreviation from data/methods.yaml, then an optional qualifier (CONTRIBUTING.md, Methods)\n    refs: ['author2025, Table 2']   # a key, optionally with a locator (CONTRIBUTING.md, Citations)\n\noperators:\n  - name: '\\phi'\n    Delta: '0.5(1)'\n    spin: 0\n    parity: even                   # even | odd | pair | unknown\n    global: {O(N): vector}         # a label per factor of global_group (docs/REPRESENTATIONS.md)\n    role: 'order parameter'        # optional remark; never part of the representation\n    method: CB\n    refs: [author2025]\n\n# OPE coefficients: one item per triplet of operators, each value naming the structure it multiplies (docs/OPE.md).\n# ope_structures:                             # only for a structure that is a choice of a paper, not a standard one\n#   - id: author2025\n#     symbol: 'f'\n#     ref: 'author2025, Eq. (2.1)'             # the formula that defines it\n#     description: 'Scalar–scalar–spin-$\\ell$ structure ..., in embedding space $V_{3,12}^\\ell$ [@costa2011, Eq. (4.10)] ...'\n#     embedding: '\\langle\\phi_1(P_1)\\,\\phi_2(P_2)\\,O(P_3,Z_3)\\rangle = \\lambda_{12O}\\,\\frac{V_{3,12}^{\\,\\ell}}{\\cdots}'   # optional (docs/OPE.md 1.4)\n# ope_coefficients:\n#   - operators: ['\\phi', '\\phi', 's']        # `name`s from the operators table\n#     values:\n#       - structure: vector-vector-singlet     # a standard structure (data/ope_structures.yaml), or an id of ope_structures\n#         symbol: '\\lambda_{\\phi\\phi s}'\n#         value: '0.52(1)'\n#         method: CB\n#         refs: [author2025]\n\nrelations:\n  - type: flows_to                 # flows_to | dual_to | related_to\n    target: ising-3d               # id of an existing entry\n    note: 'Which deformation, and any subtleties.'\n    # Optional details for a flow (see CONTRIBUTING.md, \"RG flows in detail\"):\n    # id: my-flow\n    # flow:\n    #   identification: {status: established, method: 'numerics', refs: [author2025]}\n    #   deformations:\n    #     - {operator: '\\phi^2', coupling: 'm^2', sign: negative, sign_convention: '...', refs: [author2025]}\n\nreferences:\n  - key: author2025                # short handle used in refs: [...] above\n    title: Title of the paper\n    authors: Author, Another\n    year: 2025\n    arxiv: '2501.00001'            # or doi: / url:\n\ncontributors: [your-github-username]\n",
@@ -29804,6 +29804,7 @@
    "ope_structures": [
     {
      "id": "sd16",
+     "name": "$V_{3,12}^\\ell$ with coefficient $2^{\\ell/2}f$",
      "symbol": "f",
      "ref": "simmonsduffin2016, Eq. (A.16)",
      "description": "Scalar–scalar–spin-$\\ell$ structure $\\langle\\phi_1\\phi_2 O_{\\Delta,\\ell}\\rangle$, external scalars unit-normalized, with conformal blocks normalized as in [@ising-3d/simmonsduffin2016, Eq. (A.16)], so that they start as $z^{(\\Delta-\\ell)/2}\\bar z^{(\\Delta+\\ell)/2}$. At $\\ell = 0$ it is the three-scalar $\\lambda$. In this normalization the Ward identity gives $f_{\\sigma\\sigma T}/f_{\\epsilon\\epsilon T} = \\Delta_\\sigma/\\Delta_\\epsilon$ and $f_{\\phi\\phi T}^2 = \\frac{3}{8}\\Delta_\\phi^2\\, C_T^{\\rm free}/C_T$ (free scalar: $3/32$). The sign depends on the order of the two external operators: $f_{43O} = (-1)^\\ell f_{34O}$ [@ising-3d/simmonsduffin2016, p. 71]. In embedding space it is the scalar–scalar–spin-$\\ell$ structure [@ising-3d/costa2011, Sec. 4.2.1, Eqs. (4.10)–(4.12)], $V_{3,12}^\\ell$ with $V_{3,12}$ of [@ising-3d/costa2011, Eq. (4.11)] and $P_{ij} \\equiv -2P_i\\cdot P_j$ [@ising-3d/costa2011, Eq. (2.9)], for $O$ unit-normalized as $\\langle O(P_1,Z_1)\\,O(P_2,Z_2)\\rangle = H_{12}^\\ell/P_{12}^{\\Delta+\\ell}$ [@ising-3d/costa2011, Eqs. (4.9), (4.15)]; the coefficient of $V_{3,12}^\\ell$ is $2^{\\ell/2} f_{12O}$ (relation below).",
@@ -29812,6 +29813,7 @@
     },
     {
      "id": "reehorst2021",
+     "name": "$V_{3,12}^\\ell$ with coefficient $\\lambda$",
      "symbol": "\\lambda",
      "ref": "reehorst2021, p. 6, fn. 3",
      "description": "Scalar–scalar–spin-$\\ell$ structure, external scalars unit-normalized, with the conformal-block normalization of Reehorst [@ising-3d/reehorst2021, p. 6, fn. 3], which is that of [@ising-3d/poland2019, Eq. (52)]: $\\lambda_{12O}$ is the coefficient of the structure of [@ising-3d/poland2019, Eqs. (22)–(24)], i.e. in embedding space of $V_{3,12}^\\ell$ [@ising-3d/costa2011, Eqs. (4.10)–(4.12)] with $O$ unit-normalized, $\\langle O(P_1,Z_1)\\,O(P_2,Z_2)\\rangle = H_{12}^\\ell/P_{12}^{\\Delta+\\ell}$ [@ising-3d/costa2011, Eq. (4.9)].",
@@ -29820,6 +29822,8 @@
     },
     {
      "id": "chang2024-tte",
+     "name": "parity-even $\\langle TT\\epsilon\\rangle$",
+     "form": "\\langle \\hat T\\hat T\\epsilon\\rangle = \\frac{\\lambda_{TT\\epsilon}}{P_{12}^{\\frac{6-\\Delta_\\epsilon}{2}+2} P_{23}^{\\frac{\\Delta_\\epsilon}{2}} P_{31}^{\\frac{\\Delta_\\epsilon}{2}}} \\Big( V_1^2 V_2^2 + \\tfrac{4(\\Delta_\\epsilon-4)}{\\Delta_\\epsilon+2} H_{12} V_1 V_2 + \\tfrac{2(\\Delta_\\epsilon^2-6\\Delta_\\epsilon+6)}{\\Delta_\\epsilon(\\Delta_\\epsilon+2)} H_{12}^2 \\Big)",
      "symbol": "\\lambda",
      "ref": "chang2024, Eq. (2.2)",
      "description": "The parity-even structure of $\\langle TT\\epsilon\\rangle$ as normalized by [@ising-3d/chang2024, Eq. (2.2), p. 5], with the unit-normalized $\\hat T = T/\\sqrt{c_T}$ [@ising-3d/chang2024, Eq. (2.9)], chosen to match the five-point-bootstrap convention of Poland, Prilepina and Tadić [@ising-3d/poland2023]. A choice of these papers, not a standard normalization: other papers normalize this structure differently. The source states it in embedding space as a combination of the structures $V_i$, $H_{ij}$ of [@ising-3d/costa2011] (not a single monomial, so no formula is shown here); it writes the points $X_i$ and $X_{ij}$, and does not restate the definitions, which are read here as those of [@ising-3d/costa2011]: $P_{ij} \\equiv -2P_i\\cdot P_j$ [@ising-3d/costa2011, Eq. (2.9)], $V_1 \\equiv V_{1,23}$, $V_2 \\equiv V_{2,31}$ and $H_{12}$ [@ising-3d/costa2011, Eqs. (4.14)–(4.16)], and $\\langle\\hat T(P_1,Z_1)\\,\\hat T(P_2,Z_2)\\rangle = H_{12}^2/P_{12}^5$ [@ising-3d/chang2024, Eq. (2.9)], the unit normalization of [@ising-3d/costa2011, Eq. (4.9)]. In the $SO(3)_r$ basis it is $-\\lambda_{TT\\epsilon}\\frac{16\\Delta_\\epsilon}{2+\\Delta_\\epsilon}\\,\\mathtt{ScalarParityEven}_{\\Delta_\\epsilon}$ [@ising-3d/chang2024, Eqs. (2.2)–(2.3)]."
@@ -33574,9 +33578,11 @@
    "ope_structures": [
     {
      "id": "chester2019",
+     "name": "$O(2)$ invariant tensor × three scalars",
+     "form": "\\lambda\\, T^{O(2)}_{abc}\\;\\langle O_1 O_2 O_3\\rangle_{\\text{three scalars}}",
      "symbol": "\\lambda",
      "ref": "chester2019",
-     "description": "$O(2)$ tensor structures of the three-point functions that involve the charge-2 scalar $t$, with the operators unit-normalized and the invariant tensors normalized as in [@o2-model-3d/chester2019]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator. Their spacetime dependence is that of three scalars [@o2-model-3d/costa2011, Eq. (2.8)]; no embedding-space formula is given, since the normalization of the $O(2)$ tensor that multiplies it is not recorded."
+     "description": "$T^{O(2)}_{abc}$ is the invariant tensor of the triplet; its normalization is not recorded here. $O(2)$ tensor structures of the three-point functions that involve the charge-2 scalar $t$, with the operators unit-normalized and the invariant tensors normalized as in [@o2-model-3d/chester2019]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator. Their spacetime dependence is that of three scalars [@o2-model-3d/costa2011, Eq. (2.8)]; no embedding-space formula is given, since the normalization of the $O(2)$ tensor that multiplies it is not recorded."
     }
    ],
    "ope_coefficients": [
@@ -34040,9 +34046,11 @@
    "ope_structures": [
     {
      "id": "chester2020",
+     "name": "$O(3)$ invariant tensor × three scalars",
+     "form": "\\lambda\\, T^{O(3)}_{abc}\\;\\langle O_1 O_2 O_3\\rangle_{\\text{three scalars}}",
      "symbol": "\\lambda",
      "ref": "chester2020",
-     "description": "$O(3)$ tensor structures of the three-point functions that involve the symmetric traceless tensor $t_{ij}$, with the operators unit-normalized and the invariant tensors normalized as in [@o3-model-3d/chester2020]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator. Their spacetime dependence is that of three scalars [@o3-model-3d/costa2011, Eq. (2.8)]; no embedding-space formula is given, since the normalization of the $O(3)$ tensor that multiplies it is not recorded."
+     "description": "$T^{O(3)}_{abc}$ is the invariant tensor of the triplet; its normalization is not recorded here. $O(3)$ tensor structures of the three-point functions that involve the symmetric traceless tensor $t_{ij}$, with the operators unit-normalized and the invariant tensors normalized as in [@o3-model-3d/chester2020]. Not standard: the normalization of these tensors is a choice of the paper, which this entry does not yet record with a locator. Their spacetime dependence is that of three scalars [@o3-model-3d/costa2011, Eq. (2.8)]; no embedding-space formula is given, since the normalization of the $O(3)$ tensor that multiplies it is not recorded."
     }
    ],
    "ope_coefficients": [
@@ -52176,8 +52184,9 @@
   },
   {
    "id": "ttt-free-boson-3d",
+   "form": "n_B\\,\\langle TTT\\rangle_{\\text{free real scalar}}",
    "symbol": "n_B",
-   "name": "free-boson structure",
+   "name": "free-scalar ⟨TTT⟩",
    "d": 3,
    "spins": [
     2,
@@ -52190,8 +52199,9 @@
   },
   {
    "id": "ttt-free-fermion-3d",
+   "form": "n_F\\,\\langle TTT\\rangle_{\\text{free Majorana fermion}}",
    "symbol": "n_F",
-   "name": "free-fermion structure",
+   "name": "free-Majorana ⟨TTT⟩",
    "d": 3,
    "spins": [
     2,
